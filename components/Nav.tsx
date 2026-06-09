@@ -1,32 +1,58 @@
+"use client";
+
 import Link from "next/link";
+import { useFavorites } from "@/components/FavoritesProvider";
 
 const links = [
   { href: "/", label: "Home" },
   { href: "/best-bets", label: "Best Bets" },
-  { href: "/history", label: "History" },
   { href: "/stats", label: "Stats" },
-  { href: "/watch", label: "Watch" },
+  { href: "/history", label: "History" },
   { href: "/accuracy", label: "Accuracy" },
-  { href: "/dashboard", label: "My Teams" }
+  { href: "/watch", label: "Watch" },
+  { href: "/favorites", label: "Favorites" }
 ];
 
 export function Nav() {
+  const { user, signOut } = useFavorites();
+
   return (
-    <nav className="nav shell">
-      <Link className="brand" href="/">
-        MLB Edge
-        <span>model driven baseball</span>
-      </Link>
-      <div className="links">
-        {links.map((link) => (
-          <Link href={link.href} key={link.href}>
-            {link.label}
-          </Link>
-        ))}
-        <Link className="button" href="/login">
-          Log in
-        </Link>
+    <header>
+      <div className="topline">
+        <div className="shell topline-inner">
+          <span>MLB market board</span>
+          <span>Daily model refresh</span>
+          <span>Real odds only</span>
+        </div>
       </div>
-    </nav>
+      <nav className="nav shell">
+        <Link className="brand" href="/">
+          <span className="brand-mark">ME</span>
+          <span className="brand-text">
+            MLB Edge
+            <span>model driven baseball</span>
+          </span>
+        </Link>
+        <div className="links">
+          {links.map((link) => (
+            <Link href={link.href} key={link.href}>
+              {link.label}
+            </Link>
+          ))}
+          {user ? (
+            <>
+              <span className="nav-user muted">{user.email}</span>
+              <button className="button" onClick={signOut} type="button">
+                Log out
+              </button>
+            </>
+          ) : (
+            <Link className="button" href="/login">
+              Log in
+            </Link>
+          )}
+        </div>
+      </nav>
+    </header>
   );
 }

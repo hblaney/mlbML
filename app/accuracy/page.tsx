@@ -13,8 +13,7 @@ export default async function AccuracyPage() {
         <p className="eyebrow">Public backtesting</p>
         <h1>Model Accuracy</h1>
         <p className="lead">
-          This page reads the real walk-forward backtest output from the Python model. The target is 60%+, but the
-          honest public record is what matters.
+          Walk-forward results from the saved model history.
         </p>
       </section>
 
@@ -52,30 +51,6 @@ export default async function AccuracyPage() {
                   <tr key={week}>
                     <td>{week}</td>
                     <td className={accuracy >= 0.6 ? "positive" : "warning"}>{formatPercent(accuracy)}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </section>
-
-          <section className="panel">
-            <h2>Recent Predictions</h2>
-            <table className="table">
-              <thead>
-                <tr>
-                  <th>Date</th>
-                  <th>Matchup</th>
-                  <th>Home Win %</th>
-                  <th>Result</th>
-                </tr>
-              </thead>
-              <tbody>
-                {output.recent_predictions.map((row) => (
-                  <tr key={`${row.date}-${row.home}-${row.away}`}>
-                    <td>{row.date}</td>
-                    <td>{row.away} @ {row.home}</td>
-                    <td>{formatPercent(row.probability)}</td>
-                    <td className={row.correct ? "positive" : "negative"}>{row.correct ? "Correct" : "Miss"}</td>
                   </tr>
                 ))}
               </tbody>

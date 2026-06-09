@@ -1,4 +1,4 @@
-import { loadAccuracyOutput, loadFullPredictionHistory } from "@/lib/model-output";
+import { loadAccuracyOutput, loadFullPredictionHistory, loadParlayBacktest } from "@/lib/model-output";
 import { formatPercent } from "@/lib/odds";
 
 export const dynamic = "force-dynamic";
@@ -6,6 +6,8 @@ export const dynamic = "force-dynamic";
 export default async function HistoryPage() {
   const output = await loadAccuracyOutput();
   const fullHistory = await loadFullPredictionHistory();
+  const parlayBacktest = await loadParlayBacktest();
+  const parlayStrategies = parlayBacktest?.best_by_leg_count ?? [];
   const predictionRows = fullHistory.length > 0 ? fullHistory : output?.prediction_history ?? output?.recent_predictions ?? [];
   const rowsByDate = predictionRows.reduce<Record<string, typeof predictionRows>>((groups, row) => {
     groups[row.date] = [...(groups[row.date] ?? []), row];
@@ -41,12 +43,49 @@ export default async function HistoryPage() {
     <main className="shell stack">
       <section className="panel strong">
         <p className="eyebrow">Prediction history</p>
-        <h1>Past Picks By Date</h1>
+        <h1>History</h1>
         <p className="lead">
-          Check yesterday, the day before, or any saved backtest day. Each date&apos;s accuracy is calculated directly
-          from the game rows shown below it.
+          Daily picks, outcomes, and strategy backtests.
         </p>
       </section>
+
+      {parlayStrategies.length > 0 ? (
+        <section className="panel">
+          <div className="section-heading compact">
+            <div>
+              <p className="eyebrow">Strategy validation</p>
+              <h2>Parlay Backtest</h2>
+            </div>
+            <span>{parlayBacktest?.date_range.start} to {parlayBacktest?.date_range.end}</span>
+          </div>
+          <table className="table">
+            <thead>
+              <tr>
+                <th>Legs</th>
+                <th>Record</th>
+                <th>Hit Rate</th>
+                <th>ROI</th>
+                <th>Profit</th>
+                <th>Rule</th>
+              </tr>
+            </thead>
+            <tbody>
+              {parlayStrategies.map((strategy) => (
+                <tr key={`${strategy.leg_count}-${strategy.min_edge}-${strategy.min_probability}-${strategy.top_n}`}>
+                  <td>{strategy.leg_count}</td>
+                  <td>{strategy.wins}-{strategy.losses}</td>
+                  <td>{formatPercent(strategy.hit_rate)}</td>
+                  <td className={strategy.roi > 0 ? "positive" : "negative"}>{formatPercent(strategy.roi)}</td>
+                  <td className={strategy.profit > 0 ? "positive" : "negative"}>${strategy.profit.toFixed(2)}</td>
+                  <td>
+                    edge ≥ {formatPercent(strategy.min_edge)}, model ≥ {formatPercent(strategy.min_probability)}, top {strategy.top_n}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </section>
+      ) : null}
 
       {days.length > 0 ? (
         <section className="stack">

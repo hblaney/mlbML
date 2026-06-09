@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { FavoritesProvider } from "@/components/FavoritesProvider";
 import { Nav } from "@/components/Nav";
 import "./globals.css";
 
@@ -11,8 +12,10 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="en">
       <body>
-        <Nav />
-        {children}
+        <FavoritesProvider>
+          <Nav />
+          {children}
+        </FavoritesProvider>
       </body>
     </html>
   );
