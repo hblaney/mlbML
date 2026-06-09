@@ -73,7 +73,7 @@ def feature_row(game: GameRecord, league: LeagueState) -> list[float]:
 
 
 def confidence_for(pick_probability: float) -> str:
-    if pick_probability >= 0.62:
+    if pick_probability >= 0.65:
         return "Elite"
     if pick_probability >= 0.60:
         return "High"
@@ -83,14 +83,8 @@ def confidence_for(pick_probability: float) -> str:
 
 
 def calibrate_public_probability(home_probability: float) -> float:
-    """Shrink and cap public probabilities for MLB moneyline display.
-
-    Without live market prices, confirmed lineups, and reliable probable starters,
-    showing 80%+ win probabilities is misleading. The cap preserves pick order
-    while keeping the displayed number in a realistic pregame range.
-    """
-    shrunk = 0.5 + (home_probability - 0.5) * 0.35
-    return float(np.clip(shrunk, 0.34, 0.66))
+    """Keep public probabilities in a realistic pregame range."""
+    return float(np.clip(home_probability, 0.30, 0.70))
 
 
 def build_model() -> Pipeline:
@@ -134,8 +128,9 @@ def predict_with_model(game: GameRecord, league: LeagueState, model: Pipeline | 
         return predict_fast(game, league)
 
     x = _clean_matrix(np.array([feature_row(game, league)], dtype=float))
-    home_probability = float(model.predict_proba(x)[0, 1])
-    home_probability = calibrate_public_probability(home_probability)
+    trained_probability = float(model.predict_proba(x)[0, 1])
+    form_probability = predict_fast(game, league).home_probability
+    home_probability = calibrate_public_probability((trained_probability * 0.60) + (form_probability * 0.40))
     away_probability = 1.0 - home_probability
     predicted_home = home_probability >= away_probability
     pick_probability = max(home_probability, away_probability)
@@ -148,7 +143,7 @@ def predict_with_model(game: GameRecord, league: LeagueState, model: Pipeline | 
         confidence=confidence_for(pick_probability),
         notes=[
             "Trained on prior games only using walk-forward features",
-            "Features include Elo, form, run differential, rest, scoring profile, and starter ERA",
-            "Probability is calibrated conservatively from the trained logistic model",
+            "Blends trained logistic output with current form, Elo, run differential, rest, scoring profile, and starter ERA",
+            "Probability is capped to a realistic pregame range",
         ],
     )

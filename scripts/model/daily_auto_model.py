@@ -26,7 +26,7 @@ from trained_edge_model import (
 )
 
 MODEL_PATH = Path(__file__).resolve().parents[2] / "data" / "model" / "daily_edge.pkl"
-MODEL_VERSION = "daily-auto-v0.6"
+MODEL_VERSION = "daily-auto-v0.8"
 
 
 @dataclass
@@ -46,7 +46,7 @@ class DailyModelBundle:
             confidence=prediction.confidence,
             notes=[
                 f"Retrained through {self.trained_through.isoformat()}",
-                "Logistic model fit on every prior game this season",
+                "Blended logistic + form model fit on every prior game this season",
                 "Retrains automatically when yesterday's final scores are new",
             ],
         )

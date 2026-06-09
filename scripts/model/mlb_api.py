@@ -25,6 +25,8 @@ class GameRecord:
     away_score: int | None
     home_pitcher_id: int | None
     away_pitcher_id: int | None
+    home_pitcher_name: str | None = None
+    away_pitcher_name: str | None = None
     is_final: bool = True
 
     @property
@@ -69,6 +71,8 @@ def _parse_game(game: dict[str, Any], *, final_only: bool, schedule_date: date) 
         away_score=away.get("score"),
         home_pitcher_id=home_pitcher.get("id"),
         away_pitcher_id=away_pitcher.get("id"),
+        home_pitcher_name=home_pitcher.get("fullName"),
+        away_pitcher_name=away_pitcher.get("fullName"),
         is_final=status == "Final",
     )
 
@@ -119,6 +123,8 @@ def load_or_fetch_games(start: date, end: date) -> list[GameRecord]:
                 away_score=item["away_score"],
                 home_pitcher_id=item.get("home_pitcher_id"),
                 away_pitcher_id=item.get("away_pitcher_id"),
+                home_pitcher_name=item.get("home_pitcher_name"),
+                away_pitcher_name=item.get("away_pitcher_name"),
                 is_final=item.get("is_final", True),
             )
             for item in raw
@@ -138,6 +144,8 @@ def load_or_fetch_games(start: date, end: date) -> list[GameRecord]:
                     "away_score": game.away_score,
                     "home_pitcher_id": game.home_pitcher_id,
                     "away_pitcher_id": game.away_pitcher_id,
+                    "home_pitcher_name": game.home_pitcher_name,
+                    "away_pitcher_name": game.away_pitcher_name,
                     "is_final": game.is_final,
                 }
                 for game in games

@@ -16,6 +16,9 @@ from odds_provider import implied_probability
 
 OUTPUT_PATH = Path(__file__).resolve().parents[2] / "public" / "parlay-backtest.json"
 STAKE = 100.0
+SAFE_MIN_LEG_PROBABILITY = 0.60
+SAFE_MIN_BOOK_PROBABILITY = 0.50
+SAFE_MAX_LEGS = 3
 ODDS_ALIASES = {
     "ATH": ["ATH", "OAK"],
     "OAK": ["OAK", "ATH"],
@@ -131,7 +134,11 @@ def evaluate_strategy(by_day: dict[str, list[dict]], leg_count: int, min_edge: f
         filtered = [
             item
             for item in candidates
-            if item["edge"] >= min_edge and item["model_probability"] >= min_probability
+            if (
+                item["edge"] >= min_edge
+                and item["model_probability"] >= min_probability
+                and item["book_probability"] >= SAFE_MIN_BOOK_PROBABILITY
+            )
         ][:top_n]
         if len(filtered) < leg_count:
             continue
@@ -143,7 +150,7 @@ def evaluate_strategy(by_day: dict[str, list[dict]], leg_count: int, min_edge: f
             settled = settle_parlay(list(combo))
             if settled["ev"] <= 0:
                 continue
-            score = settled["ev"] * (settled["probability"] ** 0.5)
+            score = settled["ev"] * settled["probability"]
             candidate = {"date": day, "legs": list(combo), "score": score, **settled}
             if best_ticket is None or candidate["score"] > best_ticket["score"]:
                 best_ticket = candidate
@@ -201,10 +208,10 @@ def main() -> None:
     by_day = build_single_candidates(rows, store)
 
     strategies = []
-    for leg_count in range(1, 9):
+    for leg_count in range(2, SAFE_MAX_LEGS + 1):
         for min_edge in (0.01, 0.02, 0.03, 0.04, 0.05):
-            for min_probability in (0.52, 0.54, 0.56, 0.58, 0.60):
-                for top_n in (4, 6, 8, 10, 12):
+            for min_probability in (SAFE_MIN_LEG_PROBABILITY, 0.62, 0.65):
+                for top_n in (4, 6, 8):
                     if leg_count > top_n:
                         continue
                     strategies.append(evaluate_strategy(by_day, leg_count, min_edge, min_probability, top_n))
@@ -213,7 +220,7 @@ def main() -> None:
     qualified.sort(key=lambda item: (item["roi"], item["profit"], item["bets"]), reverse=True)
 
     best_by_leg = []
-    for leg_count in range(1, 9):
+    for leg_count in range(2, SAFE_MAX_LEGS + 1):
         leg_rows = [row for row in qualified if row["leg_count"] == leg_count]
         if leg_rows:
             best_by_leg.append(leg_rows[0])

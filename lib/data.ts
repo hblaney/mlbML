@@ -293,7 +293,7 @@ export function getBestBets(board: GamePrediction[] = predictions) {
       ];
     })
     .map((bet) => ({ ...bet, edge: bet.modelProbability - bet.bookProbability }))
-    .filter((bet) => bet.edge > 0.015 && bet.ev > 0)
+    .filter((bet) => bet.modelProbability >= 0.52 && bet.edge > 0.02 && bet.ev > 0)
     .sort((a, b) => b.edge - a.edge);
 }
 
@@ -390,6 +390,9 @@ export function getAdvancedBets(board: GamePrediction[] = predictions) {
 }
 
 type BestBet = ReturnType<typeof getBestBets>[number];
+const SAFE_PARLAY_MIN_LEG_PROBABILITY = 0.60;
+const SAFE_PARLAY_MIN_BOOK_PROBABILITY = 0.50;
+const SAFE_PARLAY_MAX_LEGS = 3;
 
 export type ParlayCandidate = {
   id: string;
@@ -434,12 +437,16 @@ function combinations<T>(items: T[], size: number, limit = 6000) {
 
 export function getParlayCandidates(board: GamePrediction[] = predictions, stake = 100) {
   const singles = getBestBets(board)
-    .filter((bet) => bet.modelProbability >= 0.53)
-    .sort((left, right) => right.ev - left.ev)
-    .slice(0, 12);
+    .filter(
+      (bet) =>
+        bet.modelProbability >= SAFE_PARLAY_MIN_LEG_PROBABILITY &&
+        bet.bookProbability >= SAFE_PARLAY_MIN_BOOK_PROBABILITY
+    )
+    .sort((left, right) => (right.ev * right.modelProbability) - (left.ev * left.modelProbability))
+    .slice(0, 8);
 
   const parlays: ParlayCandidate[] = [];
-  const maxLegs = Math.min(8, singles.length);
+  const maxLegs = Math.min(SAFE_PARLAY_MAX_LEGS, singles.length);
 
   for (let legCount = 2; legCount <= maxLegs; legCount += 1) {
     const combos = combinations(singles, legCount);
@@ -467,7 +474,7 @@ export function getParlayCandidates(board: GamePrediction[] = predictions, stake
         americanOdds: americanFromDecimal(parlayDecimal),
         ev,
         payoutProfit,
-        score: ev * Math.sqrt(probability)
+        score: ev * probability
       });
     }
   }
@@ -489,10 +496,20 @@ export function getBestParlaysByLegCount(board: GamePrediction[] = predictions) 
 }
 
 export function getParlayForStrategy(board: GamePrediction[] = predictions, strategy: ParlayStrategyInput) {
+  if (strategy.leg_count < 2) {
+    return null;
+  }
+
+  const minProbability = Math.max(strategy.min_probability, SAFE_PARLAY_MIN_LEG_PROBABILITY);
   const singles = getBestBets(board)
-    .filter((bet) => bet.edge >= strategy.min_edge && bet.modelProbability >= strategy.min_probability)
-    .sort((left, right) => right.ev - left.ev)
-    .slice(0, strategy.top_n);
+    .filter(
+      (bet) =>
+        bet.edge >= strategy.min_edge &&
+        bet.modelProbability >= minProbability &&
+        bet.bookProbability >= SAFE_PARLAY_MIN_BOOK_PROBABILITY
+    )
+    .sort((left, right) => (right.ev * right.modelProbability) - (left.ev * left.modelProbability))
+    .slice(0, Math.min(strategy.top_n, 8));
 
   if (singles.length < strategy.leg_count) {
     return null;
@@ -522,7 +539,7 @@ export function getParlayForStrategy(board: GamePrediction[] = predictions, stra
       americanOdds: americanFromDecimal(parlayDecimal),
       ev,
       payoutProfit,
-      score: ev * Math.sqrt(probability)
+      score: ev * probability
     };
 
     if (!best || candidate.score > best.score) {

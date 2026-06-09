@@ -6,9 +6,10 @@ import json
 from datetime import date, timedelta
 from pathlib import Path
 
-from daily_auto_model import ensure_trained_through
+from daily_auto_model import MODEL_VERSION, ensure_trained_through
 from mlb_api import fetch_upcoming_games, load_team_abbreviations
 from odds_provider import fetch_moneyline_market, market_for_game
+from trained_edge_model import confidence_for
 
 PUBLIC_PATH = Path(__file__).resolve().parents[2] / "public" / "predictions.json"
 
@@ -19,6 +20,34 @@ def projected_total_for(game, league) -> float:
     home_runs = (home.avg_runs_scored(10) + away.avg_runs_allowed(10)) / 2
     away_runs = (away.avg_runs_scored(10) + home.avg_runs_allowed(10)) / 2
     return round(max(5.5, min(13.5, home_runs + away_runs)), 2)
+
+
+def no_vig_market_probabilities(market_snapshot) -> tuple[float, float] | None:
+    total = market_snapshot.home_implied_probability + market_snapshot.away_implied_probability
+    if total <= 0:
+        return None
+    return market_snapshot.home_implied_probability / total, market_snapshot.away_implied_probability / total
+
+
+def market_aware_probabilities(prediction, market_snapshot, odds_available: bool) -> tuple[float, float, list[str]]:
+    notes = list(prediction.notes)
+    if not odds_available:
+        return prediction.home_probability, prediction.away_probability, notes
+
+    market_probs = no_vig_market_probabilities(market_snapshot)
+    if market_probs is None:
+        return prediction.home_probability, prediction.away_probability, notes
+
+    market_home, market_away = market_probs
+    # Sportsbook consensus is a strong prior. Blend toward it to avoid overreacting
+    # to model-only edges that the market strongly rejects.
+    home_probability = (prediction.home_probability * 0.35) + (market_home * 0.65)
+    away_probability = (prediction.away_probability * 0.35) + (market_away * 0.65)
+    total = home_probability + away_probability
+    home_probability /= total
+    away_probability /= total
+    notes.append("Final probability is anchored to no-vig sportsbook consensus plus the internal model signal")
+    return home_probability, away_probability, notes
 
 
 def main() -> None:
@@ -34,10 +63,12 @@ def main() -> None:
         prediction = bundle.predict(game)
         market_snapshot = market_for_game(game, market)
         odds_available = market_snapshot.source_count > 0 and market_snapshot.home_moneyline != 0 and market_snapshot.away_moneyline != 0
+        home_probability, away_probability, notes = market_aware_probabilities(prediction, market_snapshot, odds_available)
+        predicted_home = home_probability >= away_probability
+        pick_probability = max(home_probability, away_probability)
         home_abbr = team_abbr.get(game.home_team_id, str(game.home_team_id)).lower()
         away_abbr = team_abbr.get(game.away_team_id, str(game.away_team_id)).lower()
-        predicted_team = home_abbr if prediction.predicted_home else away_abbr
-        notes = list(prediction.notes)
+        predicted_team = home_abbr if predicted_home else away_abbr
         if odds_available:
             notes.append(f"Market prices from {market_snapshot.source_count} sportsbook source(s)")
         else:
@@ -50,12 +81,12 @@ def main() -> None:
                 "startsAt": game.game_datetime_iso,
                 "awayTeam": away_abbr,
                 "homeTeam": home_abbr,
-                "awayPitcher": "TBD",
-                "homePitcher": "TBD",
+                "awayPitcher": game.away_pitcher_name or "TBD",
+                "homePitcher": game.home_pitcher_name or "TBD",
                 "predictedTeam": predicted_team,
-                "pickProbability": round(prediction.pick_probability, 4),
-                "modelHomeWinProbability": round(prediction.home_probability, 4),
-                "modelAwayWinProbability": round(prediction.away_probability, 4),
+                "pickProbability": round(pick_probability, 4),
+                "modelHomeWinProbability": round(home_probability, 4),
+                "modelAwayWinProbability": round(away_probability, 4),
                 "homeMoneyline": market_snapshot.home_moneyline if odds_available else None,
                 "awayMoneyline": market_snapshot.away_moneyline if odds_available else None,
                 "homeRunline": market_snapshot.home_runline if odds_available and market_snapshot.home_runline_price else None,
@@ -67,8 +98,8 @@ def main() -> None:
                 "underPrice": market_snapshot.under_price if odds_available and market_snapshot.under_price else None,
                 "projectedTotal": projected_total_for(game, bundle.league),
                 "oddsSource": "The Odds API" if odds_available else None,
-                "confidence": prediction.confidence,
-                "modelVersion": "daily-auto-v0.5",
+                "confidence": confidence_for(pick_probability),
+                "modelVersion": MODEL_VERSION,
                 "explanation": notes,
             }
         )

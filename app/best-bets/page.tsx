@@ -85,11 +85,12 @@ export default async function BestBetsPage() {
       </section>
 
       <section className="panel">
-        <h2>Recommended Parlays</h2>
+        <h2>Safer Parlay Candidates</h2>
         {parlayBacktest ? (
           <p className="muted">
             Strategy backtest: {parlayBacktest.model_prediction_rows} predictions, {parlayBacktest.date_range.start} to{" "}
-            {parlayBacktest.date_range.end}
+            {parlayBacktest.date_range.end}. Parlays require at least two legs, 60%+ model probability, and
+            near-favorite market pricing for each leg.
           </p>
         ) : null}
         {parlays.length > 0 ? (
@@ -126,7 +127,10 @@ export default async function BestBetsPage() {
             </tbody>
           </table>
         ) : (
-          <p className="muted">No positive-EV parlay candidates found from today&apos;s real-odds board.</p>
+          <p className="muted">
+            No safer parlay candidates passed today&apos;s filter. Medium-confidence value plays can still show as singles,
+            but they will not be forced into the parlay section.
+          </p>
         )}
       </section>
 
