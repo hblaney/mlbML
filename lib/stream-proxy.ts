@@ -228,6 +228,17 @@ export async function resolveStreamManifest(slug: string): Promise<StreamManifes
     }
 
     const allowed = assertAllowedStreamUrl(payload.url);
+    const playlistResponse = await fetchStreamAsset(allowed.toString(), refererPath);
+    const playlistType = playlistResponse.headers.get("content-type") ?? "";
+    const playlistText = new TextDecoder().decode(await playlistResponse.arrayBuffer());
+
+    if (!looksLikePlaylist(playlistType, playlistText)) {
+      return {
+        url: null,
+        message: "No live stream is available for this feed right now."
+      };
+    }
+
     return {
       url: proxyHlsUrl(allowed.toString()),
       message: "ok"
@@ -248,14 +259,14 @@ export function buildEmbedPlayerHtml(slug: string) {
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<script src="https://cdn.jsdelivr.net/npm/@clappr/player@0.8/dist/clappr.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/hls.js@1.5.17/dist/hls.min.js"></script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body,html{background:#000;overflow:hidden;height:100%;color:#fff;font-family:system-ui,sans-serif}
 #player-wrap{width:100%;height:100vh;position:relative}
 #player{width:100%;height:100%}
-#status{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:24px;text-align:center;color:#cbd5e1;background:#000}
-.player-error-screen{display:none!important}
+#player video{width:100%;height:100%;background:#000}
+#status{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:24px;text-align:center;color:#cbd5e1;background:#000;z-index:1}
 </style>
 </head>
 <body>
@@ -267,9 +278,44 @@ body,html{background:#000;overflow:hidden;height:100%;color:#fff;font-family:sys
 (function(){
   var slug=${JSON.stringify(safeSlug)};
   var statusEl=document.getElementById('status');
+  var playerEl=document.getElementById('player');
   function showError(message){
     statusEl.textContent=message;
     statusEl.style.display='flex';
+  }
+  function startPlayback(source){
+    var video=document.createElement('video');
+    video.controls=true;
+    video.playsInline=true;
+    video.setAttribute('playsinline','');
+    playerEl.appendChild(video);
+    if(window.Hls&&Hls.isSupported()){
+      var hls=new Hls({enableWorker:true});
+      hls.loadSource(source);
+      hls.attachMedia(video);
+      hls.on(Hls.Events.MANIFEST_PARSED,function(){
+        statusEl.style.display='none';
+        video.play().catch(function(){});
+      });
+      hls.on(Hls.Events.ERROR,function(_event,data){
+        if(data.fatal){
+          showError('Playback failed. Stream may be offline or blocked.');
+        }
+      });
+      return;
+    }
+    if(video.canPlayType('application/vnd.apple.mpegurl')){
+      video.src=source;
+      video.addEventListener('loadedmetadata',function(){
+        statusEl.style.display='none';
+        video.play().catch(function(){});
+      });
+      video.addEventListener('error',function(){
+        showError('Playback failed. Stream may be offline or blocked.');
+      });
+      return;
+    }
+    showError('This browser does not support HLS playback.');
   }
   fetch('/api/stream/manifest/'+slug,{cache:'no-store'})
     .then(function(response){return response.json();})
@@ -278,18 +324,7 @@ body,html{background:#000;overflow:hidden;height:100%;color:#fff;font-family:sys
         showError(data.message||'Stream unavailable.');
         return;
       }
-      statusEl.style.display='none';
-      var player=new Clappr.Player({
-        parentId:'#player',
-        height:'100%',
-        width:'100%',
-        autoPlay:false,
-        playInline:true
-      });
-      player.load({source:data.url});
-      player.on(Clappr.Events.PLAYER_ERROR,function(){
-        showError('Playback failed. Try another source link on the watch page.');
-      });
+      startPlayback(data.url);
     })
     .catch(function(){
       showError('Could not reach the stream service from this site.');
