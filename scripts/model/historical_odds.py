@@ -16,11 +16,22 @@ def _date_part(value: str | None) -> str:
     return (value or "")[:10]
 
 
+def _valid_american_odds(value: int) -> bool:
+    """Reject malformed imported prices before they create fake ROI."""
+    return 100 <= abs(value) <= 2000
+
+
 class HistoricalOddsStore:
     def __init__(self, path: Path = ODDS_PATH) -> None:
         self.by_matchup: dict[tuple[str, str, str], MarketSnapshot] = {}
         if path.exists():
             self.load(path)
+
+    def date_range(self) -> tuple[str | None, str | None]:
+        dates = [key[0] for key in self.by_matchup]
+        if not dates:
+            return None, None
+        return min(dates), max(dates)
 
     def load(self, path: Path) -> None:
         for line in path.read_text().splitlines():
@@ -34,12 +45,16 @@ class HistoricalOddsStore:
             away_ml = row.get("closing_away_moneyline")
             if not date_key or not away or not home or home_ml is None or away_ml is None:
                 continue
+            home_moneyline = int(round(float(home_ml)))
+            away_moneyline = int(round(float(away_ml)))
+            if not _valid_american_odds(home_moneyline) or not _valid_american_odds(away_moneyline):
+                continue
 
             self.by_matchup[(date_key, away, home)] = MarketSnapshot(
-                home_moneyline=int(round(float(home_ml))),
-                away_moneyline=int(round(float(away_ml))),
-                home_implied_probability=implied_probability(int(round(float(home_ml)))),
-                away_implied_probability=implied_probability(int(round(float(away_ml)))),
+                home_moneyline=home_moneyline,
+                away_moneyline=away_moneyline,
+                home_implied_probability=implied_probability(home_moneyline),
+                away_implied_probability=implied_probability(away_moneyline),
                 market_total=float(row["closing_total"]) if row.get("closing_total") is not None else 8.5,
                 over_price=int(round(float(row["closing_over_price"]))) if row.get("closing_over_price") is not None else 0,
                 under_price=int(round(float(row["closing_under_price"]))) if row.get("closing_under_price") is not None else 0,

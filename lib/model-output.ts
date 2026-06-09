@@ -49,13 +49,34 @@ export type ParlayBacktestStrategy = {
   avg_ev: number;
 };
 
+export type SingleBacktestStrategy = {
+  min_edge: number;
+  min_probability: number;
+  max_abs_odds: number;
+  bets: number;
+  wins: number;
+  losses: number;
+  hit_rate: number;
+  profit: number;
+  roi: number;
+  avg_ev: number;
+};
+
 export type ParlayBacktestOutput = {
   generated_at: string;
   date_range: { start: string; end: string };
+  odds_metadata?: {
+    odds_data_start: string | null;
+    odds_data_end: string | null;
+    odds_data_stale: boolean;
+    limited_by: string;
+  };
   stake: number;
   historical_games: number;
   model_prediction_rows: number;
   days_with_candidates: number;
+  best_single_strategies?: SingleBacktestStrategy[];
+  recommended_single_strategy?: SingleBacktestStrategy;
   best_by_leg_count: ParlayBacktestStrategy[];
   recommended_by_leg_count?: ParlayBacktestStrategy[];
 };

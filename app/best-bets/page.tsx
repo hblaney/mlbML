@@ -19,6 +19,8 @@ export default async function BestBetsPage() {
   const bets = getBestBets(board);
   const advancedBets = getAdvancedBets(board);
   const parlayBacktest = await loadParlayBacktest();
+  const singleStrategy = parlayBacktest?.recommended_single_strategy;
+  const oddsMetadata = parlayBacktest?.odds_metadata;
   const recommendedStrategies = parlayBacktest?.recommended_by_leg_count ?? [];
   const parlays = recommendedStrategies.length > 0
     ? getBacktestedParlaysByLegCount(board, recommendedStrategies)
@@ -41,12 +43,26 @@ export default async function BestBetsPage() {
         <p className="eyebrow">Qualified betting edges</p>
         <h1>Best Bets</h1>
         <p className="lead">
-          Only model edges that clear stricter probability, market, and expected-value filters.
+          Only model edges that clear profit-tested probability, market, and expected-value filters.
         </p>
+        {oddsMetadata?.odds_data_stale ? (
+          <p className="muted">
+            ROI backtests are limited by imported historical odds through {oddsMetadata.odds_data_end}. Today&apos;s board
+            still uses live odds, but profit validation needs newer historical odds imported to include recent games.
+          </p>
+        ) : null}
       </section>
 
       <section className="panel">
         <h2>Qualified Moneyline Edges</h2>
+        {singleStrategy ? (
+          <p className="muted">
+            Moneyline filter backtest: {singleStrategy.bets} bets, {singleStrategy.wins}-{singleStrategy.losses} record,{" "}
+            {formatPercent(singleStrategy.roi)} ROI. Requires {formatPercent(singleStrategy.min_probability)}+ model
+            probability, {formatPercent(singleStrategy.min_edge)}+ edge, and odds no longer than ±
+            {singleStrategy.max_abs_odds}.
+          </p>
+        ) : null}
         {bets.length > 0 ? (
           <table className="table">
             <thead>

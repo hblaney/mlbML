@@ -258,6 +258,10 @@ export function getTeam(teamId: string) {
 }
 
 export function getBestBets(board: GamePrediction[] = predictions) {
+  const minMoneylineProbability = 0.57;
+  const minMoneylineEdge = 0.05;
+  const maxMoneylineAbsOdds = 160;
+
   return board
     .filter((game) => game.homeMoneyline !== null && game.awayMoneyline !== null)
     .flatMap((game) => {
@@ -298,7 +302,13 @@ export function getBestBets(board: GamePrediction[] = predictions) {
       ];
     })
     .map((bet) => ({ ...bet, edge: bet.modelProbability - bet.bookProbability }))
-    .filter((bet) => bet.modelProbability >= 0.56 && bet.edge > 0.025 && bet.ev > 0)
+    .filter(
+      (bet) =>
+        bet.modelProbability >= minMoneylineProbability &&
+        bet.edge >= minMoneylineEdge &&
+        Math.abs(bet.odds) <= maxMoneylineAbsOdds &&
+        bet.ev > 0
+    )
     .sort((a, b) => b.edge - a.edge);
 }
 

@@ -5,7 +5,7 @@ from __future__ import annotations
 import itertools
 import json
 from collections import defaultdict
-from datetime import date
+from datetime import date, timedelta
 from pathlib import Path
 
 from daily_auto_model import walk_forward_history
@@ -19,6 +19,9 @@ STAKE = 100.0
 SAFE_MIN_LEG_PROBABILITY = 0.60
 SAFE_MIN_BOOK_PROBABILITY = 0.50
 SAFE_MAX_LEGS = 3
+RECOMMENDED_SINGLE_EDGE = 0.05
+RECOMMENDED_SINGLE_PROBABILITY = 0.57
+RECOMMENDED_SINGLE_MAX_ABS_ODDS = 160
 ODDS_ALIASES = {
     "ATH": ["ATH", "OAK"],
     "OAK": ["OAK", "ATH"],
@@ -39,9 +42,19 @@ def american_from_decimal(decimal: float) -> int:
     return round(-100 / (decimal - 1))
 
 
+def valid_bettable_moneyline(american: int) -> bool:
+    return 100 <= abs(american) <= 2000
+
+
 def expected_value(probability: float, american: int, stake: float = STAKE) -> float:
     profit = (decimal_odds(american) - 1) * stake
     return probability * profit - (1 - probability) * stake
+
+
+def single_profit(american: int, won: bool) -> float:
+    if won:
+        return (decimal_odds(american) - 1) * STAKE
+    return -STAKE
 
 
 def odds_for(store: HistoricalOddsStore, game_date: str, away: str, home: str):
@@ -84,7 +97,7 @@ def build_single_candidates(rows: list[dict], store: HistoricalOddsStore) -> dic
             book_probability = implied_probability(side["odds"])
             ev = expected_value(side["model_probability"], side["odds"])
             edge = side["model_probability"] - book_probability
-            if edge <= 0 or ev <= 0:
+            if not valid_bettable_moneyline(side["odds"]) or edge <= 0 or ev <= 0:
                 continue
             by_day[row["date"]].append(
                 {
@@ -101,6 +114,37 @@ def build_single_candidates(rows: list[dict], store: HistoricalOddsStore) -> dic
         by_day[day].sort(key=lambda item: (item["ev"], item["edge"], item["model_probability"]), reverse=True)
 
     return by_day
+
+
+def all_single_candidates(by_day: dict[str, list[dict]]) -> list[dict]:
+    return [candidate for candidates in by_day.values() for candidate in candidates]
+
+
+def evaluate_single_strategy(candidates: list[dict], min_edge: float, min_probability: float, max_abs_odds: int) -> dict:
+    bets = [
+        candidate
+        for candidate in candidates
+        if (
+            candidate["edge"] >= min_edge
+            and candidate["model_probability"] >= min_probability
+            and abs(candidate["odds"]) <= max_abs_odds
+        )
+    ]
+    profit = sum(single_profit(bet["odds"], bet["won"]) for bet in bets)
+    wins = sum(1 for bet in bets if bet["won"])
+    total_staked = len(bets) * STAKE
+    return {
+        "min_edge": min_edge,
+        "min_probability": min_probability,
+        "max_abs_odds": max_abs_odds,
+        "bets": len(bets),
+        "wins": wins,
+        "losses": len(bets) - wins,
+        "hit_rate": wins / len(bets) if bets else 0.0,
+        "profit": profit,
+        "roi": profit / total_staked if total_staked else 0.0,
+        "avg_ev": sum(bet["ev"] for bet in bets) / len(bets) if bets else 0.0,
+    }
 
 
 def settle_parlay(legs: list[dict]) -> dict:
@@ -198,14 +242,61 @@ def evaluate_strategy(by_day: dict[str, list[dict]], leg_count: int, min_edge: f
     }
 
 
+def season_start_for(year: int) -> date:
+    return date(year, 3, 20)
+
+
+def odds_backtest_range(store: HistoricalOddsStore) -> tuple[date, date, dict]:
+    odds_start, odds_end = store.date_range()
+    yesterday = date.today() - timedelta(days=1)
+    if odds_start is None or odds_end is None:
+        end = yesterday
+        start = season_start_for(end.year)
+        return start, end, {
+            "odds_data_start": None,
+            "odds_data_end": None,
+            "odds_data_stale": True,
+            "limited_by": "missing historical odds file",
+        }
+
+    latest_odds_date = date.fromisoformat(odds_end)
+    end = min(latest_odds_date, yesterday)
+    # Use the latest odds-backed season. Older seasons can be imported, but the
+    # displayed ROI should represent the most recent available betting market.
+    start = season_start_for(end.year)
+    return start, end, {
+        "odds_data_start": odds_start,
+        "odds_data_end": odds_end,
+        "odds_data_stale": latest_odds_date < yesterday,
+        "limited_by": "historical odds availability" if latest_odds_date < yesterday else "yesterday's final scores",
+    }
+
+
 def main() -> None:
-    start = date(2025, 3, 20)
-    end = date(2025, 8, 17)
+    store = HistoricalOddsStore()
+    start, end, odds_metadata = odds_backtest_range(store)
     games = load_or_fetch_games(start, end)
     team_abbr = load_team_abbreviations()
     rows = walk_forward_history(games, team_abbr)
-    store = HistoricalOddsStore()
     by_day = build_single_candidates(rows, store)
+    single_candidates = all_single_candidates(by_day)
+
+    single_strategies = []
+    for min_edge in (0.03, 0.04, 0.05, 0.06, 0.08):
+        for min_probability in (0.55, 0.57, 0.60, 0.62, 0.65):
+            for max_abs_odds in (140, 160, 180, 220):
+                single_strategies.append(
+                    evaluate_single_strategy(single_candidates, min_edge, min_probability, max_abs_odds)
+                )
+
+    qualified_singles = [row for row in single_strategies if row["bets"] >= 40 and row["roi"] > 0]
+    qualified_singles.sort(key=lambda item: (item["roi"], item["profit"], item["bets"]), reverse=True)
+    recommended_single = evaluate_single_strategy(
+        single_candidates,
+        RECOMMENDED_SINGLE_EDGE,
+        RECOMMENDED_SINGLE_PROBABILITY,
+        RECOMMENDED_SINGLE_MAX_ABS_ODDS,
+    )
 
     strategies = []
     for leg_count in range(2, SAFE_MAX_LEGS + 1):
@@ -227,16 +318,19 @@ def main() -> None:
 
     recommended_by_leg = [
         row for row in best_by_leg
-        if row["roi"] > 0 and row["hit_rate"] >= 0.50 and row["bets"] >= 20
+        if row["roi"] > 0 and row["profit"] > 0 and row["avg_ev"] > 0 and row["bets"] >= 12
     ]
 
     output = {
         "generated_at": date.today().isoformat(),
         "date_range": {"start": start.isoformat(), "end": end.isoformat()},
+        "odds_metadata": odds_metadata,
         "stake": STAKE,
         "historical_games": len(games),
         "model_prediction_rows": len(rows),
         "days_with_candidates": len(by_day),
+        "best_single_strategies": qualified_singles[:20],
+        "recommended_single_strategy": recommended_single,
         "best_overall": qualified[:20],
         "best_by_leg_count": best_by_leg,
         "recommended_by_leg_count": recommended_by_leg,
@@ -246,8 +340,16 @@ def main() -> None:
     OUTPUT_PATH.write_text(json.dumps(output, indent=2))
 
     print(f"historical_games={len(games)}")
+    print(f"date_range={start.isoformat()}..{end.isoformat()}")
+    print(f"odds_data_end={odds_metadata['odds_data_end']} stale={odds_metadata['odds_data_stale']}")
     print(f"model_prediction_rows={len(rows)}")
     print(f"days_with_candidates={len(by_day)}")
+    print(
+        f"single bets={recommended_single['bets']} record={recommended_single['wins']}-{recommended_single['losses']} "
+        f"roi={recommended_single['roi']:.4f} profit={recommended_single['profit']:.2f} "
+        f"min_edge={recommended_single['min_edge']} min_prob={recommended_single['min_probability']} "
+        f"max_abs_odds={recommended_single['max_abs_odds']}"
+    )
     for row in best_by_leg:
         print(
             f"legs={row['leg_count']} bets={row['bets']} record={row['wins']}-{row['losses']} "
