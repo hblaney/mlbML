@@ -29,6 +29,18 @@ function teamHistoryLink(label: string) {
   );
 }
 
+function summarizeRows(rows: { correct: number }[]) {
+  const wins = rows.filter((row) => row.correct).length;
+  const total = rows.length;
+
+  return {
+    wins,
+    losses: total - wins,
+    total,
+    accuracy: total > 0 ? wins / total : null
+  };
+}
+
 export default async function HistoryPage() {
   const output = await loadAccuracyOutput();
   const fullHistory = await loadFullPredictionHistory();
@@ -36,6 +48,12 @@ export default async function HistoryPage() {
   const parlayStrategies = parlayBacktest?.best_by_leg_count ?? [];
   const recentWeeks = output ? Object.entries(output.weekly_accuracy).slice(-8) : [];
   const predictionRows = fullHistory.length > 0 ? fullHistory : output?.prediction_history ?? output?.recent_predictions ?? [];
+  const highConfidenceRows = predictionRows.filter((row) => row.confidence === "High");
+  const highConfidenceSummary = summarizeRows(highConfidenceRows);
+  const confidenceSummaries = (["High", "Medium", "Low"] as const).map((confidence) => ({
+    confidence,
+    ...summarizeRows(predictionRows.filter((row) => row.confidence === confidence))
+  }));
   const rowsByDate = predictionRows.reduce<Record<string, typeof predictionRows>>((groups, row) => {
     groups[row.date] = [...(groups[row.date] ?? []), row];
     return groups;
@@ -94,6 +112,60 @@ export default async function HistoryPage() {
               <div className="metric">{output.weeks_at_or_above_60pct.toFixed(0)}</div>
               <p className="muted">Weekly hit-rate buckets</p>
             </article>
+          </section>
+
+          <section className="panel">
+            <div className="section-heading compact">
+              <div>
+                <p className="eyebrow">Confidence filter</p>
+                <h2>High-Confidence Record</h2>
+              </div>
+              <span>{highConfidenceSummary.total} picks</span>
+            </div>
+            {highConfidenceSummary.total > 0 && highConfidenceSummary.accuracy !== null ? (
+              <div className="grid two">
+                <article>
+                  <p className="muted">High-confidence hit rate</p>
+                  <div className={highConfidenceSummary.accuracy >= 0.6 ? "metric positive" : "metric warning"}>
+                    {formatPercent(highConfidenceSummary.accuracy)}
+                  </div>
+                  <p className="muted">
+                    {highConfidenceSummary.wins}-{highConfidenceSummary.losses} record when confidence is High
+                  </p>
+                </article>
+                <article>
+                  <p className="muted">What this means</p>
+                  <p>
+                    This isolates the model&apos;s strongest-rated picks so you can see whether confidence is translating
+                    into a better win rate than the full board.
+                  </p>
+                </article>
+              </div>
+            ) : (
+              <p className="muted">No high-confidence prediction history is available yet.</p>
+            )}
+            <table className="table">
+              <thead>
+                <tr>
+                  <th>Confidence</th>
+                  <th>Record</th>
+                  <th>Hit Rate</th>
+                  <th>Picks</th>
+                </tr>
+              </thead>
+              <tbody>
+                {confidenceSummaries.map((summary) => (
+                  <tr key={summary.confidence}>
+                    <td>{summary.confidence}</td>
+                    <td>{summary.wins}-{summary.losses}</td>
+                    <td className={summary.accuracy !== null && summary.accuracy >= 0.6 ? "positive" : "warning"}>
+                      {summary.accuracy !== null ? formatPercent(summary.accuracy) : "-"}
+                    </td>
+                    <td>{summary.total}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </section>
 
           <section className="panel">
