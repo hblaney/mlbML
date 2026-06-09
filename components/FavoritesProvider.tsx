@@ -17,17 +17,18 @@ import {
   signIn,
   signOut,
   signUp,
-  type LocalUser
+  type AppUser
 } from "@/lib/favorites";
+import { getSupabaseBrowserClient } from "@/lib/supabase";
 
 type FavoritesContextValue = {
-  user: LocalUser | null;
+  user: AppUser | null;
   favoriteTeamIds: string[];
   favoritePlayers: FavoritePlayer[];
   isReady: boolean;
-  signUp: (email: string, password: string) => { ok: true } | { ok: false; error: string };
-  signIn: (email: string, password: string) => { ok: true } | { ok: false; error: string };
-  signOut: () => void;
+  signUp: (email: string, password: string) => Promise<{ ok: true; message?: string } | { ok: false; error: string }>;
+  signIn: (email: string, password: string) => Promise<{ ok: true; message?: string } | { ok: false; error: string }>;
+  signOut: () => Promise<void>;
   isTeamFavorite: (teamId: string) => boolean;
   toggleTeamFavorite: (teamId: string) => void;
   isPlayerFavorite: (playerId: number) => boolean;
@@ -36,23 +37,63 @@ type FavoritesContextValue = {
 
 const FavoritesContext = createContext<FavoritesContextValue | null>(null);
 
+function toAppUser(user: { id: string; email?: string; created_at?: string } | null): AppUser | null {
+  if (!user?.email) {
+    return null;
+  }
+
+  return {
+    id: user.id,
+    email: user.email,
+    createdAt: user.created_at ?? new Date().toISOString()
+  };
+}
+
 export function FavoritesProvider({ children }: { children: ReactNode }) {
-  const [user, setUser] = useState<LocalUser | null>(null);
+  const [user, setUser] = useState<AppUser | null>(null);
   const [favoriteTeamIds, setFavoriteTeamIds] = useState<string[]>([]);
   const [favoritePlayers, setFavoritePlayers] = useState<FavoritePlayer[]>([]);
   const [isReady, setIsReady] = useState(false);
 
   useEffect(() => {
-    const session = getSession();
-    setUser(session);
+    let mounted = true;
+    const supabase = getSupabaseBrowserClient();
 
-    if (session) {
-      const favorites = loadFavorites(session.email);
+    async function loadForUser(nextUser: AppUser | null) {
+      if (!mounted) {
+        return;
+      }
+
+      setUser(nextUser);
+
+      if (!nextUser) {
+        setFavoriteTeamIds([]);
+        setFavoritePlayers([]);
+        setIsReady(true);
+        return;
+      }
+
+      const favorites = await loadFavorites(nextUser.id);
+
+      if (!mounted) {
+        return;
+      }
+
       setFavoriteTeamIds(favorites.teamIds);
       setFavoritePlayers(favorites.players);
+      setIsReady(true);
     }
 
-    setIsReady(true);
+    getSession().then(loadForUser);
+
+    const subscription = supabase?.auth.onAuthStateChange((_event, session) => {
+      void loadForUser(toAppUser(session?.user ?? null));
+    });
+
+    return () => {
+      mounted = false;
+      subscription?.data.subscription.unsubscribe();
+    };
   }, []);
 
   const persist = useCallback(
@@ -61,16 +102,16 @@ export function FavoritesProvider({ children }: { children: ReactNode }) {
         return;
       }
 
-      saveFavorites(user.email, { teamIds, players });
+      void saveFavorites(user.id, { teamIds, players });
     },
     [user]
   );
 
-  const handleSignUp = useCallback((email: string, password: string) => {
-    const result = signUp(email, password);
+  const handleSignUp = useCallback(async (email: string, password: string) => {
+    const result = await signUp(email, password);
 
     if (result.ok) {
-      const session = getSession();
+      const session = await getSession();
       setUser(session);
       setFavoriteTeamIds([]);
       setFavoritePlayers([]);
@@ -79,15 +120,15 @@ export function FavoritesProvider({ children }: { children: ReactNode }) {
     return result;
   }, []);
 
-  const handleSignIn = useCallback((email: string, password: string) => {
-    const result = signIn(email, password);
+  const handleSignIn = useCallback(async (email: string, password: string) => {
+    const result = await signIn(email, password);
 
     if (result.ok) {
-      const session = getSession();
+      const session = await getSession();
       setUser(session);
 
       if (session) {
-        const favorites = loadFavorites(session.email);
+        const favorites = await loadFavorites(session.id);
         setFavoriteTeamIds(favorites.teamIds);
         setFavoritePlayers(favorites.players);
       }
@@ -96,8 +137,8 @@ export function FavoritesProvider({ children }: { children: ReactNode }) {
     return result;
   }, []);
 
-  const handleSignOut = useCallback(() => {
-    signOut();
+  const handleSignOut = useCallback(async () => {
+    await signOut();
     setUser(null);
     setFavoriteTeamIds([]);
     setFavoritePlayers([]);

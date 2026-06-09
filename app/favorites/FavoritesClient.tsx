@@ -94,7 +94,7 @@ export function FavoritesClient({
       <section className="panel">
         <p className="eyebrow">Favorites</p>
         <h2>Log in to save teams and players</h2>
-        <p className="muted">Create a local account to track favorite teams and player stat snapshots.</p>
+        <p className="muted">Create an account to track favorite teams and player stat snapshots across devices.</p>
         <Link className="button" href="/login">
           Log in
         </Link>

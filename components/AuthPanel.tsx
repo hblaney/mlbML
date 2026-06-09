@@ -10,21 +10,27 @@ export function AuthPanel() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [message, setMessage] = useState<string | null>(null);
+  const [submitting, setSubmitting] = useState(false);
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setError(null);
     setMessage(null);
+    setSubmitting(true);
 
-    const result = mode === "login" ? signIn(email, password) : signUp(email, password);
+    try {
+      const result = mode === "login" ? await signIn(email, password) : await signUp(email, password);
 
-    if (!result.ok) {
-      setError(result.error);
-      return;
+      if (!result.ok) {
+        setError(result.error);
+        return;
+      }
+
+      setMessage(result.message ?? (mode === "login" ? "Logged in." : "Account created."));
+      setPassword("");
+    } finally {
+      setSubmitting(false);
     }
-
-    setMessage(mode === "login" ? "Logged in." : "Account created.");
-    setPassword("");
   }
 
   if (user) {
@@ -32,8 +38,8 @@ export function AuthPanel() {
       <section className="panel form">
         <p className="eyebrow">Signed in</p>
         <h2>{user.email}</h2>
-        <p className="muted">Favorites are saved locally in this browser.</p>
-        <button className="button" onClick={signOut} type="button">
+        <p className="muted">Favorites are saved to your account and sync anywhere you log in.</p>
+        <button className="button" onClick={() => void signOut()} type="button">
           Log out
         </button>
       </section>
@@ -65,6 +71,7 @@ export function AuthPanel() {
           className="input"
           onChange={(event) => setEmail(event.target.value)}
           placeholder="you@example.com"
+          required
           type="email"
           value={email}
         />
@@ -75,16 +82,17 @@ export function AuthPanel() {
           className="input"
           onChange={(event) => setPassword(event.target.value)}
           placeholder="••••••••"
+          required
           type="password"
           value={password}
         />
       </label>
-      <button className="button" type="submit">
-        {mode === "login" ? "Log in" : "Create account"}
+      <button className="button" disabled={submitting} type="submit">
+        {submitting ? "Working..." : mode === "login" ? "Log in" : "Create account"}
       </button>
       {error ? <p className="form-error">{error}</p> : null}
       {message ? <p className="muted">{message}</p> : null}
-      <p className="muted">Local demo auth only. Favorites stay on this device.</p>
+      <p className="muted">Real signup and login are powered by Supabase Auth.</p>
     </form>
   );
 }

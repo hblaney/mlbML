@@ -1,4 +1,7 @@
-export type LocalUser = {
+import { getSupabaseBrowserClient } from "@/lib/supabase";
+
+export type AppUser = {
+  id: string;
   email: string;
   createdAt: string;
 };
@@ -21,72 +24,41 @@ export type FavoritesState = {
   players: FavoritePlayer[];
 };
 
-const USERS_KEY = "mlb-edge-users";
-const SESSION_KEY = "mlb-edge-session";
-const FAVORITES_PREFIX = "mlb-edge-favorites:";
+type AuthResult = { ok: true; message?: string } | { ok: false; error: string };
 
-type StoredUser = {
-  email: string;
-  password: string;
-  createdAt: string;
+type FavoriteRow = {
+  team_ids: string[] | null;
+  players: FavoritePlayer[] | null;
 };
 
-function isBrowser() {
-  return typeof window !== "undefined";
+function missingSupabaseError() {
+  return "Supabase is not configured yet. Add NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY in Vercel.";
 }
 
-function readUsers(): StoredUser[] {
-  if (!isBrowser()) {
-    return [];
-  }
-
-  try {
-    const raw = localStorage.getItem(USERS_KEY);
-    return raw ? (JSON.parse(raw) as StoredUser[]) : [];
-  } catch {
-    return [];
-  }
-}
-
-function writeUsers(users: StoredUser[]) {
-  if (!isBrowser()) {
-    return;
-  }
-
-  localStorage.setItem(USERS_KEY, JSON.stringify(users));
-}
-
-function favoritesKey(email: string) {
-  return `${FAVORITES_PREFIX}${email.toLowerCase()}`;
-}
-
-export function getSession(): LocalUser | null {
-  if (!isBrowser()) {
+function toAppUser(user: { id: string; email?: string; created_at?: string } | null): AppUser | null {
+  if (!user?.email) {
     return null;
   }
 
-  try {
-    const raw = localStorage.getItem(SESSION_KEY);
-    return raw ? (JSON.parse(raw) as LocalUser) : null;
-  } catch {
+  return {
+    id: user.id,
+    email: user.email,
+    createdAt: user.created_at ?? new Date().toISOString()
+  };
+}
+
+export async function getSession(): Promise<AppUser | null> {
+  const supabase = getSupabaseBrowserClient();
+
+  if (!supabase) {
     return null;
   }
+
+  const { data } = await supabase.auth.getUser();
+  return toAppUser(data.user);
 }
 
-export function setSession(user: LocalUser | null) {
-  if (!isBrowser()) {
-    return;
-  }
-
-  if (!user) {
-    localStorage.removeItem(SESSION_KEY);
-    return;
-  }
-
-  localStorage.setItem(SESSION_KEY, JSON.stringify(user));
-}
-
-export function signUp(email: string, password: string): { ok: true } | { ok: false; error: string } {
+export async function signUp(email: string, password: string): Promise<AuthResult> {
   const normalizedEmail = email.trim().toLowerCase();
 
   if (!normalizedEmail || !password) {
@@ -97,61 +69,95 @@ export function signUp(email: string, password: string): { ok: true } | { ok: fa
     return { ok: false, error: "Password must be at least 6 characters." };
   }
 
-  const users = readUsers();
+  const supabase = getSupabaseBrowserClient();
 
-  if (users.some((user) => user.email === normalizedEmail)) {
-    return { ok: false, error: "An account with that email already exists." };
+  if (!supabase) {
+    return { ok: false, error: missingSupabaseError() };
   }
 
-  const createdAt = new Date().toISOString();
-  users.push({ email: normalizedEmail, password, createdAt });
-  writeUsers(users);
-  setSession({ email: normalizedEmail, createdAt });
+  const { data, error } = await supabase.auth.signUp({
+    email: normalizedEmail,
+    password
+  });
 
-  return { ok: true };
+  if (error) {
+    return { ok: false, error: error.message };
+  }
+
+  return {
+    ok: true,
+    message: data.session ? "Account created." : "Account created. Check your email to confirm your signup."
+  };
 }
 
-export function signIn(email: string, password: string): { ok: true } | { ok: false; error: string } {
+export async function signIn(email: string, password: string): Promise<AuthResult> {
   const normalizedEmail = email.trim().toLowerCase();
-  const user = readUsers().find((item) => item.email === normalizedEmail);
 
-  if (!user || user.password !== password) {
-    return { ok: false, error: "Invalid email or password." };
+  const supabase = getSupabaseBrowserClient();
+
+  if (!supabase) {
+    return { ok: false, error: missingSupabaseError() };
   }
 
-  setSession({ email: user.email, createdAt: user.createdAt });
+  const { error } = await supabase.auth.signInWithPassword({
+    email: normalizedEmail,
+    password
+  });
+
+  if (error) {
+    return { ok: false, error: error.message };
+  }
+
   return { ok: true };
 }
 
-export function signOut() {
-  setSession(null);
-}
+export async function signOut() {
+  const supabase = getSupabaseBrowserClient();
 
-export function loadFavorites(email: string): FavoritesState {
-  if (!isBrowser()) {
-    return { teamIds: [], players: [] };
-  }
-
-  try {
-    const raw = localStorage.getItem(favoritesKey(email));
-    if (!raw) {
-      return { teamIds: [], players: [] };
-    }
-
-    const parsed = JSON.parse(raw) as FavoritesState;
-    return {
-      teamIds: Array.isArray(parsed.teamIds) ? parsed.teamIds : [],
-      players: Array.isArray(parsed.players) ? parsed.players : []
-    };
-  } catch {
-    return { teamIds: [], players: [] };
-  }
-}
-
-export function saveFavorites(email: string, favorites: FavoritesState) {
-  if (!isBrowser()) {
+  if (!supabase) {
     return;
   }
 
-  localStorage.setItem(favoritesKey(email), JSON.stringify(favorites));
+  await supabase.auth.signOut();
+}
+
+export async function loadFavorites(userId: string): Promise<FavoritesState> {
+  const supabase = getSupabaseBrowserClient();
+
+  if (!supabase) {
+    return { teamIds: [], players: [] };
+  }
+
+  const { data, error } = await supabase
+    .from("user_favorites")
+    .select("team_ids, players")
+    .eq("user_id", userId)
+    .maybeSingle<FavoriteRow>();
+
+  if (error || !data) {
+    return { teamIds: [], players: [] };
+  }
+
+  return {
+    teamIds: Array.isArray(data.team_ids) ? data.team_ids : [],
+    players: Array.isArray(data.players) ? data.players : []
+  };
+}
+
+export async function saveFavorites(userId: string, favorites: FavoritesState) {
+  const supabase = getSupabaseBrowserClient();
+
+  if (!supabase) {
+    return;
+  }
+
+  await supabase.from("user_favorites").upsert(
+    {
+      user_id: userId,
+      team_ids: favorites.teamIds,
+      players: favorites.players,
+      updated_at: new Date().toISOString()
+    },
+    { onConflict: "user_id" }
+  );
 }

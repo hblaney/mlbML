@@ -42,7 +42,7 @@ export function Nav() {
           {user ? (
             <>
               <span className="nav-user muted">{user.email}</span>
-              <button className="button" onClick={signOut} type="button">
+              <button className="button" onClick={() => void signOut()} type="button">
                 Log out
               </button>
             </>

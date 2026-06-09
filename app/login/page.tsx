@@ -8,8 +8,7 @@ export default function LoginPage() {
           <p className="eyebrow">User accounts</p>
           <h1>Log in and track your teams.</h1>
           <p className="lead">
-            Create a local account to save favorite teams and players. Favorites stay on this browser until you connect
-            a real backend later.
+            Create an account to save favorite teams and players. Your board syncs anywhere you log in.
           </p>
         </div>
 
