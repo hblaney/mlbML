@@ -195,7 +195,7 @@ export async function resolveStreamManifest(slug: string): Promise<StreamManifes
     ts: tokens.ts,
     pt: tokens.pt
   });
-  const streamResponse = await fetchMlbWebcast(`check_stream.php?${query.toString()}`, refererPath);
+  const streamResponse = await fetchMlbWebcast(`stream/check_stream.php?${query.toString()}`, refererPath);
 
   if (!streamResponse.ok) {
     return {
