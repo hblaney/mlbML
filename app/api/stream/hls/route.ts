@@ -1,9 +1,12 @@
 import {
   assertAllowedStreamUrl,
+  fetchStreamAsset,
   looksLikePlaylist,
-  rewritePlaylistUrls,
-  upstreamFetchHeaders
+  rewritePlaylistUrls
 } from "@/lib/stream-proxy";
+
+export const runtime = "edge";
+export const dynamic = "force-dynamic";
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
@@ -21,13 +24,7 @@ export async function GET(request: Request) {
     return new Response("Forbidden stream URL", { status: 403 });
   }
 
-  const upstream = await fetch(targetUrl.toString(), {
-    cache: "no-store",
-    headers: {
-      ...upstreamFetchHeaders(),
-      Accept: "*/*"
-    }
-  });
+  const upstream = await fetchStreamAsset(targetUrl.toString());
 
   if (!upstream.ok) {
     return new Response("Stream request failed", { status: upstream.status });

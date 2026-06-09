@@ -1,10 +1,13 @@
 import {
   assertAllowedStreamUrl,
   assertAllowedUpstreamUrl,
+  fetchMlbWebcast,
   MLB_WEBCAST_ORIGIN,
-  proxyHlsUrl,
-  upstreamFetchHeaders
+  proxyHlsUrl
 } from "@/lib/stream-proxy";
+
+export const runtime = "edge";
+export const dynamic = "force-dynamic";
 
 type UpstreamRouteProps = {
   params: Promise<{ path: string[] }>;
@@ -23,10 +26,7 @@ export async function GET(request: Request, { params }: UpstreamRouteProps) {
     return new Response("Forbidden upstream target", { status: 403 });
   }
 
-  const upstream = await fetch(upstreamUrl, {
-    cache: "no-store",
-    headers: upstreamFetchHeaders()
-  });
+  const upstream = await fetchMlbWebcast(`${upstreamPath}${query ? `?${query}` : ""}`);
 
   if (!upstream.ok) {
     return new Response("Upstream request failed", { status: upstream.status });

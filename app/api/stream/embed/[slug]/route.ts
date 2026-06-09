@@ -1,8 +1,7 @@
-import {
-  MLB_WEBCAST_ORIGIN,
-  rewriteEmbedHtml,
-  upstreamFetchHeaders
-} from "@/lib/stream-proxy";
+import { buildEmbedPlayerHtml } from "@/lib/stream-proxy";
+
+export const runtime = "edge";
+export const dynamic = "force-dynamic";
 
 type EmbedRouteProps = {
   params: Promise<{ slug: string }>;
@@ -17,19 +16,7 @@ export async function GET(_request: Request, { params }: EmbedRouteProps) {
     return new Response("Invalid stream slug", { status: 400 });
   }
 
-  const upstreamUrl = `${MLB_WEBCAST_ORIGIN}/stream/${slug}.html`;
-  const upstream = await fetch(upstreamUrl, {
-    cache: "no-store",
-    headers: upstreamFetchHeaders(`/stream/${slug}.html`)
-  });
-
-  if (!upstream.ok) {
-    return new Response("Stream page unavailable", { status: upstream.status });
-  }
-
-  const html = rewriteEmbedHtml(await upstream.text(), slug);
-
-  return new Response(html, {
+  return new Response(buildEmbedPlayerHtml(slug), {
     status: 200,
     headers: {
       "Content-Type": "text/html; charset=utf-8",
