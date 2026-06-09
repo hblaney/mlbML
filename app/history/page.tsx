@@ -34,6 +34,7 @@ export default async function HistoryPage() {
   const fullHistory = await loadFullPredictionHistory();
   const parlayBacktest = await loadParlayBacktest();
   const parlayStrategies = parlayBacktest?.best_by_leg_count ?? [];
+  const recentWeeks = output ? Object.entries(output.weekly_accuracy).slice(-8) : [];
   const predictionRows = fullHistory.length > 0 ? fullHistory : output?.prediction_history ?? output?.recent_predictions ?? [];
   const rowsByDate = predictionRows.reduce<Record<string, typeof predictionRows>>((groups, row) => {
     groups[row.date] = [...(groups[row.date] ?? []), row];
@@ -68,12 +69,54 @@ export default async function HistoryPage() {
   return (
     <main className="shell stack">
       <section className="panel strong">
-        <p className="eyebrow">Prediction history</p>
-        <h1>History</h1>
+        <p className="eyebrow">Public backtesting</p>
+        <h1>Accuracy</h1>
         <p className="lead">
-          Daily picks, outcomes, and strategy backtests.
+          Model accuracy, daily picks, outcomes, and strategy backtests.
         </p>
       </section>
+
+      {output ? (
+        <>
+          <section className="grid">
+            <article className="panel">
+              <p className="muted">Overall</p>
+              <div className="metric">{formatPercent(output.overall_accuracy)}</div>
+              <p>{output.evaluated_games.toFixed(0)} games evaluated</p>
+            </article>
+            <article className="panel">
+              <p className="muted">Days at 60%+</p>
+              <div className="metric">{output.days_at_or_above_60pct.toFixed(0)}</div>
+              <p className="muted">Daily hit-rate buckets</p>
+            </article>
+            <article className="panel">
+              <p className="muted">Weeks at 60%+</p>
+              <div className="metric">{output.weeks_at_or_above_60pct.toFixed(0)}</div>
+              <p className="muted">Weekly hit-rate buckets</p>
+            </article>
+          </section>
+
+          <section className="panel">
+            <h2>Recent Weekly Performance</h2>
+            <table className="table">
+              <thead>
+                <tr>
+                  <th>Week</th>
+                  <th>Accuracy</th>
+                </tr>
+              </thead>
+              <tbody>
+                {recentWeeks.map(([week, accuracy]) => (
+                  <tr key={week}>
+                    <td>{week}</td>
+                    <td className={accuracy >= 0.6 ? "positive" : "warning"}>{formatPercent(accuracy)}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </section>
+        </>
+      ) : null}
 
       {parlayStrategies.length > 0 ? (
         <section className="panel">

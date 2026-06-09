@@ -27,7 +27,7 @@ export default async function HomePage() {
           </p>
           <div className="links">
             <Link className="button" href="/best-bets">View best bets</Link>
-            <Link href="/accuracy">Model accuracy</Link>
+            <Link href="/history">Model accuracy</Link>
           </div>
         </div>
 
