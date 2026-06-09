@@ -26,7 +26,7 @@ from trained_edge_model import (
 )
 
 MODEL_PATH = Path(__file__).resolve().parents[2] / "data" / "model" / "daily_edge.pkl"
-MODEL_VERSION = "daily-auto-v0.5"
+MODEL_VERSION = "daily-auto-v0.6"
 
 
 @dataclass
@@ -34,6 +34,7 @@ class DailyModelBundle:
     trained_through: date
     league: LeagueState
     model: Pipeline
+    model_version: str = MODEL_VERSION
 
     def predict(self, game: GameRecord) -> FastPrediction:
         prediction = predict_with_model(game, self.league, self.model)
@@ -80,7 +81,10 @@ def load_bundle() -> DailyModelBundle | None:
         return None
     try:
         with MODEL_PATH.open("rb") as handle:
-            return pickle.load(handle)
+            bundle = pickle.load(handle)
+        if bundle.__dict__.get("model_version") != MODEL_VERSION:
+            return None
+        return bundle
     except Exception:
         return None
 
