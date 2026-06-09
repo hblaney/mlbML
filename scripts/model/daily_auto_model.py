@@ -1,7 +1,7 @@
 """Self-retraining daily model: trains through yesterday, predicts today.
 
 Persists to disk so page loads only retrain when new final games exist.
-Uses walk-forward logistic + Elo features; fast enough for auto page loads.
+Uses walk-forward logistic + Elo + real MLB stats, rolling form, park, and weather features.
 """
 
 from __future__ import annotations
@@ -26,7 +26,7 @@ from trained_edge_model import (
 )
 
 MODEL_PATH = Path(__file__).resolve().parents[2] / "data" / "model" / "daily_edge.pkl"
-MODEL_VERSION = "daily-auto-v0.8"
+MODEL_VERSION = "daily-auto-v1.0"
 
 
 @dataclass
@@ -46,7 +46,7 @@ class DailyModelBundle:
             confidence=prediction.confidence,
             notes=[
                 f"Retrained through {self.trained_through.isoformat()}",
-                "Blended logistic + form model fit on every prior game this season",
+                "Blended logistic + form model fit on prior games with stats, rolling form, weather, park, starter, and matchup features",
                 "Retrains automatically when yesterday's final scores are new",
             ],
         )

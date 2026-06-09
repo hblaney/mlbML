@@ -141,7 +141,7 @@ export default async function HistoryPage() {
                     {eliteConfidenceSummary.accuracy !== null ? formatPercent(eliteConfidenceSummary.accuracy) : "-"}
                   </div>
                   <p className="muted">
-                    {eliteConfidenceSummary.wins}-{eliteConfidenceSummary.losses} record at 65%+ model probability
+                    {eliteConfidenceSummary.wins}-{eliteConfidenceSummary.losses} record at 70%+ model probability
                   </p>
                 </article>
               </div>

@@ -264,6 +264,11 @@ export function getBestBets(board: GamePrediction[] = predictions) {
       const away = getTeam(game.awayTeam);
       const home = getTeam(game.homeTeam);
       const matchup = `${away.abbreviation} @ ${home.abbreviation}`;
+      const homeMarket = impliedProbability(game.homeMoneyline as number);
+      const awayMarket = impliedProbability(game.awayMoneyline as number);
+      const marketTotal = homeMarket + awayMarket;
+      const homeNoVig = homeMarket / marketTotal;
+      const awayNoVig = awayMarket / marketTotal;
 
       return [
         {
@@ -275,7 +280,7 @@ export function getBestBets(board: GamePrediction[] = predictions) {
           side: "Moneyline",
           odds: game.homeMoneyline as number,
           modelProbability: game.modelHomeWinProbability,
-          bookProbability: impliedProbability(game.homeMoneyline as number),
+          bookProbability: homeNoVig,
           ev: expectedValue(game.modelHomeWinProbability, game.homeMoneyline as number)
         },
         {
@@ -287,13 +292,13 @@ export function getBestBets(board: GamePrediction[] = predictions) {
           side: "Moneyline",
           odds: game.awayMoneyline as number,
           modelProbability: game.modelAwayWinProbability,
-          bookProbability: impliedProbability(game.awayMoneyline as number),
+          bookProbability: awayNoVig,
           ev: expectedValue(game.modelAwayWinProbability, game.awayMoneyline as number)
         }
       ];
     })
     .map((bet) => ({ ...bet, edge: bet.modelProbability - bet.bookProbability }))
-    .filter((bet) => bet.modelProbability >= 0.52 && bet.edge > 0.02 && bet.ev > 0)
+    .filter((bet) => bet.modelProbability >= 0.56 && bet.edge > 0.025 && bet.ev > 0)
     .sort((a, b) => b.edge - a.edge);
 }
 

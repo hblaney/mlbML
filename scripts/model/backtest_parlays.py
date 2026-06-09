@@ -227,7 +227,7 @@ def main() -> None:
 
     recommended_by_leg = [
         row for row in best_by_leg
-        if row["roi"] > 0 and row["bets"] >= 20
+        if row["roi"] > 0 and row["hit_rate"] >= 0.50 and row["bets"] >= 20
     ]
 
     output = {

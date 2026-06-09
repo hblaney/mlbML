@@ -11,7 +11,7 @@ from urllib.request import urlopen
 
 API_BASE = "https://statsapi.mlb.com/api/v1"
 CACHE_DIR = Path(__file__).resolve().parents[2] / "data" / "cache"
-_PITCHER_ERA_CACHE: dict[tuple[int, int], float] = {}
+_PITCHER_STATS_CACHE: dict[tuple[int, int], dict[str, float]] = {}
 
 
 @dataclass(frozen=True)
@@ -160,17 +160,26 @@ def fetch_upcoming_games(start: date, end: date) -> list[GameRecord]:
     return fetch_games(start, end, final_only=False)
 
 
-def fetch_pitcher_season_era(pitcher_id: int, season: int) -> float:
+def _to_float(value: object, default: float) -> float:
+    if value in (None, "", "-.--"):
+        return default
+    try:
+        return float(str(value))
+    except ValueError:
+        return default
+
+
+def fetch_pitcher_season_stats(pitcher_id: int, season: int) -> dict[str, float]:
     memory_key = (pitcher_id, season)
-    if memory_key in _PITCHER_ERA_CACHE:
-        return _PITCHER_ERA_CACHE[memory_key]
+    if memory_key in _PITCHER_STATS_CACHE:
+        return _PITCHER_STATS_CACHE[memory_key]
 
     CACHE_DIR.mkdir(parents=True, exist_ok=True)
-    cache_path = CACHE_DIR / f"pitcher_{pitcher_id}_{season}.json"
+    cache_path = CACHE_DIR / f"pitcher_stats_v2_{pitcher_id}_{season}.json"
     if cache_path.exists():
-        era = json.loads(cache_path.read_text())["era"]
-        _PITCHER_ERA_CACHE[memory_key] = era
-        return era
+        stats = json.loads(cache_path.read_text())
+        _PITCHER_STATS_CACHE[memory_key] = stats
+        return stats
 
     url = (
         f"{API_BASE}/people/{pitcher_id}/stats"
@@ -178,10 +187,41 @@ def fetch_pitcher_season_era(pitcher_id: int, season: int) -> float:
     )
     payload = _get_json(url)
     splits = payload.get("stats", [{}])[0].get("splits", [])
-    era = 4.5
+    stats = {
+        "era": 4.5,
+        "whip": 1.3,
+        "avg_allowed": 0.250,
+        "obp_allowed": 0.320,
+        "slg_allowed": 0.400,
+        "ops_allowed": 0.720,
+        "strikeouts_per_9": 8.0,
+        "walks_per_9": 3.0,
+        "hits_per_9": 8.5,
+        "home_runs_per_9": 1.1,
+        "innings_pitched": 0.0,
+        "games_started": 0.0,
+    }
     if splits:
-        era = float(splits[0]["stat"].get("era", era))
+        raw = splits[0].get("stat", {})
+        stats = {
+            "era": _to_float(raw.get("era"), stats["era"]),
+            "whip": _to_float(raw.get("whip"), stats["whip"]),
+            "avg_allowed": _to_float(raw.get("avg"), stats["avg_allowed"]),
+            "obp_allowed": _to_float(raw.get("obp"), stats["obp_allowed"]),
+            "slg_allowed": _to_float(raw.get("slg"), stats["slg_allowed"]),
+            "ops_allowed": _to_float(raw.get("ops"), stats["ops_allowed"]),
+            "strikeouts_per_9": _to_float(raw.get("strikeoutsPer9Inn"), stats["strikeouts_per_9"]),
+            "walks_per_9": _to_float(raw.get("walksPer9Inn"), stats["walks_per_9"]),
+            "hits_per_9": _to_float(raw.get("hitsPer9Inn"), stats["hits_per_9"]),
+            "home_runs_per_9": _to_float(raw.get("homeRunsPer9"), stats["home_runs_per_9"]),
+            "innings_pitched": _to_float(raw.get("inningsPitched"), stats["innings_pitched"]),
+            "games_started": _to_float(raw.get("gamesStarted"), stats["games_started"]),
+        }
 
-    cache_path.write_text(json.dumps({"era": era}))
-    _PITCHER_ERA_CACHE[memory_key] = era
-    return era
+    cache_path.write_text(json.dumps(stats))
+    _PITCHER_STATS_CACHE[memory_key] = stats
+    return stats
+
+
+def fetch_pitcher_season_era(pitcher_id: int, season: int) -> float:
+    return fetch_pitcher_season_stats(pitcher_id, season)["era"]

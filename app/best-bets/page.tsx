@@ -38,15 +38,15 @@ export default async function BestBetsPage() {
   return (
     <main className="shell stack">
       <section className="panel strong">
-        <p className="eyebrow">Positive expected value</p>
+        <p className="eyebrow">Qualified betting edges</p>
         <h1>Best Bets</h1>
         <p className="lead">
-          Market prices where the model and sportsbook disagree.
+          Only model edges that clear stricter probability, market, and expected-value filters.
         </p>
       </section>
 
       <section className="panel">
-        <h2>Moneyline Edges</h2>
+        <h2>Qualified Moneyline Edges</h2>
         {bets.length > 0 ? (
           <table className="table">
             <thead>
@@ -80,7 +80,9 @@ export default async function BestBetsPage() {
             </tbody>
           </table>
         ) : (
-          <p className="muted">No positive moneyline edges with live odds right now.</p>
+          <p className="muted">
+            No moneyline edges clear today&apos;s stricter filter. That means no recommended single-bet action from the model right now.
+          </p>
         )}
       </section>
 
@@ -89,8 +91,8 @@ export default async function BestBetsPage() {
         {parlayBacktest ? (
           <p className="muted">
             Strategy backtest: {parlayBacktest.model_prediction_rows} predictions, {parlayBacktest.date_range.start} to{" "}
-            {parlayBacktest.date_range.end}. Parlays require at least two legs, 60%+ model probability, and
-            near-favorite market pricing for each leg.
+            {parlayBacktest.date_range.end}. Parlays require at least two legs, 60%+ model probability,
+            near-favorite market pricing, positive ROI, and a 50%+ historical hit rate.
           </p>
         ) : null}
         {parlays.length > 0 ? (
@@ -128,8 +130,7 @@ export default async function BestBetsPage() {
           </table>
         ) : (
           <p className="muted">
-            No safer parlay candidates passed today&apos;s filter. Medium-confidence value plays can still show as singles,
-            but they will not be forced into the parlay section.
+            No parlay strategy clears the stricter safety filter right now. The model will leave this empty instead of forcing a bad ticket.
           </p>
         )}
       </section>
