@@ -1093,18 +1093,20 @@ h2 {
 }
 
 .favorite-button {
+  align-items: center;
   background: rgba(8, 9, 11, 0.55);
   border: 1px solid var(--line);
   color: #f8fafc;
   cursor: pointer;
   display: inline-flex;
+  flex: 0 0 30px;
   font-size: 16px;
   height: 30px;
+  justify-content: center;
   line-height: 1;
-  min-width: 30px;
   padding: 0;
-  place-items: center;
   text-decoration: none;
+  width: 30px;
 }
 
 .favorite-button:hover,
