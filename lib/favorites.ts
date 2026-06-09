@@ -111,6 +111,50 @@ export async function signIn(email: string, password: string): Promise<AuthResul
   return { ok: true };
 }
 
+export async function sendPasswordReset(email: string): Promise<AuthResult> {
+  const normalizedEmail = email.trim().toLowerCase();
+
+  if (!normalizedEmail) {
+    return { ok: false, error: "Email is required." };
+  }
+
+  const supabase = getSupabaseBrowserClient();
+
+  if (!supabase) {
+    return { ok: false, error: missingSupabaseError() };
+  }
+
+  const { error } = await supabase.auth.resetPasswordForEmail(normalizedEmail, {
+    redirectTo: `${window.location.origin}/reset-password`
+  });
+
+  if (error) {
+    return { ok: false, error: error.message };
+  }
+
+  return { ok: true, message: "Password reset email sent. Check your inbox." };
+}
+
+export async function updatePassword(password: string): Promise<AuthResult> {
+  if (password.length < 6) {
+    return { ok: false, error: "Password must be at least 6 characters." };
+  }
+
+  const supabase = getSupabaseBrowserClient();
+
+  if (!supabase) {
+    return { ok: false, error: missingSupabaseError() };
+  }
+
+  const { error } = await supabase.auth.updateUser({ password });
+
+  if (error) {
+    return { ok: false, error: error.message };
+  }
+
+  return { ok: true, message: "Password updated. You can now log in with your new password." };
+}
+
 export async function signOut() {
   const supabase = getSupabaseBrowserClient();
 

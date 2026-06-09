@@ -2,10 +2,11 @@
 
 import { FormEvent, useState } from "react";
 import { useFavorites } from "@/components/FavoritesProvider";
+import { sendPasswordReset } from "@/lib/favorites";
 
 export function AuthPanel() {
   const { user, signIn, signUp, signOut } = useFavorites();
-  const [mode, setMode] = useState<"login" | "signup">("login");
+  const [mode, setMode] = useState<"login" | "signup" | "forgot">("login");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
@@ -19,7 +20,12 @@ export function AuthPanel() {
     setSubmitting(true);
 
     try {
-      const result = mode === "login" ? await signIn(email, password) : await signUp(email, password);
+      const result =
+        mode === "forgot"
+          ? await sendPasswordReset(email)
+          : mode === "login"
+            ? await signIn(email, password)
+            : await signUp(email, password);
 
       if (!result.ok) {
         setError(result.error);
@@ -51,14 +57,22 @@ export function AuthPanel() {
       <div className="auth-toggle">
         <button
           className={mode === "login" ? "auth-toggle-btn active" : "auth-toggle-btn"}
-          onClick={() => setMode("login")}
+          onClick={() => {
+            setMode("login");
+            setError(null);
+            setMessage(null);
+          }}
           type="button"
         >
           Log in
         </button>
         <button
           className={mode === "signup" ? "auth-toggle-btn active" : "auth-toggle-btn"}
-          onClick={() => setMode("signup")}
+          onClick={() => {
+            setMode("signup");
+            setError(null);
+            setMessage(null);
+          }}
           type="button"
         >
           Sign up
@@ -76,20 +90,55 @@ export function AuthPanel() {
           value={email}
         />
       </label>
-      <label>
-        <p className="muted">Password</p>
-        <input
-          className="input"
-          onChange={(event) => setPassword(event.target.value)}
-          placeholder="••••••••"
-          required
-          type="password"
-          value={password}
-        />
-      </label>
+      {mode !== "forgot" ? (
+        <label>
+          <p className="muted">Password</p>
+          <input
+            className="input"
+            onChange={(event) => setPassword(event.target.value)}
+            placeholder="••••••••"
+            required
+            type="password"
+            value={password}
+          />
+        </label>
+      ) : null}
       <button className="button" disabled={submitting} type="submit">
-        {submitting ? "Working..." : mode === "login" ? "Log in" : "Create account"}
+        {submitting
+          ? "Working..."
+          : mode === "forgot"
+            ? "Send reset email"
+            : mode === "login"
+              ? "Log in"
+              : "Create account"}
       </button>
+      {mode === "login" ? (
+        <button
+          className="auth-link-button"
+          onClick={() => {
+            setMode("forgot");
+            setError(null);
+            setMessage(null);
+            setPassword("");
+          }}
+          type="button"
+        >
+          Forgot password?
+        </button>
+      ) : null}
+      {mode === "forgot" ? (
+        <button
+          className="auth-link-button"
+          onClick={() => {
+            setMode("login");
+            setError(null);
+            setMessage(null);
+          }}
+          type="button"
+        >
+          Back to login
+        </button>
+      ) : null}
       {error ? <p className="form-error">{error}</p> : null}
       {message ? <p className="muted">{message}</p> : null}
       <p className="muted">Real signup and login are powered by Supabase Auth.</p>
