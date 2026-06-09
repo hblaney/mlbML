@@ -332,7 +332,8 @@ h2 {
   background: rgba(8, 9, 11, 0.32);
   border: 1px solid var(--line);
   width: 100%;
-  border-collapse: collapse;
+  border-collapse: separate;
+  border-spacing: 0;
   font-size: 14px;
 }
 
@@ -345,11 +346,18 @@ h2 {
 }
 
 .table th {
-  background: rgba(255, 255, 255, 0.025);
+  background: #101318;
   color: #a8b0bd;
   font-size: 11px;
   letter-spacing: 0.12em;
+  position: sticky;
+  top: 0;
   text-transform: uppercase;
+  z-index: 5;
+}
+
+.table thead th {
+  box-shadow: 0 1px 0 var(--line), 0 10px 20px rgba(3, 4, 6, 0.42);
 }
 
 .table tr:last-child td {
