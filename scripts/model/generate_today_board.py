@@ -66,6 +66,7 @@ def main() -> None:
         home_probability, away_probability, notes = market_aware_probabilities(prediction, market_snapshot, odds_available)
         predicted_home = home_probability >= away_probability
         pick_probability = max(home_probability, away_probability)
+        internal_agrees = prediction.predicted_home == predicted_home
         home_abbr = team_abbr.get(game.home_team_id, str(game.home_team_id)).lower()
         away_abbr = team_abbr.get(game.away_team_id, str(game.away_team_id)).lower()
         predicted_team = home_abbr if predicted_home else away_abbr
@@ -98,7 +99,12 @@ def main() -> None:
                 "underPrice": market_snapshot.under_price if odds_available and market_snapshot.under_price else None,
                 "projectedTotal": projected_total_for(game, bundle.league),
                 "oddsSource": "The Odds API" if odds_available else None,
-                "confidence": confidence_for(pick_probability),
+                "confidence": confidence_for(
+                    pick_probability,
+                    market_backed=odds_available,
+                    internal_pick_probability=prediction.pick_probability,
+                    internal_agrees=internal_agrees,
+                ),
                 "modelVersion": MODEL_VERSION,
                 "explanation": notes,
             }

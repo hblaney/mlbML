@@ -81,14 +81,14 @@ def build_single_candidates(rows: list[dict], store: HistoricalOddsStore) -> dic
                 "team": row["home"],
                 "side": "home",
                 "odds": market.home_moneyline,
-                "model_probability": row["probability"],
+                "model_probability": row.get("internalHomeProbability", row["probability"]),
                 "won": row["actual"] == row["home"],
             },
             {
                 "team": row["away"],
                 "side": "away",
                 "odds": market.away_moneyline,
-                "model_probability": 1 - row["probability"],
+                "model_probability": 1 - row.get("internalHomeProbability", row["probability"]),
                 "won": row["actual"] == row["away"],
             },
         ]

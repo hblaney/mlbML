@@ -56,6 +56,12 @@ def main() -> None:
         "overall": summarize(predictions),
         "by_confidence": confidence_buckets(predictions),
         "by_pick_probability": probability_buckets(predictions),
+        "by_market_backed_pick_probability": probability_buckets(
+            [row for row in predictions if row.get("marketBacked")]
+        ),
+        "by_model_only_pick_probability": probability_buckets(
+            [row for row in predictions if not row.get("marketBacked")]
+        ),
     }
     OUTPUT_PATH.write_text(json.dumps(report, indent=2))
 

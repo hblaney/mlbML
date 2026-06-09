@@ -26,27 +26,28 @@ def season_history_rows(year: int, end_date: date, team_abbr: dict[int, str]) ->
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        "--include-previous-season",
+        "--current-season-only",
         action="store_true",
-        help="Also backfill the prior season. This can be slow when MLB stat caches are cold.",
+        help="Only generate the current season. By default the prior season is included for odds-backed confidence validation.",
     )
     args = parser.parse_args()
 
     today = date.today()
     yesterday = today - timedelta(days=1)
     team_abbr = load_team_abbreviations()
-    rows = season_history_rows(yesterday.year, yesterday, team_abbr)
+    current_rows = season_history_rows(yesterday.year, yesterday, team_abbr)
+    rows = current_rows
     history_start = season_start_for(yesterday.year)
     method = "current-season walk-forward"
 
-    if args.include_previous_season:
+    if not args.current_season_only:
         previous_year_end = date(yesterday.year - 1, 10, 5)
         rows = [
             *season_history_rows(yesterday.year - 1, previous_year_end, team_abbr),
-            *rows,
+            *current_rows,
         ]
         history_start = season_start_for(yesterday.year - 1)
-        method = "season-local walk-forward by year"
+        method = "season-local walk-forward by year with market-backed confidence when odds are available"
 
     rows.sort(key=lambda row: (row["date"], row["gamePk"]))
 

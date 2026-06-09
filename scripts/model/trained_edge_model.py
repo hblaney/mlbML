@@ -12,7 +12,7 @@ from dataclasses import dataclass
 from datetime import date, datetime
 
 import numpy as np
-from sklearn.linear_model import LogisticRegression
+from sklearn.ensemble import ExtraTreesClassifier
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
 
@@ -219,10 +219,24 @@ def feature_row(game: GameRecord, league: LeagueState) -> list[float]:
     return features
 
 
-def confidence_for(pick_probability: float) -> str:
+def confidence_for(
+    pick_probability: float,
+    market_backed: bool = False,
+    internal_pick_probability: float | None = None,
+    internal_agrees: bool = True,
+) -> str:
+    if not market_backed:
+        if pick_probability >= 0.60:
+            return "Medium"
+        return "Low"
+
     if pick_probability >= 0.70:
         return "Elite"
-    if pick_probability >= 0.65:
+    if (
+        pick_probability >= 0.68
+        and internal_agrees
+        and (internal_pick_probability is None or internal_pick_probability >= 0.55)
+    ):
         return "High"
     if pick_probability >= 0.55:
         return "Medium"
@@ -240,11 +254,13 @@ def build_model() -> Pipeline:
             ("scale", StandardScaler()),
             (
                 "model",
-                LogisticRegression(
-                    C=0.04,
+                ExtraTreesClassifier(
+                    n_estimators=220,
+                    max_depth=7,
+                    min_samples_leaf=18,
                     class_weight="balanced",
-                    max_iter=1000,
-                    solver="liblinear",
+                    random_state=42,
+                    n_jobs=-1,
                 ),
             ),
         ]
@@ -290,7 +306,7 @@ def predict_with_model(game: GameRecord, league: LeagueState, model: Pipeline | 
         confidence=confidence_for(pick_probability),
         notes=[
             "Trained on prior games only using walk-forward features",
-            "Blends trained logistic output with Elo, real team hitting/pitching stats, starter profile, rolling form, park, weather, timing, and matchup context",
+            "Blends trained tree-ensemble output with Elo, real team hitting/pitching stats, starter profile, rolling form, park, weather, timing, and matchup context",
             "Probability is capped to a realistic pregame range",
         ],
     )

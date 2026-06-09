@@ -6,7 +6,7 @@ import {
   getBestParlaysByLegCount
 } from "@/lib/data";
 import { loadParlayBacktest, loadPredictionBoard } from "@/lib/model-output";
-import { formatOdds, formatPercent } from "@/lib/odds";
+import { decimalOdds, formatOdds, formatPercent } from "@/lib/odds";
 import { formatStandingRecord, loadLiveStandings } from "@/lib/standings";
 import { formatCentralGameTime } from "@/lib/time";
 
@@ -26,6 +26,7 @@ export default async function BestBetsPage() {
     ? getBacktestedParlaysByLegCount(board, recommendedStrategies)
     : getBestParlaysByLegCount(board);
   const recordFor = (teamId: string) => formatStandingRecord(standingsByTeamId.get(teamId));
+  const profitForStake = (odds: number, stake = 100) => (decimalOdds(odds) - 1) * stake;
   const teamLink = (team: { id: string; name: string; abbreviation: string }) => (
     <Link className="team-stream-link" href={`/watch/${team.id}`} title={`Open ${team.name} stream page`}>
       {team.name}
@@ -72,6 +73,7 @@ export default async function BestBetsPage() {
                 <th>Model</th>
                 <th>Book</th>
                 <th>Edge</th>
+                <th>Wins / $100</th>
                 <th>EV / $100</th>
               </tr>
             </thead>
@@ -90,6 +92,7 @@ export default async function BestBetsPage() {
                   <td>{formatPercent(bet.modelProbability)}</td>
                   <td>{formatPercent(bet.bookProbability)}</td>
                   <td className="positive">{formatPercent(bet.edge)}</td>
+                  <td className="positive">${profitForStake(bet.odds).toFixed(2)}</td>
                   <td className={bet.ev > 0 ? "positive" : "negative"}>${bet.ev.toFixed(2)}</td>
                 </tr>
               ))}

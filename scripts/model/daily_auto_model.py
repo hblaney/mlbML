@@ -14,19 +14,22 @@ from pathlib import Path
 from sklearn.pipeline import Pipeline
 
 from fast_edge_model import FastPrediction
+from historical_odds import HistoricalOddsStore
 from mlb_api import GameRecord, load_or_fetch_games
+from odds_provider import implied_probability
 from team_tracker import LeagueState
 from trained_edge_model import (
     REFIT_EVERY,
     WARMUP_GAMES,
     TrainingExample,
+    confidence_for,
     feature_row,
     fit_model,
     predict_with_model,
 )
 
 MODEL_PATH = Path(__file__).resolve().parents[2] / "data" / "model" / "daily_edge.pkl"
-MODEL_VERSION = "daily-auto-v1.0"
+MODEL_VERSION = "daily-auto-v1.1"
 
 
 @dataclass
@@ -46,7 +49,7 @@ class DailyModelBundle:
             confidence=prediction.confidence,
             notes=[
                 f"Retrained through {self.trained_through.isoformat()}",
-                "Blended logistic + form model fit on prior games with stats, rolling form, weather, park, starter, and matchup features",
+                "Blended tree ensemble + form model fit on prior games with stats, rolling form, weather, park, starter, and matchup features",
                 "Retrains automatically when yesterday's final scores are new",
             ],
         )
@@ -117,12 +120,22 @@ def ensure_trained_through(yesterday: date) -> DailyModelBundle:
     return bundle
 
 
+def no_vig_market_probabilities(home_moneyline: int, away_moneyline: int) -> tuple[float, float] | None:
+    home = implied_probability(home_moneyline)
+    away = implied_probability(away_moneyline)
+    total = home + away
+    if total <= 0:
+        return None
+    return home / total, away / total
+
+
 def walk_forward_history(games: list[GameRecord], team_abbr: dict[int, str]) -> list[dict]:
     league = LeagueState()
     examples: list[TrainingExample] = []
     model: Pipeline | None = None
     last_fit_index = 0
     rows: list[dict] = []
+    odds = HistoricalOddsStore()
 
     for index, game in enumerate(games):
         features = feature_row(game, league)
@@ -135,8 +148,24 @@ def walk_forward_history(games: list[GameRecord], team_abbr: dict[int, str]) -> 
             prediction = predict_with_model(game, league, model)
             home_abbr = team_abbr.get(game.home_team_id, str(game.home_team_id))
             away_abbr = team_abbr.get(game.away_team_id, str(game.away_team_id))
+            market = odds.for_game(game.game_date.isoformat(), away_abbr, home_abbr)
+            odds_available = market.source_count > 0 and market.home_moneyline != 0 and market.away_moneyline != 0
+            home_probability = prediction.home_probability
+            away_probability = prediction.away_probability
+            if odds_available:
+                market_probs = no_vig_market_probabilities(market.home_moneyline, market.away_moneyline)
+                if market_probs is not None:
+                    market_home, market_away = market_probs
+                    home_probability = (prediction.home_probability * 0.35) + (market_home * 0.65)
+                    away_probability = (prediction.away_probability * 0.35) + (market_away * 0.65)
+                    total = home_probability + away_probability
+                    home_probability /= total
+                    away_probability /= total
+            predicted_home = home_probability >= away_probability
+            pick_probability = max(home_probability, away_probability)
+            internal_agrees = prediction.predicted_home == predicted_home
             actual_winner = home_abbr if game.home_won else away_abbr
-            predicted_winner = home_abbr if prediction.predicted_home else away_abbr
+            predicted_winner = home_abbr if predicted_home else away_abbr
 
             rows.append(
                 {
@@ -145,9 +174,17 @@ def walk_forward_history(games: list[GameRecord], team_abbr: dict[int, str]) -> 
                     "startsAt": game.game_datetime_iso,
                     "home": home_abbr,
                     "away": away_abbr,
-                    "probability": round(prediction.home_probability, 4),
-                    "pickProbability": round(prediction.pick_probability, 4),
-                    "confidence": prediction.confidence,
+                    "internalHomeProbability": round(prediction.home_probability, 4),
+                    "internalPickProbability": round(prediction.pick_probability, 4),
+                    "probability": round(home_probability, 4),
+                    "pickProbability": round(pick_probability, 4),
+                    "confidence": confidence_for(
+                        pick_probability,
+                        market_backed=odds_available,
+                        internal_pick_probability=prediction.pick_probability,
+                        internal_agrees=internal_agrees,
+                    ),
+                    "marketBacked": odds_available,
                     "predicted": predicted_winner,
                     "actual": actual_winner,
                     "correct": int(predicted_winner == actual_winner),

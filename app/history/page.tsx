@@ -132,7 +132,7 @@ export default async function HistoryPage() {
                     {formatPercent(highConfidenceSummary.accuracy)}
                   </div>
                   <p className="muted">
-                    {highConfidenceSummary.wins}-{highConfidenceSummary.losses} record when confidence is High or Elite
+                    {highConfidenceSummary.wins}-{highConfidenceSummary.losses} record when model signal and market odds support High or Elite
                   </p>
                 </article>
                 <article>
@@ -141,7 +141,7 @@ export default async function HistoryPage() {
                     {eliteConfidenceSummary.accuracy !== null ? formatPercent(eliteConfidenceSummary.accuracy) : "-"}
                   </div>
                   <p className="muted">
-                    {eliteConfidenceSummary.wins}-{eliteConfidenceSummary.losses} record at 70%+ model probability
+                    {eliteConfidenceSummary.wins}-{eliteConfidenceSummary.losses} record at 70%+ market-backed pick probability
                   </p>
                 </article>
               </div>
