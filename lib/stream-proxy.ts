@@ -218,7 +218,8 @@ export async function resolveStreamManifest(slug: string): Promise<StreamManifes
   }
 
   try {
-    const payload = (await streamResponse.json()) as { url?: string };
+    const responseText = await streamResponse.text();
+    const payload = JSON.parse(responseText.replace(/^\uFEFF/, "").trim()) as { url?: string };
     if (!payload.url) {
       return {
         url: null,
