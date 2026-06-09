@@ -495,7 +495,8 @@ h2 {
   padding: 7px 8px;
 }
 
-.team-row > span:nth-child(2) {
+.team-abbrev,
+.team-row > span:nth-child(2):not(.dot) {
   color: #f8fafc;
   font-size: 13px;
   letter-spacing: 0.1em;
@@ -505,6 +506,17 @@ h2 {
 .team-name {
   color: #c4cad4;
   font-weight: 700;
+}
+
+.team-stream-link {
+  color: inherit;
+  text-decoration: none;
+  text-underline-offset: 3px;
+}
+
+.team-stream-link:hover {
+  color: #f8fafc;
+  text-decoration: underline;
 }
 
 .team-record {

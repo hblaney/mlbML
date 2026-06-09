@@ -1,6 +1,8 @@
+import Link from "next/link";
 import { FavoriteButton } from "@/components/FavoriteButton";
 import { GamePrediction, getTeam } from "@/lib/data";
 import { formatOdds, formatPercent } from "@/lib/odds";
+import { formatCentralGameTime } from "@/lib/time";
 
 export function GameCard({ game, recordsByTeamId = {} }: { game: GamePrediction; recordsByTeamId?: Record<string, string> }) {
   const away = getTeam(game.awayTeam);
@@ -19,19 +21,23 @@ export function GameCard({ game, recordsByTeamId = {} }: { game: GamePrediction;
       <div className="matchup">
         <div>
           <p className="card-kicker">{matchup}</p>
-          <p className="muted">{new Date(game.startsAt).toLocaleString()}</p>
+          <p className="muted">{formatCentralGameTime(game.startsAt)}</p>
           <div className="team-row">
             <FavoriteButton kind="team" label={away.name} teamId={away.id} />
             <span className="dot" style={{ background: away.primary }} />
-            <span>{away.abbreviation}</span>
-            <span className="team-name">{away.shortName}</span>
+            <span className="team-abbrev">{away.abbreviation}</span>
+            <Link className="team-name team-stream-link" href={`/watch/${away.id}`} title={`Open ${away.name} stream page`}>
+              {away.shortName}
+            </Link>
             {awayRecord ? <span className="team-record">{awayRecord}</span> : null}
           </div>
           <div className="team-row">
             <FavoriteButton kind="team" label={home.name} teamId={home.id} />
             <span className="dot" style={{ background: home.primary }} />
-            <span>{home.abbreviation}</span>
-            <span className="team-name">{home.shortName}</span>
+            <span className="team-abbrev">{home.abbreviation}</span>
+            <Link className="team-name team-stream-link" href={`/watch/${home.id}`} title={`Open ${home.name} stream page`}>
+              {home.shortName}
+            </Link>
             {homeRecord ? <span className="team-record">{homeRecord}</span> : null}
           </div>
         </div>

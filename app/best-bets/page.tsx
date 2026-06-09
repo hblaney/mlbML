@@ -1,3 +1,4 @@
+import Link from "next/link";
 import {
   getAdvancedBets,
   getBacktestedParlaysByLegCount,
@@ -7,6 +8,7 @@ import {
 import { loadParlayBacktest, loadPredictionBoard } from "@/lib/model-output";
 import { formatOdds, formatPercent } from "@/lib/odds";
 import { formatStandingRecord, loadLiveStandings } from "@/lib/standings";
+import { formatCentralGameTime } from "@/lib/time";
 
 export const dynamic = "force-dynamic";
 
@@ -22,6 +24,16 @@ export default async function BestBetsPage() {
     ? getBacktestedParlaysByLegCount(board, recommendedStrategies)
     : getBestParlaysByLegCount(board);
   const recordFor = (teamId: string) => formatStandingRecord(standingsByTeamId.get(teamId));
+  const teamLink = (team: { id: string; name: string; abbreviation: string }) => (
+    <Link className="team-stream-link" href={`/watch/${team.id}`} title={`Open ${team.name} stream page`}>
+      {team.name}
+    </Link>
+  );
+  const teamAbbrevLink = (team: { id: string; name: string; abbreviation: string }) => (
+    <Link className="team-stream-link" href={`/watch/${team.id}`} title={`Open ${team.name} stream page`}>
+      {team.abbreviation}
+    </Link>
+  );
 
   return (
     <main className="shell stack">
@@ -53,10 +65,10 @@ export default async function BestBetsPage() {
                   <td>
                     <strong>{bet.matchup}</strong>
                     <p>
-                      {bet.team.name} ({recordFor(bet.team.id)}) {bet.side} vs {bet.opponent.name} (
+                      {teamLink(bet.team)} ({recordFor(bet.team.id)}) {bet.side} vs {teamLink(bet.opponent)} (
                       {recordFor(bet.opponent.id)})
                     </p>
-                    <p className="muted">{new Date(bet.game.startsAt).toLocaleString()}</p>
+                    <p className="muted">{formatCentralGameTime(bet.game.startsAt)}</p>
                   </td>
                   <td>{formatOdds(bet.odds)}</td>
                   <td>{formatPercent(bet.modelProbability)}</td>
@@ -99,8 +111,8 @@ export default async function BestBetsPage() {
                   <td>
                     {parlay.legs.map((leg) => (
                       <p key={leg.id}>
-                        <strong>{leg.team.abbreviation} ML</strong> ({recordFor(leg.team.id)}) vs{" "}
-                        {leg.opponent.abbreviation} ({recordFor(leg.opponent.id)}) · {leg.matchup} ·{" "}
+                        <strong>{teamAbbrevLink(leg.team)} ML</strong> ({recordFor(leg.team.id)}) vs{" "}
+                        {teamAbbrevLink(leg.opponent)} ({recordFor(leg.opponent.id)}) · {leg.matchup} ·{" "}
                         {formatOdds(leg.odds)} · {formatPercent(leg.modelProbability)}
                       </p>
                     ))}
@@ -141,8 +153,12 @@ export default async function BestBetsPage() {
                 <tr key={bet.id}>
                   <td>{bet.market}</td>
                   <td>
-                    <strong>{bet.matchup}</strong>
-                    <p>{bet.label}</p>
+                    <strong>
+                      {teamAbbrevLink(bet.team)} vs {teamAbbrevLink(bet.opponent)}
+                    </strong>
+                    <p>
+                      {bet.label} · {formatCentralGameTime(bet.game.startsAt)}
+                    </p>
                     {bet.market === "Total" ? (
                       <p className="muted">Projected total: {bet.game.projectedTotal?.toFixed(1)}</p>
                     ) : null}

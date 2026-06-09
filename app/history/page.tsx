@@ -1,7 +1,33 @@
+import Link from "next/link";
 import { loadAccuracyOutput, loadFullPredictionHistory, loadParlayBacktest } from "@/lib/model-output";
 import { formatPercent } from "@/lib/odds";
+import { normalizeTeamId, teams } from "@/lib/data";
 
 export const dynamic = "force-dynamic";
+
+function teamIdForLabel(label: string) {
+  const normalized = normalizeTeamId(label);
+  const lowerLabel = label.toLowerCase();
+  const team = teams.find(
+    (item) =>
+      item.id === normalized ||
+      item.abbreviation.toLowerCase() === lowerLabel ||
+      item.name.toLowerCase() === lowerLabel ||
+      item.shortName.toLowerCase() === lowerLabel
+  );
+
+  return team?.id ?? normalized;
+}
+
+function teamHistoryLink(label: string) {
+  const teamId = teamIdForLabel(label);
+
+  return (
+    <Link className="team-stream-link" href={`/watch/${teamId}`} title={`Open ${label} stream page`}>
+      {label}
+    </Link>
+  );
+}
 
 export default async function HistoryPage() {
   const output = await loadAccuracyOutput();
@@ -128,8 +154,8 @@ export default async function HistoryPage() {
                   <tbody>
                     {day.predictions.map((row, index) => (
                       <tr key={`${row.date}-${row.away}-${row.home}-${index}`}>
-                        <td>{row.away} @ {row.home}</td>
-                        <td>{row.predicted ?? (row.probability >= 0.5 ? row.home : row.away)}</td>
+                        <td>{teamHistoryLink(row.away)} @ {teamHistoryLink(row.home)}</td>
+                        <td>{teamHistoryLink(row.predicted ?? (row.probability >= 0.5 ? row.home : row.away))}</td>
                         <td>{formatPercent(row.pickProbability ?? Math.max(row.probability, 1 - row.probability))}</td>
                         <td>{row.confidence ?? "Low"}</td>
                         <td>{row.actual ?? "Unknown"}</td>
