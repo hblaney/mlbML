@@ -1,0 +1,46 @@
+{
+  "generated_at": "2026-06-08",
+  "promotion_allowed": true,
+  "missing_required_sources": [],
+  "sources": {
+    "mlb_schedule_results": {
+      "status": "real",
+      "source": "MLB Stats API",
+      "sample_games": 5
+    },
+    "probable_pitchers_and_pitcher_stats": {
+      "status": "real",
+      "source": "MLB Stats API people/stats"
+    },
+    "park_factors": {
+      "status": "real_curated",
+      "source": "local curated MLB park metadata"
+    },
+    "historical_weather": {
+      "status": "real_available",
+      "source": "Open-Meteo archive API"
+    },
+    "current_weather": {
+      "status": "real_available",
+      "source": "Open-Meteo forecast API"
+    },
+    "statcast": {
+      "status": "real_available",
+      "source": "pybaseball / Baseball Savant Statcast",
+      "requires": [
+        "pybaseball",
+        "pandas",
+        "pyarrow"
+      ]
+    },
+    "historical_odds": {
+      "status": "real_available",
+      "source": "The Odds API historical endpoint or imported local odds dataset",
+      "requires": "ODDS_API_KEY with historical access, or data/*odds*.csv/json"
+    },
+    "injuries_lineups": {
+      "status": "missing",
+      "source": "not configured"
+    }
+  }
+}

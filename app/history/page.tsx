@@ -1,0 +1,117 @@
+import { loadAccuracyOutput, loadFullPredictionHistory } from "@/lib/model-output";
+import { formatPercent } from "@/lib/odds";
+
+export const dynamic = "force-dynamic";
+
+export default async function HistoryPage() {
+  const output = await loadAccuracyOutput();
+  const fullHistory = await loadFullPredictionHistory();
+  const predictionRows = fullHistory.length > 0 ? fullHistory : output?.prediction_history ?? output?.recent_predictions ?? [];
+  const rowsByDate = predictionRows.reduce<Record<string, typeof predictionRows>>((groups, row) => {
+    groups[row.date] = [...(groups[row.date] ?? []), row];
+    return groups;
+  }, {});
+
+  const days = Object.entries(rowsByDate)
+    .sort(([left], [right]) => right.localeCompare(left))
+    .map(([date, predictions]) => {
+      const sortedPredictions = [...predictions].sort((left, right) => {
+        const leftTime = left.startsAt ?? "";
+        const rightTime = right.startsAt ?? "";
+        return leftTime.localeCompare(rightTime);
+      });
+      const correct = sortedPredictions.filter((row) => row.correct).length;
+      const total = sortedPredictions.length;
+      const highConfidence = sortedPredictions.filter((row) => row.confidence === "High");
+      const highCorrect = highConfidence.filter((row) => row.correct).length;
+
+      return {
+        date,
+        accuracy: total > 0 ? correct / total : 0,
+        correct,
+        total,
+        highAccuracy: highConfidence.length > 0 ? highCorrect / highConfidence.length : null,
+        highCorrect,
+        highTotal: highConfidence.length,
+        predictions: sortedPredictions
+      };
+    });
+
+  return (
+    <main className="shell stack">
+      <section className="panel strong">
+        <p className="eyebrow">Prediction history</p>
+        <h1>Past Picks By Date</h1>
+        <p className="lead">
+          Check yesterday, the day before, or any saved backtest day. Each date&apos;s accuracy is calculated directly
+          from the game rows shown below it.
+        </p>
+      </section>
+
+      {days.length > 0 ? (
+        <section className="stack">
+          {days.map((day) => (
+            <article className="panel" key={day.date}>
+              <div className="split">
+                <div>
+                  <p className="muted">Date</p>
+                  <h2>{day.date}</h2>
+                </div>
+                <div>
+                  <p className="muted">Accuracy</p>
+                  <div className={day.accuracy >= 0.6 ? "metric positive" : "metric warning"}>
+                    {formatPercent(day.accuracy)}
+                  </div>
+                  <p className="muted">{day.correct}-{day.total - day.correct} record · {day.total} games</p>
+                  {day.highAccuracy !== null ? (
+                    <p className={day.highAccuracy >= 0.6 ? "positive" : "warning"}>
+                      High confidence: {formatPercent(day.highAccuracy)} · {day.highCorrect}-{day.highTotal - day.highCorrect}
+                    </p>
+                  ) : (
+                    <p className="muted">No high-confidence picks</p>
+                  )}
+                </div>
+              </div>
+
+              {day.predictions.length > 0 ? (
+                <table className="table">
+                  <thead>
+                    <tr>
+                      <th>Matchup</th>
+                      <th>Pick</th>
+                      <th>Probability</th>
+                      <th>Confidence</th>
+                      <th>Actual</th>
+                      <th>Home Win %</th>
+                      <th>Result</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {day.predictions.map((row, index) => (
+                      <tr key={`${row.date}-${row.away}-${row.home}-${index}`}>
+                        <td>{row.away} @ {row.home}</td>
+                        <td>{row.predicted ?? (row.probability >= 0.5 ? row.home : row.away)}</td>
+                        <td>{formatPercent(row.pickProbability ?? Math.max(row.probability, 1 - row.probability))}</td>
+                        <td>{row.confidence ?? "Low"}</td>
+                        <td>{row.actual ?? "Unknown"}</td>
+                        <td>{formatPercent(row.probability)}</td>
+                        <td className={row.correct ? "positive" : "negative"}>{row.correct ? "Correct" : "Miss"}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              ) : (
+                <p className="muted">Game-level picks are not saved for this date yet. Re-run the backtest to generate full history.</p>
+              )}
+            </article>
+          ))}
+        </section>
+      ) : (
+        <section className="panel">
+          <p>Run the model first:</p>
+          <p><code>python3 scripts/model/backtest.py</code></p>
+        </section>
+      )}
+    </main>
+  );
+}

@@ -1,0 +1,711 @@
+{
+  "generated_at": "2026-06-08",
+  "games": 5595,
+  "total_features": 899,
+  "top_n": 40,
+  "tested": {
+    "singles": 40,
+    "pairs": 780,
+    "random_subsets": 20,
+    "beam_width": 4,
+    "beam_max_size": 4,
+    "finalists_validated": 8
+  },
+  "best_validated": {
+    "name": "beam_size_4_7",
+    "source": "beam_size_4",
+    "feature_count": 4,
+    "features": [
+      "home_run_differential",
+      "away_starter_fip",
+      "home_starter_k_rate",
+      "away_starter_bb_rate"
+    ],
+    "accuracy": 0.6056158264199106,
+    "auc": 0.6301197119329456,
+    "brier": 0.2358391047521276,
+    "validated": {
+      "accuracy": 0.5793991416309013,
+      "auc": 0.6040445233952908,
+      "brier": 0.2414075504023584
+    }
+  },
+  "validated_finalists": [
+    {
+      "name": "beam_size_4_7",
+      "source": "beam_size_4",
+      "feature_count": 4,
+      "features": [
+        "home_run_differential",
+        "away_starter_fip",
+        "home_starter_k_rate",
+        "away_starter_bb_rate"
+      ],
+      "accuracy": 0.6056158264199106,
+      "auc": 0.6301197119329456,
+      "brier": 0.2358391047521276,
+      "validated": {
+        "accuracy": 0.5793991416309013,
+        "auc": 0.6040445233952908,
+        "brier": 0.2414075504023584
+      }
+    },
+    {
+      "name": "beam_size_4_14",
+      "source": "beam_size_4",
+      "feature_count": 4,
+      "features": [
+        "home_run_differential",
+        "home_wrc_plus_season",
+        "away_starter_fip",
+        "home_starter_k_rate"
+      ],
+      "accuracy": 0.6056158264199106,
+      "auc": 0.6301197119329456,
+      "brier": 0.2358391047521276,
+      "validated": {
+        "accuracy": 0.5789699570815451,
+        "auc": 0.6030088483137757,
+        "brier": 0.24156362232238338
+      }
+    },
+    {
+      "name": "beam_size_3_52",
+      "source": "beam_size_3",
+      "feature_count": 3,
+      "features": [
+        "home_wrc_plus_season",
+        "away_starter_fip",
+        "home_starter_k_rate"
+      ],
+      "accuracy": 0.6056158264199106,
+      "auc": 0.6301197119329456,
+      "brier": 0.2358391047521276,
+      "validated": {
+        "accuracy": 0.5783261802575107,
+        "auc": 0.6019194523839113,
+        "brier": 0.24147038374810534
+      }
+    },
+    {
+      "name": "beam_size_3_51",
+      "source": "beam_size_3",
+      "feature_count": 3,
+      "features": [
+        "home_run_differential",
+        "away_starter_fip",
+        "home_starter_k_rate"
+      ],
+      "accuracy": 0.6056158264199106,
+      "auc": 0.6301197119329456,
+      "brier": 0.2358391047521276,
+      "validated": {
+        "accuracy": 0.5783261802575107,
+        "auc": 0.6019192674584435,
+        "brier": 0.2414704242809305
+      }
+    },
+    {
+      "name": "beam_size_3_15",
+      "source": "beam_size_3",
+      "feature_count": 3,
+      "features": [
+        "home_wrc_plus_season",
+        "away_starter_era",
+        "home_starter_k_rate"
+      ],
+      "accuracy": 0.6056158264199106,
+      "auc": 0.6301099048384935,
+      "brier": 0.23584064645917174,
+      "validated": {
+        "accuracy": 0.5783261802575107,
+        "auc": 0.6019102061105293,
+        "brier": 0.2414720541333995
+      }
+    },
+    {
+      "name": "beam_size_3_14",
+      "source": "beam_size_3",
+      "feature_count": 3,
+      "features": [
+        "home_run_differential",
+        "away_starter_era",
+        "home_starter_k_rate"
+      ],
+      "accuracy": 0.6056158264199106,
+      "auc": 0.6301099048384935,
+      "brier": 0.23584064645917174,
+      "validated": {
+        "accuracy": 0.5783261802575107,
+        "auc": 0.6019100211850616,
+        "brier": 0.2414720946662247
+      }
+    },
+    {
+      "name": "beam_size_4_42",
+      "source": "beam_size_4",
+      "feature_count": 4,
+      "features": [
+        "home_wrc_plus_season",
+        "away_starter_fip",
+        "away_starter_xfip",
+        "home_starter_k_rate"
+      ],
+      "accuracy": 0.6056158264199106,
+      "auc": 0.6301197119329456,
+      "brier": 0.2358391047521276,
+      "validated": {
+        "accuracy": 0.5781115879828326,
+        "auc": 0.6034664463834496,
+        "brier": 0.24146131836963936
+      }
+    },
+    {
+      "name": "beam_size_4_5",
+      "source": "beam_size_4",
+      "feature_count": 4,
+      "features": [
+        "home_run_differential",
+        "away_starter_fip",
+        "away_starter_xfip",
+        "home_starter_k_rate"
+      ],
+      "accuracy": 0.6056158264199106,
+      "auc": 0.6301197119329456,
+      "brier": 0.2358391047521276,
+      "validated": {
+        "accuracy": 0.5781115879828326,
+        "auc": 0.603466261457982,
+        "brier": 0.24146133449025783
+      }
+    }
+  ],
+  "best_holdout_singles": [
+    {
+      "name": "single_home_starter_k_rate",
+      "source": "single",
+      "feature_count": 1,
+      "features": [
+        "home_starter_k_rate"
+      ],
+      "accuracy": 0.5692405871091257,
+      "auc": 0.577643584035358,
+      "brier": 0.243367182122807
+    },
+    {
+      "name": "single_home_starter_era",
+      "source": "single",
+      "feature_count": 1,
+      "features": [
+        "home_starter_era"
+      ],
+      "accuracy": 0.5673261008296108,
+      "auc": 0.5820273552554586,
+      "brier": 0.2433289621718084
+    },
+    {
+      "name": "single_home_starter_fip",
+      "source": "single",
+      "feature_count": 1,
+      "features": [
+        "home_starter_fip"
+      ],
+      "accuracy": 0.5673261008296108,
+      "auc": 0.5820273552554586,
+      "brier": 0.2433302589658729
+    },
+    {
+      "name": "single_home_starter_xfip",
+      "source": "single",
+      "feature_count": 1,
+      "features": [
+        "home_starter_xfip"
+      ],
+      "accuracy": 0.5673261008296108,
+      "auc": 0.5820273552554586,
+      "brier": 0.2433302589658729
+    },
+    {
+      "name": "single_home_starter_bb_rate",
+      "source": "single",
+      "feature_count": 1,
+      "features": [
+        "home_starter_bb_rate"
+      ],
+      "accuracy": 0.5673261008296108,
+      "auc": 0.5820273552554586,
+      "brier": 0.2433302589658729
+    },
+    {
+      "name": "single_away_starter_fip",
+      "source": "single",
+      "feature_count": 1,
+      "features": [
+        "away_starter_fip"
+      ],
+      "accuracy": 0.5603063178047224,
+      "auc": 0.5856167518249369,
+      "brier": 0.24385645055227456
+    },
+    {
+      "name": "single_away_starter_era",
+      "source": "single",
+      "feature_count": 1,
+      "features": [
+        "away_starter_era"
+      ],
+      "accuracy": 0.5603063178047224,
+      "auc": 0.5856167518249369,
+      "brier": 0.24385645055227456
+    },
+    {
+      "name": "single_away_starter_xfip",
+      "source": "single",
+      "feature_count": 1,
+      "features": [
+        "away_starter_xfip"
+      ],
+      "accuracy": 0.5603063178047224,
+      "auc": 0.5852653309404022,
+      "brier": 0.24392883979056382
+    }
+  ],
+  "best_holdout_pairs": [
+    {
+      "name": "pair_26_21",
+      "source": "pair",
+      "feature_count": 2,
+      "features": [
+        "away_starter_era",
+        "home_starter_k_rate"
+      ],
+      "accuracy": 0.599234205488194,
+      "auc": 0.6268817362480019,
+      "brier": 0.23721968033482502
+    },
+    {
+      "name": "pair_26_23",
+      "source": "pair",
+      "feature_count": 2,
+      "features": [
+        "away_starter_fip",
+        "home_starter_k_rate"
+      ],
+      "accuracy": 0.599234205488194,
+      "auc": 0.6268465941595484,
+      "brier": 0.23722448100097274
+    },
+    {
+      "name": "pair_22_27",
+      "source": "pair",
+      "feature_count": 2,
+      "features": [
+        "home_starter_fip",
+        "away_starter_k_rate"
+      ],
+      "accuracy": 0.5985960433950224,
+      "auc": 0.6270942232944645,
+      "brier": 0.2369055245737828
+    },
+    {
+      "name": "pair_20_27",
+      "source": "pair",
+      "feature_count": 2,
+      "features": [
+        "home_starter_era",
+        "away_starter_k_rate"
+      ],
+      "accuracy": 0.5985960433950224,
+      "auc": 0.6270942232944645,
+      "brier": 0.2369055245737828
+    },
+    {
+      "name": "pair_24_27",
+      "source": "pair",
+      "feature_count": 2,
+      "features": [
+        "home_starter_xfip",
+        "away_starter_k_rate"
+      ],
+      "accuracy": 0.5985960433950224,
+      "auc": 0.6270942232944645,
+      "brier": 0.2369055245737828
+    },
+    {
+      "name": "pair_28_27",
+      "source": "pair",
+      "feature_count": 2,
+      "features": [
+        "away_starter_k_rate",
+        "home_starter_bb_rate"
+      ],
+      "accuracy": 0.5985960433950224,
+      "auc": 0.6270942232944645,
+      "brier": 0.2369055245737828
+    },
+    {
+      "name": "pair_26_25",
+      "source": "pair",
+      "feature_count": 2,
+      "features": [
+        "away_starter_xfip",
+        "home_starter_k_rate"
+      ],
+      "accuracy": 0.5985960433950224,
+      "auc": 0.6268506804489034,
+      "brier": 0.23723625273907692
+    },
+    {
+      "name": "pair_26_29",
+      "source": "pair",
+      "feature_count": 2,
+      "features": [
+        "home_starter_k_rate",
+        "away_starter_bb_rate"
+      ],
+      "accuracy": 0.5985960433950224,
+      "auc": 0.6268506804489034,
+      "brier": 0.23723625273907692
+    }
+  ],
+  "best_holdout_random_subsets": [
+    {
+      "name": "random_subset_20",
+      "source": "random_subset",
+      "feature_count": 8,
+      "features": [
+        "home_run_differential",
+        "home_starter_era",
+        "away_starter_era",
+        "home_starter_k_rate",
+        "home_lefty_wrc_plus_last_60",
+        "home_starter_ip_last_90",
+        "home_defensive_efficiency_last_90",
+        "home_errors_last_90"
+      ],
+      "accuracy": 0.6043395022335674,
+      "auc": 0.6337810271950729,
+      "brier": 0.23564305875846778
+    },
+    {
+      "name": "random_subset_14",
+      "source": "random_subset",
+      "feature_count": 8,
+      "features": [
+        "away_starter_era",
+        "away_starter_fip",
+        "home_starter_k_rate",
+        "away_starter_bb_rate",
+        "home_lefty_wrc_plus_last_45",
+        "home_lefty_wrc_plus_last_60",
+        "home_starter_ip_last_90",
+        "home_one_run_game_win_pct_last_90"
+      ],
+      "accuracy": 0.5998723675813656,
+      "auc": 0.637580459037401,
+      "brier": 0.23434088976714987
+    },
+    {
+      "name": "random_subset_3",
+      "source": "random_subset",
+      "feature_count": 3,
+      "features": [
+        "home_starter_era",
+        "away_starter_fip",
+        "home_defensive_efficiency_last_45"
+      ],
+      "accuracy": 0.5979578813018507,
+      "auc": 0.634179031778255,
+      "brier": 0.23520055395151782
+    },
+    {
+      "name": "random_subset_16",
+      "source": "random_subset",
+      "feature_count": 8,
+      "features": [
+        "home_wrc_plus_season",
+        "away_starter_era",
+        "home_starter_fip",
+        "home_barrel_rate_last_90",
+        "home_lefty_wrc_plus_last_90",
+        "home_left_on_base_rate_last_90",
+        "home_extra_inning_win_pct_last_90",
+        "away_defensive_efficiency_last_90"
+      ],
+      "accuracy": 0.595405232929164,
+      "auc": 0.6274529994998381,
+      "brier": 0.23638635112549286
+    },
+    {
+      "name": "random_subset_8",
+      "source": "random_subset",
+      "feature_count": 8,
+      "features": [
+        "away_starter_fip",
+        "home_starter_xfip",
+        "home_starter_bb_rate",
+        "home_lefty_wrc_plus_last_45",
+        "home_lefty_wrc_plus_last_60",
+        "home_righty_wrc_plus_last_45",
+        "home_righty_wrc_plus_last_90",
+        "home_left_on_base_rate_last_90"
+      ],
+      "accuracy": 0.5947670708359923,
+      "auc": 0.6355234209760674,
+      "brier": 0.234814686327831
+    },
+    {
+      "name": "random_subset_17",
+      "source": "random_subset",
+      "feature_count": 8,
+      "features": [
+        "elo_difference",
+        "home_win_pct",
+        "home_wrc_plus_season",
+        "away_starter_era",
+        "home_starter_fip",
+        "home_barrel_rate_last_90",
+        "home_righty_wrc_plus_last_90",
+        "home_one_run_game_win_pct_last_90"
+      ],
+      "accuracy": 0.591576260370134,
+      "auc": 0.63131209116675,
+      "brier": 0.23586486370686902
+    },
+    {
+      "name": "random_subset_5",
+      "source": "random_subset",
+      "feature_count": 8,
+      "features": [
+        "elo_difference",
+        "home_win_pct",
+        "home_starter_fip",
+        "away_starter_k_rate",
+        "home_lefty_wrc_plus_last_90",
+        "home_defensive_efficiency_last_60",
+        "away_righty_wrc_plus_last_90",
+        "away_defensive_efficiency_last_90"
+      ],
+      "accuracy": 0.5890236119974473,
+      "auc": 0.6222920160444065,
+      "brier": 0.23760351098988097
+    },
+    {
+      "name": "random_subset_2",
+      "source": "random_subset",
+      "feature_count": 5,
+      "features": [
+        "home_win_pct",
+        "away_starter_fip",
+        "away_starter_xfip",
+        "home_errors_last_90",
+        "away_righty_wrc_plus_last_90"
+      ],
+      "accuracy": 0.5775366943203574,
+      "auc": 0.5892903259551294,
+      "brier": 0.24323377125239684
+    }
+  ],
+  "best_holdout_beam": [
+    {
+      "name": "beam_size_3_51",
+      "source": "beam_size_3",
+      "feature_count": 3,
+      "features": [
+        "home_run_differential",
+        "away_starter_fip",
+        "home_starter_k_rate"
+      ],
+      "accuracy": 0.6056158264199106,
+      "auc": 0.6301197119329456,
+      "brier": 0.2358391047521276
+    },
+    {
+      "name": "beam_size_3_52",
+      "source": "beam_size_3",
+      "feature_count": 3,
+      "features": [
+        "home_wrc_plus_season",
+        "away_starter_fip",
+        "home_starter_k_rate"
+      ],
+      "accuracy": 0.6056158264199106,
+      "auc": 0.6301197119329456,
+      "brier": 0.2358391047521276
+    },
+    {
+      "name": "beam_size_4_5",
+      "source": "beam_size_4",
+      "feature_count": 4,
+      "features": [
+        "home_run_differential",
+        "away_starter_fip",
+        "away_starter_xfip",
+        "home_starter_k_rate"
+      ],
+      "accuracy": 0.6056158264199106,
+      "auc": 0.6301197119329456,
+      "brier": 0.2358391047521276
+    },
+    {
+      "name": "beam_size_4_7",
+      "source": "beam_size_4",
+      "feature_count": 4,
+      "features": [
+        "home_run_differential",
+        "away_starter_fip",
+        "home_starter_k_rate",
+        "away_starter_bb_rate"
+      ],
+      "accuracy": 0.6056158264199106,
+      "auc": 0.6301197119329456,
+      "brier": 0.2358391047521276
+    },
+    {
+      "name": "beam_size_4_14",
+      "source": "beam_size_4",
+      "feature_count": 4,
+      "features": [
+        "home_run_differential",
+        "home_wrc_plus_season",
+        "away_starter_fip",
+        "home_starter_k_rate"
+      ],
+      "accuracy": 0.6056158264199106,
+      "auc": 0.6301197119329456,
+      "brier": 0.2358391047521276
+    },
+    {
+      "name": "beam_size_4_42",
+      "source": "beam_size_4",
+      "feature_count": 4,
+      "features": [
+        "home_wrc_plus_season",
+        "away_starter_fip",
+        "away_starter_xfip",
+        "home_starter_k_rate"
+      ],
+      "accuracy": 0.6056158264199106,
+      "auc": 0.6301197119329456,
+      "brier": 0.2358391047521276
+    },
+    {
+      "name": "beam_size_3_14",
+      "source": "beam_size_3",
+      "feature_count": 3,
+      "features": [
+        "home_run_differential",
+        "away_starter_era",
+        "home_starter_k_rate"
+      ],
+      "accuracy": 0.6056158264199106,
+      "auc": 0.6301099048384935,
+      "brier": 0.23584064645917174
+    },
+    {
+      "name": "beam_size_3_15",
+      "source": "beam_size_3",
+      "feature_count": 3,
+      "features": [
+        "home_wrc_plus_season",
+        "away_starter_era",
+        "home_starter_k_rate"
+      ],
+      "accuracy": 0.6056158264199106,
+      "auc": 0.6301099048384935,
+      "brier": 0.23584064645917174
+    },
+    {
+      "name": "beam_size_2_7",
+      "source": "beam_size_2",
+      "feature_count": 2,
+      "features": [
+        "away_starter_era",
+        "home_starter_k_rate"
+      ],
+      "accuracy": 0.599234205488194,
+      "auc": 0.6268817362480019,
+      "brier": 0.23721968033482502
+    },
+    {
+      "name": "beam_size_2_5",
+      "source": "beam_size_2",
+      "feature_count": 2,
+      "features": [
+        "away_starter_fip",
+        "home_starter_k_rate"
+      ],
+      "accuracy": 0.599234205488194,
+      "auc": 0.6268465941595484,
+      "brier": 0.23722448100097274
+    },
+    {
+      "name": "beam_size_2_47",
+      "source": "beam_size_2",
+      "feature_count": 2,
+      "features": [
+        "home_starter_era",
+        "away_starter_k_rate"
+      ],
+      "accuracy": 0.5985960433950224,
+      "auc": 0.6270942232944645,
+      "brier": 0.2369055245737828
+    },
+    {
+      "name": "beam_size_2_84",
+      "source": "beam_size_2",
+      "feature_count": 2,
+      "features": [
+        "home_starter_fip",
+        "away_starter_k_rate"
+      ],
+      "accuracy": 0.5985960433950224,
+      "auc": 0.6270942232944645,
+      "brier": 0.2369055245737828
+    },
+    {
+      "name": "beam_single_home_starter_k_rate",
+      "source": "beam_single",
+      "feature_count": 1,
+      "features": [
+        "home_starter_k_rate"
+      ],
+      "accuracy": 0.5692405871091257,
+      "auc": 0.577643584035358,
+      "brier": 0.243367182122807
+    },
+    {
+      "name": "beam_single_home_starter_era",
+      "source": "beam_single",
+      "feature_count": 1,
+      "features": [
+        "home_starter_era"
+      ],
+      "accuracy": 0.5673261008296108,
+      "auc": 0.5820273552554586,
+      "brier": 0.2433289621718084
+    },
+    {
+      "name": "beam_single_home_starter_fip",
+      "source": "beam_single",
+      "feature_count": 1,
+      "features": [
+        "home_starter_fip"
+      ],
+      "accuracy": 0.5673261008296108,
+      "auc": 0.5820273552554586,
+      "brier": 0.2433302589658729
+    },
+    {
+      "name": "beam_single_home_starter_xfip",
+      "source": "beam_single",
+      "feature_count": 1,
+      "features": [
+        "home_starter_xfip"
+      ],
+      "accuracy": 0.5673261008296108,
+      "auc": 0.5820273552554586,
+      "brier": 0.2433302589658729
+    }
+  ]
+}

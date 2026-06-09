@@ -1,0 +1,722 @@
+{
+  "generated_at": "2026-06-08",
+  "date_range": {
+    "start": "2025-05-20",
+    "end": "2025-06-15"
+  },
+  "games": 161,
+  "features_total": 349,
+  "selected_top_n": 40,
+  "all_features": {
+    "accuracy": 0.5307692307692308,
+    "auc": 0.5219594594594594,
+    "brier": 0.2656060080163297
+  },
+  "top_features_model": {
+    "accuracy": 0.5384615384615384,
+    "auc": 0.5750482625482626,
+    "brier": 0.2459611250574684
+  },
+  "top_features": [
+    {
+      "feature": "home_hitting_strikeOuts",
+      "abs_corr": 0.2109711545271794,
+      "directional_corr": 0.2109711545271794,
+      "univariate_auc": 0.626452119309262,
+      "mutual_information": 0.0
+    },
+    {
+      "feature": "park_left_field_ft",
+      "abs_corr": 0.17610600603009854,
+      "directional_corr": -0.17610600603009854,
+      "univariate_auc": 0.6252747252747253,
+      "mutual_information": 0.07833297287713004
+    },
+    {
+      "feature": "home_hitting_caughtStealingPercentage",
+      "abs_corr": 0.22673761242627016,
+      "directional_corr": -0.22673761242627016,
+      "univariate_auc": 0.6248037676609105,
+      "mutual_information": 0.0
+    },
+    {
+      "feature": "home_hitting_stolenBasePercentage",
+      "abs_corr": 0.22621364750726278,
+      "directional_corr": 0.22621364750726278,
+      "univariate_auc": 0.6247252747252747,
+      "mutual_information": 0.004746394737209059
+    },
+    {
+      "feature": "home_hitting_baseOnBalls",
+      "abs_corr": 0.2145077358637713,
+      "directional_corr": 0.2145077358637713,
+      "univariate_auc": 0.6245682888540032,
+      "mutual_information": 0.006751309028433461
+    },
+    {
+      "feature": "home_hitting_homeRuns",
+      "abs_corr": 0.18513641168452558,
+      "directional_corr": 0.18513641168452558,
+      "univariate_auc": 0.6186813186813186,
+      "mutual_information": 0.027034631000600218
+    },
+    {
+      "feature": "away_pitching_hits",
+      "abs_corr": 0.15624444046888925,
+      "directional_corr": 0.15624444046888925,
+      "univariate_auc": 0.6156200941915229,
+      "mutual_information": 0.0
+    },
+    {
+      "feature": "home_hitting_numberOfPitches",
+      "abs_corr": 0.19867731662239768,
+      "directional_corr": 0.19867731662239768,
+      "univariate_auc": 0.6145996860282574,
+      "mutual_information": 0.040236749792781135
+    },
+    {
+      "feature": "home_pitching_blownSaves",
+      "abs_corr": 0.20334136511326747,
+      "directional_corr": 0.20334136511326747,
+      "univariate_auc": 0.6096546310832026,
+      "mutual_information": 0.11627613483837762
+    },
+    {
+      "feature": "home_hitting_hr_per_game_real",
+      "abs_corr": 0.14988001814931529,
+      "directional_corr": 0.14988001814931529,
+      "univariate_auc": 0.6050235478806907,
+      "mutual_information": 0.06377420521277233
+    },
+    {
+      "feature": "diff_starter_era_real",
+      "abs_corr": 0.20182884591639771,
+      "directional_corr": -0.20182884591639771,
+      "univariate_auc": 0.6029042386185244,
+      "mutual_information": 0.032942235250367435
+    },
+    {
+      "feature": "away_pitching_intentionalWalks",
+      "abs_corr": 0.18606800581185676,
+      "directional_corr": 0.18606800581185676,
+      "univariate_auc": 0.6016483516483516,
+      "mutual_information": 0.0
+    },
+    {
+      "feature": "home_hitting_rbi",
+      "abs_corr": 0.16022061345369507,
+      "directional_corr": 0.16022061345369507,
+      "univariate_auc": 0.6006279434850864,
+      "mutual_information": 0.0
+    },
+    {
+      "feature": "home_hitting_atBatsPerHomeRun",
+      "abs_corr": 0.1747214362434575,
+      "directional_corr": -0.1747214362434575,
+      "univariate_auc": 0.5997645211930926,
+      "mutual_information": 0.06492995077845576
+    },
+    {
+      "feature": "home_hitting_bb_rate_real",
+      "abs_corr": 0.1723009940260716,
+      "directional_corr": 0.1723009940260716,
+      "univariate_auc": 0.5990580847723704,
+      "mutual_information": 0.09393925048656127
+    },
+    {
+      "feature": "away_starter_era_real",
+      "abs_corr": 0.16069821537520207,
+      "directional_corr": 0.16069821537520207,
+      "univariate_auc": 0.5984301412872841,
+      "mutual_information": 0.0
+    },
+    {
+      "feature": "diff_hitting_caughtStealingPercentage",
+      "abs_corr": 0.18982654208735247,
+      "directional_corr": -0.18982654208735247,
+      "univariate_auc": 0.5964678178963894,
+      "mutual_information": 0.013953977131674566
+    },
+    {
+      "feature": "diff_hitting_stolenBasePercentage",
+      "abs_corr": 0.18936792661307963,
+      "directional_corr": 0.18936792661307963,
+      "univariate_auc": 0.5958398744113029,
+      "mutual_information": 0.01828701469452576
+    },
+    {
+      "feature": "away_pitching_whip",
+      "abs_corr": 0.1332379199041039,
+      "directional_corr": 0.1332379199041039,
+      "univariate_auc": 0.5948979591836735,
+      "mutual_information": 0.007255787569034666
+    },
+    {
+      "feature": "away_pitching_battersFaced",
+      "abs_corr": 0.13721627111112855,
+      "directional_corr": 0.13721627111112855,
+      "univariate_auc": 0.5945839874411303,
+      "mutual_information": 0.0
+    },
+    {
+      "feature": "home_hitting_runs",
+      "abs_corr": 0.1612143931339079,
+      "directional_corr": 0.1612143931339079,
+      "univariate_auc": 0.5945054945054946,
+      "mutual_information": 0.03647889872491916
+    },
+    {
+      "feature": "diff_run_diff_per_game_real",
+      "abs_corr": 0.16012037307176477,
+      "directional_corr": 0.16012037307176477,
+      "univariate_auc": 0.5938775510204081,
+      "mutual_information": 0.020444708622405994
+    },
+    {
+      "feature": "diff_pitching_avg",
+      "abs_corr": 0.1650963105751361,
+      "directional_corr": -0.1650963105751361,
+      "univariate_auc": 0.5933281004709576,
+      "mutual_information": 0.04183404574977767
+    },
+    {
+      "feature": "away_pitching_avg",
+      "abs_corr": 0.14034980471869826,
+      "directional_corr": 0.14034980471869826,
+      "univariate_auc": 0.5932496075353219,
+      "mutual_information": 0.0
+    },
+    {
+      "feature": "diff_pitching_strikeOuts",
+      "abs_corr": 0.16015549667904352,
+      "directional_corr": 0.16015549667904352,
+      "univariate_auc": 0.5930926216640502,
+      "mutual_information": 0.059653857874485405
+    },
+    {
+      "feature": "home_hitting_totalBases",
+      "abs_corr": 0.14600422719444,
+      "directional_corr": 0.14600422719444,
+      "univariate_auc": 0.5930141287284145,
+      "mutual_information": 0.0504631613582982
+    },
+    {
+      "feature": "away_pitching_numberOfPitches",
+      "abs_corr": 0.12553691180763468,
+      "directional_corr": 0.12553691180763468,
+      "univariate_auc": 0.5923861852433282,
+      "mutual_information": 0.0
+    },
+    {
+      "feature": "away_pitching_doubles",
+      "abs_corr": 0.14042210675867126,
+      "directional_corr": 0.14042210675867126,
+      "univariate_auc": 0.5923076923076923,
+      "mutual_information": 0.034300056173405924
+    },
+    {
+      "feature": "diff_pitching_sacFlies",
+      "abs_corr": 0.1019728522099766,
+      "directional_corr": -0.1019728522099766,
+      "univariate_auc": 0.5911302982731553,
+      "mutual_information": 0.10881260785626501
+    },
+    {
+      "feature": "park_right_field_ft",
+      "abs_corr": 0.16523687085477726,
+      "directional_corr": -0.16523687085477726,
+      "univariate_auc": 0.5910518053375196,
+      "mutual_information": 0.0
+    },
+    {
+      "feature": "away_pitching_obp",
+      "abs_corr": 0.1393446964189108,
+      "directional_corr": 0.1393446964189108,
+      "univariate_auc": 0.5907378335949766,
+      "mutual_information": 0.0
+    },
+    {
+      "feature": "diff_pitching_wildPitches",
+      "abs_corr": 0.15949332955400225,
+      "directional_corr": -0.15949332955400225,
+      "univariate_auc": 0.590502354788069,
+      "mutual_information": 0.01280031712708296
+    },
+    {
+      "feature": "away_pitching_hitsPer9Inn",
+      "abs_corr": 0.13342278535246727,
+      "directional_corr": 0.13342278535246727,
+      "univariate_auc": 0.5902668759811617,
+      "mutual_information": 0.01537029048455918
+    },
+    {
+      "feature": "home_hitting_plateAppearances",
+      "abs_corr": 0.15916412510657413,
+      "directional_corr": 0.15916412510657413,
+      "univariate_auc": 0.5900313971742543,
+      "mutual_information": 0.044233756013938086
+    },
+    {
+      "feature": "park_center_field_ft",
+      "abs_corr": 0.16064183955335784,
+      "directional_corr": -0.16064183955335784,
+      "univariate_auc": 0.5886970172684458,
+      "mutual_information": 0.07095177574437983
+    },
+    {
+      "feature": "diff_pitching_hitsPer9Inn",
+      "abs_corr": 0.16429873381481516,
+      "directional_corr": -0.16429873381481516,
+      "univariate_auc": 0.588226059654631,
+      "mutual_information": 0.09380862903601606
+    },
+    {
+      "feature": "away_pitching_atBats",
+      "abs_corr": 0.13198564181054134,
+      "directional_corr": 0.13198564181054134,
+      "univariate_auc": 0.5879905808477236,
+      "mutual_information": 0.05369522277354144
+    },
+    {
+      "feature": "away_pitching_strikes",
+      "abs_corr": 0.12571299357544846,
+      "directional_corr": 0.12571299357544846,
+      "univariate_auc": 0.5870486656200942,
+      "mutual_information": 0.01439366603044312
+    },
+    {
+      "feature": "diff_pitching_obp",
+      "abs_corr": 0.15036234613084679,
+      "directional_corr": -0.15036234613084679,
+      "univariate_auc": 0.5867346938775511,
+      "mutual_information": 0.05945047511264456
+    },
+    {
+      "feature": "diff_pitching_whip",
+      "abs_corr": 0.15403903364600532,
+      "directional_corr": -0.15403903364600532,
+      "univariate_auc": 0.5865777080062794,
+      "mutual_information": 0.04810251303491686
+    },
+    {
+      "feature": "diff_pitching_hits",
+      "abs_corr": 0.1381009432318609,
+      "directional_corr": -0.1381009432318609,
+      "univariate_auc": 0.5854788069073784,
+      "mutual_information": 0.04190896727610571
+    },
+    {
+      "feature": "away_pitching_totalBases",
+      "abs_corr": 0.11406539820970384,
+      "directional_corr": 0.11406539820970384,
+      "univariate_auc": 0.5854003139717426,
+      "mutual_information": 0.06765586530561252
+    },
+    {
+      "feature": "home_hitting_slg",
+      "abs_corr": 0.09517905210476227,
+      "directional_corr": 0.09517905210476227,
+      "univariate_auc": 0.5846153846153846,
+      "mutual_information": 0.05492751360210546
+    },
+    {
+      "feature": "home_pitching_strikeOuts",
+      "abs_corr": 0.15583118855074768,
+      "directional_corr": 0.15583118855074768,
+      "univariate_auc": 0.5845368916797488,
+      "mutual_information": 0.03206705797767473
+    },
+    {
+      "feature": "away_pitching_runs",
+      "abs_corr": 0.0968994766515269,
+      "directional_corr": 0.0968994766515269,
+      "univariate_auc": 0.5834379905808478,
+      "mutual_information": 0.03322905160861245
+    },
+    {
+      "feature": "home_pitching_inningsPitched",
+      "abs_corr": 0.1477841991847286,
+      "directional_corr": 0.1477841991847286,
+      "univariate_auc": 0.5832810047095761,
+      "mutual_information": 0.0
+    },
+    {
+      "feature": "home_pitching_outs",
+      "abs_corr": 0.14685048857379626,
+      "directional_corr": 0.14685048857379626,
+      "univariate_auc": 0.5832810047095761,
+      "mutual_information": 0.0
+    },
+    {
+      "feature": "home_hitting_atBats",
+      "abs_corr": 0.14128723428294396,
+      "directional_corr": 0.14128723428294396,
+      "univariate_auc": 0.5804552590266876,
+      "mutual_information": 0.024765267290790982
+    },
+    {
+      "feature": "park_altitude_ft",
+      "abs_corr": 0.17381613569668258,
+      "directional_corr": -0.17381613569668258,
+      "univariate_auc": 0.5791208791208791,
+      "mutual_information": 0.07034486023063224
+    },
+    {
+      "feature": "away_pitching_ops",
+      "abs_corr": 0.100516090366578,
+      "directional_corr": 0.100516090366578,
+      "univariate_auc": 0.5780219780219781,
+      "mutual_information": 0.0
+    },
+    {
+      "feature": "away_pitching_earnedRuns",
+      "abs_corr": 0.09878548082081713,
+      "directional_corr": 0.09878548082081713,
+      "univariate_auc": 0.5774725274725275,
+      "mutual_information": 0.05180258470077881
+    },
+    {
+      "feature": "home_hitting_k_rate_real",
+      "abs_corr": 0.10534116668583747,
+      "directional_corr": 0.10534116668583747,
+      "univariate_auc": 0.5767660910518053,
+      "mutual_information": 0.0805693627844235
+    },
+    {
+      "feature": "home_pitching_gamesPitched",
+      "abs_corr": 0.13928753217471174,
+      "directional_corr": 0.13928753217471174,
+      "univariate_auc": 0.5759811616954474,
+      "mutual_information": 0.05160331881828317
+    },
+    {
+      "feature": "home_pitching_gamesStarted",
+      "abs_corr": 0.13928753217471174,
+      "directional_corr": 0.13928753217471174,
+      "univariate_auc": 0.5759811616954474,
+      "mutual_information": 0.021489454077089132
+    },
+    {
+      "feature": "home_hitting_gamesPlayed",
+      "abs_corr": 0.13928753217471174,
+      "directional_corr": 0.13928753217471174,
+      "univariate_auc": 0.5759811616954474,
+      "mutual_information": 0.01867187827814698
+    },
+    {
+      "feature": "home_pitching_gamesPlayed",
+      "abs_corr": 0.13928753217471174,
+      "directional_corr": 0.13928753217471174,
+      "univariate_auc": 0.5759811616954474,
+      "mutual_information": 0.0017098203223002706
+    },
+    {
+      "feature": "home_run_diff_per_game_real",
+      "abs_corr": 0.13098210808725883,
+      "directional_corr": 0.13098210808725883,
+      "univariate_auc": 0.5752747252747252,
+      "mutual_information": 0.034561840818449374
+    },
+    {
+      "feature": "home_pitching_shutouts",
+      "abs_corr": 0.09515984051859196,
+      "directional_corr": -0.09515984051859196,
+      "univariate_auc": 0.5749607535321821,
+      "mutual_information": 0.04596448225599037
+    },
+    {
+      "feature": "home_hitting_stolenBases",
+      "abs_corr": 0.0999401177240578,
+      "directional_corr": 0.0999401177240578,
+      "univariate_auc": 0.5747252747252747,
+      "mutual_information": 0.0
+    },
+    {
+      "feature": "diff_pitching_battersFaced",
+      "abs_corr": 0.05999847391674794,
+      "directional_corr": -0.05999847391674794,
+      "univariate_auc": 0.57425431711146,
+      "mutual_information": 0.10548171133896989
+    },
+    {
+      "feature": "park_factor_hr",
+      "abs_corr": 0.09228642308705771,
+      "directional_corr": 0.09228642308705771,
+      "univariate_auc": 0.5737048665620094,
+      "mutual_information": 0.0561131292287147
+    },
+    {
+      "feature": "home_pitching_pickoffs",
+      "abs_corr": 0.14092706165761482,
+      "directional_corr": 0.14092706165761482,
+      "univariate_auc": 0.5737048665620094,
+      "mutual_information": 0.005132088185561656
+    },
+    {
+      "feature": "away_hitting_babip",
+      "abs_corr": 0.1059155557995806,
+      "directional_corr": -0.1059155557995806,
+      "univariate_auc": 0.5733124018838305,
+      "mutual_information": 0.036600626377750745
+    },
+    {
+      "feature": "diff_pitching_strikeoutWalkRatio",
+      "abs_corr": 0.126962676261592,
+      "directional_corr": 0.126962676261592,
+      "univariate_auc": 0.5728414442700157,
+      "mutual_information": 0.07422924970143052
+    },
+    {
+      "feature": "away_pitching_sacFlies",
+      "abs_corr": 0.0875376940322363,
+      "directional_corr": 0.0875376940322363,
+      "univariate_auc": 0.5727629513343799,
+      "mutual_information": 0.06282315234812796
+    },
+    {
+      "feature": "home_pitching_saveOpportunities",
+      "abs_corr": 0.1261692483258228,
+      "directional_corr": 0.1261692483258228,
+      "univariate_auc": 0.5727629513343798,
+      "mutual_information": 0.07512168278695786
+    },
+    {
+      "feature": "diff_pitching_pitchesPerInning",
+      "abs_corr": 0.10420046799104152,
+      "directional_corr": -0.10420046799104152,
+      "univariate_auc": 0.5706436420722134,
+      "mutual_information": 0.03087949467830997
+    },
+    {
+      "feature": "home_matchup_hitting_hr_per_game_real_vs_away_pitching_hr9_real",
+      "abs_corr": 0.1273356525397262,
+      "directional_corr": 0.1273356525397262,
+      "univariate_auc": 0.5704866562009421,
+      "mutual_information": 0.0672866175761162
+    },
+    {
+      "feature": "market_away_implied_probability",
+      "abs_corr": 0.15572709526011497,
+      "directional_corr": -0.15572709526011497,
+      "univariate_auc": 0.5695447409733124,
+      "mutual_information": 0.0
+    },
+    {
+      "feature": "diff_hitting_plateAppearances",
+      "abs_corr": 0.11845478094165658,
+      "directional_corr": 0.11845478094165658,
+      "univariate_auc": 0.5689167974882261,
+      "mutual_information": 0.021623026706239168
+    },
+    {
+      "feature": "away_pitching_runsScoredPer9",
+      "abs_corr": 0.07626472896728609,
+      "directional_corr": 0.07626472896728609,
+      "univariate_auc": 0.5680533751962323,
+      "mutual_information": 0.0
+    },
+    {
+      "feature": "home_pitching_stolenBasePercentage",
+      "abs_corr": 0.15539540200891408,
+      "directional_corr": 0.15539540200891408,
+      "univariate_auc": 0.5677394034536892,
+      "mutual_information": 0.07651651811036486
+    },
+    {
+      "feature": "home_pitching_caughtStealingPercentage",
+      "abs_corr": 0.1553954020089141,
+      "directional_corr": -0.1553954020089141,
+      "univariate_auc": 0.5677394034536891,
+      "mutual_information": 0.06769471534446247
+    },
+    {
+      "feature": "away_pitching_strikeoutWalkRatio",
+      "abs_corr": 0.11441386326980969,
+      "directional_corr": -0.11441386326980969,
+      "univariate_auc": 0.5675824175824176,
+      "mutual_information": 0.025965309484621946
+    },
+    {
+      "feature": "home_pitching_homeRuns",
+      "abs_corr": 0.08359899511345173,
+      "directional_corr": 0.08359899511345173,
+      "univariate_auc": 0.5675824175824176,
+      "mutual_information": 0.011052203267167826
+    },
+    {
+      "feature": "home_pitching_gamesFinished",
+      "abs_corr": 0.12195261872917106,
+      "directional_corr": 0.12195261872917106,
+      "univariate_auc": 0.567425431711146,
+      "mutual_information": 0.02606302060717769
+    },
+    {
+      "feature": "diff_hitting_hits",
+      "abs_corr": 0.10761419395788467,
+      "directional_corr": 0.10761419395788467,
+      "univariate_auc": 0.5672684458398743,
+      "mutual_information": 0.017044004328483853
+    },
+    {
+      "feature": "away_pitching_era",
+      "abs_corr": 0.07814349061436683,
+      "directional_corr": 0.07814349061436683,
+      "univariate_auc": 0.5667974882260597,
+      "mutual_information": 0.043207134257502444
+    },
+    {
+      "feature": "away_pitching_gamesFinished",
+      "abs_corr": 0.11650915295832906,
+      "directional_corr": 0.11650915295832906,
+      "univariate_auc": 0.5664835164835166,
+      "mutual_information": 0.023046454702412955
+    },
+    {
+      "feature": "home_hitting_runs_per_game_real",
+      "abs_corr": 0.12388025177860651,
+      "directional_corr": 0.12388025177860651,
+      "univariate_auc": 0.5664835164835165,
+      "mutual_information": 0.0268874635900056
+    },
+    {
+      "feature": "diff_hitting_totalBases",
+      "abs_corr": 0.1281665698295936,
+      "directional_corr": 0.1281665698295936,
+      "univariate_auc": 0.5659340659340659,
+      "mutual_information": 0.0
+    },
+    {
+      "feature": "home_hitting_ops",
+      "abs_corr": 0.0970647919457717,
+      "directional_corr": 0.0970647919457717,
+      "univariate_auc": 0.5658555729984301,
+      "mutual_information": 0.002009761926589748
+    },
+    {
+      "feature": "diff_hitting_atBatsPerHomeRun",
+      "abs_corr": 0.15514479050557997,
+      "directional_corr": -0.15514479050557997,
+      "univariate_auc": 0.5656985871271586,
+      "mutual_information": 0.010809985167806735
+    },
+    {
+      "feature": "home_pitching_strikes",
+      "abs_corr": 0.10564737389698313,
+      "directional_corr": 0.10564737389698313,
+      "univariate_auc": 0.5645996860282575,
+      "mutual_information": 0.022514464903938602
+    },
+    {
+      "feature": "diff_matchup_hitting_k_rate_real_vs_pitching_k9_real",
+      "abs_corr": 0.14128911463453667,
+      "directional_corr": 0.14128911463453667,
+      "univariate_auc": 0.564050235478807,
+      "mutual_information": 0.0
+    },
+    {
+      "feature": "diff_pitching_strikeoutsPer9Inn",
+      "abs_corr": 0.13946641530580903,
+      "directional_corr": 0.13946641530580903,
+      "univariate_auc": 0.5639717425431712,
+      "mutual_information": 0.03520334289602034
+    },
+    {
+      "feature": "away_pitching_airOuts",
+      "abs_corr": 0.0838138044744023,
+      "directional_corr": 0.0838138044744023,
+      "univariate_auc": 0.5638147566718995,
+      "mutual_information": 0.044417776617213134
+    },
+    {
+      "feature": "diff_pitching_atBats",
+      "abs_corr": 0.048586894281950975,
+      "directional_corr": -0.048586894281950975,
+      "univariate_auc": 0.5631868131868132,
+      "mutual_information": 0.05663040482873005
+    },
+    {
+      "feature": "diff_pitching_k9_real",
+      "abs_corr": 0.13873422440505215,
+      "directional_corr": 0.13873422440505215,
+      "univariate_auc": 0.5631083202511774,
+      "mutual_information": 0.03220779026126408
+    },
+    {
+      "feature": "market_diff_implied_probability",
+      "abs_corr": 0.1224924844073659,
+      "directional_corr": 0.1224924844073659,
+      "univariate_auc": 0.5631083202511773,
+      "mutual_information": 0.004114989342376418
+    },
+    {
+      "feature": "diff_hitting_babip",
+      "abs_corr": 0.0980408136357817,
+      "directional_corr": 0.0980408136357817,
+      "univariate_auc": 0.5624018838304553,
+      "mutual_information": 0.0
+    },
+    {
+      "feature": "diff_pitching_caughtStealingPercentage",
+      "abs_corr": 0.10808998768402854,
+      "directional_corr": -0.10808998768402854,
+      "univariate_auc": 0.5621664050235479,
+      "mutual_information": 0.11992449040032471
+    },
+    {
+      "feature": "home_pitching_numberOfPitches",
+      "abs_corr": 0.09869032301032292,
+      "directional_corr": 0.09869032301032292,
+      "univariate_auc": 0.5620094191522763,
+      "mutual_information": 0.041568365848547506
+    },
+    {
+      "feature": "diff_pitching_stolenBasePercentage",
+      "abs_corr": 0.10799592246378589,
+      "directional_corr": 0.10799592246378589,
+      "univariate_auc": 0.5619309262166405,
+      "mutual_information": 0.12673460575081275
+    },
+    {
+      "feature": "home_matchup_hitting_k_rate_real_vs_away_pitching_k9_real",
+      "abs_corr": 0.10572136229330659,
+      "directional_corr": 0.10572136229330659,
+      "univariate_auc": 0.5618524332810048,
+      "mutual_information": 0.06758821384044578
+    },
+    {
+      "feature": "home_hitting_sacBunts",
+      "abs_corr": 0.12288460865434696,
+      "directional_corr": -0.12288460865434696,
+      "univariate_auc": 0.5617739403453689,
+      "mutual_information": 0.052558342055915475
+    },
+    {
+      "feature": "diff_hitting_stolenBases",
+      "abs_corr": 0.08745700886071801,
+      "directional_corr": 0.08745700886071801,
+      "univariate_auc": 0.5614599686028258,
+      "mutual_information": 0.08800480553032908
+    },
+    {
+      "feature": "diff_pitching_gamesPitched",
+      "abs_corr": 0.09640265148016389,
+      "directional_corr": 0.09640265148016389,
+      "univariate_auc": 0.5612244897959183,
+      "mutual_information": 0.04421683022061473
+    },
+    {
+      "feature": "diff_pitching_gamesPlayed",
+      "abs_corr": 0.09640265148016389,
+      "directional_corr": 0.09640265148016389,
+      "univariate_auc": 0.5612244897959183,
+      "mutual_information": 0.0327417456088841
+    },
+    {
+      "feature": "diff_hitting_gamesPlayed",
+      "abs_corr": 0.09640265148016389,
+      "directional_corr": 0.09640265148016389,
+      "univariate_auc": 0.5612244897959183,
+      "mutual_information": 0.0
+    }
+  ]
+}

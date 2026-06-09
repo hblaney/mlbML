@@ -1,0 +1,40 @@
+name: Daily MLB Model
+
+on:
+  workflow_dispatch:
+  schedule:
+    # Morning run after most MLB games have final scores.
+    - cron: "30 14 * * *"
+
+permissions:
+  contents: write
+
+jobs:
+  refresh-model-outputs:
+    runs-on: ubuntu-latest
+    env:
+      ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
+      ODDS_REGIONS: us
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install Python dependencies
+        run: pip install -r requirements.txt
+
+      - name: Generate model outputs
+        run: |
+          python3 scripts/model/generate_today_board.py
+          python3 scripts/model/generate_prediction_history.py
+          python3 scripts/model/backtest_parlays.py
+
+      - name: Commit updated public data
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Update daily MLB model outputs"
+          file_pattern: "public/*.json"

@@ -1,0 +1,36 @@
+{
+  "name": "mlb-edge",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "model:backtest": "python3 scripts/model/backtest.py",
+    "model:train": "python3 scripts/model/train_daily.py",
+    "model:daily": "python3 scripts/model/generate_today_board.py && python3 scripts/model/generate_prediction_history.py && python3 scripts/model/backtest_parlays.py",
+    "model:evaluate": "python3 scripts/model/evaluate_daily_model.py",
+    "model:blind:predict": "python3 scripts/model/blind_test.py predict",
+    "model:blind:grade": "python3 scripts/model/blind_test.py grade",
+    "model:features": "python3 scripts/model/feature_lab.py",
+    "model:top200": "python3 scripts/model/top200_search.py",
+    "model:audit": "python3 scripts/model/data_audit.py",
+    "model:import-odds": "python3 scripts/model/import_sbr_odds_dataset.py"
+  },
+  "dependencies": {
+    "@supabase/ssr": "latest",
+    "@supabase/supabase-js": "latest",
+    "next": "latest",
+    "react": "latest",
+    "react-dom": "latest"
+  },
+  "devDependencies": {
+    "@types/node": "latest",
+    "@types/react": "latest",
+    "@types/react-dom": "latest",
+    "eslint": "latest",
+    "eslint-config-next": "latest",
+    "typescript": "latest"
+  }
+}
