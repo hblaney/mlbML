@@ -47,6 +47,8 @@ def _starter_era(game: GameRecord, pitcher_id: int | None) -> float:
 
 
 def _confidence(probability: float) -> str:
+    if probability >= 0.65:
+        return "Elite"
     if probability >= 0.60:
         return "High"
     if probability >= 0.56:

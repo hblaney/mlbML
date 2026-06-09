@@ -25,7 +25,7 @@ def main() -> None:
     high_conf: list[int] = []
     for row in rows:
         by_day[row["date"]].append(row["correct"])
-        if row["confidence"] == "High":
+        if row["confidence"] in {"High", "Elite"}:
             high_conf.append(row["correct"])
 
     worst = sorted((sum(v) / len(v), day, sum(v), len(v)) for day, v in by_day.items())[:8]

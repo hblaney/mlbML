@@ -6,7 +6,8 @@ import json
 from datetime import date, timedelta
 from pathlib import Path
 
-from daily_auto_model import season_games_through, walk_forward_history
+from daily_auto_model import walk_forward_history
+from mlb_api import load_or_fetch_games
 from mlb_api import load_team_abbreviations
 
 PUBLIC_PATH = Path(__file__).resolve().parents[2] / "public" / "prediction-history.json"
@@ -15,7 +16,8 @@ PUBLIC_PATH = Path(__file__).resolve().parents[2] / "public" / "prediction-histo
 def main() -> None:
     today = date.today()
     yesterday = today - timedelta(days=1)
-    games = season_games_through(yesterday)
+    history_start = date(yesterday.year - 1, 3, 20)
+    games = load_or_fetch_games(history_start, yesterday)
     team_abbr = load_team_abbreviations()
     rows = walk_forward_history(games, team_abbr)
 
@@ -24,6 +26,7 @@ def main() -> None:
         json.dumps(
             {
                 "generated_at": today.isoformat(),
+                "history_start": history_start.isoformat(),
                 "trained_through": yesterday.isoformat(),
                 "predictions": rows,
             },

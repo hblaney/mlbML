@@ -73,6 +73,8 @@ def feature_row(game: GameRecord, league: LeagueState) -> list[float]:
 
 
 def confidence_for(pick_probability: float) -> str:
+    if pick_probability >= 0.65:
+        return "Elite"
     if pick_probability >= 0.60:
         return "High"
     if pick_probability >= 0.56:

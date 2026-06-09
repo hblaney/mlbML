@@ -30,7 +30,7 @@ export type GamePrediction = {
   underPrice?: number | null;
   projectedTotal?: number | null;
   oddsSource?: string | null;
-  confidence: "Low" | "Medium" | "High";
+  confidence: "Low" | "Medium" | "High" | "Elite";
   modelVersion: string;
   explanation: string[];
 };

@@ -53,7 +53,7 @@ def main() -> None:
             fast_probs.append(fast.home_probability)
             trained_probs.append(trained.home_probability)
             labels.append(actual)
-            if trained.confidence == "High":
+            if trained.confidence in {"High", "Elite"}:
                 high_confidence.append(int(trained.predicted_home == game.home_won))
 
         examples.append(TrainingExample(features=features, label=1 if game.home_won else 0))

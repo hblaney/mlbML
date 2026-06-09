@@ -48,9 +48,11 @@ export default async function HistoryPage() {
   const parlayStrategies = parlayBacktest?.best_by_leg_count ?? [];
   const recentWeeks = output ? Object.entries(output.weekly_accuracy).slice(-8) : [];
   const predictionRows = fullHistory.length > 0 ? fullHistory : output?.prediction_history ?? output?.recent_predictions ?? [];
-  const highConfidenceRows = predictionRows.filter((row) => row.confidence === "High");
+  const eliteConfidenceRows = predictionRows.filter((row) => row.confidence === "Elite");
+  const eliteConfidenceSummary = summarizeRows(eliteConfidenceRows);
+  const highConfidenceRows = predictionRows.filter((row) => row.confidence === "High" || row.confidence === "Elite");
   const highConfidenceSummary = summarizeRows(highConfidenceRows);
-  const confidenceSummaries = (["High", "Medium", "Low"] as const).map((confidence) => ({
+  const confidenceSummaries = (["Elite", "High", "Medium", "Low"] as const).map((confidence) => ({
     confidence,
     ...summarizeRows(predictionRows.filter((row) => row.confidence === confidence))
   }));
@@ -69,7 +71,7 @@ export default async function HistoryPage() {
       });
       const correct = sortedPredictions.filter((row) => row.correct).length;
       const total = sortedPredictions.length;
-      const highConfidence = sortedPredictions.filter((row) => row.confidence === "High");
+      const highConfidence = sortedPredictions.filter((row) => row.confidence === "High" || row.confidence === "Elite");
       const highCorrect = highConfidence.filter((row) => row.correct).length;
 
       return {
@@ -125,19 +127,21 @@ export default async function HistoryPage() {
             {highConfidenceSummary.total > 0 && highConfidenceSummary.accuracy !== null ? (
               <div className="grid two">
                 <article>
-                  <p className="muted">High-confidence hit rate</p>
+                  <p className="muted">High + Elite hit rate</p>
                   <div className={highConfidenceSummary.accuracy >= 0.6 ? "metric positive" : "metric warning"}>
                     {formatPercent(highConfidenceSummary.accuracy)}
                   </div>
                   <p className="muted">
-                    {highConfidenceSummary.wins}-{highConfidenceSummary.losses} record when confidence is High
+                    {highConfidenceSummary.wins}-{highConfidenceSummary.losses} record when confidence is High or Elite
                   </p>
                 </article>
                 <article>
-                  <p className="muted">What this means</p>
-                  <p>
-                    This isolates the model&apos;s strongest-rated picks so you can see whether confidence is translating
-                    into a better win rate than the full board.
+                  <p className="muted">Elite-only record</p>
+                  <div className={eliteConfidenceSummary.accuracy !== null && eliteConfidenceSummary.accuracy >= 0.6 ? "metric positive" : "metric warning"}>
+                    {eliteConfidenceSummary.accuracy !== null ? formatPercent(eliteConfidenceSummary.accuracy) : "-"}
+                  </div>
+                  <p className="muted">
+                    {eliteConfidenceSummary.wins}-{eliteConfidenceSummary.losses} record at 65%+ model probability
                   </p>
                 </article>
               </div>

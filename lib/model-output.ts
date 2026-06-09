@@ -28,7 +28,7 @@ export type PredictionHistoryRow = {
   away: string;
   probability: number;
   pickProbability?: number;
-  confidence?: "Low" | "Medium" | "High";
+  confidence?: "Low" | "Medium" | "High" | "Elite";
   predicted?: string;
   actual?: string;
   correct: number;
