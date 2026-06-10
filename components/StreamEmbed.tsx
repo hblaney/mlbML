@@ -33,7 +33,7 @@ export function StreamEmbed({ title, embedUrl, alternates = [] }: StreamEmbedPro
               onClick={() => setActiveSource(source)}
               type="button"
             >
-              {index === 0 ? "Primary" : `Link ${index + 1}`}
+              {`Link ${index + 3}`}
             </button>
           ))}
         </div>
