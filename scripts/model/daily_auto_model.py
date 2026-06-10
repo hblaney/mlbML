@@ -1,7 +1,7 @@
 """Self-retraining daily model: trains through yesterday, predicts today.
 
 Persists to disk so page loads only retrain when new final games exist.
-Uses a walk-forward random forest + Elo + real MLB stats, rolling form, park, and weather features.
+Uses a walk-forward gradient boosting model + Elo + real MLB stats, rolling form, park, and weather features.
 """
 
 from __future__ import annotations
@@ -22,6 +22,7 @@ from trained_edge_model import (
     REFIT_EVERY,
     WARMUP_GAMES,
     TrainingExample,
+    blend_with_market,
     confidence_for,
     feature_row,
     fit_model,
@@ -30,7 +31,7 @@ from trained_edge_model import (
 )
 
 MODEL_PATH = Path(__file__).resolve().parents[2] / "data" / "model" / "daily_edge.pkl"
-MODEL_VERSION = "daily-auto-v1.6"
+MODEL_VERSION = "daily-auto-v1.7"
 
 
 @dataclass
@@ -50,8 +51,8 @@ class DailyModelBundle:
             confidence=prediction.confidence,
             notes=[
                 f"Retrained through {self.trained_through.isoformat()}",
-                "Frequently refit random forest weighted toward learned historical features plus rolling form, weather, park, starter, and matchup context",
-                "Public probabilities use the validated random-forest distribution without extra sharpening",
+                "Frequently refit shallow gradient boosting weighted toward learned historical features plus rolling form, weather, park, starter, and matchup context",
+                "Public probabilities anchor to no-vig market consensus when odds are available",
                 "Retrains automatically when yesterday's final scores are new",
             ],
         )
@@ -158,8 +159,8 @@ def walk_forward_history(games: list[GameRecord], team_abbr: dict[int, str]) -> 
                 market_probs = no_vig_market_probabilities(market.home_moneyline, market.away_moneyline)
                 if market_probs is not None:
                     market_home, market_away = market_probs
-                    home_probability = (prediction.home_probability * 0.50) + (market_home * 0.50)
-                    away_probability = (prediction.away_probability * 0.50) + (market_away * 0.50)
+                    home_probability = blend_with_market(prediction.home_probability, market_home)
+                    away_probability = blend_with_market(prediction.away_probability, market_away)
                     total = home_probability + away_probability
                     home_probability /= total
                     away_probability /= total

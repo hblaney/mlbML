@@ -35,7 +35,8 @@ PARLAY_QUALIFIED_MIN_EDGE = 0.03
 PARLAY_QUALIFIED_MIN_PROBABILITY = 0.55
 PARLAY_QUALIFIED_MIN_BOOK = 0.48
 PARLAY_TOP_N = 8
-TOTAL_MIN_EDGE = 0.015
+TOTAL_MIN_EDGE = 0.04
+TOTAL_MIN_MODEL_PROBABILITY = 0.58
 CONFIDENCE_RANK = {"Elite": 4, "High": 3, "Medium": 2, "Low": 1}
 
 
@@ -270,7 +271,11 @@ def build_total_candidates(
         ]
 
         for side in sides:
-            if side["edge"] >= TOTAL_MIN_EDGE and side["ev"] > 0:
+            if (
+                side["edge"] >= TOTAL_MIN_EDGE
+                and side["model_probability"] >= TOTAL_MIN_MODEL_PROBABILITY
+                and side["ev"] > 0
+            ):
                 by_day[row["date"]].append(side)
 
     for day in by_day:

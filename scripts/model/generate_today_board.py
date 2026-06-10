@@ -9,7 +9,7 @@ from pathlib import Path
 from daily_auto_model import MODEL_VERSION, ensure_trained_through
 from mlb_api import fetch_upcoming_games, load_team_abbreviations
 from odds_provider import fetch_moneyline_market, market_for_game
-from trained_edge_model import confidence_for, sharpen_public_probability
+from trained_edge_model import blend_with_market, confidence_for, sharpen_public_probability
 
 PUBLIC_PATH = Path(__file__).resolve().parents[2] / "public" / "predictions.json"
 
@@ -33,27 +33,25 @@ def market_aware_probabilities(prediction, market_snapshot, odds_available: bool
     notes = list(prediction.notes)
     if not odds_available:
         home_probability = sharpen_public_probability(prediction.home_probability)
-        notes.append("Public probability uses the validated random-forest distribution without extra sharpening")
+        notes.append("Public probability uses the validated gradient-boosting distribution without extra sharpening")
         return home_probability, 1.0 - home_probability, notes
 
     market_probs = no_vig_market_probabilities(market_snapshot)
     if market_probs is None:
         home_probability = sharpen_public_probability(prediction.home_probability)
-        notes.append("Public probability uses the validated random-forest distribution without extra sharpening")
+        notes.append("Public probability uses the validated gradient-boosting distribution without extra sharpening")
         return home_probability, 1.0 - home_probability, notes
 
     market_home, market_away = market_probs
-    # Keep the market as a strong prior, but give the upgraded learned model
-    # equal weight after walk-forward validation improved side selection.
-    home_probability = (prediction.home_probability * 0.50) + (market_home * 0.50)
-    away_probability = (prediction.away_probability * 0.50) + (market_away * 0.50)
+    home_probability = blend_with_market(prediction.home_probability, market_home)
+    away_probability = blend_with_market(prediction.away_probability, market_away)
     total = home_probability + away_probability
     home_probability /= total
     away_probability /= total
     home_probability = sharpen_public_probability(home_probability)
     away_probability = 1.0 - home_probability
     notes.append("Final probability is anchored to no-vig sportsbook consensus plus the internal model signal")
-    notes.append("Public probability uses the validated random-forest distribution without extra sharpening")
+    notes.append("Public probability uses the validated gradient-boosting distribution without extra sharpening")
     return home_probability, away_probability, notes
 
 

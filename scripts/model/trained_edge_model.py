@@ -12,7 +12,7 @@ from dataclasses import dataclass
 from datetime import date, datetime
 
 import numpy as np
-from sklearn.ensemble import RandomForestClassifier
+from sklearn.ensemble import GradientBoostingClassifier
 from sklearn.pipeline import Pipeline
 
 from fast_edge_model import FastPrediction, predict_fast
@@ -24,7 +24,9 @@ from weather import cached_historical_weather_or_default, fetch_weather
 
 
 WARMUP_GAMES = 180
-REFIT_EVERY = 15
+REFIT_EVERY = 60
+TRAINED_MODEL_WEIGHT = 0.90
+MARKET_BLEND_WEIGHT = 0.50
 PUBLIC_CONFIDENCE_SHARPENING = 1.0
 PUBLIC_PROBABILITY_CAP = 0.82
 
@@ -254,6 +256,11 @@ def calibrate_public_probability(home_probability: float) -> float:
     return float(np.clip(home_probability, 0.30, 0.70))
 
 
+def blend_with_market(internal_home: float, market_home: float) -> float:
+    """Blend internal model probability with no-vig market consensus."""
+    return internal_home * (1.0 - MARKET_BLEND_WEIGHT) + market_home * MARKET_BLEND_WEIGHT
+
+
 def sharpen_public_probability(home_probability: float) -> float:
     """Make validated public picks more assertive without changing the side."""
     if home_probability >= 0.5:
@@ -268,13 +275,12 @@ def build_model() -> Pipeline:
         [
             (
                 "model",
-                RandomForestClassifier(
-                    n_estimators=220,
-                    max_depth=5,
-                    min_samples_leaf=8,
-                    class_weight="balanced_subsample",
+                GradientBoostingClassifier(
+                    n_estimators=90,
+                    learning_rate=0.05,
+                    max_depth=2,
+                    subsample=0.85,
                     random_state=42,
-                    n_jobs=-1,
                 ),
             ),
         ]
@@ -307,7 +313,9 @@ def predict_with_model(game: GameRecord, league: LeagueState, model: Pipeline | 
     x = _clean_matrix(np.array([feature_row(game, league)], dtype=float))
     trained_probability = float(model.predict_proba(x)[0, 1])
     form_probability = predict_fast(game, league).home_probability
-    home_probability = calibrate_public_probability((trained_probability * 0.80) + (form_probability * 0.20))
+    home_probability = calibrate_public_probability(
+        (trained_probability * TRAINED_MODEL_WEIGHT) + (form_probability * (1.0 - TRAINED_MODEL_WEIGHT))
+    )
     away_probability = 1.0 - home_probability
     predicted_home = home_probability >= away_probability
     pick_probability = max(home_probability, away_probability)
@@ -320,7 +328,7 @@ def predict_with_model(game: GameRecord, league: LeagueState, model: Pipeline | 
         confidence=confidence_for(pick_probability),
         notes=[
             "Trained on prior games only using walk-forward features",
-            "Blends a frequently refit random-forest output with Elo, real team hitting/pitching stats, starter profile, rolling form, park, weather, timing, and matchup context",
+            "Blends a frequently refit shallow gradient-boosting output with Elo, real team hitting/pitching stats, starter profile, rolling form, park, weather, timing, and matchup context",
             "Probability is capped to a realistic pregame range",
         ],
     )
