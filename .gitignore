@@ -5,4 +5,5 @@ node_modules/
 .next/
 data/model/
 data/cache/
+data/odds_live_cache.json
 .vercel

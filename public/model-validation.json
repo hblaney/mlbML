@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-06-09",
+  "generated_at": "2026-06-10",
   "model_version": "daily-auto-v1.1",
   "overall": {
-    "games": 3059,
-    "correct": 1733,
-    "accuracy": 0.5665
+    "games": 3074,
+    "correct": 1740,
+    "accuracy": 0.566
   },
   "by_confidence": {
     "Elite": {
@@ -18,31 +18,31 @@
       "accuracy": 0.7083
     },
     "Medium": {
-      "games": 938,
-      "correct": 558,
-      "accuracy": 0.5949
+      "games": 939,
+      "correct": 559,
+      "accuracy": 0.5953
     },
     "Low": {
-      "games": 2071,
-      "correct": 1136,
-      "accuracy": 0.5485
+      "games": 2085,
+      "correct": 1142,
+      "accuracy": 0.5477
     }
   },
   "by_pick_probability": {
     "50-54.9%": {
-      "games": 1387,
-      "correct": 734,
-      "accuracy": 0.5292
+      "games": 1396,
+      "correct": 737,
+      "accuracy": 0.5279
     },
     "55-59.9%": {
-      "games": 1070,
-      "correct": 599,
-      "accuracy": 0.5598
+      "games": 1075,
+      "correct": 602,
+      "accuracy": 0.56
     },
     "60-64.9%": {
-      "games": 432,
-      "correct": 272,
-      "accuracy": 0.6296
+      "games": 433,
+      "correct": 273,
+      "accuracy": 0.6305
     },
     "65-69.9%": {
       "games": 131,
@@ -84,19 +84,19 @@
   },
   "by_model_only_pick_probability": {
     "50-54.9%": {
-      "games": 1010,
-      "correct": 522,
-      "accuracy": 0.5168
+      "games": 1019,
+      "correct": 525,
+      "accuracy": 0.5152
     },
     "55-59.9%": {
-      "games": 683,
-      "correct": 401,
-      "accuracy": 0.5871
+      "games": 688,
+      "correct": 404,
+      "accuracy": 0.5872
     },
     "60-64.9%": {
-      "games": 277,
-      "correct": 174,
-      "accuracy": 0.6282
+      "games": 278,
+      "correct": 175,
+      "accuracy": 0.6295
     },
     "65-69.9%": {
       "games": 67,

@@ -3,8 +3,12 @@ name: Daily MLB Model
 on:
   workflow_dispatch:
   schedule:
-    # Morning run after most MLB games have final scores.
-    - cron: "30 14 * * *"
+    # 3:00 AM America/Chicago during the MLB season daylight-saving window.
+    - cron: "0 8 * * *"
+
+concurrency:
+  group: daily-mlb-model
+  cancel-in-progress: false
 
 permissions:
   contents: write
@@ -29,9 +33,7 @@ jobs:
 
       - name: Generate model outputs
         run: |
-          python3 scripts/model/generate_today_board.py
-          python3 scripts/model/generate_prediction_history.py
-          python3 scripts/model/backtest_parlays.py
+          npm run model:daily
 
       - name: Commit updated public data
         uses: stefanzweifel/git-auto-commit-action@v5

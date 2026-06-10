@@ -56,7 +56,7 @@ def main() -> None:
     bundle = ensure_trained_through(yesterday)
     today_games = fetch_upcoming_games(today, today)
     team_abbr = load_team_abbreviations()
-    market = fetch_moneyline_market()
+    market = fetch_moneyline_market(force_refresh=True)
 
     board = []
     for game in today_games:
@@ -73,7 +73,15 @@ def main() -> None:
         if odds_available:
             notes.append(f"Market prices from {market_snapshot.source_count} sportsbook source(s)")
         else:
-            notes.append("No live sportsbook odds available; EV/best-bet calculations are disabled for this game")
+            from odds_provider import get_last_odds_error
+
+            odds_error = get_last_odds_error()
+            if odds_error and "OUT_OF_USAGE_CREDITS" in odds_error:
+                notes.append("The Odds API quota is exhausted; moneylines will stay empty until credits reset or the plan is upgraded")
+            elif odds_error:
+                notes.append(f"Live sportsbook odds unavailable: {odds_error}")
+            else:
+                notes.append("No live sportsbook odds available; EV/best-bet calculations are disabled for this game")
 
         board.append(
             {

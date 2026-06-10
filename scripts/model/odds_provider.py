@@ -8,7 +8,9 @@ from __future__ import annotations
 
 import json
 import os
+import time
 from pathlib import Path
+from urllib.error import HTTPError
 from urllib.parse import urlencode
 from urllib.request import urlopen
 
@@ -18,6 +20,12 @@ from mlb_api import GameRecord, load_team_names
 ODDS_API_BASE = "https://api.the-odds-api.com/v4/sports/baseball_mlb/odds"
 ODDS_HISTORICAL_API_BASE = "https://api.the-odds-api.com/v4/historical/sports/baseball_mlb/odds"
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
+ODDS_CACHE_PATH = PROJECT_ROOT / "data" / "odds_live_cache.json"
+ODDS_CACHE_TTL_SECONDS = int(os.getenv("ODDS_CACHE_TTL_SECONDS", "21600"))
+LAST_ODDS_ERROR: str | None = None
+
+_LIVE_MARKET_CACHE: dict[tuple[str, str], MarketSnapshot] | None = None
+_LIVE_MARKET_CACHE_AT: float | None = None
 
 
 def _load_env_file() -> None:
@@ -48,6 +56,86 @@ def probability_to_american(probability: float) -> int:
     return int(round(((1 - probability) / probability) * 100))
 
 
+def _serialize_market(market: dict[tuple[str, str], MarketSnapshot]) -> dict:
+    rows = []
+    for (away, home), snapshot in market.items():
+        rows.append(
+            {
+                "away": away,
+                "home": home,
+                "home_moneyline": snapshot.home_moneyline,
+                "away_moneyline": snapshot.away_moneyline,
+                "home_implied_probability": snapshot.home_implied_probability,
+                "away_implied_probability": snapshot.away_implied_probability,
+                "market_total": snapshot.market_total,
+                "over_price": snapshot.over_price,
+                "under_price": snapshot.under_price,
+                "home_runline": snapshot.home_runline,
+                "away_runline": snapshot.away_runline,
+                "home_runline_price": snapshot.home_runline_price,
+                "away_runline_price": snapshot.away_runline_price,
+                "source_count": snapshot.source_count,
+            }
+        )
+    return {"fetched_at": time.time(), "events": rows}
+
+
+def _deserialize_market(payload: dict) -> dict[tuple[str, str], MarketSnapshot]:
+    market: dict[tuple[str, str], MarketSnapshot] = {}
+    for row in payload.get("events", []):
+        market[(row["away"], row["home"])] = MarketSnapshot(
+            home_moneyline=row["home_moneyline"],
+            away_moneyline=row["away_moneyline"],
+            home_implied_probability=row["home_implied_probability"],
+            away_implied_probability=row["away_implied_probability"],
+            market_total=row.get("market_total", 8.5),
+            over_price=row.get("over_price", 0),
+            under_price=row.get("under_price", 0),
+            home_runline=row.get("home_runline", -1.5),
+            away_runline=row.get("away_runline", 1.5),
+            home_runline_price=row.get("home_runline_price", 0),
+            away_runline_price=row.get("away_runline_price", 0),
+            source_count=row.get("source_count", 0),
+        )
+    return market
+
+
+def _read_cached_market(max_age_seconds: int = ODDS_CACHE_TTL_SECONDS) -> dict[tuple[str, str], MarketSnapshot] | None:
+    global _LIVE_MARKET_CACHE, _LIVE_MARKET_CACHE_AT
+
+    if _LIVE_MARKET_CACHE is not None and _LIVE_MARKET_CACHE_AT is not None:
+        if time.time() - _LIVE_MARKET_CACHE_AT <= max_age_seconds:
+            return _LIVE_MARKET_CACHE
+
+    if not ODDS_CACHE_PATH.exists():
+        return None
+
+    try:
+        payload = json.loads(ODDS_CACHE_PATH.read_text())
+        fetched_at = float(payload.get("fetched_at", 0))
+        if time.time() - fetched_at > max_age_seconds:
+            return None
+        market = _deserialize_market(payload)
+        _LIVE_MARKET_CACHE = market
+        _LIVE_MARKET_CACHE_AT = fetched_at
+        return market
+    except Exception:
+        return None
+
+
+def _write_cached_market(market: dict[tuple[str, str], MarketSnapshot]) -> None:
+    global _LIVE_MARKET_CACHE, _LIVE_MARKET_CACHE_AT
+
+    _LIVE_MARKET_CACHE = market
+    _LIVE_MARKET_CACHE_AT = time.time()
+    ODDS_CACHE_PATH.parent.mkdir(parents=True, exist_ok=True)
+    ODDS_CACHE_PATH.write_text(json.dumps(_serialize_market(market), indent=2))
+
+
+def get_last_odds_error() -> str | None:
+    return LAST_ODDS_ERROR
+
+
 def _average_price(prices: list[int]) -> int:
     if not prices:
         return 0
@@ -57,17 +145,25 @@ def _average_price(prices: list[int]) -> int:
     return probability_to_american(sum(implied) / len(implied))
 
 
-def fetch_moneyline_market() -> dict[tuple[str, str], MarketSnapshot]:
+def fetch_moneyline_market(*, force_refresh: bool = False) -> dict[tuple[str, str], MarketSnapshot]:
+    global LAST_ODDS_ERROR
+
+    if not force_refresh:
+        cached = _read_cached_market()
+        if cached is not None:
+            return cached
+
     _load_env_file()
     api_key = os.getenv("ODDS_API_KEY")
     if not api_key:
+        LAST_ODDS_ERROR = "ODDS_API_KEY is not set"
         return {}
 
     params = urlencode(
         {
             "apiKey": api_key,
             "regions": os.getenv("ODDS_REGIONS", "us"),
-            "markets": "h2h,spreads,totals",
+            "markets": os.getenv("ODDS_MARKETS", "h2h,spreads,totals"),
             "oddsFormat": "american",
         }
     )
@@ -75,8 +171,19 @@ def fetch_moneyline_market() -> dict[tuple[str, str], MarketSnapshot]:
     try:
         with urlopen(f"{ODDS_API_BASE}?{params}", timeout=30) as response:
             events = json.load(response)
-    except Exception:
-        return {}
+    except HTTPError as error:
+        body = error.read().decode("utf-8", errors="replace")
+        LAST_ODDS_ERROR = f"The Odds API HTTP {error.code}: {body[:240]}"
+        print(LAST_ODDS_ERROR)
+        cached = _read_cached_market(max_age_seconds=7 * 24 * 60 * 60)
+        return cached or {}
+    except Exception as error:
+        LAST_ODDS_ERROR = f"The Odds API request failed: {error}"
+        print(LAST_ODDS_ERROR)
+        cached = _read_cached_market(max_age_seconds=7 * 24 * 60 * 60)
+        return cached or {}
+
+    LAST_ODDS_ERROR = None
 
     market: dict[tuple[str, str], MarketSnapshot] = {}
     for event in events:
@@ -152,6 +259,9 @@ def fetch_moneyline_market() -> dict[tuple[str, str], MarketSnapshot]:
             source_count=max(len(home_prices), len(away_prices)),
         )
 
+    if market:
+        _write_cached_market(market)
+
     return market
 
 
@@ -185,12 +295,6 @@ def _parse_market_events(events: list[dict]) -> dict[tuple[str, str], MarketSnap
             home_implied_probability=implied_probability(home_price),
             away_implied_probability=implied_probability(away_price),
             market_total=sum(totals) / len(totals) if totals else 8.5,
-            over_price=_average_price(over_prices),
-            under_price=_average_price(under_prices),
-            home_runline=sum(home_runlines) / len(home_runlines) if home_runlines else -1.5,
-            away_runline=sum(away_runlines) / len(away_runlines) if away_runlines else 1.5,
-            home_runline_price=_average_price(home_runline_prices),
-            away_runline_price=_average_price(away_runline_prices),
             source_count=max(len(home_prices), len(away_prices)),
         )
     return market
