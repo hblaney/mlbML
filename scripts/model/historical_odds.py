@@ -50,14 +50,21 @@ class HistoricalOddsStore:
             if not _valid_american_odds(home_moneyline) or not _valid_american_odds(away_moneyline):
                 continue
 
+            over_price = int(round(float(row["closing_over_price"]))) if row.get("closing_over_price") is not None else 0
+            under_price = int(round(float(row["closing_under_price"]))) if row.get("closing_under_price") is not None else 0
+            if not _valid_american_odds(over_price):
+                over_price = 0
+            if not _valid_american_odds(under_price):
+                under_price = 0
+
             self.by_matchup[(date_key, away, home)] = MarketSnapshot(
                 home_moneyline=home_moneyline,
                 away_moneyline=away_moneyline,
                 home_implied_probability=implied_probability(home_moneyline),
                 away_implied_probability=implied_probability(away_moneyline),
                 market_total=float(row["closing_total"]) if row.get("closing_total") is not None else 8.5,
-                over_price=int(round(float(row["closing_over_price"]))) if row.get("closing_over_price") is not None else 0,
-                under_price=int(round(float(row["closing_under_price"]))) if row.get("closing_under_price") is not None else 0,
+                over_price=over_price,
+                under_price=under_price,
                 source_count=int(row.get("sportsbook_count") or 0),
             )
 

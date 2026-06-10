@@ -63,6 +63,93 @@ export type SingleBacktestStrategy = {
   avg_ev: number;
 };
 
+export type RecommendationBetLeg = {
+  team: string;
+  matchup: string;
+  odds: number;
+  model_probability: number;
+  book_probability: number;
+  edge: number;
+  won: boolean;
+};
+
+export type RecommendedBetRow = {
+  category: "moneyline" | "advanced" | "parlay_3" | "parlay_4";
+  date: string;
+  gamePk?: number;
+  matchup: string;
+  team: string;
+  side: string;
+  label: string;
+  odds: number;
+  model_probability: number;
+  book_probability: number | null;
+  edge: number | null;
+  ev: number;
+  stake: number;
+  qualified: boolean;
+  won: boolean;
+  profit: number;
+  legs?: RecommendationBetLeg[];
+};
+
+export type RecommendationSummary = {
+  bets: number;
+  wins: number;
+  losses: number;
+  staked: number;
+  profit: number;
+  roi: number;
+  hit_rate: number;
+};
+
+export type DailyRecommendationSnapshot = {
+  date: string;
+  bets: RecommendedBetRow[];
+  summary: RecommendationSummary;
+};
+
+export type RecommendationPerformanceOutput = {
+  generated_at: string;
+  stake: number;
+  starting_bankroll: number;
+  date_range: { start: string; end: string };
+  odds_metadata?: ParlayBacktestOutput["odds_metadata"];
+  strategy: {
+    moneyline: {
+      qualified_min_edge: number;
+      qualified_min_probability: number;
+      qualified_max_abs_odds: number;
+      fallback_min_edge: number;
+    };
+    advanced: { market: string; min_edge: number };
+    parlay: {
+      leg_counts: number[];
+      qualified_min_edge: number;
+      qualified_min_probability: number;
+      qualified_min_book_probability: number;
+      top_n: number;
+    };
+  };
+  by_category: Record<string, RecommendationSummary>;
+  weekly: Record<string, RecommendationSummary>;
+  monthly: Record<string, RecommendationSummary>;
+  cumulative: {
+    bets: number;
+    profit: number;
+    roi: number;
+    balance: number;
+    return_pct: number;
+  };
+  checkpoints: Array<{
+    date: string;
+    profit: number;
+    balance: number;
+    return_pct: number;
+  }>;
+  daily: DailyRecommendationSnapshot[];
+};
+
 export type ParlayBacktestOutput = {
   generated_at: string;
   date_range: { start: string; end: string };
@@ -87,6 +174,16 @@ export async function loadAccuracyOutput(): Promise<AccuracyOutput | null> {
     const filePath = path.join(process.cwd(), "public", "accuracy.json");
     const raw = await readFile(filePath, "utf8");
     return JSON.parse(raw) as AccuracyOutput;
+  } catch {
+    return null;
+  }
+}
+
+export async function loadRecommendationPerformance(): Promise<RecommendationPerformanceOutput | null> {
+  try {
+    const filePath = path.join(process.cwd(), "public", "recommendation-performance.json");
+    const raw = await readFile(filePath, "utf8");
+    return JSON.parse(raw) as RecommendationPerformanceOutput;
   } catch {
     return null;
   }

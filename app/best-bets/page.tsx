@@ -1,11 +1,10 @@
 import Link from "next/link";
 import {
   getAdvancedBets,
-  getBacktestedParlaysByLegCount,
   getBestBets,
-  getBestParlaysByLegCount
+  getDailyParlayTickets
 } from "@/lib/data";
-import { loadParlayBacktest, loadPredictionBoard } from "@/lib/model-output";
+import { loadParlayBacktest, loadPredictionBoard, loadRecommendationPerformance } from "@/lib/model-output";
 import { decimalOdds, formatOdds, formatPercent } from "@/lib/odds";
 import { formatStandingRecord, loadLiveStandings } from "@/lib/standings";
 import { formatCentralGameTime } from "@/lib/time";
@@ -19,13 +18,14 @@ export default async function BestBetsPage() {
   const bets = getBestBets(board);
   const advancedBets = getAdvancedBets(board);
   const usingModelOnlyPicks = bets.some((bet) => bet.modelOnly) || advancedBets.some((bet) => bet.modelOnly);
-  const parlayBacktest = await loadParlayBacktest();
-  const singleStrategy = parlayBacktest?.recommended_single_strategy;
-  const oddsMetadata = parlayBacktest?.odds_metadata;
-  const recommendedStrategies = parlayBacktest?.recommended_by_leg_count ?? [];
-  const parlays = recommendedStrategies.length > 0
-    ? getBacktestedParlaysByLegCount(board, recommendedStrategies)
-    : getBestParlaysByLegCount(board);
+  const [parlayBacktest, recommendationPerformance] = await Promise.all([
+    loadParlayBacktest(),
+    loadRecommendationPerformance()
+  ]);
+  const oddsMetadata = parlayBacktest?.odds_metadata ?? recommendationPerformance?.odds_metadata;
+  const parlays = getDailyParlayTickets(board);
+  const topMoneylineBet = getBestBets(board)[0] ?? null;
+  const topAdvancedBet = getAdvancedBets(board)[0] ?? null;
   const recordFor = (teamId: string) => formatStandingRecord(standingsByTeamId.get(teamId));
   const profitForStake = (odds: number, stake = 100) => (decimalOdds(odds) - 1) * stake;
   const teamLink = (team: { id: string; name: string; abbreviation: string }) => (
@@ -62,14 +62,88 @@ export default async function BestBetsPage() {
         ) : null}
       </section>
 
+      {recommendationPerformance ? (
+        <section className="panel">
+          <div className="section-heading compact">
+            <div>
+              <p className="eyebrow">Historical track record</p>
+              <h2>Model Paper Portfolio</h2>
+            </div>
+            <span>
+              {recommendationPerformance.date_range.start} to {recommendationPerformance.date_range.end}
+            </span>
+          </div>
+          <div className="grid">
+            <article>
+              <p className="muted">Portfolio ROI</p>
+              <div className={recommendationPerformance.cumulative.roi >= 0 ? "metric positive" : "metric negative"}>
+                {formatPercent(recommendationPerformance.cumulative.roi)}
+              </div>
+              <p className="muted">
+                ${recommendationPerformance.cumulative.profit.toFixed(2)} on {recommendationPerformance.cumulative.bets} tickets
+              </p>
+            </article>
+            <article>
+              <p className="muted">Daily Moneyline</p>
+              <div className="metric">
+                {recommendationPerformance.by_category.moneyline
+                  ? formatPercent(recommendationPerformance.by_category.moneyline.roi)
+                  : "-"}
+              </div>
+              <p className="muted">
+                {recommendationPerformance.by_category.moneyline
+                  ? `${recommendationPerformance.by_category.moneyline.wins}-${recommendationPerformance.by_category.moneyline.losses} record`
+                  : "No history"}
+              </p>
+            </article>
+            <article>
+              <p className="muted">Daily Advanced</p>
+              <div className="metric">
+                {recommendationPerformance.by_category.advanced
+                  ? formatPercent(recommendationPerformance.by_category.advanced.roi)
+                  : "-"}
+              </div>
+              <p className="muted">
+                {recommendationPerformance.by_category.advanced
+                  ? `${recommendationPerformance.by_category.advanced.wins}-${recommendationPerformance.by_category.advanced.losses} record`
+                  : "No history"}
+              </p>
+            </article>
+            <article>
+              <p className="muted">3-4 Leg Parlays</p>
+              <div className="metric">
+                {recommendationPerformance.by_category.parlay_3 || recommendationPerformance.by_category.parlay_4
+                  ? formatPercent(
+                      ((recommendationPerformance.by_category.parlay_3?.profit ?? 0) +
+                        (recommendationPerformance.by_category.parlay_4?.profit ?? 0)) /
+                        Math.max(
+                          ((recommendationPerformance.by_category.parlay_3?.bets ?? 0) +
+                            (recommendationPerformance.by_category.parlay_4?.bets ?? 0)) *
+                            recommendationPerformance.stake,
+                          1
+                        )
+                    )
+                  : "-"}
+              </div>
+              <p className="muted">
+                3-leg: {recommendationPerformance.by_category.parlay_3?.wins ?? 0}-
+                {recommendationPerformance.by_category.parlay_3?.losses ?? 0} · 4-leg:{" "}
+                {recommendationPerformance.by_category.parlay_4?.wins ?? 0}-
+                {recommendationPerformance.by_category.parlay_4?.losses ?? 0}
+              </p>
+            </article>
+          </div>
+        </section>
+      ) : null}
+
       <section className="panel">
         <h2>Moneyline Best Bets</h2>
-        {singleStrategy ? (
+        {recommendationPerformance?.by_category.moneyline ? (
           <p className="muted">
-            Moneyline filter backtest: {singleStrategy.bets} bets, {singleStrategy.wins}-{singleStrategy.losses} record,{" "}
-            {formatPercent(singleStrategy.roi)} ROI. Requires {formatPercent(singleStrategy.min_probability)}+ model
-            probability, {formatPercent(singleStrategy.min_edge)}+ edge, and odds no longer than ±
-            {singleStrategy.max_abs_odds}.
+            Daily moneyline track record: {recommendationPerformance.by_category.moneyline.bets} tickets,{" "}
+            {recommendationPerformance.by_category.moneyline.wins}-{recommendationPerformance.by_category.moneyline.losses}{" "}
+            record, {formatPercent(recommendationPerformance.by_category.moneyline.roi)} ROI.
+            {topMoneylineBet?.qualified ? " Today&apos;s top pick clears the qualified filter." : " Today&apos;s top pick is the best available edge."}
           </p>
         ) : null}
         {bets.length > 0 ? (
@@ -117,12 +191,15 @@ export default async function BestBetsPage() {
       </section>
 
       <section className="panel">
-        <h2>Safer Parlay Candidates</h2>
-        {parlayBacktest ? (
+        <h2>Daily 3-4 Leg Parlays</h2>
+        {recommendationPerformance ? (
           <p className="muted">
-            Strategy backtest: {parlayBacktest.model_prediction_rows} predictions, {parlayBacktest.date_range.start} to{" "}
-            {parlayBacktest.date_range.end}. Parlays require at least two legs, 60%+ model probability,
-            near-favorite market pricing, positive ROI, and a 50%+ historical hit rate.
+            Historical daily parlay ledger: 3-leg {recommendationPerformance.by_category.parlay_3?.wins ?? 0}-
+            {recommendationPerformance.by_category.parlay_3?.losses ?? 0} (
+            {formatPercent(recommendationPerformance.by_category.parlay_3?.roi ?? 0)} ROI), 4-leg{" "}
+            {recommendationPerformance.by_category.parlay_4?.wins ?? 0}-
+            {recommendationPerformance.by_category.parlay_4?.losses ?? 0} (
+            {formatPercent(recommendationPerformance.by_category.parlay_4?.roi ?? 0)} ROI).
           </p>
         ) : null}
         {parlays.length > 0 ? (
@@ -160,17 +237,23 @@ export default async function BestBetsPage() {
           </table>
         ) : (
           <p className="muted">
-            No parlay ticket cleared today&apos;s safety filter. The page needs at least two qualifying legs on different
-            games.
+            No 3- or 4-leg parlay ticket is available yet. The page needs enough qualifying legs on different games.
           </p>
         )}
       </section>
 
       <section className="panel">
         <h2>Advanced Markets</h2>
-        <p className="muted">
-          Run line and totals are separated from moneyline until their backtests are deeper.
-        </p>
+        {recommendationPerformance?.by_category.advanced ? (
+          <p className="muted">
+            Daily totals track record: {recommendationPerformance.by_category.advanced.bets} tickets,{" "}
+            {recommendationPerformance.by_category.advanced.wins}-{recommendationPerformance.by_category.advanced.losses}{" "}
+            record, {formatPercent(recommendationPerformance.by_category.advanced.roi)} ROI.
+            {topAdvancedBet ? " Today&apos;s top advanced pick is shown below." : ""}
+          </p>
+        ) : (
+          <p className="muted">Run line and totals are separated from moneyline. Historical totals backtests are shown above when available.</p>
+        )}
         {advancedBets.length > 0 ? (
           <table className="table">
             <thead>

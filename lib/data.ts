@@ -698,7 +698,8 @@ export function getAdvancedBets(board: GamePrediction[] = predictions): Advanced
 
 const SAFE_PARLAY_MIN_LEG_PROBABILITY = 0.58;
 const SAFE_PARLAY_MIN_BOOK_PROBABILITY = 0.48;
-const SAFE_PARLAY_MAX_LEGS = 3;
+const SAFE_PARLAY_MAX_LEGS = 4;
+const DAILY_PARLAY_LEG_COUNTS = [3, 4] as const;
 
 function parlayLegOdds(leg: BestBet) {
   return leg.modelOnly ? MARKET_BASELINE_ODDS : leg.odds;
@@ -894,6 +895,51 @@ export function getParlayForStrategy(board: GamePrediction[] = predictions, stra
   }
 
   return best;
+}
+
+export function getDailyParlayTickets(board: GamePrediction[] = predictions) {
+  const singles = getBestBets(board)
+    .filter(
+      (bet) =>
+        bet.modelProbability >= SAFE_PARLAY_MIN_LEG_PROBABILITY &&
+        (bet.modelOnly || bet.bookProbability >= SAFE_PARLAY_MIN_BOOK_PROBABILITY)
+    )
+    .sort((left, right) => (right.ev * right.modelProbability) - (left.ev * left.modelProbability))
+    .slice(0, 8);
+
+  const tickets: ParlayCandidate[] = [];
+
+  for (const legCount of DAILY_PARLAY_LEG_COUNTS) {
+    if (singles.length < legCount) {
+      continue;
+    }
+
+    let best: ParlayCandidate | null = null;
+    for (const legs of combinations(singles, legCount)) {
+      const uniqueGames = new Set(legs.map((leg) => leg.game.id));
+      if (uniqueGames.size !== legs.length) {
+        continue;
+      }
+
+      const candidate = buildParlayCandidate(legs);
+      if (candidate.ev <= 0 && !legs.every((leg) => leg.modelOnly)) {
+        continue;
+      }
+      if (!best || candidate.score > best.score) {
+        best = candidate;
+      }
+    }
+
+    if (best) {
+      tickets.push(best);
+    }
+  }
+
+  if (tickets.length > 0) {
+    return tickets;
+  }
+
+  return getBestParlaysByLegCount(board).filter((parlay) => parlay.legCount === 3 || parlay.legCount === 4);
 }
 
 export function getBacktestedParlaysByLegCount(board: GamePrediction[] = predictions, strategies: ParlayStrategyInput[]) {

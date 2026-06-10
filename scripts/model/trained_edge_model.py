@@ -26,6 +26,8 @@ from weather import cached_historical_weather_or_default, fetch_weather
 
 WARMUP_GAMES = 180
 REFIT_EVERY = 25
+PUBLIC_CONFIDENCE_SHARPENING = 1.15
+PUBLIC_PROBABILITY_CAP = 0.82
 
 
 @dataclass
@@ -227,9 +229,9 @@ def confidence_for(
 ) -> str:
     if not market_backed:
         internal_probability = internal_pick_probability if internal_pick_probability is not None else pick_probability
-        if pick_probability >= 0.70 and internal_probability >= 0.70:
+        if pick_probability >= 0.70 and internal_probability >= 0.68:
             return "Elite"
-        if pick_probability >= 0.65 and internal_probability >= 0.65:
+        if pick_probability >= 0.66 and internal_probability >= 0.60:
             return "High"
         if pick_probability >= 0.58:
             return "Medium"
@@ -238,7 +240,7 @@ def confidence_for(
     if pick_probability >= 0.70:
         return "Elite"
     if (
-        pick_probability >= 0.68
+        pick_probability >= 0.66
         and internal_agrees
         and (internal_pick_probability is None or internal_pick_probability >= 0.55)
     ):
@@ -251,6 +253,15 @@ def confidence_for(
 def calibrate_public_probability(home_probability: float) -> float:
     """Keep public probabilities in a realistic pregame range."""
     return float(np.clip(home_probability, 0.30, 0.70))
+
+
+def sharpen_public_probability(home_probability: float) -> float:
+    """Make validated public picks more assertive without changing the side."""
+    if home_probability >= 0.5:
+        sharpened = 0.5 + ((home_probability - 0.5) * PUBLIC_CONFIDENCE_SHARPENING)
+    else:
+        sharpened = 0.5 - ((0.5 - home_probability) * PUBLIC_CONFIDENCE_SHARPENING)
+    return float(np.clip(sharpened, 1 - PUBLIC_PROBABILITY_CAP, PUBLIC_PROBABILITY_CAP))
 
 
 def build_model() -> Pipeline:

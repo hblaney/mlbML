@@ -1,6 +1,13 @@
 import Link from "next/link";
-import { loadAccuracyOutput, loadFullPredictionHistory, loadParlayBacktest } from "@/lib/model-output";
-import { formatPercent } from "@/lib/odds";
+import {
+  loadAccuracyOutput,
+  loadFullPredictionHistory,
+  loadParlayBacktest,
+  loadRecommendationPerformance,
+  type DailyRecommendationSnapshot,
+  type RecommendationSummary
+} from "@/lib/model-output";
+import { formatOdds, formatPercent } from "@/lib/odds";
 import { normalizeTeamId, teams } from "@/lib/data";
 
 export const dynamic = "force-dynamic";
@@ -29,6 +36,13 @@ function teamHistoryLink(label: string) {
   );
 }
 
+function currency(value: number) {
+  return new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD"
+  }).format(value);
+}
+
 function summarizeRows(rows: { correct: number }[]) {
   const wins = rows.filter((row) => row.correct).length;
   const total = rows.length;
@@ -41,10 +55,31 @@ function summarizeRows(rows: { correct: number }[]) {
   };
 }
 
+function recommendationByDate(daily: DailyRecommendationSnapshot[]) {
+  return new Map(daily.map((snapshot) => [snapshot.date, snapshot]));
+}
+
+function categoryLabel(category: string) {
+  if (category === "moneyline") {
+    return "Moneyline";
+  }
+  if (category === "advanced") {
+    return "Advanced";
+  }
+  if (category === "parlay_3") {
+    return "3-Leg Parlay";
+  }
+  if (category === "parlay_4") {
+    return "4-Leg Parlay";
+  }
+  return category;
+}
+
 export default async function HistoryPage() {
   const output = await loadAccuracyOutput();
   const fullHistory = await loadFullPredictionHistory();
   const parlayBacktest = await loadParlayBacktest();
+  const recommendationPerformance = await loadRecommendationPerformance();
   const parlayStrategies = parlayBacktest?.best_by_leg_count ?? [];
   const recentWeeks = output ? Object.entries(output.weekly_accuracy).slice(-8) : [];
   const predictionRows = fullHistory.length > 0 ? fullHistory : output?.prediction_history ?? output?.recent_predictions ?? [];
@@ -60,6 +95,15 @@ export default async function HistoryPage() {
     groups[row.date] = [...(groups[row.date] ?? []), row];
     return groups;
   }, {});
+
+  const recommendationDays = recommendationByDate(recommendationPerformance?.daily ?? []);
+  const recentRecommendationWeeks = recommendationPerformance
+    ? Object.entries(recommendationPerformance.weekly).slice(-8)
+    : [];
+  const recentRecommendationMonths = recommendationPerformance
+    ? Object.entries(recommendationPerformance.monthly).slice(-6)
+    : [];
+  const recentCheckpoints = recommendationPerformance?.checkpoints.slice(-12).reverse() ?? [];
 
   const days = Object.entries(rowsByDate)
     .sort(([left], [right]) => right.localeCompare(left))
@@ -194,6 +238,151 @@ export default async function HistoryPage() {
         </>
       ) : null}
 
+      {recommendationPerformance ? (
+        <>
+          <section className="panel">
+            <div className="section-heading compact">
+              <div>
+                <p className="eyebrow">Model paper portfolio</p>
+                <h2>Recommended Bet Profitability</h2>
+              </div>
+              <span>
+                {recommendationPerformance.date_range.start} to {recommendationPerformance.date_range.end}
+              </span>
+            </div>
+            <div className="grid">
+              <article>
+                <p className="muted">Paper Balance</p>
+                <div className={recommendationPerformance.cumulative.return_pct >= 0 ? "metric positive" : "metric negative"}>
+                  {currency(recommendationPerformance.cumulative.balance)}
+                </div>
+                <p className="muted">
+                  Started at {currency(recommendationPerformance.starting_bankroll)} · {currency(recommendationPerformance.cumulative.profit)} P/L
+                </p>
+              </article>
+              <article>
+                <p className="muted">Portfolio ROI</p>
+                <div className={recommendationPerformance.cumulative.roi >= 0 ? "metric positive" : "metric negative"}>
+                  {formatPercent(recommendationPerformance.cumulative.roi)}
+                </div>
+                <p className="muted">{recommendationPerformance.cumulative.bets} paper tickets at {currency(recommendationPerformance.stake)} each</p>
+              </article>
+              <article>
+                <p className="muted">Daily Tickets</p>
+                <div className="metric">{recommendationPerformance.daily.length}</div>
+                <p className="muted">Moneyline, advanced, and 3-4 leg parlays per slate day</p>
+              </article>
+            </div>
+          </section>
+
+          <section className="panel">
+            <h2>Strategy Track Record</h2>
+            <table className="table">
+              <thead>
+                <tr>
+                  <th>Strategy</th>
+                  <th>Record</th>
+                  <th>Hit Rate</th>
+                  <th>ROI</th>
+                  <th>Profit</th>
+                  <th>Tickets</th>
+                </tr>
+              </thead>
+              <tbody>
+                {Object.entries(recommendationPerformance.by_category).map(([category, summary]: [string, RecommendationSummary]) => (
+                  <tr key={category}>
+                    <td>{categoryLabel(category)}</td>
+                    <td>{summary.wins}-{summary.losses}</td>
+                    <td>{formatPercent(summary.hit_rate)}</td>
+                    <td className={summary.roi > 0 ? "positive" : "negative"}>{formatPercent(summary.roi)}</td>
+                    <td className={summary.profit > 0 ? "positive" : "negative"}>{currency(summary.profit)}</td>
+                    <td>{summary.bets}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </section>
+
+          {recentCheckpoints.length > 0 ? (
+            <section className="panel">
+              <h2>Model Bankroll Curve</h2>
+              <table className="table">
+                <thead>
+                  <tr>
+                    <th>Date</th>
+                    <th>Daily P/L</th>
+                    <th>Balance</th>
+                    <th>Return</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {recentCheckpoints.map((checkpoint) => (
+                    <tr key={checkpoint.date}>
+                      <td>{checkpoint.date}</td>
+                      <td className={checkpoint.profit >= 0 ? "positive" : "negative"}>{currency(checkpoint.profit)}</td>
+                      <td>{currency(checkpoint.balance)}</td>
+                      <td className={checkpoint.return_pct >= 0 ? "positive" : "negative"}>{formatPercent(checkpoint.return_pct)}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </section>
+          ) : null}
+
+          {recentRecommendationWeeks.length > 0 ? (
+            <section className="panel">
+              <h2>Weekly Paper P/L</h2>
+              <table className="table">
+                <thead>
+                  <tr>
+                    <th>Week</th>
+                    <th>Record</th>
+                    <th>ROI</th>
+                    <th>Profit</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {recentRecommendationWeeks.map(([week, summary]) => (
+                    <tr key={week}>
+                      <td>{week}</td>
+                      <td>{summary.wins}-{summary.losses}</td>
+                      <td className={summary.roi > 0 ? "positive" : "negative"}>{formatPercent(summary.roi)}</td>
+                      <td className={summary.profit > 0 ? "positive" : "negative"}>{currency(summary.profit)}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </section>
+          ) : null}
+
+          {recentRecommendationMonths.length > 0 ? (
+            <section className="panel">
+              <h2>Monthly Paper P/L</h2>
+              <table className="table">
+                <thead>
+                  <tr>
+                    <th>Month</th>
+                    <th>Record</th>
+                    <th>ROI</th>
+                    <th>Profit</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {recentRecommendationMonths.map(([month, summary]) => (
+                    <tr key={month}>
+                      <td>{month}</td>
+                      <td>{summary.wins}-{summary.losses}</td>
+                      <td className={summary.roi > 0 ? "positive" : "negative"}>{formatPercent(summary.roi)}</td>
+                      <td className={summary.profit > 0 ? "positive" : "negative"}>{currency(summary.profit)}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </section>
+          ) : null}
+        </>
+      ) : null}
+
       {parlayStrategies.length > 0 ? (
         <section className="panel">
           <div className="section-heading compact">
@@ -256,6 +445,44 @@ export default async function HistoryPage() {
                   )}
                 </div>
               </div>
+
+              {recommendationDays.get(day.date) ? (
+                <div className="stack compact">
+                  <p className="eyebrow">Recommended paper bets</p>
+                  <table className="table">
+                    <thead>
+                      <tr>
+                        <th>Strategy</th>
+                        <th>Pick</th>
+                        <th>Odds</th>
+                        <th>Model</th>
+                        <th>Result</th>
+                        <th>P/L</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {recommendationDays.get(day.date)?.bets.map((bet) => (
+                        <tr key={`${day.date}-${bet.category}-${bet.label}`}>
+                          <td>{categoryLabel(bet.category)}</td>
+                          <td>
+                            <strong>{bet.label}</strong>
+                            <p className="muted">{bet.matchup}</p>
+                            {!bet.qualified ? <p className="muted">Best available · below strict filter</p> : null}
+                          </td>
+                          <td>{formatOdds(bet.odds)}</td>
+                          <td>{formatPercent(bet.model_probability)}</td>
+                          <td className={bet.won ? "positive" : "negative"}>{bet.won ? "Win" : "Loss"}</td>
+                          <td className={bet.profit >= 0 ? "positive" : "negative"}>{currency(bet.profit)}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                  <p className="muted">
+                    Day paper P/L: {currency(recommendationDays.get(day.date)?.summary.profit ?? 0)} ·{" "}
+                    {formatPercent(recommendationDays.get(day.date)?.summary.roi ?? 0)} ROI
+                  </p>
+                </div>
+              ) : null}
 
               {day.predictions.length > 0 ? (
                 <table className="table">

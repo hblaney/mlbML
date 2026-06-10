@@ -26,10 +26,11 @@ from trained_edge_model import (
     feature_row,
     fit_model,
     predict_with_model,
+    sharpen_public_probability,
 )
 
 MODEL_PATH = Path(__file__).resolve().parents[2] / "data" / "model" / "daily_edge.pkl"
-MODEL_VERSION = "daily-auto-v1.2"
+MODEL_VERSION = "daily-auto-v1.4"
 
 
 @dataclass
@@ -50,7 +51,7 @@ class DailyModelBundle:
             notes=[
                 f"Retrained through {self.trained_through.isoformat()}",
                 "Blended tree ensemble + form model fit on prior games with stats, rolling form, weather, park, starter, and matchup features",
-                "Strong model-only 65%+ and 70%+ signals are promoted after walk-forward validation",
+                "Public probabilities are sharpened 15% after walk-forward validation to produce more decisive picks",
                 "Retrains automatically when yesterday's final scores are new",
             ],
         )
@@ -162,6 +163,8 @@ def walk_forward_history(games: list[GameRecord], team_abbr: dict[int, str]) -> 
                     total = home_probability + away_probability
                     home_probability /= total
                     away_probability /= total
+            home_probability = sharpen_public_probability(home_probability)
+            away_probability = 1.0 - home_probability
             predicted_home = home_probability >= away_probability
             pick_probability = max(home_probability, away_probability)
             internal_agrees = prediction.predicted_home == predicted_home
