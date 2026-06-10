@@ -4,6 +4,7 @@ import { accuracySnapshots, getBestBets } from "@/lib/data";
 import { loadPredictionBoard } from "@/lib/model-output";
 import { formatPercent } from "@/lib/odds";
 import { formatStandingRecord, loadLiveStandings } from "@/lib/standings";
+import { formatCentralDate } from "@/lib/time";
 
 export const dynamic = "force-dynamic";
 
@@ -34,7 +35,7 @@ export default async function HomePage() {
         <aside className="panel strong hero-ticket">
           <div className="ticket-top">
             <span>Live Card</span>
-            <span>{new Date().toLocaleDateString()}</span>
+            <span>{formatCentralDate()}</span>
           </div>
           <div className="ticket-main">
             <p className="muted">Model health</p>

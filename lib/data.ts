@@ -266,6 +266,9 @@ export function getTeam(teamId: string) {
 const MIN_MONEYLINE_PROBABILITY = 0.55;
 const MIN_MONEYLINE_EDGE = 0.04;
 const MAX_MONEYLINE_ABS_ODDS = 180;
+const BEST_AVAILABLE_MONEYLINE_COUNT = 5;
+const BEST_AVAILABLE_MIN_EDGE = 0.01;
+const BEST_AVAILABLE_MAX_ABS_ODDS = 220;
 const MODEL_ONLY_MIN_PROBABILITY = 0.55;
 const MARKET_BASELINE_ODDS = -110;
 const DEFAULT_MARKET_TOTAL = 8.5;
@@ -284,13 +287,14 @@ export type BestBet = {
   ev: number;
   edge: number;
   modelOnly?: boolean;
+  qualified?: boolean;
 };
 
 function boardHasMarketOdds(board: GamePrediction[]) {
   return board.some((game) => game.homeMoneyline !== null && game.awayMoneyline !== null);
 }
 
-function buildMarketMoneylineBets(board: GamePrediction[]) {
+function buildMarketMoneylineCandidates(board: GamePrediction[]) {
   return board
     .filter((game) => game.homeMoneyline !== null && game.awayMoneyline !== null)
     .flatMap((game) => {
@@ -330,7 +334,11 @@ function buildMarketMoneylineBets(board: GamePrediction[]) {
         }
       ];
     })
-    .map((bet) => ({ ...bet, edge: bet.modelProbability - bet.bookProbability }))
+    .map((bet) => ({ ...bet, edge: bet.modelProbability - bet.bookProbability }));
+}
+
+function buildMarketMoneylineBets(board: GamePrediction[]) {
+  return buildMarketMoneylineCandidates(board)
     .filter(
       (bet) =>
         bet.modelProbability >= MIN_MONEYLINE_PROBABILITY &&
@@ -338,7 +346,36 @@ function buildMarketMoneylineBets(board: GamePrediction[]) {
         Math.abs(bet.odds) <= MAX_MONEYLINE_ABS_ODDS &&
         bet.ev > 0
     )
+    .map((bet) => ({ ...bet, qualified: true }))
     .sort((a, b) => b.edge - a.edge);
+}
+
+function buildBestAvailableMarketMoneylineBets(board: GamePrediction[], excludedIds = new Set<string>()) {
+  const byGame = new Map<string, BestBet>();
+
+  for (const bet of buildMarketMoneylineCandidates(board)) {
+    if (excludedIds.has(bet.id)) {
+      continue;
+    }
+    if (bet.edge < BEST_AVAILABLE_MIN_EDGE || Math.abs(bet.odds) > BEST_AVAILABLE_MAX_ABS_ODDS) {
+      continue;
+    }
+
+    const candidate = { ...bet, qualified: false };
+    const existing = byGame.get(bet.game.id);
+    if (!existing || candidate.ev > existing.ev || (candidate.ev === existing.ev && candidate.edge > existing.edge)) {
+      byGame.set(bet.game.id, candidate);
+    }
+  }
+
+  return [...byGame.values()]
+    .sort(
+      (left, right) =>
+        right.ev - left.ev ||
+        right.edge - left.edge ||
+        right.modelProbability - left.modelProbability
+    )
+    .slice(0, BEST_AVAILABLE_MONEYLINE_COUNT);
 }
 
 function buildModelOnlyMoneylineBets(board: GamePrediction[]) {
@@ -368,7 +405,8 @@ function buildModelOnlyMoneylineBets(board: GamePrediction[]) {
           bookProbability: baselineBook,
           ev: expectedValue(modelProbability, MARKET_BASELINE_ODDS),
           edge: modelProbability - baselineBook,
-          modelOnly: true
+          modelOnly: true,
+          qualified: modelProbability >= MIN_MONEYLINE_PROBABILITY
         }
       ];
     })
@@ -412,15 +450,19 @@ function topModelOnlyMoneylineBet(board: GamePrediction[]): BestBet | null {
     bookProbability: baselineBook,
     ev: expectedValue(modelProbability, MARKET_BASELINE_ODDS),
     edge: modelProbability - baselineBook,
-    modelOnly: true
+    modelOnly: true,
+    qualified: false
   };
 }
 
 export function getBestBets(board: GamePrediction[] = predictions): BestBet[] {
   if (boardHasMarketOdds(board)) {
     const marketBets = buildMarketMoneylineBets(board);
-    if (marketBets.length > 0) {
-      return marketBets;
+    const excludedIds = new Set(marketBets.map((bet) => bet.id));
+    const fallbackBets = buildBestAvailableMarketMoneylineBets(board, excludedIds);
+    const combined = [...marketBets, ...fallbackBets].slice(0, BEST_AVAILABLE_MONEYLINE_COUNT);
+    if (combined.length > 0) {
+      return combined;
     }
   }
 

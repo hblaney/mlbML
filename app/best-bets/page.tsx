@@ -45,7 +45,8 @@ export default async function BestBetsPage() {
         <p className="eyebrow">Qualified betting edges</p>
         <h1>Best Bets</h1>
         <p className="lead">
-          Only model edges that clear profit-tested probability, market, and expected-value filters.
+          Qualified edges first, followed by the best available positive model edges when the slate does not clear the
+          stricter backtested filter.
         </p>
         {oddsMetadata?.odds_data_stale ? (
           <p className="muted">
@@ -62,7 +63,7 @@ export default async function BestBetsPage() {
       </section>
 
       <section className="panel">
-        <h2>Qualified Moneyline Edges</h2>
+        <h2>Moneyline Best Bets</h2>
         {singleStrategy ? (
           <p className="muted">
             Moneyline filter backtest: {singleStrategy.bets} bets, {singleStrategy.wins}-{singleStrategy.losses} record,{" "}
@@ -94,12 +95,14 @@ export default async function BestBetsPage() {
                       {recordFor(bet.opponent.id)})
                     </p>
                     <p className="muted">{formatCentralGameTime(bet.game.startsAt)}</p>
+                    {bet.qualified ? <p className="muted">Qualified edge · clears backtested filter</p> : null}
+                    {!bet.qualified && !bet.modelOnly ? <p className="muted">Best available edge · below strict filter</p> : null}
                     {bet.modelOnly ? <p className="muted">Model pick · fair line shown</p> : null}
                   </td>
                   <td>{formatOdds(bet.odds)}</td>
                   <td>{formatPercent(bet.modelProbability)}</td>
                   <td>{formatPercent(bet.bookProbability)}</td>
-                  <td className="positive">{formatPercent(bet.edge)}</td>
+                  <td className={bet.edge > 0 ? "positive" : "warning"}>{formatPercent(bet.edge)}</td>
                   <td className="positive">${profitForStake(bet.odds).toFixed(2)}</td>
                   <td className={bet.ev > 0 ? "positive" : "negative"}>${bet.ev.toFixed(2)}</td>
                 </tr>
@@ -108,8 +111,7 @@ export default async function BestBetsPage() {
           </table>
         ) : (
           <p className="muted">
-            No moneyline edges clear today&apos;s filter. Check back after live odds are loaded or tomorrow&apos;s board
-            drops.
+            No moneyline edges are available yet. Check back after live odds are loaded or tomorrow&apos;s board drops.
           </p>
         )}
       </section>

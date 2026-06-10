@@ -29,7 +29,7 @@ from trained_edge_model import (
 )
 
 MODEL_PATH = Path(__file__).resolve().parents[2] / "data" / "model" / "daily_edge.pkl"
-MODEL_VERSION = "daily-auto-v1.1"
+MODEL_VERSION = "daily-auto-v1.2"
 
 
 @dataclass
@@ -50,6 +50,7 @@ class DailyModelBundle:
             notes=[
                 f"Retrained through {self.trained_through.isoformat()}",
                 "Blended tree ensemble + form model fit on prior games with stats, rolling form, weather, park, starter, and matchup features",
+                "Strong model-only 65%+ and 70%+ signals are promoted after walk-forward validation",
                 "Retrains automatically when yesterday's final scores are new",
             ],
         )

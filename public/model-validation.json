@@ -1,6 +1,6 @@
 {
   "generated_at": "2026-06-10",
-  "model_version": "daily-auto-v1.1",
+  "model_version": "daily-auto-v1.2",
   "overall": {
     "games": 3074,
     "correct": 1740,
@@ -8,24 +8,24 @@
   },
   "by_confidence": {
     "Elite": {
-      "games": 26,
-      "correct": 22,
-      "accuracy": 0.8462
+      "games": 39,
+      "correct": 34,
+      "accuracy": 0.8718
     },
     "High": {
-      "games": 24,
-      "correct": 17,
-      "accuracy": 0.7083
+      "games": 91,
+      "correct": 67,
+      "accuracy": 0.7363
     },
     "Medium": {
-      "games": 939,
-      "correct": 559,
-      "accuracy": 0.5953
+      "games": 1075,
+      "correct": 632,
+      "accuracy": 0.5879
     },
     "Low": {
-      "games": 2085,
-      "correct": 1142,
-      "accuracy": 0.5477
+      "games": 1869,
+      "correct": 1007,
+      "accuracy": 0.5388
     }
   },
   "by_pick_probability": {

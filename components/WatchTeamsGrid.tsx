@@ -11,6 +11,19 @@ export function WatchTeamsGrid({ teams }: { teams: WatchTeamCard[] }) {
   const favoriteTeams = teams.filter((team) => favoriteTeamIds.includes(team.id));
   const otherTeams = teams.filter((team) => !favoriteTeamIds.includes(team.id));
 
+  const networkCard = (
+    <div className="team-watch-card-wrap">
+      <Link className="team-watch-card network-watch-card" href="/watch/network">
+        <span className="team-card-stripe" style={{ background: "#c41230" }} />
+        <span className="team-card-fallback">MLBN</span>
+        <span>
+          <strong>MLB Network</strong>
+          <span className="team-watch-abbrev">National</span>
+        </span>
+      </Link>
+    </div>
+  );
+
   function renderCard(team: WatchTeamCard) {
     return (
       <div className="team-watch-card-wrap" key={team.id}>
@@ -19,7 +32,7 @@ export function WatchTeamsGrid({ teams }: { teams: WatchTeamCard[] }) {
           {team.logoUrl ? <img alt="" src={team.logoUrl} /> : <span className="team-card-fallback">{team.abbreviation}</span>}
           <span>
             <strong>{team.name}</strong>
-            {team.statusLine ? <span className="team-watch-status">{team.statusLine}</span> : null}
+            <span className="team-watch-status">{team.statusLine ?? "No game today"}</span>
             <span className="team-watch-abbrev">{team.abbreviation}</span>
           </span>
         </Link>
@@ -44,17 +57,8 @@ export function WatchTeamsGrid({ teams }: { teams: WatchTeamCard[] }) {
       ) : null}
 
       <section className="team-watch-grid">
-        <div className="team-watch-card-wrap">
-          <Link className="team-watch-card network-watch-card" href="/watch/network">
-            <span className="team-card-stripe" style={{ background: "#c41230" }} />
-            <span className="team-card-fallback">MLBN</span>
-            <span>
-              <strong>MLB Network</strong>
-              <span className="team-watch-abbrev">National</span>
-            </span>
-          </Link>
-        </div>
         {(user && favoriteTeams.length > 0 ? otherTeams : teams).map(renderCard)}
+        {networkCard}
       </section>
     </>
   );

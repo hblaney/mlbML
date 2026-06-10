@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { useFavorites } from "@/components/FavoritesProvider";
 import { getTeam, type GamePrediction } from "@/lib/data";
-import { formatOdds, formatPercent, impliedProbability } from "@/lib/odds";
+import { americanFromDecimal, decimalOdds, formatOdds, formatPercent, impliedProbability } from "@/lib/odds";
 import {
   loadPaperTrading,
   paperProfitForOdds,
@@ -23,6 +23,10 @@ type Candidate = PaperBetInput & {
   ev: number;
 };
 
+type MoneylineCandidate = Candidate & {
+  legLabel: string;
+};
+
 function currency(value: number) {
   return new Intl.NumberFormat("en-US", {
     style: "currency",
@@ -36,6 +40,26 @@ function expectedValue(probability: number | null, odds: number, stake: number) 
   }
   const profit = paperProfitForOdds(odds, stake);
   return probability * profit - (1 - probability) * stake;
+}
+
+function sigmoid(value: number) {
+  return 1 / (1 + Math.exp(-value));
+}
+
+function totalProbability(projectedTotal: number, marketTotal: number) {
+  return sigmoid((projectedTotal - marketTotal) / 2.1);
+}
+
+function parlayProbability(legs: MoneylineCandidate[]) {
+  return legs.reduce((value, leg) => value * (leg.modelProbability ?? 0.5), 1);
+}
+
+function parlayBookProbability(legs: MoneylineCandidate[]) {
+  return legs.reduce((value, leg) => value * (leg.bookProbability ?? impliedProbability(leg.odds)), 1);
+}
+
+function parlayOdds(legs: MoneylineCandidate[]) {
+  return americanFromDecimal(legs.reduce((value, leg) => value * decimalOdds(leg.odds), 1));
 }
 
 function buildEquityCurve(account: PaperAccount | null, settledBets: PaperBet[]) {
@@ -59,7 +83,7 @@ function buildEquityCurve(account: PaperAccount | null, settledBets: PaperBet[])
     });
 }
 
-function buildCandidates(board: GamePrediction[], stake: number): Candidate[] {
+function buildMoneylineCandidates(board: GamePrediction[], stake: number): MoneylineCandidate[] {
   return board.flatMap((game) => {
     if (game.homeMoneyline === null || game.awayMoneyline === null) {
       return [];
@@ -74,7 +98,7 @@ function buildCandidates(board: GamePrediction[], stake: number): Candidate[] {
     const homeBook = homeMarket / marketTotal;
     const awayBook = awayMarket / marketTotal;
 
-    const rows: Candidate[] = [
+    const rows: MoneylineCandidate[] = [
       {
         id: `${game.id}-home`,
         gameId: game.id,
@@ -92,7 +116,8 @@ function buildCandidates(board: GamePrediction[], stake: number): Candidate[] {
         bookProbability: homeBook,
         edge: game.modelHomeWinProbability - homeBook,
         confidence: game.confidence,
-        ev: expectedValue(game.modelHomeWinProbability, game.homeMoneyline, stake)
+        ev: expectedValue(game.modelHomeWinProbability, game.homeMoneyline, stake),
+        legLabel: `${home.abbreviation} ML`
       },
       {
         id: `${game.id}-away`,
@@ -111,12 +136,131 @@ function buildCandidates(board: GamePrediction[], stake: number): Candidate[] {
         bookProbability: awayBook,
         edge: game.modelAwayWinProbability - awayBook,
         confidence: game.confidence,
-        ev: expectedValue(game.modelAwayWinProbability, game.awayMoneyline, stake)
+        ev: expectedValue(game.modelAwayWinProbability, game.awayMoneyline, stake),
+        legLabel: `${away.abbreviation} ML`
       }
     ];
 
     return rows;
   }).sort((left, right) => right.ev - left.ev);
+}
+
+function buildTotalCandidates(board: GamePrediction[], stake: number): Candidate[] {
+  return board.flatMap((game) => {
+    if (!game.marketTotal || !game.projectedTotal || !game.overPrice || !game.underPrice) {
+      return [];
+    }
+
+    const away = getTeam(game.awayTeam);
+    const home = getTeam(game.homeTeam);
+    const matchup = `${away.abbreviation} @ ${home.abbreviation}`;
+    const overMarket = impliedProbability(game.overPrice);
+    const underMarket = impliedProbability(game.underPrice);
+    const marketTotal = overMarket + underMarket;
+    const overBook = overMarket / marketTotal;
+    const underBook = underMarket / marketTotal;
+    const overModel = totalProbability(game.projectedTotal, game.marketTotal);
+    const underModel = 1 - overModel;
+
+    return [
+      {
+        id: `${game.id}-over`,
+        gameId: game.id,
+        startsAt: game.startsAt,
+        matchup,
+        teamId: home.id,
+        teamName: `Over ${game.marketTotal}`,
+        opponentId: away.id,
+        opponentName: `${away.abbreviation} @ ${home.abbreviation}`,
+        side: "Total Runs",
+        odds: game.overPrice,
+        stake,
+        potentialProfit: paperProfitForOdds(game.overPrice, stake),
+        modelProbability: overModel,
+        bookProbability: overBook,
+        edge: overModel - overBook,
+        confidence: game.confidence,
+        ev: expectedValue(overModel, game.overPrice, stake)
+      },
+      {
+        id: `${game.id}-under`,
+        gameId: game.id,
+        startsAt: game.startsAt,
+        matchup,
+        teamId: away.id,
+        teamName: `Under ${game.marketTotal}`,
+        opponentId: home.id,
+        opponentName: `${away.abbreviation} @ ${home.abbreviation}`,
+        side: "Total Runs",
+        odds: game.underPrice,
+        stake,
+        potentialProfit: paperProfitForOdds(game.underPrice, stake),
+        modelProbability: underModel,
+        bookProbability: underBook,
+        edge: underModel - underBook,
+        confidence: game.confidence,
+        ev: expectedValue(underModel, game.underPrice, stake)
+      }
+    ];
+  }).sort((left, right) => right.ev - left.ev);
+}
+
+function buildParlayCandidates(moneylines: MoneylineCandidate[], stake: number): Candidate[] {
+  const legs = moneylines
+    .filter((candidate) => (candidate.edge ?? 0) > 0 && (candidate.modelProbability ?? 0) >= 0.50)
+    .sort((left, right) => right.ev - left.ev)
+    .slice(0, 6);
+  const rows: Candidate[] = [];
+
+  for (let leftIndex = 0; leftIndex < legs.length; leftIndex += 1) {
+    for (let rightIndex = leftIndex + 1; rightIndex < legs.length; rightIndex += 1) {
+      const left = legs[leftIndex];
+      const right = legs[rightIndex];
+      if (left.gameId === right.gameId) {
+        continue;
+      }
+
+      const selectedLegs = [left, right];
+      const odds = parlayOdds(selectedLegs);
+      const probability = parlayProbability(selectedLegs);
+      const bookProbability = parlayBookProbability(selectedLegs);
+      const startsAt = selectedLegs
+        .map((leg) => leg.startsAt)
+        .sort((a, b) => new Date(a).getTime() - new Date(b).getTime())[0];
+      const matchup = selectedLegs.map((leg) => `${leg.legLabel} (${leg.matchup})`).join(" + ");
+
+      rows.push({
+        id: selectedLegs.map((leg) => leg.id).join("|"),
+        gameId: selectedLegs.map((leg) => leg.gameId).join("|"),
+        startsAt,
+        matchup,
+        teamId: "parlay",
+        teamName: "2-leg Parlay",
+        opponentId: "multiple",
+        opponentName: "Multiple games",
+        side: "Parlay",
+        odds,
+        stake,
+        potentialProfit: paperProfitForOdds(odds, stake),
+        modelProbability: probability,
+        bookProbability,
+        edge: probability - bookProbability,
+        confidence: left.confidence,
+        ev: expectedValue(probability, odds, stake)
+      });
+    }
+  }
+
+  return rows.sort((left, right) => right.ev - left.ev).slice(0, 8);
+}
+
+function buildCandidates(board: GamePrediction[], stake: number): Candidate[] {
+  const moneylines = buildMoneylineCandidates(board, stake);
+  return [
+    ...moneylines,
+    ...buildTotalCandidates(board, stake),
+    ...buildParlayCandidates(moneylines, stake)
+  ].sort((left, right) => right.ev - left.ev);
 }
 
 export function PaperTradingClient({ board }: { board: GamePrediction[] }) {
@@ -344,7 +488,7 @@ export function PaperTradingClient({ board }: { board: GamePrediction[] }) {
         <div className="section-heading compact">
           <div>
             <p className="eyebrow">Bet slip</p>
-            <h2>Place a Paper Moneyline Bet</h2>
+            <h2>Place a Paper Bet</h2>
           </div>
           <button className="button secondary" disabled={loading} onClick={() => void handleReset()} type="button">
             Reset bankroll
@@ -371,11 +515,11 @@ export function PaperTradingClient({ board }: { board: GamePrediction[] }) {
         {loading ? <p className="muted">Syncing...</p> : null}
         {selected ? (
           <p className="muted">
-            Selected: <strong>{selected.teamName}</strong> {formatOdds(selected.odds)} risking {currency(selected.stake)} to win{" "}
+            Selected: <strong>{selected.teamName}</strong> {selected.side} {formatOdds(selected.odds)} risking {currency(selected.stake)} to win{" "}
             {currency(selected.potentialProfit)}. Model {selected.modelProbability !== null ? formatPercent(selected.modelProbability) : "-"}.
           </p>
         ) : (
-          <p className="muted">No moneyline odds are available on today&apos;s board.</p>
+          <p className="muted">No paper bet candidates are available on today&apos;s board.</p>
         )}
       </section>
 
@@ -399,6 +543,7 @@ export function PaperTradingClient({ board }: { board: GamePrediction[] }) {
                 <tr key={candidate.id}>
                   <td>
                     <strong>{candidate.teamName}</strong>
+                    <p>{candidate.side} · {formatOdds(candidate.odds)}</p>
                     <p className="muted">
                       {candidate.matchup} · {formatCentralGameTime(candidate.startsAt)}
                     </p>
@@ -420,7 +565,7 @@ export function PaperTradingClient({ board }: { board: GamePrediction[] }) {
             </tbody>
           </table>
         ) : (
-          <p className="muted">No paper bet candidates are available because today&apos;s board has no moneyline odds.</p>
+          <p className="muted">No paper bet candidates are available because today&apos;s board has no odds.</p>
         )}
       </section>
 
@@ -441,7 +586,7 @@ export function PaperTradingClient({ board }: { board: GamePrediction[] }) {
               {openBets.map((bet) => (
                 <tr key={bet.id}>
                   <td>
-                    <strong>{bet.teamName} {formatOdds(bet.odds)}</strong>
+                    <strong>{bet.teamName} {bet.side} {formatOdds(bet.odds)}</strong>
                     <p className="muted">{bet.matchup} · {formatCentralGameTime(bet.startsAt)}</p>
                   </td>
                   <td>{currency(bet.stake)}</td>
@@ -484,7 +629,7 @@ export function PaperTradingClient({ board }: { board: GamePrediction[] }) {
               {settledBets.slice(0, 30).map((bet) => (
                 <tr key={bet.id}>
                   <td>
-                    <strong>{bet.teamName} {formatOdds(bet.odds)}</strong>
+                    <strong>{bet.teamName} {bet.side} {formatOdds(bet.odds)}</strong>
                     <p className="muted">{bet.matchup}</p>
                   </td>
                   <td>{bet.status}</td>

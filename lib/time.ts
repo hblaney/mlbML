@@ -10,6 +10,15 @@ export function formatCentralGameTime(startsAt: string) {
   }).format(new Date(startsAt));
 }
 
+export function formatCentralDate(value: Date | string = new Date()) {
+  return new Intl.DateTimeFormat("en-US", {
+    month: "numeric",
+    day: "numeric",
+    year: "numeric",
+    timeZone: "America/Chicago"
+  }).format(typeof value === "string" ? new Date(value) : value);
+}
+
 function formatCentralWatchDateTime(startsAt: string) {
   const date = new Date(startsAt);
   const datePart = new Intl.DateTimeFormat("en-US", {
