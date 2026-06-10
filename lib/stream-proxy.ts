@@ -228,17 +228,6 @@ export async function resolveStreamManifest(slug: string): Promise<StreamManifes
     }
 
     const allowed = assertAllowedStreamUrl(payload.url);
-    const playlistResponse = await fetchStreamAsset(allowed.toString(), refererPath);
-    const playlistType = playlistResponse.headers.get("content-type") ?? "";
-    const playlistText = new TextDecoder().decode(await playlistResponse.arrayBuffer());
-
-    if (!looksLikePlaylist(playlistType, playlistText)) {
-      return {
-        url: null,
-        message: "No live stream is available for this feed right now."
-      };
-    }
-
     return {
       url: proxyHlsUrl(allowed.toString()),
       message: "ok"
@@ -290,7 +279,16 @@ body,html{background:#000;overflow:hidden;height:100%;color:#fff;font-family:sys
     video.setAttribute('playsinline','');
     playerEl.appendChild(video);
     if(window.Hls&&Hls.isSupported()){
-      var hls=new Hls({enableWorker:true});
+      var hls=new Hls({
+        enableWorker:true,
+        liveSyncDurationCount:3,
+        manifestLoadingMaxRetry:8,
+        manifestLoadingRetryDelay:1000,
+        levelLoadingMaxRetry:8,
+        levelLoadingRetryDelay:1000,
+        fragLoadingMaxRetry:8,
+        fragLoadingRetryDelay:1000
+      });
       hls.loadSource(source);
       hls.attachMedia(video);
       hls.on(Hls.Events.MANIFEST_PARSED,function(){
