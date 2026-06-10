@@ -33,13 +33,13 @@ def market_aware_probabilities(prediction, market_snapshot, odds_available: bool
     notes = list(prediction.notes)
     if not odds_available:
         home_probability = sharpen_public_probability(prediction.home_probability)
-        notes.append("Public probability is sharpened 15% after validation so strong model edges show more decisively")
+        notes.append("Public probability uses the validated random-forest distribution without extra sharpening")
         return home_probability, 1.0 - home_probability, notes
 
     market_probs = no_vig_market_probabilities(market_snapshot)
     if market_probs is None:
         home_probability = sharpen_public_probability(prediction.home_probability)
-        notes.append("Public probability is sharpened 15% after validation so strong model edges show more decisively")
+        notes.append("Public probability uses the validated random-forest distribution without extra sharpening")
         return home_probability, 1.0 - home_probability, notes
 
     market_home, market_away = market_probs
@@ -53,7 +53,7 @@ def market_aware_probabilities(prediction, market_snapshot, odds_available: bool
     home_probability = sharpen_public_probability(home_probability)
     away_probability = 1.0 - home_probability
     notes.append("Final probability is anchored to no-vig sportsbook consensus plus the internal model signal")
-    notes.append("Public probability is sharpened 15% after validation so strong model edges show more decisively")
+    notes.append("Public probability uses the validated random-forest distribution without extra sharpening")
     return home_probability, away_probability, notes
 
 

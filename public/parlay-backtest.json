@@ -17,258 +17,2260 @@
   "best_single_strategies": [
     {
       "min_edge": 0.03,
-      "min_probability": 0.57,
-      "max_abs_odds": 160,
+      "min_probability": 0.62,
+      "max_abs_odds": 180,
       "bets": 43,
+      "wins": 32,
+      "losses": 11,
+      "hit_rate": 0.7441860465116279,
+      "profit": 1386.2916012085693,
+      "roi": 0.3223933956298998,
+      "avg_ev": 17.748725382353424
+    },
+    {
+      "min_edge": 0.04,
+      "min_probability": 0.62,
+      "max_abs_odds": 180,
+      "bets": 42,
       "wins": 31,
+      "losses": 11,
+      "hit_rate": 0.7380952380952381,
+      "profit": 1329.1487440657122,
+      "roi": 0.3164639866823124,
+      "avg_ev": 18.05781068057272
+    },
+    {
+      "min_edge": 0.03,
+      "min_probability": 0.62,
+      "max_abs_odds": 220,
+      "bets": 47,
+      "wins": 35,
       "losses": 12,
-      "hit_rate": 0.7209302325581395,
-      "profit": 1804.9042054611234,
-      "roi": 0.4197451640607264,
-      "avg_ev": 19.870627517996994
+      "hit_rate": 0.7446808510638298,
+      "profit": 1449.0702098760305,
+      "roi": 0.3083128106119214,
+      "avg_ev": 16.759413249461414
     },
     {
-      "min_edge": 0.08,
-      "min_probability": 0.55,
-      "max_abs_odds": 180,
-      "bets": 50,
-      "wins": 32,
-      "losses": 18,
-      "hit_rate": 0.64,
-      "profit": 1922.6349514956355,
-      "roi": 0.3845269902991271,
-      "avg_ev": 26.517251305211502
-    },
-    {
-      "min_edge": 0.08,
-      "min_probability": 0.55,
-      "max_abs_odds": 220,
-      "bets": 50,
-      "wins": 32,
-      "losses": 18,
-      "hit_rate": 0.64,
-      "profit": 1922.6349514956355,
-      "roi": 0.3845269902991271,
-      "avg_ev": 26.517251305211502
-    },
-    {
-      "min_edge": 0.03,
+      "min_edge": 0.05,
       "min_probability": 0.57,
       "max_abs_odds": 180,
-      "bets": 46,
+      "bets": 104,
+      "wins": 68,
+      "losses": 36,
+      "hit_rate": 0.6538461538461539,
+      "profit": 3037.5177783195995,
+      "roi": 0.29206901714611533,
+      "avg_ev": 22.11972521925187
+    },
+    {
+      "min_edge": 0.04,
+      "min_probability": 0.62,
+      "max_abs_odds": 220,
+      "bets": 44,
       "wins": 32,
-      "losses": 14,
-      "hit_rate": 0.6956521739130435,
-      "profit": 1664.428014984933,
-      "roi": 0.3618321771706376,
-      "avg_ev": 19.0280706578601
+      "losses": 12,
+      "hit_rate": 0.7272727272727273,
+      "profit": 1282.6246798945892,
+      "roi": 0.2915056090669521,
+      "avg_ev": 17.55271674994549
     },
     {
-      "min_edge": 0.03,
-      "min_probability": 0.55,
+      "min_edge": 0.05,
+      "min_probability": 0.57,
       "max_abs_odds": 160,
-      "bets": 76,
-      "wins": 51,
-      "losses": 25,
-      "hit_rate": 0.6710526315789473,
-      "profit": 2722.083183766811,
-      "roi": 0.35816883996931725,
-      "avg_ev": 19.76114479298999
+      "bets": 101,
+      "wins": 66,
+      "losses": 35,
+      "hit_rate": 0.6534653465346535,
+      "profit": 2907.9939687957894,
+      "roi": 0.2879201949302762,
+      "avg_ev": 22.05790889567891
     },
     {
-      "min_edge": 0.08,
+      "min_edge": 0.04,
+      "min_probability": 0.57,
+      "max_abs_odds": 160,
+      "bets": 111,
+      "wins": 73,
+      "losses": 38,
+      "hit_rate": 0.6576576576576577,
+      "profit": 3138.9891150551866,
+      "roi": 0.28279181216713395,
+      "avg_ev": 20.812360836268176
+    },
+    {
+      "min_edge": 0.05,
+      "min_probability": 0.57,
+      "max_abs_odds": 220,
+      "bets": 105,
+      "wins": 68,
+      "losses": 37,
+      "hit_rate": 0.6476190476190476,
+      "profit": 2937.5177783195995,
+      "roi": 0.27976359793519995,
+      "avg_ev": 22.62191450287804
+    },
+    {
+      "min_edge": 0.06,
+      "min_probability": 0.57,
+      "max_abs_odds": 180,
+      "bets": 91,
+      "wins": 58,
+      "losses": 33,
+      "hit_rate": 0.6373626373626373,
+      "profit": 2533.5360907954346,
+      "roi": 0.27841055942806975,
+      "avg_ev": 23.872233866754993
+    },
+    {
+      "min_edge": 0.04,
+      "min_probability": 0.57,
+      "max_abs_odds": 180,
+      "bets": 116,
+      "wins": 76,
+      "losses": 40,
+      "hit_rate": 0.6551724137931034,
+      "profit": 3226.992456742739,
+      "roi": 0.2781890048916154,
+      "avg_ev": 20.666913585652278
+    },
+    {
+      "min_edge": 0.05,
+      "min_probability": 0.55,
+      "max_abs_odds": 180,
+      "bets": 130,
+      "wins": 82,
+      "losses": 48,
+      "hit_rate": 0.6307692307692307,
+      "profit": 3613.5177783195995,
+      "roi": 0.27796290602458457,
+      "avg_ev": 23.00340017540149
+    },
+    {
+      "min_edge": 0.05,
       "min_probability": 0.55,
       "max_abs_odds": 160,
-      "bets": 49,
-      "wins": 31,
-      "losses": 18,
-      "hit_rate": 0.6326530612244898,
-      "profit": 1752.6349514956357,
-      "roi": 0.3576806023460481,
-      "avg_ev": 26.0261952093995
+      "bets": 127,
+      "wins": 80,
+      "losses": 47,
+      "hit_rate": 0.6299212598425197,
+      "profit": 3483.9939687957894,
+      "roi": 0.274330233763448,
+      "avg_ev": 22.9751133737289
+    },
+    {
+      "min_edge": 0.05,
+      "min_probability": 0.55,
+      "max_abs_odds": 220,
+      "bets": 131,
+      "wins": 82,
+      "losses": 49,
+      "hit_rate": 0.6259541984732825,
+      "profit": 3513.5177783195995,
+      "roi": 0.2682074639938626,
+      "avg_ev": 23.399172693146518
     },
     {
       "min_edge": 0.06,
       "min_probability": 0.55,
       "max_abs_odds": 180,
-      "bets": 54,
-      "wins": 34,
-      "losses": 20,
-      "hit_rate": 0.6296296296296297,
-      "profit": 1894.1892036950492,
-      "roi": 0.35077577846204616,
-      "avg_ev": 25.496639747325634
+      "bets": 117,
+      "wins": 72,
+      "losses": 45,
+      "hit_rate": 0.6153846153846154,
+      "profit": 3109.536090795435,
+      "roi": 0.26577231545260127,
+      "avg_ev": 24.464648563031666
     },
     {
       "min_edge": 0.06,
-      "min_probability": 0.55,
+      "min_probability": 0.57,
       "max_abs_odds": 220,
-      "bets": 54,
-      "wins": 34,
-      "losses": 20,
-      "hit_rate": 0.6296296296296297,
-      "profit": 1894.1892036950492,
-      "roi": 0.35077577846204616,
-      "avg_ev": 25.496639747325634
+      "bets": 92,
+      "wins": 58,
+      "losses": 34,
+      "hit_rate": 0.6304347826086957,
+      "profit": 2433.5360907954346,
+      "roi": 0.2645147924777646,
+      "avg_ev": 24.42633567255114
+    },
+    {
+      "min_edge": 0.06,
+      "min_probability": 0.57,
+      "max_abs_odds": 160,
+      "bets": 90,
+      "wins": 57,
+      "losses": 33,
+      "hit_rate": 0.6333333333333333,
+      "profit": 2363.5360907954346,
+      "roi": 0.2626151211994927,
+      "avg_ev": 23.521492020830046
     },
     {
       "min_edge": 0.04,
       "min_probability": 0.57,
       "max_abs_odds": 220,
-      "bets": 40,
-      "wins": 27,
-      "losses": 13,
-      "hit_rate": 0.675,
-      "profit": 1380.5682347641477,
-      "roi": 0.3451420586910369,
-      "avg_ev": 21.039961558263606
-    },
-    {
-      "min_edge": 0.03,
-      "min_probability": 0.55,
-      "max_abs_odds": 180,
-      "bets": 80,
-      "wins": 53,
-      "losses": 27,
-      "hit_rate": 0.6625,
-      "profit": 2751.6069932906203,
-      "roi": 0.3439508741613275,
-      "avg_ev": 19.66600339068666
-    },
-    {
-      "min_edge": 0.04,
-      "min_probability": 0.55,
-      "max_abs_odds": 220,
-      "bets": 68,
-      "wins": 44,
-      "losses": 24,
+      "bets": 119,
+      "wins": 77,
+      "losses": 42,
       "hit_rate": 0.6470588235294118,
-      "profit": 2304.840072639759,
-      "roi": 0.3389470695058469,
-      "avg_ev": 22.03909096642647
+      "profit": 3080.4683925716163,
+      "roi": 0.2588628901320686,
+      "avg_ev": 20.891622389489168
     },
     {
-      "min_edge": 0.03,
+      "min_edge": 0.06,
+      "min_probability": 0.55,
+      "max_abs_odds": 220,
+      "bets": 118,
+      "wins": 72,
+      "losses": 46,
+      "hit_rate": 0.6101694915254238,
+      "profit": 3009.536090795435,
+      "roi": 0.25504543142334196,
+      "avg_ev": 24.89163967690428
+    },
+    {
+      "min_edge": 0.08,
       "min_probability": 0.57,
-      "max_abs_odds": 220,
-      "bets": 48,
-      "wins": 33,
-      "losses": 15,
-      "hit_rate": 0.6875,
-      "profit": 1617.9039508138096,
-      "roi": 0.33706332308621034,
-      "avg_ev": 18.501827889064828
-    },
-    {
-      "min_edge": 0.04,
-      "min_probability": 0.55,
       "max_abs_odds": 180,
-      "bets": 67,
-      "wins": 43,
-      "losses": 24,
-      "hit_rate": 0.6417910447761194,
-      "profit": 2251.364136810882,
-      "roi": 0.33602449803147494,
-      "avg_ev": 22.257090009504267
-    },
-    {
-      "min_edge": 0.04,
-      "min_probability": 0.55,
-      "max_abs_odds": 160,
-      "bets": 64,
+      "bets": 68,
       "wins": 41,
-      "losses": 23,
-      "hit_rate": 0.640625,
-      "profit": 2121.8403272870723,
-      "roi": 0.33153755113860506,
-      "avg_ev": 22.26505038005078
-    },
-    {
-      "min_edge": 0.05,
-      "min_probability": 0.55,
-      "max_abs_odds": 180,
-      "bets": 59,
-      "wins": 37,
-      "losses": 22,
-      "hit_rate": 0.6271186440677966,
-      "profit": 1946.634063181953,
-      "roi": 0.3299379768105005,
-      "avg_ev": 24.183380416058444
-    },
-    {
-      "min_edge": 0.05,
-      "min_probability": 0.55,
-      "max_abs_odds": 220,
-      "bets": 59,
-      "wins": 37,
-      "losses": 22,
-      "hit_rate": 0.6271186440677966,
-      "profit": 1946.634063181953,
-      "roi": 0.3299379768105005,
-      "avg_ev": 24.183380416058444
-    },
-    {
-      "min_edge": 0.03,
-      "min_probability": 0.55,
-      "max_abs_odds": 220,
-      "bets": 82,
-      "wins": 54,
-      "losses": 28,
-      "hit_rate": 0.6585365853658537,
-      "profit": 2705.0829291194973,
-      "roi": 0.3298881620877436,
-      "avg_ev": 19.3423995081522
-    },
-    {
-      "min_edge": 0.05,
-      "min_probability": 0.55,
-      "max_abs_odds": 160,
-      "bets": 57,
-      "wins": 36,
-      "losses": 21,
-      "hit_rate": 0.631578947368421,
-      "profit": 1876.6340631819526,
-      "roi": 0.32923404617227237,
-      "avg_ev": 23.996027905523924
-    },
-    {
-      "min_edge": 0.03,
-      "min_probability": 0.55,
-      "max_abs_odds": 140,
-      "bets": 69,
-      "wins": 45,
-      "losses": 24,
-      "hit_rate": 0.6521739130434783,
-      "profit": 2269.184175816493,
-      "roi": 0.32886727185746273,
-      "avg_ev": 19.400674330953944
+      "losses": 27,
+      "hit_rate": 0.6029411764705882,
+      "profit": 1729.7452901775628,
+      "roi": 0.25437430737905337,
+      "avg_ev": 27.892040924524807
     },
     {
       "min_edge": 0.06,
       "min_probability": 0.55,
       "max_abs_odds": 160,
-      "bets": 53,
-      "wins": 33,
-      "losses": 20,
-      "hit_rate": 0.6226415094339622,
-      "profit": 1724.1892036950492,
-      "roi": 0.32531871767831116,
-      "avg_ev": 25.0233876670865
+      "bets": 116,
+      "wins": 71,
+      "losses": 45,
+      "hit_rate": 0.6120689655172413,
+      "profit": 2939.536090795435,
+      "roi": 0.25340828368926166,
+      "avg_ev": 24.197628292023317
     }
   ],
   "recommended_single_strategy": {
     "min_edge": 0.05,
     "min_probability": 0.57,
     "max_abs_odds": 160,
-    "bets": 33,
-    "wins": 23,
-    "losses": 10,
-    "hit_rate": 0.696969696969697,
-    "profit": 1403.6340631819526,
-    "roi": 0.4253436555096826,
-    "avg_ev": 23.839055820338633
+    "bets": 101,
+    "wins": 66,
+    "losses": 35,
+    "hit_rate": 0.6534653465346535,
+    "profit": 2907.9939687957894,
+    "roi": 0.2879201949302762,
+    "avg_ev": 22.05790889567891
   },
-  "best_overall": [],
-  "best_by_leg_count": [],
+  "best_overall": [
+    {
+      "leg_count": 2,
+      "min_edge": 0.03,
+      "min_probability": 0.6,
+      "top_n": 4,
+      "bets": 9,
+      "wins": 4,
+      "losses": 5,
+      "hit_rate": 0.4444444444444444,
+      "profit": 255.89908266855107,
+      "roi": 0.2843323140761679,
+      "avg_model_probability": 0.4202889644444444,
+      "avg_ev": 28.10716772191531,
+      "sample_tickets": [
+        {
+          "date": "2025-04-17",
+          "won": false,
+          "profit": -100.0,
+          "probability": 0.4148,
+          "american_odds": 192,
+          "legs": [
+            {
+              "team": "DET",
+              "matchup": "KC @ DET",
+              "odds": -154,
+              "model_probability": 0.6881,
+              "edge": 0.0818
+            },
+            {
+              "team": "CIN",
+              "matchup": "SEA @ CIN",
+              "odds": -130,
+              "model_probability": 0.6028,
+              "edge": 0.0376
+            }
+          ]
+        },
+        {
+          "date": "2025-04-30",
+          "won": false,
+          "profit": -100.0,
+          "probability": 0.416,
+          "american_odds": 227,
+          "legs": [
+            {
+              "team": "NYM",
+              "matchup": "AZ @ NYM",
+              "odds": -108,
+              "model_probability": 0.6097,
+              "edge": 0.0905
+            },
+            {
+              "team": "SEA",
+              "matchup": "LAA @ SEA",
+              "odds": -143,
+              "model_probability": 0.6823,
+              "edge": 0.0938
+            }
+          ]
+        },
+        {
+          "date": "2025-05-07",
+          "won": true,
+          "profit": 194.76,
+          "probability": 0.4104,
+          "american_odds": 195,
+          "legs": [
+            {
+              "team": "SEA",
+              "matchup": "SEA @ ATH",
+              "odds": -140,
+              "model_probability": 0.6497,
+              "edge": 0.0664
+            },
+            {
+              "team": "MIN",
+              "matchup": "BAL @ MIN",
+              "odds": -139,
+              "model_probability": 0.6316,
+              "edge": 0.05
+            }
+          ]
+        },
+        {
+          "date": "2025-05-21",
+          "won": false,
+          "profit": -100.0,
+          "probability": 0.4219,
+          "american_odds": 237,
+          "legs": [
+            {
+              "team": "MIL",
+              "matchup": "BAL @ MIL",
+              "odds": -112,
+              "model_probability": 0.6972,
+              "edge": 0.1689
+            },
+            {
+              "team": "MIN",
+              "matchup": "CLE @ MIN",
+              "odds": -128,
+              "model_probability": 0.6051,
+              "edge": 0.0437
+            }
+          ]
+        },
+        {
+          "date": "2025-06-03",
+          "won": true,
+          "profit": 175.96,
+          "probability": 0.4172,
+          "american_odds": 176,
+          "legs": [
+            {
+              "team": "MIN",
+              "matchup": "MIN @ ATH",
+              "odds": -168,
+              "model_probability": 0.6773,
+              "edge": 0.0504
+            },
+            {
+              "team": "PHI",
+              "matchup": "PHI @ TOR",
+              "odds": -137,
+              "model_probability": 0.616,
+              "edge": 0.0379
+            }
+          ]
+        },
+        {
+          "date": "2025-06-18",
+          "won": true,
+          "profit": 220.6,
+          "probability": 0.4265,
+          "american_odds": 221,
+          "legs": [
+            {
+              "team": "CIN",
+              "matchup": "MIN @ CIN",
+              "odds": -126,
+              "model_probability": 0.6548,
+              "edge": 0.0973
+            },
+            {
+              "team": "HOU",
+              "matchup": "HOU @ ATH",
+              "odds": -127,
+              "model_probability": 0.6513,
+              "edge": 0.0918
+            }
+          ]
+        },
+        {
+          "date": "2025-07-29",
+          "won": false,
+          "profit": -100.0,
+          "probability": 0.3744,
+          "american_odds": 219,
+          "legs": [
+            {
+              "team": "TOR",
+              "matchup": "TOR @ BAL",
+              "odds": -126,
+              "model_probability": 0.6129,
+              "edge": 0.0554
+            },
+            {
+              "team": "KC",
+              "matchup": "ATL @ KC",
+              "odds": -128,
+              "model_probability": 0.6108,
+              "edge": 0.0494
+            }
+          ]
+        },
+        {
+          "date": "2025-07-30",
+          "won": true,
+          "profit": 164.58,
+          "probability": 0.4429,
+          "american_odds": 165,
+          "legs": [
+            {
+              "team": "KC",
+              "matchup": "ATL @ KC",
+              "odds": -142,
+              "model_probability": 0.6492,
+              "edge": 0.0624
+            },
+            {
+              "team": "CLE",
+              "matchup": "COL @ CLE",
+              "odds": -181,
+              "model_probability": 0.6822,
+              "edge": 0.0381
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "leg_count": 2,
+      "min_edge": 0.03,
+      "min_probability": 0.6,
+      "top_n": 6,
+      "bets": 9,
+      "wins": 4,
+      "losses": 5,
+      "hit_rate": 0.4444444444444444,
+      "profit": 255.89908266855107,
+      "roi": 0.2843323140761679,
+      "avg_model_probability": 0.4202889644444444,
+      "avg_ev": 28.10716772191531,
+      "sample_tickets": [
+        {
+          "date": "2025-04-17",
+          "won": false,
+          "profit": -100.0,
+          "probability": 0.4148,
+          "american_odds": 192,
+          "legs": [
+            {
+              "team": "DET",
+              "matchup": "KC @ DET",
+              "odds": -154,
+              "model_probability": 0.6881,
+              "edge": 0.0818
+            },
+            {
+              "team": "CIN",
+              "matchup": "SEA @ CIN",
+              "odds": -130,
+              "model_probability": 0.6028,
+              "edge": 0.0376
+            }
+          ]
+        },
+        {
+          "date": "2025-04-30",
+          "won": false,
+          "profit": -100.0,
+          "probability": 0.416,
+          "american_odds": 227,
+          "legs": [
+            {
+              "team": "NYM",
+              "matchup": "AZ @ NYM",
+              "odds": -108,
+              "model_probability": 0.6097,
+              "edge": 0.0905
+            },
+            {
+              "team": "SEA",
+              "matchup": "LAA @ SEA",
+              "odds": -143,
+              "model_probability": 0.6823,
+              "edge": 0.0938
+            }
+          ]
+        },
+        {
+          "date": "2025-05-07",
+          "won": true,
+          "profit": 194.76,
+          "probability": 0.4104,
+          "american_odds": 195,
+          "legs": [
+            {
+              "team": "SEA",
+              "matchup": "SEA @ ATH",
+              "odds": -140,
+              "model_probability": 0.6497,
+              "edge": 0.0664
+            },
+            {
+              "team": "MIN",
+              "matchup": "BAL @ MIN",
+              "odds": -139,
+              "model_probability": 0.6316,
+              "edge": 0.05
+            }
+          ]
+        },
+        {
+          "date": "2025-05-21",
+          "won": false,
+          "profit": -100.0,
+          "probability": 0.4219,
+          "american_odds": 237,
+          "legs": [
+            {
+              "team": "MIL",
+              "matchup": "BAL @ MIL",
+              "odds": -112,
+              "model_probability": 0.6972,
+              "edge": 0.1689
+            },
+            {
+              "team": "MIN",
+              "matchup": "CLE @ MIN",
+              "odds": -128,
+              "model_probability": 0.6051,
+              "edge": 0.0437
+            }
+          ]
+        },
+        {
+          "date": "2025-06-03",
+          "won": true,
+          "profit": 175.96,
+          "probability": 0.4172,
+          "american_odds": 176,
+          "legs": [
+            {
+              "team": "MIN",
+              "matchup": "MIN @ ATH",
+              "odds": -168,
+              "model_probability": 0.6773,
+              "edge": 0.0504
+            },
+            {
+              "team": "PHI",
+              "matchup": "PHI @ TOR",
+              "odds": -137,
+              "model_probability": 0.616,
+              "edge": 0.0379
+            }
+          ]
+        },
+        {
+          "date": "2025-06-18",
+          "won": true,
+          "profit": 220.6,
+          "probability": 0.4265,
+          "american_odds": 221,
+          "legs": [
+            {
+              "team": "CIN",
+              "matchup": "MIN @ CIN",
+              "odds": -126,
+              "model_probability": 0.6548,
+              "edge": 0.0973
+            },
+            {
+              "team": "HOU",
+              "matchup": "HOU @ ATH",
+              "odds": -127,
+              "model_probability": 0.6513,
+              "edge": 0.0918
+            }
+          ]
+        },
+        {
+          "date": "2025-07-29",
+          "won": false,
+          "profit": -100.0,
+          "probability": 0.3744,
+          "american_odds": 219,
+          "legs": [
+            {
+              "team": "TOR",
+              "matchup": "TOR @ BAL",
+              "odds": -126,
+              "model_probability": 0.6129,
+              "edge": 0.0554
+            },
+            {
+              "team": "KC",
+              "matchup": "ATL @ KC",
+              "odds": -128,
+              "model_probability": 0.6108,
+              "edge": 0.0494
+            }
+          ]
+        },
+        {
+          "date": "2025-07-30",
+          "won": true,
+          "profit": 164.58,
+          "probability": 0.4429,
+          "american_odds": 165,
+          "legs": [
+            {
+              "team": "KC",
+              "matchup": "ATL @ KC",
+              "odds": -142,
+              "model_probability": 0.6492,
+              "edge": 0.0624
+            },
+            {
+              "team": "CLE",
+              "matchup": "COL @ CLE",
+              "odds": -181,
+              "model_probability": 0.6822,
+              "edge": 0.0381
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "leg_count": 2,
+      "min_edge": 0.03,
+      "min_probability": 0.6,
+      "top_n": 8,
+      "bets": 9,
+      "wins": 4,
+      "losses": 5,
+      "hit_rate": 0.4444444444444444,
+      "profit": 255.89908266855107,
+      "roi": 0.2843323140761679,
+      "avg_model_probability": 0.4202889644444444,
+      "avg_ev": 28.10716772191531,
+      "sample_tickets": [
+        {
+          "date": "2025-04-17",
+          "won": false,
+          "profit": -100.0,
+          "probability": 0.4148,
+          "american_odds": 192,
+          "legs": [
+            {
+              "team": "DET",
+              "matchup": "KC @ DET",
+              "odds": -154,
+              "model_probability": 0.6881,
+              "edge": 0.0818
+            },
+            {
+              "team": "CIN",
+              "matchup": "SEA @ CIN",
+              "odds": -130,
+              "model_probability": 0.6028,
+              "edge": 0.0376
+            }
+          ]
+        },
+        {
+          "date": "2025-04-30",
+          "won": false,
+          "profit": -100.0,
+          "probability": 0.416,
+          "american_odds": 227,
+          "legs": [
+            {
+              "team": "NYM",
+              "matchup": "AZ @ NYM",
+              "odds": -108,
+              "model_probability": 0.6097,
+              "edge": 0.0905
+            },
+            {
+              "team": "SEA",
+              "matchup": "LAA @ SEA",
+              "odds": -143,
+              "model_probability": 0.6823,
+              "edge": 0.0938
+            }
+          ]
+        },
+        {
+          "date": "2025-05-07",
+          "won": true,
+          "profit": 194.76,
+          "probability": 0.4104,
+          "american_odds": 195,
+          "legs": [
+            {
+              "team": "SEA",
+              "matchup": "SEA @ ATH",
+              "odds": -140,
+              "model_probability": 0.6497,
+              "edge": 0.0664
+            },
+            {
+              "team": "MIN",
+              "matchup": "BAL @ MIN",
+              "odds": -139,
+              "model_probability": 0.6316,
+              "edge": 0.05
+            }
+          ]
+        },
+        {
+          "date": "2025-05-21",
+          "won": false,
+          "profit": -100.0,
+          "probability": 0.4219,
+          "american_odds": 237,
+          "legs": [
+            {
+              "team": "MIL",
+              "matchup": "BAL @ MIL",
+              "odds": -112,
+              "model_probability": 0.6972,
+              "edge": 0.1689
+            },
+            {
+              "team": "MIN",
+              "matchup": "CLE @ MIN",
+              "odds": -128,
+              "model_probability": 0.6051,
+              "edge": 0.0437
+            }
+          ]
+        },
+        {
+          "date": "2025-06-03",
+          "won": true,
+          "profit": 175.96,
+          "probability": 0.4172,
+          "american_odds": 176,
+          "legs": [
+            {
+              "team": "MIN",
+              "matchup": "MIN @ ATH",
+              "odds": -168,
+              "model_probability": 0.6773,
+              "edge": 0.0504
+            },
+            {
+              "team": "PHI",
+              "matchup": "PHI @ TOR",
+              "odds": -137,
+              "model_probability": 0.616,
+              "edge": 0.0379
+            }
+          ]
+        },
+        {
+          "date": "2025-06-18",
+          "won": true,
+          "profit": 220.6,
+          "probability": 0.4265,
+          "american_odds": 221,
+          "legs": [
+            {
+              "team": "CIN",
+              "matchup": "MIN @ CIN",
+              "odds": -126,
+              "model_probability": 0.6548,
+              "edge": 0.0973
+            },
+            {
+              "team": "HOU",
+              "matchup": "HOU @ ATH",
+              "odds": -127,
+              "model_probability": 0.6513,
+              "edge": 0.0918
+            }
+          ]
+        },
+        {
+          "date": "2025-07-29",
+          "won": false,
+          "profit": -100.0,
+          "probability": 0.3744,
+          "american_odds": 219,
+          "legs": [
+            {
+              "team": "TOR",
+              "matchup": "TOR @ BAL",
+              "odds": -126,
+              "model_probability": 0.6129,
+              "edge": 0.0554
+            },
+            {
+              "team": "KC",
+              "matchup": "ATL @ KC",
+              "odds": -128,
+              "model_probability": 0.6108,
+              "edge": 0.0494
+            }
+          ]
+        },
+        {
+          "date": "2025-07-30",
+          "won": true,
+          "profit": 164.58,
+          "probability": 0.4429,
+          "american_odds": 165,
+          "legs": [
+            {
+              "team": "KC",
+              "matchup": "ATL @ KC",
+              "odds": -142,
+              "model_probability": 0.6492,
+              "edge": 0.0624
+            },
+            {
+              "team": "CLE",
+              "matchup": "COL @ CLE",
+              "odds": -181,
+              "model_probability": 0.6822,
+              "edge": 0.0381
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "leg_count": 2,
+      "min_edge": 0.02,
+      "min_probability": 0.6,
+      "top_n": 4,
+      "bets": 10,
+      "wins": 4,
+      "losses": 6,
+      "hit_rate": 0.4,
+      "profit": 155.89908266855107,
+      "roi": 0.15589908266855107,
+      "avg_model_probability": 0.417660628,
+      "avg_ev": 26.841174305346886,
+      "sample_tickets": [
+        {
+          "date": "2025-04-30",
+          "won": false,
+          "profit": -100.0,
+          "probability": 0.416,
+          "american_odds": 227,
+          "legs": [
+            {
+              "team": "NYM",
+              "matchup": "AZ @ NYM",
+              "odds": -108,
+              "model_probability": 0.6097,
+              "edge": 0.0905
+            },
+            {
+              "team": "SEA",
+              "matchup": "LAA @ SEA",
+              "odds": -143,
+              "model_probability": 0.6823,
+              "edge": 0.0938
+            }
+          ]
+        },
+        {
+          "date": "2025-05-07",
+          "won": true,
+          "profit": 194.76,
+          "probability": 0.4104,
+          "american_odds": 195,
+          "legs": [
+            {
+              "team": "SEA",
+              "matchup": "SEA @ ATH",
+              "odds": -140,
+              "model_probability": 0.6497,
+              "edge": 0.0664
+            },
+            {
+              "team": "MIN",
+              "matchup": "BAL @ MIN",
+              "odds": -139,
+              "model_probability": 0.6316,
+              "edge": 0.05
+            }
+          ]
+        },
+        {
+          "date": "2025-05-21",
+          "won": false,
+          "profit": -100.0,
+          "probability": 0.4219,
+          "american_odds": 237,
+          "legs": [
+            {
+              "team": "MIL",
+              "matchup": "BAL @ MIL",
+              "odds": -112,
+              "model_probability": 0.6972,
+              "edge": 0.1689
+            },
+            {
+              "team": "MIN",
+              "matchup": "CLE @ MIN",
+              "odds": -128,
+              "model_probability": 0.6051,
+              "edge": 0.0437
+            }
+          ]
+        },
+        {
+          "date": "2025-06-03",
+          "won": true,
+          "profit": 175.96,
+          "probability": 0.4172,
+          "american_odds": 176,
+          "legs": [
+            {
+              "team": "MIN",
+              "matchup": "MIN @ ATH",
+              "odds": -168,
+              "model_probability": 0.6773,
+              "edge": 0.0504
+            },
+            {
+              "team": "PHI",
+              "matchup": "PHI @ TOR",
+              "odds": -137,
+              "model_probability": 0.616,
+              "edge": 0.0379
+            }
+          ]
+        },
+        {
+          "date": "2025-06-18",
+          "won": true,
+          "profit": 220.6,
+          "probability": 0.4265,
+          "american_odds": 221,
+          "legs": [
+            {
+              "team": "CIN",
+              "matchup": "MIN @ CIN",
+              "odds": -126,
+              "model_probability": 0.6548,
+              "edge": 0.0973
+            },
+            {
+              "team": "HOU",
+              "matchup": "HOU @ ATH",
+              "odds": -127,
+              "model_probability": 0.6513,
+              "edge": 0.0918
+            }
+          ]
+        },
+        {
+          "date": "2025-07-05",
+          "won": false,
+          "profit": -100.0,
+          "probability": 0.394,
+          "american_odds": 193,
+          "legs": [
+            {
+              "team": "DET",
+              "matchup": "DET @ CLE",
+              "odds": -140,
+              "model_probability": 0.6438,
+              "edge": 0.0605
+            },
+            {
+              "team": "MIL",
+              "matchup": "MIL @ MIA",
+              "odds": -141,
+              "model_probability": 0.612,
+              "edge": 0.0269
+            }
+          ]
+        },
+        {
+          "date": "2025-07-29",
+          "won": false,
+          "profit": -100.0,
+          "probability": 0.3744,
+          "american_odds": 219,
+          "legs": [
+            {
+              "team": "TOR",
+              "matchup": "TOR @ BAL",
+              "odds": -126,
+              "model_probability": 0.6129,
+              "edge": 0.0554
+            },
+            {
+              "team": "KC",
+              "matchup": "ATL @ KC",
+              "odds": -128,
+              "model_probability": 0.6108,
+              "edge": 0.0494
+            }
+          ]
+        },
+        {
+          "date": "2025-07-30",
+          "won": true,
+          "profit": 164.58,
+          "probability": 0.4429,
+          "american_odds": 165,
+          "legs": [
+            {
+              "team": "KC",
+              "matchup": "ATL @ KC",
+              "odds": -142,
+              "model_probability": 0.6492,
+              "edge": 0.0624
+            },
+            {
+              "team": "CLE",
+              "matchup": "COL @ CLE",
+              "odds": -181,
+              "model_probability": 0.6822,
+              "edge": 0.0381
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "leg_count": 2,
+      "min_edge": 0.02,
+      "min_probability": 0.6,
+      "top_n": 6,
+      "bets": 10,
+      "wins": 4,
+      "losses": 6,
+      "hit_rate": 0.4,
+      "profit": 155.89908266855107,
+      "roi": 0.15589908266855107,
+      "avg_model_probability": 0.417660628,
+      "avg_ev": 26.841174305346886,
+      "sample_tickets": [
+        {
+          "date": "2025-04-30",
+          "won": false,
+          "profit": -100.0,
+          "probability": 0.416,
+          "american_odds": 227,
+          "legs": [
+            {
+              "team": "NYM",
+              "matchup": "AZ @ NYM",
+              "odds": -108,
+              "model_probability": 0.6097,
+              "edge": 0.0905
+            },
+            {
+              "team": "SEA",
+              "matchup": "LAA @ SEA",
+              "odds": -143,
+              "model_probability": 0.6823,
+              "edge": 0.0938
+            }
+          ]
+        },
+        {
+          "date": "2025-05-07",
+          "won": true,
+          "profit": 194.76,
+          "probability": 0.4104,
+          "american_odds": 195,
+          "legs": [
+            {
+              "team": "SEA",
+              "matchup": "SEA @ ATH",
+              "odds": -140,
+              "model_probability": 0.6497,
+              "edge": 0.0664
+            },
+            {
+              "team": "MIN",
+              "matchup": "BAL @ MIN",
+              "odds": -139,
+              "model_probability": 0.6316,
+              "edge": 0.05
+            }
+          ]
+        },
+        {
+          "date": "2025-05-21",
+          "won": false,
+          "profit": -100.0,
+          "probability": 0.4219,
+          "american_odds": 237,
+          "legs": [
+            {
+              "team": "MIL",
+              "matchup": "BAL @ MIL",
+              "odds": -112,
+              "model_probability": 0.6972,
+              "edge": 0.1689
+            },
+            {
+              "team": "MIN",
+              "matchup": "CLE @ MIN",
+              "odds": -128,
+              "model_probability": 0.6051,
+              "edge": 0.0437
+            }
+          ]
+        },
+        {
+          "date": "2025-06-03",
+          "won": true,
+          "profit": 175.96,
+          "probability": 0.4172,
+          "american_odds": 176,
+          "legs": [
+            {
+              "team": "MIN",
+              "matchup": "MIN @ ATH",
+              "odds": -168,
+              "model_probability": 0.6773,
+              "edge": 0.0504
+            },
+            {
+              "team": "PHI",
+              "matchup": "PHI @ TOR",
+              "odds": -137,
+              "model_probability": 0.616,
+              "edge": 0.0379
+            }
+          ]
+        },
+        {
+          "date": "2025-06-18",
+          "won": true,
+          "profit": 220.6,
+          "probability": 0.4265,
+          "american_odds": 221,
+          "legs": [
+            {
+              "team": "CIN",
+              "matchup": "MIN @ CIN",
+              "odds": -126,
+              "model_probability": 0.6548,
+              "edge": 0.0973
+            },
+            {
+              "team": "HOU",
+              "matchup": "HOU @ ATH",
+              "odds": -127,
+              "model_probability": 0.6513,
+              "edge": 0.0918
+            }
+          ]
+        },
+        {
+          "date": "2025-07-05",
+          "won": false,
+          "profit": -100.0,
+          "probability": 0.394,
+          "american_odds": 193,
+          "legs": [
+            {
+              "team": "DET",
+              "matchup": "DET @ CLE",
+              "odds": -140,
+              "model_probability": 0.6438,
+              "edge": 0.0605
+            },
+            {
+              "team": "MIL",
+              "matchup": "MIL @ MIA",
+              "odds": -141,
+              "model_probability": 0.612,
+              "edge": 0.0269
+            }
+          ]
+        },
+        {
+          "date": "2025-07-29",
+          "won": false,
+          "profit": -100.0,
+          "probability": 0.3744,
+          "american_odds": 219,
+          "legs": [
+            {
+              "team": "TOR",
+              "matchup": "TOR @ BAL",
+              "odds": -126,
+              "model_probability": 0.6129,
+              "edge": 0.0554
+            },
+            {
+              "team": "KC",
+              "matchup": "ATL @ KC",
+              "odds": -128,
+              "model_probability": 0.6108,
+              "edge": 0.0494
+            }
+          ]
+        },
+        {
+          "date": "2025-07-30",
+          "won": true,
+          "profit": 164.58,
+          "probability": 0.4429,
+          "american_odds": 165,
+          "legs": [
+            {
+              "team": "KC",
+              "matchup": "ATL @ KC",
+              "odds": -142,
+              "model_probability": 0.6492,
+              "edge": 0.0624
+            },
+            {
+              "team": "CLE",
+              "matchup": "COL @ CLE",
+              "odds": -181,
+              "model_probability": 0.6822,
+              "edge": 0.0381
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "leg_count": 2,
+      "min_edge": 0.02,
+      "min_probability": 0.6,
+      "top_n": 8,
+      "bets": 10,
+      "wins": 4,
+      "losses": 6,
+      "hit_rate": 0.4,
+      "profit": 155.89908266855107,
+      "roi": 0.15589908266855107,
+      "avg_model_probability": 0.417660628,
+      "avg_ev": 26.841174305346886,
+      "sample_tickets": [
+        {
+          "date": "2025-04-30",
+          "won": false,
+          "profit": -100.0,
+          "probability": 0.416,
+          "american_odds": 227,
+          "legs": [
+            {
+              "team": "NYM",
+              "matchup": "AZ @ NYM",
+              "odds": -108,
+              "model_probability": 0.6097,
+              "edge": 0.0905
+            },
+            {
+              "team": "SEA",
+              "matchup": "LAA @ SEA",
+              "odds": -143,
+              "model_probability": 0.6823,
+              "edge": 0.0938
+            }
+          ]
+        },
+        {
+          "date": "2025-05-07",
+          "won": true,
+          "profit": 194.76,
+          "probability": 0.4104,
+          "american_odds": 195,
+          "legs": [
+            {
+              "team": "SEA",
+              "matchup": "SEA @ ATH",
+              "odds": -140,
+              "model_probability": 0.6497,
+              "edge": 0.0664
+            },
+            {
+              "team": "MIN",
+              "matchup": "BAL @ MIN",
+              "odds": -139,
+              "model_probability": 0.6316,
+              "edge": 0.05
+            }
+          ]
+        },
+        {
+          "date": "2025-05-21",
+          "won": false,
+          "profit": -100.0,
+          "probability": 0.4219,
+          "american_odds": 237,
+          "legs": [
+            {
+              "team": "MIL",
+              "matchup": "BAL @ MIL",
+              "odds": -112,
+              "model_probability": 0.6972,
+              "edge": 0.1689
+            },
+            {
+              "team": "MIN",
+              "matchup": "CLE @ MIN",
+              "odds": -128,
+              "model_probability": 0.6051,
+              "edge": 0.0437
+            }
+          ]
+        },
+        {
+          "date": "2025-06-03",
+          "won": true,
+          "profit": 175.96,
+          "probability": 0.4172,
+          "american_odds": 176,
+          "legs": [
+            {
+              "team": "MIN",
+              "matchup": "MIN @ ATH",
+              "odds": -168,
+              "model_probability": 0.6773,
+              "edge": 0.0504
+            },
+            {
+              "team": "PHI",
+              "matchup": "PHI @ TOR",
+              "odds": -137,
+              "model_probability": 0.616,
+              "edge": 0.0379
+            }
+          ]
+        },
+        {
+          "date": "2025-06-18",
+          "won": true,
+          "profit": 220.6,
+          "probability": 0.4265,
+          "american_odds": 221,
+          "legs": [
+            {
+              "team": "CIN",
+              "matchup": "MIN @ CIN",
+              "odds": -126,
+              "model_probability": 0.6548,
+              "edge": 0.0973
+            },
+            {
+              "team": "HOU",
+              "matchup": "HOU @ ATH",
+              "odds": -127,
+              "model_probability": 0.6513,
+              "edge": 0.0918
+            }
+          ]
+        },
+        {
+          "date": "2025-07-05",
+          "won": false,
+          "profit": -100.0,
+          "probability": 0.394,
+          "american_odds": 193,
+          "legs": [
+            {
+              "team": "DET",
+              "matchup": "DET @ CLE",
+              "odds": -140,
+              "model_probability": 0.6438,
+              "edge": 0.0605
+            },
+            {
+              "team": "MIL",
+              "matchup": "MIL @ MIA",
+              "odds": -141,
+              "model_probability": 0.612,
+              "edge": 0.0269
+            }
+          ]
+        },
+        {
+          "date": "2025-07-29",
+          "won": false,
+          "profit": -100.0,
+          "probability": 0.3744,
+          "american_odds": 219,
+          "legs": [
+            {
+              "team": "TOR",
+              "matchup": "TOR @ BAL",
+              "odds": -126,
+              "model_probability": 0.6129,
+              "edge": 0.0554
+            },
+            {
+              "team": "KC",
+              "matchup": "ATL @ KC",
+              "odds": -128,
+              "model_probability": 0.6108,
+              "edge": 0.0494
+            }
+          ]
+        },
+        {
+          "date": "2025-07-30",
+          "won": true,
+          "profit": 164.58,
+          "probability": 0.4429,
+          "american_odds": 165,
+          "legs": [
+            {
+              "team": "KC",
+              "matchup": "ATL @ KC",
+              "odds": -142,
+              "model_probability": 0.6492,
+              "edge": 0.0624
+            },
+            {
+              "team": "CLE",
+              "matchup": "COL @ CLE",
+              "odds": -181,
+              "model_probability": 0.6822,
+              "edge": 0.0381
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "leg_count": 2,
+      "min_edge": 0.01,
+      "min_probability": 0.6,
+      "top_n": 4,
+      "bets": 14,
+      "wins": 5,
+      "losses": 9,
+      "hit_rate": 0.35714285714285715,
+      "profit": 38.64490827151957,
+      "roi": 0.027603505908228264,
+      "avg_model_probability": 0.41131766428571426,
+      "avg_ev": 22.40899715776928,
+      "sample_tickets": [
+        {
+          "date": "2025-06-03",
+          "won": true,
+          "profit": 175.96,
+          "probability": 0.4172,
+          "american_odds": 176,
+          "legs": [
+            {
+              "team": "MIN",
+              "matchup": "MIN @ ATH",
+              "odds": -168,
+              "model_probability": 0.6773,
+              "edge": 0.0504
+            },
+            {
+              "team": "PHI",
+              "matchup": "PHI @ TOR",
+              "odds": -137,
+              "model_probability": 0.616,
+              "edge": 0.0379
+            }
+          ]
+        },
+        {
+          "date": "2025-06-18",
+          "won": true,
+          "profit": 220.6,
+          "probability": 0.4265,
+          "american_odds": 221,
+          "legs": [
+            {
+              "team": "CIN",
+              "matchup": "MIN @ CIN",
+              "odds": -126,
+              "model_probability": 0.6548,
+              "edge": 0.0973
+            },
+            {
+              "team": "HOU",
+              "matchup": "HOU @ ATH",
+              "odds": -127,
+              "model_probability": 0.6513,
+              "edge": 0.0918
+            }
+          ]
+        },
+        {
+          "date": "2025-06-25",
+          "won": false,
+          "profit": -100.0,
+          "probability": 0.3942,
+          "american_odds": 181,
+          "legs": [
+            {
+              "team": "TB",
+              "matchup": "TB @ KC",
+              "odds": -142,
+              "model_probability": 0.6381,
+              "edge": 0.0513
+            },
+            {
+              "team": "AZ",
+              "matchup": "AZ @ CWS",
+              "odds": -154,
+              "model_probability": 0.6178,
+              "edge": 0.0115
+            }
+          ]
+        },
+        {
+          "date": "2025-07-05",
+          "won": false,
+          "profit": -100.0,
+          "probability": 0.394,
+          "american_odds": 193,
+          "legs": [
+            {
+              "team": "DET",
+              "matchup": "DET @ CLE",
+              "odds": -140,
+              "model_probability": 0.6438,
+              "edge": 0.0605
+            },
+            {
+              "team": "MIL",
+              "matchup": "MIL @ MIA",
+              "odds": -141,
+              "model_probability": 0.612,
+              "edge": 0.0269
+            }
+          ]
+        },
+        {
+          "date": "2025-07-09",
+          "won": false,
+          "profit": -100.0,
+          "probability": 0.3779,
+          "american_odds": 222,
+          "legs": [
+            {
+              "team": "CHC",
+              "matchup": "CHC @ MIN",
+              "odds": -107,
+              "model_probability": 0.6114,
+              "edge": 0.0945
+            },
+            {
+              "team": "TOR",
+              "matchup": "TOR @ CWS",
+              "odds": -150,
+              "model_probability": 0.6181,
+              "edge": 0.0181
+            }
+          ]
+        },
+        {
+          "date": "2025-07-22",
+          "won": false,
+          "profit": -100.0,
+          "probability": 0.4364,
+          "american_odds": 145,
+          "legs": [
+            {
+              "team": "CLE",
+              "matchup": "BAL @ CLE",
+              "odds": -175,
+              "model_probability": 0.6667,
+              "edge": 0.0303
+            },
+            {
+              "team": "STL",
+              "matchup": "STL @ COL",
+              "odds": -178,
+              "model_probability": 0.6546,
+              "edge": 0.0143
+            }
+          ]
+        },
+        {
+          "date": "2025-07-29",
+          "won": false,
+          "profit": -100.0,
+          "probability": 0.3744,
+          "american_odds": 219,
+          "legs": [
+            {
+              "team": "TOR",
+              "matchup": "TOR @ BAL",
+              "odds": -126,
+              "model_probability": 0.6129,
+              "edge": 0.0554
+            },
+            {
+              "team": "KC",
+              "matchup": "ATL @ KC",
+              "odds": -128,
+              "model_probability": 0.6108,
+              "edge": 0.0494
+            }
+          ]
+        },
+        {
+          "date": "2025-07-30",
+          "won": true,
+          "profit": 164.58,
+          "probability": 0.4429,
+          "american_odds": 165,
+          "legs": [
+            {
+              "team": "KC",
+              "matchup": "ATL @ KC",
+              "odds": -142,
+              "model_probability": 0.6492,
+              "edge": 0.0624
+            },
+            {
+              "team": "CLE",
+              "matchup": "COL @ CLE",
+              "odds": -181,
+              "model_probability": 0.6822,
+              "edge": 0.0381
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "leg_count": 2,
+      "min_edge": 0.01,
+      "min_probability": 0.6,
+      "top_n": 6,
+      "bets": 14,
+      "wins": 5,
+      "losses": 9,
+      "hit_rate": 0.35714285714285715,
+      "profit": 38.64490827151957,
+      "roi": 0.027603505908228264,
+      "avg_model_probability": 0.41131766428571426,
+      "avg_ev": 22.40899715776928,
+      "sample_tickets": [
+        {
+          "date": "2025-06-03",
+          "won": true,
+          "profit": 175.96,
+          "probability": 0.4172,
+          "american_odds": 176,
+          "legs": [
+            {
+              "team": "MIN",
+              "matchup": "MIN @ ATH",
+              "odds": -168,
+              "model_probability": 0.6773,
+              "edge": 0.0504
+            },
+            {
+              "team": "PHI",
+              "matchup": "PHI @ TOR",
+              "odds": -137,
+              "model_probability": 0.616,
+              "edge": 0.0379
+            }
+          ]
+        },
+        {
+          "date": "2025-06-18",
+          "won": true,
+          "profit": 220.6,
+          "probability": 0.4265,
+          "american_odds": 221,
+          "legs": [
+            {
+              "team": "CIN",
+              "matchup": "MIN @ CIN",
+              "odds": -126,
+              "model_probability": 0.6548,
+              "edge": 0.0973
+            },
+            {
+              "team": "HOU",
+              "matchup": "HOU @ ATH",
+              "odds": -127,
+              "model_probability": 0.6513,
+              "edge": 0.0918
+            }
+          ]
+        },
+        {
+          "date": "2025-06-25",
+          "won": false,
+          "profit": -100.0,
+          "probability": 0.3942,
+          "american_odds": 181,
+          "legs": [
+            {
+              "team": "TB",
+              "matchup": "TB @ KC",
+              "odds": -142,
+              "model_probability": 0.6381,
+              "edge": 0.0513
+            },
+            {
+              "team": "AZ",
+              "matchup": "AZ @ CWS",
+              "odds": -154,
+              "model_probability": 0.6178,
+              "edge": 0.0115
+            }
+          ]
+        },
+        {
+          "date": "2025-07-05",
+          "won": false,
+          "profit": -100.0,
+          "probability": 0.394,
+          "american_odds": 193,
+          "legs": [
+            {
+              "team": "DET",
+              "matchup": "DET @ CLE",
+              "odds": -140,
+              "model_probability": 0.6438,
+              "edge": 0.0605
+            },
+            {
+              "team": "MIL",
+              "matchup": "MIL @ MIA",
+              "odds": -141,
+              "model_probability": 0.612,
+              "edge": 0.0269
+            }
+          ]
+        },
+        {
+          "date": "2025-07-09",
+          "won": false,
+          "profit": -100.0,
+          "probability": 0.3779,
+          "american_odds": 222,
+          "legs": [
+            {
+              "team": "CHC",
+              "matchup": "CHC @ MIN",
+              "odds": -107,
+              "model_probability": 0.6114,
+              "edge": 0.0945
+            },
+            {
+              "team": "TOR",
+              "matchup": "TOR @ CWS",
+              "odds": -150,
+              "model_probability": 0.6181,
+              "edge": 0.0181
+            }
+          ]
+        },
+        {
+          "date": "2025-07-22",
+          "won": false,
+          "profit": -100.0,
+          "probability": 0.4364,
+          "american_odds": 145,
+          "legs": [
+            {
+              "team": "CLE",
+              "matchup": "BAL @ CLE",
+              "odds": -175,
+              "model_probability": 0.6667,
+              "edge": 0.0303
+            },
+            {
+              "team": "STL",
+              "matchup": "STL @ COL",
+              "odds": -178,
+              "model_probability": 0.6546,
+              "edge": 0.0143
+            }
+          ]
+        },
+        {
+          "date": "2025-07-29",
+          "won": false,
+          "profit": -100.0,
+          "probability": 0.3744,
+          "american_odds": 219,
+          "legs": [
+            {
+              "team": "TOR",
+              "matchup": "TOR @ BAL",
+              "odds": -126,
+              "model_probability": 0.6129,
+              "edge": 0.0554
+            },
+            {
+              "team": "KC",
+              "matchup": "ATL @ KC",
+              "odds": -128,
+              "model_probability": 0.6108,
+              "edge": 0.0494
+            }
+          ]
+        },
+        {
+          "date": "2025-07-30",
+          "won": true,
+          "profit": 164.58,
+          "probability": 0.4429,
+          "american_odds": 165,
+          "legs": [
+            {
+              "team": "KC",
+              "matchup": "ATL @ KC",
+              "odds": -142,
+              "model_probability": 0.6492,
+              "edge": 0.0624
+            },
+            {
+              "team": "CLE",
+              "matchup": "COL @ CLE",
+              "odds": -181,
+              "model_probability": 0.6822,
+              "edge": 0.0381
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "leg_count": 2,
+      "min_edge": 0.01,
+      "min_probability": 0.6,
+      "top_n": 8,
+      "bets": 14,
+      "wins": 5,
+      "losses": 9,
+      "hit_rate": 0.35714285714285715,
+      "profit": 38.64490827151957,
+      "roi": 0.027603505908228264,
+      "avg_model_probability": 0.41131766428571426,
+      "avg_ev": 22.40899715776928,
+      "sample_tickets": [
+        {
+          "date": "2025-06-03",
+          "won": true,
+          "profit": 175.96,
+          "probability": 0.4172,
+          "american_odds": 176,
+          "legs": [
+            {
+              "team": "MIN",
+              "matchup": "MIN @ ATH",
+              "odds": -168,
+              "model_probability": 0.6773,
+              "edge": 0.0504
+            },
+            {
+              "team": "PHI",
+              "matchup": "PHI @ TOR",
+              "odds": -137,
+              "model_probability": 0.616,
+              "edge": 0.0379
+            }
+          ]
+        },
+        {
+          "date": "2025-06-18",
+          "won": true,
+          "profit": 220.6,
+          "probability": 0.4265,
+          "american_odds": 221,
+          "legs": [
+            {
+              "team": "CIN",
+              "matchup": "MIN @ CIN",
+              "odds": -126,
+              "model_probability": 0.6548,
+              "edge": 0.0973
+            },
+            {
+              "team": "HOU",
+              "matchup": "HOU @ ATH",
+              "odds": -127,
+              "model_probability": 0.6513,
+              "edge": 0.0918
+            }
+          ]
+        },
+        {
+          "date": "2025-06-25",
+          "won": false,
+          "profit": -100.0,
+          "probability": 0.3942,
+          "american_odds": 181,
+          "legs": [
+            {
+              "team": "TB",
+              "matchup": "TB @ KC",
+              "odds": -142,
+              "model_probability": 0.6381,
+              "edge": 0.0513
+            },
+            {
+              "team": "AZ",
+              "matchup": "AZ @ CWS",
+              "odds": -154,
+              "model_probability": 0.6178,
+              "edge": 0.0115
+            }
+          ]
+        },
+        {
+          "date": "2025-07-05",
+          "won": false,
+          "profit": -100.0,
+          "probability": 0.394,
+          "american_odds": 193,
+          "legs": [
+            {
+              "team": "DET",
+              "matchup": "DET @ CLE",
+              "odds": -140,
+              "model_probability": 0.6438,
+              "edge": 0.0605
+            },
+            {
+              "team": "MIL",
+              "matchup": "MIL @ MIA",
+              "odds": -141,
+              "model_probability": 0.612,
+              "edge": 0.0269
+            }
+          ]
+        },
+        {
+          "date": "2025-07-09",
+          "won": false,
+          "profit": -100.0,
+          "probability": 0.3779,
+          "american_odds": 222,
+          "legs": [
+            {
+              "team": "CHC",
+              "matchup": "CHC @ MIN",
+              "odds": -107,
+              "model_probability": 0.6114,
+              "edge": 0.0945
+            },
+            {
+              "team": "TOR",
+              "matchup": "TOR @ CWS",
+              "odds": -150,
+              "model_probability": 0.6181,
+              "edge": 0.0181
+            }
+          ]
+        },
+        {
+          "date": "2025-07-22",
+          "won": false,
+          "profit": -100.0,
+          "probability": 0.4364,
+          "american_odds": 145,
+          "legs": [
+            {
+              "team": "CLE",
+              "matchup": "BAL @ CLE",
+              "odds": -175,
+              "model_probability": 0.6667,
+              "edge": 0.0303
+            },
+            {
+              "team": "STL",
+              "matchup": "STL @ COL",
+              "odds": -178,
+              "model_probability": 0.6546,
+              "edge": 0.0143
+            }
+          ]
+        },
+        {
+          "date": "2025-07-29",
+          "won": false,
+          "profit": -100.0,
+          "probability": 0.3744,
+          "american_odds": 219,
+          "legs": [
+            {
+              "team": "TOR",
+              "matchup": "TOR @ BAL",
+              "odds": -126,
+              "model_probability": 0.6129,
+              "edge": 0.0554
+            },
+            {
+              "team": "KC",
+              "matchup": "ATL @ KC",
+              "odds": -128,
+              "model_probability": 0.6108,
+              "edge": 0.0494
+            }
+          ]
+        },
+        {
+          "date": "2025-07-30",
+          "won": true,
+          "profit": 164.58,
+          "probability": 0.4429,
+          "american_odds": 165,
+          "legs": [
+            {
+              "team": "KC",
+              "matchup": "ATL @ KC",
+              "odds": -142,
+              "model_probability": 0.6492,
+              "edge": 0.0624
+            },
+            {
+              "team": "CLE",
+              "matchup": "COL @ CLE",
+              "odds": -181,
+              "model_probability": 0.6822,
+              "edge": 0.0381
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "best_by_leg_count": [
+    {
+      "leg_count": 2,
+      "min_edge": 0.03,
+      "min_probability": 0.6,
+      "top_n": 4,
+      "bets": 9,
+      "wins": 4,
+      "losses": 5,
+      "hit_rate": 0.4444444444444444,
+      "profit": 255.89908266855107,
+      "roi": 0.2843323140761679,
+      "avg_model_probability": 0.4202889644444444,
+      "avg_ev": 28.10716772191531,
+      "sample_tickets": [
+        {
+          "date": "2025-04-17",
+          "won": false,
+          "profit": -100.0,
+          "probability": 0.4148,
+          "american_odds": 192,
+          "legs": [
+            {
+              "team": "DET",
+              "matchup": "KC @ DET",
+              "odds": -154,
+              "model_probability": 0.6881,
+              "edge": 0.0818
+            },
+            {
+              "team": "CIN",
+              "matchup": "SEA @ CIN",
+              "odds": -130,
+              "model_probability": 0.6028,
+              "edge": 0.0376
+            }
+          ]
+        },
+        {
+          "date": "2025-04-30",
+          "won": false,
+          "profit": -100.0,
+          "probability": 0.416,
+          "american_odds": 227,
+          "legs": [
+            {
+              "team": "NYM",
+              "matchup": "AZ @ NYM",
+              "odds": -108,
+              "model_probability": 0.6097,
+              "edge": 0.0905
+            },
+            {
+              "team": "SEA",
+              "matchup": "LAA @ SEA",
+              "odds": -143,
+              "model_probability": 0.6823,
+              "edge": 0.0938
+            }
+          ]
+        },
+        {
+          "date": "2025-05-07",
+          "won": true,
+          "profit": 194.76,
+          "probability": 0.4104,
+          "american_odds": 195,
+          "legs": [
+            {
+              "team": "SEA",
+              "matchup": "SEA @ ATH",
+              "odds": -140,
+              "model_probability": 0.6497,
+              "edge": 0.0664
+            },
+            {
+              "team": "MIN",
+              "matchup": "BAL @ MIN",
+              "odds": -139,
+              "model_probability": 0.6316,
+              "edge": 0.05
+            }
+          ]
+        },
+        {
+          "date": "2025-05-21",
+          "won": false,
+          "profit": -100.0,
+          "probability": 0.4219,
+          "american_odds": 237,
+          "legs": [
+            {
+              "team": "MIL",
+              "matchup": "BAL @ MIL",
+              "odds": -112,
+              "model_probability": 0.6972,
+              "edge": 0.1689
+            },
+            {
+              "team": "MIN",
+              "matchup": "CLE @ MIN",
+              "odds": -128,
+              "model_probability": 0.6051,
+              "edge": 0.0437
+            }
+          ]
+        },
+        {
+          "date": "2025-06-03",
+          "won": true,
+          "profit": 175.96,
+          "probability": 0.4172,
+          "american_odds": 176,
+          "legs": [
+            {
+              "team": "MIN",
+              "matchup": "MIN @ ATH",
+              "odds": -168,
+              "model_probability": 0.6773,
+              "edge": 0.0504
+            },
+            {
+              "team": "PHI",
+              "matchup": "PHI @ TOR",
+              "odds": -137,
+              "model_probability": 0.616,
+              "edge": 0.0379
+            }
+          ]
+        },
+        {
+          "date": "2025-06-18",
+          "won": true,
+          "profit": 220.6,
+          "probability": 0.4265,
+          "american_odds": 221,
+          "legs": [
+            {
+              "team": "CIN",
+              "matchup": "MIN @ CIN",
+              "odds": -126,
+              "model_probability": 0.6548,
+              "edge": 0.0973
+            },
+            {
+              "team": "HOU",
+              "matchup": "HOU @ ATH",
+              "odds": -127,
+              "model_probability": 0.6513,
+              "edge": 0.0918
+            }
+          ]
+        },
+        {
+          "date": "2025-07-29",
+          "won": false,
+          "profit": -100.0,
+          "probability": 0.3744,
+          "american_odds": 219,
+          "legs": [
+            {
+              "team": "TOR",
+              "matchup": "TOR @ BAL",
+              "odds": -126,
+              "model_probability": 0.6129,
+              "edge": 0.0554
+            },
+            {
+              "team": "KC",
+              "matchup": "ATL @ KC",
+              "odds": -128,
+              "model_probability": 0.6108,
+              "edge": 0.0494
+            }
+          ]
+        },
+        {
+          "date": "2025-07-30",
+          "won": true,
+          "profit": 164.58,
+          "probability": 0.4429,
+          "american_odds": 165,
+          "legs": [
+            {
+              "team": "KC",
+              "matchup": "ATL @ KC",
+              "odds": -142,
+              "model_probability": 0.6492,
+              "edge": 0.0624
+            },
+            {
+              "team": "CLE",
+              "matchup": "COL @ CLE",
+              "odds": -181,
+              "model_probability": 0.6822,
+              "edge": 0.0381
+            }
+          ]
+        }
+      ]
+    }
+  ],
   "recommended_by_leg_count": []
 }

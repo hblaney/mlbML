@@ -12,9 +12,8 @@ from dataclasses import dataclass
 from datetime import date, datetime
 
 import numpy as np
-from sklearn.ensemble import ExtraTreesClassifier
+from sklearn.ensemble import RandomForestClassifier
 from sklearn.pipeline import Pipeline
-from sklearn.preprocessing import StandardScaler
 
 from fast_edge_model import FastPrediction, predict_fast
 from mlb_api import GameRecord, fetch_pitcher_season_era, fetch_pitcher_season_stats
@@ -26,7 +25,7 @@ from weather import cached_historical_weather_or_default, fetch_weather
 
 WARMUP_GAMES = 180
 REFIT_EVERY = 15
-PUBLIC_CONFIDENCE_SHARPENING = 1.15
+PUBLIC_CONFIDENCE_SHARPENING = 1.0
 PUBLIC_PROBABILITY_CAP = 0.82
 
 
@@ -267,14 +266,13 @@ def sharpen_public_probability(home_probability: float) -> float:
 def build_model() -> Pipeline:
     return Pipeline(
         [
-            ("scale", StandardScaler()),
             (
                 "model",
-                ExtraTreesClassifier(
-                    n_estimators=260,
+                RandomForestClassifier(
+                    n_estimators=220,
                     max_depth=5,
                     min_samples_leaf=8,
-                    class_weight="balanced",
+                    class_weight="balanced_subsample",
                     random_state=42,
                     n_jobs=-1,
                 ),
@@ -322,7 +320,7 @@ def predict_with_model(game: GameRecord, league: LeagueState, model: Pipeline | 
         confidence=confidence_for(pick_probability),
         notes=[
             "Trained on prior games only using walk-forward features",
-            "Blends a frequently refit tree-ensemble output with Elo, real team hitting/pitching stats, starter profile, rolling form, park, weather, timing, and matchup context",
+            "Blends a frequently refit random-forest output with Elo, real team hitting/pitching stats, starter profile, rolling form, park, weather, timing, and matchup context",
             "Probability is capped to a realistic pregame range",
         ],
     )
