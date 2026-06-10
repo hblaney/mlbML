@@ -43,10 +43,10 @@ def market_aware_probabilities(prediction, market_snapshot, odds_available: bool
         return home_probability, 1.0 - home_probability, notes
 
     market_home, market_away = market_probs
-    # Sportsbook consensus is a strong prior. Blend toward it to avoid overreacting
-    # to model-only edges that the market strongly rejects.
-    home_probability = (prediction.home_probability * 0.35) + (market_home * 0.65)
-    away_probability = (prediction.away_probability * 0.35) + (market_away * 0.65)
+    # Keep the market as a strong prior, but give the upgraded learned model
+    # equal weight after walk-forward validation improved side selection.
+    home_probability = (prediction.home_probability * 0.50) + (market_home * 0.50)
+    away_probability = (prediction.away_probability * 0.50) + (market_away * 0.50)
     total = home_probability + away_probability
     home_probability /= total
     away_probability /= total

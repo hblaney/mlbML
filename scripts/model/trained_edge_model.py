@@ -25,7 +25,7 @@ from weather import cached_historical_weather_or_default, fetch_weather
 
 
 WARMUP_GAMES = 180
-REFIT_EVERY = 25
+REFIT_EVERY = 15
 PUBLIC_CONFIDENCE_SHARPENING = 1.15
 PUBLIC_PROBABILITY_CAP = 0.82
 
@@ -271,9 +271,9 @@ def build_model() -> Pipeline:
             (
                 "model",
                 ExtraTreesClassifier(
-                    n_estimators=220,
-                    max_depth=7,
-                    min_samples_leaf=18,
+                    n_estimators=260,
+                    max_depth=5,
+                    min_samples_leaf=8,
                     class_weight="balanced",
                     random_state=42,
                     n_jobs=-1,
@@ -309,7 +309,7 @@ def predict_with_model(game: GameRecord, league: LeagueState, model: Pipeline | 
     x = _clean_matrix(np.array([feature_row(game, league)], dtype=float))
     trained_probability = float(model.predict_proba(x)[0, 1])
     form_probability = predict_fast(game, league).home_probability
-    home_probability = calibrate_public_probability((trained_probability * 0.60) + (form_probability * 0.40))
+    home_probability = calibrate_public_probability((trained_probability * 0.80) + (form_probability * 0.20))
     away_probability = 1.0 - home_probability
     predicted_home = home_probability >= away_probability
     pick_probability = max(home_probability, away_probability)
@@ -322,7 +322,7 @@ def predict_with_model(game: GameRecord, league: LeagueState, model: Pipeline | 
         confidence=confidence_for(pick_probability),
         notes=[
             "Trained on prior games only using walk-forward features",
-            "Blends trained tree-ensemble output with Elo, real team hitting/pitching stats, starter profile, rolling form, park, weather, timing, and matchup context",
+            "Blends a frequently refit tree-ensemble output with Elo, real team hitting/pitching stats, starter profile, rolling form, park, weather, timing, and matchup context",
             "Probability is capped to a realistic pregame range",
         ],
     )

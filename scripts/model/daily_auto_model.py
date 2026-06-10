@@ -30,7 +30,7 @@ from trained_edge_model import (
 )
 
 MODEL_PATH = Path(__file__).resolve().parents[2] / "data" / "model" / "daily_edge.pkl"
-MODEL_VERSION = "daily-auto-v1.4"
+MODEL_VERSION = "daily-auto-v1.5"
 
 
 @dataclass
@@ -50,7 +50,7 @@ class DailyModelBundle:
             confidence=prediction.confidence,
             notes=[
                 f"Retrained through {self.trained_through.isoformat()}",
-                "Blended tree ensemble + form model fit on prior games with stats, rolling form, weather, park, starter, and matchup features",
+                "Frequently refit tree ensemble weighted toward learned historical features plus rolling form, weather, park, starter, and matchup context",
                 "Public probabilities are sharpened 15% after walk-forward validation to produce more decisive picks",
                 "Retrains automatically when yesterday's final scores are new",
             ],
@@ -158,8 +158,8 @@ def walk_forward_history(games: list[GameRecord], team_abbr: dict[int, str]) -> 
                 market_probs = no_vig_market_probabilities(market.home_moneyline, market.away_moneyline)
                 if market_probs is not None:
                     market_home, market_away = market_probs
-                    home_probability = (prediction.home_probability * 0.35) + (market_home * 0.65)
-                    away_probability = (prediction.away_probability * 0.35) + (market_away * 0.65)
+                    home_probability = (prediction.home_probability * 0.50) + (market_home * 0.50)
+                    away_probability = (prediction.away_probability * 0.50) + (market_away * 0.50)
                     total = home_probability + away_probability
                     home_probability /= total
                     away_probability /= total
