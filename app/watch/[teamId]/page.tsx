@@ -220,14 +220,6 @@ export default async function WatchTeamPage({ params }: WatchTeamPageProps) {
   const teamPredictions = predictions.filter((game) => game.awayTeam === team.id || game.homeTeam === team.id);
   const primaryGame = teamPredictions[0];
   const opponentId = primaryGame?.awayTeam === team.id ? primaryGame.homeTeam : primaryGame?.awayTeam;
-  const opponentStream = opponentId ? getTeamWatchStream(opponentId) : null;
-  const activeStream =
-    primaryGame?.awayTeam === team.id && stream && opponentStream
-      ? {
-          ...opponentStream,
-          alternates: [stream.embedUrl, ...opponentStream.alternates, ...stream.alternates]
-        }
-      : stream;
   const opponentStanding = standings.find((item) => item.teamId === opponentId);
   const liveGame = await loadLiveGameState(primaryGame);
 
@@ -240,8 +232,8 @@ export default async function WatchTeamPage({ params }: WatchTeamPageProps) {
           <p className="lead">Embedded player with live game info and matchup projections.</p>
           <div className="stream-actions">
             <Link href="/watch">Back to teams</Link>
-            {activeStream ? (
-              <a href={activeStream.livePageUrl} rel="noopener noreferrer" target="_blank">
+            {stream ? (
+              <a href={stream.livePageUrl} rel="noopener noreferrer" target="_blank">
                 Open on MLB Webcast
               </a>
             ) : null}
@@ -251,10 +243,10 @@ export default async function WatchTeamPage({ params }: WatchTeamPageProps) {
       </section>
 
       <section className="panel">
-        {activeStream ? (
+        {stream ? (
           <StreamEmbed
-            alternates={activeStream.alternates}
-            embedUrl={activeStream.embedUrl}
+            alternates={stream.alternates}
+            embedUrl={stream.embedUrl}
             title={`${team.name} stream`}
           />
         ) : (

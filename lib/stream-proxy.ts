@@ -8,6 +8,14 @@ const ALLOWED_UPSTREAM_HOSTS = new Set([
 
 const STREAM_HOST_SUFFIXES = [".m3u8", ".ts", ".m4s", ".mp4", ".key"];
 const STREAM_TOKEN_PATTERN = /var _d=\[(\d+),'(\d+)','([a-f0-9]+)'\]/i;
+const IFRAME_SRC_PATTERN = /<iframe[^>]+src=['"]([^'"]+)['"]/i;
+
+const ALLOWED_IFRAME_HOSTS = new Set([
+  "streams.center",
+  "www.streams.center",
+  "embedstreams.top",
+  "www.embedstreams.top"
+]);
 
 export type StreamManifest = {
   url: string | null;
@@ -154,6 +162,64 @@ export async function fetchMlbWebcast(path: string, refererPath?: string) {
   return lastResponse as Response;
 }
 
+export function isAllowedIframeHost(hostname: string) {
+  return ALLOWED_IFRAME_HOSTS.has(hostname.toLowerCase());
+}
+
+export function parseIframeEmbedUrl(html: string) {
+  const match = html.match(IFRAME_SRC_PATTERN);
+  if (!match) {
+    return null;
+  }
+
+  const rawSrc = match[1].trim();
+  if (!rawSrc || rawSrc.startsWith("/cdn-cgi/")) {
+    return null;
+  }
+
+  try {
+    const parsed = new URL(rawSrc, MLB_WEBCAST_ORIGIN);
+    if (!isAllowedIframeHost(parsed.hostname)) {
+      return null;
+    }
+
+    return parsed.toString();
+  } catch {
+    return null;
+  }
+}
+
+export async function resolveIframeEmbedUrl(slug: string) {
+  const refererPath = `/stream/${slug}.html`;
+  const pageResponse = await fetchMlbWebcast(`stream/${slug}.html`, refererPath);
+
+  if (!pageResponse.ok) {
+    return null;
+  }
+
+  return parseIframeEmbedUrl(await pageResponse.text());
+}
+
+export function buildIframeEmbedHtml(embedUrl: string) {
+  const safeUrl = embedUrl.replace(/"/g, "&quot;");
+
+  return `<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%;background:#000;overflow:hidden}
+iframe{width:100%;height:100%;border:0}
+</style>
+</head>
+<body>
+<iframe allow="encrypted-media; fullscreen" allowfullscreen src="${safeUrl}"></iframe>
+</body>
+</html>`;
+}
+
 export function parseStreamTokens(html: string) {
   const match = html.match(STREAM_TOKEN_PATTERN);
   if (!match) {
@@ -229,7 +295,7 @@ export async function resolveStreamManifest(slug: string): Promise<StreamManifes
 
     const allowed = assertAllowedStreamUrl(payload.url);
     return {
-      url: allowed.toString(),
+      url: proxyHlsUrl(allowed.toString()),
       message: "ok"
     };
   } catch {

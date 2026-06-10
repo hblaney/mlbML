@@ -8,9 +8,9 @@ export type WatchStreamSource = {
 
 function teamStream(liveSlug: string, streamSlug: string): WatchStreamSource {
   return {
-    embedUrl: `/api/stream/embed/${streamSlug}`,
+    embedUrl: `/api/stream/embed/${streamSlug}2`,
     livePageUrl: `${MLB_WEBCAST_ORIGIN}/${liveSlug}-live/`,
-    alternates: []
+    alternates: [`/api/stream/embed/${streamSlug}`, `/api/stream/embed/${streamSlug}3`]
   };
 }
 
@@ -48,9 +48,9 @@ export const teamWatchStreams: Record<string, WatchStreamSource> = {
 };
 
 export const mlbNetworkStream: WatchStreamSource = {
-  embedUrl: "/api/stream/embed/mlbnetwork",
+  embedUrl: "/api/stream/embed/mlbnetwork2",
   livePageUrl: `${MLB_WEBCAST_ORIGIN}/mlb-network-live/`,
-  alternates: []
+  alternates: ["/api/stream/embed/mlbnetwork", "/api/stream/embed/mlbnetwork3"]
 };
 
 export function getTeamWatchStream(teamId: string) {

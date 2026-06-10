@@ -1,4 +1,10 @@
-import { buildEmbedPlayerHtml } from "@/lib/stream-proxy";
+import {
+  buildEmbedPlayerHtml,
+  buildIframeEmbedHtml,
+  fetchMlbWebcast,
+  parseStreamTokens,
+  resolveIframeEmbedUrl
+} from "@/lib/stream-proxy";
 
 export const runtime = "edge";
 export const dynamic = "force-dynamic";
@@ -14,6 +20,28 @@ export async function GET(_request: Request, { params }: EmbedRouteProps) {
 
   if (!SLUG_PATTERN.test(slug)) {
     return new Response("Invalid stream slug", { status: 400 });
+  }
+
+  const iframeEmbedUrl = await resolveIframeEmbedUrl(slug);
+  if (iframeEmbedUrl) {
+    return new Response(buildIframeEmbedHtml(iframeEmbedUrl), {
+      status: 200,
+      headers: {
+        "Content-Type": "text/html; charset=utf-8",
+        "Cache-Control": "no-store"
+      }
+    });
+  }
+
+  const refererPath = `/stream/${slug}.html`;
+  const pageResponse = await fetchMlbWebcast(`stream/${slug}.html`, refererPath);
+
+  if (!pageResponse.ok) {
+    return new Response("Stream page unavailable", { status: pageResponse.status });
+  }
+
+  if (!parseStreamTokens(await pageResponse.text())) {
+    return new Response("Stream page unavailable", { status: 404 });
   }
 
   return new Response(buildEmbedPlayerHtml(slug), {
