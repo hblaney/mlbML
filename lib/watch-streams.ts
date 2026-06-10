@@ -10,7 +10,7 @@ function teamStream(liveSlug: string, streamSlug: string): WatchStreamSource {
   return {
     embedUrl: `/api/stream/embed/${streamSlug}`,
     livePageUrl: `${MLB_WEBCAST_ORIGIN}/${liveSlug}-live/`,
-    alternates: [`/api/stream/embed/${streamSlug}2`, `/api/stream/embed/${streamSlug}3`]
+    alternates: []
   };
 }
 
@@ -50,7 +50,7 @@ export const teamWatchStreams: Record<string, WatchStreamSource> = {
 export const mlbNetworkStream: WatchStreamSource = {
   embedUrl: "/api/stream/embed/mlbnetwork",
   livePageUrl: `${MLB_WEBCAST_ORIGIN}/mlb-network-live/`,
-  alternates: ["/api/stream/embed/mlbnetwork2", "/api/stream/embed/mlbnetwork3"]
+  alternates: []
 };
 
 export function getTeamWatchStream(teamId: string) {
