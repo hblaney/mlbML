@@ -700,6 +700,12 @@ const SAFE_PARLAY_MIN_LEG_PROBABILITY = 0.58;
 const SAFE_PARLAY_MIN_BOOK_PROBABILITY = 0.48;
 const SAFE_PARLAY_MAX_LEGS = 4;
 const DAILY_PARLAY_LEG_COUNTS = [3, 4] as const;
+const CONFIDENCE_RANK: Record<GamePrediction["confidence"], number> = {
+  Elite: 4,
+  High: 3,
+  Medium: 2,
+  Low: 1
+};
 
 function parlayLegOdds(leg: BestBet) {
   return leg.modelOnly ? MARKET_BASELINE_ODDS : leg.odds;
@@ -789,6 +795,7 @@ export function getParlayCandidates(board: GamePrediction[] = predictions, stake
   const singles = getBestBets(board)
     .filter(
       (bet) =>
+        ["Elite", "High"].includes(bet.game.confidence) &&
         bet.modelProbability >= SAFE_PARLAY_MIN_LEG_PROBABILITY &&
         (bet.modelOnly || bet.bookProbability >= SAFE_PARLAY_MIN_BOOK_PROBABILITY)
     )
@@ -904,7 +911,12 @@ export function getDailyParlayTickets(board: GamePrediction[] = predictions) {
         bet.modelProbability >= SAFE_PARLAY_MIN_LEG_PROBABILITY &&
         (bet.modelOnly || bet.bookProbability >= SAFE_PARLAY_MIN_BOOK_PROBABILITY)
     )
-    .sort((left, right) => (right.ev * right.modelProbability) - (left.ev * left.modelProbability))
+    .sort(
+      (left, right) =>
+        CONFIDENCE_RANK[right.game.confidence] - CONFIDENCE_RANK[left.game.confidence] ||
+        right.modelProbability - left.modelProbability ||
+        (right.ev * right.modelProbability) - (left.ev * left.modelProbability)
+    )
     .slice(0, 8);
 
   const tickets: ParlayCandidate[] = [];
@@ -922,7 +934,7 @@ export function getDailyParlayTickets(board: GamePrediction[] = predictions) {
       }
 
       const candidate = buildParlayCandidate(legs);
-      if (candidate.ev <= 0 && !legs.every((leg) => leg.modelOnly)) {
+      if (candidate.ev <= 0) {
         continue;
       }
       if (!best || candidate.score > best.score) {
