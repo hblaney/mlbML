@@ -229,7 +229,7 @@ export async function resolveStreamManifest(slug: string): Promise<StreamManifes
 
     const allowed = assertAllowedStreamUrl(payload.url);
     return {
-      url: proxyHlsUrl(allowed.toString()),
+      url: allowed.toString(),
       message: "ok"
     };
   } catch {
