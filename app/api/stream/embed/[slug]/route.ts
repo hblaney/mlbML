@@ -2,6 +2,7 @@ import {
   buildEmbedPlayerHtml,
   buildIframeEmbedHtml,
   fetchMlbWebcast,
+  isBuffstreamsSlug,
   parseStreamTokens,
   resolveIframeEmbedUrl
 } from "@/lib/stream-proxy";
@@ -20,6 +21,16 @@ export async function GET(_request: Request, { params }: EmbedRouteProps) {
 
   if (!SLUG_PATTERN.test(slug)) {
     return new Response("Invalid stream slug", { status: 400 });
+  }
+
+  if (isBuffstreamsSlug(slug)) {
+    return new Response(buildEmbedPlayerHtml(slug), {
+      status: 200,
+      headers: {
+        "Content-Type": "text/html; charset=utf-8",
+        "Cache-Control": "no-store"
+      }
+    });
   }
 
   const iframeEmbedUrl = await resolveIframeEmbedUrl(slug);

@@ -1,4 +1,10 @@
-import { americanFromDecimal, decimalOdds, expectedValue, impliedProbability } from "./odds";
+import {
+  americanFromDecimal,
+  americanFromProbability,
+  decimalOdds,
+  expectedValue,
+  impliedProbability
+} from "./odds";
 
 export type Team = {
   id: string;
@@ -257,11 +263,34 @@ export function getTeam(teamId: string) {
   return team;
 }
 
-export function getBestBets(board: GamePrediction[] = predictions) {
-  const minMoneylineProbability = 0.57;
-  const minMoneylineEdge = 0.05;
-  const maxMoneylineAbsOdds = 160;
+const MIN_MONEYLINE_PROBABILITY = 0.55;
+const MIN_MONEYLINE_EDGE = 0.04;
+const MAX_MONEYLINE_ABS_ODDS = 180;
+const MODEL_ONLY_MIN_PROBABILITY = 0.55;
+const MARKET_BASELINE_ODDS = -110;
+const DEFAULT_MARKET_TOTAL = 8.5;
+const DEFAULT_JUICE_ODDS = -110;
 
+export type BestBet = {
+  id: string;
+  game: GamePrediction;
+  team: Team;
+  opponent: Team;
+  matchup: string;
+  side: string;
+  odds: number;
+  modelProbability: number;
+  bookProbability: number;
+  ev: number;
+  edge: number;
+  modelOnly?: boolean;
+};
+
+function boardHasMarketOdds(board: GamePrediction[]) {
+  return board.some((game) => game.homeMoneyline !== null && game.awayMoneyline !== null);
+}
+
+function buildMarketMoneylineBets(board: GamePrediction[]) {
   return board
     .filter((game) => game.homeMoneyline !== null && game.awayMoneyline !== null)
     .flatMap((game) => {
@@ -304,12 +333,104 @@ export function getBestBets(board: GamePrediction[] = predictions) {
     .map((bet) => ({ ...bet, edge: bet.modelProbability - bet.bookProbability }))
     .filter(
       (bet) =>
-        bet.modelProbability >= minMoneylineProbability &&
-        bet.edge >= minMoneylineEdge &&
-        Math.abs(bet.odds) <= maxMoneylineAbsOdds &&
+        bet.modelProbability >= MIN_MONEYLINE_PROBABILITY &&
+        bet.edge >= MIN_MONEYLINE_EDGE &&
+        Math.abs(bet.odds) <= MAX_MONEYLINE_ABS_ODDS &&
         bet.ev > 0
     )
     .sort((a, b) => b.edge - a.edge);
+}
+
+function buildModelOnlyMoneylineBets(board: GamePrediction[]) {
+  const baselineBook = impliedProbability(MARKET_BASELINE_ODDS);
+
+  return board
+    .flatMap((game) => {
+      const away = getTeam(game.awayTeam);
+      const home = getTeam(game.homeTeam);
+      const matchup = `${away.abbreviation} @ ${home.abbreviation}`;
+      const pickHome = game.modelHomeWinProbability >= game.modelAwayWinProbability;
+      const team = pickHome ? home : away;
+      const opponent = pickHome ? away : home;
+      const modelProbability = pickHome ? game.modelHomeWinProbability : game.modelAwayWinProbability;
+      const fairOdds = americanFromProbability(modelProbability);
+
+      return [
+        {
+          id: `${game.id}-${pickHome ? "home" : "away"}`,
+          game,
+          team,
+          opponent,
+          matchup,
+          side: "Moneyline",
+          odds: fairOdds,
+          modelProbability,
+          bookProbability: baselineBook,
+          ev: expectedValue(modelProbability, MARKET_BASELINE_ODDS),
+          edge: modelProbability - baselineBook,
+          modelOnly: true
+        }
+      ];
+    })
+    .filter((bet) => bet.modelProbability >= MODEL_ONLY_MIN_PROBABILITY)
+    .sort((left, right) => right.modelProbability - left.modelProbability);
+}
+
+function topModelOnlyMoneylineBet(board: GamePrediction[]): BestBet | null {
+  const candidates = buildModelOnlyMoneylineBets(board);
+  if (candidates.length > 0) {
+    return candidates[0];
+  }
+
+  const fallback = [...board].sort(
+    (left, right) =>
+      Math.max(right.modelHomeWinProbability, right.modelAwayWinProbability) -
+      Math.max(left.modelHomeWinProbability, left.modelAwayWinProbability)
+  )[0];
+
+  if (!fallback) {
+    return null;
+  }
+
+  const away = getTeam(fallback.awayTeam);
+  const home = getTeam(fallback.homeTeam);
+  const pickHome = fallback.modelHomeWinProbability >= fallback.modelAwayWinProbability;
+  const team = pickHome ? home : away;
+  const opponent = pickHome ? away : home;
+  const modelProbability = pickHome ? fallback.modelHomeWinProbability : fallback.modelAwayWinProbability;
+  const baselineBook = impliedProbability(MARKET_BASELINE_ODDS);
+
+  return {
+    id: `${fallback.id}-${pickHome ? "home" : "away"}`,
+    game: fallback,
+    team,
+    opponent,
+    matchup: `${away.abbreviation} @ ${home.abbreviation}`,
+    side: "Moneyline",
+    odds: americanFromProbability(modelProbability),
+    modelProbability,
+    bookProbability: baselineBook,
+    ev: expectedValue(modelProbability, MARKET_BASELINE_ODDS),
+    edge: modelProbability - baselineBook,
+    modelOnly: true
+  };
+}
+
+export function getBestBets(board: GamePrediction[] = predictions): BestBet[] {
+  if (boardHasMarketOdds(board)) {
+    const marketBets = buildMarketMoneylineBets(board);
+    if (marketBets.length > 0) {
+      return marketBets;
+    }
+  }
+
+  const modelBets = buildModelOnlyMoneylineBets(board);
+  if (modelBets.length > 0) {
+    return modelBets;
+  }
+
+  const fallback = topModelOnlyMoneylineBet(board);
+  return fallback ? [fallback] : [];
 }
 
 function sigmoid(value: number) {
@@ -325,7 +446,23 @@ function totalProbability(projectedTotal: number, marketTotal: number) {
   return sigmoid((projectedTotal - marketTotal) / 2.1);
 }
 
-export function getAdvancedBets(board: GamePrediction[] = predictions) {
+export type AdvancedBet = {
+  id: string;
+  market: string;
+  label: string;
+  game: GamePrediction;
+  team: Team;
+  opponent: Team;
+  matchup: string;
+  odds: number;
+  modelProbability: number;
+  bookProbability: number;
+  ev: number;
+  edge: number;
+  modelOnly?: boolean;
+};
+
+function buildMarketAdvancedBets(board: GamePrediction[]) {
   return board
     .flatMap((game) => {
       const away = getTeam(game.awayTeam);
@@ -400,14 +537,169 @@ export function getAdvancedBets(board: GamePrediction[] = predictions) {
       return rows;
     })
     .map((bet) => ({ ...bet, edge: bet.modelProbability - bet.bookProbability }))
-    .filter((bet) => bet.edge > 0.02 && bet.ev > 0)
+    .filter((bet) => bet.edge > 0.015 && bet.ev > 0)
     .sort((left, right) => right.ev - left.ev);
 }
 
-type BestBet = ReturnType<typeof getBestBets>[number];
-const SAFE_PARLAY_MIN_LEG_PROBABILITY = 0.60;
-const SAFE_PARLAY_MIN_BOOK_PROBABILITY = 0.50;
+function buildModelOnlyAdvancedBets(board: GamePrediction[]) {
+  const baselineBook = impliedProbability(DEFAULT_JUICE_ODDS);
+  const rows: AdvancedBet[] = [];
+
+  for (const game of board) {
+    const away = getTeam(game.awayTeam);
+    const home = getTeam(game.homeTeam);
+    const matchup = `${away.abbreviation} @ ${home.abbreviation}`;
+
+    if (game.projectedTotal) {
+      const overProbability = totalProbability(game.projectedTotal, DEFAULT_MARKET_TOTAL);
+      const pickOver = overProbability >= 0.5;
+      const modelProbability = pickOver ? overProbability : 1 - overProbability;
+
+      if (modelProbability >= 0.52) {
+        rows.push({
+          id: `${game.id}-${pickOver ? "over" : "under"}-model`,
+          market: "Total",
+          label: pickOver ? `Over ${DEFAULT_MARKET_TOTAL}` : `Under ${DEFAULT_MARKET_TOTAL}`,
+          game,
+          team: home,
+          opponent: away,
+          matchup,
+          odds: DEFAULT_JUICE_ODDS,
+          modelProbability,
+          bookProbability: baselineBook,
+          ev: expectedValue(modelProbability, DEFAULT_JUICE_ODDS),
+          edge: modelProbability - baselineBook,
+          modelOnly: true
+        });
+      }
+    }
+
+    const homeRunline = -1.5;
+    const homeCoverProbability = runlineProbability(game.modelHomeWinProbability, homeRunline);
+    const pickHomeRunline = homeCoverProbability >= 0.5;
+    const runlineProbabilityValue = pickHomeRunline ? homeCoverProbability : 1 - homeCoverProbability;
+
+    if (runlineProbabilityValue >= 0.52) {
+      const team = pickHomeRunline ? home : away;
+      const opponent = pickHomeRunline ? away : home;
+      const runline = pickHomeRunline ? homeRunline : 1.5;
+
+      rows.push({
+        id: `${game.id}-${pickHomeRunline ? "home" : "away"}-runline-model`,
+        market: "Run Line",
+        label: `${team.abbreviation} ${runline > 0 ? "+" : ""}${runline}`,
+        game,
+        team,
+        opponent,
+        matchup,
+        odds: DEFAULT_JUICE_ODDS,
+        modelProbability: runlineProbabilityValue,
+        bookProbability: baselineBook,
+        ev: expectedValue(runlineProbabilityValue, DEFAULT_JUICE_ODDS),
+        edge: runlineProbabilityValue - baselineBook,
+        modelOnly: true
+      });
+    }
+  }
+
+  return rows.sort((left, right) => right.modelProbability - left.modelProbability);
+}
+
+export function getAdvancedBets(board: GamePrediction[] = predictions): AdvancedBet[] {
+  const marketBets = buildMarketAdvancedBets(board);
+  if (marketBets.length > 0) {
+    return marketBets;
+  }
+
+  const modelBets = buildModelOnlyAdvancedBets(board);
+  if (modelBets.length > 0) {
+    return modelBets.slice(0, 8);
+  }
+
+  const topTotal = [...board]
+    .filter((game) => game.projectedTotal)
+    .sort(
+      (left, right) =>
+        Math.abs((right.projectedTotal ?? DEFAULT_MARKET_TOTAL) - DEFAULT_MARKET_TOTAL) -
+        Math.abs((left.projectedTotal ?? DEFAULT_MARKET_TOTAL) - DEFAULT_MARKET_TOTAL)
+    )[0];
+
+  if (!topTotal?.projectedTotal) {
+    return [];
+  }
+
+  const away = getTeam(topTotal.awayTeam);
+  const home = getTeam(topTotal.homeTeam);
+  const overProbability = totalProbability(topTotal.projectedTotal, DEFAULT_MARKET_TOTAL);
+  const pickOver = overProbability >= 0.5;
+  const modelProbability = pickOver ? overProbability : 1 - overProbability;
+  const baselineBook = impliedProbability(DEFAULT_JUICE_ODDS);
+
+  return [
+    {
+      id: `${topTotal.id}-fallback-total`,
+      market: "Total",
+      label: pickOver ? `Over ${DEFAULT_MARKET_TOTAL}` : `Under ${DEFAULT_MARKET_TOTAL}`,
+      game: topTotal,
+      team: home,
+      opponent: away,
+      matchup: `${away.abbreviation} @ ${home.abbreviation}`,
+      odds: DEFAULT_JUICE_ODDS,
+      modelProbability,
+      bookProbability: baselineBook,
+      ev: expectedValue(modelProbability, DEFAULT_JUICE_ODDS),
+      edge: modelProbability - baselineBook,
+      modelOnly: true
+    }
+  ];
+}
+
+const SAFE_PARLAY_MIN_LEG_PROBABILITY = 0.58;
+const SAFE_PARLAY_MIN_BOOK_PROBABILITY = 0.48;
 const SAFE_PARLAY_MAX_LEGS = 3;
+
+function parlayLegOdds(leg: BestBet) {
+  return leg.modelOnly ? MARKET_BASELINE_ODDS : leg.odds;
+}
+
+function buildParlayCandidate(legs: BestBet[], stake = 100): ParlayCandidate {
+  const probability = legs.reduce((value, leg) => value * leg.modelProbability, 1);
+  const parlayDecimal = legs.reduce((value, leg) => value * decimalOdds(parlayLegOdds(leg)), 1);
+  const payoutProfit = (parlayDecimal - 1) * stake;
+  const ev = probability * payoutProfit - (1 - probability) * stake;
+
+  return {
+    id: legs.map((leg) => leg.id).join("|"),
+    legs,
+    legCount: legs.length,
+    probability,
+    decimalOdds: parlayDecimal,
+    americanOdds: americanFromDecimal(parlayDecimal),
+    ev,
+    payoutProfit,
+    score: ev * probability
+  };
+}
+
+function buildFallbackParlay(singles: BestBet[], stake = 100): ParlayCandidate | null {
+  const uniqueGameSingles: BestBet[] = [];
+
+  for (const single of singles) {
+    if (uniqueGameSingles.some((existing) => existing.game.id === single.game.id)) {
+      continue;
+    }
+    uniqueGameSingles.push(single);
+    if (uniqueGameSingles.length >= 2) {
+      break;
+    }
+  }
+
+  if (uniqueGameSingles.length < 2) {
+    return null;
+  }
+
+  return buildParlayCandidate(uniqueGameSingles.slice(0, 2), stake);
+}
 
 export type ParlayCandidate = {
   id: string;
@@ -455,7 +747,7 @@ export function getParlayCandidates(board: GamePrediction[] = predictions, stake
     .filter(
       (bet) =>
         bet.modelProbability >= SAFE_PARLAY_MIN_LEG_PROBABILITY &&
-        bet.bookProbability >= SAFE_PARLAY_MIN_BOOK_PROBABILITY
+        (bet.modelOnly || bet.bookProbability >= SAFE_PARLAY_MIN_BOOK_PROBABILITY)
     )
     .sort((left, right) => (right.ev * right.modelProbability) - (left.ev * left.modelProbability))
     .slice(0, 8);
@@ -471,26 +763,25 @@ export function getParlayCandidates(board: GamePrediction[] = predictions, stake
         continue;
       }
 
-      const probability = legs.reduce((value, leg) => value * leg.modelProbability, 1);
-      const parlayDecimal = legs.reduce((value, leg) => value * decimalOdds(leg.odds), 1);
-      const payoutProfit = (parlayDecimal - 1) * stake;
-      const ev = probability * payoutProfit - (1 - probability) * stake;
+      const candidate = buildParlayCandidate(legs, stake);
+      const allModelOnly = legs.every((leg) => leg.modelOnly);
 
-      if (ev <= 0) {
+      if (candidate.ev <= 0 && !allModelOnly) {
         continue;
       }
 
-      parlays.push({
-        id: legs.map((leg) => leg.id).join("|"),
-        legs,
-        legCount,
-        probability,
-        decimalOdds: parlayDecimal,
-        americanOdds: americanFromDecimal(parlayDecimal),
-        ev,
-        payoutProfit,
-        score: ev * probability
-      });
+      if (allModelOnly && candidate.probability < 0.32) {
+        continue;
+      }
+
+      parlays.push(candidate);
+    }
+  }
+
+  if (parlays.length === 0) {
+    const fallback = buildFallbackParlay(singles, stake);
+    if (fallback) {
+      parlays.push(fallback);
     }
   }
 
@@ -507,7 +798,14 @@ export function getBestParlaysByLegCount(board: GamePrediction[] = predictions) 
     }
   }
 
-  return [...byLegCount.values()].sort((left, right) => left.legCount - right.legCount);
+  const results = [...byLegCount.values()].sort((left, right) => left.legCount - right.legCount);
+  if (results.length > 0) {
+    return results;
+  }
+
+  const singles = getBestBets(board).slice(0, 8);
+  const fallback = buildFallbackParlay(singles);
+  return fallback ? [fallback] : [];
 }
 
 export function getParlayForStrategy(board: GamePrediction[] = predictions, strategy: ParlayStrategyInput) {
@@ -521,7 +819,7 @@ export function getParlayForStrategy(board: GamePrediction[] = predictions, stra
       (bet) =>
         bet.edge >= strategy.min_edge &&
         bet.modelProbability >= minProbability &&
-        bet.bookProbability >= SAFE_PARLAY_MIN_BOOK_PROBABILITY
+        (bet.modelOnly || bet.bookProbability >= SAFE_PARLAY_MIN_BOOK_PROBABILITY)
     )
     .sort((left, right) => (right.ev * right.modelProbability) - (left.ev * left.modelProbability))
     .slice(0, Math.min(strategy.top_n, 8));
@@ -537,25 +835,16 @@ export function getParlayForStrategy(board: GamePrediction[] = predictions, stra
       continue;
     }
 
-    const probability = legs.reduce((value, leg) => value * leg.modelProbability, 1);
-    const parlayDecimal = legs.reduce((value, leg) => value * decimalOdds(leg.odds), 1);
-    const payoutProfit = (parlayDecimal - 1) * 100;
-    const ev = probability * payoutProfit - (1 - probability) * 100;
-    if (ev <= 0) {
+    const candidate = buildParlayCandidate(legs);
+    const allModelOnly = legs.every((leg) => leg.modelOnly);
+
+    if (candidate.ev <= 0 && !allModelOnly) {
       continue;
     }
 
-    const candidate = {
-      id: legs.map((leg) => leg.id).join("|"),
-      legs,
-      legCount: strategy.leg_count,
-      probability,
-      decimalOdds: parlayDecimal,
-      americanOdds: americanFromDecimal(parlayDecimal),
-      ev,
-      payoutProfit,
-      score: ev * probability
-    };
+    if (allModelOnly && candidate.probability < 0.32) {
+      continue;
+    }
 
     if (!best || candidate.score > best.score) {
       best = candidate;
@@ -566,8 +855,14 @@ export function getParlayForStrategy(board: GamePrediction[] = predictions, stra
 }
 
 export function getBacktestedParlaysByLegCount(board: GamePrediction[] = predictions, strategies: ParlayStrategyInput[]) {
-  return strategies
+  const backtested = strategies
     .map((strategy) => getParlayForStrategy(board, strategy))
     .filter((parlay): parlay is ParlayCandidate => parlay !== null)
     .sort((left, right) => left.legCount - right.legCount);
+
+  if (backtested.length > 0) {
+    return backtested;
+  }
+
+  return getBestParlaysByLegCount(board);
 }

@@ -18,6 +18,7 @@ export default async function BestBetsPage() {
   const standingsByTeamId = new Map(standings.map((standing) => [standing.teamId, standing]));
   const bets = getBestBets(board);
   const advancedBets = getAdvancedBets(board);
+  const usingModelOnlyPicks = bets.some((bet) => bet.modelOnly) || advancedBets.some((bet) => bet.modelOnly);
   const parlayBacktest = await loadParlayBacktest();
   const singleStrategy = parlayBacktest?.recommended_single_strategy;
   const oddsMetadata = parlayBacktest?.odds_metadata;
@@ -50,6 +51,12 @@ export default async function BestBetsPage() {
           <p className="muted">
             ROI backtests are limited by imported historical odds through {oddsMetadata.odds_data_end}. Today&apos;s board
             still uses live odds, but profit validation needs newer historical odds imported to include recent games.
+          </p>
+        ) : null}
+        {usingModelOnlyPicks ? (
+          <p className="muted">
+            Live sportsbook odds aren&apos;t on today&apos;s board, so picks below use model win rates and standard
+            reference pricing (-110 / 8.5 total) instead of market EV.
           </p>
         ) : null}
       </section>
@@ -87,6 +94,7 @@ export default async function BestBetsPage() {
                       {recordFor(bet.opponent.id)})
                     </p>
                     <p className="muted">{formatCentralGameTime(bet.game.startsAt)}</p>
+                    {bet.modelOnly ? <p className="muted">Model pick · fair line shown</p> : null}
                   </td>
                   <td>{formatOdds(bet.odds)}</td>
                   <td>{formatPercent(bet.modelProbability)}</td>
@@ -100,7 +108,8 @@ export default async function BestBetsPage() {
           </table>
         ) : (
           <p className="muted">
-            No moneyline edges clear today&apos;s stricter filter. That means no recommended single-bet action from the model right now.
+            No moneyline edges clear today&apos;s filter. Check back after live odds are loaded or tomorrow&apos;s board
+            drops.
           </p>
         )}
       </section>
@@ -149,7 +158,8 @@ export default async function BestBetsPage() {
           </table>
         ) : (
           <p className="muted">
-            No parlay strategy clears the stricter safety filter right now. The model will leave this empty instead of forcing a bad ticket.
+            No parlay ticket cleared today&apos;s safety filter. The page needs at least two qualifying legs on different
+            games.
           </p>
         )}
       </section>
@@ -186,6 +196,7 @@ export default async function BestBetsPage() {
                     {bet.market === "Total" ? (
                       <p className="muted">Projected total: {bet.game.projectedTotal?.toFixed(1)}</p>
                     ) : null}
+                    {bet.modelOnly ? <p className="muted">Model lean · reference line</p> : null}
                   </td>
                   <td>{formatOdds(bet.odds)}</td>
                   <td>{formatPercent(bet.modelProbability)}</td>

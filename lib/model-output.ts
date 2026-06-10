@@ -6,6 +6,7 @@ import { GamePrediction, normalizeTeamId } from "./data";
 
 const execFileAsync = promisify(execFile);
 const canRunLocalGenerators = process.env.VERCEL !== "1";
+const autoRegenerateBoard = process.env.AUTO_REGENERATE_BOARD === "1";
 
 export type AccuracyOutput = {
   generated_at: string;
@@ -196,14 +197,16 @@ export async function loadPredictionBoard(): Promise<GamePrediction[]> {
   try {
     let { payload, rows } = await readPredictionBoard();
 
-    if (!isFreshBoard(payload, rows)) {
+    if (!isFreshBoard(payload, rows) && autoRegenerateBoard) {
       await generateTodayBoard();
       ({ payload, rows } = await readPredictionBoard());
     }
 
     return normalizePredictionRows(rows);
   } catch {
-    await generateTodayBoard();
+    if (autoRegenerateBoard) {
+      await generateTodayBoard();
+    }
     try {
       const { rows } = await readPredictionBoard();
       return normalizePredictionRows(rows);

@@ -20,11 +20,7 @@ export default function WatchNetworkPage() {
       </section>
 
       <section className="panel">
-        <StreamEmbed
-          alternates={mlbNetworkStream.alternates}
-          embedUrl={mlbNetworkStream.embedUrl}
-          title="MLB Network stream"
-        />
+        <StreamEmbed sources={mlbNetworkStream.sources} title="MLB Network stream" />
       </section>
     </main>
   );

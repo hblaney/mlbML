@@ -1,16 +1,33 @@
 "use client";
 
 import { useState } from "react";
+import {
+  getDefaultEmbedSource,
+  hasBuffstreamsFeeds,
+  hasExternalTeamFeeds,
+  type StreamLink
+} from "@/lib/watch-streams";
 
 type StreamEmbedProps = {
   title: string;
-  embedUrl: string;
-  alternates?: string[];
+  sources: StreamLink[];
 };
 
-export function StreamEmbed({ title, embedUrl, alternates = [] }: StreamEmbedProps) {
-  const sources = [embedUrl, ...alternates];
-  const [activeSource, setActiveSource] = useState(embedUrl);
+export function StreamEmbed({ title, sources }: StreamEmbedProps) {
+  const [activeSource, setActiveSource] = useState(() => getDefaultEmbedSource(sources));
+
+  if (sources.length === 0 || !activeSource) {
+    return null;
+  }
+
+  function handleSourceClick(source: StreamLink) {
+    if (source.external) {
+      window.open(source.url, "_blank", "noopener,noreferrer");
+      return;
+    }
+
+    setActiveSource(source.url);
+  }
 
   return (
     <div className="stream-player">
@@ -25,18 +42,35 @@ export function StreamEmbed({ title, embedUrl, alternates = [] }: StreamEmbedPro
         />
       </div>
       {sources.length > 1 ? (
-        <div className="stream-source-row">
-          {sources.map((source, index) => (
-            <button
-              className={source === activeSource ? "stream-source active" : "stream-source"}
-              key={source}
-              onClick={() => setActiveSource(source)}
-              type="button"
-            >
-              {`Link ${index + 3}`}
-            </button>
-          ))}
-        </div>
+        <>
+          <div className="stream-source-row">
+            {sources.map((source) => (
+              <button
+                className={
+                  source.external
+                    ? "stream-source external"
+                    : source.url === activeSource
+                      ? "stream-source active"
+                      : "stream-source"
+                }
+                key={`${source.label}-${source.url}`}
+                onClick={() => handleSourceClick(source)}
+                type="button"
+              >
+                {source.external ? `${source.label} ↗` : source.label}
+              </button>
+            ))}
+          </div>
+          {hasBuffstreamsFeeds(sources) ? (
+            <p className="muted stream-feed-note">
+              Home and Backup use the Buffstreams team broadcast. Link 3 and Link 4 are alternate feeds.
+            </p>
+          ) : hasExternalTeamFeeds(sources) ? (
+            <p className="muted stream-feed-note">
+              Home and Away open the team broadcast on MLB Webcast. Link 3 and Link 4 stay embedded here.
+            </p>
+          ) : null}
+        </>
       ) : null}
     </div>
   );

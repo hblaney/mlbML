@@ -82,7 +82,13 @@ class MlbPredictor:
         home_era, away_era = self._starter_eras(game)
         return build_feature_vector(home, away, game.game_date, home_era, away_era, self._context_for_game(game))
 
-    def _context_for_game(self, game: GameRecord, *, live_sources: bool = False) -> FeatureContext:
+    def _context_for_game(
+        self,
+        game: GameRecord,
+        *,
+        live_sources: bool = False,
+        market: dict[tuple[str, str], MarketSnapshot] | None = None,
+    ) -> FeatureContext:
         park = park_for_team(game.home_team_id)
         game_dt = datetime.fromisoformat(game.game_datetime_iso.replace("Z", "+00:00"))
         home_stats = team_stats_as_of(game.home_team_id, game.game_date)
@@ -103,7 +109,7 @@ class MlbPredictor:
                 is_day_game=game_dt.hour < 22,
             )
 
-        market = market_for_game(game, fetch_moneyline_market())
+        market = market_for_game(game, market if market is not None else fetch_moneyline_market())
         weather = fetch_weather(game.home_team_id, game.game_datetime_iso)
         return FeatureContext(
             market=market,
@@ -253,11 +259,12 @@ class MlbPredictor:
             raise RuntimeError("Model must be fitted before predicting upcoming games.")
 
         rows: list[PredictionRow] = []
+        market = fetch_moneyline_market()
         for game in games:
             home = self.league.team(game.home_team_id)
             away = self.league.team(game.away_team_id)
             home_era, away_era = self._starter_eras(game)
-            context = self._context_for_game(game, live_sources=True)
+            context = self._context_for_game(game, live_sources=True, market=market)
             feature_row = np.array(
                 [build_feature_vector(home, away, game.game_date, home_era, away_era, context)],
                 dtype=float,

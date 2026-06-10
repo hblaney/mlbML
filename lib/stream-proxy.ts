@@ -1,4 +1,6 @@
 export const MLB_WEBCAST_ORIGIN = "https://mlbwebcast.com";
+export const BUFFSTREAMS_PLAYLIST_ORIGIN = "https://chatgpt.hereisman.net";
+export const BUFFSTREAMS_REFERER = "https://gooz.aapmains.net/";
 
 const ALLOWED_UPSTREAM_HOSTS = new Set([
   "mlbwebcast.com",
@@ -41,14 +43,32 @@ export function isAllowedUpstreamHost(hostname: string) {
     return true;
   }
 
+  const host = hostname.toLowerCase();
+
   return (
-    hostname.endsWith(".cloudfront.net") ||
-    hostname.endsWith(".akamaized.net") ||
-    hostname.endsWith(".fastly.net") ||
-    hostname.endsWith(".llnwi.net") ||
-    hostname.endsWith(".cloudflare.com") ||
-    hostname.endsWith(".googlevideo.com")
+    host.endsWith(".cloudfront.net") ||
+    host.endsWith(".akamaized.net") ||
+    host.endsWith(".fastly.net") ||
+    host.endsWith(".llnwi.net") ||
+    host.endsWith(".cloudflare.com") ||
+    host.endsWith(".googlevideo.com") ||
+    host.endsWith(".hereisman.net") ||
+    host.endsWith(".r2.cloudflarestorage.com") ||
+    host.includes("kamfir")
   );
+}
+
+function isBuffstreamsStreamHost(hostname: string) {
+  const host = hostname.toLowerCase();
+  return host.endsWith(".hereisman.net") || host.includes("kamfir") || host.endsWith(".r2.cloudflarestorage.com");
+}
+
+export function isBuffstreamsSlug(slug: string) {
+  return /^buff\d+$/i.test(slug);
+}
+
+export function buffstreamsStreamId(slug: string) {
+  return slug.replace(/^buff/i, "");
 }
 
 export function assertAllowedUpstreamUrl(rawUrl: string) {
@@ -88,6 +108,10 @@ export function assertAllowedStreamUrl(rawUrl: string) {
     throw new Error("Private stream hosts are not allowed");
   }
 
+  if (!isAllowedUpstreamHost(parsed.hostname)) {
+    throw new Error("Stream host is not allowed");
+  }
+
   return parsed;
 }
 
@@ -124,13 +148,19 @@ function buildFetchUrl(targetUrl: string) {
 
 export async function fetchStreamAsset(targetUrl: string, refererPath = "/stream/") {
   const fetchUrl = buildFetchUrl(targetUrl);
+  const referer = isBuffstreamsStreamHost(new URL(targetUrl).hostname)
+    ? BUFFSTREAMS_REFERER
+    : `${MLB_WEBCAST_ORIGIN}${refererPath}`;
 
   return fetch(fetchUrl, {
     cache: "no-store",
     redirect: "follow",
     headers: {
-      ...upstreamFetchHeaders(refererPath),
-      Accept: "*/*"
+      "User-Agent":
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36",
+      Accept: "*/*",
+      Referer: referer,
+      Origin: new URL(referer).origin
     }
   });
 }
@@ -233,7 +263,36 @@ export function parseStreamTokens(html: string) {
   };
 }
 
+export async function resolveBuffstreamsManifest(streamId: string): Promise<StreamManifest> {
+  const playlistUrl = `${BUFFSTREAMS_PLAYLIST_ORIGIN}/playlist/${streamId}/load-playlist`;
+
+  try {
+    const response = await fetchStreamAsset(playlistUrl);
+
+    if (!response.ok) {
+      return {
+        url: null,
+        upstreamStatus: response.status,
+        message: "Buffstreams feed is unavailable right now."
+      };
+    }
+
+    return {
+      url: proxyHlsUrl(playlistUrl),
+      message: "ok"
+    };
+  } catch {
+    return {
+      url: null,
+      message: "Could not load the Buffstreams feed."
+    };
+  }
+}
+
 export async function resolveStreamManifest(slug: string): Promise<StreamManifest> {
+  if (isBuffstreamsSlug(slug)) {
+    return resolveBuffstreamsManifest(buffstreamsStreamId(slug));
+  }
   const refererPath = `/stream/${slug}.html`;
   const pageResponse = await fetchMlbWebcast(`stream/${slug}.html`, refererPath);
 
@@ -306,8 +365,9 @@ export async function resolveStreamManifest(slug: string): Promise<StreamManifes
   }
 }
 
-export function buildEmbedPlayerHtml(slug: string) {
+export function buildEmbedPlayerHtml(slug: string, manifestPath?: string) {
   const safeSlug = slug.replace(/[^a-z0-9]/gi, "");
+  const manifestUrl = manifestPath ?? `/api/stream/manifest/${safeSlug}`;
 
   return `<!DOCTYPE html>
 <html lang="en">
@@ -381,7 +441,7 @@ body,html{background:#000;overflow:hidden;height:100%;color:#fff;font-family:sys
     }
     showError('This browser does not support HLS playback.');
   }
-  fetch('/api/stream/manifest/'+slug,{cache:'no-store'})
+  fetch('${manifestUrl}',{cache:'no-store'})
     .then(function(response){return response.json();})
     .then(function(data){
       if(!data.url){

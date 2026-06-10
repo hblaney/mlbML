@@ -7,6 +7,9 @@ import { loadPredictionBoard } from "@/lib/model-output";
 import { formatOdds, formatPercent } from "@/lib/odds";
 import { getTeamLogoUrl } from "@/lib/team-media";
 import { formatStandingRecord, loadLiveStandings, TeamStanding } from "@/lib/standings";
+import { formatCentralGameTime } from "@/lib/time";
+import { formatWatchGameStatusLine } from "@/lib/watch-team-status";
+import { resolveBuffstreamsForGame } from "@/lib/buffstreams";
 import { getTeamWatchStream } from "@/lib/watch-streams";
 
 type WatchTeamPageProps = {
@@ -97,7 +100,7 @@ function PredictionLead({
       <div className="prediction-lead-copy">
         <p className="eyebrow">Model prediction</p>
         <h2>{away.abbreviation} @ {home.abbreviation}</h2>
-        <p className="muted">{new Date(game.startsAt).toLocaleString()}</p>
+        <p className="muted">{formatWatchGameStatusLine(game, liveGame, activeTeamId)}</p>
       </div>
 
       <div className="prediction-matchup-wide">
@@ -214,14 +217,16 @@ export default async function WatchTeamPage({ params }: WatchTeamPageProps) {
   }
 
   const logoUrl = getTeamLogoUrl(team.id);
-  const stream = getTeamWatchStream(team.id);
   const [predictions, standings] = await Promise.all([loadPredictionBoard(), loadLiveStandings()]);
   const standing = standings.find((item) => item.teamId === team.id);
   const teamPredictions = predictions.filter((game) => game.awayTeam === team.id || game.homeTeam === team.id);
   const primaryGame = teamPredictions[0];
   const opponentId = primaryGame?.awayTeam === team.id ? primaryGame.homeTeam : primaryGame?.awayTeam;
+  const buffstreams = primaryGame ? await resolveBuffstreamsForGame(primaryGame) : null;
+  const stream = getTeamWatchStream(team.id, opponentId, buffstreams);
   const opponentStanding = standings.find((item) => item.teamId === opponentId);
   const liveGame = await loadLiveGameState(primaryGame);
+  const streamPageLabel = buffstreams ? "Open on Buffstreams" : "Open on MLB Webcast";
 
   return (
     <main className="shell stack">
@@ -234,7 +239,7 @@ export default async function WatchTeamPage({ params }: WatchTeamPageProps) {
             <Link href="/watch">Back to teams</Link>
             {stream ? (
               <a href={stream.livePageUrl} rel="noopener noreferrer" target="_blank">
-                Open on MLB Webcast
+                {streamPageLabel}
               </a>
             ) : null}
           </div>
@@ -244,11 +249,7 @@ export default async function WatchTeamPage({ params }: WatchTeamPageProps) {
 
       <section className="panel">
         {stream ? (
-          <StreamEmbed
-            alternates={stream.alternates}
-            embedUrl={stream.embedUrl}
-            title={`${team.name} stream`}
-          />
+          <StreamEmbed sources={stream.sources} title={`${team.name} stream`} />
         ) : (
           <div className="stream-placeholder">
             {logoUrl ? <img alt="" src={logoUrl} /> : null}
@@ -291,7 +292,7 @@ export default async function WatchTeamPage({ params }: WatchTeamPageProps) {
             {teamPredictions.slice(1).map((game) => (
               <p key={game.id}>
                 {getTeam(game.awayTeam).abbreviation} @ {getTeam(game.homeTeam).abbreviation} ·{" "}
-                {new Date(game.startsAt).toLocaleString()} · {getFavorite(game).shortName}{" "}
+                {formatCentralGameTime(game.startsAt)} · {getFavorite(game).shortName}{" "}
                 {formatPercent(game.pickProbability ?? Math.max(game.modelAwayWinProbability, game.modelHomeWinProbability))}
               </p>
             ))}

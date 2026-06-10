@@ -3,22 +3,15 @@
 import Link from "next/link";
 import { FavoriteButton } from "@/components/FavoriteButton";
 import { useFavorites } from "@/components/FavoritesProvider";
+import type { WatchTeamCard } from "@/lib/watch-team-status";
 
-type WatchTeam = {
-  id: string;
-  name: string;
-  abbreviation: string;
-  primary: string;
-  logoUrl: string | null;
-};
-
-export function WatchTeamsGrid({ teams }: { teams: WatchTeam[] }) {
+export function WatchTeamsGrid({ teams }: { teams: WatchTeamCard[] }) {
   const { favoriteTeamIds, user } = useFavorites();
 
   const favoriteTeams = teams.filter((team) => favoriteTeamIds.includes(team.id));
   const otherTeams = teams.filter((team) => !favoriteTeamIds.includes(team.id));
 
-  function renderCard(team: WatchTeam) {
+  function renderCard(team: WatchTeamCard) {
     return (
       <div className="team-watch-card-wrap" key={team.id}>
         <Link className="team-watch-card" href={`/watch/${team.id}`}>
@@ -26,7 +19,8 @@ export function WatchTeamsGrid({ teams }: { teams: WatchTeam[] }) {
           {team.logoUrl ? <img alt="" src={team.logoUrl} /> : <span className="team-card-fallback">{team.abbreviation}</span>}
           <span>
             <strong>{team.name}</strong>
-            <span>{team.abbreviation}</span>
+            {team.statusLine ? <span className="team-watch-status">{team.statusLine}</span> : null}
+            <span className="team-watch-abbrev">{team.abbreviation}</span>
           </span>
         </Link>
         <FavoriteButton kind="team" label={team.name} teamId={team.id} />
@@ -56,7 +50,7 @@ export function WatchTeamsGrid({ teams }: { teams: WatchTeam[] }) {
             <span className="team-card-fallback">MLBN</span>
             <span>
               <strong>MLB Network</strong>
-              <span>National</span>
+              <span className="team-watch-abbrev">National</span>
             </span>
           </Link>
         </div>
