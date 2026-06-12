@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-10",
+  "generated_at": "2026-06-12",
   "stake": 100.0,
   "starting_bankroll": 10000.0,
   "date_range": {
@@ -40,8 +40,8 @@
       "wins": 91,
       "losses": 35,
       "staked": 12600.0,
-      "profit": 867.03,
-      "roi": 0.0688,
+      "profit": 1042.3,
+      "roi": 0.0827,
       "hit_rate": 0.7222
     },
     "parlay_3": {
@@ -93,12 +93,12 @@
     },
     "2025-W19": {
       "bets": 7,
-      "wins": 4,
-      "losses": 3,
+      "wins": 5,
+      "losses": 2,
       "staked": 700.0,
-      "profit": -79.23,
-      "roi": -0.1132,
-      "hit_rate": 0.5714
+      "profit": 148.77,
+      "roi": 0.2125,
+      "hit_rate": 0.7143
     },
     "2025-W20": {
       "bets": 7,
@@ -150,8 +150,8 @@
       "wins": 4,
       "losses": 3,
       "staked": 700.0,
-      "profit": 18.74,
-      "roi": 0.0268,
+      "profit": 90.18,
+      "roi": 0.1288,
       "hit_rate": 0.5714
     },
     "2025-W26": {
@@ -210,12 +210,12 @@
     },
     "2025-W32": {
       "bets": 7,
-      "wins": 6,
-      "losses": 1,
+      "wins": 5,
+      "losses": 2,
       "staked": 700.0,
-      "profit": 156.8,
-      "roi": 0.224,
-      "hit_rate": 0.8571
+      "profit": 32.63,
+      "roi": 0.0466,
+      "hit_rate": 0.7143
     },
     "2025-W33": {
       "bets": 7,
@@ -239,20 +239,20 @@
     },
     "2025-05": {
       "bets": 31,
-      "wins": 21,
-      "losses": 10,
+      "wins": 22,
+      "losses": 9,
       "staked": 3100.0,
-      "profit": -246.18,
-      "roi": -0.0794,
-      "hit_rate": 0.6774
+      "profit": -18.18,
+      "roi": -0.0059,
+      "hit_rate": 0.7097
     },
     "2025-06": {
       "bets": 31,
       "wins": 19,
       "losses": 12,
       "staked": 3100.0,
-      "profit": -170.52,
-      "roi": -0.055,
+      "profit": -99.08,
+      "roi": -0.032,
       "hit_rate": 0.6129
     },
     "2025-07": {
@@ -266,381 +266,381 @@
     },
     "2025-08": {
       "bets": 17,
-      "wins": 12,
-      "losses": 5,
+      "wins": 11,
+      "losses": 6,
       "staked": 1700.0,
-      "profit": 94.92,
-      "roi": 0.0558,
-      "hit_rate": 0.7059
+      "profit": -29.25,
+      "roi": -0.0172,
+      "hit_rate": 0.6471
     }
   },
   "cumulative": {
     "bets": 127,
-    "profit": 767.03,
-    "roi": 0.0604,
-    "balance": 10767.03,
-    "return_pct": 0.0767
+    "profit": 942.3,
+    "roi": 0.0742,
+    "balance": 10942.3,
+    "return_pct": 0.0942
   },
   "checkpoints": [
     {
       "date": "2025-06-14",
       "profit": 28.25,
-      "balance": 10004.44,
-      "return_pct": 0.0004
+      "balance": 10232.44,
+      "return_pct": 0.0232
     },
     {
       "date": "2025-06-15",
       "profit": -100.0,
-      "balance": 9904.44,
-      "return_pct": -0.0096
+      "balance": 10132.44,
+      "return_pct": 0.0132
     },
     {
       "date": "2025-06-16",
       "profit": 164.0,
-      "balance": 10068.44,
-      "return_pct": 0.0068
+      "balance": 10296.44,
+      "return_pct": 0.0296
     },
     {
       "date": "2025-06-17",
       "profit": 71.43,
-      "balance": 10139.87,
-      "return_pct": 0.014
+      "balance": 10367.87,
+      "return_pct": 0.0368
     },
     {
       "date": "2025-06-18",
       "profit": -100.0,
-      "balance": 10039.87,
-      "return_pct": 0.004
+      "balance": 10267.87,
+      "return_pct": 0.0268
     },
     {
       "date": "2025-06-19",
-      "profit": 33.56,
-      "balance": 10073.43,
-      "return_pct": 0.0073
+      "profit": 105.0,
+      "balance": 10372.87,
+      "return_pct": 0.0373
     },
     {
       "date": "2025-06-20",
       "profit": -100.0,
-      "balance": 9973.43,
-      "return_pct": -0.0027
+      "balance": 10272.87,
+      "return_pct": 0.0273
     },
     {
       "date": "2025-06-21",
       "profit": 49.75,
-      "balance": 10023.18,
-      "return_pct": 0.0023
+      "balance": 10322.62,
+      "return_pct": 0.0323
     },
     {
       "date": "2025-06-22",
       "profit": -100.0,
-      "balance": 9923.18,
-      "return_pct": -0.0077
+      "balance": 10222.62,
+      "return_pct": 0.0223
     },
     {
       "date": "2025-06-23",
       "profit": 75.76,
-      "balance": 9998.94,
-      "return_pct": -0.0001
+      "balance": 10298.38,
+      "return_pct": 0.0298
     },
     {
       "date": "2025-06-24",
       "profit": 28.82,
-      "balance": 10027.76,
-      "return_pct": 0.0028
+      "balance": 10327.2,
+      "return_pct": 0.0327
     },
     {
       "date": "2025-06-25",
       "profit": 38.91,
-      "balance": 10066.67,
-      "return_pct": 0.0067
+      "balance": 10366.11,
+      "return_pct": 0.0366
     },
     {
       "date": "2025-06-26",
       "profit": 33.44,
-      "balance": 10100.11,
-      "return_pct": 0.01
+      "balance": 10399.55,
+      "return_pct": 0.04
     },
     {
       "date": "2025-06-27",
       "profit": -100.0,
-      "balance": 10000.11,
-      "return_pct": 0.0
+      "balance": 10299.55,
+      "return_pct": 0.03
     },
     {
       "date": "2025-06-28",
       "profit": 30.3,
-      "balance": 10030.41,
-      "return_pct": 0.003
+      "balance": 10329.85,
+      "return_pct": 0.033
     },
     {
       "date": "2025-06-29",
       "profit": -100.0,
-      "balance": 9930.41,
-      "return_pct": -0.007
+      "balance": 10229.85,
+      "return_pct": 0.023
     },
     {
       "date": "2025-06-30",
       "profit": 36.9,
-      "balance": 9967.31,
-      "return_pct": -0.0033
+      "balance": 10266.75,
+      "return_pct": 0.0267
     },
     {
       "date": "2025-07-01",
       "profit": 94.34,
-      "balance": 10061.65,
-      "return_pct": 0.0062
+      "balance": 10361.09,
+      "return_pct": 0.0361
     },
     {
       "date": "2025-07-02",
       "profit": 26.95,
-      "balance": 10088.6,
-      "return_pct": 0.0089
+      "balance": 10388.04,
+      "return_pct": 0.0388
     },
     {
       "date": "2025-07-03",
       "profit": 28.09,
-      "balance": 10116.69,
-      "return_pct": 0.0117
+      "balance": 10416.13,
+      "return_pct": 0.0416
     },
     {
       "date": "2025-07-04",
       "profit": 74.63,
-      "balance": 10191.32,
-      "return_pct": 0.0191
+      "balance": 10490.76,
+      "return_pct": 0.0491
     },
     {
       "date": "2025-07-05",
       "profit": 71.43,
-      "balance": 10262.75,
-      "return_pct": 0.0263
+      "balance": 10562.19,
+      "return_pct": 0.0562
     },
     {
       "date": "2025-07-06",
       "profit": 39.37,
-      "balance": 10302.12,
-      "return_pct": 0.0302
+      "balance": 10601.56,
+      "return_pct": 0.0602
     },
     {
       "date": "2025-07-07",
       "profit": 38.91,
-      "balance": 10341.03,
-      "return_pct": 0.0341
+      "balance": 10640.47,
+      "return_pct": 0.064
     },
     {
       "date": "2025-07-08",
       "profit": 32.26,
-      "balance": 10373.29,
-      "return_pct": 0.0373
+      "balance": 10672.73,
+      "return_pct": 0.0673
     },
     {
       "date": "2025-07-09",
       "profit": 26.46,
-      "balance": 10399.75,
-      "return_pct": 0.04
+      "balance": 10699.19,
+      "return_pct": 0.0699
     },
     {
       "date": "2025-07-10",
       "profit": 87.72,
-      "balance": 10487.47,
-      "return_pct": 0.0487
+      "balance": 10786.91,
+      "return_pct": 0.0787
     },
     {
       "date": "2025-07-11",
       "profit": -100.0,
-      "balance": 10387.47,
-      "return_pct": 0.0387
+      "balance": 10686.91,
+      "return_pct": 0.0687
     },
     {
       "date": "2025-07-12",
       "profit": 33.56,
-      "balance": 10421.03,
-      "return_pct": 0.0421
+      "balance": 10720.47,
+      "return_pct": 0.072
     },
     {
       "date": "2025-07-13",
       "profit": 35.46,
-      "balance": 10456.49,
-      "return_pct": 0.0456
+      "balance": 10755.93,
+      "return_pct": 0.0756
     },
     {
       "date": "2025-07-18",
       "profit": -100.0,
-      "balance": 10356.49,
-      "return_pct": 0.0356
+      "balance": 10655.93,
+      "return_pct": 0.0656
     },
     {
       "date": "2025-07-19",
       "profit": 112.0,
-      "balance": 10468.49,
-      "return_pct": 0.0468
+      "balance": 10767.93,
+      "return_pct": 0.0768
     },
     {
       "date": "2025-07-20",
       "profit": 38.76,
-      "balance": 10507.25,
-      "return_pct": 0.0507
+      "balance": 10806.69,
+      "return_pct": 0.0807
     },
     {
       "date": "2025-07-21",
       "profit": 40.98,
-      "balance": 10548.23,
-      "return_pct": 0.0548
+      "balance": 10847.67,
+      "return_pct": 0.0848
     },
     {
       "date": "2025-07-22",
       "profit": 52.08,
-      "balance": 10600.31,
-      "return_pct": 0.06
+      "balance": 10899.75,
+      "return_pct": 0.09
     },
     {
       "date": "2025-07-23",
       "profit": 75.19,
-      "balance": 10675.5,
-      "return_pct": 0.0675
+      "balance": 10974.94,
+      "return_pct": 0.0975
     },
     {
       "date": "2025-07-24",
       "profit": 118.0,
-      "balance": 10793.5,
-      "return_pct": 0.0793
+      "balance": 11092.94,
+      "return_pct": 0.1093
     },
     {
       "date": "2025-07-25",
       "profit": -100.0,
-      "balance": 10693.5,
-      "return_pct": 0.0693
+      "balance": 10992.94,
+      "return_pct": 0.0993
     },
     {
       "date": "2025-07-26",
       "profit": 39.22,
-      "balance": 10732.72,
-      "return_pct": 0.0733
+      "balance": 11032.16,
+      "return_pct": 0.1032
     },
     {
       "date": "2025-07-27",
       "profit": 68.97,
-      "balance": 10801.69,
-      "return_pct": 0.0802
+      "balance": 11101.13,
+      "return_pct": 0.1101
     },
     {
       "date": "2025-07-28",
       "profit": -100.0,
-      "balance": 10701.69,
-      "return_pct": 0.0702
+      "balance": 11001.13,
+      "return_pct": 0.1001
     },
     {
       "date": "2025-07-29",
       "profit": -100.0,
-      "balance": 10601.69,
-      "return_pct": 0.0602
+      "balance": 10901.13,
+      "return_pct": 0.0901
     },
     {
       "date": "2025-07-30",
       "profit": 70.42,
-      "balance": 10672.11,
-      "return_pct": 0.0672
+      "balance": 10971.55,
+      "return_pct": 0.0972
     },
     {
       "date": "2025-08-01",
       "profit": -100.0,
-      "balance": 10572.11,
-      "return_pct": 0.0572
+      "balance": 10871.55,
+      "return_pct": 0.0872
     },
     {
       "date": "2025-08-02",
       "profit": -100.0,
-      "balance": 10472.11,
-      "return_pct": 0.0472
+      "balance": 10771.55,
+      "return_pct": 0.0772
     },
     {
       "date": "2025-08-03",
       "profit": 60.98,
-      "balance": 10533.09,
-      "return_pct": 0.0533
+      "balance": 10832.53,
+      "return_pct": 0.0833
     },
     {
       "date": "2025-08-04",
-      "profit": 72.99,
-      "balance": 10606.08,
-      "return_pct": 0.0606
+      "profit": 53.48,
+      "balance": 10886.01,
+      "return_pct": 0.0886
     },
     {
       "date": "2025-08-05",
-      "profit": 40.32,
-      "balance": 10646.4,
-      "return_pct": 0.0646
+      "profit": 67.11,
+      "balance": 10953.12,
+      "return_pct": 0.0953
     },
     {
       "date": "2025-08-06",
-      "profit": 31.45,
-      "balance": 10677.85,
-      "return_pct": 0.0678
+      "profit": -100.0,
+      "balance": 10853.12,
+      "return_pct": 0.0853
     },
     {
       "date": "2025-08-07",
       "profit": -100.0,
-      "balance": 10577.85,
-      "return_pct": 0.0578
+      "balance": 10753.12,
+      "return_pct": 0.0753
     },
     {
       "date": "2025-08-08",
       "profit": 33.78,
-      "balance": 10611.63,
-      "return_pct": 0.0612
+      "balance": 10786.9,
+      "return_pct": 0.0787
     },
     {
       "date": "2025-08-09",
       "profit": 44.25,
-      "balance": 10655.88,
-      "return_pct": 0.0656
+      "balance": 10831.15,
+      "return_pct": 0.0831
     },
     {
       "date": "2025-08-10",
       "profit": 34.01,
-      "balance": 10689.89,
-      "return_pct": 0.069
+      "balance": 10865.16,
+      "return_pct": 0.0865
     },
     {
       "date": "2025-08-11",
       "profit": 40.98,
-      "balance": 10730.87,
-      "return_pct": 0.0731
+      "balance": 10906.14,
+      "return_pct": 0.0906
     },
     {
       "date": "2025-08-12",
       "profit": 44.05,
-      "balance": 10774.92,
-      "return_pct": 0.0775
+      "balance": 10950.19,
+      "return_pct": 0.095
     },
     {
       "date": "2025-08-13",
       "profit": 36.63,
-      "balance": 10811.55,
-      "return_pct": 0.0812
+      "balance": 10986.82,
+      "return_pct": 0.0987
     },
     {
       "date": "2025-08-14",
       "profit": -100.0,
-      "balance": 10711.55,
-      "return_pct": 0.0712
+      "balance": 10886.82,
+      "return_pct": 0.0887
     },
     {
       "date": "2025-08-15",
       "profit": 112.0,
-      "balance": 10823.55,
-      "return_pct": 0.0824
+      "balance": 10998.82,
+      "return_pct": 0.0999
     },
     {
       "date": "2025-08-16",
       "profit": 43.48,
-      "balance": 10867.03,
-      "return_pct": 0.0867
+      "balance": 11042.3,
+      "return_pct": 0.1042
     },
     {
       "date": "2025-08-17",
       "profit": -100.0,
-      "balance": 10767.03,
-      "return_pct": 0.0767
+      "balance": 10942.3,
+      "return_pct": 0.0942
     }
   ],
   "daily": [
@@ -816,10 +816,10 @@
           "side": "Moneyline",
           "label": "PHI ML",
           "odds": -115,
-          "model_probability": 0.5929,
+          "model_probability": 0.571,
           "book_probability": 0.512,
-          "edge": 0.0809,
-          "ev": 10.85,
+          "edge": 0.059,
+          "ev": 6.75,
           "stake": 100.0,
           "qualified": true,
           "won": false,
@@ -848,10 +848,10 @@
           "side": "Moneyline",
           "label": "LAD ML",
           "odds": -361,
-          "model_probability": 0.7038,
+          "model_probability": 0.6948,
           "book_probability": 0.7519,
-          "edge": -0.0481,
-          "ev": -10.12,
+          "edge": -0.0571,
+          "ev": -11.27,
           "stake": 100.0,
           "qualified": true,
           "won": true,
@@ -1072,10 +1072,10 @@
           "side": "Moneyline",
           "label": "KC ML",
           "odds": -262,
-          "model_probability": 0.6865,
+          "model_probability": 0.6965,
           "book_probability": 0.6931,
-          "edge": -0.0066,
-          "ev": -5.15,
+          "edge": 0.0034,
+          "ev": -3.77,
           "stake": 100.0,
           "qualified": true,
           "won": true,
@@ -1296,10 +1296,10 @@
           "side": "Moneyline",
           "label": "LAD ML",
           "odds": -292,
-          "model_probability": 0.6797,
+          "model_probability": 0.6699,
           "book_probability": 0.7145,
-          "edge": -0.0348,
-          "ev": -8.75,
+          "edge": -0.0446,
+          "ev": -10.07,
           "stake": 100.0,
           "qualified": true,
           "won": true,
@@ -1328,10 +1328,10 @@
           "side": "Moneyline",
           "label": "LAD ML",
           "odds": -336,
-          "model_probability": 0.7019,
+          "model_probability": 0.6712,
           "book_probability": 0.7398,
-          "edge": -0.0379,
-          "ev": -8.92,
+          "edge": -0.0686,
+          "ev": -12.9,
           "stake": 100.0,
           "qualified": true,
           "won": true,
@@ -1584,10 +1584,10 @@
           "side": "Moneyline",
           "label": "CWS ML",
           "odds": 205,
-          "model_probability": 0.4154,
+          "model_probability": 0.4294,
           "book_probability": 0.3139,
-          "edge": 0.1015,
-          "ev": 26.7,
+          "edge": 0.1155,
+          "ev": 30.97,
           "stake": 100.0,
           "qualified": false,
           "won": false,
@@ -1610,30 +1610,30 @@
         {
           "category": "moneyline",
           "date": "2025-05-09",
-          "gamePk": 777991,
-          "matchup": "MIA @ CWS",
-          "team": "MIA",
+          "gamePk": 777998,
+          "matchup": "ATL @ PIT",
+          "team": "PIT",
           "side": "Moneyline",
-          "label": "MIA ML",
-          "odds": -226,
-          "model_probability": 0.6732,
-          "book_probability": 0.6518,
-          "edge": 0.0214,
-          "ev": -2.89,
+          "label": "PIT ML",
+          "odds": 128,
+          "model_probability": 0.5093,
+          "book_probability": 0.4198,
+          "edge": 0.0895,
+          "ev": 16.12,
           "stake": 100.0,
-          "qualified": true,
-          "won": false,
-          "profit": -100.0
+          "qualified": false,
+          "won": true,
+          "profit": 128.0
         }
       ],
       "summary": {
         "bets": 1,
-        "wins": 0,
-        "losses": 1,
+        "wins": 1,
+        "losses": 0,
         "staked": 100.0,
-        "profit": -100.0,
-        "roi": -1.0,
-        "hit_rate": 0.0
+        "profit": 128.0,
+        "roi": 1.28,
+        "hit_rate": 1.0
       }
     },
     {
@@ -1680,10 +1680,10 @@
           "side": "Moneyline",
           "label": "SD ML",
           "odds": -330,
-          "model_probability": 0.6861,
+          "model_probability": 0.6753,
           "book_probability": 0.7353,
-          "edge": -0.0492,
-          "ev": -10.6,
+          "edge": -0.06,
+          "ev": -12.01,
           "stake": 100.0,
           "qualified": true,
           "won": false,
@@ -1936,10 +1936,10 @@
           "side": "Moneyline",
           "label": "TB ML",
           "odds": -142,
-          "model_probability": 0.6067,
+          "model_probability": 0.6129,
           "book_probability": 0.5635,
-          "edge": 0.0432,
-          "ev": 3.4,
+          "edge": 0.0494,
+          "ev": 4.45,
           "stake": 100.0,
           "qualified": true,
           "won": false,
@@ -1968,10 +1968,10 @@
           "side": "Moneyline",
           "label": "PHI ML",
           "odds": -248,
-          "model_probability": 0.6738,
+          "model_probability": 0.6676,
           "book_probability": 0.6828,
-          "edge": -0.009,
-          "ev": -5.45,
+          "edge": -0.0152,
+          "ev": -6.32,
           "stake": 100.0,
           "qualified": true,
           "won": true,
@@ -2064,10 +2064,10 @@
           "side": "Moneyline",
           "label": "TEX ML",
           "odds": -188,
-          "model_probability": 0.6798,
+          "model_probability": 0.6699,
           "book_probability": 0.6265,
-          "edge": 0.0533,
-          "ev": 4.14,
+          "edge": 0.0434,
+          "ev": 2.62,
           "stake": 100.0,
           "qualified": true,
           "won": false,
@@ -2256,10 +2256,10 @@
           "side": "Moneyline",
           "label": "ATH ML",
           "odds": 137,
-          "model_probability": 0.4276,
+          "model_probability": 0.4329,
           "book_probability": 0.4045,
-          "edge": 0.0231,
-          "ev": 1.34,
+          "edge": 0.0284,
+          "ev": 2.6,
           "stake": 100.0,
           "qualified": false,
           "won": false,
@@ -2416,10 +2416,10 @@
           "side": "Moneyline",
           "label": "CWS ML",
           "odds": 119,
-          "model_probability": 0.6706,
+          "model_probability": 0.6707,
           "book_probability": 0.4335,
-          "edge": 0.2371,
-          "ev": 46.86,
+          "edge": 0.2372,
+          "ev": 46.88,
           "stake": 100.0,
           "qualified": true,
           "won": true,
@@ -2436,7 +2436,7 @@
           "model_probability": 0.2985,
           "book_probability": null,
           "edge": null,
-          "ev": 45.66,
+          "ev": 45.68,
           "stake": 100.0,
           "qualified": true,
           "won": false,
@@ -2446,9 +2446,9 @@
               "team": "CWS",
               "matchup": "DET @ CWS",
               "odds": 119,
-              "model_probability": 0.6706,
+              "model_probability": 0.6707,
               "book_probability": 0.4335,
-              "edge": 0.2371,
+              "edge": 0.2372,
               "won": true,
               "confidence": "High"
             },
@@ -2497,10 +2497,10 @@
           "side": "Moneyline",
           "label": "ATH ML",
           "odds": 175,
-          "model_probability": 0.4461,
+          "model_probability": 0.4452,
           "book_probability": 0.3493,
-          "edge": 0.0968,
-          "ev": 22.68,
+          "edge": 0.0959,
+          "ev": 22.43,
           "stake": 100.0,
           "qualified": false,
           "won": false,
@@ -2529,10 +2529,10 @@
           "side": "Moneyline",
           "label": "NYY ML",
           "odds": -276,
-          "model_probability": 0.6927,
+          "model_probability": 0.695,
           "book_probability": 0.7046,
-          "edge": -0.0119,
-          "ev": -5.63,
+          "edge": -0.0096,
+          "ev": -5.32,
           "stake": 100.0,
           "qualified": true,
           "won": true,
@@ -2561,10 +2561,10 @@
           "side": "Moneyline",
           "label": "CWS ML",
           "odds": 116,
-          "model_probability": 0.5086,
+          "model_probability": 0.5072,
           "book_probability": 0.4432,
-          "edge": 0.0654,
-          "ev": 9.86,
+          "edge": 0.064,
+          "ev": 9.56,
           "stake": 100.0,
           "qualified": false,
           "won": true,
@@ -2785,10 +2785,10 @@
           "side": "Moneyline",
           "label": "ATL ML",
           "odds": -374,
-          "model_probability": 0.7036,
+          "model_probability": 0.7199,
           "book_probability": 0.7562,
-          "edge": -0.0526,
-          "ev": -10.83,
+          "edge": -0.0363,
+          "ev": -8.76,
           "stake": 100.0,
           "qualified": true,
           "won": true,
@@ -2881,10 +2881,10 @@
           "side": "Moneyline",
           "label": "LAA ML",
           "odds": 164,
-          "model_probability": 0.3881,
+          "model_probability": 0.3886,
           "book_probability": 0.3623,
-          "edge": 0.0258,
-          "ev": 2.46,
+          "edge": 0.0263,
+          "ev": 2.59,
           "stake": 100.0,
           "qualified": false,
           "won": true,
@@ -2913,10 +2913,10 @@
           "side": "Moneyline",
           "label": "CIN ML",
           "odds": -140,
-          "model_probability": 0.6108,
+          "model_probability": 0.6211,
           "book_probability": 0.5529,
-          "edge": 0.0579,
-          "ev": 4.71,
+          "edge": 0.0682,
+          "ev": 6.47,
           "stake": 100.0,
           "qualified": true,
           "won": true,
@@ -2945,10 +2945,10 @@
           "side": "Moneyline",
           "label": "NYY ML",
           "odds": -268,
-          "model_probability": 0.6726,
+          "model_probability": 0.6699,
           "book_probability": 0.6923,
-          "edge": -0.0197,
-          "ev": -7.64,
+          "edge": -0.0224,
+          "ev": -8.01,
           "stake": 100.0,
           "qualified": true,
           "won": false,
@@ -2971,20 +2971,20 @@
         {
           "category": "moneyline",
           "date": "2025-06-19",
-          "gamePk": 777449,
-          "matchup": "LAA @ NYY",
-          "team": "NYY",
+          "gamePk": 777451,
+          "matchup": "PIT @ DET",
+          "team": "DET",
           "side": "Moneyline",
-          "label": "NYY ML",
-          "odds": -298,
-          "model_probability": 0.6661,
-          "book_probability": 0.7131,
-          "edge": -0.047,
-          "ev": -11.04,
+          "label": "DET ML",
+          "odds": 105,
+          "model_probability": 0.58,
+          "book_probability": 0.4675,
+          "edge": 0.1125,
+          "ev": 18.9,
           "stake": 100.0,
           "qualified": true,
           "won": true,
-          "profit": 33.56
+          "profit": 105.0
         }
       ],
       "summary": {
@@ -2992,8 +2992,8 @@
         "wins": 1,
         "losses": 0,
         "staked": 100.0,
-        "profit": 33.56,
-        "roi": 0.3356,
+        "profit": 105.0,
+        "roi": 1.05,
         "hit_rate": 1.0
       }
     },
@@ -3009,10 +3009,10 @@
           "side": "Moneyline",
           "label": "NYY ML",
           "odds": -336,
-          "model_probability": 0.6856,
+          "model_probability": 0.6806,
           "book_probability": 0.7361,
-          "edge": -0.0505,
-          "ev": -11.04,
+          "edge": -0.0555,
+          "ev": -11.68,
           "stake": 100.0,
           "qualified": true,
           "won": false,
@@ -4033,10 +4033,10 @@
           "side": "Moneyline",
           "label": "BAL ML",
           "odds": -255,
-          "model_probability": 0.6746,
+          "model_probability": 0.6747,
           "book_probability": 0.688,
-          "edge": -0.0134,
-          "ev": -6.09,
+          "edge": -0.0133,
+          "ev": -6.07,
           "stake": 100.0,
           "qualified": true,
           "won": true,
@@ -4065,10 +4065,10 @@
           "side": "Moneyline",
           "label": "MIL ML",
           "odds": -145,
-          "model_probability": 0.6077,
+          "model_probability": 0.6079,
           "book_probability": 0.5611,
-          "edge": 0.0466,
-          "ev": 2.68,
+          "edge": 0.0468,
+          "ev": 2.71,
           "stake": 100.0,
           "qualified": true,
           "won": true,
@@ -4129,10 +4129,10 @@
           "side": "Moneyline",
           "label": "TOR ML",
           "odds": -126,
-          "model_probability": 0.5989,
+          "model_probability": 0.5988,
           "book_probability": 0.5346,
-          "edge": 0.0643,
-          "ev": 7.42,
+          "edge": 0.0642,
+          "ev": 7.4,
           "stake": 100.0,
           "qualified": true,
           "won": false,
@@ -4161,10 +4161,10 @@
           "side": "Moneyline",
           "label": "KC ML",
           "odds": -142,
-          "model_probability": 0.6152,
+          "model_probability": 0.6171,
           "book_probability": 0.5567,
-          "edge": 0.0585,
-          "ev": 4.84,
+          "edge": 0.0604,
+          "ev": 5.17,
           "stake": 100.0,
           "qualified": true,
           "won": true,
@@ -4193,10 +4193,10 @@
           "side": "Moneyline",
           "label": "HOU ML",
           "odds": -126,
-          "model_probability": 0.5782,
+          "model_probability": 0.5737,
           "book_probability": 0.5333,
-          "edge": 0.0449,
-          "ev": 3.71,
+          "edge": 0.0404,
+          "ev": 2.9,
           "stake": 100.0,
           "qualified": true,
           "won": false,
@@ -4225,10 +4225,10 @@
           "side": "Moneyline",
           "label": "PIT ML",
           "odds": -242,
-          "model_probability": 0.6831,
+          "model_probability": 0.6836,
           "book_probability": 0.6768,
-          "edge": 0.0063,
-          "ev": -3.46,
+          "edge": 0.0068,
+          "ev": -3.39,
           "stake": 100.0,
           "qualified": true,
           "won": false,
@@ -4257,10 +4257,10 @@
           "side": "Moneyline",
           "label": "LAD ML",
           "odds": -164,
-          "model_probability": 0.6395,
+          "model_probability": 0.6397,
           "book_probability": 0.5955,
-          "edge": 0.044,
-          "ev": 2.94,
+          "edge": 0.0442,
+          "ev": 2.98,
           "stake": 100.0,
           "qualified": true,
           "won": true,
@@ -4283,20 +4283,20 @@
         {
           "category": "moneyline",
           "date": "2025-08-04",
-          "gamePk": 776882,
-          "matchup": "MIL @ ATL",
-          "team": "MIL",
+          "gamePk": 776874,
+          "matchup": "MIN @ DET",
+          "team": "DET",
           "side": "Moneyline",
-          "label": "MIL ML",
-          "odds": -137,
-          "model_probability": 0.6128,
-          "book_probability": 0.5541,
-          "edge": 0.0587,
-          "ev": 6.01,
+          "label": "DET ML",
+          "odds": -187,
+          "model_probability": 0.6612,
+          "book_probability": 0.6224,
+          "edge": 0.0388,
+          "ev": 1.48,
           "stake": 100.0,
           "qualified": true,
           "won": true,
-          "profit": 72.99
+          "profit": 53.48
         }
       ],
       "summary": {
@@ -4304,8 +4304,8 @@
         "wins": 1,
         "losses": 0,
         "staked": 100.0,
-        "profit": 72.99,
-        "roi": 0.7299,
+        "profit": 53.48,
+        "roi": 0.5348,
         "hit_rate": 1.0
       }
     },
@@ -4315,20 +4315,20 @@
         {
           "category": "moneyline",
           "date": "2025-08-05",
-          "gamePk": 776854,
-          "matchup": "TOR @ COL",
-          "team": "TOR",
+          "gamePk": 776869,
+          "matchup": "MIL @ ATL",
+          "team": "MIL",
           "side": "Moneyline",
-          "label": "TOR ML",
-          "odds": -248,
-          "model_probability": 0.6618,
-          "book_probability": 0.6739,
-          "edge": -0.0121,
-          "ev": -7.13,
+          "label": "MIL ML",
+          "odds": -149,
+          "model_probability": 0.6261,
+          "book_probability": 0.5727,
+          "edge": 0.0534,
+          "ev": 4.63,
           "stake": 100.0,
           "qualified": true,
           "won": true,
-          "profit": 40.32
+          "profit": 67.11
         }
       ],
       "summary": {
@@ -4336,8 +4336,8 @@
         "wins": 1,
         "losses": 0,
         "staked": 100.0,
-        "profit": 40.32,
-        "roi": 0.4032,
+        "profit": 67.11,
+        "roi": 0.6711,
         "hit_rate": 1.0
       }
     },
@@ -4347,30 +4347,30 @@
         {
           "category": "moneyline",
           "date": "2025-08-06",
-          "gamePk": 776836,
-          "matchup": "TOR @ COL",
-          "team": "TOR",
+          "gamePk": 776839,
+          "matchup": "STL @ LAD",
+          "team": "LAD",
           "side": "Moneyline",
-          "label": "TOR ML",
-          "odds": -318,
-          "model_probability": 0.6657,
-          "book_probability": 0.7188,
-          "edge": -0.0531,
-          "ev": -12.5,
+          "label": "LAD ML",
+          "odds": -224,
+          "model_probability": 0.6661,
+          "book_probability": 0.6586,
+          "edge": 0.0075,
+          "ev": -3.65,
           "stake": 100.0,
           "qualified": true,
-          "won": true,
-          "profit": 31.45
+          "won": false,
+          "profit": -100.0
         }
       ],
       "summary": {
         "bets": 1,
-        "wins": 1,
-        "losses": 0,
+        "wins": 0,
+        "losses": 1,
         "staked": 100.0,
-        "profit": 31.45,
-        "roi": 0.3145,
-        "hit_rate": 1.0
+        "profit": -100.0,
+        "roi": -1.0,
+        "hit_rate": 0.0
       }
     },
     {
@@ -4385,10 +4385,10 @@
           "side": "Moneyline",
           "label": "MIA ML",
           "odds": -138,
-          "model_probability": 0.5752,
+          "model_probability": 0.5789,
           "book_probability": 0.5572,
-          "edge": 0.018,
-          "ev": -0.8,
+          "edge": 0.0217,
+          "ev": -0.16,
           "stake": 100.0,
           "qualified": false,
           "won": false,
@@ -4417,10 +4417,10 @@
           "side": "Moneyline",
           "label": "DET ML",
           "odds": -296,
-          "model_probability": 0.6887,
+          "model_probability": 0.6926,
           "book_probability": 0.7128,
-          "edge": -0.0241,
-          "ev": -7.86,
+          "edge": -0.0202,
+          "ev": -7.34,
           "stake": 100.0,
           "qualified": true,
           "won": true,
