@@ -1,0 +1,612 @@
+{
+  "results": [
+    {
+      "model_name": "gb_depth1",
+      "refit_every": 60,
+      "trained_weight": 0.85,
+      "prior_season_weight": 1.0,
+      "current_season_weight": 1.0,
+      "use_prior_season": true,
+      "games": 1068,
+      "accuracy": 0.603,
+      "high_conf_games": 71,
+      "high_conf_accuracy": 0.8169,
+      "strong_65_games": 71,
+      "strong_65_accuracy": 0.8169,
+      "calibration": {
+        "market_blend": 0.05,
+        "sharpening": 0.8,
+        "cap": 0.7
+      }
+    },
+    {
+      "model_name": "gb_depth1",
+      "refit_every": 60,
+      "trained_weight": 1.0,
+      "prior_season_weight": 1.0,
+      "current_season_weight": 1.0,
+      "use_prior_season": true,
+      "games": 1068,
+      "accuracy": 0.6114,
+      "high_conf_games": 92,
+      "high_conf_accuracy": 0.8152,
+      "strong_65_games": 92,
+      "strong_65_accuracy": 0.8152,
+      "calibration": {
+        "market_blend": 0.05,
+        "sharpening": 0.8,
+        "cap": 0.7
+      }
+    },
+    {
+      "model_name": "gb_depth1",
+      "refit_every": 60,
+      "trained_weight": 0.85,
+      "prior_season_weight": 0.6,
+      "current_season_weight": 1.25,
+      "use_prior_season": true,
+      "games": 1068,
+      "accuracy": 0.6077,
+      "high_conf_games": 75,
+      "high_conf_accuracy": 0.8133,
+      "strong_65_games": 75,
+      "strong_65_accuracy": 0.8133,
+      "calibration": {
+        "market_blend": 0.05,
+        "sharpening": 0.8,
+        "cap": 0.7
+      }
+    },
+    {
+      "model_name": "gb_depth1",
+      "refit_every": 30,
+      "trained_weight": 1.0,
+      "prior_season_weight": 1.0,
+      "current_season_weight": 1.0,
+      "use_prior_season": true,
+      "games": 1068,
+      "accuracy": 0.6114,
+      "high_conf_games": 89,
+      "high_conf_accuracy": 0.809,
+      "strong_65_games": 89,
+      "strong_65_accuracy": 0.809,
+      "calibration": {
+        "market_blend": 0.05,
+        "sharpening": 0.8,
+        "cap": 0.7
+      }
+    },
+    {
+      "model_name": "gb_depth1",
+      "refit_every": 30,
+      "trained_weight": 0.85,
+      "prior_season_weight": 0.6,
+      "current_season_weight": 1.25,
+      "use_prior_season": true,
+      "games": 1068,
+      "accuracy": 0.6039,
+      "high_conf_games": 78,
+      "high_conf_accuracy": 0.8077,
+      "strong_65_games": 78,
+      "strong_65_accuracy": 0.8077,
+      "calibration": {
+        "market_blend": 0.05,
+        "sharpening": 0.8,
+        "cap": 0.7
+      }
+    },
+    {
+      "model_name": "gb_depth1",
+      "refit_every": 60,
+      "trained_weight": 0.85,
+      "prior_season_weight": 0.35,
+      "current_season_weight": 1.0,
+      "use_prior_season": true,
+      "games": 1068,
+      "accuracy": 0.6105,
+      "high_conf_games": 77,
+      "high_conf_accuracy": 0.8052,
+      "strong_65_games": 77,
+      "strong_65_accuracy": 0.8052,
+      "calibration": {
+        "market_blend": 0.05,
+        "sharpening": 0.8,
+        "cap": 0.7
+      }
+    },
+    {
+      "model_name": "gb_depth1",
+      "refit_every": 30,
+      "trained_weight": 0.85,
+      "prior_season_weight": 1.0,
+      "current_season_weight": 1.0,
+      "use_prior_season": true,
+      "games": 1068,
+      "accuracy": 0.6105,
+      "high_conf_games": 71,
+      "high_conf_accuracy": 0.8028,
+      "strong_65_games": 71,
+      "strong_65_accuracy": 0.8028,
+      "calibration": {
+        "market_blend": 0.05,
+        "sharpening": 0.8,
+        "cap": 0.7
+      }
+    },
+    {
+      "model_name": "gb_depth1",
+      "refit_every": 30,
+      "trained_weight": 0.85,
+      "prior_season_weight": 0.35,
+      "current_season_weight": 1.0,
+      "use_prior_season": true,
+      "games": 1068,
+      "accuracy": 0.6105,
+      "high_conf_games": 81,
+      "high_conf_accuracy": 0.8025,
+      "strong_65_games": 81,
+      "strong_65_accuracy": 0.8025,
+      "calibration": {
+        "market_blend": 0.05,
+        "sharpening": 0.8,
+        "cap": 0.7
+      }
+    },
+    {
+      "model_name": "gb_depth2",
+      "refit_every": 60,
+      "trained_weight": 0.85,
+      "prior_season_weight": 1.0,
+      "current_season_weight": 1.0,
+      "use_prior_season": true,
+      "games": 1068,
+      "accuracy": 0.5974,
+      "high_conf_games": 92,
+      "high_conf_accuracy": 0.7935,
+      "strong_65_games": 92,
+      "strong_65_accuracy": 0.7935,
+      "calibration": {
+        "market_blend": 0.05,
+        "sharpening": 0.8,
+        "cap": 0.7
+      }
+    },
+    {
+      "model_name": "gb_depth2",
+      "refit_every": 30,
+      "trained_weight": 0.85,
+      "prior_season_weight": 1.0,
+      "current_season_weight": 1.0,
+      "use_prior_season": true,
+      "games": 1068,
+      "accuracy": 0.603,
+      "high_conf_games": 95,
+      "high_conf_accuracy": 0.7895,
+      "strong_65_games": 95,
+      "strong_65_accuracy": 0.7895,
+      "calibration": {
+        "market_blend": 0.05,
+        "sharpening": 0.8,
+        "cap": 0.7
+      }
+    },
+    {
+      "model_name": "gb_depth2",
+      "refit_every": 30,
+      "trained_weight": 0.85,
+      "prior_season_weight": 0.6,
+      "current_season_weight": 1.25,
+      "use_prior_season": true,
+      "games": 1068,
+      "accuracy": 0.603,
+      "high_conf_games": 104,
+      "high_conf_accuracy": 0.7885,
+      "strong_65_games": 104,
+      "strong_65_accuracy": 0.7885,
+      "calibration": {
+        "market_blend": 0.05,
+        "sharpening": 0.8,
+        "cap": 0.7
+      }
+    },
+    {
+      "model_name": "gb_depth1",
+      "refit_every": 60,
+      "trained_weight": 1.0,
+      "prior_season_weight": 0.6,
+      "current_season_weight": 1.25,
+      "use_prior_season": true,
+      "games": 1068,
+      "accuracy": 0.6133,
+      "high_conf_games": 103,
+      "high_conf_accuracy": 0.7864,
+      "strong_65_games": 103,
+      "strong_65_accuracy": 0.7864,
+      "calibration": {
+        "market_blend": 0.05,
+        "sharpening": 0.8,
+        "cap": 0.7
+      }
+    },
+    {
+      "model_name": "gb_depth2",
+      "refit_every": 60,
+      "trained_weight": 0.85,
+      "prior_season_weight": 0.6,
+      "current_season_weight": 1.25,
+      "use_prior_season": true,
+      "games": 1068,
+      "accuracy": 0.6039,
+      "high_conf_games": 102,
+      "high_conf_accuracy": 0.7843,
+      "strong_65_games": 102,
+      "strong_65_accuracy": 0.7843,
+      "calibration": {
+        "market_blend": 0.05,
+        "sharpening": 0.8,
+        "cap": 0.7
+      }
+    },
+    {
+      "model_name": "gb_depth2",
+      "refit_every": 60,
+      "trained_weight": 1.0,
+      "prior_season_weight": 0.6,
+      "current_season_weight": 1.25,
+      "use_prior_season": true,
+      "games": 1068,
+      "accuracy": 0.6077,
+      "high_conf_games": 135,
+      "high_conf_accuracy": 0.7778,
+      "strong_65_games": 135,
+      "strong_65_accuracy": 0.7778,
+      "calibration": {
+        "market_blend": 0.05,
+        "sharpening": 0.8,
+        "cap": 0.7
+      }
+    },
+    {
+      "model_name": "gb_depth2",
+      "refit_every": 30,
+      "trained_weight": 1.0,
+      "prior_season_weight": 1.0,
+      "current_season_weight": 1.0,
+      "use_prior_season": true,
+      "games": 1068,
+      "accuracy": 0.6067,
+      "high_conf_games": 120,
+      "high_conf_accuracy": 0.775,
+      "strong_65_games": 120,
+      "strong_65_accuracy": 0.775,
+      "calibration": {
+        "market_blend": 0.05,
+        "sharpening": 0.8,
+        "cap": 0.7
+      }
+    },
+    {
+      "model_name": "gb_depth1",
+      "refit_every": 30,
+      "trained_weight": 1.0,
+      "prior_season_weight": 0.6,
+      "current_season_weight": 1.25,
+      "use_prior_season": true,
+      "games": 1068,
+      "accuracy": 0.6114,
+      "high_conf_games": 102,
+      "high_conf_accuracy": 0.7745,
+      "strong_65_games": 102,
+      "strong_65_accuracy": 0.7745,
+      "calibration": {
+        "market_blend": 0.05,
+        "sharpening": 0.8,
+        "cap": 0.7
+      }
+    },
+    {
+      "model_name": "gb_depth2",
+      "refit_every": 60,
+      "trained_weight": 1.0,
+      "prior_season_weight": 0.35,
+      "current_season_weight": 1.0,
+      "use_prior_season": true,
+      "games": 1068,
+      "accuracy": 0.5946,
+      "high_conf_games": 150,
+      "high_conf_accuracy": 0.7733,
+      "strong_65_games": 150,
+      "strong_65_accuracy": 0.7733,
+      "calibration": {
+        "market_blend": 0.05,
+        "sharpening": 0.8,
+        "cap": 0.7
+      }
+    },
+    {
+      "model_name": "gb_depth2",
+      "refit_every": 60,
+      "trained_weight": 0.85,
+      "prior_season_weight": 0.35,
+      "current_season_weight": 1.0,
+      "use_prior_season": true,
+      "games": 1068,
+      "accuracy": 0.5974,
+      "high_conf_games": 117,
+      "high_conf_accuracy": 0.7692,
+      "strong_65_games": 117,
+      "strong_65_accuracy": 0.7692,
+      "calibration": {
+        "market_blend": 0.05,
+        "sharpening": 0.8,
+        "cap": 0.7
+      }
+    },
+    {
+      "model_name": "gb_depth2",
+      "refit_every": 30,
+      "trained_weight": 0.85,
+      "prior_season_weight": 0.35,
+      "current_season_weight": 1.0,
+      "use_prior_season": true,
+      "games": 1068,
+      "accuracy": 0.5908,
+      "high_conf_games": 115,
+      "high_conf_accuracy": 0.7652,
+      "strong_65_games": 115,
+      "strong_65_accuracy": 0.7652,
+      "calibration": {
+        "market_blend": 0.05,
+        "sharpening": 0.8,
+        "cap": 0.7
+      }
+    },
+    {
+      "model_name": "gb_depth2",
+      "refit_every": 60,
+      "trained_weight": 1.0,
+      "prior_season_weight": 1.0,
+      "current_season_weight": 1.0,
+      "use_prior_season": true,
+      "games": 1068,
+      "accuracy": 0.6039,
+      "high_conf_games": 119,
+      "high_conf_accuracy": 0.7647,
+      "strong_65_games": 119,
+      "strong_65_accuracy": 0.7647,
+      "calibration": {
+        "market_blend": 0.05,
+        "sharpening": 0.8,
+        "cap": 0.7
+      }
+    },
+    {
+      "model_name": "gb_depth2",
+      "refit_every": 30,
+      "trained_weight": 1.0,
+      "prior_season_weight": 0.6,
+      "current_season_weight": 1.25,
+      "use_prior_season": true,
+      "games": 1068,
+      "accuracy": 0.6021,
+      "high_conf_games": 133,
+      "high_conf_accuracy": 0.7594,
+      "strong_65_games": 133,
+      "strong_65_accuracy": 0.7594,
+      "calibration": {
+        "market_blend": 0.05,
+        "sharpening": 0.8,
+        "cap": 0.7
+      }
+    },
+    {
+      "model_name": "gb_depth2",
+      "refit_every": 30,
+      "trained_weight": 1.0,
+      "prior_season_weight": 0.35,
+      "current_season_weight": 1.0,
+      "use_prior_season": true,
+      "games": 1068,
+      "accuracy": 0.5927,
+      "high_conf_games": 153,
+      "high_conf_accuracy": 0.7582,
+      "strong_65_games": 153,
+      "strong_65_accuracy": 0.7582,
+      "calibration": {
+        "market_blend": 0.05,
+        "sharpening": 0.8,
+        "cap": 0.7
+      }
+    },
+    {
+      "model_name": "gb_depth1",
+      "refit_every": 30,
+      "trained_weight": 0.85,
+      "prior_season_weight": 1.0,
+      "current_season_weight": 1.0,
+      "use_prior_season": false,
+      "games": 888,
+      "accuracy": 0.607,
+      "high_conf_games": 76,
+      "high_conf_accuracy": 0.75,
+      "strong_65_games": 76,
+      "strong_65_accuracy": 0.75,
+      "calibration": {
+        "market_blend": 0.05,
+        "sharpening": 0.8,
+        "cap": 0.7
+      }
+    },
+    {
+      "model_name": "gb_depth1",
+      "refit_every": 60,
+      "trained_weight": 0.85,
+      "prior_season_weight": 1.0,
+      "current_season_weight": 1.0,
+      "use_prior_season": false,
+      "games": 888,
+      "accuracy": 0.6059,
+      "high_conf_games": 72,
+      "high_conf_accuracy": 0.75,
+      "strong_65_games": 72,
+      "strong_65_accuracy": 0.75,
+      "calibration": {
+        "market_blend": 0.05,
+        "sharpening": 0.8,
+        "cap": 0.7
+      }
+    },
+    {
+      "model_name": "gb_depth1",
+      "refit_every": 30,
+      "trained_weight": 1.0,
+      "prior_season_weight": 0.35,
+      "current_season_weight": 1.0,
+      "use_prior_season": true,
+      "games": 1068,
+      "accuracy": 0.6077,
+      "high_conf_games": 111,
+      "high_conf_accuracy": 0.7477,
+      "strong_65_games": 111,
+      "strong_65_accuracy": 0.7477,
+      "calibration": {
+        "market_blend": 0.05,
+        "sharpening": 0.8,
+        "cap": 0.7
+      }
+    },
+    {
+      "model_name": "gb_depth1",
+      "refit_every": 60,
+      "trained_weight": 1.0,
+      "prior_season_weight": 1.0,
+      "current_season_weight": 1.0,
+      "use_prior_season": false,
+      "games": 888,
+      "accuracy": 0.6002,
+      "high_conf_games": 110,
+      "high_conf_accuracy": 0.7455,
+      "strong_65_games": 110,
+      "strong_65_accuracy": 0.7455,
+      "calibration": {
+        "market_blend": 0.05,
+        "sharpening": 0.8,
+        "cap": 0.7
+      }
+    },
+    {
+      "model_name": "gb_depth1",
+      "refit_every": 60,
+      "trained_weight": 1.0,
+      "prior_season_weight": 0.35,
+      "current_season_weight": 1.0,
+      "use_prior_season": true,
+      "games": 1068,
+      "accuracy": 0.6124,
+      "high_conf_games": 111,
+      "high_conf_accuracy": 0.7387,
+      "strong_65_games": 111,
+      "strong_65_accuracy": 0.7387,
+      "calibration": {
+        "market_blend": 0.05,
+        "sharpening": 0.8,
+        "cap": 0.7
+      }
+    },
+    {
+      "model_name": "gb_depth2",
+      "refit_every": 60,
+      "trained_weight": 0.85,
+      "prior_season_weight": 1.0,
+      "current_season_weight": 1.0,
+      "use_prior_season": false,
+      "games": 888,
+      "accuracy": 0.6194,
+      "high_conf_games": 115,
+      "high_conf_accuracy": 0.7217,
+      "strong_65_games": 115,
+      "strong_65_accuracy": 0.7217,
+      "calibration": {
+        "market_blend": 0.05,
+        "sharpening": 0.8,
+        "cap": 0.7
+      }
+    },
+    {
+      "model_name": "gb_depth1",
+      "refit_every": 30,
+      "trained_weight": 1.0,
+      "prior_season_weight": 1.0,
+      "current_season_weight": 1.0,
+      "use_prior_season": false,
+      "games": 888,
+      "accuracy": 0.5935,
+      "high_conf_games": 108,
+      "high_conf_accuracy": 0.713,
+      "strong_65_games": 108,
+      "strong_65_accuracy": 0.713,
+      "calibration": {
+        "market_blend": 0.05,
+        "sharpening": 0.8,
+        "cap": 0.7
+      }
+    },
+    {
+      "model_name": "gb_depth2",
+      "refit_every": 60,
+      "trained_weight": 1.0,
+      "prior_season_weight": 1.0,
+      "current_season_weight": 1.0,
+      "use_prior_season": false,
+      "games": 888,
+      "accuracy": 0.6261,
+      "high_conf_games": 162,
+      "high_conf_accuracy": 0.7099,
+      "strong_65_games": 162,
+      "strong_65_accuracy": 0.7099,
+      "calibration": {
+        "market_blend": 0.05,
+        "sharpening": 0.8,
+        "cap": 0.7
+      }
+    },
+    {
+      "model_name": "gb_depth2",
+      "refit_every": 30,
+      "trained_weight": 0.85,
+      "prior_season_weight": 1.0,
+      "current_season_weight": 1.0,
+      "use_prior_season": false,
+      "games": 888,
+      "accuracy": 0.6092,
+      "high_conf_games": 133,
+      "high_conf_accuracy": 0.6992,
+      "strong_65_games": 133,
+      "strong_65_accuracy": 0.6992,
+      "calibration": {
+        "market_blend": 0.05,
+        "sharpening": 0.8,
+        "cap": 0.7
+      }
+    },
+    {
+      "model_name": "gb_depth2",
+      "refit_every": 30,
+      "trained_weight": 1.0,
+      "prior_season_weight": 1.0,
+      "current_season_weight": 1.0,
+      "use_prior_season": false,
+      "games": 888,
+      "accuracy": 0.6149,
+      "high_conf_games": 179,
+      "high_conf_accuracy": 0.6872,
+      "strong_65_games": 179,
+      "strong_65_accuracy": 0.6872,
+      "calibration": {
+        "market_blend": 0.05,
+        "sharpening": 0.8,
+        "cap": 0.7
+      }
+    }
+  ]
+}

@@ -2,14 +2,13 @@
 
 from __future__ import annotations
 
-import json
 import argparse
+import json
 from datetime import date, timedelta
 from pathlib import Path
 
 from daily_auto_model import walk_forward_history
-from mlb_api import load_or_fetch_games
-from mlb_api import load_team_abbreviations
+from mlb_api import load_or_fetch_games, load_team_abbreviations
 
 PUBLIC_PATH = Path(__file__).resolve().parents[2] / "public" / "prediction-history.json"
 
@@ -18,9 +17,14 @@ def season_start_for(year: int) -> date:
     return date(year, 3, 20)
 
 
-def season_history_rows(year: int, end_date: date, team_abbr: dict[int, str]) -> list[dict]:
+def season_history_rows(
+    year: int,
+    end_date: date,
+    team_abbr: dict[int, str],
+    prior_games: list[GameRecord] | None = None,
+) -> list[dict]:
     games = load_or_fetch_games(season_start_for(year), end_date)
-    return walk_forward_history(games, team_abbr)
+    return walk_forward_history(games, team_abbr, prior_games=prior_games)
 
 
 def main() -> None:
@@ -35,10 +39,16 @@ def main() -> None:
     today = date.today()
     yesterday = today - timedelta(days=1)
     team_abbr = load_team_abbreviations()
-    current_rows = season_history_rows(yesterday.year, yesterday, team_abbr)
+    prior_games = None
+    if not args.current_season_only and yesterday.year > 2021:
+        prior_games = load_or_fetch_games(
+            season_start_for(yesterday.year - 1),
+            date(yesterday.year - 1, 10, 5),
+        )
+    current_rows = season_history_rows(yesterday.year, yesterday, team_abbr, prior_games=prior_games)
     rows = current_rows
     history_start = season_start_for(yesterday.year)
-    method = "current-season walk-forward"
+    method = "current-season walk-forward retrain through yesterday"
 
     if not args.current_season_only:
         previous_year_end = date(yesterday.year - 1, 10, 5)
@@ -47,7 +57,7 @@ def main() -> None:
             *current_rows,
         ]
         history_start = season_start_for(yesterday.year - 1)
-        method = "season-local walk-forward by year with market-backed confidence when odds are available"
+        method = "season walk-forward with current-season retrain and market-backed confidence when odds are available"
 
     rows.sort(key=lambda row: (row["date"], row["gamePk"]))
 

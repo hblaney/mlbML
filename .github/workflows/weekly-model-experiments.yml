@@ -1,0 +1,32 @@
+name: Weekly Model Experiments
+
+on:
+  schedule:
+    - cron: "0 15 * * 0"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  experiment:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+          cache-dependency-path: requirements.txt
+
+      - run: pip install -r requirements.txt
+
+      - name: Run focused accuracy sweep
+        run: python3 scripts/model/tmp_accuracy_sweep_2026.py
+
+      - name: Commit experiment artifacts
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Update weekly MLB model experiment results"
+          file_pattern: data/model/accuracy_sweep_2026.json

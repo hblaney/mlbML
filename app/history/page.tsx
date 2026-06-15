@@ -2,6 +2,7 @@ import Link from "next/link";
 import {
   loadAccuracyOutput,
   loadFullPredictionHistory,
+  loadLiveModelPerformance,
   loadParlayBacktest,
   loadRecommendationPerformance,
   type DailyRecommendationSnapshot,
@@ -83,6 +84,7 @@ export default async function HistoryPage() {
   const fullHistory = await loadFullPredictionHistory();
   const parlayBacktest = await loadParlayBacktest();
   const recommendationPerformance = await loadRecommendationPerformance();
+  const liveModelPerformance = await loadLiveModelPerformance();
   const parlayStrategies = parlayBacktest?.best_by_leg_count ?? [];
   const recentWeeks = output ? Object.entries(output.weekly_accuracy).slice(-8) : [];
   const predictionRows = fullHistory.length > 0 ? fullHistory : output?.prediction_history ?? output?.recent_predictions ?? [];
@@ -106,7 +108,9 @@ export default async function HistoryPage() {
   const recentRecommendationMonths = recommendationPerformance
     ? Object.entries(recommendationPerformance.monthly).slice(-6)
     : [];
-  const recentCheckpoints = recommendationPerformance?.checkpoints.slice(-12).reverse() ?? [];
+  const recentCheckpoints = liveModelPerformance?.checkpoints.slice(-12).reverse()
+    ?? recommendationPerformance?.checkpoints.slice(-12).reverse()
+    ?? [];
 
   const days = Object.entries(rowsByDate)
     .sort(([left], [right]) => right.localeCompare(left))
@@ -241,18 +245,63 @@ export default async function HistoryPage() {
         </>
       ) : null}
 
+      {liveModelPerformance ? (
+        <section className="panel">
+          <div className="section-heading compact">
+            <div>
+              <p className="eyebrow">Live retrain curve</p>
+              <h2>Current Season Model Bankroll</h2>
+            </div>
+            <span>
+              {liveModelPerformance.date_range.start} to {liveModelPerformance.date_range.end}
+            </span>
+          </div>
+          <p className="muted">
+            Retrained through {liveModelPerformance.trained_through ?? "yesterday"} · High and Elite picks at -110 paper stakes
+          </p>
+          <div className="grid">
+            <article>
+              <p className="muted">Paper Balance</p>
+              <div className={liveModelPerformance.cumulative.return_pct >= 0 ? "metric positive" : "metric negative"}>
+                {currency(liveModelPerformance.cumulative.balance)}
+              </div>
+              <p className="muted">
+                Started at {currency(liveModelPerformance.starting_bankroll)} · {currency(liveModelPerformance.cumulative.profit)} P/L
+              </p>
+            </article>
+            <article>
+              <p className="muted">Season Accuracy</p>
+              <div className="metric">{formatPercent(liveModelPerformance.overall.hit_rate)}</div>
+              <p className="muted">{liveModelPerformance.overall.wins}-{liveModelPerformance.overall.losses} on {liveModelPerformance.overall.bets} graded games</p>
+            </article>
+            <article>
+              <p className="muted">High-Confidence ROI</p>
+              <div className={liveModelPerformance.high_confidence.roi >= 0 ? "metric positive" : "metric negative"}>
+                {formatPercent(liveModelPerformance.high_confidence.roi)}
+              </div>
+              <p className="muted">{liveModelPerformance.high_confidence.bets} High/Elite tickets</p>
+            </article>
+          </div>
+        </section>
+      ) : null}
+
       {recommendationPerformance ? (
         <>
           <section className="panel">
             <div className="section-heading compact">
               <div>
-                <p className="eyebrow">Model paper portfolio</p>
-                <h2>Recommended Bet Profitability</h2>
+                <p className="eyebrow">Odds-backed backtest</p>
+                <h2>Historical Betting Portfolio</h2>
               </div>
               <span>
                 {recommendationPerformance.date_range.start} to {recommendationPerformance.date_range.end}
               </span>
             </div>
+            {recommendationPerformance.odds_metadata?.odds_data_stale ? (
+              <p className="muted">
+                Historical odds end at {recommendationPerformance.odds_metadata.odds_data_end}. This curve only updates when odds data is refreshed.
+              </p>
+            ) : null}
             <div className="grid">
               <article>
                 <p className="muted">Paper Balance</p>
@@ -273,7 +322,7 @@ export default async function HistoryPage() {
               <article>
                 <p className="muted">Daily Tickets</p>
                 <div className="metric">{recommendationPerformance.daily.length}</div>
-                <p className="muted">Moneyline, advanced, and 3-4 leg parlays per slate day</p>
+                <p className="muted">Qualified moneyline and 2-leg parlay tickets per slate day</p>
               </article>
             </div>
           </section>
@@ -308,7 +357,7 @@ export default async function HistoryPage() {
 
           {recentCheckpoints.length > 0 ? (
             <section className="panel">
-              <h2>Model Bankroll Curve</h2>
+              <h2>{liveModelPerformance ? "Live Model Bankroll Curve" : "Model Bankroll Curve"}</h2>
               <table className="table">
                 <thead>
                   <tr>

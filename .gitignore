@@ -1,9 +1,10 @@
 .env
-.env.local
-.env.*.local
-node_modules/
+.env.*
+!.env.example
+
 .next/
-data/model/
-data/cache/
+node_modules/
+
 data/odds_live_cache.json
-.vercel
+scripts/model/tmp_*
+data/cache/

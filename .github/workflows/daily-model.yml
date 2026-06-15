@@ -1,42 +1,49 @@
-name: Daily MLB Model
+name: Daily Model Retrain
 
 on:
-  workflow_dispatch:
   schedule:
-    # 3:00 AM America/Chicago during the MLB season daylight-saving window.
-    - cron: "0 8 * * *"
-
-concurrency:
-  group: daily-mlb-model
-  cancel-in-progress: false
+    # 8:00 AM US/Eastern after overnight West Coast finals.
+    - cron: "0 13 * * *"
+  workflow_dispatch:
 
 permissions:
   contents: write
 
 jobs:
-  refresh-model-outputs:
+  retrain:
     runs-on: ubuntu-latest
-    env:
-      ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
-      ODDS_REGIONS: us
     steps:
-      - name: Check out repository
+      - name: Checkout
         uses: actions/checkout@v4
 
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
+          cache: pip
+          cache-dependency-path: requirements.txt
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
 
       - name: Install Python dependencies
         run: pip install -r requirements.txt
 
-      - name: Generate model outputs
-        run: |
-          npm run model:daily
+      - name: Install Node dependencies
+        run: npm ci
 
-      - name: Commit updated public data
+      - name: Retrain model and regenerate public outputs
+        env:
+          ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
+          ODDS_REGIONS: us
+          ODDS_MARKETS: h2h,spreads,totals
+        run: npm run model:daily
+
+      - name: Commit updated model outputs
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: "Update daily MLB model outputs"
-          file_pattern: "public/*.json"
+          file_pattern: public/*.json data/model/*.pkl data/cache/*.json

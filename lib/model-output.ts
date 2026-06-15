@@ -169,6 +169,28 @@ export type ParlayBacktestOutput = {
   recommended_by_leg_count?: ParlayBacktestStrategy[];
 };
 
+export type LiveModelPerformanceOutput = {
+  generated_at: string;
+  trained_through?: string;
+  model_version?: string | null;
+  season: string;
+  method: string;
+  stake: number;
+  starting_bankroll: number;
+  baseline_odds: number;
+  date_range: { start: string | null; end: string | null };
+  overall: RecommendationSummary;
+  high_confidence: RecommendationSummary;
+  cumulative: RecommendationPerformanceOutput["cumulative"];
+  checkpoints: RecommendationPerformanceOutput["checkpoints"];
+  daily: Array<{
+    date: string;
+    games: number;
+    accuracy: number;
+    high_confidence: RecommendationSummary;
+  }>;
+};
+
 export async function loadAccuracyOutput(): Promise<AccuracyOutput | null> {
   try {
     const filePath = path.join(process.cwd(), "public", "accuracy.json");
@@ -386,6 +408,25 @@ async function readPredictionHistory(): Promise<PredictionHistoryOutput | null> 
     return JSON.parse(raw) as PredictionHistoryOutput;
   } catch {
     return null;
+  }
+}
+
+export async function loadLiveModelPerformance(): Promise<LiveModelPerformanceOutput | null> {
+  try {
+    const filePath = path.join(process.cwd(), "public", "model-live-performance.json");
+    const raw = await readFile(filePath, "utf8");
+    return JSON.parse(raw) as LiveModelPerformanceOutput;
+  } catch {
+    return null;
+  }
+}
+
+export async function loadPredictionBoardMetadata(): Promise<PredictionBoardFile> {
+  try {
+    const { payload } = await readPredictionBoard();
+    return payload;
+  } catch {
+    return {};
   }
 }
 

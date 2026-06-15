@@ -25,10 +25,13 @@ from weather import cached_historical_weather_or_default, fetch_weather
 
 WARMUP_GAMES = 180
 REFIT_EVERY = 60
-TRAINED_MODEL_WEIGHT = 0.90
-MARKET_BLEND_WEIGHT = 0.50
-PUBLIC_CONFIDENCE_SHARPENING = 1.0
-PUBLIC_PROBABILITY_CAP = 0.82
+TRAINED_MODEL_WEIGHT = 1.00
+PRIOR_SEASON_SAMPLE_WEIGHT = 0.60
+CURRENT_SEASON_SAMPLE_WEIGHT = 1.25
+# 2026 walk-forward sweep: heavy market blend hurt accuracy; light touch keeps model edge.
+MARKET_BLEND_WEIGHT = 0.05
+PUBLIC_CONFIDENCE_SHARPENING = 0.8
+PUBLIC_PROBABILITY_CAP = 0.70
 
 
 @dataclass
@@ -236,15 +239,22 @@ def confidence_for(
             return "Medium"
         return "Low"
 
-    if pick_probability >= 0.70:
+    internal_probability = (
+        internal_pick_probability if internal_pick_probability is not None else pick_probability
+    )
+    if (
+        pick_probability >= 0.70
+        and internal_agrees
+        and internal_probability >= 0.65
+    ):
         return "Elite"
     if (
         pick_probability >= 0.65
         and internal_agrees
-        and (internal_pick_probability is None or internal_pick_probability >= 0.60)
+        and internal_probability >= 0.60
     ):
         return "High"
-    if pick_probability >= 0.58:
+    if pick_probability >= 0.58 and internal_agrees:
         return "Medium"
     return "Low"
 
@@ -274,10 +284,10 @@ def build_model() -> Pipeline:
             (
                 "model",
                 GradientBoostingClassifier(
-                    n_estimators=90,
-                    learning_rate=0.05,
-                    max_depth=2,
-                    subsample=0.85,
+                    n_estimators=140,
+                    learning_rate=0.035,
+                    max_depth=1,
+                    subsample=0.90,
                     random_state=42,
                 ),
             ),
@@ -290,7 +300,10 @@ def _clean_matrix(matrix: np.ndarray) -> np.ndarray:
     return np.clip(matrix, -100.0, 100.0)
 
 
-def fit_model(examples: list[TrainingExample]) -> Pipeline | None:
+def fit_model(
+    examples: list[TrainingExample],
+    sample_weights: list[float] | None = None,
+) -> Pipeline | None:
     if len(examples) < WARMUP_GAMES:
         return None
 
@@ -300,7 +313,10 @@ def fit_model(examples: list[TrainingExample]) -> Pipeline | None:
 
     x = _clean_matrix(np.array([example.features for example in examples], dtype=float))
     model = build_model()
-    model.fit(x, y)
+    if sample_weights is not None:
+        model.fit(x, y, model__sample_weight=np.array(sample_weights, dtype=float))
+    else:
+        model.fit(x, y)
     return model
 
 

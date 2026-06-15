@@ -10,6 +10,14 @@ from odds_provider import implied_probability
 
 ROOT = Path(__file__).resolve().parents[2]
 ODDS_PATH = ROOT / "data" / "historical_odds.jsonl"
+TEAM_ALIASES = {
+    "AZ": ["AZ", "ARI"],
+    "ARI": ["ARI", "AZ"],
+    "CWS": ["CWS", "CHW"],
+    "CHW": ["CHW", "CWS"],
+    "ATH": ["ATH", "OAK"],
+    "OAK": ["OAK", "ATH"],
+}
 
 
 def _date_part(value: str | None) -> str:
@@ -69,7 +77,11 @@ class HistoricalOddsStore:
             )
 
     def for_game(self, game_date: str, away_abbr: str, home_abbr: str) -> MarketSnapshot:
-        return self.by_matchup.get(
-            (game_date[:10], away_abbr.upper(), home_abbr.upper()),
-            MarketSnapshot(),
-        )
+        away_options = TEAM_ALIASES.get(away_abbr.upper(), [away_abbr.upper()])
+        home_options = TEAM_ALIASES.get(home_abbr.upper(), [home_abbr.upper()])
+        for away in away_options:
+            for home in home_options:
+                market = self.by_matchup.get((game_date[:10], away, home))
+                if market is not None:
+                    return market
+        return MarketSnapshot()

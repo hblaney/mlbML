@@ -19,6 +19,8 @@ from mlb_api import GameRecord, load_or_fetch_games
 from odds_provider import implied_probability
 from team_tracker import LeagueState
 from trained_edge_model import (
+    CURRENT_SEASON_SAMPLE_WEIGHT,
+    PRIOR_SEASON_SAMPLE_WEIGHT,
     REFIT_EVERY,
     WARMUP_GAMES,
     TrainingExample,
@@ -31,7 +33,7 @@ from trained_edge_model import (
 )
 
 MODEL_PATH = Path(__file__).resolve().parents[2] / "data" / "model" / "daily_edge.pkl"
-MODEL_VERSION = "daily-auto-v1.8"
+MODEL_VERSION = "daily-auto-v2.1"
 
 
 @dataclass
@@ -51,30 +53,46 @@ class DailyModelBundle:
             confidence=prediction.confidence,
             notes=[
                 f"Retrained through {self.trained_through.isoformat()}",
-                "Frequently refit shallow gradient boosting weighted toward learned historical features plus rolling form, weather, park, starter, and matchup context",
-                "Public probabilities anchor to no-vig market consensus when odds are available",
+                "Shallow gradient boosting trained on prior season (decayed) plus current season (boosted)",
+                "Blends trained output with Elo/form at 85/15; light market anchor when odds are available",
                 "Retrains automatically when yesterday's final scores are new",
             ],
         )
 
 
-def train_on_games(games: list[GameRecord]) -> DailyModelBundle:
+def _ingest_game(
+    game: GameRecord,
+    league: LeagueState,
+    examples: list[TrainingExample],
+    weights: list[float],
+    weight: float,
+) -> None:
+    examples.append(TrainingExample(features=feature_row(game, league), label=1 if game.home_won else 0))
+    weights.append(weight)
+    league.apply_result(
+        game.game_date,
+        game.home_team_id,
+        game.away_team_id,
+        game.home_score,
+        game.away_score,
+    )
+
+
+def train_on_games(
+    games: list[GameRecord],
+    prior_games: list[GameRecord] | None = None,
+) -> DailyModelBundle:
     league = LeagueState()
     examples: list[TrainingExample] = []
+    weights: list[float] = []
+
+    for game in prior_games or []:
+        _ingest_game(game, league, examples, weights, PRIOR_SEASON_SAMPLE_WEIGHT)
 
     for game in games:
-        examples.append(
-            TrainingExample(features=feature_row(game, league), label=1 if game.home_won else 0)
-        )
-        league.apply_result(
-            game.game_date,
-            game.home_team_id,
-            game.away_team_id,
-            game.home_score,
-            game.away_score,
-        )
+        _ingest_game(game, league, examples, weights, CURRENT_SEASON_SAMPLE_WEIGHT)
 
-    model = fit_model(examples)
+    model = fit_model(examples, weights)
     if model is None:
         raise RuntimeError("Not enough games to train the daily model.")
 
@@ -108,6 +126,13 @@ def season_games_through(yesterday: date) -> list[GameRecord]:
     return load_or_fetch_games(season_start, yesterday)
 
 
+def prior_season_games(yesterday: date) -> list[GameRecord]:
+    season_start = date(yesterday.year, 3, 20)
+    if yesterday < season_start:
+        return []
+    return load_or_fetch_games(date(yesterday.year - 1, 3, 20), date(yesterday.year - 1, 10, 5))
+
+
 def ensure_trained_through(yesterday: date) -> DailyModelBundle:
     existing = load_bundle()
     if existing is not None and existing.trained_through >= yesterday:
@@ -117,7 +142,7 @@ def ensure_trained_through(yesterday: date) -> DailyModelBundle:
     if not games:
         raise RuntimeError("No historical games available to train on.")
 
-    bundle = train_on_games(games)
+    bundle = train_on_games(games, prior_games=prior_season_games(yesterday))
     bundle.trained_through = yesterday
     save_bundle(bundle)
     return bundle
@@ -132,19 +157,27 @@ def no_vig_market_probabilities(home_moneyline: int, away_moneyline: int) -> tup
     return home / total, away / total
 
 
-def walk_forward_history(games: list[GameRecord], team_abbr: dict[int, str]) -> list[dict]:
+def walk_forward_history(
+    games: list[GameRecord],
+    team_abbr: dict[int, str],
+    prior_games: list[GameRecord] | None = None,
+) -> list[dict]:
     league = LeagueState()
     examples: list[TrainingExample] = []
+    weights: list[float] = []
     model: Pipeline | None = None
-    last_fit_index = 0
+    last_fit_index = -REFIT_EVERY
     rows: list[dict] = []
     odds = HistoricalOddsStore()
+
+    for game in prior_games or []:
+        _ingest_game(game, league, examples, weights, PRIOR_SEASON_SAMPLE_WEIGHT)
 
     for index, game in enumerate(games):
         features = feature_row(game, league)
 
         if len(examples) >= WARMUP_GAMES and (model is None or index - last_fit_index >= REFIT_EVERY):
-            model = fit_model(examples)
+            model = fit_model(examples, weights)
             last_fit_index = index
 
         if len(examples) >= WARMUP_GAMES and model is not None:
@@ -198,6 +231,7 @@ def walk_forward_history(games: list[GameRecord], team_abbr: dict[int, str]) -> 
             )
 
         examples.append(TrainingExample(features=features, label=1 if game.home_won else 0))
+        weights.append(CURRENT_SEASON_SAMPLE_WEIGHT)
         league.apply_result(
             game.game_date,
             game.home_team_id,
