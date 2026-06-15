@@ -2,21 +2,44 @@ name: Daily Model Retrain
 
 on:
   schedule:
-    # 8:00 AM US/Eastern after overnight West Coast finals.
-    - cron: "0 13 * * *"
+    # Run at 5:00 AM America/Chicago year-round. GitHub cron is UTC-only,
+    # so trigger at both possible UTC hours and gate the job below.
+    - cron: "0 10 * * *"
+    - cron: "0 11 * * *"
   workflow_dispatch:
 
 permissions:
   contents: write
 
+concurrency:
+  group: daily-model-retrain
+  cancel-in-progress: false
+
 jobs:
   retrain:
     runs-on: ubuntu-latest
+    timeout-minutes: 90
     steps:
+      - name: Confirm 5 AM Central window
+        id: central_time
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "should_run=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          if [ "$(TZ=America/Chicago date +%H)" = "05" ]; then
+            echo "should_run=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "should_run=false" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Checkout
+        if: steps.central_time.outputs.should_run == 'true'
         uses: actions/checkout@v4
 
       - name: Set up Python
+        if: steps.central_time.outputs.should_run == 'true'
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
@@ -24,18 +47,22 @@ jobs:
           cache-dependency-path: requirements.txt
 
       - name: Set up Node
+        if: steps.central_time.outputs.should_run == 'true'
         uses: actions/setup-node@v4
         with:
           node-version: "20"
           cache: npm
 
       - name: Install Python dependencies
+        if: steps.central_time.outputs.should_run == 'true'
         run: pip install -r requirements.txt
 
       - name: Install Node dependencies
+        if: steps.central_time.outputs.should_run == 'true'
         run: npm ci
 
       - name: Retrain model and regenerate public outputs
+        if: steps.central_time.outputs.should_run == 'true'
         env:
           ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
           ODDS_REGIONS: us
@@ -43,6 +70,7 @@ jobs:
         run: npm run model:daily
 
       - name: Commit updated model outputs
+        if: steps.central_time.outputs.should_run == 'true'
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: "Update daily MLB model outputs"
