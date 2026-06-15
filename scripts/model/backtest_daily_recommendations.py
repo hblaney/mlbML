@@ -11,6 +11,7 @@ from pathlib import Path
 
 from backtest_parlays import (
     STAKE,
+    build_single_candidates,
     expected_value,
     odds_backtest_range,
     odds_for,
@@ -26,18 +27,18 @@ from odds_provider import implied_probability
 OUTPUT_PATH = Path(__file__).resolve().parents[2] / "public" / "recommendation-performance.json"
 STARTING_BANKROLL = 10_000.0
 
-QUALIFIED_MIN_EDGE = 0.04
-QUALIFIED_MIN_PROBABILITY = 0.55
+QUALIFIED_MIN_EDGE = 0.08
+QUALIFIED_MIN_PROBABILITY = 0.62
 QUALIFIED_MAX_ABS_ODDS = 180
-FALLBACK_MIN_EDGE = 0.01
+FALLBACK_MIN_EDGE = 0.04
 FALLBACK_MAX_ABS_ODDS = 220
-PARLAY_QUALIFIED_MIN_EDGE = 0.03
-PARLAY_QUALIFIED_MIN_PROBABILITY = 0.55
-PARLAY_QUALIFIED_MIN_BOOK = 0.48
-PARLAY_TOP_N = 8
+PARLAY_QUALIFIED_MIN_EDGE = 0.05
+PARLAY_QUALIFIED_MIN_PROBABILITY = 0.65
+PARLAY_QUALIFIED_MIN_BOOK = 0.50
+PARLAY_TOP_N = 4
+PARLAY_LEG_COUNTS = (2,)
 TOTAL_MIN_EDGE = 0.04
 TOTAL_MIN_MODEL_PROBABILITY = 0.58
-CONFIDENCE_RANK = {"Elite": 4, "High": 3, "Medium": 2, "Low": 1}
 
 
 def sigmoid(value: float) -> float:
@@ -92,94 +93,7 @@ def serialize_leg(leg: dict) -> dict:
     }
 
 
-def build_moneyline_candidates(rows: list[dict], store: HistoricalOddsStore) -> dict[str, list[dict]]:
-    by_day: dict[str, list[dict]] = defaultdict(list)
-
-    for row in rows:
-        market = odds_for(store, row["date"], row["away"], row["home"])
-        if market is None:
-            continue
-
-        home_market = implied_probability(market.home_moneyline)
-        away_market = implied_probability(market.away_moneyline)
-        market_total = home_market + away_market
-        if market_total <= 0:
-            continue
-
-        home_probability = float(row.get("probability", row.get("internalHomeProbability", 0.5)))
-        away_probability = 1.0 - home_probability
-        predicted = row.get("predicted")
-        confidence = row.get("confidence", "Low")
-        sides = [
-            {
-                "team": row["home"],
-                "side": "home",
-                "odds": market.home_moneyline,
-                "model_probability": home_probability,
-                "book_probability": home_market / market_total,
-                "won": row["actual"] == row["home"],
-            },
-            {
-                "team": row["away"],
-                "side": "away",
-                "odds": market.away_moneyline,
-                "model_probability": away_probability,
-                "book_probability": away_market / market_total,
-                "won": row["actual"] == row["away"],
-            },
-        ]
-
-        for side in sides:
-            if not valid_bettable_moneyline(side["odds"]):
-                continue
-            ev = expected_value(side["model_probability"], side["odds"])
-            edge = side["model_probability"] - side["book_probability"]
-            is_model_pick = side["team"] == predicted
-            by_day[row["date"]].append(
-                {
-                    **side,
-                    "gamePk": row["gamePk"],
-                    "matchup": f'{row["away"]} @ {row["home"]}',
-                    "edge": edge,
-                    "ev": ev,
-                    "confidence": confidence if is_model_pick else "Low",
-                    "is_model_pick": is_model_pick,
-                    "pick_probability": row.get("pickProbability", max(home_probability, away_probability)),
-                }
-            )
-
-    for day in by_day:
-        by_day[day].sort(
-            key=lambda item: (
-                CONFIDENCE_RANK.get(item.get("confidence", "Low"), 1),
-                item.get("is_model_pick", False),
-                item["model_probability"],
-                item["ev"],
-                item["edge"],
-            ),
-            reverse=True,
-        )
-
-    return by_day
-
-
 def pick_best_moneyline(candidates: list[dict]) -> tuple[dict | None, bool]:
-    high_confidence = [
-        candidate
-        for candidate in candidates
-        if candidate.get("is_model_pick") and candidate.get("confidence") in ("Elite", "High")
-    ]
-    if high_confidence:
-        high_confidence.sort(
-            key=lambda item: (
-                CONFIDENCE_RANK.get(item.get("confidence", "Low"), 1),
-                item["model_probability"],
-                item["ev"],
-            ),
-            reverse=True,
-        )
-        return high_confidence[0], True
-
     qualified = [
         candidate
         for candidate in candidates
@@ -191,19 +105,9 @@ def pick_best_moneyline(candidates: list[dict]) -> tuple[dict | None, bool]:
         )
     ]
     if qualified:
+        qualified.sort(key=lambda item: (item["ev"], item["edge"], item["model_probability"]), reverse=True)
         return qualified[0], True
 
-    fallback = [
-        candidate
-        for candidate in candidates
-        if candidate["edge"] >= FALLBACK_MIN_EDGE and abs(candidate["odds"]) <= FALLBACK_MAX_ABS_ODDS
-    ]
-    fallback.sort(key=lambda item: (item["ev"], item["edge"], item["model_probability"]), reverse=True)
-    if fallback:
-        return fallback[0], False
-
-    if candidates:
-        return max(candidates, key=lambda item: (item["ev"], item["edge"])), False
     return None, False
 
 
@@ -291,12 +195,16 @@ def pick_best_total(candidates: list[dict]) -> tuple[dict | None, bool]:
 
 
 def pick_best_parlay(candidates: list[dict], leg_count: int) -> tuple[dict | None, bool]:
-    high_confidence = [
+    qualified_legs = [
         candidate
         for candidate in candidates
-        if candidate.get("is_model_pick") and candidate.get("confidence") in ("Elite", "High")
+        if (
+            candidate["edge"] >= PARLAY_QUALIFIED_MIN_EDGE
+            and candidate["model_probability"] >= PARLAY_QUALIFIED_MIN_PROBABILITY
+            and candidate["book_probability"] >= PARLAY_QUALIFIED_MIN_BOOK
+        )
     ][:PARLAY_TOP_N]
-    pools = [high_confidence]
+    pools = [qualified_legs]
 
     for index, pool in enumerate(pools):
         if len(pool) < leg_count:
@@ -397,7 +305,7 @@ def main() -> None:
         if game.home_score is not None and game.away_score is not None
     }
 
-    moneyline_by_day = build_moneyline_candidates(rows, store)
+    moneyline_by_day = build_single_candidates(rows, store)
     totals_by_day = build_total_candidates(rows, store, scores_by_pk)
     all_days = sorted(set(moneyline_by_day) | set(totals_by_day))
 
@@ -422,7 +330,7 @@ def main() -> None:
             day_bets.append(bet)
             category_bets["advanced"].append(bet)
 
-        for leg_count in (3, 4):
+        for leg_count in PARLAY_LEG_COUNTS:
             parlay_pick, parlay_qualified = pick_best_parlay(moneyline_candidates, leg_count)
             if parlay_pick is not None:
                 bet = bet_from_parlay(parlay_pick, day, leg_count, parlay_qualified)
@@ -483,7 +391,7 @@ def main() -> None:
             },
             "advanced": {"market": "totals", "min_edge": TOTAL_MIN_EDGE},
             "parlay": {
-                "leg_counts": [3, 4],
+                "leg_counts": list(PARLAY_LEG_COUNTS),
                 "qualified_min_edge": PARLAY_QUALIFIED_MIN_EDGE,
                 "qualified_min_probability": PARLAY_QUALIFIED_MIN_PROBABILITY,
                 "qualified_min_book_probability": PARLAY_QUALIFIED_MIN_BOOK,

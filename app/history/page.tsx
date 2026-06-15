@@ -66,6 +66,9 @@ function categoryLabel(category: string) {
   if (category === "advanced") {
     return "Advanced";
   }
+  if (category === "parlay_2") {
+    return "2-Leg Parlay";
+  }
   if (category === "parlay_3") {
     return "3-Leg Parlay";
   }

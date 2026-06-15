@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-14",
+  "generated_at": "2026-06-15",
   "stake": 100.0,
   "starting_bankroll": 10000.0,
   "date_range": {
@@ -14,10 +14,10 @@
   },
   "strategy": {
     "moneyline": {
-      "qualified_min_edge": 0.04,
-      "qualified_min_probability": 0.55,
+      "qualified_min_edge": 0.08,
+      "qualified_min_probability": 0.62,
       "qualified_max_abs_odds": 180,
-      "fallback_min_edge": 0.01
+      "fallback_min_edge": 0.04
     },
     "advanced": {
       "market": "totals",
@@ -25,26 +25,153 @@
     },
     "parlay": {
       "leg_counts": [
-        3,
-        4
+        2
       ],
-      "qualified_min_edge": 0.03,
-      "qualified_min_probability": 0.55,
-      "qualified_min_book_probability": 0.48,
-      "top_n": 8
+      "qualified_min_edge": 0.05,
+      "qualified_min_probability": 0.65,
+      "qualified_min_book_probability": 0.5,
+      "top_n": 4
     }
   },
   "by_category": {
     "moneyline": {
-      "bets": 126,
-      "wins": 91,
-      "losses": 35,
-      "staked": 12600.0,
-      "profit": 1042.3,
-      "roi": 0.0827,
-      "hit_rate": 0.7222
+      "bets": 65,
+      "wins": 42,
+      "losses": 23,
+      "staked": 6500.0,
+      "profit": 1865.02,
+      "roi": 0.2869,
+      "hit_rate": 0.6462
     },
-    "parlay_3": {
+    "parlay_2": {
+      "bets": 30,
+      "wins": 15,
+      "losses": 15,
+      "staked": 3000.0,
+      "profit": 1451.6,
+      "roi": 0.4839,
+      "hit_rate": 0.5
+    }
+  },
+  "weekly": {
+    "2025-W15": {
+      "bets": 9,
+      "wins": 4,
+      "losses": 5,
+      "staked": 900.0,
+      "profit": 108.41,
+      "roi": 0.1205,
+      "hit_rate": 0.4444
+    },
+    "2025-W16": {
+      "bets": 12,
+      "wins": 5,
+      "losses": 7,
+      "staked": 1200.0,
+      "profit": 206.21,
+      "roi": 0.1718,
+      "hit_rate": 0.4167
+    },
+    "2025-W17": {
+      "bets": 13,
+      "wins": 6,
+      "losses": 7,
+      "staked": 1300.0,
+      "profit": -44.0,
+      "roi": -0.0338,
+      "hit_rate": 0.4615
+    },
+    "2025-W18": {
+      "bets": 12,
+      "wins": 8,
+      "losses": 4,
+      "staked": 1200.0,
+      "profit": 811.59,
+      "roi": 0.6763,
+      "hit_rate": 0.6667
+    },
+    "2025-W19": {
+      "bets": 9,
+      "wins": 5,
+      "losses": 4,
+      "staked": 900.0,
+      "profit": 226.11,
+      "roi": 0.2512,
+      "hit_rate": 0.5556
+    },
+    "2025-W20": {
+      "bets": 2,
+      "wins": 1,
+      "losses": 1,
+      "staked": 200.0,
+      "profit": 18.0,
+      "roi": 0.09,
+      "hit_rate": 0.5
+    },
+    "2025-W21": {
+      "bets": 4,
+      "wins": 3,
+      "losses": 1,
+      "staked": 400.0,
+      "profit": 285.43,
+      "roi": 0.7136,
+      "hit_rate": 0.75
+    },
+    "2025-W22": {
+      "bets": 5,
+      "wins": 3,
+      "losses": 2,
+      "staked": 500.0,
+      "profit": 113.82,
+      "roi": 0.2276,
+      "hit_rate": 0.6
+    },
+    "2025-W23": {
+      "bets": 3,
+      "wins": 3,
+      "losses": 0,
+      "staked": 300.0,
+      "profit": 338.0,
+      "roi": 1.1267,
+      "hit_rate": 1.0
+    },
+    "2025-W24": {
+      "bets": 1,
+      "wins": 1,
+      "losses": 0,
+      "staked": 100.0,
+      "profit": 87.72,
+      "roi": 0.8772,
+      "hit_rate": 1.0
+    },
+    "2025-W25": {
+      "bets": 4,
+      "wins": 4,
+      "losses": 0,
+      "staked": 400.0,
+      "profit": 382.8,
+      "roi": 0.957,
+      "hit_rate": 1.0
+    },
+    "2025-W26": {
+      "bets": 3,
+      "wins": 3,
+      "losses": 0,
+      "staked": 300.0,
+      "profit": 344.0,
+      "roi": 1.1467,
+      "hit_rate": 1.0
+    },
+    "2025-W27": {
+      "bets": 3,
+      "wins": 2,
+      "losses": 1,
+      "staked": 300.0,
+      "profit": 167.12,
+      "roi": 0.5571,
+      "hit_rate": 0.6667
+    },
+    "2025-W29": {
       "bets": 1,
       "wins": 0,
       "losses": 1,
@@ -52,595 +179,449 @@
       "profit": -100.0,
       "roi": -1.0,
       "hit_rate": 0.0
-    }
-  },
-  "weekly": {
-    "2025-W15": {
-      "bets": 5,
-      "wins": 4,
-      "losses": 1,
-      "staked": 500.0,
-      "profit": 119.0,
-      "roi": 0.238,
-      "hit_rate": 0.8
-    },
-    "2025-W16": {
-      "bets": 7,
-      "wins": 5,
-      "losses": 2,
-      "staked": 700.0,
-      "profit": 35.7,
-      "roi": 0.051,
-      "hit_rate": 0.7143
-    },
-    "2025-W17": {
-      "bets": 7,
-      "wins": 7,
-      "losses": 0,
-      "staked": 700.0,
-      "profit": 265.3,
-      "roi": 0.379,
-      "hit_rate": 1.0
-    },
-    "2025-W18": {
-      "bets": 7,
-      "wins": 5,
-      "losses": 2,
-      "staked": 700.0,
-      "profit": -44.76,
-      "roi": -0.0639,
-      "hit_rate": 0.7143
-    },
-    "2025-W19": {
-      "bets": 7,
-      "wins": 5,
-      "losses": 2,
-      "staked": 700.0,
-      "profit": 148.77,
-      "roi": 0.2125,
-      "hit_rate": 0.7143
-    },
-    "2025-W20": {
-      "bets": 7,
-      "wins": 4,
-      "losses": 3,
-      "staked": 700.0,
-      "profit": -150.35,
-      "roi": -0.2148,
-      "hit_rate": 0.5714
-    },
-    "2025-W21": {
-      "bets": 7,
-      "wins": 5,
-      "losses": 2,
-      "staked": 700.0,
-      "profit": -53.85,
-      "roi": -0.0769,
-      "hit_rate": 0.7143
-    },
-    "2025-W22": {
-      "bets": 7,
-      "wins": 6,
-      "losses": 1,
-      "staked": 700.0,
-      "profit": 69.66,
-      "roi": 0.0995,
-      "hit_rate": 0.8571
-    },
-    "2025-W23": {
-      "bets": 8,
-      "wins": 5,
-      "losses": 3,
-      "staked": 800.0,
-      "profit": 40.36,
-      "roi": 0.0504,
-      "hit_rate": 0.625
-    },
-    "2025-W24": {
-      "bets": 7,
-      "wins": 3,
-      "losses": 4,
-      "staked": 700.0,
-      "profit": -297.39,
-      "roi": -0.4248,
-      "hit_rate": 0.4286
-    },
-    "2025-W25": {
-      "bets": 7,
-      "wins": 4,
-      "losses": 3,
-      "staked": 700.0,
-      "profit": 90.18,
-      "roi": 0.1288,
-      "hit_rate": 0.5714
-    },
-    "2025-W26": {
-      "bets": 7,
-      "wins": 5,
-      "losses": 2,
-      "staked": 700.0,
-      "profit": 7.23,
-      "roi": 0.0103,
-      "hit_rate": 0.7143
-    },
-    "2025-W27": {
-      "bets": 7,
-      "wins": 7,
-      "losses": 0,
-      "staked": 700.0,
-      "profit": 371.71,
-      "roi": 0.531,
-      "hit_rate": 1.0
-    },
-    "2025-W28": {
-      "bets": 7,
-      "wins": 6,
-      "losses": 1,
-      "staked": 700.0,
-      "profit": 154.37,
-      "roi": 0.2205,
-      "hit_rate": 0.8571
-    },
-    "2025-W29": {
-      "bets": 3,
-      "wins": 2,
-      "losses": 1,
-      "staked": 300.0,
-      "profit": 50.76,
-      "roi": 0.1692,
-      "hit_rate": 0.6667
     },
     "2025-W30": {
-      "bets": 7,
-      "wins": 6,
+      "bets": 2,
+      "wins": 1,
       "losses": 1,
-      "staked": 700.0,
-      "profit": 294.44,
-      "roi": 0.4206,
-      "hit_rate": 0.8571
+      "staked": 200.0,
+      "profit": -24.81,
+      "roi": -0.1241,
+      "hit_rate": 0.5
     },
     "2025-W31": {
       "bets": 6,
-      "wins": 2,
-      "losses": 4,
+      "wins": 3,
+      "losses": 3,
       "staked": 600.0,
-      "profit": -268.6,
-      "roi": -0.4477,
-      "hit_rate": 0.3333
+      "profit": 3.49,
+      "roi": 0.0058,
+      "hit_rate": 0.5
     },
     "2025-W32": {
-      "bets": 7,
+      "bets": 6,
       "wins": 5,
-      "losses": 2,
-      "staked": 700.0,
-      "profit": 32.63,
-      "roi": 0.0466,
-      "hit_rate": 0.7143
-    },
-    "2025-W33": {
-      "bets": 7,
-      "wins": 5,
-      "losses": 2,
-      "staked": 700.0,
-      "profit": 77.14,
-      "roi": 0.1102,
-      "hit_rate": 0.7143
+      "losses": 1,
+      "staked": 600.0,
+      "profit": 392.73,
+      "roi": 0.6546,
+      "hit_rate": 0.8333
     }
   },
   "monthly": {
     "2025-04": {
-      "bets": 22,
-      "wins": 18,
-      "losses": 4,
-      "staked": 2200.0,
-      "profit": 384.01,
-      "roi": 0.1746,
-      "hit_rate": 0.8182
+      "bets": 39,
+      "wins": 20,
+      "losses": 19,
+      "staked": 3900.0,
+      "profit": 1069.78,
+      "roi": 0.2743,
+      "hit_rate": 0.5128
     },
     "2025-05": {
-      "bets": 31,
-      "wins": 22,
-      "losses": 9,
-      "staked": 3100.0,
-      "profit": -18.18,
-      "roi": -0.0059,
-      "hit_rate": 0.7097
+      "bets": 26,
+      "wins": 14,
+      "losses": 12,
+      "staked": 2600.0,
+      "profit": 497.14,
+      "roi": 0.1912,
+      "hit_rate": 0.5385
     },
     "2025-06": {
-      "bets": 31,
-      "wins": 19,
-      "losses": 12,
-      "staked": 3100.0,
-      "profit": -99.08,
-      "roi": -0.032,
-      "hit_rate": 0.6129
+      "bets": 12,
+      "wins": 12,
+      "losses": 0,
+      "staked": 1200.0,
+      "profit": 1311.17,
+      "roi": 1.0926,
+      "hit_rate": 1.0
     },
     "2025-07": {
-      "bets": 26,
-      "wins": 21,
-      "losses": 5,
-      "staked": 2600.0,
-      "profit": 704.8,
-      "roi": 0.2711,
-      "hit_rate": 0.8077
+      "bets": 10,
+      "wins": 6,
+      "losses": 4,
+      "staked": 1000.0,
+      "profit": 245.8,
+      "roi": 0.2458,
+      "hit_rate": 0.6
     },
     "2025-08": {
-      "bets": 17,
-      "wins": 11,
-      "losses": 6,
-      "staked": 1700.0,
-      "profit": -29.25,
-      "roi": -0.0172,
-      "hit_rate": 0.6471
+      "bets": 8,
+      "wins": 5,
+      "losses": 3,
+      "staked": 800.0,
+      "profit": 192.73,
+      "roi": 0.2409,
+      "hit_rate": 0.625
     }
   },
   "cumulative": {
-    "bets": 127,
-    "profit": 942.3,
-    "roi": 0.0742,
-    "balance": 10942.3,
-    "return_pct": 0.0942
+    "bets": 95,
+    "profit": 3316.62,
+    "roi": 0.3491,
+    "balance": 13316.62,
+    "return_pct": 0.3317
   },
   "checkpoints": [
     {
-      "date": "2025-06-14",
-      "profit": 28.25,
-      "balance": 10232.44,
-      "return_pct": 0.0232
-    },
-    {
-      "date": "2025-06-15",
+      "date": "2025-04-16",
       "profit": -100.0,
-      "balance": 10132.44,
-      "return_pct": 0.0132
+      "balance": 10079.33,
+      "return_pct": 0.0079
     },
     {
-      "date": "2025-06-16",
-      "profit": 164.0,
-      "balance": 10296.44,
-      "return_pct": 0.0296
+      "date": "2025-04-17",
+      "profit": -200.0,
+      "balance": 9879.33,
+      "return_pct": -0.0121
+    },
+    {
+      "date": "2025-04-18",
+      "profit": 318.24,
+      "balance": 10197.57,
+      "return_pct": 0.0198
+    },
+    {
+      "date": "2025-04-19",
+      "profit": 317.05,
+      "balance": 10514.62,
+      "return_pct": 0.0515
+    },
+    {
+      "date": "2025-04-20",
+      "profit": -200.0,
+      "balance": 10314.62,
+      "return_pct": 0.0315
+    },
+    {
+      "date": "2025-04-21",
+      "profit": 263.86,
+      "balance": 10578.48,
+      "return_pct": 0.0578
+    },
+    {
+      "date": "2025-04-22",
+      "profit": -17.36,
+      "balance": 10561.12,
+      "return_pct": 0.0561
+    },
+    {
+      "date": "2025-04-23",
+      "profit": -200.0,
+      "balance": 10361.12,
+      "return_pct": 0.0361
+    },
+    {
+      "date": "2025-04-24",
+      "profit": -200.0,
+      "balance": 10161.12,
+      "return_pct": 0.0161
+    },
+    {
+      "date": "2025-04-25",
+      "profit": 62.5,
+      "balance": 10223.62,
+      "return_pct": 0.0224
+    },
+    {
+      "date": "2025-04-26",
+      "profit": 43.0,
+      "balance": 10266.62,
+      "return_pct": 0.0267
+    },
+    {
+      "date": "2025-04-27",
+      "profit": 4.0,
+      "balance": 10270.62,
+      "return_pct": 0.0271
+    },
+    {
+      "date": "2025-04-28",
+      "profit": 113.0,
+      "balance": 10383.62,
+      "return_pct": 0.0384
+    },
+    {
+      "date": "2025-04-29",
+      "profit": 324.29,
+      "balance": 10707.91,
+      "return_pct": 0.0708
+    },
+    {
+      "date": "2025-04-30",
+      "profit": 361.87,
+      "balance": 11069.78,
+      "return_pct": 0.107
+    },
+    {
+      "date": "2025-05-01",
+      "profit": 38.0,
+      "balance": 11107.78,
+      "return_pct": 0.1108
+    },
+    {
+      "date": "2025-05-02",
+      "profit": -100.0,
+      "balance": 11007.78,
+      "return_pct": 0.1008
+    },
+    {
+      "date": "2025-05-03",
+      "profit": -200.0,
+      "balance": 10807.78,
+      "return_pct": 0.0808
+    },
+    {
+      "date": "2025-05-04",
+      "profit": 274.43,
+      "balance": 11082.21,
+      "return_pct": 0.1082
+    },
+    {
+      "date": "2025-05-05",
+      "profit": -200.0,
+      "balance": 10882.21,
+      "return_pct": 0.0882
+    },
+    {
+      "date": "2025-05-06",
+      "profit": 263.63,
+      "balance": 11145.84,
+      "return_pct": 0.1146
+    },
+    {
+      "date": "2025-05-07",
+      "profit": 77.25,
+      "balance": 11223.09,
+      "return_pct": 0.1223
+    },
+    {
+      "date": "2025-05-10",
+      "profit": 119.0,
+      "balance": 11342.09,
+      "return_pct": 0.1342
+    },
+    {
+      "date": "2025-05-11",
+      "profit": -33.77,
+      "balance": 11308.32,
+      "return_pct": 0.1308
+    },
+    {
+      "date": "2025-05-14",
+      "profit": 118.0,
+      "balance": 11426.32,
+      "return_pct": 0.1426
+    },
+    {
+      "date": "2025-05-16",
+      "profit": -100.0,
+      "balance": 11326.32,
+      "return_pct": 0.1326
+    },
+    {
+      "date": "2025-05-20",
+      "profit": 115.0,
+      "balance": 11441.32,
+      "return_pct": 0.1441
+    },
+    {
+      "date": "2025-05-21",
+      "profit": 270.43,
+      "balance": 11711.75,
+      "return_pct": 0.1712
+    },
+    {
+      "date": "2025-05-25",
+      "profit": -100.0,
+      "balance": 11611.75,
+      "return_pct": 0.1612
+    },
+    {
+      "date": "2025-05-26",
+      "profit": -100.0,
+      "balance": 11511.75,
+      "return_pct": 0.1512
+    },
+    {
+      "date": "2025-05-27",
+      "profit": 88.5,
+      "balance": 11600.25,
+      "return_pct": 0.16
+    },
+    {
+      "date": "2025-05-28",
+      "profit": -100.0,
+      "balance": 11500.25,
+      "return_pct": 0.15
+    },
+    {
+      "date": "2025-05-31",
+      "profit": 66.67,
+      "balance": 11566.92,
+      "return_pct": 0.1567
+    },
+    {
+      "date": "2025-06-01",
+      "profit": 158.65,
+      "balance": 11725.57,
+      "return_pct": 0.1726
+    },
+    {
+      "date": "2025-06-03",
+      "profit": 119.0,
+      "balance": 11844.57,
+      "return_pct": 0.1845
+    },
+    {
+      "date": "2025-06-07",
+      "profit": 109.0,
+      "balance": 11953.57,
+      "return_pct": 0.1954
+    },
+    {
+      "date": "2025-06-08",
+      "profit": 110.0,
+      "balance": 12063.57,
+      "return_pct": 0.2064
+    },
+    {
+      "date": "2025-06-11",
+      "profit": 87.72,
+      "balance": 12151.29,
+      "return_pct": 0.2151
     },
     {
       "date": "2025-06-17",
       "profit": 71.43,
-      "balance": 10367.87,
-      "return_pct": 0.0368
+      "balance": 12222.72,
+      "return_pct": 0.2223
     },
     {
       "date": "2025-06-18",
-      "profit": -100.0,
-      "balance": 10267.87,
-      "return_pct": 0.0268
+      "profit": 79.37,
+      "balance": 12302.09,
+      "return_pct": 0.2302
     },
     {
       "date": "2025-06-19",
       "profit": 105.0,
-      "balance": 10372.87,
-      "return_pct": 0.0373
+      "balance": 12407.09,
+      "return_pct": 0.2407
     },
     {
       "date": "2025-06-20",
-      "profit": -100.0,
-      "balance": 10272.87,
-      "return_pct": 0.0273
-    },
-    {
-      "date": "2025-06-21",
-      "profit": 49.75,
-      "balance": 10322.62,
-      "return_pct": 0.0323
-    },
-    {
-      "date": "2025-06-22",
-      "profit": -100.0,
-      "balance": 10222.62,
-      "return_pct": 0.0223
+      "profit": 127.0,
+      "balance": 12534.09,
+      "return_pct": 0.2534
     },
     {
       "date": "2025-06-23",
-      "profit": 75.76,
-      "balance": 10298.38,
-      "return_pct": 0.0298
-    },
-    {
-      "date": "2025-06-24",
-      "profit": 28.82,
-      "balance": 10327.2,
-      "return_pct": 0.0327
-    },
-    {
-      "date": "2025-06-25",
-      "profit": 38.91,
-      "balance": 10366.11,
-      "return_pct": 0.0366
-    },
-    {
-      "date": "2025-06-26",
-      "profit": 33.44,
-      "balance": 10399.55,
-      "return_pct": 0.04
-    },
-    {
-      "date": "2025-06-27",
-      "profit": -100.0,
-      "balance": 10299.55,
-      "return_pct": 0.03
+      "profit": 106.0,
+      "balance": 12640.09,
+      "return_pct": 0.264
     },
     {
       "date": "2025-06-28",
-      "profit": 30.3,
-      "balance": 10329.85,
-      "return_pct": 0.033
+      "profit": 118.0,
+      "balance": 12758.09,
+      "return_pct": 0.2758
     },
     {
       "date": "2025-06-29",
-      "profit": -100.0,
-      "balance": 10229.85,
-      "return_pct": 0.023
-    },
-    {
-      "date": "2025-06-30",
-      "profit": 36.9,
-      "balance": 10266.75,
-      "return_pct": 0.0267
+      "profit": 120.0,
+      "balance": 12878.09,
+      "return_pct": 0.2878
     },
     {
       "date": "2025-07-01",
       "profit": 94.34,
-      "balance": 10361.09,
-      "return_pct": 0.0361
+      "balance": 12972.43,
+      "return_pct": 0.2972
     },
     {
       "date": "2025-07-02",
-      "profit": 26.95,
-      "balance": 10388.04,
-      "return_pct": 0.0388
-    },
-    {
-      "date": "2025-07-03",
-      "profit": 28.09,
-      "balance": 10416.13,
-      "return_pct": 0.0416
-    },
-    {
-      "date": "2025-07-04",
-      "profit": 74.63,
-      "balance": 10490.76,
-      "return_pct": 0.0491
-    },
-    {
-      "date": "2025-07-05",
-      "profit": 71.43,
-      "balance": 10562.19,
-      "return_pct": 0.0562
-    },
-    {
-      "date": "2025-07-06",
-      "profit": 39.37,
-      "balance": 10601.56,
-      "return_pct": 0.0602
-    },
-    {
-      "date": "2025-07-07",
-      "profit": 38.91,
-      "balance": 10640.47,
-      "return_pct": 0.064
-    },
-    {
-      "date": "2025-07-08",
-      "profit": 32.26,
-      "balance": 10672.73,
-      "return_pct": 0.0673
-    },
-    {
-      "date": "2025-07-09",
-      "profit": 26.46,
-      "balance": 10699.19,
-      "return_pct": 0.0699
-    },
-    {
-      "date": "2025-07-10",
-      "profit": 87.72,
-      "balance": 10786.91,
-      "return_pct": 0.0787
-    },
-    {
-      "date": "2025-07-11",
-      "profit": -100.0,
-      "balance": 10686.91,
-      "return_pct": 0.0687
-    },
-    {
-      "date": "2025-07-12",
-      "profit": 33.56,
-      "balance": 10720.47,
-      "return_pct": 0.072
-    },
-    {
-      "date": "2025-07-13",
-      "profit": 35.46,
-      "balance": 10755.93,
-      "return_pct": 0.0756
-    },
-    {
-      "date": "2025-07-18",
-      "profit": -100.0,
-      "balance": 10655.93,
-      "return_pct": 0.0656
-    },
-    {
-      "date": "2025-07-19",
-      "profit": 112.0,
-      "balance": 10767.93,
-      "return_pct": 0.0768
+      "profit": 72.78,
+      "balance": 13045.21,
+      "return_pct": 0.3045
     },
     {
       "date": "2025-07-20",
-      "profit": 38.76,
-      "balance": 10806.69,
-      "return_pct": 0.0807
-    },
-    {
-      "date": "2025-07-21",
-      "profit": 40.98,
-      "balance": 10847.67,
-      "return_pct": 0.0848
+      "profit": -100.0,
+      "balance": 12945.21,
+      "return_pct": 0.2945
     },
     {
       "date": "2025-07-22",
-      "profit": 52.08,
-      "balance": 10899.75,
-      "return_pct": 0.09
+      "profit": -100.0,
+      "balance": 12845.21,
+      "return_pct": 0.2845
     },
     {
       "date": "2025-07-23",
       "profit": 75.19,
-      "balance": 10974.94,
-      "return_pct": 0.0975
-    },
-    {
-      "date": "2025-07-24",
-      "profit": 118.0,
-      "balance": 11092.94,
-      "return_pct": 0.1093
-    },
-    {
-      "date": "2025-07-25",
-      "profit": -100.0,
-      "balance": 10992.94,
-      "return_pct": 0.0993
-    },
-    {
-      "date": "2025-07-26",
-      "profit": 39.22,
-      "balance": 11032.16,
-      "return_pct": 0.1032
-    },
-    {
-      "date": "2025-07-27",
-      "profit": 68.97,
-      "balance": 11101.13,
-      "return_pct": 0.1101
+      "balance": 12920.4,
+      "return_pct": 0.292
     },
     {
       "date": "2025-07-28",
-      "profit": -100.0,
-      "balance": 11001.13,
-      "return_pct": 0.1001
+      "profit": 68.49,
+      "balance": 12988.89,
+      "return_pct": 0.2989
     },
     {
       "date": "2025-07-29",
       "profit": -100.0,
-      "balance": 10901.13,
-      "return_pct": 0.0901
+      "balance": 12888.89,
+      "return_pct": 0.2889
     },
     {
       "date": "2025-07-30",
-      "profit": 70.42,
-      "balance": 10971.55,
-      "return_pct": 0.0972
-    },
-    {
-      "date": "2025-08-01",
-      "profit": -100.0,
-      "balance": 10871.55,
-      "return_pct": 0.0872
-    },
-    {
-      "date": "2025-08-02",
-      "profit": -100.0,
-      "balance": 10771.55,
-      "return_pct": 0.0772
+      "profit": 235.0,
+      "balance": 13123.89,
+      "return_pct": 0.3124
     },
     {
       "date": "2025-08-03",
-      "profit": 60.98,
-      "balance": 10832.53,
-      "return_pct": 0.0833
+      "profit": -200.0,
+      "balance": 12923.89,
+      "return_pct": 0.2924
     },
     {
       "date": "2025-08-04",
-      "profit": 53.48,
-      "balance": 10886.01,
-      "return_pct": 0.0886
+      "profit": 72.99,
+      "balance": 12996.88,
+      "return_pct": 0.2997
     },
     {
       "date": "2025-08-05",
-      "profit": 67.11,
-      "balance": 10953.12,
-      "return_pct": 0.0953
+      "profit": 115.0,
+      "balance": 13111.88,
+      "return_pct": 0.3112
     },
     {
       "date": "2025-08-06",
-      "profit": -100.0,
-      "balance": 10853.12,
-      "return_pct": 0.0853
-    },
-    {
-      "date": "2025-08-07",
-      "profit": -100.0,
-      "balance": 10753.12,
-      "return_pct": 0.0753
+      "profit": 108.0,
+      "balance": 13219.88,
+      "return_pct": 0.322
     },
     {
       "date": "2025-08-08",
-      "profit": 33.78,
-      "balance": 10786.9,
-      "return_pct": 0.0787
+      "profit": 105.0,
+      "balance": 13324.88,
+      "return_pct": 0.3325
     },
     {
       "date": "2025-08-09",
-      "profit": 44.25,
-      "balance": 10831.15,
-      "return_pct": 0.0831
+      "profit": -100.0,
+      "balance": 13224.88,
+      "return_pct": 0.3225
     },
     {
       "date": "2025-08-10",
-      "profit": 34.01,
-      "balance": 10865.16,
-      "return_pct": 0.0865
-    },
-    {
-      "date": "2025-08-11",
-      "profit": 40.98,
-      "balance": 10906.14,
-      "return_pct": 0.0906
-    },
-    {
-      "date": "2025-08-12",
-      "profit": 44.05,
-      "balance": 10950.19,
-      "return_pct": 0.095
-    },
-    {
-      "date": "2025-08-13",
-      "profit": 36.63,
-      "balance": 10986.82,
-      "return_pct": 0.0987
-    },
-    {
-      "date": "2025-08-14",
-      "profit": -100.0,
-      "balance": 10886.82,
-      "return_pct": 0.0887
-    },
-    {
-      "date": "2025-08-15",
-      "profit": 112.0,
-      "balance": 10998.82,
-      "return_pct": 0.0999
-    },
-    {
-      "date": "2025-08-16",
-      "profit": 43.48,
-      "balance": 11042.3,
-      "return_pct": 0.1042
-    },
-    {
-      "date": "2025-08-17",
-      "profit": -100.0,
-      "balance": 10942.3,
-      "return_pct": 0.0942
+      "profit": 91.74,
+      "balance": 13316.62,
+      "return_pct": 0.3317
     }
   ],
   "daily": [
@@ -650,30 +631,69 @@
         {
           "category": "moneyline",
           "date": "2025-04-09",
-          "gamePk": 778399,
-          "matchup": "LAA @ TB",
-          "team": "TB",
+          "gamePk": 778393,
+          "matchup": "PHI @ ATL",
+          "team": "ATL",
           "side": "Moneyline",
-          "label": "TB ML",
-          "odds": -148,
-          "model_probability": 0.636,
-          "book_probability": 0.5721,
-          "edge": 0.0639,
-          "ev": 6.57,
+          "label": "ATL ML",
+          "odds": -146,
+          "model_probability": 0.7,
+          "book_probability": 0.5935,
+          "edge": 0.1065,
+          "ev": 17.95,
           "stake": 100.0,
           "qualified": true,
-          "won": true,
-          "profit": 67.57
+          "won": false,
+          "profit": -100.0
+        },
+        {
+          "category": "parlay_2",
+          "date": "2025-04-09",
+          "matchup": "PHI @ ATL + LAA @ TB",
+          "team": "2-leg Parlay",
+          "side": "Parlay",
+          "label": "ATL ML + TB ML",
+          "odds": 182,
+          "model_probability": 0.49,
+          "book_probability": null,
+          "edge": null,
+          "ev": 38.35,
+          "stake": 100.0,
+          "qualified": true,
+          "won": false,
+          "profit": -100.0,
+          "legs": [
+            {
+              "team": "ATL",
+              "matchup": "PHI @ ATL",
+              "odds": -146,
+              "model_probability": 0.7,
+              "book_probability": 0.5935,
+              "edge": 0.1065,
+              "won": false,
+              "confidence": "Low"
+            },
+            {
+              "team": "TB",
+              "matchup": "LAA @ TB",
+              "odds": -148,
+              "model_probability": 0.7,
+              "book_probability": 0.5968,
+              "edge": 0.1032,
+              "won": true,
+              "confidence": "Low"
+            }
+          ]
         }
       ],
       "summary": {
-        "bets": 1,
-        "wins": 1,
-        "losses": 0,
-        "staked": 100.0,
-        "profit": 67.57,
-        "roi": 0.6757,
-        "hit_rate": 1.0
+        "bets": 2,
+        "wins": 0,
+        "losses": 2,
+        "staked": 200.0,
+        "profit": -200.0,
+        "roi": -1.0,
+        "hit_rate": 0.0
       }
     },
     {
@@ -682,20 +702,20 @@
         {
           "category": "moneyline",
           "date": "2025-04-10",
-          "gamePk": 778378,
-          "matchup": "CWS @ CLE",
-          "team": "CLE",
+          "gamePk": 778371,
+          "matchup": "MIL @ COL",
+          "team": "COL",
           "side": "Moneyline",
-          "label": "CLE ML",
-          "odds": -252,
-          "model_probability": 0.7,
-          "book_probability": 0.6859,
-          "edge": 0.0141,
-          "ev": -2.22,
+          "label": "COL ML",
+          "odds": 110,
+          "model_probability": 0.6758,
+          "book_probability": 0.4762,
+          "edge": 0.1996,
+          "ev": 41.92,
           "stake": 100.0,
           "qualified": true,
           "won": true,
-          "profit": 39.68
+          "profit": 110.0
         }
       ],
       "summary": {
@@ -703,8 +723,8 @@
         "wins": 1,
         "losses": 0,
         "staked": 100.0,
-        "profit": 39.68,
-        "roi": 0.3968,
+        "profit": 110.0,
+        "roi": 1.1,
         "hit_rate": 1.0
       }
     },
@@ -714,30 +734,69 @@
         {
           "category": "moneyline",
           "date": "2025-04-11",
-          "gamePk": 778367,
-          "matchup": "ATL @ TB",
-          "team": "TB",
+          "gamePk": 778370,
+          "matchup": "SF @ NYY",
+          "team": "NYY",
           "side": "Moneyline",
-          "label": "TB ML",
-          "odds": -140,
-          "model_probability": 0.6305,
-          "book_probability": 0.5609,
-          "edge": 0.0696,
-          "ev": 8.09,
+          "label": "NYY ML",
+          "odds": -138,
+          "model_probability": 0.7,
+          "book_probability": 0.5798,
+          "edge": 0.1202,
+          "ev": 20.72,
           "stake": 100.0,
           "qualified": true,
-          "won": true,
-          "profit": 71.43
+          "won": false,
+          "profit": -100.0
+        },
+        {
+          "category": "parlay_2",
+          "date": "2025-04-11",
+          "matchup": "SF @ NYY + ATL @ TB",
+          "team": "2-leg Parlay",
+          "side": "Parlay",
+          "label": "NYY ML + TB ML",
+          "odds": 196,
+          "model_probability": 0.49,
+          "book_probability": null,
+          "edge": null,
+          "ev": 44.87,
+          "stake": 100.0,
+          "qualified": true,
+          "won": false,
+          "profit": -100.0,
+          "legs": [
+            {
+              "team": "NYY",
+              "matchup": "SF @ NYY",
+              "odds": -138,
+              "model_probability": 0.7,
+              "book_probability": 0.5798,
+              "edge": 0.1202,
+              "won": false,
+              "confidence": "Low"
+            },
+            {
+              "team": "TB",
+              "matchup": "ATL @ TB",
+              "odds": -140,
+              "model_probability": 0.7,
+              "book_probability": 0.5833,
+              "edge": 0.1167,
+              "won": true,
+              "confidence": "Low"
+            }
+          ]
         }
       ],
       "summary": {
-        "bets": 1,
-        "wins": 1,
-        "losses": 0,
-        "staked": 100.0,
-        "profit": 71.43,
-        "roi": 0.7143,
-        "hit_rate": 1.0
+        "bets": 2,
+        "wins": 0,
+        "losses": 2,
+        "staked": 200.0,
+        "profit": -200.0,
+        "roi": -1.0,
+        "hit_rate": 0.0
       }
     },
     {
@@ -746,30 +805,69 @@
         {
           "category": "moneyline",
           "date": "2025-04-12",
-          "gamePk": 778345,
-          "matchup": "CHC @ LAD",
-          "team": "LAD",
+          "gamePk": 778347,
+          "matchup": "PHI @ STL",
+          "team": "STL",
           "side": "Moneyline",
-          "label": "LAD ML",
-          "odds": -184,
-          "model_probability": 0.6605,
-          "book_probability": 0.6211,
-          "edge": 0.0394,
-          "ev": 1.95,
+          "label": "STL ML",
+          "odds": 156,
+          "model_probability": 0.69,
+          "book_probability": 0.3906,
+          "edge": 0.2994,
+          "ev": 76.64,
           "stake": 100.0,
           "qualified": true,
           "won": false,
           "profit": -100.0
+        },
+        {
+          "category": "parlay_2",
+          "date": "2025-04-12",
+          "matchup": "PIT @ CIN + SF @ NYY",
+          "team": "2-leg Parlay",
+          "side": "Parlay",
+          "label": "CIN ML + NYY ML",
+          "odds": 216,
+          "model_probability": 0.49,
+          "book_probability": null,
+          "edge": null,
+          "ev": 54.73,
+          "stake": 100.0,
+          "qualified": true,
+          "won": true,
+          "profit": 215.77,
+          "legs": [
+            {
+              "team": "CIN",
+              "matchup": "PIT @ CIN",
+              "odds": -122,
+              "model_probability": 0.7,
+              "book_probability": 0.5495,
+              "edge": 0.1505,
+              "won": true,
+              "confidence": "Low"
+            },
+            {
+              "team": "NYY",
+              "matchup": "SF @ NYY",
+              "odds": -136,
+              "model_probability": 0.7,
+              "book_probability": 0.5763,
+              "edge": 0.1237,
+              "won": true,
+              "confidence": "Low"
+            }
+          ]
         }
       ],
       "summary": {
-        "bets": 1,
-        "wins": 0,
+        "bets": 2,
+        "wins": 1,
         "losses": 1,
-        "staked": 100.0,
-        "profit": -100.0,
-        "roi": -1.0,
-        "hit_rate": 0.0
+        "staked": 200.0,
+        "profit": 115.77,
+        "roi": 0.5789,
+        "hit_rate": 0.5
       }
     },
     {
@@ -778,29 +876,68 @@
         {
           "category": "moneyline",
           "date": "2025-04-13",
-          "gamePk": 778330,
-          "matchup": "COL @ SD",
-          "team": "SD",
+          "gamePk": 778340,
+          "matchup": "ATL @ TB",
+          "team": "TB",
           "side": "Moneyline",
-          "label": "SD ML",
-          "odds": -248,
-          "model_probability": 0.6917,
-          "book_probability": 0.6835,
-          "edge": 0.0082,
-          "ev": -2.94,
+          "label": "TB ML",
+          "odds": 143,
+          "model_probability": 0.7,
+          "book_probability": 0.4115,
+          "edge": 0.2885,
+          "ev": 70.1,
           "stake": 100.0,
           "qualified": true,
           "won": true,
-          "profit": 40.32
+          "profit": 143.0
+        },
+        {
+          "category": "parlay_2",
+          "date": "2025-04-13",
+          "matchup": "MIL @ AZ + PIT @ CIN",
+          "team": "2-leg Parlay",
+          "side": "Parlay",
+          "label": "AZ ML + CIN ML",
+          "odds": 140,
+          "model_probability": 0.49,
+          "book_probability": null,
+          "edge": null,
+          "ev": 17.42,
+          "stake": 100.0,
+          "qualified": true,
+          "won": true,
+          "profit": 139.64,
+          "legs": [
+            {
+              "team": "AZ",
+              "matchup": "MIL @ AZ",
+              "odds": -180,
+              "model_probability": 0.7,
+              "book_probability": 0.6429,
+              "edge": 0.0571,
+              "won": true,
+              "confidence": "Low"
+            },
+            {
+              "team": "CIN",
+              "matchup": "PIT @ CIN",
+              "odds": -185,
+              "model_probability": 0.7,
+              "book_probability": 0.6491,
+              "edge": 0.0509,
+              "won": true,
+              "confidence": "Low"
+            }
+          ]
         }
       ],
       "summary": {
-        "bets": 1,
-        "wins": 1,
+        "bets": 2,
+        "wins": 2,
         "losses": 0,
-        "staked": 100.0,
-        "profit": 40.32,
-        "roi": 0.4032,
+        "staked": 200.0,
+        "profit": 282.64,
+        "roi": 1.4132,
         "hit_rate": 1.0
       }
     },
@@ -816,10 +953,10 @@
           "side": "Moneyline",
           "label": "PHI ML",
           "odds": -115,
-          "model_probability": 0.571,
-          "book_probability": 0.512,
-          "edge": 0.059,
-          "ev": 6.75,
+          "model_probability": 0.6738,
+          "book_probability": 0.5349,
+          "edge": 0.1389,
+          "ev": 25.97,
           "stake": 100.0,
           "qualified": true,
           "won": false,
@@ -842,30 +979,69 @@
         {
           "category": "moneyline",
           "date": "2025-04-15",
-          "gamePk": 778302,
-          "matchup": "COL @ LAD",
-          "team": "LAD",
+          "gamePk": 778308,
+          "matchup": "HOU @ STL",
+          "team": "STL",
           "side": "Moneyline",
-          "label": "LAD ML",
-          "odds": -361,
-          "model_probability": 0.6948,
-          "book_probability": 0.7519,
-          "edge": -0.0571,
-          "ev": -11.27,
+          "label": "STL ML",
+          "odds": 116,
+          "model_probability": 0.6554,
+          "book_probability": 0.463,
+          "edge": 0.1924,
+          "ev": 41.57,
+          "stake": 100.0,
+          "qualified": true,
+          "won": false,
+          "profit": -100.0
+        },
+        {
+          "category": "parlay_2",
+          "date": "2025-04-15",
+          "matchup": "DET @ MIL + SEA @ CIN",
+          "team": "2-leg Parlay",
+          "side": "Parlay",
+          "label": "MIL ML + CIN ML",
+          "odds": 271,
+          "model_probability": 0.49,
+          "book_probability": null,
+          "edge": null,
+          "ev": 81.75,
           "stake": 100.0,
           "qualified": true,
           "won": true,
-          "profit": 27.7
+          "profit": 270.92,
+          "legs": [
+            {
+              "team": "MIL",
+              "matchup": "DET @ MIL",
+              "odds": -108,
+              "model_probability": 0.7,
+              "book_probability": 0.5192,
+              "edge": 0.1808,
+              "won": true,
+              "confidence": "Low"
+            },
+            {
+              "team": "CIN",
+              "matchup": "SEA @ CIN",
+              "odds": -108,
+              "model_probability": 0.7,
+              "book_probability": 0.5192,
+              "edge": 0.1808,
+              "won": true,
+              "confidence": "Low"
+            }
+          ]
         }
       ],
       "summary": {
-        "bets": 1,
+        "bets": 2,
         "wins": 1,
-        "losses": 0,
-        "staked": 100.0,
-        "profit": 27.7,
-        "roi": 0.277,
-        "hit_rate": 1.0
+        "losses": 1,
+        "staked": 200.0,
+        "profit": 170.92,
+        "roi": 0.8546,
+        "hit_rate": 0.5
       }
     },
     {
@@ -874,144 +1050,16 @@
         {
           "category": "moneyline",
           "date": "2025-04-16",
-          "gamePk": 778290,
-          "matchup": "HOU @ STL",
-          "team": "STL",
+          "gamePk": 778303,
+          "matchup": "AZ @ MIA",
+          "team": "MIA",
           "side": "Moneyline",
-          "label": "STL ML",
-          "odds": -110,
-          "model_probability": 0.6005,
-          "book_probability": 0.5011,
-          "edge": 0.0994,
-          "ev": 14.64,
-          "stake": 100.0,
-          "qualified": true,
-          "won": true,
-          "profit": 90.91
-        }
-      ],
-      "summary": {
-        "bets": 1,
-        "wins": 1,
-        "losses": 0,
-        "staked": 100.0,
-        "profit": 90.91,
-        "roi": 0.9091,
-        "hit_rate": 1.0
-      }
-    },
-    {
-      "date": "2025-04-17",
-      "bets": [
-        {
-          "category": "moneyline",
-          "date": "2025-04-17",
-          "gamePk": 778279,
-          "matchup": "SF @ PHI",
-          "team": "PHI",
-          "side": "Moneyline",
-          "label": "PHI ML",
-          "odds": -214,
-          "model_probability": 0.6731,
-          "book_probability": 0.6462,
-          "edge": 0.0269,
-          "ev": -1.24,
-          "stake": 100.0,
-          "qualified": true,
-          "won": true,
-          "profit": 46.73
-        }
-      ],
-      "summary": {
-        "bets": 1,
-        "wins": 1,
-        "losses": 0,
-        "staked": 100.0,
-        "profit": 46.73,
-        "roi": 0.4673,
-        "hit_rate": 1.0
-      }
-    },
-    {
-      "date": "2025-04-18",
-      "bets": [
-        {
-          "category": "moneyline",
-          "date": "2025-04-18",
-          "gamePk": 778274,
-          "matchup": "MIA @ PHI",
-          "team": "PHI",
-          "side": "Moneyline",
-          "label": "PHI ML",
-          "odds": -234,
-          "model_probability": 0.6858,
-          "book_probability": 0.6717,
-          "edge": 0.0141,
-          "ev": -2.11,
-          "stake": 100.0,
-          "qualified": true,
-          "won": true,
-          "profit": 42.74
-        }
-      ],
-      "summary": {
-        "bets": 1,
-        "wins": 1,
-        "losses": 0,
-        "staked": 100.0,
-        "profit": 42.74,
-        "roi": 0.4274,
-        "hit_rate": 1.0
-      }
-    },
-    {
-      "date": "2025-04-19",
-      "bets": [
-        {
-          "category": "moneyline",
-          "date": "2025-04-19",
-          "gamePk": 778264,
-          "matchup": "CWS @ BOS",
-          "team": "BOS",
-          "side": "Moneyline",
-          "label": "BOS ML",
-          "odds": -362,
+          "label": "MIA ML",
+          "odds": 122,
           "model_probability": 0.7,
-          "book_probability": 0.7471,
-          "edge": -0.0471,
-          "ev": -10.66,
-          "stake": 100.0,
-          "qualified": true,
-          "won": true,
-          "profit": 27.62
-        }
-      ],
-      "summary": {
-        "bets": 1,
-        "wins": 1,
-        "losses": 0,
-        "staked": 100.0,
-        "profit": 27.62,
-        "roi": 0.2762,
-        "hit_rate": 1.0
-      }
-    },
-    {
-      "date": "2025-04-20",
-      "bets": [
-        {
-          "category": "moneyline",
-          "date": "2025-04-20",
-          "gamePk": 778248,
-          "matchup": "MIA @ PHI",
-          "team": "PHI",
-          "side": "Moneyline",
-          "label": "PHI ML",
-          "odds": -321,
-          "model_probability": 0.7165,
-          "book_probability": 0.733,
-          "edge": -0.0165,
-          "ev": -6.03,
+          "book_probability": 0.4505,
+          "edge": 0.2495,
+          "ev": 55.4,
           "stake": 100.0,
           "qualified": true,
           "won": false,
@@ -1024,6 +1072,290 @@
         "losses": 1,
         "staked": 100.0,
         "profit": -100.0,
+        "roi": -1.0,
+        "hit_rate": 0.0
+      }
+    },
+    {
+      "date": "2025-04-17",
+      "bets": [
+        {
+          "category": "moneyline",
+          "date": "2025-04-17",
+          "gamePk": 778291,
+          "matchup": "AZ @ MIA",
+          "team": "MIA",
+          "side": "Moneyline",
+          "label": "MIA ML",
+          "odds": 124,
+          "model_probability": 0.6965,
+          "book_probability": 0.4464,
+          "edge": 0.2501,
+          "ev": 56.02,
+          "stake": 100.0,
+          "qualified": true,
+          "won": false,
+          "profit": -100.0
+        },
+        {
+          "category": "parlay_2",
+          "date": "2025-04-17",
+          "matchup": "NYY @ TB + SEA @ CIN",
+          "team": "2-leg Parlay",
+          "side": "Parlay",
+          "label": "TB ML + CIN ML",
+          "odds": 233,
+          "model_probability": 0.49,
+          "book_probability": null,
+          "edge": null,
+          "ev": 63.41,
+          "stake": 100.0,
+          "qualified": true,
+          "won": false,
+          "profit": -100.0,
+          "legs": [
+            {
+              "team": "TB",
+              "matchup": "NYY @ TB",
+              "odds": -113,
+              "model_probability": 0.7,
+              "book_probability": 0.5305,
+              "edge": 0.1695,
+              "won": false,
+              "confidence": "Low"
+            },
+            {
+              "team": "CIN",
+              "matchup": "SEA @ CIN",
+              "odds": -130,
+              "model_probability": 0.7,
+              "book_probability": 0.5652,
+              "edge": 0.1348,
+              "won": false,
+              "confidence": "Low"
+            }
+          ]
+        }
+      ],
+      "summary": {
+        "bets": 2,
+        "wins": 0,
+        "losses": 2,
+        "staked": 200.0,
+        "profit": -200.0,
+        "roi": -1.0,
+        "hit_rate": 0.0
+      }
+    },
+    {
+      "date": "2025-04-18",
+      "bets": [
+        {
+          "category": "moneyline",
+          "date": "2025-04-18",
+          "gamePk": 778268,
+          "matchup": "AZ @ CHC",
+          "team": "CHC",
+          "side": "Moneyline",
+          "label": "CHC ML",
+          "odds": -106,
+          "model_probability": 0.6597,
+          "book_probability": 0.5146,
+          "edge": 0.1451,
+          "ev": 28.21,
+          "stake": 100.0,
+          "qualified": true,
+          "won": true,
+          "profit": 94.34
+        },
+        {
+          "category": "parlay_2",
+          "date": "2025-04-18",
+          "matchup": "AZ @ CHC + MIN @ ATL",
+          "team": "2-leg Parlay",
+          "side": "Parlay",
+          "label": "CHC ML + ATL ML",
+          "odds": 224,
+          "model_probability": 0.4503,
+          "book_probability": null,
+          "edge": null,
+          "ev": 45.86,
+          "stake": 100.0,
+          "qualified": true,
+          "won": true,
+          "profit": 223.9,
+          "legs": [
+            {
+              "team": "CHC",
+              "matchup": "AZ @ CHC",
+              "odds": -106,
+              "model_probability": 0.6597,
+              "book_probability": 0.5146,
+              "edge": 0.1451,
+              "won": true,
+              "confidence": "Low"
+            },
+            {
+              "team": "ATL",
+              "matchup": "MIN @ ATL",
+              "odds": -150,
+              "model_probability": 0.6826,
+              "book_probability": 0.6,
+              "edge": 0.0826,
+              "won": true,
+              "confidence": "Low"
+            }
+          ]
+        }
+      ],
+      "summary": {
+        "bets": 2,
+        "wins": 2,
+        "losses": 0,
+        "staked": 200.0,
+        "profit": 318.24,
+        "roi": 1.5912,
+        "hit_rate": 1.0
+      }
+    },
+    {
+      "date": "2025-04-19",
+      "bets": [
+        {
+          "category": "moneyline",
+          "date": "2025-04-19",
+          "gamePk": 778251,
+          "matchup": "LAD @ TEX",
+          "team": "TEX",
+          "side": "Moneyline",
+          "label": "TEX ML",
+          "odds": 105,
+          "model_probability": 0.7,
+          "book_probability": 0.4878,
+          "edge": 0.2122,
+          "ev": 43.5,
+          "stake": 100.0,
+          "qualified": true,
+          "won": true,
+          "profit": 105.0
+        },
+        {
+          "category": "parlay_2",
+          "date": "2025-04-19",
+          "matchup": "KC @ DET + AZ @ CHC",
+          "team": "2-leg Parlay",
+          "side": "Parlay",
+          "label": "DET ML + CHC ML",
+          "odds": 212,
+          "model_probability": 0.4685,
+          "book_probability": null,
+          "edge": null,
+          "ev": 46.2,
+          "stake": 100.0,
+          "qualified": true,
+          "won": true,
+          "profit": 212.05,
+          "legs": [
+            {
+              "team": "DET",
+              "matchup": "KC @ DET",
+              "odds": -133,
+              "model_probability": 0.7,
+              "book_probability": 0.5708,
+              "edge": 0.1292,
+              "won": true,
+              "confidence": "Low"
+            },
+            {
+              "team": "CHC",
+              "matchup": "AZ @ CHC",
+              "odds": -128,
+              "model_probability": 0.6693,
+              "book_probability": 0.5614,
+              "edge": 0.1079,
+              "won": true,
+              "confidence": "Low"
+            }
+          ]
+        }
+      ],
+      "summary": {
+        "bets": 2,
+        "wins": 2,
+        "losses": 0,
+        "staked": 200.0,
+        "profit": 317.05,
+        "roi": 1.5853,
+        "hit_rate": 1.0
+      }
+    },
+    {
+      "date": "2025-04-20",
+      "bets": [
+        {
+          "category": "moneyline",
+          "date": "2025-04-20",
+          "gamePk": 778234,
+          "matchup": "LAD @ TEX",
+          "team": "TEX",
+          "side": "Moneyline",
+          "label": "TEX ML",
+          "odds": 132,
+          "model_probability": 0.7,
+          "book_probability": 0.431,
+          "edge": 0.269,
+          "ev": 62.4,
+          "stake": 100.0,
+          "qualified": true,
+          "won": false,
+          "profit": -100.0
+        },
+        {
+          "category": "parlay_2",
+          "date": "2025-04-20",
+          "matchup": "ATH @ MIL + AZ @ CHC",
+          "team": "2-leg Parlay",
+          "side": "Parlay",
+          "label": "MIL ML + CHC ML",
+          "odds": 196,
+          "model_probability": 0.4709,
+          "book_probability": null,
+          "edge": null,
+          "ev": 39.26,
+          "stake": 100.0,
+          "qualified": true,
+          "won": false,
+          "profit": -100.0,
+          "legs": [
+            {
+              "team": "MIL",
+              "matchup": "ATH @ MIL",
+              "odds": -136,
+              "model_probability": 0.7,
+              "book_probability": 0.5763,
+              "edge": 0.1237,
+              "won": true,
+              "confidence": "Low"
+            },
+            {
+              "team": "CHC",
+              "matchup": "AZ @ CHC",
+              "odds": -142,
+              "model_probability": 0.6727,
+              "book_probability": 0.5868,
+              "edge": 0.0859,
+              "won": false,
+              "confidence": "Low"
+            }
+          ]
+        }
+      ],
+      "summary": {
+        "bets": 2,
+        "wins": 0,
+        "losses": 2,
+        "staked": 200.0,
+        "profit": -200.0,
         "roi": -1.0,
         "hit_rate": 0.0
       }
@@ -1034,29 +1366,68 @@
         {
           "category": "moneyline",
           "date": "2025-04-21",
-          "gamePk": 778238,
-          "matchup": "CWS @ BOS",
-          "team": "BOS",
+          "gamePk": 778225,
+          "matchup": "PHI @ NYM",
+          "team": "NYM",
           "side": "Moneyline",
-          "label": "BOS ML",
-          "odds": -300,
-          "model_probability": 0.7,
-          "book_probability": 0.7183,
-          "edge": -0.0183,
-          "ev": -6.67,
+          "label": "NYM ML",
+          "odds": -138,
+          "model_probability": 0.6724,
+          "book_probability": 0.5798,
+          "edge": 0.0926,
+          "ev": 15.96,
           "stake": 100.0,
           "qualified": true,
           "won": true,
-          "profit": 33.33
+          "profit": 72.46
+        },
+        {
+          "category": "parlay_2",
+          "date": "2025-04-21",
+          "matchup": "PHI @ NYM + SD @ DET",
+          "team": "2-leg Parlay",
+          "side": "Parlay",
+          "label": "NYM ML + DET ML",
+          "odds": 191,
+          "model_probability": 0.4492,
+          "book_probability": null,
+          "edge": null,
+          "ev": 30.91,
+          "stake": 100.0,
+          "qualified": true,
+          "won": true,
+          "profit": 191.4,
+          "legs": [
+            {
+              "team": "NYM",
+              "matchup": "PHI @ NYM",
+              "odds": -138,
+              "model_probability": 0.6724,
+              "book_probability": 0.5798,
+              "edge": 0.0926,
+              "won": true,
+              "confidence": "Low"
+            },
+            {
+              "team": "DET",
+              "matchup": "SD @ DET",
+              "odds": -145,
+              "model_probability": 0.6681,
+              "book_probability": 0.5918,
+              "edge": 0.0763,
+              "won": true,
+              "confidence": "Low"
+            }
+          ]
         }
       ],
       "summary": {
-        "bets": 1,
-        "wins": 1,
+        "bets": 2,
+        "wins": 2,
         "losses": 0,
-        "staked": 100.0,
-        "profit": 33.33,
-        "roi": 0.3333,
+        "staked": 200.0,
+        "profit": 263.86,
+        "roi": 1.3193,
         "hit_rate": 1.0
       }
     },
@@ -1066,30 +1437,69 @@
         {
           "category": "moneyline",
           "date": "2025-04-22",
-          "gamePk": 778215,
-          "matchup": "COL @ KC",
-          "team": "KC",
+          "gamePk": 778224,
+          "matchup": "SEA @ BOS",
+          "team": "BOS",
           "side": "Moneyline",
-          "label": "KC ML",
-          "odds": -262,
-          "model_probability": 0.6965,
-          "book_probability": 0.6931,
-          "edge": 0.0034,
-          "ev": -3.77,
+          "label": "BOS ML",
+          "odds": -121,
+          "model_probability": 0.7,
+          "book_probability": 0.5475,
+          "edge": 0.1525,
+          "ev": 27.85,
           "stake": 100.0,
           "qualified": true,
           "won": true,
-          "profit": 38.17
+          "profit": 82.64
+        },
+        {
+          "category": "parlay_2",
+          "date": "2025-04-22",
+          "matchup": "SEA @ BOS + SD @ DET",
+          "team": "2-leg Parlay",
+          "side": "Parlay",
+          "label": "BOS ML + DET ML",
+          "odds": 209,
+          "model_probability": 0.4738,
+          "book_probability": null,
+          "edge": null,
+          "ev": 46.23,
+          "stake": 100.0,
+          "qualified": true,
+          "won": false,
+          "profit": -100.0,
+          "legs": [
+            {
+              "team": "BOS",
+              "matchup": "SEA @ BOS",
+              "odds": -121,
+              "model_probability": 0.7,
+              "book_probability": 0.5475,
+              "edge": 0.1525,
+              "won": true,
+              "confidence": "Low"
+            },
+            {
+              "team": "DET",
+              "matchup": "SD @ DET",
+              "odds": -145,
+              "model_probability": 0.6769,
+              "book_probability": 0.5918,
+              "edge": 0.0851,
+              "won": false,
+              "confidence": "Low"
+            }
+          ]
         }
       ],
       "summary": {
-        "bets": 1,
+        "bets": 2,
         "wins": 1,
-        "losses": 0,
-        "staked": 100.0,
-        "profit": 38.17,
-        "roi": 0.3817,
-        "hit_rate": 1.0
+        "losses": 1,
+        "staked": 200.0,
+        "profit": -17.36,
+        "roi": -0.0868,
+        "hit_rate": 0.5
       }
     },
     {
@@ -1098,30 +1508,69 @@
         {
           "category": "moneyline",
           "date": "2025-04-23",
-          "gamePk": 778201,
-          "matchup": "CWS @ MIN",
-          "team": "MIN",
+          "gamePk": 778208,
+          "matchup": "CIN @ MIA",
+          "team": "MIA",
           "side": "Moneyline",
-          "label": "MIN ML",
-          "odds": -269,
-          "model_probability": 0.7,
-          "book_probability": 0.6993,
-          "edge": 0.0007,
-          "ev": -3.98,
+          "label": "MIA ML",
+          "odds": -109,
+          "model_probability": 0.6583,
+          "book_probability": 0.5215,
+          "edge": 0.1368,
+          "ev": 26.22,
           "stake": 100.0,
           "qualified": true,
-          "won": true,
-          "profit": 37.17
+          "won": false,
+          "profit": -100.0
+        },
+        {
+          "category": "parlay_2",
+          "date": "2025-04-23",
+          "matchup": "CIN @ MIA + SEA @ BOS",
+          "team": "2-leg Parlay",
+          "side": "Parlay",
+          "label": "MIA ML + BOS ML",
+          "odds": 227,
+          "model_probability": 0.4608,
+          "book_probability": null,
+          "edge": null,
+          "ev": 50.58,
+          "stake": 100.0,
+          "qualified": true,
+          "won": false,
+          "profit": -100.0,
+          "legs": [
+            {
+              "team": "MIA",
+              "matchup": "CIN @ MIA",
+              "odds": -109,
+              "model_probability": 0.6583,
+              "book_probability": 0.5215,
+              "edge": 0.1368,
+              "won": false,
+              "confidence": "Low"
+            },
+            {
+              "team": "BOS",
+              "matchup": "SEA @ BOS",
+              "odds": -142,
+              "model_probability": 0.7,
+              "book_probability": 0.5868,
+              "edge": 0.1132,
+              "won": false,
+              "confidence": "Low"
+            }
+          ]
         }
       ],
       "summary": {
-        "bets": 1,
-        "wins": 1,
-        "losses": 0,
-        "staked": 100.0,
-        "profit": 37.17,
-        "roi": 0.3717,
-        "hit_rate": 1.0
+        "bets": 2,
+        "wins": 0,
+        "losses": 2,
+        "staked": 200.0,
+        "profit": -200.0,
+        "roi": -1.0,
+        "hit_rate": 0.0
       }
     },
     {
@@ -1130,30 +1579,69 @@
         {
           "category": "moneyline",
           "date": "2025-04-24",
-          "gamePk": 778190,
-          "matchup": "COL @ KC",
-          "team": "KC",
+          "gamePk": 778188,
+          "matchup": "TB @ AZ",
+          "team": "AZ",
           "side": "Moneyline",
-          "label": "KC ML",
-          "odds": -198,
-          "model_probability": 0.6689,
-          "book_probability": 0.6378,
-          "edge": 0.0311,
-          "ev": 0.67,
+          "label": "AZ ML",
+          "odds": -162,
+          "model_probability": 0.7,
+          "book_probability": 0.6183,
+          "edge": 0.0817,
+          "ev": 13.21,
           "stake": 100.0,
           "qualified": true,
-          "won": true,
-          "profit": 50.51
+          "won": false,
+          "profit": -100.0
+        },
+        {
+          "category": "parlay_2",
+          "date": "2025-04-24",
+          "matchup": "TB @ AZ + SEA @ BOS",
+          "team": "2-leg Parlay",
+          "side": "Parlay",
+          "label": "AZ ML + BOS ML",
+          "odds": 151,
+          "model_probability": 0.49,
+          "book_probability": null,
+          "edge": null,
+          "ev": 22.79,
+          "stake": 100.0,
+          "qualified": true,
+          "won": false,
+          "profit": -100.0,
+          "legs": [
+            {
+              "team": "AZ",
+              "matchup": "TB @ AZ",
+              "odds": -162,
+              "model_probability": 0.7,
+              "book_probability": 0.6183,
+              "edge": 0.0817,
+              "won": false,
+              "confidence": "Low"
+            },
+            {
+              "team": "BOS",
+              "matchup": "SEA @ BOS",
+              "odds": -182,
+              "model_probability": 0.7,
+              "book_probability": 0.6454,
+              "edge": 0.0546,
+              "won": false,
+              "confidence": "Low"
+            }
+          ]
         }
       ],
       "summary": {
-        "bets": 1,
-        "wins": 1,
-        "losses": 0,
-        "staked": 100.0,
-        "profit": 50.51,
-        "roi": 0.5051,
-        "hit_rate": 1.0
+        "bets": 2,
+        "wins": 0,
+        "losses": 2,
+        "staked": 200.0,
+        "profit": -200.0,
+        "roi": -1.0,
+        "hit_rate": 0.0
       }
     },
     {
@@ -1162,20 +1650,20 @@
         {
           "category": "moneyline",
           "date": "2025-04-25",
-          "gamePk": 778186,
-          "matchup": "LAA @ MIN",
-          "team": "MIN",
+          "gamePk": 778182,
+          "matchup": "PHI @ CHC",
+          "team": "CHC",
           "side": "Moneyline",
-          "label": "MIN ML",
-          "odds": -227,
-          "model_probability": 0.6793,
-          "book_probability": 0.6587,
-          "edge": 0.0206,
-          "ev": -2.14,
+          "label": "CHC ML",
+          "odds": -160,
+          "model_probability": 0.7,
+          "book_probability": 0.6154,
+          "edge": 0.0846,
+          "ev": 13.75,
           "stake": 100.0,
           "qualified": true,
           "won": true,
-          "profit": 44.05
+          "profit": 62.5
         }
       ],
       "summary": {
@@ -1183,8 +1671,8 @@
         "wins": 1,
         "losses": 0,
         "staked": 100.0,
-        "profit": 44.05,
-        "roi": 0.4405,
+        "profit": 62.5,
+        "roi": 0.625,
         "hit_rate": 1.0
       }
     },
@@ -1194,30 +1682,69 @@
         {
           "category": "moneyline",
           "date": "2025-04-26",
-          "gamePk": 778154,
-          "matchup": "MIA @ SEA",
-          "team": "SEA",
+          "gamePk": 778179,
+          "matchup": "BOS @ CLE",
+          "team": "CLE",
           "side": "Moneyline",
-          "label": "SEA ML",
-          "odds": -300,
-          "model_probability": 0.7097,
-          "book_probability": 0.7195,
-          "edge": -0.0098,
-          "ev": -5.37,
+          "label": "CLE ML",
+          "odds": 143,
+          "model_probability": 0.7,
+          "book_probability": 0.4115,
+          "edge": 0.2885,
+          "ev": 70.1,
           "stake": 100.0,
           "qualified": true,
           "won": true,
-          "profit": 33.33
+          "profit": 143.0
+        },
+        {
+          "category": "parlay_2",
+          "date": "2025-04-26",
+          "matchup": "TEX @ SF + TB @ SD",
+          "team": "2-leg Parlay",
+          "side": "Parlay",
+          "label": "SF ML + SD ML",
+          "odds": 187,
+          "model_probability": 0.4717,
+          "book_probability": null,
+          "edge": null,
+          "ev": 35.46,
+          "stake": 100.0,
+          "qualified": true,
+          "won": false,
+          "profit": -100.0,
+          "legs": [
+            {
+              "team": "SF",
+              "matchup": "TEX @ SF",
+              "odds": -142,
+              "model_probability": 0.7,
+              "book_probability": 0.5868,
+              "edge": 0.1132,
+              "won": true,
+              "confidence": "Low"
+            },
+            {
+              "team": "SD",
+              "matchup": "TB @ SD",
+              "odds": -146,
+              "model_probability": 0.6739,
+              "book_probability": 0.5935,
+              "edge": 0.0804,
+              "won": false,
+              "confidence": "Low"
+            }
+          ]
         }
       ],
       "summary": {
-        "bets": 1,
+        "bets": 2,
         "wins": 1,
-        "losses": 0,
-        "staked": 100.0,
-        "profit": 33.33,
-        "roi": 0.3333,
-        "hit_rate": 1.0
+        "losses": 1,
+        "staked": 200.0,
+        "profit": 43.0,
+        "roi": 0.215,
+        "hit_rate": 0.5
       }
     },
     {
@@ -1226,30 +1753,69 @@
         {
           "category": "moneyline",
           "date": "2025-04-27",
-          "gamePk": 778145,
-          "matchup": "PIT @ LAD",
-          "team": "LAD",
+          "gamePk": 778147,
+          "matchup": "ATL @ AZ",
+          "team": "AZ",
           "side": "Moneyline",
-          "label": "LAD ML",
-          "odds": -348,
-          "model_probability": 0.7225,
-          "book_probability": 0.7449,
-          "edge": -0.0224,
-          "ev": -6.99,
+          "label": "AZ ML",
+          "odds": 104,
+          "model_probability": 0.7,
+          "book_probability": 0.4902,
+          "edge": 0.2098,
+          "ev": 42.8,
           "stake": 100.0,
           "qualified": true,
           "won": true,
-          "profit": 28.74
+          "profit": 104.0
+        },
+        {
+          "category": "parlay_2",
+          "date": "2025-04-27",
+          "matchup": "PHI @ CHC + TOR @ NYY",
+          "team": "2-leg Parlay",
+          "side": "Parlay",
+          "label": "CHC ML + NYY ML",
+          "odds": 189,
+          "model_probability": 0.49,
+          "book_probability": null,
+          "edge": null,
+          "ev": 41.81,
+          "stake": 100.0,
+          "qualified": true,
+          "won": false,
+          "profit": -100.0,
+          "legs": [
+            {
+              "team": "CHC",
+              "matchup": "PHI @ CHC",
+              "odds": -126,
+              "model_probability": 0.7,
+              "book_probability": 0.5575,
+              "edge": 0.1425,
+              "won": false,
+              "confidence": "Low"
+            },
+            {
+              "team": "NYY",
+              "matchup": "TOR @ NYY",
+              "odds": -163,
+              "model_probability": 0.7,
+              "book_probability": 0.6198,
+              "edge": 0.0802,
+              "won": true,
+              "confidence": "Low"
+            }
+          ]
         }
       ],
       "summary": {
-        "bets": 1,
+        "bets": 2,
         "wins": 1,
-        "losses": 0,
-        "staked": 100.0,
-        "profit": 28.74,
-        "roi": 0.2874,
-        "hit_rate": 1.0
+        "losses": 1,
+        "staked": 200.0,
+        "profit": 4.0,
+        "roi": 0.02,
+        "hit_rate": 0.5
       }
     },
     {
@@ -1258,30 +1824,30 @@
         {
           "category": "moneyline",
           "date": "2025-04-28",
-          "gamePk": 778139,
-          "matchup": "MIN @ CLE",
-          "team": "CLE",
+          "gamePk": 778140,
+          "matchup": "NYY @ BAL",
+          "team": "BAL",
           "side": "Moneyline",
-          "label": "CLE ML",
-          "odds": -125,
-          "model_probability": 0.6168,
-          "book_probability": 0.5337,
-          "edge": 0.0831,
-          "ev": 11.02,
+          "label": "BAL ML",
+          "odds": 113,
+          "model_probability": 0.6808,
+          "book_probability": 0.4695,
+          "edge": 0.2113,
+          "ev": 45.01,
           "stake": 100.0,
           "qualified": true,
-          "won": false,
-          "profit": -100.0
+          "won": true,
+          "profit": 113.0
         }
       ],
       "summary": {
         "bets": 1,
-        "wins": 0,
-        "losses": 1,
+        "wins": 1,
+        "losses": 0,
         "staked": 100.0,
-        "profit": -100.0,
-        "roi": -1.0,
-        "hit_rate": 0.0
+        "profit": 113.0,
+        "roi": 1.13,
+        "hit_rate": 1.0
       }
     },
     {
@@ -1290,29 +1856,68 @@
         {
           "category": "moneyline",
           "date": "2025-04-29",
-          "gamePk": 778123,
-          "matchup": "MIA @ LAD",
-          "team": "LAD",
+          "gamePk": 778122,
+          "matchup": "ATH @ TEX",
+          "team": "TEX",
           "side": "Moneyline",
-          "label": "LAD ML",
-          "odds": -292,
-          "model_probability": 0.6699,
-          "book_probability": 0.7145,
-          "edge": -0.0446,
-          "ev": -10.07,
+          "label": "TEX ML",
+          "odds": -110,
+          "model_probability": 0.6744,
+          "book_probability": 0.5238,
+          "edge": 0.1506,
+          "ev": 28.75,
           "stake": 100.0,
           "qualified": true,
           "won": true,
-          "profit": 34.25
+          "profit": 90.91
+        },
+        {
+          "category": "parlay_2",
+          "date": "2025-04-29",
+          "matchup": "ATH @ TEX + MIN @ CLE",
+          "team": "2-leg Parlay",
+          "side": "Parlay",
+          "label": "TEX ML + CLE ML",
+          "odds": 233,
+          "model_probability": 0.4721,
+          "book_probability": null,
+          "edge": null,
+          "ev": 57.38,
+          "stake": 100.0,
+          "qualified": true,
+          "won": true,
+          "profit": 233.38,
+          "legs": [
+            {
+              "team": "TEX",
+              "matchup": "ATH @ TEX",
+              "odds": -110,
+              "model_probability": 0.6744,
+              "book_probability": 0.5238,
+              "edge": 0.1506,
+              "won": true,
+              "confidence": "Low"
+            },
+            {
+              "team": "CLE",
+              "matchup": "MIN @ CLE",
+              "odds": -134,
+              "model_probability": 0.7,
+              "book_probability": 0.5726,
+              "edge": 0.1274,
+              "won": true,
+              "confidence": "Low"
+            }
+          ]
         }
       ],
       "summary": {
-        "bets": 1,
-        "wins": 1,
+        "bets": 2,
+        "wins": 2,
         "losses": 0,
-        "staked": 100.0,
-        "profit": 34.25,
-        "roi": 0.3425,
+        "staked": 200.0,
+        "profit": 324.29,
+        "roi": 1.6214,
         "hit_rate": 1.0
       }
     },
@@ -1322,29 +1927,68 @@
         {
           "category": "moneyline",
           "date": "2025-04-30",
-          "gamePk": 778109,
-          "matchup": "MIA @ LAD",
-          "team": "LAD",
+          "gamePk": 778116,
+          "matchup": "MIN @ CLE",
+          "team": "CLE",
           "side": "Moneyline",
-          "label": "LAD ML",
-          "odds": -336,
-          "model_probability": 0.6712,
-          "book_probability": 0.7398,
-          "edge": -0.0686,
-          "ev": -12.9,
+          "label": "CLE ML",
+          "odds": -108,
+          "model_probability": 0.7,
+          "book_probability": 0.5192,
+          "edge": 0.1808,
+          "ev": 34.81,
           "stake": 100.0,
           "qualified": true,
           "won": true,
-          "profit": 29.76
+          "profit": 92.59
+        },
+        {
+          "category": "parlay_2",
+          "date": "2025-04-30",
+          "matchup": "MIN @ CLE + BOS @ TOR",
+          "team": "2-leg Parlay",
+          "side": "Parlay",
+          "label": "CLE ML + TOR ML",
+          "odds": 269,
+          "model_probability": 0.49,
+          "book_probability": null,
+          "edge": null,
+          "ev": 80.95,
+          "stake": 100.0,
+          "qualified": true,
+          "won": true,
+          "profit": 269.28,
+          "legs": [
+            {
+              "team": "CLE",
+              "matchup": "MIN @ CLE",
+              "odds": -108,
+              "model_probability": 0.7,
+              "book_probability": 0.5192,
+              "edge": 0.1808,
+              "won": true,
+              "confidence": "Low"
+            },
+            {
+              "team": "TOR",
+              "matchup": "BOS @ TOR",
+              "odds": -109,
+              "model_probability": 0.7,
+              "book_probability": 0.5215,
+              "edge": 0.1785,
+              "won": true,
+              "confidence": "Low"
+            }
+          ]
         }
       ],
       "summary": {
-        "bets": 1,
-        "wins": 1,
+        "bets": 2,
+        "wins": 2,
         "losses": 0,
-        "staked": 100.0,
-        "profit": 29.76,
-        "roi": 0.2976,
+        "staked": 200.0,
+        "profit": 361.87,
+        "roi": 1.8094,
         "hit_rate": 1.0
       }
     },
@@ -1354,16 +1998,87 @@
         {
           "category": "moneyline",
           "date": "2025-05-01",
-          "gamePk": 778096,
-          "matchup": "ATH @ TEX",
-          "team": "TEX",
+          "gamePk": 778094,
+          "matchup": "MIL @ CWS",
+          "team": "CWS",
           "side": "Moneyline",
-          "label": "TEX ML",
-          "odds": -157,
-          "model_probability": 0.6432,
-          "book_probability": 0.5863,
-          "edge": 0.0569,
-          "ev": 5.29,
+          "label": "CWS ML",
+          "odds": 138,
+          "model_probability": 0.6303,
+          "book_probability": 0.4202,
+          "edge": 0.2101,
+          "ev": 50.01,
+          "stake": 100.0,
+          "qualified": true,
+          "won": true,
+          "profit": 138.0
+        },
+        {
+          "category": "parlay_2",
+          "date": "2025-05-01",
+          "matchup": "CHC @ PIT + ATH @ TEX",
+          "team": "2-leg Parlay",
+          "side": "Parlay",
+          "label": "PIT ML + TEX ML",
+          "odds": 193,
+          "model_probability": 0.4722,
+          "book_probability": null,
+          "edge": null,
+          "ev": 38.17,
+          "stake": 100.0,
+          "qualified": true,
+          "won": false,
+          "profit": -100.0,
+          "legs": [
+            {
+              "team": "PIT",
+              "matchup": "CHC @ PIT",
+              "odds": -127,
+              "model_probability": 0.6746,
+              "book_probability": 0.5595,
+              "edge": 0.1151,
+              "won": false,
+              "confidence": "Low"
+            },
+            {
+              "team": "TEX",
+              "matchup": "ATH @ TEX",
+              "odds": -157,
+              "model_probability": 0.7,
+              "book_probability": 0.6109,
+              "edge": 0.0891,
+              "won": false,
+              "confidence": "Low"
+            }
+          ]
+        }
+      ],
+      "summary": {
+        "bets": 2,
+        "wins": 1,
+        "losses": 1,
+        "staked": 200.0,
+        "profit": 38.0,
+        "roi": 0.19,
+        "hit_rate": 0.5
+      }
+    },
+    {
+      "date": "2025-05-02",
+      "bets": [
+        {
+          "category": "moneyline",
+          "date": "2025-05-02",
+          "gamePk": 778091,
+          "matchup": "ATH @ MIA",
+          "team": "MIA",
+          "side": "Moneyline",
+          "label": "MIA ML",
+          "odds": 113,
+          "model_probability": 0.7,
+          "book_probability": 0.4695,
+          "edge": 0.2305,
+          "ev": 49.1,
           "stake": 100.0,
           "qualified": true,
           "won": false,
@@ -1381,67 +2096,74 @@
       }
     },
     {
-      "date": "2025-05-02",
-      "bets": [
-        {
-          "category": "moneyline",
-          "date": "2025-05-02",
-          "gamePk": 778082,
-          "matchup": "COL @ SF",
-          "team": "SF",
-          "side": "Moneyline",
-          "label": "SF ML",
-          "odds": -280,
-          "model_probability": 0.7033,
-          "book_probability": 0.7067,
-          "edge": -0.0034,
-          "ev": -4.55,
-          "stake": 100.0,
-          "qualified": true,
-          "won": true,
-          "profit": 35.71
-        }
-      ],
-      "summary": {
-        "bets": 1,
-        "wins": 1,
-        "losses": 0,
-        "staked": 100.0,
-        "profit": 35.71,
-        "roi": 0.3571,
-        "hit_rate": 1.0
-      }
-    },
-    {
       "date": "2025-05-03",
       "bets": [
         {
           "category": "moneyline",
           "date": "2025-05-03",
-          "gamePk": 778069,
-          "matchup": "COL @ SF",
-          "team": "SF",
+          "gamePk": 778076,
+          "matchup": "LAD @ ATL",
+          "team": "ATL",
           "side": "Moneyline",
-          "label": "SF ML",
-          "odds": -320,
-          "model_probability": 0.7101,
-          "book_probability": 0.7203,
-          "edge": -0.0102,
-          "ev": -6.8,
+          "label": "ATL ML",
+          "odds": -132,
+          "model_probability": 0.6691,
+          "book_probability": 0.569,
+          "edge": 0.1001,
+          "ev": 17.6,
           "stake": 100.0,
           "qualified": true,
-          "won": true,
-          "profit": 31.25
+          "won": false,
+          "profit": -100.0
+        },
+        {
+          "category": "parlay_2",
+          "date": "2025-05-03",
+          "matchup": "LAD @ ATL + CLE @ TOR",
+          "team": "2-leg Parlay",
+          "side": "Parlay",
+          "label": "ATL ML + TOR ML",
+          "odds": 184,
+          "model_probability": 0.4522,
+          "book_probability": null,
+          "edge": null,
+          "ev": 28.55,
+          "stake": 100.0,
+          "qualified": true,
+          "won": false,
+          "profit": -100.0,
+          "legs": [
+            {
+              "team": "ATL",
+              "matchup": "LAD @ ATL",
+              "odds": -132,
+              "model_probability": 0.6691,
+              "book_probability": 0.569,
+              "edge": 0.1001,
+              "won": false,
+              "confidence": "Low"
+            },
+            {
+              "team": "TOR",
+              "matchup": "CLE @ TOR",
+              "odds": -162,
+              "model_probability": 0.6759,
+              "book_probability": 0.6183,
+              "edge": 0.0576,
+              "won": false,
+              "confidence": "Low"
+            }
+          ]
         }
       ],
       "summary": {
-        "bets": 1,
-        "wins": 1,
-        "losses": 0,
-        "staked": 100.0,
-        "profit": 31.25,
-        "roi": 0.3125,
-        "hit_rate": 1.0
+        "bets": 2,
+        "wins": 0,
+        "losses": 2,
+        "staked": 200.0,
+        "profit": -200.0,
+        "roi": -1.0,
+        "hit_rate": 0.0
       }
     },
     {
@@ -1450,29 +2172,68 @@
         {
           "category": "moneyline",
           "date": "2025-05-04",
-          "gamePk": 778048,
-          "matchup": "COL @ SF",
-          "team": "SF",
+          "gamePk": 778053,
+          "matchup": "NYM @ STL",
+          "team": "STL",
           "side": "Moneyline",
-          "label": "SF ML",
-          "odds": -412,
-          "model_probability": 0.7363,
-          "book_probability": 0.7725,
-          "edge": -0.0362,
-          "ev": -8.5,
+          "label": "STL ML",
+          "odds": 129,
+          "model_probability": 0.7,
+          "book_probability": 0.4367,
+          "edge": 0.2633,
+          "ev": 60.3,
           "stake": 100.0,
           "qualified": true,
           "won": true,
-          "profit": 24.27
+          "profit": 129.0
+        },
+        {
+          "category": "parlay_2",
+          "date": "2025-05-04",
+          "matchup": "DET @ LAA + SEA @ TEX",
+          "team": "2-leg Parlay",
+          "side": "Parlay",
+          "label": "DET ML + TEX ML",
+          "odds": 145,
+          "model_probability": 0.49,
+          "book_probability": null,
+          "edge": null,
+          "ev": 20.26,
+          "stake": 100.0,
+          "qualified": true,
+          "won": true,
+          "profit": 145.43,
+          "legs": [
+            {
+              "team": "DET",
+              "matchup": "DET @ LAA",
+              "odds": -175,
+              "model_probability": 0.7,
+              "book_probability": 0.6364,
+              "edge": 0.0636,
+              "won": true,
+              "confidence": "Low"
+            },
+            {
+              "team": "TEX",
+              "matchup": "SEA @ TEX",
+              "odds": -178,
+              "model_probability": 0.7,
+              "book_probability": 0.6403,
+              "edge": 0.0597,
+              "won": true,
+              "confidence": "Low"
+            }
+          ]
         }
       ],
       "summary": {
-        "bets": 1,
-        "wins": 1,
+        "bets": 2,
+        "wins": 2,
         "losses": 0,
-        "staked": 100.0,
-        "profit": 24.27,
-        "roi": 0.2427,
+        "staked": 200.0,
+        "profit": 274.43,
+        "roi": 1.3721,
         "hit_rate": 1.0
       }
     },
@@ -1482,30 +2243,69 @@
         {
           "category": "moneyline",
           "date": "2025-05-05",
-          "gamePk": 778044,
-          "matchup": "SF @ CHC",
-          "team": "CHC",
+          "gamePk": 778045,
+          "matchup": "SD @ NYY",
+          "team": "NYY",
           "side": "Moneyline",
-          "label": "CHC ML",
-          "odds": -178,
-          "model_probability": 0.6539,
-          "book_probability": 0.6078,
-          "edge": 0.0461,
-          "ev": 2.13,
+          "label": "NYY ML",
+          "odds": -160,
+          "model_probability": 0.7,
+          "book_probability": 0.6154,
+          "edge": 0.0846,
+          "ev": 13.75,
           "stake": 100.0,
           "qualified": true,
-          "won": true,
-          "profit": 56.18
+          "won": false,
+          "profit": -100.0
+        },
+        {
+          "category": "parlay_2",
+          "date": "2025-05-05",
+          "matchup": "SD @ NYY + SF @ CHC",
+          "team": "2-leg Parlay",
+          "side": "Parlay",
+          "label": "NYY ML + CHC ML",
+          "odds": 154,
+          "model_probability": 0.49,
+          "book_probability": null,
+          "edge": null,
+          "ev": 24.36,
+          "stake": 100.0,
+          "qualified": true,
+          "won": false,
+          "profit": -100.0,
+          "legs": [
+            {
+              "team": "NYY",
+              "matchup": "SD @ NYY",
+              "odds": -160,
+              "model_probability": 0.7,
+              "book_probability": 0.6154,
+              "edge": 0.0846,
+              "won": false,
+              "confidence": "Low"
+            },
+            {
+              "team": "CHC",
+              "matchup": "SF @ CHC",
+              "odds": -178,
+              "model_probability": 0.7,
+              "book_probability": 0.6403,
+              "edge": 0.0597,
+              "won": true,
+              "confidence": "Low"
+            }
+          ]
         }
       ],
       "summary": {
-        "bets": 1,
-        "wins": 1,
-        "losses": 0,
-        "staked": 100.0,
-        "profit": 56.18,
-        "roi": 0.5618,
-        "hit_rate": 1.0
+        "bets": 2,
+        "wins": 0,
+        "losses": 2,
+        "staked": 200.0,
+        "profit": -200.0,
+        "roi": -1.0,
+        "hit_rate": 0.0
       }
     },
     {
@@ -1514,29 +2314,68 @@
         {
           "category": "moneyline",
           "date": "2025-05-06",
-          "gamePk": 778028,
-          "matchup": "BAL @ MIN",
-          "team": "MIN",
+          "gamePk": 778041,
+          "matchup": "SD @ NYY",
+          "team": "NYY",
           "side": "Moneyline",
-          "label": "MIN ML",
-          "odds": -171,
-          "model_probability": 0.6501,
-          "book_probability": 0.6003,
-          "edge": 0.0498,
-          "ev": 3.03,
+          "label": "NYY ML",
+          "odds": -126,
+          "model_probability": 0.7,
+          "book_probability": 0.5575,
+          "edge": 0.1425,
+          "ev": 25.56,
           "stake": 100.0,
           "qualified": true,
           "won": true,
-          "profit": 58.48
+          "profit": 79.37
+        },
+        {
+          "category": "parlay_2",
+          "date": "2025-05-06",
+          "matchup": "SD @ NYY + BAL @ MIN",
+          "team": "2-leg Parlay",
+          "side": "Parlay",
+          "label": "NYY ML + MIN ML",
+          "odds": 184,
+          "model_probability": 0.49,
+          "book_probability": null,
+          "edge": null,
+          "ev": 39.29,
+          "stake": 100.0,
+          "qualified": true,
+          "won": true,
+          "profit": 184.26,
+          "legs": [
+            {
+              "team": "NYY",
+              "matchup": "SD @ NYY",
+              "odds": -126,
+              "model_probability": 0.7,
+              "book_probability": 0.5575,
+              "edge": 0.1425,
+              "won": true,
+              "confidence": "Low"
+            },
+            {
+              "team": "MIN",
+              "matchup": "BAL @ MIN",
+              "odds": -171,
+              "model_probability": 0.7,
+              "book_probability": 0.631,
+              "edge": 0.069,
+              "won": true,
+              "confidence": "Low"
+            }
+          ]
         }
       ],
       "summary": {
-        "bets": 1,
-        "wins": 1,
+        "bets": 2,
+        "wins": 2,
         "losses": 0,
-        "staked": 100.0,
-        "profit": 58.48,
-        "roi": 0.5848,
+        "staked": 200.0,
+        "profit": 263.63,
+        "roi": 1.3181,
         "hit_rate": 1.0
       }
     },
@@ -1546,94 +2385,69 @@
         {
           "category": "moneyline",
           "date": "2025-05-07",
-          "gamePk": 778016,
-          "matchup": "PIT @ STL",
-          "team": "STL",
+          "gamePk": 778015,
+          "matchup": "HOU @ MIL",
+          "team": "MIL",
           "side": "Moneyline",
-          "label": "STL ML",
-          "odds": -190,
-          "model_probability": 0.6605,
-          "book_probability": 0.6209,
-          "edge": 0.0396,
-          "ev": 0.81,
+          "label": "MIL ML",
+          "odds": 112,
+          "model_probability": 0.6507,
+          "book_probability": 0.4717,
+          "edge": 0.179,
+          "ev": 37.95,
+          "stake": 100.0,
+          "qualified": true,
+          "won": false,
+          "profit": -100.0
+        },
+        {
+          "category": "parlay_2",
+          "date": "2025-05-07",
+          "matchup": "SEA @ ATH + PHI @ TB",
+          "team": "2-leg Parlay",
+          "side": "Parlay",
+          "label": "SEA ML + PHI ML",
+          "odds": 177,
+          "model_probability": 0.4672,
+          "book_probability": null,
+          "edge": null,
+          "ev": 29.53,
           "stake": 100.0,
           "qualified": true,
           "won": true,
-          "profit": 52.63
+          "profit": 177.25,
+          "legs": [
+            {
+              "team": "SEA",
+              "matchup": "SEA @ ATH",
+              "odds": -140,
+              "model_probability": 0.6674,
+              "book_probability": 0.5833,
+              "edge": 0.0841,
+              "won": true,
+              "confidence": "Low"
+            },
+            {
+              "team": "PHI",
+              "matchup": "PHI @ TB",
+              "odds": -162,
+              "model_probability": 0.7,
+              "book_probability": 0.6183,
+              "edge": 0.0817,
+              "won": true,
+              "confidence": "Low"
+            }
+          ]
         }
       ],
       "summary": {
-        "bets": 1,
+        "bets": 2,
         "wins": 1,
-        "losses": 0,
-        "staked": 100.0,
-        "profit": 52.63,
-        "roi": 0.5263,
-        "hit_rate": 1.0
-      }
-    },
-    {
-      "date": "2025-05-08",
-      "bets": [
-        {
-          "category": "moneyline",
-          "date": "2025-05-08",
-          "gamePk": 778008,
-          "matchup": "CWS @ KC",
-          "team": "CWS",
-          "side": "Moneyline",
-          "label": "CWS ML",
-          "odds": 205,
-          "model_probability": 0.4294,
-          "book_probability": 0.3139,
-          "edge": 0.1155,
-          "ev": 30.97,
-          "stake": 100.0,
-          "qualified": false,
-          "won": false,
-          "profit": -100.0
-        }
-      ],
-      "summary": {
-        "bets": 1,
-        "wins": 0,
         "losses": 1,
-        "staked": 100.0,
-        "profit": -100.0,
-        "roi": -1.0,
-        "hit_rate": 0.0
-      }
-    },
-    {
-      "date": "2025-05-09",
-      "bets": [
-        {
-          "category": "moneyline",
-          "date": "2025-05-09",
-          "gamePk": 777998,
-          "matchup": "ATL @ PIT",
-          "team": "PIT",
-          "side": "Moneyline",
-          "label": "PIT ML",
-          "odds": 128,
-          "model_probability": 0.5093,
-          "book_probability": 0.4198,
-          "edge": 0.0895,
-          "ev": 16.12,
-          "stake": 100.0,
-          "qualified": false,
-          "won": true,
-          "profit": 128.0
-        }
-      ],
-      "summary": {
-        "bets": 1,
-        "wins": 1,
-        "losses": 0,
-        "staked": 100.0,
-        "profit": 128.0,
-        "roi": 1.28,
-        "hit_rate": 1.0
+        "staked": 200.0,
+        "profit": 77.25,
+        "roi": 0.3862,
+        "hit_rate": 0.5
       }
     },
     {
@@ -1642,20 +2456,20 @@
         {
           "category": "moneyline",
           "date": "2025-05-10",
-          "gamePk": 777976,
-          "matchup": "SD @ COL",
-          "team": "SD",
+          "gamePk": 777973,
+          "matchup": "BAL @ LAA",
+          "team": "LAA",
           "side": "Moneyline",
-          "label": "SD ML",
-          "odds": -187,
-          "model_probability": 0.6626,
-          "book_probability": 0.6252,
-          "edge": 0.0374,
-          "ev": 1.69,
+          "label": "LAA ML",
+          "odds": 119,
+          "model_probability": 0.7,
+          "book_probability": 0.4566,
+          "edge": 0.2434,
+          "ev": 53.3,
           "stake": 100.0,
           "qualified": true,
           "won": true,
-          "profit": 53.48
+          "profit": 119.0
         }
       ],
       "summary": {
@@ -1663,8 +2477,8 @@
         "wins": 1,
         "losses": 0,
         "staked": 100.0,
-        "profit": 53.48,
-        "roi": 0.5348,
+        "profit": 119.0,
+        "roi": 1.19,
         "hit_rate": 1.0
       }
     },
@@ -1674,94 +2488,69 @@
         {
           "category": "moneyline",
           "date": "2025-05-11",
-          "gamePk": 777955,
-          "matchup": "SD @ COL",
-          "team": "SD",
+          "gamePk": 777963,
+          "matchup": "CIN @ HOU",
+          "team": "HOU",
           "side": "Moneyline",
-          "label": "SD ML",
-          "odds": -330,
-          "model_probability": 0.6753,
-          "book_probability": 0.7353,
-          "edge": -0.06,
-          "ev": -12.01,
-          "stake": 100.0,
-          "qualified": true,
-          "won": false,
-          "profit": -100.0
-        }
-      ],
-      "summary": {
-        "bets": 1,
-        "wins": 0,
-        "losses": 1,
-        "staked": 100.0,
-        "profit": -100.0,
-        "roi": -1.0,
-        "hit_rate": 0.0
-      }
-    },
-    {
-      "date": "2025-05-12",
-      "bets": [
-        {
-          "category": "moneyline",
-          "date": "2025-05-12",
-          "gamePk": 777952,
-          "matchup": "MIA @ CHC",
-          "team": "CHC",
-          "side": "Moneyline",
-          "label": "CHC ML",
-          "odds": -262,
-          "model_probability": 0.6921,
-          "book_probability": 0.6931,
-          "edge": -0.001,
-          "ev": -4.37,
+          "label": "HOU ML",
+          "odds": -151,
+          "model_probability": 0.7,
+          "book_probability": 0.6016,
+          "edge": 0.0984,
+          "ev": 16.36,
           "stake": 100.0,
           "qualified": true,
           "won": true,
-          "profit": 38.17
-        }
-      ],
-      "summary": {
-        "bets": 1,
-        "wins": 1,
-        "losses": 0,
-        "staked": 100.0,
-        "profit": 38.17,
-        "roi": 0.3817,
-        "hit_rate": 1.0
-      }
-    },
-    {
-      "date": "2025-05-13",
-      "bets": [
+          "profit": 66.23
+        },
         {
-          "category": "moneyline",
-          "date": "2025-05-13",
-          "gamePk": 777945,
-          "matchup": "CWS @ CIN",
-          "team": "CIN",
-          "side": "Moneyline",
-          "label": "CIN ML",
-          "odds": -221,
-          "model_probability": 0.7,
-          "book_probability": 0.6535,
-          "edge": 0.0465,
-          "ev": 1.67,
+          "category": "parlay_2",
+          "date": "2025-05-11",
+          "matchup": "CIN @ HOU + BOS @ KC",
+          "team": "2-leg Parlay",
+          "side": "Parlay",
+          "label": "HOU ML + KC ML",
+          "odds": 188,
+          "model_probability": 0.4551,
+          "book_probability": null,
+          "edge": null,
+          "ev": 31.28,
           "stake": 100.0,
           "qualified": true,
           "won": false,
-          "profit": -100.0
+          "profit": -100.0,
+          "legs": [
+            {
+              "team": "HOU",
+              "matchup": "CIN @ HOU",
+              "odds": -151,
+              "model_probability": 0.7,
+              "book_probability": 0.6016,
+              "edge": 0.0984,
+              "won": true,
+              "confidence": "Low"
+            },
+            {
+              "team": "KC",
+              "matchup": "BOS @ KC",
+              "odds": -136,
+              "model_probability": 0.6502,
+              "book_probability": 0.5763,
+              "edge": 0.0739,
+              "won": false,
+              "confidence": "Low"
+            }
+          ]
         }
       ],
       "summary": {
-        "bets": 1,
-        "wins": 0,
+        "bets": 2,
+        "wins": 1,
         "losses": 1,
-        "staked": 100.0,
-        "profit": -100.0,
-        "roi": -1.0,
-        "hit_rate": 0.0
+        "staked": 200.0,
+        "profit": -33.77,
+        "roi": -0.1688,
+        "hit_rate": 0.5
       }
     },
     {
@@ -1770,52 +2559,20 @@
         {
           "category": "moneyline",
           "date": "2025-05-14",
-          "gamePk": 777919,
-          "matchup": "PIT @ NYM",
-          "team": "NYM",
+          "gamePk": 777938,
+          "matchup": "MIN @ BAL",
+          "team": "MIN",
           "side": "Moneyline",
-          "label": "NYM ML",
-          "odds": -274,
-          "model_probability": 0.7011,
-          "book_probability": 0.7023,
-          "edge": -0.0012,
-          "ev": -4.3,
-          "stake": 100.0,
-          "qualified": true,
-          "won": false,
-          "profit": -100.0
-        }
-      ],
-      "summary": {
-        "bets": 1,
-        "wins": 0,
-        "losses": 1,
-        "staked": 100.0,
-        "profit": -100.0,
-        "roi": -1.0,
-        "hit_rate": 0.0
-      }
-    },
-    {
-      "date": "2025-05-15",
-      "bets": [
-        {
-          "category": "moneyline",
-          "date": "2025-05-15",
-          "gamePk": 777912,
-          "matchup": "CWS @ CIN",
-          "team": "CIN",
-          "side": "Moneyline",
-          "label": "CIN ML",
-          "odds": -257,
-          "model_probability": 0.7,
-          "book_probability": 0.6835,
-          "edge": 0.0165,
-          "ev": -2.76,
+          "label": "MIN ML",
+          "odds": 118,
+          "model_probability": 0.6689,
+          "book_probability": 0.4587,
+          "edge": 0.2102,
+          "ev": 45.82,
           "stake": 100.0,
           "qualified": true,
           "won": true,
-          "profit": 38.91
+          "profit": 118.0
         }
       ],
       "summary": {
@@ -1823,8 +2580,8 @@
         "wins": 1,
         "losses": 0,
         "staked": 100.0,
-        "profit": 38.91,
-        "roi": 0.3891,
+        "profit": 118.0,
+        "roi": 1.18,
         "hit_rate": 1.0
       }
     },
@@ -1834,112 +2591,16 @@
         {
           "category": "moneyline",
           "date": "2025-05-16",
-          "gamePk": 777905,
-          "matchup": "PIT @ PHI",
-          "team": "PHI",
+          "gamePk": 777901,
+          "matchup": "STL @ KC",
+          "team": "KC",
           "side": "Moneyline",
-          "label": "PHI ML",
-          "odds": -245,
-          "model_probability": 0.6906,
-          "book_probability": 0.6813,
-          "edge": 0.0093,
-          "ev": -2.75,
-          "stake": 100.0,
-          "qualified": true,
-          "won": true,
-          "profit": 40.82
-        }
-      ],
-      "summary": {
-        "bets": 1,
-        "wins": 1,
-        "losses": 0,
-        "staked": 100.0,
-        "profit": 40.82,
-        "roi": 0.4082,
-        "hit_rate": 1.0
-      }
-    },
-    {
-      "date": "2025-05-17",
-      "bets": [
-        {
-          "category": "moneyline",
-          "date": "2025-05-17",
-          "gamePk": 777887,
-          "matchup": "COL @ AZ",
-          "team": "AZ",
-          "side": "Moneyline",
-          "label": "AZ ML",
-          "odds": -418,
-          "model_probability": 0.7324,
-          "book_probability": 0.7648,
-          "edge": -0.0324,
-          "ev": -9.24,
-          "stake": 100.0,
-          "qualified": true,
-          "won": false,
-          "profit": -100.0
-        }
-      ],
-      "summary": {
-        "bets": 1,
-        "wins": 0,
-        "losses": 1,
-        "staked": 100.0,
-        "profit": -100.0,
-        "roi": -1.0,
-        "hit_rate": 0.0
-      }
-    },
-    {
-      "date": "2025-05-18",
-      "bets": [
-        {
-          "category": "moneyline",
-          "date": "2025-05-18",
-          "gamePk": 777870,
-          "matchup": "COL @ AZ",
-          "team": "AZ",
-          "side": "Moneyline",
-          "label": "AZ ML",
-          "odds": -315,
-          "model_probability": 0.7127,
-          "book_probability": 0.7254,
-          "edge": -0.0127,
-          "ev": -6.1,
-          "stake": 100.0,
-          "qualified": true,
-          "won": true,
-          "profit": 31.75
-        }
-      ],
-      "summary": {
-        "bets": 1,
-        "wins": 1,
-        "losses": 0,
-        "staked": 100.0,
-        "profit": 31.75,
-        "roi": 0.3175,
-        "hit_rate": 1.0
-      }
-    },
-    {
-      "date": "2025-05-19",
-      "bets": [
-        {
-          "category": "moneyline",
-          "date": "2025-05-19",
-          "gamePk": 777858,
-          "matchup": "HOU @ TB",
-          "team": "TB",
-          "side": "Moneyline",
-          "label": "TB ML",
-          "odds": -142,
-          "model_probability": 0.6129,
-          "book_probability": 0.5635,
-          "edge": 0.0494,
-          "ev": 4.45,
+          "label": "KC ML",
+          "odds": -155,
+          "model_probability": 0.7,
+          "book_probability": 0.6078,
+          "edge": 0.0922,
+          "ev": 15.16,
           "stake": 100.0,
           "qualified": true,
           "won": false,
@@ -1962,20 +2623,20 @@
         {
           "category": "moneyline",
           "date": "2025-05-20",
-          "gamePk": 777842,
-          "matchup": "PHI @ COL",
-          "team": "PHI",
+          "gamePk": 777843,
+          "matchup": "LAA @ ATH",
+          "team": "LAA",
           "side": "Moneyline",
-          "label": "PHI ML",
-          "odds": -248,
-          "model_probability": 0.6676,
-          "book_probability": 0.6828,
-          "edge": -0.0152,
-          "ev": -6.32,
+          "label": "LAA ML",
+          "odds": 115,
+          "model_probability": 0.6717,
+          "book_probability": 0.4651,
+          "edge": 0.2066,
+          "ev": 44.42,
           "stake": 100.0,
           "qualified": true,
           "won": true,
-          "profit": 40.32
+          "profit": 115.0
         }
       ],
       "summary": {
@@ -1983,8 +2644,8 @@
         "wins": 1,
         "losses": 0,
         "staked": 100.0,
-        "profit": 40.32,
-        "roi": 0.4032,
+        "profit": 115.0,
+        "roi": 1.15,
         "hit_rate": 1.0
       }
     },
@@ -1994,125 +2655,68 @@
         {
           "category": "moneyline",
           "date": "2025-05-21",
-          "gamePk": 777823,
-          "matchup": "PHI @ COL",
-          "team": "PHI",
+          "gamePk": 777861,
+          "matchup": "CLE @ MIN",
+          "team": "MIN",
           "side": "Moneyline",
-          "label": "PHI ML",
-          "odds": -669,
-          "model_probability": 0.7555,
-          "book_probability": 0.8109,
-          "edge": -0.0554,
-          "ev": -13.16,
+          "label": "MIN ML",
+          "odds": -128,
+          "model_probability": 0.6515,
+          "book_probability": 0.5614,
+          "edge": 0.0901,
+          "ev": 16.05,
           "stake": 100.0,
           "qualified": true,
           "won": true,
-          "profit": 14.95
-        }
-      ],
-      "summary": {
-        "bets": 1,
-        "wins": 1,
-        "losses": 0,
-        "staked": 100.0,
-        "profit": 14.95,
-        "roi": 0.1495,
-        "hit_rate": 1.0
-      }
-    },
-    {
-      "date": "2025-05-22",
-      "bets": [
+          "profit": 78.12
+        },
         {
-          "category": "moneyline",
-          "date": "2025-05-22",
-          "gamePk": 777817,
-          "matchup": "PHI @ COL",
-          "team": "PHI",
-          "side": "Moneyline",
-          "label": "PHI ML",
-          "odds": -287,
-          "model_probability": 0.7056,
-          "book_probability": 0.7112,
-          "edge": -0.0056,
-          "ev": -4.85,
+          "category": "parlay_2",
+          "date": "2025-05-21",
+          "matchup": "CLE @ MIN + CHC @ MIA",
+          "team": "2-leg Parlay",
+          "side": "Parlay",
+          "label": "MIN ML + CHC ML",
+          "odds": 192,
+          "model_probability": 0.456,
+          "book_probability": null,
+          "edge": null,
+          "ev": 33.31,
           "stake": 100.0,
           "qualified": true,
           "won": true,
-          "profit": 34.84
+          "profit": 192.31,
+          "legs": [
+            {
+              "team": "MIN",
+              "matchup": "CLE @ MIN",
+              "odds": -128,
+              "model_probability": 0.6515,
+              "book_probability": 0.5614,
+              "edge": 0.0901,
+              "won": true,
+              "confidence": "Low"
+            },
+            {
+              "team": "CHC",
+              "matchup": "CHC @ MIA",
+              "odds": -156,
+              "model_probability": 0.7,
+              "book_probability": 0.6094,
+              "edge": 0.0906,
+              "won": true,
+              "confidence": "Low"
+            }
+          ]
         }
       ],
       "summary": {
-        "bets": 1,
-        "wins": 1,
+        "bets": 2,
+        "wins": 2,
         "losses": 0,
-        "staked": 100.0,
-        "profit": 34.84,
-        "roi": 0.3484,
-        "hit_rate": 1.0
-      }
-    },
-    {
-      "date": "2025-05-23",
-      "bets": [
-        {
-          "category": "moneyline",
-          "date": "2025-05-23",
-          "gamePk": 777805,
-          "matchup": "TEX @ CWS",
-          "team": "TEX",
-          "side": "Moneyline",
-          "label": "TEX ML",
-          "odds": -188,
-          "model_probability": 0.6699,
-          "book_probability": 0.6265,
-          "edge": 0.0434,
-          "ev": 2.62,
-          "stake": 100.0,
-          "qualified": true,
-          "won": false,
-          "profit": -100.0
-        }
-      ],
-      "summary": {
-        "bets": 1,
-        "wins": 0,
-        "losses": 1,
-        "staked": 100.0,
-        "profit": -100.0,
-        "roi": -1.0,
-        "hit_rate": 0.0
-      }
-    },
-    {
-      "date": "2025-05-24",
-      "bets": [
-        {
-          "category": "moneyline",
-          "date": "2025-05-24",
-          "gamePk": 777782,
-          "matchup": "NYY @ COL",
-          "team": "NYY",
-          "side": "Moneyline",
-          "label": "NYY ML",
-          "odds": -410,
-          "model_probability": 0.7305,
-          "book_probability": 0.761,
-          "edge": -0.0305,
-          "ev": -9.13,
-          "stake": 100.0,
-          "qualified": true,
-          "won": true,
-          "profit": 24.39
-        }
-      ],
-      "summary": {
-        "bets": 1,
-        "wins": 1,
-        "losses": 0,
-        "staked": 100.0,
-        "profit": 24.39,
-        "roi": 0.2439,
+        "staked": 200.0,
+        "profit": 270.43,
+        "roi": 1.3521,
         "hit_rate": 1.0
       }
     },
@@ -2122,30 +2726,30 @@
         {
           "category": "moneyline",
           "date": "2025-05-25",
-          "gamePk": 777780,
-          "matchup": "CLE @ DET",
-          "team": "DET",
+          "gamePk": 777779,
+          "matchup": "CHC @ CIN",
+          "team": "CIN",
           "side": "Moneyline",
-          "label": "DET ML",
-          "odds": -316,
-          "model_probability": 0.7145,
-          "book_probability": 0.7289,
-          "edge": -0.0144,
-          "ev": -5.94,
+          "label": "CIN ML",
+          "odds": 108,
+          "model_probability": 0.6709,
+          "book_probability": 0.4808,
+          "edge": 0.1901,
+          "ev": 39.55,
           "stake": 100.0,
           "qualified": true,
-          "won": true,
-          "profit": 31.65
+          "won": false,
+          "profit": -100.0
         }
       ],
       "summary": {
         "bets": 1,
-        "wins": 1,
-        "losses": 0,
+        "wins": 0,
+        "losses": 1,
         "staked": 100.0,
-        "profit": 31.65,
-        "roi": 0.3165,
-        "hit_rate": 1.0
+        "profit": -100.0,
+        "roi": -1.0,
+        "hit_rate": 0.0
       }
     },
     {
@@ -2154,30 +2758,30 @@
         {
           "category": "moneyline",
           "date": "2025-05-26",
-          "gamePk": 777757,
-          "matchup": "COL @ CHC",
-          "team": "CHC",
+          "gamePk": 777759,
+          "matchup": "TOR @ TEX",
+          "team": "TEX",
           "side": "Moneyline",
-          "label": "CHC ML",
-          "odds": -355,
-          "model_probability": 0.7239,
-          "book_probability": 0.7478,
-          "edge": -0.0239,
-          "ev": -7.22,
+          "label": "TEX ML",
+          "odds": -138,
+          "model_probability": 0.6611,
+          "book_probability": 0.5798,
+          "edge": 0.0813,
+          "ev": 14.02,
           "stake": 100.0,
           "qualified": true,
-          "won": true,
-          "profit": 28.17
+          "won": false,
+          "profit": -100.0
         }
       ],
       "summary": {
         "bets": 1,
-        "wins": 1,
-        "losses": 0,
+        "wins": 0,
+        "losses": 1,
         "staked": 100.0,
-        "profit": 28.17,
-        "roi": 0.2817,
-        "hit_rate": 1.0
+        "profit": -100.0,
+        "roi": -1.0,
+        "hit_rate": 0.0
       }
     },
     {
@@ -2186,20 +2790,20 @@
         {
           "category": "moneyline",
           "date": "2025-05-27",
-          "gamePk": 777749,
-          "matchup": "CWS @ NYM",
-          "team": "NYM",
+          "gamePk": 777748,
+          "matchup": "ATL @ PHI",
+          "team": "PHI",
           "side": "Moneyline",
-          "label": "NYM ML",
-          "odds": -286,
-          "model_probability": 0.7,
-          "book_probability": 0.711,
-          "edge": -0.011,
-          "ev": -5.52,
+          "label": "PHI ML",
+          "odds": -113,
+          "model_probability": 0.6248,
+          "book_probability": 0.5305,
+          "edge": 0.0943,
+          "ev": 17.77,
           "stake": 100.0,
           "qualified": true,
           "won": true,
-          "profit": 34.97
+          "profit": 88.5
         }
       ],
       "summary": {
@@ -2207,8 +2811,8 @@
         "wins": 1,
         "losses": 0,
         "staked": 100.0,
-        "profit": 34.97,
-        "roi": 0.3497,
+        "profit": 88.5,
+        "roi": 0.885,
         "hit_rate": 1.0
       }
     },
@@ -2218,50 +2822,18 @@
         {
           "category": "moneyline",
           "date": "2025-05-28",
-          "gamePk": 777731,
-          "matchup": "COL @ CHC",
-          "team": "CHC",
+          "gamePk": 777724,
+          "matchup": "TOR @ TEX",
+          "team": "TEX",
           "side": "Moneyline",
-          "label": "CHC ML",
-          "odds": -337,
-          "model_probability": 0.7202,
-          "book_probability": 0.7405,
-          "edge": -0.0203,
-          "ev": -6.61,
+          "label": "TEX ML",
+          "odds": -149,
+          "model_probability": 0.7,
+          "book_probability": 0.5984,
+          "edge": 0.1016,
+          "ev": 16.98,
           "stake": 100.0,
           "qualified": true,
-          "won": true,
-          "profit": 29.67
-        }
-      ],
-      "summary": {
-        "bets": 1,
-        "wins": 1,
-        "losses": 0,
-        "staked": 100.0,
-        "profit": 29.67,
-        "roi": 0.2967,
-        "hit_rate": 1.0
-      }
-    },
-    {
-      "date": "2025-05-29",
-      "bets": [
-        {
-          "category": "moneyline",
-          "date": "2025-05-29",
-          "gamePk": 777727,
-          "matchup": "ATH @ TOR",
-          "team": "ATH",
-          "side": "Moneyline",
-          "label": "ATH ML",
-          "odds": 137,
-          "model_probability": 0.4329,
-          "book_probability": 0.4045,
-          "edge": 0.0284,
-          "ev": 2.6,
-          "stake": 100.0,
-          "qualified": false,
           "won": false,
           "profit": -100.0
         }
@@ -2274,38 +2846,6 @@
         "profit": -100.0,
         "roi": -1.0,
         "hit_rate": 0.0
-      }
-    },
-    {
-      "date": "2025-05-30",
-      "bets": [
-        {
-          "category": "moneyline",
-          "date": "2025-05-30",
-          "gamePk": 777718,
-          "matchup": "COL @ NYM",
-          "team": "NYM",
-          "side": "Moneyline",
-          "label": "NYM ML",
-          "odds": -368,
-          "model_probability": 0.7216,
-          "book_probability": 0.7432,
-          "edge": -0.0216,
-          "ev": -8.23,
-          "stake": 100.0,
-          "qualified": true,
-          "won": true,
-          "profit": 27.17
-        }
-      ],
-      "summary": {
-        "bets": 1,
-        "wins": 1,
-        "losses": 0,
-        "staked": 100.0,
-        "profit": 27.17,
-        "roi": 0.2717,
-        "hit_rate": 1.0
       }
     },
     {
@@ -2314,20 +2854,20 @@
         {
           "category": "moneyline",
           "date": "2025-05-31",
-          "gamePk": 777700,
-          "matchup": "COL @ NYM",
-          "team": "NYM",
+          "gamePk": 777701,
+          "matchup": "ATH @ TOR",
+          "team": "TOR",
           "side": "Moneyline",
-          "label": "NYM ML",
-          "odds": -384,
-          "model_probability": 0.7272,
-          "book_probability": 0.7543,
-          "edge": -0.0271,
-          "ev": -8.34,
+          "label": "TOR ML",
+          "odds": -150,
+          "model_probability": 0.7,
+          "book_probability": 0.6,
+          "edge": 0.1,
+          "ev": 16.67,
           "stake": 100.0,
           "qualified": true,
           "won": true,
-          "profit": 26.04
+          "profit": 66.67
         }
       ],
       "summary": {
@@ -2335,8 +2875,8 @@
         "wins": 1,
         "losses": 0,
         "staked": 100.0,
-        "profit": 26.04,
-        "roi": 0.2604,
+        "profit": 66.67,
+        "roi": 0.6667,
         "hit_rate": 1.0
       }
     },
@@ -2344,22 +2884,43 @@
       "date": "2025-06-01",
       "bets": [
         {
-          "category": "moneyline",
+          "category": "parlay_2",
           "date": "2025-06-01",
-          "gamePk": 777686,
-          "matchup": "COL @ NYM",
-          "team": "NYM",
-          "side": "Moneyline",
-          "label": "NYM ML",
-          "odds": -423,
-          "model_probability": 0.7375,
-          "book_probability": 0.7751,
-          "edge": -0.0376,
-          "ev": -8.82,
+          "matchup": "PIT @ SD + TB @ HOU",
+          "team": "2-leg Parlay",
+          "side": "Parlay",
+          "label": "SD ML + HOU ML",
+          "odds": 159,
+          "model_probability": 0.464,
+          "book_probability": null,
+          "edge": null,
+          "ev": 20.02,
           "stake": 100.0,
           "qualified": true,
           "won": true,
-          "profit": 23.64
+          "profit": 158.65,
+          "legs": [
+            {
+              "team": "SD",
+              "matchup": "PIT @ SD",
+              "odds": -154,
+              "model_probability": 0.6723,
+              "book_probability": 0.6063,
+              "edge": 0.066,
+              "won": true,
+              "confidence": "Low"
+            },
+            {
+              "team": "HOU",
+              "matchup": "TB @ HOU",
+              "odds": -176,
+              "model_probability": 0.6902,
+              "book_probability": 0.6377,
+              "edge": 0.0525,
+              "won": true,
+              "confidence": "Low"
+            }
+          ]
         }
       ],
       "summary": {
@@ -2367,41 +2928,9 @@
         "wins": 1,
         "losses": 0,
         "staked": 100.0,
-        "profit": 23.64,
-        "roi": 0.2364,
+        "profit": 158.65,
+        "roi": 1.5865,
         "hit_rate": 1.0
-      }
-    },
-    {
-      "date": "2025-06-02",
-      "bets": [
-        {
-          "category": "moneyline",
-          "date": "2025-06-02",
-          "gamePk": 777673,
-          "matchup": "COL @ MIA",
-          "team": "MIA",
-          "side": "Moneyline",
-          "label": "MIA ML",
-          "odds": -207,
-          "model_probability": 0.6736,
-          "book_probability": 0.6471,
-          "edge": 0.0265,
-          "ev": -0.1,
-          "stake": 100.0,
-          "qualified": true,
-          "won": false,
-          "profit": -100.0
-        }
-      ],
-      "summary": {
-        "bets": 1,
-        "wins": 0,
-        "losses": 1,
-        "staked": 100.0,
-        "profit": -100.0,
-        "roi": -1.0,
-        "hit_rate": 0.0
       }
     },
     {
@@ -2416,127 +2945,14 @@
           "side": "Moneyline",
           "label": "CWS ML",
           "odds": 119,
-          "model_probability": 0.6707,
-          "book_probability": 0.4335,
-          "edge": 0.2372,
-          "ev": 46.88,
+          "model_probability": 0.6706,
+          "book_probability": 0.4566,
+          "edge": 0.214,
+          "ev": 46.86,
           "stake": 100.0,
           "qualified": true,
           "won": true,
           "profit": 119.0
-        },
-        {
-          "category": "parlay_3",
-          "date": "2025-06-03",
-          "matchup": "DET @ CWS + CLE @ NYY + HOU @ PIT",
-          "team": "3-leg Parlay",
-          "side": "Parlay",
-          "label": "CWS ML + NYY ML + PIT ML",
-          "odds": 388,
-          "model_probability": 0.2985,
-          "book_probability": null,
-          "edge": null,
-          "ev": 45.68,
-          "stake": 100.0,
-          "qualified": true,
-          "won": false,
-          "profit": -100.0,
-          "legs": [
-            {
-              "team": "CWS",
-              "matchup": "DET @ CWS",
-              "odds": 119,
-              "model_probability": 0.6707,
-              "book_probability": 0.4335,
-              "edge": 0.2372,
-              "won": true,
-              "confidence": "High"
-            },
-            {
-              "team": "NYY",
-              "matchup": "CLE @ NYY",
-              "odds": -207,
-              "model_probability": 0.6692,
-              "book_probability": 0.6471,
-              "edge": 0.0221,
-              "won": true,
-              "confidence": "High"
-            },
-            {
-              "team": "PIT",
-              "matchup": "HOU @ PIT",
-              "odds": -199,
-              "model_probability": 0.6651,
-              "book_probability": 0.6302,
-              "edge": 0.0349,
-              "won": false,
-              "confidence": "High"
-            }
-          ]
-        }
-      ],
-      "summary": {
-        "bets": 2,
-        "wins": 1,
-        "losses": 1,
-        "staked": 200.0,
-        "profit": 19.0,
-        "roi": 0.095,
-        "hit_rate": 0.5
-      }
-    },
-    {
-      "date": "2025-06-04",
-      "bets": [
-        {
-          "category": "moneyline",
-          "date": "2025-06-04",
-          "gamePk": 777643,
-          "matchup": "MIN @ ATH",
-          "team": "ATH",
-          "side": "Moneyline",
-          "label": "ATH ML",
-          "odds": 175,
-          "model_probability": 0.4452,
-          "book_probability": 0.3493,
-          "edge": 0.0959,
-          "ev": 22.43,
-          "stake": 100.0,
-          "qualified": false,
-          "won": false,
-          "profit": -100.0
-        }
-      ],
-      "summary": {
-        "bets": 1,
-        "wins": 0,
-        "losses": 1,
-        "staked": 100.0,
-        "profit": -100.0,
-        "roi": -1.0,
-        "hit_rate": 0.0
-      }
-    },
-    {
-      "date": "2025-06-05",
-      "bets": [
-        {
-          "category": "moneyline",
-          "date": "2025-06-05",
-          "gamePk": 777644,
-          "matchup": "CLE @ NYY",
-          "team": "NYY",
-          "side": "Moneyline",
-          "label": "NYY ML",
-          "odds": -276,
-          "model_probability": 0.695,
-          "book_probability": 0.7046,
-          "edge": -0.0096,
-          "ev": -5.32,
-          "stake": 100.0,
-          "qualified": true,
-          "won": true,
-          "profit": 36.23
         }
       ],
       "summary": {
@@ -2544,40 +2960,8 @@
         "wins": 1,
         "losses": 0,
         "staked": 100.0,
-        "profit": 36.23,
-        "roi": 0.3623,
-        "hit_rate": 1.0
-      }
-    },
-    {
-      "date": "2025-06-06",
-      "bets": [
-        {
-          "category": "moneyline",
-          "date": "2025-06-06",
-          "gamePk": 777618,
-          "matchup": "KC @ CWS",
-          "team": "CWS",
-          "side": "Moneyline",
-          "label": "CWS ML",
-          "odds": 116,
-          "model_probability": 0.5072,
-          "book_probability": 0.4432,
-          "edge": 0.064,
-          "ev": 9.56,
-          "stake": 100.0,
-          "qualified": false,
-          "won": true,
-          "profit": 116.0
-        }
-      ],
-      "summary": {
-        "bets": 1,
-        "wins": 1,
-        "losses": 0,
-        "staked": 100.0,
-        "profit": 116.0,
-        "roi": 1.16,
+        "profit": 119.0,
+        "roi": 1.19,
         "hit_rate": 1.0
       }
     },
@@ -2587,20 +2971,20 @@
         {
           "category": "moneyline",
           "date": "2025-06-07",
-          "gamePk": 777604,
-          "matchup": "NYM @ COL",
-          "team": "NYM",
+          "gamePk": 777600,
+          "matchup": "TOR @ MIN",
+          "team": "TOR",
           "side": "Moneyline",
-          "label": "NYM ML",
-          "odds": -297,
-          "model_probability": 0.7043,
-          "book_probability": 0.7086,
-          "edge": -0.0043,
-          "ev": -5.86,
+          "label": "TOR ML",
+          "odds": 109,
+          "model_probability": 0.6512,
+          "book_probability": 0.4785,
+          "edge": 0.1727,
+          "ev": 36.1,
           "stake": 100.0,
           "qualified": true,
           "won": true,
-          "profit": 33.67
+          "profit": 109.0
         }
       ],
       "summary": {
@@ -2608,8 +2992,8 @@
         "wins": 1,
         "losses": 0,
         "staked": 100.0,
-        "profit": 33.67,
-        "roi": 0.3367,
+        "profit": 109.0,
+        "roi": 1.09,
         "hit_rate": 1.0
       }
     },
@@ -2619,20 +3003,20 @@
         {
           "category": "moneyline",
           "date": "2025-06-08",
-          "gamePk": 777583,
-          "matchup": "NYM @ COL",
-          "team": "NYM",
+          "gamePk": 777587,
+          "matchup": "ATL @ SF",
+          "team": "SF",
           "side": "Moneyline",
-          "label": "NYM ML",
-          "odds": -282,
-          "model_probability": 0.7032,
-          "book_probability": 0.7065,
-          "edge": -0.0033,
-          "ev": -4.74,
+          "label": "SF ML",
+          "odds": 110,
+          "model_probability": 0.6218,
+          "book_probability": 0.4762,
+          "edge": 0.1456,
+          "ev": 30.58,
           "stake": 100.0,
           "qualified": true,
           "won": true,
-          "profit": 35.46
+          "profit": 110.0
         }
       ],
       "summary": {
@@ -2640,73 +3024,9 @@
         "wins": 1,
         "losses": 0,
         "staked": 100.0,
-        "profit": 35.46,
-        "roi": 0.3546,
+        "profit": 110.0,
+        "roi": 1.1,
         "hit_rate": 1.0
-      }
-    },
-    {
-      "date": "2025-06-09",
-      "bets": [
-        {
-          "category": "moneyline",
-          "date": "2025-06-09",
-          "gamePk": 777575,
-          "matchup": "ATL @ MIL",
-          "team": "MIL",
-          "side": "Moneyline",
-          "label": "MIL ML",
-          "odds": 143,
-          "model_probability": 0.4512,
-          "book_probability": 0.3894,
-          "edge": 0.0618,
-          "ev": 9.64,
-          "stake": 100.0,
-          "qualified": false,
-          "won": false,
-          "profit": -100.0
-        }
-      ],
-      "summary": {
-        "bets": 1,
-        "wins": 0,
-        "losses": 1,
-        "staked": 100.0,
-        "profit": -100.0,
-        "roi": -1.0,
-        "hit_rate": 0.0
-      }
-    },
-    {
-      "date": "2025-06-10",
-      "bets": [
-        {
-          "category": "moneyline",
-          "date": "2025-06-10",
-          "gamePk": 777572,
-          "matchup": "NYY @ KC",
-          "team": "KC",
-          "side": "Moneyline",
-          "label": "KC ML",
-          "odds": 156,
-          "model_probability": 0.4311,
-          "book_probability": 0.3702,
-          "edge": 0.0609,
-          "ev": 10.36,
-          "stake": 100.0,
-          "qualified": false,
-          "won": false,
-          "profit": -100.0
-        }
-      ],
-      "summary": {
-        "bets": 1,
-        "wins": 0,
-        "losses": 1,
-        "staked": 100.0,
-        "profit": -100.0,
-        "roi": -1.0,
-        "hit_rate": 0.0
       }
     },
     {
@@ -2715,20 +3035,20 @@
         {
           "category": "moneyline",
           "date": "2025-06-11",
-          "gamePk": 777547,
-          "matchup": "SF @ COL",
-          "team": "SF",
+          "gamePk": 777553,
+          "matchup": "CHC @ PHI",
+          "team": "PHI",
           "side": "Moneyline",
-          "label": "SF ML",
-          "odds": -210,
-          "model_probability": 0.6611,
-          "book_probability": 0.6474,
-          "edge": 0.0137,
-          "ev": -2.41,
+          "label": "PHI ML",
+          "odds": -114,
+          "model_probability": 0.6232,
+          "book_probability": 0.5327,
+          "edge": 0.0905,
+          "ev": 16.99,
           "stake": 100.0,
           "qualified": true,
           "won": true,
-          "profit": 47.62
+          "profit": 87.72
         }
       ],
       "summary": {
@@ -2736,168 +3056,8 @@
         "wins": 1,
         "losses": 0,
         "staked": 100.0,
-        "profit": 47.62,
-        "roi": 0.4762,
-        "hit_rate": 1.0
-      }
-    },
-    {
-      "date": "2025-06-12",
-      "bets": [
-        {
-          "category": "moneyline",
-          "date": "2025-06-12",
-          "gamePk": 777534,
-          "matchup": "SF @ COL",
-          "team": "SF",
-          "side": "Moneyline",
-          "label": "SF ML",
-          "odds": -208,
-          "model_probability": 0.6725,
-          "book_probability": 0.645,
-          "edge": 0.0275,
-          "ev": -0.42,
-          "stake": 100.0,
-          "qualified": true,
-          "won": false,
-          "profit": -100.0
-        }
-      ],
-      "summary": {
-        "bets": 1,
-        "wins": 0,
-        "losses": 1,
-        "staked": 100.0,
-        "profit": -100.0,
-        "roi": -1.0,
-        "hit_rate": 0.0
-      }
-    },
-    {
-      "date": "2025-06-13",
-      "bets": [
-        {
-          "category": "moneyline",
-          "date": "2025-06-13",
-          "gamePk": 777535,
-          "matchup": "COL @ ATL",
-          "team": "ATL",
-          "side": "Moneyline",
-          "label": "ATL ML",
-          "odds": -374,
-          "model_probability": 0.7199,
-          "book_probability": 0.7562,
-          "edge": -0.0363,
-          "ev": -8.76,
-          "stake": 100.0,
-          "qualified": true,
-          "won": true,
-          "profit": 26.74
-        }
-      ],
-      "summary": {
-        "bets": 1,
-        "wins": 1,
-        "losses": 0,
-        "staked": 100.0,
-        "profit": 26.74,
-        "roi": 0.2674,
-        "hit_rate": 1.0
-      }
-    },
-    {
-      "date": "2025-06-14",
-      "bets": [
-        {
-          "category": "moneyline",
-          "date": "2025-06-14",
-          "gamePk": 777523,
-          "matchup": "COL @ ATL",
-          "team": "ATL",
-          "side": "Moneyline",
-          "label": "ATL ML",
-          "odds": -354,
-          "model_probability": 0.7236,
-          "book_probability": 0.7472,
-          "edge": -0.0236,
-          "ev": -7.2,
-          "stake": 100.0,
-          "qualified": true,
-          "won": true,
-          "profit": 28.25
-        }
-      ],
-      "summary": {
-        "bets": 1,
-        "wins": 1,
-        "losses": 0,
-        "staked": 100.0,
-        "profit": 28.25,
-        "roi": 0.2825,
-        "hit_rate": 1.0
-      }
-    },
-    {
-      "date": "2025-06-15",
-      "bets": [
-        {
-          "category": "moneyline",
-          "date": "2025-06-15",
-          "gamePk": 777504,
-          "matchup": "COL @ ATL",
-          "team": "ATL",
-          "side": "Moneyline",
-          "label": "ATL ML",
-          "odds": -365,
-          "model_probability": 0.7227,
-          "book_probability": 0.7454,
-          "edge": -0.0227,
-          "ev": -7.93,
-          "stake": 100.0,
-          "qualified": true,
-          "won": false,
-          "profit": -100.0
-        }
-      ],
-      "summary": {
-        "bets": 1,
-        "wins": 0,
-        "losses": 1,
-        "staked": 100.0,
-        "profit": -100.0,
-        "roi": -1.0,
-        "hit_rate": 0.0
-      }
-    },
-    {
-      "date": "2025-06-16",
-      "bets": [
-        {
-          "category": "moneyline",
-          "date": "2025-06-16",
-          "gamePk": 777487,
-          "matchup": "LAA @ NYY",
-          "team": "LAA",
-          "side": "Moneyline",
-          "label": "LAA ML",
-          "odds": 164,
-          "model_probability": 0.3886,
-          "book_probability": 0.3623,
-          "edge": 0.0263,
-          "ev": 2.59,
-          "stake": 100.0,
-          "qualified": false,
-          "won": true,
-          "profit": 164.0
-        }
-      ],
-      "summary": {
-        "bets": 1,
-        "wins": 1,
-        "losses": 0,
-        "staked": 100.0,
-        "profit": 164.0,
-        "roi": 1.64,
+        "profit": 87.72,
+        "roi": 0.8772,
         "hit_rate": 1.0
       }
     },
@@ -2913,10 +3073,10 @@
           "side": "Moneyline",
           "label": "CIN ML",
           "odds": -140,
-          "model_probability": 0.6211,
-          "book_probability": 0.5529,
-          "edge": 0.0682,
-          "ev": 6.47,
+          "model_probability": 0.6687,
+          "book_probability": 0.5833,
+          "edge": 0.0854,
+          "ev": 14.63,
           "stake": 100.0,
           "qualified": true,
           "won": true,
@@ -2939,30 +3099,30 @@
         {
           "category": "moneyline",
           "date": "2025-06-18",
-          "gamePk": 777466,
-          "matchup": "LAA @ NYY",
-          "team": "NYY",
+          "gamePk": 777474,
+          "matchup": "MIN @ CIN",
+          "team": "CIN",
           "side": "Moneyline",
-          "label": "NYY ML",
-          "odds": -268,
-          "model_probability": 0.6699,
-          "book_probability": 0.6923,
-          "edge": -0.0224,
-          "ev": -8.01,
+          "label": "CIN ML",
+          "odds": -126,
+          "model_probability": 0.6595,
+          "book_probability": 0.5575,
+          "edge": 0.102,
+          "ev": 18.29,
           "stake": 100.0,
           "qualified": true,
-          "won": false,
-          "profit": -100.0
+          "won": true,
+          "profit": 79.37
         }
       ],
       "summary": {
         "bets": 1,
-        "wins": 0,
-        "losses": 1,
+        "wins": 1,
+        "losses": 0,
         "staked": 100.0,
-        "profit": -100.0,
-        "roi": -1.0,
-        "hit_rate": 0.0
+        "profit": 79.37,
+        "roi": 0.7937,
+        "hit_rate": 1.0
       }
     },
     {
@@ -2977,10 +3137,10 @@
           "side": "Moneyline",
           "label": "DET ML",
           "odds": 105,
-          "model_probability": 0.58,
-          "book_probability": 0.4675,
-          "edge": 0.1125,
-          "ev": 18.9,
+          "model_probability": 0.7,
+          "book_probability": 0.4878,
+          "edge": 0.2122,
+          "ev": 43.5,
           "stake": 100.0,
           "qualified": true,
           "won": true,
@@ -3003,52 +3163,20 @@
         {
           "category": "moneyline",
           "date": "2025-06-20",
-          "gamePk": 777438,
-          "matchup": "BAL @ NYY",
-          "team": "NYY",
+          "gamePk": 777439,
+          "matchup": "ATL @ MIA",
+          "team": "MIA",
           "side": "Moneyline",
-          "label": "NYY ML",
-          "odds": -336,
-          "model_probability": 0.6806,
-          "book_probability": 0.7361,
-          "edge": -0.0555,
-          "ev": -11.68,
-          "stake": 100.0,
-          "qualified": true,
-          "won": false,
-          "profit": -100.0
-        }
-      ],
-      "summary": {
-        "bets": 1,
-        "wins": 0,
-        "losses": 1,
-        "staked": 100.0,
-        "profit": -100.0,
-        "roi": -1.0,
-        "hit_rate": 0.0
-      }
-    },
-    {
-      "date": "2025-06-21",
-      "bets": [
-        {
-          "category": "moneyline",
-          "date": "2025-06-21",
-          "gamePk": 777410,
-          "matchup": "AZ @ COL",
-          "team": "AZ",
-          "side": "Moneyline",
-          "label": "AZ ML",
-          "odds": -201,
-          "model_probability": 0.6659,
-          "book_probability": 0.6318,
-          "edge": 0.0341,
-          "ev": -0.28,
+          "label": "MIA ML",
+          "odds": 127,
+          "model_probability": 0.6286,
+          "book_probability": 0.4405,
+          "edge": 0.1881,
+          "ev": 42.69,
           "stake": 100.0,
           "qualified": true,
           "won": true,
-          "profit": 49.75
+          "profit": 127.0
         }
       ],
       "summary": {
@@ -3056,41 +3184,9 @@
         "wins": 1,
         "losses": 0,
         "staked": 100.0,
-        "profit": 49.75,
-        "roi": 0.4975,
+        "profit": 127.0,
+        "roi": 1.27,
         "hit_rate": 1.0
-      }
-    },
-    {
-      "date": "2025-06-22",
-      "bets": [
-        {
-          "category": "moneyline",
-          "date": "2025-06-22",
-          "gamePk": 777399,
-          "matchup": "AZ @ COL",
-          "team": "AZ",
-          "side": "Moneyline",
-          "label": "AZ ML",
-          "odds": -178,
-          "model_probability": 0.6563,
-          "book_probability": 0.6126,
-          "edge": 0.0437,
-          "ev": 2.5,
-          "stake": 100.0,
-          "qualified": true,
-          "won": false,
-          "profit": -100.0
-        }
-      ],
-      "summary": {
-        "bets": 1,
-        "wins": 0,
-        "losses": 1,
-        "staked": 100.0,
-        "profit": -100.0,
-        "roi": -1.0,
-        "hit_rate": 0.0
       }
     },
     {
@@ -3099,20 +3195,20 @@
         {
           "category": "moneyline",
           "date": "2025-06-23",
-          "gamePk": 777394,
-          "matchup": "TEX @ BAL",
-          "team": "BAL",
+          "gamePk": 777390,
+          "matchup": "NYY @ CIN",
+          "team": "CIN",
           "side": "Moneyline",
-          "label": "BAL ML",
-          "odds": -132,
-          "model_probability": 0.5963,
-          "book_probability": 0.5456,
-          "edge": 0.0507,
-          "ev": 4.8,
+          "label": "CIN ML",
+          "odds": 106,
+          "model_probability": 0.7,
+          "book_probability": 0.4854,
+          "edge": 0.2146,
+          "ev": 44.2,
           "stake": 100.0,
           "qualified": true,
           "won": true,
-          "profit": 75.76
+          "profit": 106.0
         }
       ],
       "summary": {
@@ -3120,137 +3216,9 @@
         "wins": 1,
         "losses": 0,
         "staked": 100.0,
-        "profit": 75.76,
-        "roi": 0.7576,
+        "profit": 106.0,
+        "roi": 1.06,
         "hit_rate": 1.0
-      }
-    },
-    {
-      "date": "2025-06-24",
-      "bets": [
-        {
-          "category": "moneyline",
-          "date": "2025-06-24",
-          "gamePk": 777386,
-          "matchup": "ATH @ DET",
-          "team": "DET",
-          "side": "Moneyline",
-          "label": "DET ML",
-          "odds": -347,
-          "model_probability": 0.7061,
-          "book_probability": 0.7423,
-          "edge": -0.0362,
-          "ev": -9.04,
-          "stake": 100.0,
-          "qualified": true,
-          "won": true,
-          "profit": 28.82
-        }
-      ],
-      "summary": {
-        "bets": 1,
-        "wins": 1,
-        "losses": 0,
-        "staked": 100.0,
-        "profit": 28.82,
-        "roi": 0.2882,
-        "hit_rate": 1.0
-      }
-    },
-    {
-      "date": "2025-06-25",
-      "bets": [
-        {
-          "category": "moneyline",
-          "date": "2025-06-25",
-          "gamePk": 777358,
-          "matchup": "LAD @ COL",
-          "team": "LAD",
-          "side": "Moneyline",
-          "label": "LAD ML",
-          "odds": -257,
-          "model_probability": 0.691,
-          "book_probability": 0.6821,
-          "edge": 0.0089,
-          "ev": -4.01,
-          "stake": 100.0,
-          "qualified": true,
-          "won": true,
-          "profit": 38.91
-        }
-      ],
-      "summary": {
-        "bets": 1,
-        "wins": 1,
-        "losses": 0,
-        "staked": 100.0,
-        "profit": 38.91,
-        "roi": 0.3891,
-        "hit_rate": 1.0
-      }
-    },
-    {
-      "date": "2025-06-26",
-      "bets": [
-        {
-          "category": "moneyline",
-          "date": "2025-06-26",
-          "gamePk": 777344,
-          "matchup": "LAD @ COL",
-          "team": "LAD",
-          "side": "Moneyline",
-          "label": "LAD ML",
-          "odds": -299,
-          "model_probability": 0.7032,
-          "book_probability": 0.7157,
-          "edge": -0.0125,
-          "ev": -6.16,
-          "stake": 100.0,
-          "qualified": true,
-          "won": true,
-          "profit": 33.44
-        }
-      ],
-      "summary": {
-        "bets": 1,
-        "wins": 1,
-        "losses": 0,
-        "staked": 100.0,
-        "profit": 33.44,
-        "roi": 0.3344,
-        "hit_rate": 1.0
-      }
-    },
-    {
-      "date": "2025-06-27",
-      "bets": [
-        {
-          "category": "moneyline",
-          "date": "2025-06-27",
-          "gamePk": 777337,
-          "matchup": "ATH @ NYY",
-          "team": "ATH",
-          "side": "Moneyline",
-          "label": "ATH ML",
-          "odds": 211,
-          "model_probability": 0.3607,
-          "book_probability": 0.3067,
-          "edge": 0.054,
-          "ev": 12.18,
-          "stake": 100.0,
-          "qualified": false,
-          "won": false,
-          "profit": -100.0
-        }
-      ],
-      "summary": {
-        "bets": 1,
-        "wins": 0,
-        "losses": 1,
-        "staked": 100.0,
-        "profit": -100.0,
-        "roi": -1.0,
-        "hit_rate": 0.0
       }
     },
     {
@@ -3259,20 +3227,20 @@
         {
           "category": "moneyline",
           "date": "2025-06-28",
-          "gamePk": 777321,
-          "matchup": "COL @ MIL",
-          "team": "MIL",
+          "gamePk": 777325,
+          "matchup": "NYM @ PIT",
+          "team": "PIT",
           "side": "Moneyline",
-          "label": "MIL ML",
-          "odds": -330,
-          "model_probability": 0.7138,
-          "book_probability": 0.7276,
-          "edge": -0.0138,
-          "ev": -6.99,
+          "label": "PIT ML",
+          "odds": 118,
+          "model_probability": 0.6484,
+          "book_probability": 0.4587,
+          "edge": 0.1897,
+          "ev": 41.35,
           "stake": 100.0,
           "qualified": true,
           "won": true,
-          "profit": 30.3
+          "profit": 118.0
         }
       ],
       "summary": {
@@ -3280,8 +3248,8 @@
         "wins": 1,
         "losses": 0,
         "staked": 100.0,
-        "profit": 30.3,
-        "roi": 0.303,
+        "profit": 118.0,
+        "roi": 1.18,
         "hit_rate": 1.0
       }
     },
@@ -3291,52 +3259,20 @@
         {
           "category": "moneyline",
           "date": "2025-06-29",
-          "gamePk": 777301,
-          "matchup": "COL @ MIL",
-          "team": "MIL",
+          "gamePk": 777313,
+          "matchup": "NYM @ PIT",
+          "team": "PIT",
           "side": "Moneyline",
-          "label": "MIL ML",
-          "odds": -259,
-          "model_probability": 0.6938,
-          "book_probability": 0.6875,
-          "edge": 0.0063,
-          "ev": -3.83,
-          "stake": 100.0,
-          "qualified": true,
-          "won": false,
-          "profit": -100.0
-        }
-      ],
-      "summary": {
-        "bets": 1,
-        "wins": 0,
-        "losses": 1,
-        "staked": 100.0,
-        "profit": -100.0,
-        "roi": -1.0,
-        "hit_rate": 0.0
-      }
-    },
-    {
-      "date": "2025-06-30",
-      "bets": [
-        {
-          "category": "moneyline",
-          "date": "2025-06-30",
-          "gamePk": 777306,
-          "matchup": "SD @ PHI",
-          "team": "PHI",
-          "side": "Moneyline",
-          "label": "PHI ML",
-          "odds": -271,
-          "model_probability": 0.6955,
-          "book_probability": 0.6909,
-          "edge": 0.0046,
-          "ev": -4.79,
+          "label": "PIT ML",
+          "odds": 120,
+          "model_probability": 0.7,
+          "book_probability": 0.4545,
+          "edge": 0.2455,
+          "ev": 54.0,
           "stake": 100.0,
           "qualified": true,
           "won": true,
-          "profit": 36.9
+          "profit": 120.0
         }
       ],
       "summary": {
@@ -3344,8 +3280,8 @@
         "wins": 1,
         "losses": 0,
         "staked": 100.0,
-        "profit": 36.9,
-        "roi": 0.369,
+        "profit": 120.0,
+        "roi": 1.2,
         "hit_rate": 1.0
       }
     },
@@ -3361,10 +3297,10 @@
           "side": "Moneyline",
           "label": "TEX ML",
           "odds": -106,
-          "model_probability": 0.5832,
-          "book_probability": 0.4913,
-          "edge": 0.0919,
-          "ev": 13.34,
+          "model_probability": 0.675,
+          "book_probability": 0.5146,
+          "edge": 0.1604,
+          "ev": 31.18,
           "stake": 100.0,
           "qualified": true,
           "won": true,
@@ -3387,446 +3323,69 @@
         {
           "category": "moneyline",
           "date": "2025-07-02",
-          "gamePk": 777267,
-          "matchup": "CWS @ LAD",
-          "team": "LAD",
+          "gamePk": 777279,
+          "matchup": "LAA @ ATL",
+          "team": "LAA",
           "side": "Moneyline",
-          "label": "LAD ML",
-          "odds": -371,
-          "model_probability": 0.7,
-          "book_probability": 0.7515,
-          "edge": -0.0515,
-          "ev": -11.13,
-          "stake": 100.0,
-          "qualified": true,
-          "won": true,
-          "profit": 26.95
-        }
-      ],
-      "summary": {
-        "bets": 1,
-        "wins": 1,
-        "losses": 0,
-        "staked": 100.0,
-        "profit": 26.95,
-        "roi": 0.2695,
-        "hit_rate": 1.0
-      }
-    },
-    {
-      "date": "2025-07-03",
-      "bets": [
-        {
-          "category": "moneyline",
-          "date": "2025-07-03",
-          "gamePk": 777253,
-          "matchup": "CWS @ LAD",
-          "team": "LAD",
-          "side": "Moneyline",
-          "label": "LAD ML",
-          "odds": -356,
-          "model_probability": 0.6791,
-          "book_probability": 0.7469,
-          "edge": -0.0678,
-          "ev": -13.01,
-          "stake": 100.0,
-          "qualified": true,
-          "won": true,
-          "profit": 28.09
-        }
-      ],
-      "summary": {
-        "bets": 1,
-        "wins": 1,
-        "losses": 0,
-        "staked": 100.0,
-        "profit": 28.09,
-        "roi": 0.2809,
-        "hit_rate": 1.0
-      }
-    },
-    {
-      "date": "2025-07-04",
-      "bets": [
-        {
-          "category": "moneyline",
-          "date": "2025-07-04",
-          "gamePk": 777249,
-          "matchup": "DET @ CLE",
-          "team": "DET",
-          "side": "Moneyline",
-          "label": "DET ML",
-          "odds": -134,
-          "model_probability": 0.5907,
-          "book_probability": 0.5424,
-          "edge": 0.0483,
-          "ev": 3.15,
-          "stake": 100.0,
-          "qualified": true,
-          "won": true,
-          "profit": 74.63
-        }
-      ],
-      "summary": {
-        "bets": 1,
-        "wins": 1,
-        "losses": 0,
-        "staked": 100.0,
-        "profit": 74.63,
-        "roi": 0.7463,
-        "hit_rate": 1.0
-      }
-    },
-    {
-      "date": "2025-07-05",
-      "bets": [
-        {
-          "category": "moneyline",
-          "date": "2025-07-05",
-          "gamePk": 777240,
-          "matchup": "DET @ CLE",
-          "team": "DET",
-          "side": "Moneyline",
-          "label": "DET ML",
-          "odds": -140,
-          "model_probability": 0.5905,
-          "book_probability": 0.5587,
-          "edge": 0.0318,
-          "ev": 1.23,
-          "stake": 100.0,
-          "qualified": false,
-          "won": true,
-          "profit": 71.43
-        }
-      ],
-      "summary": {
-        "bets": 1,
-        "wins": 1,
-        "losses": 0,
-        "staked": 100.0,
-        "profit": 71.43,
-        "roi": 0.7143,
-        "hit_rate": 1.0
-      }
-    },
-    {
-      "date": "2025-07-06",
-      "bets": [
-        {
-          "category": "moneyline",
-          "date": "2025-07-06",
-          "gamePk": 777226,
-          "matchup": "DET @ CLE",
-          "team": "DET",
-          "side": "Moneyline",
-          "label": "DET ML",
-          "odds": -254,
-          "model_probability": 0.6892,
-          "book_probability": 0.6784,
-          "edge": 0.0108,
-          "ev": -3.95,
-          "stake": 100.0,
-          "qualified": true,
-          "won": true,
-          "profit": 39.37
-        }
-      ],
-      "summary": {
-        "bets": 1,
-        "wins": 1,
-        "losses": 0,
-        "staked": 100.0,
-        "profit": 39.37,
-        "roi": 0.3937,
-        "hit_rate": 1.0
-      }
-    },
-    {
-      "date": "2025-07-07",
-      "bets": [
-        {
-          "category": "moneyline",
-          "date": "2025-07-07",
-          "gamePk": 777209,
-          "matchup": "COL @ BOS",
-          "team": "BOS",
-          "side": "Moneyline",
-          "label": "BOS ML",
-          "odds": -257,
-          "model_probability": 0.6602,
-          "book_probability": 0.6799,
-          "edge": -0.0197,
-          "ev": -8.29,
-          "stake": 100.0,
-          "qualified": true,
-          "won": true,
-          "profit": 38.91
-        }
-      ],
-      "summary": {
-        "bets": 1,
-        "wins": 1,
-        "losses": 0,
-        "staked": 100.0,
-        "profit": 38.91,
-        "roi": 0.3891,
-        "hit_rate": 1.0
-      }
-    },
-    {
-      "date": "2025-07-08",
-      "bets": [
-        {
-          "category": "moneyline",
-          "date": "2025-07-08",
-          "gamePk": 777196,
-          "matchup": "COL @ BOS",
-          "team": "BOS",
-          "side": "Moneyline",
-          "label": "BOS ML",
-          "odds": -310,
-          "model_probability": 0.6865,
-          "book_probability": 0.7163,
-          "edge": -0.0298,
-          "ev": -9.2,
-          "stake": 100.0,
-          "qualified": true,
-          "won": true,
-          "profit": 32.26
-        }
-      ],
-      "summary": {
-        "bets": 1,
-        "wins": 1,
-        "losses": 0,
-        "staked": 100.0,
-        "profit": 32.26,
-        "roi": 0.3226,
-        "hit_rate": 1.0
-      }
-    },
-    {
-      "date": "2025-07-09",
-      "bets": [
-        {
-          "category": "moneyline",
-          "date": "2025-07-09",
-          "gamePk": 777179,
-          "matchup": "COL @ BOS",
-          "team": "BOS",
-          "side": "Moneyline",
-          "label": "BOS ML",
-          "odds": -378,
-          "model_probability": 0.7249,
-          "book_probability": 0.7498,
-          "edge": -0.0249,
-          "ev": -8.33,
-          "stake": 100.0,
-          "qualified": true,
-          "won": true,
-          "profit": 26.46
-        }
-      ],
-      "summary": {
-        "bets": 1,
-        "wins": 1,
-        "losses": 0,
-        "staked": 100.0,
-        "profit": 26.46,
-        "roi": 0.2646,
-        "hit_rate": 1.0
-      }
-    },
-    {
-      "date": "2025-07-10",
-      "bets": [
-        {
-          "category": "moneyline",
-          "date": "2025-07-10",
-          "gamePk": 777159,
-          "matchup": "TEX @ LAA",
-          "team": "TEX",
-          "side": "Moneyline",
-          "label": "TEX ML",
-          "odds": -114,
-          "model_probability": 0.5593,
-          "book_probability": 0.5064,
-          "edge": 0.0529,
-          "ev": 4.99,
-          "stake": 100.0,
-          "qualified": true,
-          "won": true,
-          "profit": 87.72
-        }
-      ],
-      "summary": {
-        "bets": 1,
-        "wins": 1,
-        "losses": 0,
-        "staked": 100.0,
-        "profit": 87.72,
-        "roi": 0.8772,
-        "hit_rate": 1.0
-      }
-    },
-    {
-      "date": "2025-07-11",
-      "bets": [
-        {
-          "category": "moneyline",
-          "date": "2025-07-11",
-          "gamePk": 777160,
-          "matchup": "COL @ CIN",
-          "team": "CIN",
-          "side": "Moneyline",
-          "label": "CIN ML",
-          "odds": -256,
-          "model_probability": 0.6938,
-          "book_probability": 0.6875,
-          "edge": 0.0063,
-          "ev": -3.52,
+          "label": "LAA ML",
+          "odds": 120,
+          "model_probability": 0.6873,
+          "book_probability": 0.4545,
+          "edge": 0.2328,
+          "ev": 51.21,
           "stake": 100.0,
           "qualified": true,
           "won": false,
           "profit": -100.0
+        },
+        {
+          "category": "parlay_2",
+          "date": "2025-07-02",
+          "matchup": "HOU @ COL + SD @ PHI",
+          "team": "2-leg Parlay",
+          "side": "Parlay",
+          "label": "HOU ML + PHI ML",
+          "odds": 173,
+          "model_probability": 0.49,
+          "book_probability": null,
+          "edge": null,
+          "ev": 33.66,
+          "stake": 100.0,
+          "qualified": true,
+          "won": true,
+          "profit": 172.78,
+          "legs": [
+            {
+              "team": "HOU",
+              "matchup": "HOU @ COL",
+              "odds": -151,
+              "model_probability": 0.7,
+              "book_probability": 0.6016,
+              "edge": 0.0984,
+              "won": true,
+              "confidence": "Low"
+            },
+            {
+              "team": "PHI",
+              "matchup": "SD @ PHI",
+              "odds": -156,
+              "model_probability": 0.7,
+              "book_probability": 0.6094,
+              "edge": 0.0906,
+              "won": true,
+              "confidence": "Low"
+            }
+          ]
         }
       ],
       "summary": {
-        "bets": 1,
-        "wins": 0,
+        "bets": 2,
+        "wins": 1,
         "losses": 1,
-        "staked": 100.0,
-        "profit": -100.0,
-        "roi": -1.0,
-        "hit_rate": 0.0
-      }
-    },
-    {
-      "date": "2025-07-12",
-      "bets": [
-        {
-          "category": "moneyline",
-          "date": "2025-07-12",
-          "gamePk": 777140,
-          "matchup": "COL @ CIN",
-          "team": "CIN",
-          "side": "Moneyline",
-          "label": "CIN ML",
-          "odds": -298,
-          "model_probability": 0.7044,
-          "book_probability": 0.7087,
-          "edge": -0.0043,
-          "ev": -5.92,
-          "stake": 100.0,
-          "qualified": true,
-          "won": true,
-          "profit": 33.56
-        }
-      ],
-      "summary": {
-        "bets": 1,
-        "wins": 1,
-        "losses": 0,
-        "staked": 100.0,
-        "profit": 33.56,
-        "roi": 0.3356,
-        "hit_rate": 1.0
-      }
-    },
-    {
-      "date": "2025-07-13",
-      "bets": [
-        {
-          "category": "moneyline",
-          "date": "2025-07-13",
-          "gamePk": 777128,
-          "matchup": "COL @ CIN",
-          "team": "CIN",
-          "side": "Moneyline",
-          "label": "CIN ML",
-          "odds": -282,
-          "model_probability": 0.6986,
-          "book_probability": 0.6973,
-          "edge": 0.0013,
-          "ev": -5.37,
-          "stake": 100.0,
-          "qualified": true,
-          "won": true,
-          "profit": 35.46
-        }
-      ],
-      "summary": {
-        "bets": 1,
-        "wins": 1,
-        "losses": 0,
-        "staked": 100.0,
-        "profit": 35.46,
-        "roi": 0.3546,
-        "hit_rate": 1.0
-      }
-    },
-    {
-      "date": "2025-07-18",
-      "bets": [
-        {
-          "category": "moneyline",
-          "date": "2025-07-18",
-          "gamePk": 777107,
-          "matchup": "CWS @ PIT",
-          "team": "PIT",
-          "side": "Moneyline",
-          "label": "PIT ML",
-          "odds": -161,
-          "model_probability": 0.6648,
-          "book_probability": 0.5844,
-          "edge": 0.0804,
-          "ev": 7.77,
-          "stake": 100.0,
-          "qualified": true,
-          "won": false,
-          "profit": -100.0
-        }
-      ],
-      "summary": {
-        "bets": 1,
-        "wins": 0,
-        "losses": 1,
-        "staked": 100.0,
-        "profit": -100.0,
-        "roi": -1.0,
-        "hit_rate": 0.0
-      }
-    },
-    {
-      "date": "2025-07-19",
-      "bets": [
-        {
-          "category": "moneyline",
-          "date": "2025-07-19",
-          "gamePk": 777081,
-          "matchup": "STL @ AZ",
-          "team": "AZ",
-          "side": "Moneyline",
-          "label": "AZ ML",
-          "odds": 112,
-          "model_probability": 0.5102,
-          "book_probability": 0.4525,
-          "edge": 0.0577,
-          "ev": 8.16,
-          "stake": 100.0,
-          "qualified": false,
-          "won": true,
-          "profit": 112.0
-        }
-      ],
-      "summary": {
-        "bets": 1,
-        "wins": 1,
-        "losses": 0,
-        "staked": 100.0,
-        "profit": 112.0,
-        "roi": 1.12,
-        "hit_rate": 1.0
+        "staked": 200.0,
+        "profit": 72.78,
+        "roi": 0.3639,
+        "hit_rate": 0.5
       }
     },
     {
@@ -3835,94 +3394,83 @@
         {
           "category": "moneyline",
           "date": "2025-07-20",
-          "gamePk": 777072,
-          "matchup": "MIN @ COL",
-          "team": "MIN",
+          "gamePk": 777083,
+          "matchup": "NYY @ ATL",
+          "team": "ATL",
           "side": "Moneyline",
-          "label": "MIN ML",
-          "odds": -258,
-          "model_probability": 0.6944,
-          "book_probability": 0.6887,
-          "edge": 0.0057,
-          "ev": -3.65,
+          "label": "ATL ML",
+          "odds": -132,
+          "model_probability": 0.6567,
+          "book_probability": 0.569,
+          "edge": 0.0877,
+          "ev": 15.42,
           "stake": 100.0,
           "qualified": true,
-          "won": true,
-          "profit": 38.76
+          "won": false,
+          "profit": -100.0
         }
       ],
       "summary": {
         "bets": 1,
-        "wins": 1,
-        "losses": 0,
+        "wins": 0,
+        "losses": 1,
         "staked": 100.0,
-        "profit": 38.76,
-        "roi": 0.3876,
-        "hit_rate": 1.0
-      }
-    },
-    {
-      "date": "2025-07-21",
-      "bets": [
-        {
-          "category": "moneyline",
-          "date": "2025-07-21",
-          "gamePk": 777063,
-          "matchup": "BOS @ PHI",
-          "team": "PHI",
-          "side": "Moneyline",
-          "label": "PHI ML",
-          "odds": -244,
-          "model_probability": 0.6894,
-          "book_probability": 0.6788,
-          "edge": 0.0106,
-          "ev": -2.81,
-          "stake": 100.0,
-          "qualified": true,
-          "won": true,
-          "profit": 40.98
-        }
-      ],
-      "summary": {
-        "bets": 1,
-        "wins": 1,
-        "losses": 0,
-        "staked": 100.0,
-        "profit": 40.98,
-        "roi": 0.4098,
-        "hit_rate": 1.0
+        "profit": -100.0,
+        "roi": -1.0,
+        "hit_rate": 0.0
       }
     },
     {
       "date": "2025-07-22",
       "bets": [
         {
-          "category": "moneyline",
+          "category": "parlay_2",
           "date": "2025-07-22",
-          "gamePk": 777045,
-          "matchup": "BOS @ PHI",
-          "team": "PHI",
-          "side": "Moneyline",
-          "label": "PHI ML",
-          "odds": -192,
-          "model_probability": 0.6623,
-          "book_probability": 0.6246,
-          "edge": 0.0377,
-          "ev": 0.72,
+          "matchup": "BAL @ CLE + STL @ COL",
+          "team": "2-leg Parlay",
+          "side": "Parlay",
+          "label": "CLE ML + STL ML",
+          "odds": 145,
+          "model_probability": 0.49,
+          "book_probability": null,
+          "edge": null,
+          "ev": 20.26,
           "stake": 100.0,
           "qualified": true,
-          "won": true,
-          "profit": 52.08
+          "won": false,
+          "profit": -100.0,
+          "legs": [
+            {
+              "team": "CLE",
+              "matchup": "BAL @ CLE",
+              "odds": -175,
+              "model_probability": 0.7,
+              "book_probability": 0.6364,
+              "edge": 0.0636,
+              "won": true,
+              "confidence": "Low"
+            },
+            {
+              "team": "STL",
+              "matchup": "STL @ COL",
+              "odds": -178,
+              "model_probability": 0.7,
+              "book_probability": 0.6403,
+              "edge": 0.0597,
+              "won": false,
+              "confidence": "Low"
+            }
+          ]
         }
       ],
       "summary": {
         "bets": 1,
-        "wins": 1,
-        "losses": 0,
+        "wins": 0,
+        "losses": 1,
         "staked": 100.0,
-        "profit": 52.08,
-        "roi": 0.5208,
-        "hit_rate": 1.0
+        "profit": -100.0,
+        "roi": -1.0,
+        "hit_rate": 0.0
       }
     },
     {
@@ -3937,10 +3485,10 @@
           "side": "Moneyline",
           "label": "CLE ML",
           "odds": -133,
-          "model_probability": 0.6052,
-          "book_probability": 0.5475,
-          "edge": 0.0577,
-          "ev": 6.02,
+          "model_probability": 0.6628,
+          "book_probability": 0.5708,
+          "edge": 0.092,
+          "ev": 16.11,
           "stake": 100.0,
           "qualified": true,
           "won": true,
@@ -3958,163 +3506,35 @@
       }
     },
     {
-      "date": "2025-07-24",
-      "bets": [
-        {
-          "category": "moneyline",
-          "date": "2025-07-24",
-          "gamePk": 777021,
-          "matchup": "TOR @ DET",
-          "team": "TOR",
-          "side": "Moneyline",
-          "label": "TOR ML",
-          "odds": 118,
-          "model_probability": 0.4679,
-          "book_probability": 0.4402,
-          "edge": 0.0277,
-          "ev": 2.0,
-          "stake": 100.0,
-          "qualified": false,
-          "won": true,
-          "profit": 118.0
-        }
-      ],
-      "summary": {
-        "bets": 1,
-        "wins": 1,
-        "losses": 0,
-        "staked": 100.0,
-        "profit": 118.0,
-        "roi": 1.18,
-        "hit_rate": 1.0
-      }
-    },
-    {
-      "date": "2025-07-25",
-      "bets": [
-        {
-          "category": "moneyline",
-          "date": "2025-07-25",
-          "gamePk": 777008,
-          "matchup": "MIA @ MIL",
-          "team": "MIL",
-          "side": "Moneyline",
-          "label": "MIL ML",
-          "odds": -238,
-          "model_probability": 0.6849,
-          "book_probability": 0.6697,
-          "edge": 0.0152,
-          "ev": -2.73,
-          "stake": 100.0,
-          "qualified": true,
-          "won": false,
-          "profit": -100.0
-        }
-      ],
-      "summary": {
-        "bets": 1,
-        "wins": 0,
-        "losses": 1,
-        "staked": 100.0,
-        "profit": -100.0,
-        "roi": -1.0,
-        "hit_rate": 0.0
-      }
-    },
-    {
-      "date": "2025-07-26",
-      "bets": [
-        {
-          "category": "moneyline",
-          "date": "2025-07-26",
-          "gamePk": 776999,
-          "matchup": "COL @ BAL",
-          "team": "BAL",
-          "side": "Moneyline",
-          "label": "BAL ML",
-          "odds": -255,
-          "model_probability": 0.6747,
-          "book_probability": 0.688,
-          "edge": -0.0133,
-          "ev": -6.07,
-          "stake": 100.0,
-          "qualified": true,
-          "won": true,
-          "profit": 39.22
-        }
-      ],
-      "summary": {
-        "bets": 1,
-        "wins": 1,
-        "losses": 0,
-        "staked": 100.0,
-        "profit": 39.22,
-        "roi": 0.3922,
-        "hit_rate": 1.0
-      }
-    },
-    {
-      "date": "2025-07-27",
-      "bets": [
-        {
-          "category": "moneyline",
-          "date": "2025-07-27",
-          "gamePk": 776978,
-          "matchup": "MIA @ MIL",
-          "team": "MIL",
-          "side": "Moneyline",
-          "label": "MIL ML",
-          "odds": -145,
-          "model_probability": 0.6079,
-          "book_probability": 0.5611,
-          "edge": 0.0468,
-          "ev": 2.71,
-          "stake": 100.0,
-          "qualified": true,
-          "won": true,
-          "profit": 68.97
-        }
-      ],
-      "summary": {
-        "bets": 1,
-        "wins": 1,
-        "losses": 0,
-        "staked": 100.0,
-        "profit": 68.97,
-        "roi": 0.6897,
-        "hit_rate": 1.0
-      }
-    },
-    {
       "date": "2025-07-28",
       "bets": [
         {
           "category": "moneyline",
           "date": "2025-07-28",
-          "gamePk": 776968,
-          "matchup": "COL @ CLE",
-          "team": "CLE",
+          "gamePk": 776973,
+          "matchup": "AZ @ DET",
+          "team": "DET",
           "side": "Moneyline",
-          "label": "CLE ML",
-          "odds": -289,
-          "model_probability": 0.7055,
-          "book_probability": 0.7109,
-          "edge": -0.0054,
-          "ev": -5.04,
+          "label": "DET ML",
+          "odds": -146,
+          "model_probability": 0.679,
+          "book_probability": 0.5935,
+          "edge": 0.0855,
+          "ev": 14.41,
           "stake": 100.0,
           "qualified": true,
-          "won": false,
-          "profit": -100.0
+          "won": true,
+          "profit": 68.49
         }
       ],
       "summary": {
         "bets": 1,
-        "wins": 0,
-        "losses": 1,
+        "wins": 1,
+        "losses": 0,
         "staked": 100.0,
-        "profit": -100.0,
-        "roi": -1.0,
-        "hit_rate": 0.0
+        "profit": 68.49,
+        "roi": 0.6849,
+        "hit_rate": 1.0
       }
     },
     {
@@ -4129,10 +3549,10 @@
           "side": "Moneyline",
           "label": "TOR ML",
           "odds": -126,
-          "model_probability": 0.5988,
-          "book_probability": 0.5346,
-          "edge": 0.0642,
-          "ev": 7.4,
+          "model_probability": 0.6633,
+          "book_probability": 0.5575,
+          "edge": 0.1058,
+          "ev": 18.97,
           "stake": 100.0,
           "qualified": true,
           "won": false,
@@ -4161,88 +3581,63 @@
           "side": "Moneyline",
           "label": "KC ML",
           "odds": -142,
-          "model_probability": 0.6171,
-          "book_probability": 0.5567,
-          "edge": 0.0604,
-          "ev": 5.17,
+          "model_probability": 0.6737,
+          "book_probability": 0.5868,
+          "edge": 0.0869,
+          "ev": 14.81,
           "stake": 100.0,
           "qualified": true,
           "won": true,
           "profit": 70.42
+        },
+        {
+          "category": "parlay_2",
+          "date": "2025-07-30",
+          "matchup": "ATL @ KC + COL @ CLE",
+          "team": "2-leg Parlay",
+          "side": "Parlay",
+          "label": "KC ML + CLE ML",
+          "odds": 165,
+          "model_probability": 0.4716,
+          "book_probability": null,
+          "edge": null,
+          "ev": 24.77,
+          "stake": 100.0,
+          "qualified": true,
+          "won": true,
+          "profit": 164.58,
+          "legs": [
+            {
+              "team": "KC",
+              "matchup": "ATL @ KC",
+              "odds": -142,
+              "model_probability": 0.6737,
+              "book_probability": 0.5868,
+              "edge": 0.0869,
+              "won": true,
+              "confidence": "Low"
+            },
+            {
+              "team": "CLE",
+              "matchup": "COL @ CLE",
+              "odds": -181,
+              "model_probability": 0.7,
+              "book_probability": 0.6441,
+              "edge": 0.0559,
+              "won": true,
+              "confidence": "Low"
+            }
+          ]
         }
       ],
       "summary": {
-        "bets": 1,
-        "wins": 1,
+        "bets": 2,
+        "wins": 2,
         "losses": 0,
-        "staked": 100.0,
-        "profit": 70.42,
-        "roi": 0.7042,
+        "staked": 200.0,
+        "profit": 235.0,
+        "roi": 1.175,
         "hit_rate": 1.0
-      }
-    },
-    {
-      "date": "2025-08-01",
-      "bets": [
-        {
-          "category": "moneyline",
-          "date": "2025-08-01",
-          "gamePk": 776922,
-          "matchup": "HOU @ BOS",
-          "team": "HOU",
-          "side": "Moneyline",
-          "label": "HOU ML",
-          "odds": -126,
-          "model_probability": 0.5737,
-          "book_probability": 0.5333,
-          "edge": 0.0404,
-          "ev": 2.9,
-          "stake": 100.0,
-          "qualified": true,
-          "won": false,
-          "profit": -100.0
-        }
-      ],
-      "summary": {
-        "bets": 1,
-        "wins": 0,
-        "losses": 1,
-        "staked": 100.0,
-        "profit": -100.0,
-        "roi": -1.0,
-        "hit_rate": 0.0
-      }
-    },
-    {
-      "date": "2025-08-02",
-      "bets": [
-        {
-          "category": "moneyline",
-          "date": "2025-08-02",
-          "gamePk": 776904,
-          "matchup": "PIT @ COL",
-          "team": "PIT",
-          "side": "Moneyline",
-          "label": "PIT ML",
-          "odds": -242,
-          "model_probability": 0.6836,
-          "book_probability": 0.6768,
-          "edge": 0.0068,
-          "ev": -3.39,
-          "stake": 100.0,
-          "qualified": true,
-          "won": false,
-          "profit": -100.0
-        }
-      ],
-      "summary": {
-        "bets": 1,
-        "wins": 0,
-        "losses": 1,
-        "staked": 100.0,
-        "profit": -100.0,
-        "roi": -1.0,
-        "hit_rate": 0.0
       }
     },
     {
@@ -4251,30 +3646,69 @@
         {
           "category": "moneyline",
           "date": "2025-08-03",
-          "gamePk": 776889,
-          "matchup": "LAD @ TB",
-          "team": "LAD",
+          "gamePk": 776881,
+          "matchup": "AZ @ ATH",
+          "team": "ATH",
           "side": "Moneyline",
-          "label": "LAD ML",
-          "odds": -164,
-          "model_probability": 0.6397,
-          "book_probability": 0.5955,
-          "edge": 0.0442,
-          "ev": 2.98,
+          "label": "ATH ML",
+          "odds": -125,
+          "model_probability": 0.651,
+          "book_probability": 0.5556,
+          "edge": 0.0954,
+          "ev": 17.18,
           "stake": 100.0,
           "qualified": true,
-          "won": true,
-          "profit": 60.98
+          "won": false,
+          "profit": -100.0
+        },
+        {
+          "category": "parlay_2",
+          "date": "2025-08-03",
+          "matchup": "AZ @ ATH + PIT @ COL",
+          "team": "2-leg Parlay",
+          "side": "Parlay",
+          "label": "ATH ML + PIT ML",
+          "odds": 195,
+          "model_probability": 0.4453,
+          "book_probability": null,
+          "edge": null,
+          "ev": 31.55,
+          "stake": 100.0,
+          "qualified": true,
+          "won": false,
+          "profit": -100.0,
+          "legs": [
+            {
+              "team": "ATH",
+              "matchup": "AZ @ ATH",
+              "odds": -125,
+              "model_probability": 0.651,
+              "book_probability": 0.5556,
+              "edge": 0.0954,
+              "won": false,
+              "confidence": "Low"
+            },
+            {
+              "team": "PIT",
+              "matchup": "PIT @ COL",
+              "odds": -156,
+              "model_probability": 0.6841,
+              "book_probability": 0.6094,
+              "edge": 0.0747,
+              "won": true,
+              "confidence": "Low"
+            }
+          ]
         }
       ],
       "summary": {
-        "bets": 1,
-        "wins": 1,
-        "losses": 0,
-        "staked": 100.0,
-        "profit": 60.98,
-        "roi": 0.6098,
-        "hit_rate": 1.0
+        "bets": 2,
+        "wins": 0,
+        "losses": 2,
+        "staked": 200.0,
+        "profit": -200.0,
+        "roi": -1.0,
+        "hit_rate": 0.0
       }
     },
     {
@@ -4283,20 +3717,20 @@
         {
           "category": "moneyline",
           "date": "2025-08-04",
-          "gamePk": 776874,
-          "matchup": "MIN @ DET",
-          "team": "DET",
+          "gamePk": 776882,
+          "matchup": "MIL @ ATL",
+          "team": "MIL",
           "side": "Moneyline",
-          "label": "DET ML",
-          "odds": -187,
-          "model_probability": 0.6612,
-          "book_probability": 0.6224,
-          "edge": 0.0388,
-          "ev": 1.48,
+          "label": "MIL ML",
+          "odds": -137,
+          "model_probability": 0.6715,
+          "book_probability": 0.5781,
+          "edge": 0.0934,
+          "ev": 16.16,
           "stake": 100.0,
           "qualified": true,
           "won": true,
-          "profit": 53.48
+          "profit": 72.99
         }
       ],
       "summary": {
@@ -4304,8 +3738,8 @@
         "wins": 1,
         "losses": 0,
         "staked": 100.0,
-        "profit": 53.48,
-        "roi": 0.5348,
+        "profit": 72.99,
+        "roi": 0.7299,
         "hit_rate": 1.0
       }
     },
@@ -4315,20 +3749,20 @@
         {
           "category": "moneyline",
           "date": "2025-08-05",
-          "gamePk": 776869,
-          "matchup": "MIL @ ATL",
-          "team": "MIL",
+          "gamePk": 776855,
+          "matchup": "NYY @ TEX",
+          "team": "TEX",
           "side": "Moneyline",
-          "label": "MIL ML",
-          "odds": -149,
-          "model_probability": 0.6261,
-          "book_probability": 0.5727,
-          "edge": 0.0534,
-          "ev": 4.63,
+          "label": "TEX ML",
+          "odds": 115,
+          "model_probability": 0.6721,
+          "book_probability": 0.4651,
+          "edge": 0.207,
+          "ev": 44.5,
           "stake": 100.0,
           "qualified": true,
           "won": true,
-          "profit": 67.11
+          "profit": 115.0
         }
       ],
       "summary": {
@@ -4336,8 +3770,8 @@
         "wins": 1,
         "losses": 0,
         "staked": 100.0,
-        "profit": 67.11,
-        "roi": 0.6711,
+        "profit": 115.0,
+        "roi": 1.15,
         "hit_rate": 1.0
       }
     },
@@ -4347,62 +3781,30 @@
         {
           "category": "moneyline",
           "date": "2025-08-06",
-          "gamePk": 776839,
-          "matchup": "STL @ LAD",
-          "team": "LAD",
+          "gamePk": 776853,
+          "matchup": "MIL @ ATL",
+          "team": "MIL",
           "side": "Moneyline",
-          "label": "LAD ML",
-          "odds": -224,
-          "model_probability": 0.6661,
-          "book_probability": 0.6586,
-          "edge": 0.0075,
-          "ev": -3.65,
+          "label": "MIL ML",
+          "odds": 108,
+          "model_probability": 0.6281,
+          "book_probability": 0.4808,
+          "edge": 0.1473,
+          "ev": 30.64,
           "stake": 100.0,
           "qualified": true,
-          "won": false,
-          "profit": -100.0
+          "won": true,
+          "profit": 108.0
         }
       ],
       "summary": {
         "bets": 1,
-        "wins": 0,
-        "losses": 1,
+        "wins": 1,
+        "losses": 0,
         "staked": 100.0,
-        "profit": -100.0,
-        "roi": -1.0,
-        "hit_rate": 0.0
-      }
-    },
-    {
-      "date": "2025-08-07",
-      "bets": [
-        {
-          "category": "moneyline",
-          "date": "2025-08-07",
-          "gamePk": 776842,
-          "matchup": "MIA @ ATL",
-          "team": "MIA",
-          "side": "Moneyline",
-          "label": "MIA ML",
-          "odds": -138,
-          "model_probability": 0.5789,
-          "book_probability": 0.5572,
-          "edge": 0.0217,
-          "ev": -0.16,
-          "stake": 100.0,
-          "qualified": false,
-          "won": false,
-          "profit": -100.0
-        }
-      ],
-      "summary": {
-        "bets": 1,
-        "wins": 0,
-        "losses": 1,
-        "staked": 100.0,
-        "profit": -100.0,
-        "roi": -1.0,
-        "hit_rate": 0.0
+        "profit": 108.0,
+        "roi": 1.08,
+        "hit_rate": 1.0
       }
     },
     {
@@ -4411,20 +3813,20 @@
         {
           "category": "moneyline",
           "date": "2025-08-08",
-          "gamePk": 776832,
-          "matchup": "LAA @ DET",
-          "team": "DET",
+          "gamePk": 776829,
+          "matchup": "CIN @ PIT",
+          "team": "PIT",
           "side": "Moneyline",
-          "label": "DET ML",
-          "odds": -296,
-          "model_probability": 0.6926,
-          "book_probability": 0.7128,
-          "edge": -0.0202,
-          "ev": -7.34,
+          "label": "PIT ML",
+          "odds": 105,
+          "model_probability": 0.6241,
+          "book_probability": 0.4878,
+          "edge": 0.1363,
+          "ev": 27.94,
           "stake": 100.0,
           "qualified": true,
           "won": true,
-          "profit": 33.78
+          "profit": 105.0
         }
       ],
       "summary": {
@@ -4432,8 +3834,8 @@
         "wins": 1,
         "losses": 0,
         "staked": 100.0,
-        "profit": 33.78,
-        "roi": 0.3378,
+        "profit": 105.0,
+        "roi": 1.05,
         "hit_rate": 1.0
       }
     },
@@ -4443,30 +3845,30 @@
         {
           "category": "moneyline",
           "date": "2025-08-09",
-          "gamePk": 776809,
-          "matchup": "COL @ AZ",
-          "team": "AZ",
+          "gamePk": 776812,
+          "matchup": "CIN @ PIT",
+          "team": "PIT",
           "side": "Moneyline",
-          "label": "AZ ML",
-          "odds": -226,
-          "model_probability": 0.6816,
-          "book_probability": 0.6632,
-          "edge": 0.0184,
-          "ev": -1.68,
+          "label": "PIT ML",
+          "odds": -109,
+          "model_probability": 0.6324,
+          "book_probability": 0.5215,
+          "edge": 0.1109,
+          "ev": 21.26,
           "stake": 100.0,
           "qualified": true,
-          "won": true,
-          "profit": 44.25
+          "won": false,
+          "profit": -100.0
         }
       ],
       "summary": {
         "bets": 1,
-        "wins": 1,
-        "losses": 0,
+        "wins": 0,
+        "losses": 1,
         "staked": 100.0,
-        "profit": 44.25,
-        "roi": 0.4425,
-        "hit_rate": 1.0
+        "profit": -100.0,
+        "roi": -1.0,
+        "hit_rate": 0.0
       }
     },
     {
@@ -4475,116 +3877,20 @@
         {
           "category": "moneyline",
           "date": "2025-08-10",
-          "gamePk": 776794,
-          "matchup": "COL @ AZ",
-          "team": "AZ",
-          "side": "Moneyline",
-          "label": "AZ ML",
-          "odds": -294,
-          "model_probability": 0.7062,
-          "book_probability": 0.7124,
-          "edge": -0.0062,
-          "ev": -5.36,
-          "stake": 100.0,
-          "qualified": true,
-          "won": true,
-          "profit": 34.01
-        }
-      ],
-      "summary": {
-        "bets": 1,
-        "wins": 1,
-        "losses": 0,
-        "staked": 100.0,
-        "profit": 34.01,
-        "roi": 0.3401,
-        "hit_rate": 1.0
-      }
-    },
-    {
-      "date": "2025-08-11",
-      "bets": [
-        {
-          "category": "moneyline",
-          "date": "2025-08-11",
-          "gamePk": 776783,
-          "matchup": "COL @ STL",
-          "team": "STL",
-          "side": "Moneyline",
-          "label": "STL ML",
-          "odds": -244,
-          "model_probability": 0.6857,
-          "book_probability": 0.6714,
-          "edge": 0.0143,
-          "ev": -3.33,
-          "stake": 100.0,
-          "qualified": true,
-          "won": true,
-          "profit": 40.98
-        }
-      ],
-      "summary": {
-        "bets": 1,
-        "wins": 1,
-        "losses": 0,
-        "staked": 100.0,
-        "profit": 40.98,
-        "roi": 0.4098,
-        "hit_rate": 1.0
-      }
-    },
-    {
-      "date": "2025-08-12",
-      "bets": [
-        {
-          "category": "moneyline",
-          "date": "2025-08-12",
-          "gamePk": 776774,
-          "matchup": "MIN @ NYY",
-          "team": "NYY",
-          "side": "Moneyline",
-          "label": "NYY ML",
-          "odds": -227,
-          "model_probability": 0.6693,
-          "book_probability": 0.6635,
-          "edge": 0.0058,
-          "ev": -3.59,
-          "stake": 100.0,
-          "qualified": true,
-          "won": true,
-          "profit": 44.05
-        }
-      ],
-      "summary": {
-        "bets": 1,
-        "wins": 1,
-        "losses": 0,
-        "staked": 100.0,
-        "profit": 44.05,
-        "roi": 0.4405,
-        "hit_rate": 1.0
-      }
-    },
-    {
-      "date": "2025-08-13",
-      "bets": [
-        {
-          "category": "moneyline",
-          "date": "2025-08-13",
-          "gamePk": 776755,
-          "matchup": "PIT @ MIL",
+          "gamePk": 776799,
+          "matchup": "NYM @ MIL",
           "team": "MIL",
           "side": "Moneyline",
           "label": "MIL ML",
-          "odds": -273,
-          "model_probability": 0.6964,
-          "book_probability": 0.6927,
-          "edge": 0.0037,
-          "ev": -4.85,
+          "odds": -109,
+          "model_probability": 0.6988,
+          "book_probability": 0.5215,
+          "edge": 0.1773,
+          "ev": 33.99,
           "stake": 100.0,
           "qualified": true,
           "won": true,
-          "profit": 36.63
+          "profit": 91.74
         }
       ],
       "summary": {
@@ -4592,137 +3898,9 @@
         "wins": 1,
         "losses": 0,
         "staked": 100.0,
-        "profit": 36.63,
-        "roi": 0.3663,
+        "profit": 91.74,
+        "roi": 0.9174,
         "hit_rate": 1.0
-      }
-    },
-    {
-      "date": "2025-08-14",
-      "bets": [
-        {
-          "category": "moneyline",
-          "date": "2025-08-14",
-          "gamePk": 776744,
-          "matchup": "DET @ MIN",
-          "team": "MIN",
-          "side": "Moneyline",
-          "label": "MIN ML",
-          "odds": 168,
-          "model_probability": 0.4079,
-          "book_probability": 0.3573,
-          "edge": 0.0506,
-          "ev": 9.32,
-          "stake": 100.0,
-          "qualified": false,
-          "won": false,
-          "profit": -100.0
-        }
-      ],
-      "summary": {
-        "bets": 1,
-        "wins": 0,
-        "losses": 1,
-        "staked": 100.0,
-        "profit": -100.0,
-        "roi": -1.0,
-        "hit_rate": 0.0
-      }
-    },
-    {
-      "date": "2025-08-15",
-      "bets": [
-        {
-          "category": "moneyline",
-          "date": "2025-08-15",
-          "gamePk": 776736,
-          "matchup": "SEA @ NYM",
-          "team": "SEA",
-          "side": "Moneyline",
-          "label": "SEA ML",
-          "odds": 112,
-          "model_probability": 0.5013,
-          "book_probability": 0.4517,
-          "edge": 0.0496,
-          "ev": 6.28,
-          "stake": 100.0,
-          "qualified": false,
-          "won": true,
-          "profit": 112.0
-        }
-      ],
-      "summary": {
-        "bets": 1,
-        "wins": 1,
-        "losses": 0,
-        "staked": 100.0,
-        "profit": 112.0,
-        "roi": 1.12,
-        "hit_rate": 1.0
-      }
-    },
-    {
-      "date": "2025-08-16",
-      "bets": [
-        {
-          "category": "moneyline",
-          "date": "2025-08-16",
-          "gamePk": 776719,
-          "matchup": "PIT @ CHC",
-          "team": "CHC",
-          "side": "Moneyline",
-          "label": "CHC ML",
-          "odds": -230,
-          "model_probability": 0.6752,
-          "book_probability": 0.6636,
-          "edge": 0.0116,
-          "ev": -3.12,
-          "stake": 100.0,
-          "qualified": true,
-          "won": true,
-          "profit": 43.48
-        }
-      ],
-      "summary": {
-        "bets": 1,
-        "wins": 1,
-        "losses": 0,
-        "staked": 100.0,
-        "profit": 43.48,
-        "roi": 0.4348,
-        "hit_rate": 1.0
-      }
-    },
-    {
-      "date": "2025-08-17",
-      "bets": [
-        {
-          "category": "moneyline",
-          "date": "2025-08-17",
-          "gamePk": 776699,
-          "matchup": "LAA @ ATH",
-          "team": "ATH",
-          "side": "Moneyline",
-          "label": "ATH ML",
-          "odds": -125,
-          "model_probability": 0.5679,
-          "book_probability": 0.5325,
-          "edge": 0.0354,
-          "ev": 2.22,
-          "stake": 100.0,
-          "qualified": false,
-          "won": false,
-          "profit": -100.0
-        }
-      ],
-      "summary": {
-        "bets": 1,
-        "wins": 0,
-        "losses": 1,
-        "staked": 100.0,
-        "profit": -100.0,
-        "roi": -1.0,
-        "hit_rate": 0.0
       }
     }
   ]

@@ -74,7 +74,7 @@ export type RecommendationBetLeg = {
 };
 
 export type RecommendedBetRow = {
-  category: "moneyline" | "advanced" | "parlay_3" | "parlay_4";
+  category: "moneyline" | "advanced" | "parlay_2" | "parlay_3" | "parlay_4";
   date: string;
   gamePk?: number;
   matchup: string;

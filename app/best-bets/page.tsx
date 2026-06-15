@@ -110,26 +110,16 @@ export default async function BestBetsPage() {
               </p>
             </article>
             <article>
-              <p className="muted">3-4 Leg Parlays</p>
+              <p className="muted">2-Leg Parlays</p>
               <div className="metric">
-                {recommendationPerformance.by_category.parlay_3 || recommendationPerformance.by_category.parlay_4
-                  ? formatPercent(
-                      ((recommendationPerformance.by_category.parlay_3?.profit ?? 0) +
-                        (recommendationPerformance.by_category.parlay_4?.profit ?? 0)) /
-                        Math.max(
-                          ((recommendationPerformance.by_category.parlay_3?.bets ?? 0) +
-                            (recommendationPerformance.by_category.parlay_4?.bets ?? 0)) *
-                            recommendationPerformance.stake,
-                          1
-                        )
-                    )
+                {recommendationPerformance.by_category.parlay_2
+                  ? formatPercent(recommendationPerformance.by_category.parlay_2.roi)
                   : "-"}
               </div>
               <p className="muted">
-                3-leg: {recommendationPerformance.by_category.parlay_3?.wins ?? 0}-
-                {recommendationPerformance.by_category.parlay_3?.losses ?? 0} · 4-leg:{" "}
-                {recommendationPerformance.by_category.parlay_4?.wins ?? 0}-
-                {recommendationPerformance.by_category.parlay_4?.losses ?? 0}
+                {recommendationPerformance.by_category.parlay_2
+                  ? `${recommendationPerformance.by_category.parlay_2.wins}-${recommendationPerformance.by_category.parlay_2.losses} record`
+                  : "No history"}
               </p>
             </article>
           </div>
@@ -191,15 +181,12 @@ export default async function BestBetsPage() {
       </section>
 
       <section className="panel">
-        <h2>Daily 3-4 Leg Parlays</h2>
+        <h2>Daily 2-Leg Parlays</h2>
         {recommendationPerformance ? (
           <p className="muted">
-            Historical daily parlay ledger: 3-leg {recommendationPerformance.by_category.parlay_3?.wins ?? 0}-
-            {recommendationPerformance.by_category.parlay_3?.losses ?? 0} (
-            {formatPercent(recommendationPerformance.by_category.parlay_3?.roi ?? 0)} ROI), 4-leg{" "}
-            {recommendationPerformance.by_category.parlay_4?.wins ?? 0}-
-            {recommendationPerformance.by_category.parlay_4?.losses ?? 0} (
-            {formatPercent(recommendationPerformance.by_category.parlay_4?.roi ?? 0)} ROI).
+            Historical daily parlay ledger: 2-leg {recommendationPerformance.by_category.parlay_2?.wins ?? 0}-
+            {recommendationPerformance.by_category.parlay_2?.losses ?? 0} (
+            {formatPercent(recommendationPerformance.by_category.parlay_2?.roi ?? 0)} ROI).
           </p>
         ) : null}
         {parlays.length > 0 ? (
@@ -237,7 +224,7 @@ export default async function BestBetsPage() {
           </table>
         ) : (
           <p className="muted">
-            No 3- or 4-leg parlay ticket is available yet. The page needs enough qualifying legs on different games.
+            No 2-leg parlay ticket is available yet. The page needs two qualifying legs on different games.
           </p>
         )}
       </section>

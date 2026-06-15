@@ -231,22 +231,20 @@ def confidence_for(
     if not market_backed:
         internal_probability = internal_pick_probability if internal_pick_probability is not None else pick_probability
         if pick_probability >= 0.70 and internal_probability >= 0.68:
-            return "Elite"
-        if pick_probability >= 0.66 and internal_probability >= 0.60:
             return "High"
-        if pick_probability >= 0.58:
+        if pick_probability >= 0.60:
             return "Medium"
         return "Low"
 
     if pick_probability >= 0.70:
         return "Elite"
     if (
-        pick_probability >= 0.66
+        pick_probability >= 0.65
         and internal_agrees
-        and (internal_pick_probability is None or internal_pick_probability >= 0.55)
+        and (internal_pick_probability is None or internal_pick_probability >= 0.60)
     ):
         return "High"
-    if pick_probability >= 0.55:
+    if pick_probability >= 0.58:
         return "Medium"
     return "Low"
 
