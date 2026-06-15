@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { GameCard } from "@/components/GameCard";
 import { getBestBets } from "@/lib/data";
-import { loadModelHealthSummary, loadPredictionBoard, loadPredictionBoardMetadata } from "@/lib/model-output";
+import { loadModelHealthSummary, loadPredictionBoard, loadPredictionBoardMetadata, loadAccuracyOutput, loadLiveModelPerformance } from "@/lib/model-output";
 import { formatPercent } from "@/lib/odds";
 import { formatStandingRecord, loadLiveStandings } from "@/lib/standings";
 import { formatCentralDate } from "@/lib/time";
@@ -17,6 +17,13 @@ export default async function HomePage() {
   );
   const bestBets = getBestBets(board);
   const health = await loadModelHealthSummary();
+  const accuracy = await loadAccuracyOutput();
+  const liveModelPerformance = await loadLiveModelPerformance();
+  const seasonAccuracy =
+    liveModelPerformance?.overall.hit_rate
+    ?? accuracy?.current_season?.market_backed_accuracy
+    ?? accuracy?.overall_accuracy
+    ?? null;
   const weeklyAccuracy = health?.last7Days.accuracy ?? null;
 
   return (
@@ -49,9 +56,14 @@ export default async function HomePage() {
         </div>
         <div className="grid">
           <article>
-            <p className="muted">Model health</p>
+            <p className="muted">2026 season accuracy</p>
+            <div className="metric">{seasonAccuracy !== null ? formatPercent(seasonAccuracy) : "Pending"}</div>
+            <p className="muted">Market-backed walk-forward record</p>
+          </article>
+          <article>
+            <p className="muted">Last 7 days</p>
             <div className="metric">{weeklyAccuracy !== null ? formatPercent(weeklyAccuracy) : "Pending"}</div>
-            <p className="muted">Last 7 days{health?.last7Days.games ? ` · ${health.last7Days.record}` : ""}</p>
+            <p className="muted">{health?.last7Days.games ? `${health.last7Days.record} record` : "Recent slate"}</p>
           </article>
           <article>
             <p className="muted">EV plays</p>
@@ -60,10 +72,6 @@ export default async function HomePage() {
           <article>
             <p className="muted">Games</p>
             <div className="metric">{board.length}</div>
-          </article>
-          <article>
-            <p className="muted">Accuracy</p>
-            <div className="metric">{weeklyAccuracy !== null ? formatPercent(weeklyAccuracy) : "Pending"}</div>
           </article>
         </div>
       </section>

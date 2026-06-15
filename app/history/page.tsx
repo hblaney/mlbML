@@ -88,13 +88,20 @@ export default async function HistoryPage() {
   const parlayStrategies = parlayBacktest?.best_by_leg_count ?? [];
   const recentWeeks = output ? Object.entries(output.weekly_accuracy).slice(-8) : [];
   const predictionRows = fullHistory.length > 0 ? fullHistory : output?.prediction_history ?? output?.recent_predictions ?? [];
-  const eliteConfidenceRows = predictionRows.filter((row) => row.confidence === "Elite");
+  const currentSeason = output?.season ?? liveModelPerformance?.season ?? new Date().getFullYear().toString();
+  const seasonMarketRows = predictionRows.filter(
+    (row) => row.date.startsWith(currentSeason) && row.marketBacked && row.actual
+  );
+  const seasonHighRows = seasonMarketRows.filter((row) => row.confidence === "High" || row.confidence === "Elite");
+  const seasonSummary = summarizeRows(seasonMarketRows);
+  const seasonHighSummary = summarizeRows(seasonHighRows);
+  const eliteConfidenceRows = seasonMarketRows.filter((row) => row.confidence === "Elite");
   const eliteConfidenceSummary = summarizeRows(eliteConfidenceRows);
-  const highConfidenceRows = predictionRows.filter((row) => row.confidence === "High" || row.confidence === "Elite");
-  const highConfidenceSummary = summarizeRows(highConfidenceRows);
+  const highConfidenceRows = seasonHighRows;
+  const highConfidenceSummary = seasonHighSummary;
   const confidenceSummaries = (["Elite", "High", "Medium", "Low"] as const).map((confidence) => ({
     confidence,
-    ...summarizeRows(predictionRows.filter((row) => row.confidence === confidence))
+    ...summarizeRows(seasonMarketRows.filter((row) => row.confidence === confidence))
   }));
   const rowsByDate = predictionRows.reduce<Record<string, typeof predictionRows>>((groups, row) => {
     groups[row.date] = [...(groups[row.date] ?? []), row];
@@ -111,12 +118,22 @@ export default async function HistoryPage() {
   const recentCheckpoints = liveModelPerformance?.checkpoints.slice(-12).reverse()
     ?? recommendationPerformance?.checkpoints.slice(-12).reverse()
     ?? [];
-  const primaryAccuracy = liveModelPerformance?.overall.hit_rate ?? output?.overall_accuracy ?? null;
-  const primaryGames = liveModelPerformance?.overall.bets ?? output?.evaluated_games ?? 0;
+  const primaryAccuracy =
+    liveModelPerformance?.overall.hit_rate
+    ?? output?.current_season?.market_backed_accuracy
+    ?? seasonSummary.accuracy;
+  const primaryGames =
+    liveModelPerformance?.overall.bets
+    ?? output?.current_season?.market_backed_games
+    ?? seasonSummary.total;
   const primaryRecord = liveModelPerformance
     ? `${liveModelPerformance.overall.wins}-${liveModelPerformance.overall.losses}`
-    : null;
+    : seasonSummary.total > 0
+      ? `${seasonSummary.wins}-${seasonSummary.losses}`
+      : null;
   const liveHighConfidence = liveModelPerformance?.high_confidence;
+  const archiveAccuracy = output?.archive?.overall_accuracy ?? null;
+  const archiveGames = output?.archive?.evaluated_games ?? 0;
 
   const days = Object.entries(rowsByDate)
     .sort(([left], [right]) => right.localeCompare(left))
@@ -166,19 +183,25 @@ export default async function HistoryPage() {
             </article>
             <article className="panel">
               <p className="muted">2026 High Confidence</p>
-              <div className={liveHighConfidence && liveHighConfidence.hit_rate >= 0.6 ? "metric positive" : "metric warning"}>
-                {liveHighConfidence ? formatPercent(liveHighConfidence.hit_rate) : "-"}
+              <div className={(liveHighConfidence?.hit_rate ?? seasonHighSummary.accuracy ?? 0) >= 0.6 ? "metric positive" : "metric warning"}>
+                {liveHighConfidence
+                  ? formatPercent(liveHighConfidence.hit_rate)
+                  : seasonHighSummary.accuracy !== null
+                    ? formatPercent(seasonHighSummary.accuracy)
+                    : "-"}
               </div>
               <p className="muted">
                 {liveHighConfidence
                   ? `${liveHighConfidence.wins}-${liveHighConfidence.losses} on ${liveHighConfidence.bets} High/Elite picks`
-                  : "Current-season High/Elite picks"}
+                  : seasonHighSummary.total > 0
+                    ? `${seasonHighSummary.wins}-${seasonHighSummary.losses} on ${seasonHighSummary.total} High/Elite picks`
+                    : "Current-season High/Elite picks"}
               </p>
             </article>
             <article className="panel">
               <p className="muted">All-History Archive</p>
-              <div className="metric">{formatPercent(output.overall_accuracy)}</div>
-              <p className="muted">{output.evaluated_games.toFixed(0)} blended 2025-2026 games</p>
+              <div className="metric">{archiveAccuracy !== null ? formatPercent(archiveAccuracy) : "-"}</div>
+              <p className="muted">{archiveGames.toFixed(0)} blended 2025-2026 games</p>
             </article>
           </section>
 

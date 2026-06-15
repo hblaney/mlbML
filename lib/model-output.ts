@@ -10,8 +10,22 @@ const autoRegenerateBoard = process.env.AUTO_REGENERATE_BOARD === "1";
 
 export type AccuracyOutput = {
   generated_at: string;
+  trained_through?: string;
+  season?: string;
   evaluated_games: number;
   overall_accuracy: number;
+  current_season?: {
+    season: string;
+    market_backed_games: number;
+    market_backed_accuracy: number;
+    high_confidence_games: number;
+    high_confidence_accuracy: number;
+    daily_accuracy: Record<string, number>;
+  };
+  archive?: {
+    evaluated_games: number;
+    overall_accuracy: number;
+  };
   brier_score: number;
   days_at_or_above_60pct: number;
   weeks_at_or_above_60pct: number;
@@ -30,6 +44,7 @@ export type PredictionHistoryRow = {
   probability: number;
   pickProbability?: number;
   confidence?: "Low" | "Medium" | "High" | "Elite";
+  marketBacked?: boolean;
   predicted?: string;
   actual?: string;
   correct: number;
