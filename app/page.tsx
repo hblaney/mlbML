@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { GameCard } from "@/components/GameCard";
-import { accuracySnapshots, getBestBets } from "@/lib/data";
-import { loadPredictionBoard } from "@/lib/model-output";
+import { getBestBets } from "@/lib/data";
+import { loadModelHealthSummary, loadPredictionBoard } from "@/lib/model-output";
 import { formatPercent } from "@/lib/odds";
 import { formatStandingRecord, loadLiveStandings } from "@/lib/standings";
 import { formatCentralDate } from "@/lib/time";
@@ -15,7 +15,8 @@ export default async function HomePage() {
     standings.map((standing) => [standing.teamId, formatStandingRecord(standing)])
   );
   const bestBets = getBestBets(board);
-  const weekly = accuracySnapshots.find((item) => item.range === "Last 7 Days");
+  const health = await loadModelHealthSummary();
+  const weeklyAccuracy = health?.last7Days.accuracy ?? null;
 
   return (
     <main className="shell">
@@ -39,8 +40,8 @@ export default async function HomePage() {
           </div>
           <div className="ticket-main">
             <p className="muted">Model health</p>
-            <div className="metric">{weekly ? formatPercent(weekly.accuracy) : "Pending"}</div>
-            <p className="muted">Last 7 days</p>
+            <div className="metric">{weeklyAccuracy !== null ? formatPercent(weeklyAccuracy) : "Pending"}</div>
+            <p className="muted">Last 7 days{health?.last7Days.games ? ` · ${health.last7Days.record}` : ""}</p>
           </div>
           <div className="ticket-grid">
             <div>
@@ -53,7 +54,7 @@ export default async function HomePage() {
             </div>
             <div>
               <span>Accuracy</span>
-              <strong>{weekly ? formatPercent(weekly.accuracy) : "Pending"}</strong>
+              <strong>{weeklyAccuracy !== null ? formatPercent(weeklyAccuracy) : "Pending"}</strong>
             </div>
           </div>
         </aside>

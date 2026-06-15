@@ -319,6 +319,51 @@ type PredictionHistoryOutput = {
   predictions: PredictionHistoryRow[];
 };
 
+export type ModelHealthWindow = {
+  games: number;
+  correct: number;
+  accuracy: number | null;
+  record: string;
+};
+
+export type ModelHealthSummary = {
+  yesterday: ModelHealthWindow;
+  last7Days: ModelHealthWindow;
+  season: ModelHealthWindow;
+};
+
+function summarizePredictionWindow(rows: PredictionHistoryRow[]): ModelHealthWindow {
+  const games = rows.length;
+  const correct = rows.reduce((sum, row) => sum + Number(row.correct ?? 0), 0);
+  return {
+    games,
+    correct,
+    accuracy: games > 0 ? correct / games : null,
+    record: `${correct}-${games - correct}`
+  };
+}
+
+export async function loadModelHealthSummary(): Promise<ModelHealthSummary | null> {
+  const predictions = await loadFullPredictionHistory();
+  if (!predictions.length) {
+    return null;
+  }
+
+  const today = new Date().toISOString().slice(0, 10);
+  const yesterday = new Date(Date.now() - 86_400_000).toISOString().slice(0, 10);
+  const sevenDaysAgo = new Date(Date.now() - 7 * 86_400_000).toISOString().slice(0, 10);
+  const currentSeason = today.slice(0, 4);
+  const graded = predictions.filter((row) => row.actual && row.date < today);
+
+  return {
+    yesterday: summarizePredictionWindow(graded.filter((row) => row.date === yesterday)),
+    last7Days: summarizePredictionWindow(
+      graded.filter((row) => row.date >= sevenDaysAgo && row.date < today)
+    ),
+    season: summarizePredictionWindow(graded.filter((row) => row.date.startsWith(currentSeason)))
+  };
+}
+
 async function generatePredictionHistory() {
   if (!canRunLocalGenerators) {
     return;

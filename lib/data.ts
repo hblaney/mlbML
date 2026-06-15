@@ -62,14 +62,6 @@ export type TeamStat = {
   elo: number;
 };
 
-export type AccuracySnapshot = {
-  range: string;
-  record: string;
-  accuracy: number;
-  units: number;
-  brierScore: number;
-};
-
 export const teams: Team[] = [
   { id: "ari", name: "Arizona Diamondbacks", shortName: "Diamondbacks", abbreviation: "ARI", primary: "#a71930" },
   { id: "ath", name: "Athletics", shortName: "Athletics", abbreviation: "ATH", primary: "#003831" },
@@ -217,12 +209,6 @@ export const streamEmbeds: StreamEmbed[] = [
     provider: "MLB Webcast",
     approved: true
   }
-];
-
-export const accuracySnapshots: AccuracySnapshot[] = [
-  { range: "Yesterday", record: "8-5", accuracy: 0.615, units: 1.7, brierScore: 0.218 },
-  { range: "Last 7 Days", record: "51-34", accuracy: 0.6, units: 5.2, brierScore: 0.226 },
-  { range: "Season", record: "412-304", accuracy: 0.575, units: 18.4, brierScore: 0.234 }
 ];
 
 const teamAliases: Record<string, string> = {
