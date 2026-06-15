@@ -251,7 +251,7 @@ def confidence_for(
     ):
         return "Elite"
     if (
-        pick_probability >= 0.65
+        pick_probability >= 0.645
         and internal_agrees
         and internal_probability >= 0.62
     ):

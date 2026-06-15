@@ -13,14 +13,14 @@
       "accuracy": 0.7545
     },
     "High": {
-      "games": 75,
-      "correct": 55,
-      "accuracy": 0.7333
+      "games": 111,
+      "correct": 79,
+      "accuracy": 0.7117
     },
     "Medium": {
-      "games": 877,
-      "correct": 567,
-      "accuracy": 0.6465
+      "games": 841,
+      "correct": 543,
+      "accuracy": 0.6457
     },
     "Low": {
       "games": 2258,
