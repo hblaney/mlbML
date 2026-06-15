@@ -242,16 +242,18 @@ def confidence_for(
     internal_probability = (
         internal_pick_probability if internal_pick_probability is not None else pick_probability
     )
+    # Public probabilities are deliberately softened after calibration, so
+    # confidence thresholds live on the calibrated scale rather than raw 70%+.
     if (
-        pick_probability >= 0.70
+        pick_probability >= 0.655
         and internal_agrees
-        and internal_probability >= 0.65
+        and internal_probability >= 0.70
     ):
         return "Elite"
     if (
         pick_probability >= 0.65
         and internal_agrees
-        and internal_probability >= 0.60
+        and internal_probability >= 0.62
     ):
         return "High"
     if pick_probability >= 0.58 and internal_agrees:

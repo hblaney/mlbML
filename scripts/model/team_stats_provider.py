@@ -27,7 +27,10 @@ def _fetch_team_stat(team_id: int, season: int, group: str, start: date, end: da
     CACHE_DIR.mkdir(parents=True, exist_ok=True)
     cache_path = CACHE_DIR / f"{team_id}_{season}_{group}_{start.isoformat()}_{end.isoformat()}.json"
     if cache_path.exists():
-        return json.loads(cache_path.read_text())
+        try:
+            return json.loads(cache_path.read_text())
+        except json.JSONDecodeError:
+            cache_path.unlink(missing_ok=True)
 
     params = urlencode(
         {
