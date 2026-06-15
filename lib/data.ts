@@ -939,24 +939,23 @@ export function getDailyParlayTickets(board: GamePrediction[] = predictions) {
   const tickets: ParlayCandidate[] = [];
 
   for (const legCount of DAILY_PARLAY_LEG_COUNTS) {
-    if (singles.length < legCount) {
-      continue;
-    }
-
     let best: ParlayCandidate | null = null;
-    for (const legs of combinations(singles, legCount)) {
-      const uniqueGames = new Set(legs.map((leg) => leg.game.id));
-      if (uniqueGames.size !== legs.length) {
-        continue;
-      }
 
-      const candidate = buildParlayCandidate(legs);
-      if (candidate.ev <= 0) {
-        continue;
-      }
-      candidate.strategy = "edge";
-      if (!best || candidate.score > best.score) {
-        best = candidate;
+    if (singles.length >= legCount) {
+      for (const legs of combinations(singles, legCount)) {
+        const uniqueGames = new Set(legs.map((leg) => leg.game.id));
+        if (uniqueGames.size !== legs.length) {
+          continue;
+        }
+
+        const candidate = buildParlayCandidate(legs);
+        if (candidate.ev <= 0) {
+          continue;
+        }
+        candidate.strategy = "edge";
+        if (!best || candidate.score > best.score) {
+          best = candidate;
+        }
       }
     }
 
