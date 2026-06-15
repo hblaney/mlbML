@@ -30,6 +30,9 @@
       "qualified_min_edge": 0.05,
       "qualified_min_probability": 0.65,
       "qualified_min_book_probability": 0.5,
+      "anchor_min_probability": 0.645,
+      "anchor_min_book_probability": 0.5,
+      "anchor_min_leg_ev": -2.0,
       "top_n": 4
     }
   },
@@ -611,6 +614,7 @@
           "ev": 49.43,
           "stake": 100.0,
           "qualified": true,
+          "strategy": "edge",
           "won": true,
           "profit": 204.96,
           "legs": [
@@ -622,7 +626,7 @@
               "book_probability": 0.5708,
               "edge": 0.1292,
               "won": true,
-              "confidence": "Low"
+              "confidence": "High"
             },
             {
               "team": "DET",
@@ -632,7 +636,7 @@
               "book_probability": 0.5745,
               "edge": 0.1255,
               "won": true,
-              "confidence": "Low"
+              "confidence": "High"
             }
           ]
         }
@@ -682,6 +686,7 @@
           "ev": 53.76,
           "stake": 100.0,
           "qualified": true,
+          "strategy": "edge",
           "won": false,
           "profit": -100.0,
           "legs": [
@@ -693,7 +698,7 @@
               "book_probability": 0.5392,
               "edge": 0.1302,
               "won": false,
-              "confidence": "Low"
+              "confidence": "Medium"
             },
             {
               "team": "CIN",
@@ -703,7 +708,7 @@
               "book_probability": 0.5652,
               "edge": 0.1348,
               "won": true,
-              "confidence": "Low"
+              "confidence": "High"
             }
           ]
         }
@@ -767,6 +772,7 @@
           "ev": 22.0,
           "stake": 100.0,
           "qualified": true,
+          "strategy": "edge",
           "won": true,
           "profit": 150.91,
           "legs": [
@@ -778,7 +784,7 @@
               "book_probability": 0.6212,
               "edge": 0.0734,
               "won": true,
-              "confidence": "Low"
+              "confidence": "High"
             },
             {
               "team": "PHI",
@@ -788,7 +794,7 @@
               "book_probability": 0.6416,
               "edge": 0.0584,
               "won": true,
-              "confidence": "Low"
+              "confidence": "Elite"
             }
           ]
         }
@@ -838,6 +844,7 @@
           "ev": 56.83,
           "stake": 100.0,
           "qualified": true,
+          "strategy": "edge",
           "won": false,
           "profit": -100.0,
           "legs": [
@@ -849,7 +856,7 @@
               "book_probability": 0.5192,
               "edge": 0.1657,
               "won": false,
-              "confidence": "Low"
+              "confidence": "Medium"
             },
             {
               "team": "BOS",
@@ -859,7 +866,7 @@
               "book_probability": 0.5851,
               "edge": 0.1105,
               "won": false,
-              "confidence": "Low"
+              "confidence": "High"
             }
           ]
         }
@@ -909,6 +916,7 @@
           "ev": 40.21,
           "stake": 100.0,
           "qualified": true,
+          "strategy": "edge",
           "won": true,
           "profit": 186.13,
           "legs": [
@@ -920,7 +928,7 @@
               "book_probability": 0.5652,
               "edge": 0.1348,
               "won": true,
-              "confidence": "Low"
+              "confidence": "High"
             },
             {
               "team": "ATL",
@@ -930,7 +938,7 @@
               "book_probability": 0.6183,
               "edge": 0.0817,
               "won": true,
-              "confidence": "Low"
+              "confidence": "Elite"
             }
           ]
         }
@@ -1012,6 +1020,7 @@
           "ev": 38.54,
           "stake": 100.0,
           "qualified": true,
+          "strategy": "edge",
           "won": true,
           "profit": 193.11,
           "legs": [
@@ -1023,7 +1032,7 @@
               "book_probability": 0.5671,
               "edge": 0.1329,
               "won": true,
-              "confidence": "Low"
+              "confidence": "High"
             },
             {
               "team": "SF",
@@ -1033,7 +1042,7 @@
               "book_probability": 0.6016,
               "edge": 0.0736,
               "won": true,
-              "confidence": "Low"
+              "confidence": "Medium"
             }
           ]
         }
@@ -1179,6 +1188,7 @@
           "ev": 68.44,
           "stake": 100.0,
           "qualified": true,
+          "strategy": "edge",
           "won": false,
           "profit": -100.0,
           "legs": [
@@ -1190,7 +1200,7 @@
               "book_probability": 0.5,
               "edge": 0.1753,
               "won": true,
-              "confidence": "Low"
+              "confidence": "Medium"
             },
             {
               "team": "BOS",
@@ -1200,7 +1210,7 @@
               "book_probability": 0.5575,
               "edge": 0.1378,
               "won": false,
-              "confidence": "Low"
+              "confidence": "High"
             }
           ]
         }
@@ -1250,6 +1260,7 @@
           "ev": 38.08,
           "stake": 100.0,
           "qualified": true,
+          "strategy": "edge",
           "won": true,
           "profit": 182.64,
           "legs": [
@@ -1261,7 +1272,7 @@
               "book_probability": 0.5851,
               "edge": 0.1149,
               "won": true,
-              "confidence": "Low"
+              "confidence": "High"
             },
             {
               "team": "LAA",
@@ -1271,7 +1282,7 @@
               "book_probability": 0.6047,
               "edge": 0.0932,
               "won": true,
-              "confidence": "Low"
+              "confidence": "High"
             }
           ]
         }
@@ -1353,6 +1364,7 @@
           "ev": 68.12,
           "stake": 100.0,
           "qualified": true,
+          "strategy": "edge",
           "won": true,
           "profit": 246.67,
           "legs": [
@@ -1364,7 +1376,7 @@
               "book_probability": 0.5192,
               "edge": 0.1736,
               "won": true,
-              "confidence": "Low"
+              "confidence": "High"
             },
             {
               "team": "BAL",
@@ -1374,7 +1386,7 @@
               "book_probability": 0.5556,
               "edge": 0.1444,
               "won": true,
-              "confidence": "Low"
+              "confidence": "High"
             }
           ]
         }
@@ -1424,6 +1436,7 @@
           "ev": 44.41,
           "stake": 100.0,
           "qualified": true,
+          "strategy": "edge",
           "won": false,
           "profit": -100.0,
           "legs": [
@@ -1435,7 +1448,7 @@
               "book_probability": 0.5726,
               "edge": 0.1266,
               "won": true,
-              "confidence": "Low"
+              "confidence": "High"
             },
             {
               "team": "MIL",
@@ -1445,7 +1458,7 @@
               "book_probability": 0.5918,
               "edge": 0.1082,
               "won": false,
-              "confidence": "Low"
+              "confidence": "High"
             }
           ]
         }
@@ -1495,6 +1508,7 @@
           "ev": 64.08,
           "stake": 100.0,
           "qualified": true,
+          "strategy": "edge",
           "won": true,
           "profit": 234.85,
           "legs": [
@@ -1506,7 +1520,7 @@
               "book_probability": 0.5455,
               "edge": 0.1545,
               "won": true,
-              "confidence": "Low"
+              "confidence": "High"
             },
             {
               "team": "LAD",
@@ -1516,7 +1530,7 @@
               "book_probability": 0.5475,
               "edge": 0.1525,
               "won": true,
-              "confidence": "Low"
+              "confidence": "High"
             }
           ]
         }
@@ -1566,6 +1580,7 @@
           "ev": 52.68,
           "stake": 100.0,
           "qualified": true,
+          "strategy": "edge",
           "won": false,
           "profit": -100.0,
           "legs": [
@@ -1577,7 +1592,7 @@
               "book_probability": 0.5327,
               "edge": 0.1451,
               "won": true,
-              "confidence": "Low"
+              "confidence": "Medium"
             },
             {
               "team": "CLE",
@@ -1587,7 +1602,7 @@
               "book_probability": 0.5833,
               "edge": 0.1167,
               "won": false,
-              "confidence": "Low"
+              "confidence": "High"
             }
           ]
         }
@@ -1701,6 +1716,7 @@
           "ev": 27.58,
           "stake": 100.0,
           "qualified": true,
+          "strategy": "edge",
           "won": false,
           "profit": -100.0,
           "legs": [
@@ -1712,7 +1728,7 @@
               "book_probability": 0.5851,
               "edge": 0.0893,
               "won": true,
-              "confidence": "Low"
+              "confidence": "Medium"
             },
             {
               "team": "BAL",
@@ -1722,7 +1738,7 @@
               "book_probability": 0.5935,
               "edge": 0.0634,
               "won": false,
-              "confidence": "Low"
+              "confidence": "Medium"
             }
           ]
         }
@@ -1772,6 +1788,7 @@
           "ev": 71.6,
           "stake": 100.0,
           "qualified": true,
+          "strategy": "edge",
           "won": false,
           "profit": -100.0,
           "legs": [
@@ -1783,7 +1800,7 @@
               "book_probability": 0.505,
               "edge": 0.1634,
               "won": false,
-              "confidence": "Low"
+              "confidence": "Medium"
             },
             {
               "team": "PHI",
@@ -1793,7 +1810,7 @@
               "book_probability": 0.5327,
               "edge": 0.1579,
               "won": true,
-              "confidence": "Low"
+              "confidence": "High"
             }
           ]
         }
@@ -1875,6 +1892,7 @@
           "ev": 61.32,
           "stake": 100.0,
           "qualified": true,
+          "strategy": "edge",
           "won": false,
           "profit": -100.0,
           "legs": [
@@ -1886,7 +1904,7 @@
               "book_probability": 0.5,
               "edge": 0.1685,
               "won": false,
-              "confidence": "Low"
+              "confidence": "Medium"
             },
             {
               "team": "NYM",
@@ -1896,7 +1914,7 @@
               "book_probability": 0.569,
               "edge": 0.1175,
               "won": true,
-              "confidence": "Low"
+              "confidence": "Medium"
             }
           ]
         }
@@ -1946,6 +1964,7 @@
           "ev": 41.36,
           "stake": 100.0,
           "qualified": true,
+          "strategy": "edge",
           "won": true,
           "profit": 201.82,
           "legs": [
@@ -1957,7 +1976,7 @@
               "book_probability": 0.5614,
               "edge": 0.1386,
               "won": true,
-              "confidence": "Low"
+              "confidence": "High"
             },
             {
               "team": "NYM",
@@ -1967,7 +1986,7 @@
               "book_probability": 0.5902,
               "edge": 0.0789,
               "won": true,
-              "confidence": "Low"
+              "confidence": "Medium"
             }
           ]
         }
@@ -2017,6 +2036,7 @@
           "ev": 52.57,
           "stake": 100.0,
           "qualified": true,
+          "strategy": "edge",
           "won": true,
           "profit": 224.92,
           "legs": [
@@ -2028,7 +2048,7 @@
               "book_probability": 0.5392,
               "edge": 0.1316,
               "won": true,
-              "confidence": "Low"
+              "confidence": "Medium"
             },
             {
               "team": "AZ",
@@ -2038,7 +2058,7 @@
               "book_probability": 0.5708,
               "edge": 0.1292,
               "won": true,
-              "confidence": "Low"
+              "confidence": "High"
             }
           ]
         }
@@ -2088,6 +2108,7 @@
           "ev": 74.65,
           "stake": 100.0,
           "qualified": true,
+          "strategy": "edge",
           "won": false,
           "profit": -100.0,
           "legs": [
@@ -2099,7 +2120,7 @@
               "book_probability": 0.5146,
               "edge": 0.1854,
               "won": false,
-              "confidence": "Low"
+              "confidence": "High"
             },
             {
               "team": "LAA",
@@ -2109,7 +2130,7 @@
               "book_probability": 0.5146,
               "edge": 0.146,
               "won": true,
-              "confidence": "Low"
+              "confidence": "Medium"
             }
           ]
         }
@@ -2159,6 +2180,7 @@
           "ev": 43.71,
           "stake": 100.0,
           "qualified": true,
+          "strategy": "edge",
           "won": true,
           "profit": 219.6,
           "legs": [
@@ -2170,7 +2192,7 @@
               "book_probability": 0.5536,
               "edge": 0.1108,
               "won": true,
-              "confidence": "Low"
+              "confidence": "Medium"
             },
             {
               "team": "MIA",
@@ -2180,7 +2202,7 @@
               "book_probability": 0.5652,
               "edge": 0.1116,
               "won": true,
-              "confidence": "Low"
+              "confidence": "Medium"
             }
           ]
         }
@@ -2294,6 +2316,7 @@
           "ev": 54.01,
           "stake": 100.0,
           "qualified": true,
+          "strategy": "edge",
           "won": false,
           "profit": -100.0,
           "legs": [
@@ -2305,7 +2328,7 @@
               "book_probability": 0.5192,
               "edge": 0.1349,
               "won": false,
-              "confidence": "Low"
+              "confidence": "Medium"
             },
             {
               "team": "KC",
@@ -2315,7 +2338,7 @@
               "book_probability": 0.5671,
               "edge": 0.1262,
               "won": false,
-              "confidence": "Low"
+              "confidence": "High"
             }
           ]
         }
@@ -2429,6 +2452,7 @@
           "ev": 60.93,
           "stake": 100.0,
           "qualified": true,
+          "strategy": "edge",
           "won": true,
           "profit": 244.27,
           "legs": [
@@ -2440,7 +2464,7 @@
               "book_probability": 0.5122,
               "edge": 0.1556,
               "won": true,
-              "confidence": "Low"
+              "confidence": "Medium"
             },
             {
               "team": "BOS",
@@ -2450,7 +2474,7 @@
               "book_probability": 0.5671,
               "edge": 0.1329,
               "won": true,
-              "confidence": "Low"
+              "confidence": "High"
             }
           ]
         }
@@ -2500,6 +2524,7 @@
           "ev": 61.36,
           "stake": 100.0,
           "qualified": true,
+          "strategy": "edge",
           "won": true,
           "profit": 229.3,
           "legs": [
@@ -2511,7 +2536,7 @@
               "book_probability": 0.5146,
               "edge": 0.1854,
               "won": true,
-              "confidence": "Low"
+              "confidence": "High"
             },
             {
               "team": "MIL",
@@ -2521,7 +2546,7 @@
               "book_probability": 0.5902,
               "edge": 0.1098,
               "won": true,
-              "confidence": "Low"
+              "confidence": "High"
             }
           ]
         }
@@ -2571,6 +2596,7 @@
           "ev": 85.06,
           "stake": 100.0,
           "qualified": true,
+          "strategy": "edge",
           "won": false,
           "profit": -100.0,
           "legs": [
@@ -2582,7 +2608,7 @@
               "book_probability": 0.5146,
               "edge": 0.1854,
               "won": false,
-              "confidence": "Low"
+              "confidence": "High"
             },
             {
               "team": "HOU",
@@ -2592,7 +2618,7 @@
               "book_probability": 0.5146,
               "edge": 0.1854,
               "won": true,
-              "confidence": "Low"
+              "confidence": "High"
             }
           ]
         }
@@ -2642,6 +2668,7 @@
           "ev": 69.35,
           "stake": 100.0,
           "qualified": true,
+          "strategy": "edge",
           "won": false,
           "profit": -100.0,
           "legs": [
@@ -2653,7 +2680,7 @@
               "book_probability": 0.537,
               "edge": 0.163,
               "won": false,
-              "confidence": "Low"
+              "confidence": "High"
             },
             {
               "team": "CWS",
@@ -2663,7 +2690,7 @@
               "book_probability": 0.5169,
               "edge": 0.1547,
               "won": true,
-              "confidence": "Low"
+              "confidence": "Medium"
             }
           ]
         }
@@ -2713,6 +2740,7 @@
           "ev": 37.25,
           "stake": 100.0,
           "qualified": true,
+          "strategy": "edge",
           "won": true,
           "profit": 181.56,
           "legs": [
@@ -2724,7 +2752,7 @@
               "book_probability": 0.5968,
               "edge": 0.1032,
               "won": true,
-              "confidence": "Low"
+              "confidence": "High"
             },
             {
               "team": "AZ",
@@ -2734,7 +2762,7 @@
               "book_probability": 0.5951,
               "edge": 0.1013,
               "won": true,
-              "confidence": "Low"
+              "confidence": "High"
             }
           ]
         }
@@ -2784,6 +2812,7 @@
           "ev": 45.64,
           "stake": 100.0,
           "qualified": true,
+          "strategy": "edge",
           "won": true,
           "profit": 219.4,
           "legs": [
@@ -2795,7 +2824,7 @@
               "book_probability": 0.5305,
               "edge": 0.1695,
               "won": true,
-              "confidence": "Low"
+              "confidence": "High"
             },
             {
               "team": "TB",
@@ -2805,7 +2834,7 @@
               "book_probability": 0.5902,
               "edge": 0.0612,
               "won": true,
-              "confidence": "Low"
+              "confidence": "Medium"
             }
           ]
         }
@@ -2855,6 +2884,7 @@
           "ev": 60.67,
           "stake": 100.0,
           "qualified": true,
+          "strategy": "edge",
           "won": true,
           "profit": 242.27,
           "legs": [
@@ -2866,7 +2896,7 @@
               "book_probability": 0.5169,
               "edge": 0.1537,
               "won": true,
-              "confidence": "Low"
+              "confidence": "Medium"
             },
             {
               "team": "BOS",
@@ -2876,7 +2906,7 @@
               "book_probability": 0.5652,
               "edge": 0.1348,
               "won": true,
-              "confidence": "Low"
+              "confidence": "High"
             }
           ]
         }
@@ -2926,6 +2956,7 @@
           "ev": 33.54,
           "stake": 100.0,
           "qualified": true,
+          "strategy": "edge",
           "won": false,
           "profit": -100.0,
           "legs": [
@@ -2937,7 +2968,7 @@
               "book_probability": 0.5455,
               "edge": 0.1125,
               "won": true,
-              "confidence": "Low"
+              "confidence": "Medium"
             },
             {
               "team": "NYY",
@@ -2947,7 +2978,7 @@
               "book_probability": 0.6324,
               "edge": 0.0676,
               "won": false,
-              "confidence": "Low"
+              "confidence": "Elite"
             }
           ]
         }
@@ -2997,6 +3028,7 @@
           "ev": 70.9,
           "stake": 100.0,
           "qualified": true,
+          "strategy": "edge",
           "won": false,
           "profit": -100.0,
           "legs": [
@@ -3008,7 +3040,7 @@
               "book_probability": 0.5146,
               "edge": 0.1654,
               "won": false,
-              "confidence": "Low"
+              "confidence": "Medium"
             },
             {
               "team": "LAA",
@@ -3018,7 +3050,7 @@
               "book_probability": 0.5413,
               "edge": 0.1587,
               "won": false,
-              "confidence": "Low"
+              "confidence": "High"
             }
           ]
         }
@@ -3068,6 +3100,7 @@
           "ev": 39.11,
           "stake": 100.0,
           "qualified": true,
+          "strategy": "edge",
           "won": true,
           "profit": 205.23,
           "legs": [
@@ -3079,7 +3112,7 @@
               "book_probability": 0.5238,
               "edge": 0.1273,
               "won": true,
-              "confidence": "Low"
+              "confidence": "Medium"
             },
             {
               "team": "TOR",
@@ -3089,7 +3122,7 @@
               "book_probability": 0.6255,
               "edge": 0.0745,
               "won": true,
-              "confidence": "Low"
+              "confidence": "Elite"
             }
           ]
         }
@@ -3139,6 +3172,7 @@
           "ev": 78.45,
           "stake": 100.0,
           "qualified": true,
+          "strategy": "edge",
           "won": false,
           "profit": -100.0,
           "legs": [
@@ -3150,7 +3184,7 @@
               "book_probability": 0.5192,
               "edge": 0.1808,
               "won": true,
-              "confidence": "Low"
+              "confidence": "High"
             },
             {
               "team": "CWS",
@@ -3160,7 +3194,7 @@
               "book_probability": 0.5169,
               "edge": 0.1673,
               "won": false,
-              "confidence": "Low"
+              "confidence": "Medium"
             }
           ]
         }
@@ -3210,6 +3244,7 @@
           "ev": 39.03,
           "stake": 100.0,
           "qualified": true,
+          "strategy": "edge",
           "won": false,
           "profit": -100.0,
           "legs": [
@@ -3221,7 +3256,7 @@
               "book_probability": 0.5516,
               "edge": 0.1484,
               "won": true,
-              "confidence": "Low"
+              "confidence": "High"
             },
             {
               "team": "TOR",
@@ -3231,7 +3266,7 @@
               "book_probability": 0.639,
               "edge": 0.061,
               "won": false,
-              "confidence": "Low"
+              "confidence": "Elite"
             }
           ]
         }
@@ -3313,6 +3348,7 @@
           "ev": 53.25,
           "stake": 100.0,
           "qualified": true,
+          "strategy": "edge",
           "won": false,
           "profit": -100.0,
           "legs": [
@@ -3324,7 +3360,7 @@
               "book_probability": 0.5283,
               "edge": 0.1464,
               "won": false,
-              "confidence": "Low"
+              "confidence": "Medium"
             },
             {
               "team": "PIT",
@@ -3334,7 +3370,7 @@
               "book_probability": 0.5833,
               "edge": 0.1167,
               "won": true,
-              "confidence": "Low"
+              "confidence": "High"
             }
           ]
         }
@@ -3384,6 +3420,7 @@
           "ev": 40.61,
           "stake": 100.0,
           "qualified": true,
+          "strategy": "edge",
           "won": false,
           "profit": -100.0,
           "legs": [
@@ -3395,7 +3432,7 @@
               "book_probability": 0.5536,
               "edge": 0.1464,
               "won": false,
-              "confidence": "Low"
+              "confidence": "High"
             },
             {
               "team": "TEX",
@@ -3405,7 +3442,7 @@
               "book_probability": 0.5968,
               "edge": 0.0668,
               "won": false,
-              "confidence": "Low"
+              "confidence": "Medium"
             }
           ]
         }
@@ -3487,6 +3524,7 @@
           "ev": 52.53,
           "stake": 100.0,
           "qualified": true,
+          "strategy": "edge",
           "won": false,
           "profit": -100.0,
           "legs": [
@@ -3498,7 +3536,7 @@
               "book_probability": 0.5215,
               "edge": 0.1354,
               "won": false,
-              "confidence": "Low"
+              "confidence": "Medium"
             },
             {
               "team": "ATL",
@@ -3508,7 +3546,7 @@
               "book_probability": 0.5781,
               "edge": 0.1219,
               "won": true,
-              "confidence": "Low"
+              "confidence": "High"
             }
           ]
         }
@@ -3590,6 +3628,7 @@
           "ev": 63.25,
           "stake": 100.0,
           "qualified": true,
+          "strategy": "edge",
           "won": true,
           "profit": 249.55,
           "legs": [
@@ -3601,7 +3640,7 @@
               "book_probability": 0.537,
               "edge": 0.163,
               "won": true,
-              "confidence": "Low"
+              "confidence": "High"
             },
             {
               "team": "SF",
@@ -3611,7 +3650,7 @@
               "book_probability": 0.5327,
               "edge": 0.1345,
               "won": true,
-              "confidence": "Low"
+              "confidence": "Medium"
             }
           ]
         }
@@ -3757,6 +3796,7 @@
           "ev": 49.36,
           "stake": 100.0,
           "qualified": true,
+          "strategy": "edge",
           "won": false,
           "profit": -100.0,
           "legs": [
@@ -3768,7 +3808,7 @@
               "book_probability": 0.5595,
               "edge": 0.1405,
               "won": true,
-              "confidence": "Low"
+              "confidence": "High"
             },
             {
               "team": "NYM",
@@ -3778,7 +3818,7 @@
               "book_probability": 0.5556,
               "edge": 0.1076,
               "won": false,
-              "confidence": "Low"
+              "confidence": "Medium"
             }
           ]
         }
@@ -3828,6 +3868,7 @@
           "ev": 49.88,
           "stake": 100.0,
           "qualified": true,
+          "strategy": "edge",
           "won": true,
           "profit": 205.88,
           "legs": [
@@ -3839,7 +3880,7 @@
               "book_probability": 0.5192,
               "edge": 0.1808,
               "won": true,
-              "confidence": "Low"
+              "confidence": "High"
             },
             {
               "team": "PHI",
@@ -3849,7 +3890,7 @@
               "book_probability": 0.6296,
               "edge": 0.0704,
               "won": true,
-              "confidence": "Low"
+              "confidence": "Elite"
             }
           ]
         }
@@ -3899,6 +3940,7 @@
           "ev": 50.86,
           "stake": 100.0,
           "qualified": true,
+          "strategy": "edge",
           "won": true,
           "profit": 219.6,
           "legs": [
@@ -3910,7 +3952,7 @@
               "book_probability": 0.5652,
               "edge": 0.1348,
               "won": true,
-              "confidence": "Low"
+              "confidence": "High"
             },
             {
               "team": "SEA",
@@ -3920,7 +3962,7 @@
               "book_probability": 0.5536,
               "edge": 0.1207,
               "won": true,
-              "confidence": "Low"
+              "confidence": "Medium"
             }
           ]
         }
@@ -3970,6 +4012,7 @@
           "ev": 75.81,
           "stake": 100.0,
           "qualified": true,
+          "strategy": "edge",
           "won": true,
           "profit": 267.68,
           "legs": [
@@ -3981,7 +4024,7 @@
               "book_probability": 0.5238,
               "edge": 0.1762,
               "won": true,
-              "confidence": "Low"
+              "confidence": "High"
             },
             {
               "team": "WSH",
@@ -3991,7 +4034,7 @@
               "book_probability": 0.5192,
               "edge": 0.1639,
               "won": true,
-              "confidence": "Low"
+              "confidence": "Medium"
             }
           ]
         }
@@ -4041,6 +4084,7 @@
           "ev": 32.15,
           "stake": 100.0,
           "qualified": true,
+          "strategy": "edge",
           "won": false,
           "profit": -100.0,
           "legs": [
@@ -4052,7 +4096,7 @@
               "book_probability": 0.5763,
               "edge": 0.1217,
               "won": true,
-              "confidence": "Low"
+              "confidence": "High"
             },
             {
               "team": "CHC",
@@ -4062,7 +4106,7 @@
               "book_probability": 0.6416,
               "edge": 0.0584,
               "won": false,
-              "confidence": "Low"
+              "confidence": "Elite"
             }
           ]
         }
@@ -4112,6 +4156,7 @@
           "ev": 38.9,
           "stake": 100.0,
           "qualified": true,
+          "strategy": "edge",
           "won": true,
           "profit": 214.07,
           "legs": [
@@ -4123,7 +4168,7 @@
               "book_probability": 0.5633,
               "edge": 0.1154,
               "won": true,
-              "confidence": "Low"
+              "confidence": "Medium"
             },
             {
               "team": "DET",
@@ -4133,7 +4178,7 @@
               "book_probability": 0.5652,
               "edge": 0.0864,
               "won": true,
-              "confidence": "Low"
+              "confidence": "Medium"
             }
           ]
         }
@@ -4183,6 +4228,7 @@
           "ev": 54.8,
           "stake": 100.0,
           "qualified": true,
+          "strategy": "edge",
           "won": true,
           "profit": 256.03,
           "legs": [
@@ -4194,7 +4240,7 @@
               "book_probability": 0.5074,
               "edge": 0.1555,
               "won": true,
-              "confidence": "Low"
+              "confidence": "Medium"
             },
             {
               "team": "CLE",
@@ -4204,7 +4250,7 @@
               "book_probability": 0.5536,
               "edge": 0.1023,
               "won": true,
-              "confidence": "Low"
+              "confidence": "Medium"
             }
           ]
         }

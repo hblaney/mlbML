@@ -35,6 +35,9 @@ FALLBACK_MAX_ABS_ODDS = 220
 PARLAY_QUALIFIED_MIN_EDGE = 0.05
 PARLAY_QUALIFIED_MIN_PROBABILITY = 0.65
 PARLAY_QUALIFIED_MIN_BOOK = 0.50
+PARLAY_ANCHOR_MIN_PROBABILITY = 0.645
+PARLAY_ANCHOR_MIN_BOOK = 0.50
+PARLAY_ANCHOR_MIN_EV = -2.0
 PARLAY_TOP_N = 4
 PARLAY_LEG_COUNTS = (2,)
 TOTAL_MIN_EDGE = 0.04
@@ -204,21 +207,42 @@ def pick_best_parlay(candidates: list[dict], leg_count: int) -> tuple[dict | Non
             and candidate["book_probability"] >= PARLAY_QUALIFIED_MIN_BOOK
         )
     ][:PARLAY_TOP_N]
+    anchor_legs = [
+        candidate
+        for candidate in candidates
+        if (
+            candidate.get("confidence") in {"Elite", "High"}
+            and candidate.get("is_model_pick", True)
+            and candidate["model_probability"] >= PARLAY_ANCHOR_MIN_PROBABILITY
+            and candidate["book_probability"] >= PARLAY_ANCHOR_MIN_BOOK
+            and candidate["ev"] >= PARLAY_ANCHOR_MIN_EV
+        )
+    ][:PARLAY_TOP_N]
     pools = [qualified_legs]
+
+    if leg_count == 2:
+        anchor_pool = []
+        for edge_leg in qualified_legs:
+            for anchor_leg in anchor_legs:
+                if edge_leg["gamePk"] != anchor_leg["gamePk"]:
+                    anchor_pool.append((edge_leg, anchor_leg))
+        pools.append(anchor_pool)
 
     for index, pool in enumerate(pools):
         if len(pool) < leg_count:
             continue
 
         best_ticket = None
-        for combo in itertools.combinations(pool, leg_count):
-            if len({leg["gamePk"] for leg in combo}) != leg_count:
+        combos = pool if index == 1 and leg_count == 2 else itertools.combinations(pool, leg_count)
+        for combo in combos:
+            legs = list(combo)
+            if len({leg["gamePk"] for leg in legs}) != leg_count:
                 continue
-            settled = settle_parlay(list(combo))
+            settled = settle_parlay(legs)
             if settled["ev"] <= 0:
                 continue
             score = settled["ev"] * settled["probability"]
-            ticket = {"legs": list(combo), "score": score, **settled}
+            ticket = {"legs": legs, "score": score, "strategy": "anchor" if index == 1 else "edge", **settled}
             if best_ticket is None or ticket["score"] > best_ticket["score"]:
                 best_ticket = ticket
 
@@ -287,6 +311,7 @@ def bet_from_parlay(ticket: dict, day: str, leg_count: int, qualified: bool) -> 
         "ev": round(ticket["ev"], 2),
         "stake": STAKE,
         "qualified": qualified,
+        "strategy": ticket.get("strategy", "edge"),
         "won": bool(ticket["won"]),
         "profit": round(ticket["profit"], 2),
         "legs": [serialize_leg(leg) for leg in ticket["legs"]],
@@ -395,6 +420,9 @@ def main() -> None:
                 "qualified_min_edge": PARLAY_QUALIFIED_MIN_EDGE,
                 "qualified_min_probability": PARLAY_QUALIFIED_MIN_PROBABILITY,
                 "qualified_min_book_probability": PARLAY_QUALIFIED_MIN_BOOK,
+                "anchor_min_probability": PARLAY_ANCHOR_MIN_PROBABILITY,
+                "anchor_min_book_probability": PARLAY_ANCHOR_MIN_BOOK,
+                "anchor_min_leg_ev": PARLAY_ANCHOR_MIN_EV,
                 "top_n": PARLAY_TOP_N,
             },
         },

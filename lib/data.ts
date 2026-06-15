@@ -678,6 +678,9 @@ export function getAdvancedBets(board: GamePrediction[] = predictions): Advanced
 const SAFE_PARLAY_MIN_LEG_PROBABILITY = 0.65;
 const SAFE_PARLAY_MIN_LEG_EDGE = 0.05;
 const SAFE_PARLAY_MIN_BOOK_PROBABILITY = 0.50;
+const ANCHOR_PARLAY_MIN_CONFIDENCE_PROBABILITY = 0.645;
+const ANCHOR_PARLAY_MIN_BOOK_PROBABILITY = 0.50;
+const ANCHOR_PARLAY_MIN_LEG_EV = -2;
 const SAFE_PARLAY_MAX_LEGS = 2;
 const DAILY_PARLAY_LEG_COUNTS = [2] as const;
 const CONFIDENCE_RANK: Record<GamePrediction["confidence"], number> = {
@@ -740,6 +743,7 @@ export type ParlayCandidate = {
   ev: number;
   payoutProfit: number;
   score: number;
+  strategy?: "edge" | "anchor";
 };
 
 export type ParlayStrategyInput = {
@@ -788,6 +792,54 @@ function getParlayLegCandidates(board: GamePrediction[] = predictions) {
     .slice(0, 8);
 }
 
+function getAnchorParlayLegCandidates(board: GamePrediction[] = predictions) {
+  if (!boardHasMarketOdds(board)) {
+    return [];
+  }
+
+  return buildMarketMoneylineCandidates(board)
+    .filter(
+      (bet) =>
+        (bet.game.confidence === "Elite" || bet.game.confidence === "High") &&
+        bet.modelProbability >= ANCHOR_PARLAY_MIN_CONFIDENCE_PROBABILITY &&
+        bet.bookProbability >= ANCHOR_PARLAY_MIN_BOOK_PROBABILITY &&
+        bet.ev >= ANCHOR_PARLAY_MIN_LEG_EV
+    )
+    .sort(
+      (left, right) =>
+        CONFIDENCE_RANK[right.game.confidence] - CONFIDENCE_RANK[left.game.confidence] ||
+        right.modelProbability - left.modelProbability ||
+        right.ev - left.ev
+    )
+    .slice(0, 8);
+}
+
+function bestAnchorParlay(board: GamePrediction[] = predictions, stake = 100) {
+  const edgeLegs = getParlayLegCandidates(board);
+  const anchorLegs = getAnchorParlayLegCandidates(board);
+  let best: ParlayCandidate | null = null;
+
+  for (const edgeLeg of edgeLegs) {
+    for (const anchorLeg of anchorLegs) {
+      if (edgeLeg.game.id === anchorLeg.game.id) {
+        continue;
+      }
+
+      const candidate = buildParlayCandidate([edgeLeg, anchorLeg], stake);
+      if (candidate.ev <= 0) {
+        continue;
+      }
+
+      candidate.strategy = "anchor";
+      if (!best || candidate.score > best.score) {
+        best = candidate;
+      }
+    }
+  }
+
+  return best;
+}
+
 export function getParlayCandidates(board: GamePrediction[] = predictions, stake = 100) {
   const singles = getParlayLegCandidates(board);
 
@@ -806,9 +858,15 @@ export function getParlayCandidates(board: GamePrediction[] = predictions, stake
       if (candidate.ev <= 0) {
         continue;
       }
+      candidate.strategy = "edge";
 
       parlays.push(candidate);
     }
+  }
+
+  const anchor = bestAnchorParlay(board, stake);
+  if (anchor) {
+    parlays.push(anchor);
   }
 
   return parlays.sort((left, right) => right.score - left.score);
@@ -858,6 +916,7 @@ export function getParlayForStrategy(board: GamePrediction[] = predictions, stra
     if (candidate.ev <= 0) {
       continue;
     }
+      candidate.strategy = "edge";
 
     if (!best || candidate.score > best.score) {
       best = candidate;
@@ -895,9 +954,15 @@ export function getDailyParlayTickets(board: GamePrediction[] = predictions) {
       if (candidate.ev <= 0) {
         continue;
       }
+      candidate.strategy = "edge";
       if (!best || candidate.score > best.score) {
         best = candidate;
       }
+    }
+
+    const anchor = bestAnchorParlay(board);
+    if (anchor && (!best || anchor.score > best.score)) {
+      best = anchor;
     }
 
     if (best) {

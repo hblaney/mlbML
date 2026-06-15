@@ -187,6 +187,7 @@ export default async function BestBetsPage() {
             Historical daily parlay ledger: 2-leg {recommendationPerformance.by_category.parlay_2?.wins ?? 0}-
             {recommendationPerformance.by_category.parlay_2?.losses ?? 0} (
             {formatPercent(recommendationPerformance.by_category.parlay_2?.roi ?? 0)} ROI).
+            Anchor tickets pair one edge leg with one High/Elite confidence leg when the combined parlay stays positive EV.
           </p>
         ) : null}
         {parlays.length > 0 ? (
@@ -213,6 +214,11 @@ export default async function BestBetsPage() {
                         {formatOdds(leg.odds)} · {formatPercent(leg.modelProbability)}
                       </p>
                     ))}
+                    {parlay.strategy === "anchor" ? (
+                      <p className="muted">Anchor parlay · edge leg plus High/Elite confidence leg</p>
+                    ) : (
+                      <p className="muted">Edge parlay · every leg clears standalone edge filter</p>
+                    )}
                   </td>
                   <td>{formatPercent(parlay.probability)}</td>
                   <td>{formatOdds(parlay.americanOdds)}</td>

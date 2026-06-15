@@ -107,6 +107,8 @@ def build_single_candidates(rows: list[dict], store: HistoricalOddsStore) -> dic
                     "book_probability": book_probability,
                     "edge": edge,
                     "ev": ev,
+                    "confidence": row.get("confidence", "Low"),
+                    "is_model_pick": side["team"] == row.get("predicted"),
                 }
             )
 
