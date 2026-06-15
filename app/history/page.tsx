@@ -111,6 +111,12 @@ export default async function HistoryPage() {
   const recentCheckpoints = liveModelPerformance?.checkpoints.slice(-12).reverse()
     ?? recommendationPerformance?.checkpoints.slice(-12).reverse()
     ?? [];
+  const primaryAccuracy = liveModelPerformance?.overall.hit_rate ?? output?.overall_accuracy ?? null;
+  const primaryGames = liveModelPerformance?.overall.bets ?? output?.evaluated_games ?? 0;
+  const primaryRecord = liveModelPerformance
+    ? `${liveModelPerformance.overall.wins}-${liveModelPerformance.overall.losses}`
+    : null;
+  const liveHighConfidence = liveModelPerformance?.high_confidence;
 
   const days = Object.entries(rowsByDate)
     .sort(([left], [right]) => right.localeCompare(left))
@@ -151,19 +157,28 @@ export default async function HistoryPage() {
         <>
           <section className="grid">
             <article className="panel">
-              <p className="muted">Overall</p>
+              <p className="muted">2026 Market-Backed Overall</p>
+              <div className="metric">{primaryAccuracy !== null ? formatPercent(primaryAccuracy) : "Pending"}</div>
+              <p>
+                {primaryRecord ? `${primaryRecord} record · ` : ""}
+                {primaryGames.toFixed(0)} current-season games
+              </p>
+            </article>
+            <article className="panel">
+              <p className="muted">2026 High Confidence</p>
+              <div className={liveHighConfidence && liveHighConfidence.hit_rate >= 0.6 ? "metric positive" : "metric warning"}>
+                {liveHighConfidence ? formatPercent(liveHighConfidence.hit_rate) : "-"}
+              </div>
+              <p className="muted">
+                {liveHighConfidence
+                  ? `${liveHighConfidence.wins}-${liveHighConfidence.losses} on ${liveHighConfidence.bets} High/Elite picks`
+                  : "Current-season High/Elite picks"}
+              </p>
+            </article>
+            <article className="panel">
+              <p className="muted">All-History Archive</p>
               <div className="metric">{formatPercent(output.overall_accuracy)}</div>
-              <p>{output.evaluated_games.toFixed(0)} games evaluated</p>
-            </article>
-            <article className="panel">
-              <p className="muted">Days at 60%+</p>
-              <div className="metric">{output.days_at_or_above_60pct.toFixed(0)}</div>
-              <p className="muted">Daily hit-rate buckets</p>
-            </article>
-            <article className="panel">
-              <p className="muted">Weeks at 60%+</p>
-              <div className="metric">{output.weeks_at_or_above_60pct.toFixed(0)}</div>
-              <p className="muted">Weekly hit-rate buckets</p>
+              <p className="muted">{output.evaluated_games.toFixed(0)} blended 2025-2026 games</p>
             </article>
           </section>
 
