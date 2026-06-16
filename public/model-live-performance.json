@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-06-15",
-  "trained_through": "2026-06-14",
+  "generated_at": "2026-06-16",
+  "trained_through": "2026-06-15",
   "model_version": "daily-auto-v2.1",
   "season": "2026",
   "method": "current-season walk-forward retrain with daily checkpoints",
@@ -9,34 +9,34 @@
   "baseline_odds": -110,
   "date_range": {
     "start": "2026-03-25",
-    "end": "2026-06-14"
+    "end": "2026-06-15"
   },
   "overall": {
-    "bets": 1068,
-    "wins": 650,
-    "losses": 418,
+    "bets": 1078,
+    "wins": 655,
+    "losses": 423,
     "staked": 0.0,
     "profit": 0.0,
     "roi": 0.0,
-    "hit_rate": 0.6086
+    "hit_rate": 0.6076
   },
   "high_confidence": {
-    "bets": 105,
-    "wins": 79,
+    "bets": 108,
+    "wins": 82,
     "losses": 26,
-    "staked": 10500.0,
-    "profit": 4581.82,
-    "roi": 0.4364,
-    "hit_rate": 0.7524
+    "staked": 10800.0,
+    "profit": 4854.55,
+    "roi": 0.4495,
+    "hit_rate": 0.7593
   },
   "cumulative": {
-    "bets": 105,
-    "wins": 79,
+    "bets": 108,
+    "wins": 82,
     "losses": 26,
-    "profit": 4581.82,
-    "roi": 0.4364,
-    "balance": 14581.82,
-    "return_pct": 0.4582
+    "profit": 4854.55,
+    "roi": 0.4495,
+    "balance": 14854.55,
+    "return_pct": 0.4855
   },
   "checkpoints": [
     {
@@ -694,6 +694,14 @@
       "return_pct": 0.4582,
       "season_accuracy": 0.5,
       "high_confidence_bets": 0
+    },
+    {
+      "date": "2026-06-15",
+      "profit": 272.73,
+      "balance": 14854.55,
+      "return_pct": 0.4855,
+      "season_accuracy": 0.5,
+      "high_confidence_bets": 3
     }
   ],
   "daily": [
@@ -1843,6 +1851,20 @@
         "profit": 0,
         "roi": 0.0,
         "hit_rate": 0.0
+      }
+    },
+    {
+      "date": "2026-06-15",
+      "games": 10,
+      "accuracy": 0.5,
+      "high_confidence": {
+        "bets": 3,
+        "wins": 3,
+        "losses": 0,
+        "staked": 300.0,
+        "profit": 272.73,
+        "roi": 0.9091,
+        "hit_rate": 1.0
       }
     }
   ]

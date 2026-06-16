@@ -2,10 +2,10 @@ name: Daily Model Retrain
 
 on:
   schedule:
-    # Run at 5:00 AM America/Chicago year-round. GitHub cron is UTC-only,
-    # so trigger at both possible UTC hours and gate the job below.
+    # Primary: ~5 AM Central during daylight time (10:00 UTC).
     - cron: "0 10 * * *"
-    - cron: "0 11 * * *"
+    # Backup: only runs if today's board is still missing (~7 AM Central).
+    - cron: "0 12 * * *"
   workflow_dispatch:
 
 permissions:
@@ -20,26 +20,42 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 90
     steps:
-      - name: Confirm 5 AM Central window
-        id: central_time
+      - name: Decide whether to run
+        id: run_control
+        env:
+          GITHUB_REPOSITORY: ${{ github.repository }}
         run: |
           if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
             echo "should_run=true" >> "$GITHUB_OUTPUT"
             exit 0
           fi
 
-          if [ "$(TZ=America/Chicago date +%H)" = "05" ]; then
+          if [ "${{ github.event.schedule }}" = "0 10 * * *" ]; then
+            echo "Primary schedule; running daily update." 
             echo "should_run=true" >> "$GITHUB_OUTPUT"
-          else
+            exit 0
+          fi
+
+          today=$(date -u +%F)
+          generated=$(
+            curl -fsSL "https://raw.githubusercontent.com/${GITHUB_REPOSITORY}/main/public/predictions.json" \
+              | python3 -c "import sys, json; print(json.load(sys.stdin).get('generated_at', ''))"
+          )
+
+          if [ "$generated" = "$today" ]; then
+            echo "Board already fresh for ${today}; skipping backup run."
             echo "should_run=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "Board stale (${generated:-missing} vs ${today}); running backup update."
+            echo "should_run=true" >> "$GITHUB_OUTPUT"
           fi
 
       - name: Checkout
-        if: steps.central_time.outputs.should_run == 'true'
+        if: steps.run_control.outputs.should_run == 'true'
         uses: actions/checkout@v4
 
       - name: Set up Python
-        if: steps.central_time.outputs.should_run == 'true'
+        if: steps.run_control.outputs.should_run == 'true'
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
@@ -47,22 +63,22 @@ jobs:
           cache-dependency-path: requirements.txt
 
       - name: Set up Node
-        if: steps.central_time.outputs.should_run == 'true'
+        if: steps.run_control.outputs.should_run == 'true'
         uses: actions/setup-node@v4
         with:
           node-version: "20"
           cache: npm
 
       - name: Install Python dependencies
-        if: steps.central_time.outputs.should_run == 'true'
+        if: steps.run_control.outputs.should_run == 'true'
         run: pip install -r requirements.txt
 
       - name: Install Node dependencies
-        if: steps.central_time.outputs.should_run == 'true'
+        if: steps.run_control.outputs.should_run == 'true'
         run: npm ci
 
       - name: Retrain model and regenerate public outputs
-        if: steps.central_time.outputs.should_run == 'true'
+        if: steps.run_control.outputs.should_run == 'true'
         env:
           ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
           ODDS_REGIONS: us
@@ -70,8 +86,18 @@ jobs:
         run: npm run model:daily
 
       - name: Commit updated model outputs
-        if: steps.central_time.outputs.should_run == 'true'
+        if: steps.run_control.outputs.should_run == 'true'
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: "Update daily MLB model outputs"
           file_pattern: public/*.json data/model/*.pkl data/cache/*.json
+
+      - name: Verify today's board was published
+        if: steps.run_control.outputs.should_run == 'true'
+        run: |
+          today=$(date -u +%F)
+          generated=$(python3 -c "import json; print(json.load(open('public/predictions.json'))['generated_at'])")
+          if [ "$generated" != "$today" ]; then
+            echo "Expected generated_at=${today}, got ${generated}"
+            exit 1
+          fi

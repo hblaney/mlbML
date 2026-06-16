@@ -1,14 +1,14 @@
 {
-  "generated_at": "2026-06-15",
+  "generated_at": "2026-06-16",
   "stake": 100.0,
   "starting_bankroll": 10000.0,
   "date_range": {
     "start": "2026-03-20",
-    "end": "2026-06-14"
+    "end": "2026-06-15"
   },
   "odds_metadata": {
     "odds_data_start": "2021-04-01",
-    "odds_data_end": "2026-06-14",
+    "odds_data_end": "2026-06-15",
     "odds_data_stale": false,
     "limited_by": "yesterday's final scores"
   },
@@ -38,13 +38,13 @@
   },
   "by_category": {
     "moneyline": {
-      "bets": 64,
+      "bets": 65,
       "wins": 43,
-      "losses": 21,
-      "staked": 6400.0,
-      "profit": 2475.43,
-      "roi": 0.3868,
-      "hit_rate": 0.6719
+      "losses": 22,
+      "staked": 6500.0,
+      "profit": 2375.43,
+      "roi": 0.3655,
+      "hit_rate": 0.6615
     },
     "parlay_2": {
       "bets": 43,
@@ -146,6 +146,15 @@
       "profit": 1542.35,
       "roi": 1.2853,
       "hit_rate": 0.9167
+    },
+    "2026-W25": {
+      "bets": 1,
+      "wins": 0,
+      "losses": 1,
+      "staked": 100.0,
+      "profit": -100.0,
+      "roi": -1.0,
+      "hit_rate": 0.0
     }
   },
   "monthly": {
@@ -168,29 +177,23 @@
       "hit_rate": 0.5
     },
     "2026-06": {
-      "bets": 19,
+      "bets": 20,
       "wins": 16,
-      "losses": 3,
-      "staked": 1900.0,
-      "profit": 1996.56,
-      "roi": 1.0508,
-      "hit_rate": 0.8421
+      "losses": 4,
+      "staked": 2000.0,
+      "profit": 1896.56,
+      "roi": 0.9483,
+      "hit_rate": 0.8
     }
   },
   "cumulative": {
-    "bets": 107,
-    "profit": 5155.88,
-    "roi": 0.4819,
-    "balance": 15155.88,
-    "return_pct": 0.5156
+    "bets": 108,
+    "profit": 5055.88,
+    "roi": 0.4681,
+    "balance": 15055.88,
+    "return_pct": 0.5056
   },
   "checkpoints": [
-    {
-      "date": "2026-04-14",
-      "profit": 8.0,
-      "balance": 10528.87,
-      "return_pct": 0.0529
-    },
     {
       "date": "2026-04-15",
       "profit": 86.13,
@@ -544,6 +547,12 @@
       "profit": 166.0,
       "balance": 15155.88,
       "return_pct": 0.5156
+    },
+    {
+      "date": "2026-06-15",
+      "profit": -100.0,
+      "balance": 15055.88,
+      "return_pct": 0.5056
     }
   ],
   "daily": [
@@ -4327,6 +4336,38 @@
         "profit": 166.0,
         "roi": 1.66,
         "hit_rate": 1.0
+      }
+    },
+    {
+      "date": "2026-06-15",
+      "bets": [
+        {
+          "category": "moneyline",
+          "date": "2026-06-15",
+          "gamePk": 823046,
+          "matchup": "SD @ STL",
+          "team": "SD",
+          "side": "Moneyline",
+          "label": "SD ML",
+          "odds": 130,
+          "model_probability": 0.6426,
+          "book_probability": 0.4348,
+          "edge": 0.2078,
+          "ev": 47.8,
+          "stake": 100.0,
+          "qualified": true,
+          "won": false,
+          "profit": -100.0
+        }
+      ],
+      "summary": {
+        "bets": 1,
+        "wins": 0,
+        "losses": 1,
+        "staked": 100.0,
+        "profit": -100.0,
+        "roi": -1.0,
+        "hit_rate": 0.0
       }
     }
   ]
