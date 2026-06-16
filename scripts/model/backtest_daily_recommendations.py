@@ -39,7 +39,9 @@ PARLAY_ANCHOR_MIN_PROBABILITY = 0.645
 PARLAY_ANCHOR_MIN_BOOK = 0.50
 PARLAY_ANCHOR_MIN_EV = -2.0
 PARLAY_TOP_N = 4
-PARLAY_LEG_COUNTS = (2,)
+PARLAY_LEG_COUNTS = (2, 3)
+PREMIUM_PARLAY_MIN_COMBINED_PROBABILITY = 0.30
+PREMIUM_PARLAY_MIN_HIGH_ELITE_LEGS = 2
 TOTAL_MIN_EDGE = 0.04
 TOTAL_MIN_MODEL_PROBABILITY = 0.58
 
@@ -218,38 +220,73 @@ def pick_best_parlay(candidates: list[dict], leg_count: int) -> tuple[dict | Non
             and candidate["ev"] >= PARLAY_ANCHOR_MIN_EV
         )
     ][:PARLAY_TOP_N]
-    pools = [qualified_legs]
 
-    if leg_count == 2:
-        anchor_pool = []
-        for edge_leg in qualified_legs:
-            for anchor_leg in anchor_legs:
-                if edge_leg["gamePk"] != anchor_leg["gamePk"]:
-                    anchor_pool.append((edge_leg, anchor_leg))
-        pools.append(anchor_pool)
+    best_tickets: list[dict] = []
 
-    for index, pool in enumerate(pools):
-        if len(pool) < leg_count:
-            continue
-
-        best_ticket = None
-        combos = pool if index == 1 and leg_count == 2 else itertools.combinations(pool, leg_count)
-        for combo in combos:
-            legs = list(combo)
-            if len({leg["gamePk"] for leg in legs}) != leg_count:
+    if leg_count == 2 and len(qualified_legs) >= 2:
+        for combo in itertools.combinations(qualified_legs, leg_count):
+            if len({leg["gamePk"] for leg in combo}) != leg_count:
                 continue
-            settled = settle_parlay(legs)
+            settled = settle_parlay(list(combo))
             if settled["ev"] <= 0:
                 continue
             score = settled["ev"] * settled["probability"]
-            ticket = {"legs": legs, "score": score, "strategy": "anchor" if index == 1 else "edge", **settled}
-            if best_ticket is None or ticket["score"] > best_ticket["score"]:
-                best_ticket = ticket
+            best_tickets.append({"legs": list(combo), "score": score, "strategy": "edge", **settled})
 
-        if best_ticket is not None:
-            return best_ticket, True
+    if leg_count == 2:
+        for edge_leg in qualified_legs:
+            for anchor_leg in anchor_legs:
+                if edge_leg["gamePk"] == anchor_leg["gamePk"]:
+                    continue
+                settled = settle_parlay([edge_leg, anchor_leg])
+                if settled["ev"] <= 0:
+                    continue
+                score = settled["ev"] * settled["probability"]
+                best_tickets.append({"legs": [edge_leg, anchor_leg], "score": score, "strategy": "anchor", **settled})
 
-    return None, False
+    if leg_count == 3 and len(qualified_legs) >= 3:
+        for combo in itertools.combinations(qualified_legs, leg_count):
+            if len({leg["gamePk"] for leg in combo}) != leg_count:
+                continue
+            high_confidence_legs = sum(
+                1 for leg in combo if leg.get("confidence") in {"Elite", "High"}
+            )
+            if high_confidence_legs < PREMIUM_PARLAY_MIN_HIGH_ELITE_LEGS:
+                continue
+            settled = settle_parlay(list(combo))
+            if settled["ev"] <= 0 or settled["probability"] < PREMIUM_PARLAY_MIN_COMBINED_PROBABILITY:
+                continue
+            score = settled["ev"] * settled["probability"]
+            best_tickets.append({"legs": list(combo), "score": score, "strategy": "premium", **settled})
+
+    if not best_tickets:
+        return None, False
+
+    best_ticket = max(best_tickets, key=lambda ticket: ticket["score"])
+    return best_ticket, True
+
+
+def pick_best_daily_ticket(candidates: list[dict]) -> tuple[dict | None, bool]:
+    options: list[tuple[str, float, dict, bool]] = []
+
+    moneyline_pick, moneyline_qualified = pick_best_moneyline(candidates)
+    if moneyline_pick is not None:
+        score = moneyline_pick["ev"] * moneyline_pick["model_probability"]
+        options.append(("single", score, moneyline_pick, moneyline_qualified))
+
+    parlay_pick, parlay_qualified = pick_best_parlay(candidates, 2)
+    if parlay_pick is not None:
+        options.append((f"parlay_{parlay_pick.get('strategy', 'edge')}", parlay_pick["score"], parlay_pick, parlay_qualified))
+
+    premium_pick, premium_qualified = pick_best_parlay(candidates, 3)
+    if premium_pick is not None:
+        options.append(("parlay_premium", premium_pick["score"], premium_pick, premium_qualified))
+
+    if not options:
+        return None, False
+
+    ticket_kind, _, ticket, qualified = max(options, key=lambda item: item[1])
+    return {**ticket, "ticket_kind": ticket_kind}, qualified
 
 
 def bet_from_moneyline(candidate: dict, qualified: bool) -> dict:
@@ -294,6 +331,21 @@ def bet_from_total(candidate: dict, day: str, qualified: bool) -> dict:
         "won": bool(candidate["won"]),
         "profit": round(profit, 2),
     }
+
+
+def bet_from_best_ticket(ticket: dict, day: str, qualified: bool) -> dict:
+    ticket_kind = ticket.get("ticket_kind", "single")
+    if ticket_kind == "single":
+        bet = bet_from_moneyline({**ticket, "date": day}, qualified)
+        bet["category"] = "best_ticket"
+        bet["ticket_kind"] = "single"
+        return bet
+
+    leg_count = len(ticket["legs"])
+    bet = bet_from_parlay(ticket, day, leg_count, qualified)
+    bet["category"] = "best_ticket"
+    bet["ticket_kind"] = ticket_kind
+    return bet
 
 
 def bet_from_parlay(ticket: dict, day: str, leg_count: int, qualified: bool) -> dict:
@@ -341,26 +393,30 @@ def main() -> None:
         day_bets: list[dict] = []
 
         moneyline_candidates = moneyline_by_day.get(day, [])
+        best_ticket, best_ticket_qualified = pick_best_daily_ticket(moneyline_candidates)
+        if best_ticket is not None:
+            if best_ticket.get("ticket_kind") == "single":
+                best_ticket = {**best_ticket, "date": day}
+            bet = bet_from_best_ticket(best_ticket, day, best_ticket_qualified)
+            day_bets.append(bet)
+            category_bets["best_ticket"].append(bet)
+
         moneyline_pick, moneyline_qualified = pick_best_moneyline(moneyline_candidates)
         if moneyline_pick is not None:
             moneyline_pick = {**moneyline_pick, "date": day}
-            bet = bet_from_moneyline(moneyline_pick, moneyline_qualified)
-            day_bets.append(bet)
-            category_bets["moneyline"].append(bet)
+            category_bets["moneyline"].append(bet_from_moneyline(moneyline_pick, moneyline_qualified))
 
         total_candidates = totals_by_day.get(day, [])
         total_pick, total_qualified = pick_best_total(total_candidates)
         if total_pick is not None:
-            bet = bet_from_total(total_pick, day, total_qualified)
-            day_bets.append(bet)
-            category_bets["advanced"].append(bet)
+            category_bets["advanced"].append(bet_from_total(total_pick, day, total_qualified))
 
         for leg_count in PARLAY_LEG_COUNTS:
             parlay_pick, parlay_qualified = pick_best_parlay(moneyline_candidates, leg_count)
             if parlay_pick is not None:
-                bet = bet_from_parlay(parlay_pick, day, leg_count, parlay_qualified)
-                day_bets.append(bet)
-                category_bets[f"parlay_{leg_count}"].append(bet)
+                category_bets[f"parlay_{leg_count}"].append(
+                    bet_from_parlay(parlay_pick, day, leg_count, parlay_qualified)
+                )
 
         if day_bets:
             daily_snapshots.append(
@@ -423,7 +479,13 @@ def main() -> None:
                 "anchor_min_probability": PARLAY_ANCHOR_MIN_PROBABILITY,
                 "anchor_min_book_probability": PARLAY_ANCHOR_MIN_BOOK,
                 "anchor_min_leg_ev": PARLAY_ANCHOR_MIN_EV,
+                "premium_min_combined_probability": PREMIUM_PARLAY_MIN_COMBINED_PROBABILITY,
+                "premium_min_high_elite_legs": PREMIUM_PARLAY_MIN_HIGH_ELITE_LEGS,
                 "top_n": PARLAY_TOP_N,
+            },
+            "best_ticket": {
+                "selection": "Highest score among qualified single, 2-leg, or premium 3-leg ticket",
+                "score": "expected_value * model_probability",
             },
         },
         "by_category": {

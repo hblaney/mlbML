@@ -681,6 +681,8 @@ const SAFE_PARLAY_MIN_BOOK_PROBABILITY = 0.50;
 const ANCHOR_PARLAY_MIN_CONFIDENCE_PROBABILITY = 0.645;
 const ANCHOR_PARLAY_MIN_BOOK_PROBABILITY = 0.50;
 const ANCHOR_PARLAY_MIN_LEG_EV = -2;
+const PREMIUM_PARLAY_MIN_COMBINED_PROBABILITY = 0.30;
+const PREMIUM_PARLAY_MIN_HIGH_ELITE_LEGS = 2;
 const SAFE_PARLAY_MAX_LEGS = 2;
 const DAILY_PARLAY_LEG_COUNTS = [2] as const;
 const CONFIDENCE_RANK: Record<GamePrediction["confidence"], number> = {
@@ -743,8 +745,22 @@ export type ParlayCandidate = {
   ev: number;
   payoutProfit: number;
   score: number;
-  strategy?: "edge" | "anchor";
+  strategy?: "edge" | "anchor" | "premium";
 };
+
+export type DailyTicket =
+  | {
+      kind: "single";
+      bet: BestBet;
+      score: number;
+      qualified: boolean;
+    }
+  | {
+      kind: "parlay";
+      parlay: ParlayCandidate;
+      score: number;
+      qualified: boolean;
+    };
 
 export type ParlayStrategyInput = {
   leg_count: number;
@@ -812,6 +828,25 @@ function getAnchorParlayLegCandidates(board: GamePrediction[] = predictions) {
         right.ev - left.ev
     )
     .slice(0, 8);
+}
+
+function getTopMoneylineTicket(board: GamePrediction[] = predictions) {
+  const qualified = buildMarketMoneylineBets(board).sort(
+    (left, right) => (right.ev * right.modelProbability) - (left.ev * left.modelProbability)
+  );
+  if (qualified.length > 0) {
+    return qualified[0];
+  }
+
+  const available = buildBestAvailableMarketMoneylineBets(board)
+    .filter((bet) => bet.ev > 0)
+    .sort((left, right) => (right.ev * right.modelProbability) - (left.ev * left.modelProbability));
+
+  return available[0] ?? null;
+}
+
+function ticketScoreForSingle(bet: BestBet) {
+  return bet.ev * bet.modelProbability;
 }
 
 function bestAnchorParlay(board: GamePrediction[] = predictions, stake = 100) {
@@ -926,7 +961,7 @@ export function getParlayForStrategy(board: GamePrediction[] = predictions, stra
   return best;
 }
 
-export function getDailyParlayTickets(board: GamePrediction[] = predictions) {
+export function getBestTwoLegParlay(board: GamePrediction[] = predictions) {
   const singles = getParlayLegCandidates(board)
     .sort(
       (left, right) =>
@@ -936,37 +971,122 @@ export function getDailyParlayTickets(board: GamePrediction[] = predictions) {
     )
     .slice(0, 8);
 
-  const tickets: ParlayCandidate[] = [];
+  let best: ParlayCandidate | null = null;
 
-  for (const legCount of DAILY_PARLAY_LEG_COUNTS) {
-    let best: ParlayCandidate | null = null;
+  if (singles.length >= 2) {
+    for (const legs of combinations(singles, 2)) {
+      const uniqueGames = new Set(legs.map((leg) => leg.game.id));
+      if (uniqueGames.size !== legs.length) {
+        continue;
+      }
 
-    if (singles.length >= legCount) {
-      for (const legs of combinations(singles, legCount)) {
-        const uniqueGames = new Set(legs.map((leg) => leg.game.id));
-        if (uniqueGames.size !== legs.length) {
-          continue;
-        }
-
-        const candidate = buildParlayCandidate(legs);
-        if (candidate.ev <= 0) {
-          continue;
-        }
-        candidate.strategy = "edge";
-        if (!best || candidate.score > best.score) {
-          best = candidate;
-        }
+      const candidate = buildParlayCandidate(legs);
+      if (candidate.ev <= 0) {
+        continue;
+      }
+      candidate.strategy = "edge";
+      if (!best || candidate.score > best.score) {
+        best = candidate;
       }
     }
+  }
 
-    const anchor = bestAnchorParlay(board);
-    if (anchor && (!best || anchor.score > best.score)) {
-      best = anchor;
+  const anchor = bestAnchorParlay(board);
+  if (anchor && (!best || anchor.score > best.score)) {
+    best = anchor;
+  }
+
+  return best;
+}
+
+export function getPremiumThreeLegParlay(board: GamePrediction[] = predictions) {
+  const singles = getParlayLegCandidates(board)
+    .sort((left, right) => (right.ev * right.modelProbability) - (left.ev * left.modelProbability))
+    .slice(0, 6);
+
+  if (singles.length < 3) {
+    return null;
+  }
+
+  let best: ParlayCandidate | null = null;
+
+  for (const legs of combinations(singles, 3)) {
+    const uniqueGames = new Set(legs.map((leg) => leg.game.id));
+    if (uniqueGames.size !== legs.length) {
+      continue;
     }
 
-    if (best) {
-      tickets.push(best);
+    const highConfidenceLegs = legs.filter(
+      (leg) => leg.game.confidence === "Elite" || leg.game.confidence === "High"
+    ).length;
+    if (highConfidenceLegs < PREMIUM_PARLAY_MIN_HIGH_ELITE_LEGS) {
+      continue;
     }
+
+    const candidate = buildParlayCandidate(legs);
+    if (candidate.ev <= 0 || candidate.probability < PREMIUM_PARLAY_MIN_COMBINED_PROBABILITY) {
+      continue;
+    }
+
+    candidate.strategy = "premium";
+    if (!best || candidate.score > best.score) {
+      best = candidate;
+    }
+  }
+
+  return best;
+}
+
+export function getBestDailyTicket(board: GamePrediction[] = predictions): DailyTicket | null {
+  const options: DailyTicket[] = [];
+
+  const single = getTopMoneylineTicket(board);
+  if (single && single.ev > 0) {
+    options.push({
+      kind: "single",
+      bet: single,
+      score: ticketScoreForSingle(single),
+      qualified: Boolean(single.qualified)
+    });
+  }
+
+  const twoLeg = getBestTwoLegParlay(board);
+  if (twoLeg) {
+    options.push({
+      kind: "parlay",
+      parlay: twoLeg,
+      score: twoLeg.score,
+      qualified: true
+    });
+  }
+
+  const threeLeg = getPremiumThreeLegParlay(board);
+  if (threeLeg) {
+    options.push({
+      kind: "parlay",
+      parlay: threeLeg,
+      score: threeLeg.score,
+      qualified: true
+    });
+  }
+
+  if (options.length === 0) {
+    return null;
+  }
+
+  return options.sort((left, right) => right.score - left.score)[0];
+}
+
+export function getDailyParlayTickets(board: GamePrediction[] = predictions) {
+  const tickets: ParlayCandidate[] = [];
+  const twoLeg = getBestTwoLegParlay(board);
+  const threeLeg = getPremiumThreeLegParlay(board);
+
+  if (twoLeg) {
+    tickets.push(twoLeg);
+  }
+  if (threeLeg && (!twoLeg || threeLeg.score > twoLeg.score)) {
+    tickets.push(threeLeg);
   }
 
   return tickets;
