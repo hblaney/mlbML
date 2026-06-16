@@ -432,9 +432,9 @@ export default async function BestBetsPage() {
                   <tr key={sid}>
                     <td>{sid}</td>
                     <td>{formatBankroll(r25.end)}</td>
-                    <td>{formatPercent(r25.flat_roi)}</td>
+                    <td>{formatPercent(r25.flat_roi ?? 0)}</td>
                     <td className={r26.end >= 10000 ? "positive" : ""}>{formatBankroll(r26.end)}</td>
-                    <td>{formatPercent(r26.flat_roi)}</td>
+                    <td>{formatPercent(r26.flat_roi ?? 0)}</td>
                   </tr>
                 );
               })}

@@ -363,6 +363,9 @@ export type ExhaustiveStrategyRow = {
   bets: number;
   wins: number;
   losses: number;
+  flat_profit?: number;
+  flat_roi?: number;
+  hit_rate?: number;
 };
 
 export type ExhaustiveStrategySearch = {
