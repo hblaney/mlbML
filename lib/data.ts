@@ -683,6 +683,8 @@ const ANCHOR_PARLAY_MIN_BOOK_PROBABILITY = 0.50;
 const ANCHOR_PARLAY_MIN_LEG_EV = -2;
 const PREMIUM_PARLAY_MIN_COMBINED_PROBABILITY = 0.30;
 const PREMIUM_PARLAY_MIN_HIGH_ELITE_LEGS = 2;
+const PREMIUM_4LEG_MIN_COMBINED_PROBABILITY = 0.15;
+const PREMIUM_4LEG_MIN_HIGH_ELITE_LEGS = 2;
 const SAFE_PARLAY_MAX_LEGS = 2;
 const DAILY_PARLAY_LEG_COUNTS = [2] as const;
 const CONFIDENCE_RANK: Record<GamePrediction["confidence"], number> = {
@@ -745,8 +747,36 @@ export type ParlayCandidate = {
   ev: number;
   payoutProfit: number;
   score: number;
-  strategy?: "edge" | "anchor" | "premium";
+  strategy?: "edge" | "anchor" | "premium" | "premium_4" | "forced_top_2";
 };
+
+/** Flat fallback when leg-specific stake is unavailable (2026 sweep best: 35%). */
+export const OPTIMIZED_GROWTH_STAKE_PCT = 0.35;
+
+/** 2026 walk-forward tiered sizing for two_or_three_or_single (safe 50% min-bankroll floor). */
+export const OPTIMIZED_STAKE_BY_LEG_COUNT: Record<number, number> = {
+  1: 0.45,
+  2: 0.25,
+  3: 0.5
+};
+
+export function getOptimizedStakePctForTicket(
+  ticket: DailyTicket | null,
+  stakeByLeg?: Record<string, number>
+): number {
+  if (!ticket) {
+    return OPTIMIZED_GROWTH_STAKE_PCT;
+  }
+  const legKey = ticket.kind === "single" ? "1" : String(ticket.parlay.legCount);
+  const fromPlan = stakeByLeg?.[legKey];
+  if (fromPlan != null) {
+    return fromPlan;
+  }
+  if (ticket.kind === "single") {
+    return OPTIMIZED_STAKE_BY_LEG_COUNT[1];
+  }
+  return OPTIMIZED_STAKE_BY_LEG_COUNT[ticket.parlay.legCount] ?? OPTIMIZED_GROWTH_STAKE_PCT;
+}
 
 export type DailyTicket =
   | {
@@ -1037,7 +1067,141 @@ export function getPremiumThreeLegParlay(board: GamePrediction[] = predictions) 
   return best;
 }
 
-export function getBestDailyTicket(board: GamePrediction[] = predictions): DailyTicket | null {
+export function getPremiumFourLegParlay(board: GamePrediction[] = predictions) {
+  const singles = getParlayLegCandidates(board)
+    .sort((left, right) => (right.ev * right.modelProbability) - (left.ev * left.modelProbability))
+    .slice(0, 6);
+
+  if (singles.length < 4) {
+    return null;
+  }
+
+  let best: ParlayCandidate | null = null;
+
+  for (const legs of combinations(singles, 4)) {
+    const uniqueGames = new Set(legs.map((leg) => leg.game.id));
+    if (uniqueGames.size !== legs.length) {
+      continue;
+    }
+
+    const highConfidenceLegs = legs.filter(
+      (leg) => leg.game.confidence === "Elite" || leg.game.confidence === "High"
+    ).length;
+    if (highConfidenceLegs < PREMIUM_4LEG_MIN_HIGH_ELITE_LEGS) {
+      continue;
+    }
+
+    const candidate = buildParlayCandidate(legs);
+    if (candidate.ev <= 0 || candidate.probability < PREMIUM_4LEG_MIN_COMBINED_PROBABILITY) {
+      continue;
+    }
+
+    candidate.strategy = "premium_4";
+    if (!best || candidate.score > best.score) {
+      best = candidate;
+    }
+  }
+
+  return best;
+}
+
+function getPositiveEvLegCandidates(board: GamePrediction[] = predictions) {
+  if (!boardHasMarketOdds(board)) {
+    return [];
+  }
+
+  return buildMarketMoneylineCandidates(board)
+    .filter((bet) => bet.ev > 0)
+    .sort(
+      (left, right) =>
+        right.ev * right.modelProbability - left.ev * left.modelProbability ||
+        right.ev - left.ev ||
+        right.modelProbability - left.modelProbability
+    );
+}
+
+export function getForcedTopTwoLegParlay(board: GamePrediction[] = predictions) {
+  const legs: BestBet[] = [];
+  const seenGames = new Set<string>();
+
+  for (const leg of getPositiveEvLegCandidates(board)) {
+    if (seenGames.has(leg.game.id)) {
+      continue;
+    }
+    legs.push(leg);
+    seenGames.add(leg.game.id);
+    if (legs.length === 2) {
+      break;
+    }
+  }
+
+  if (legs.length < 2) {
+    return null;
+  }
+
+  const candidate = buildParlayCandidate(legs);
+  if (candidate.ev <= 0) {
+    return null;
+  }
+
+  candidate.strategy = "forced_top_2";
+  return candidate;
+}
+
+/** Backtest winner (Mar–Jun 2026): filtered 2-leg when available, else top-2 positive-EV legs. */
+export function getAlwaysTwoLegParlay(board: GamePrediction[] = predictions) {
+  const filtered = getBestTwoLegParlay(board);
+  if (filtered) {
+    return filtered;
+  }
+  return getForcedTopTwoLegParlay(board);
+}
+
+/** Exhaustive fair backtest winner: always-2 ticket vs filtered premium 3-leg — higher score wins. */
+export function getTwoOrThreeBestParlay(board: GamePrediction[] = predictions) {
+  const twoLeg = getAlwaysTwoLegParlay(board);
+  const threeLeg = getPremiumThreeLegParlay(board);
+  const options = [twoLeg, threeLeg].filter((ticket): ticket is ParlayCandidate => ticket !== null);
+
+  if (options.length === 0) {
+    return null;
+  }
+
+  return options.sort((left, right) => right.score - left.score)[0];
+}
+
+/** OOS-tested variant: always-2, premium 3-leg, or qualified single — highest score wins one bet. */
+export function getTwoOrThreeOrSingleTicket(board: GamePrediction[] = predictions): DailyTicket | null {
+  const options: DailyTicket[] = [];
+
+  const twoLeg = getAlwaysTwoLegParlay(board);
+  if (twoLeg) {
+    options.push({ kind: "parlay", parlay: twoLeg, score: twoLeg.score, qualified: twoLeg.strategy !== "forced_top_2" });
+  }
+
+  const threeLeg = getPremiumThreeLegParlay(board);
+  if (threeLeg) {
+    options.push({ kind: "parlay", parlay: threeLeg, score: threeLeg.score, qualified: true });
+  }
+
+  const single = getTopMoneylineTicket(board);
+  if (single && single.ev > 0) {
+    options.push({
+      kind: "single",
+      bet: single,
+      score: ticketScoreForSingle(single),
+      qualified: Boolean(single.qualified)
+    });
+  }
+
+  if (options.length === 0) {
+    return null;
+  }
+
+  return options.sort((left, right) => right.score - left.score)[0];
+}
+
+export function getMaxScoreDailyTicket(board: GamePrediction[] = predictions): DailyTicket | null {
   const options: DailyTicket[] = [];
 
   const single = getTopMoneylineTicket(board);
@@ -1070,11 +1234,26 @@ export function getBestDailyTicket(board: GamePrediction[] = predictions): Daily
     });
   }
 
+  const fourLeg = getPremiumFourLegParlay(board);
+  if (fourLeg) {
+    options.push({
+      kind: "parlay",
+      parlay: fourLeg,
+      score: fourLeg.score,
+      qualified: true
+    });
+  }
+
   if (options.length === 0) {
     return null;
   }
 
   return options.sort((left, right) => right.score - left.score)[0];
+}
+
+/** Daily ticket: best of always-2, premium 3-leg, or qualified single (2026-validated). */
+export function getBestDailyTicket(board: GamePrediction[] = predictions): DailyTicket | null {
+  return getTwoOrThreeOrSingleTicket(board);
 }
 
 export function getDailyParlayTickets(board: GamePrediction[] = predictions) {

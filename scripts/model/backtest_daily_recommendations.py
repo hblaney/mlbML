@@ -39,9 +39,11 @@ PARLAY_ANCHOR_MIN_PROBABILITY = 0.645
 PARLAY_ANCHOR_MIN_BOOK = 0.50
 PARLAY_ANCHOR_MIN_EV = -2.0
 PARLAY_TOP_N = 4
-PARLAY_LEG_COUNTS = (2, 3)
+PARLAY_LEG_COUNTS = (2, 3, 4)
 PREMIUM_PARLAY_MIN_COMBINED_PROBABILITY = 0.30
 PREMIUM_PARLAY_MIN_HIGH_ELITE_LEGS = 2
+PREMIUM_4LEG_MIN_COMBINED_PROBABILITY = 0.15
+PREMIUM_4LEG_MIN_HIGH_ELITE_LEGS = 2
 TOTAL_MIN_EDGE = 0.04
 TOTAL_MIN_MODEL_PROBABILITY = 0.58
 
@@ -259,6 +261,21 @@ def pick_best_parlay(candidates: list[dict], leg_count: int) -> tuple[dict | Non
             score = settled["ev"] * settled["probability"]
             best_tickets.append({"legs": list(combo), "score": score, "strategy": "premium", **settled})
 
+    if leg_count == 4 and len(qualified_legs) >= 4:
+        for combo in itertools.combinations(qualified_legs, leg_count):
+            if len({leg["gamePk"] for leg in combo}) != leg_count:
+                continue
+            high_confidence_legs = sum(
+                1 for leg in combo if leg.get("confidence") in {"Elite", "High"}
+            )
+            if high_confidence_legs < PREMIUM_4LEG_MIN_HIGH_ELITE_LEGS:
+                continue
+            settled = settle_parlay(list(combo))
+            if settled["ev"] <= 0 or settled["probability"] < PREMIUM_4LEG_MIN_COMBINED_PROBABILITY:
+                continue
+            score = settled["ev"] * settled["probability"]
+            best_tickets.append({"legs": list(combo), "score": score, "strategy": "premium_4", **settled})
+
     if not best_tickets:
         return None, False
 
@@ -281,6 +298,10 @@ def pick_best_daily_ticket(candidates: list[dict]) -> tuple[dict | None, bool]:
     premium_pick, premium_qualified = pick_best_parlay(candidates, 3)
     if premium_pick is not None:
         options.append(("parlay_premium", premium_pick["score"], premium_pick, premium_qualified))
+
+    premium_4_pick, premium_4_qualified = pick_best_parlay(candidates, 4)
+    if premium_4_pick is not None:
+        options.append(("parlay_premium_4", premium_4_pick["score"], premium_4_pick, premium_4_qualified))
 
     if not options:
         return None, False

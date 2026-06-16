@@ -1,0 +1,2060 @@
+{
+  "generated_at": "2026-06-16",
+  "method": "walk_forward_time_series",
+  "strategy": "best_2_leg_parlay_per_qualifying_day",
+  "recommended_stake_pct": 0.3,
+  "date_range": {
+    "start": "2026-03-20",
+    "end": "2026-06-15"
+  },
+  "odds_metadata": {
+    "odds_data_start": "2021-04-01",
+    "odds_data_end": "2026-06-15",
+    "odds_data_stale": false,
+    "limited_by": "yesterday's final scores"
+  },
+  "criteria": {
+    "edge_leg_min_edge": 0.05,
+    "edge_leg_min_model_probability": 0.65,
+    "edge_leg_min_book_probability": 0.5,
+    "edge_leg_positive_ev": true,
+    "anchor_leg_confidence": [
+      "High",
+      "Elite"
+    ],
+    "anchor_leg_min_model_probability": 0.645,
+    "anchor_leg_min_book_probability": 0.5,
+    "anchor_leg_min_ev": -2.0,
+    "ticket_must_have_positive_ev": true,
+    "legs_must_be_different_games": true,
+    "selection_score": "expected_value * model_probability"
+  },
+  "coverage": {
+    "game_days_with_candidates": 69,
+    "qualifying_parlay_days": 47,
+    "qualifying_rate": 0.6812,
+    "estimated_season_games_played": 76.6,
+    "estimated_season_progress_pct": 47.3
+  },
+  "flat_stake": 100.0,
+  "flat_summary": {
+    "bets": 47,
+    "wins": 24,
+    "losses": 23,
+    "profit": 2778.99,
+    "roi": 0.5913,
+    "hit_rate": 0.5106
+  },
+  "by_strategy": {
+    "edge": {
+      "bets": 43,
+      "wins": 22,
+      "losses": 21,
+      "flat_profit": 2680.45
+    },
+    "anchor": {
+      "bets": 4,
+      "wins": 2,
+      "losses": 2,
+      "flat_profit": 98.54
+    }
+  },
+  "compound_scenarios": [
+    {
+      "stake_pct": 0.25,
+      "starting_bankroll": 10.0,
+      "to_date": {
+        "bets": 47,
+        "end": 344.58,
+        "profit": 334.58,
+        "return_pct": 3345.8,
+        "min_bankroll": 10.0
+      },
+      "full_season_projection": {
+        "estimated_total_bets": 99,
+        "estimated_season_progress_pct": 47.3,
+        "end": 20385.35,
+        "profit": 20375.35,
+        "return_pct": 203753.5,
+        "note": "Projection replays the same walk-forward bet sequence cyclically through an estimated full season."
+      }
+    },
+    {
+      "stake_pct": 0.25,
+      "starting_bankroll": 10000.0,
+      "to_date": {
+        "bets": 47,
+        "end": 344577.72,
+        "profit": 334577.72,
+        "return_pct": 3345.8,
+        "min_bankroll": 10000.0
+      },
+      "full_season_projection": {
+        "estimated_total_bets": 99,
+        "estimated_season_progress_pct": 47.3,
+        "end": 20385351.78,
+        "profit": 20375351.78,
+        "return_pct": 203753.5,
+        "note": "Projection replays the same walk-forward bet sequence cyclically through an estimated full season."
+      }
+    },
+    {
+      "stake_pct": 0.3,
+      "starting_bankroll": 10.0,
+      "to_date": {
+        "bets": 47,
+        "end": 347.95,
+        "profit": 337.95,
+        "return_pct": 3379.5,
+        "min_bankroll": 10.0
+      },
+      "full_season_projection": {
+        "estimated_total_bets": 99,
+        "estimated_season_progress_pct": 47.3,
+        "end": 21688.55,
+        "profit": 21678.55,
+        "return_pct": 216785.5,
+        "note": "Projection replays the same walk-forward bet sequence cyclically through an estimated full season."
+      }
+    },
+    {
+      "stake_pct": 0.3,
+      "starting_bankroll": 10000.0,
+      "to_date": {
+        "bets": 47,
+        "end": 347949.79,
+        "profit": 337949.79,
+        "return_pct": 3379.5,
+        "min_bankroll": 10000.0
+      },
+      "full_season_projection": {
+        "estimated_total_bets": 99,
+        "estimated_season_progress_pct": 47.3,
+        "end": 21688551.62,
+        "profit": 21678551.62,
+        "return_pct": 216785.5,
+        "note": "Projection replays the same walk-forward bet sequence cyclically through an estimated full season."
+      }
+    },
+    {
+      "stake_pct": 0.4,
+      "starting_bankroll": 10.0,
+      "to_date": {
+        "bets": 47,
+        "end": 183.11,
+        "profit": 173.11,
+        "return_pct": 1731.1,
+        "min_bankroll": 10.0
+      },
+      "full_season_projection": {
+        "estimated_total_bets": 99,
+        "estimated_season_progress_pct": 47.3,
+        "end": 6145.58,
+        "profit": 6135.58,
+        "return_pct": 61355.8,
+        "note": "Projection replays the same walk-forward bet sequence cyclically through an estimated full season."
+      }
+    },
+    {
+      "stake_pct": 0.4,
+      "starting_bankroll": 10000.0,
+      "to_date": {
+        "bets": 47,
+        "end": 183114.32,
+        "profit": 173114.32,
+        "return_pct": 1731.1,
+        "min_bankroll": 10000.0
+      },
+      "full_season_projection": {
+        "estimated_total_bets": 99,
+        "estimated_season_progress_pct": 47.3,
+        "end": 6145584.31,
+        "profit": 6135584.31,
+        "return_pct": 61355.8,
+        "note": "Projection replays the same walk-forward bet sequence cyclically through an estimated full season."
+      }
+    }
+  ],
+  "bets": [
+    {
+      "category": "parlay_2",
+      "date": "2026-04-10",
+      "matchup": "HOU @ SEA + MIA @ DET",
+      "team": "2-leg Parlay",
+      "side": "Parlay",
+      "label": "SEA ML + DET ML",
+      "odds": 205,
+      "model_probability": 0.49,
+      "book_probability": null,
+      "edge": null,
+      "ev": 49.43,
+      "stake": 100.0,
+      "qualified": true,
+      "strategy": "edge",
+      "won": true,
+      "profit": 204.96,
+      "legs": [
+        {
+          "team": "SEA",
+          "matchup": "HOU @ SEA",
+          "odds": -133,
+          "model_probability": 0.7,
+          "book_probability": 0.5708,
+          "edge": 0.1292,
+          "won": true,
+          "confidence": "High"
+        },
+        {
+          "team": "DET",
+          "matchup": "MIA @ DET",
+          "odds": -135,
+          "model_probability": 0.7,
+          "book_probability": 0.5745,
+          "edge": 0.1255,
+          "won": true,
+          "confidence": "High"
+        }
+      ]
+    },
+    {
+      "category": "parlay_2",
+      "date": "2026-04-11",
+      "matchup": "CLE @ ATL + LAA @ CIN",
+      "team": "2-leg Parlay",
+      "side": "Parlay",
+      "label": "ATL ML + CIN ML",
+      "odds": 228,
+      "model_probability": 0.4686,
+      "book_probability": null,
+      "edge": null,
+      "ev": 53.76,
+      "stake": 100.0,
+      "qualified": true,
+      "strategy": "edge",
+      "won": false,
+      "profit": -100.0,
+      "legs": [
+        {
+          "team": "ATL",
+          "matchup": "CLE @ ATL",
+          "odds": -117,
+          "model_probability": 0.6694,
+          "book_probability": 0.5392,
+          "edge": 0.1302,
+          "won": false,
+          "confidence": "Medium"
+        },
+        {
+          "team": "CIN",
+          "matchup": "LAA @ CIN",
+          "odds": -130,
+          "model_probability": 0.7,
+          "book_probability": 0.5652,
+          "edge": 0.1348,
+          "won": true,
+          "confidence": "High"
+        }
+      ]
+    },
+    {
+      "category": "parlay_2",
+      "date": "2026-04-13",
+      "matchup": "NYM @ LAD + CHC @ PHI",
+      "team": "2-leg Parlay",
+      "side": "Parlay",
+      "label": "LAD ML + PHI ML",
+      "odds": 151,
+      "model_probability": 0.4862,
+      "book_probability": null,
+      "edge": null,
+      "ev": 22.0,
+      "stake": 100.0,
+      "qualified": true,
+      "strategy": "edge",
+      "won": true,
+      "profit": 150.91,
+      "legs": [
+        {
+          "team": "LAD",
+          "matchup": "NYM @ LAD",
+          "odds": -164,
+          "model_probability": 0.6946,
+          "book_probability": 0.6212,
+          "edge": 0.0734,
+          "won": true,
+          "confidence": "High"
+        },
+        {
+          "team": "PHI",
+          "matchup": "CHC @ PHI",
+          "odds": -179,
+          "model_probability": 0.7,
+          "book_probability": 0.6416,
+          "edge": 0.0584,
+          "won": true,
+          "confidence": "Elite"
+        }
+      ]
+    },
+    {
+      "category": "parlay_2",
+      "date": "2026-04-14",
+      "matchup": "SF @ CIN + BOS @ MIN",
+      "team": "2-leg Parlay",
+      "side": "Parlay",
+      "label": "SF ML + BOS ML",
+      "odds": 229,
+      "model_probability": 0.4764,
+      "book_probability": null,
+      "edge": null,
+      "ev": 56.83,
+      "stake": 100.0,
+      "qualified": true,
+      "strategy": "edge",
+      "won": false,
+      "profit": -100.0,
+      "legs": [
+        {
+          "team": "SF",
+          "matchup": "SF @ CIN",
+          "odds": -108,
+          "model_probability": 0.6849,
+          "book_probability": 0.5192,
+          "edge": 0.1657,
+          "won": false,
+          "confidence": "Medium"
+        },
+        {
+          "team": "BOS",
+          "matchup": "BOS @ MIN",
+          "odds": -141,
+          "model_probability": 0.6956,
+          "book_probability": 0.5851,
+          "edge": 0.1105,
+          "won": false,
+          "confidence": "High"
+        }
+      ]
+    },
+    {
+      "category": "parlay_2",
+      "date": "2026-04-15",
+      "matchup": "BOS @ MIN + MIA @ ATL",
+      "team": "2-leg Parlay",
+      "side": "Parlay",
+      "label": "BOS ML + ATL ML",
+      "odds": 186,
+      "model_probability": 0.49,
+      "book_probability": null,
+      "edge": null,
+      "ev": 40.21,
+      "stake": 100.0,
+      "qualified": true,
+      "strategy": "edge",
+      "won": true,
+      "profit": 186.13,
+      "legs": [
+        {
+          "team": "BOS",
+          "matchup": "BOS @ MIN",
+          "odds": -130,
+          "model_probability": 0.7,
+          "book_probability": 0.5652,
+          "edge": 0.1348,
+          "won": true,
+          "confidence": "High"
+        },
+        {
+          "team": "ATL",
+          "matchup": "MIA @ ATL",
+          "odds": -162,
+          "model_probability": 0.7,
+          "book_probability": 0.6183,
+          "edge": 0.0817,
+          "won": true,
+          "confidence": "Elite"
+        }
+      ]
+    },
+    {
+      "category": "parlay_2",
+      "date": "2026-04-17",
+      "matchup": "SD @ LAA + SF @ WSH",
+      "team": "2-leg Parlay",
+      "side": "Parlay",
+      "label": "LAA ML + SF ML",
+      "odds": 193,
+      "model_probability": 0.4726,
+      "book_probability": null,
+      "edge": null,
+      "ev": 38.54,
+      "stake": 100.0,
+      "qualified": true,
+      "strategy": "edge",
+      "won": true,
+      "profit": 193.11,
+      "legs": [
+        {
+          "team": "LAA",
+          "matchup": "SD @ LAA",
+          "odds": -131,
+          "model_probability": 0.7,
+          "book_probability": 0.5671,
+          "edge": 0.1329,
+          "won": true,
+          "confidence": "High"
+        },
+        {
+          "team": "SF",
+          "matchup": "SF @ WSH",
+          "odds": -151,
+          "model_probability": 0.6752,
+          "book_probability": 0.6016,
+          "edge": 0.0736,
+          "won": true,
+          "confidence": "Medium"
+        }
+      ]
+    },
+    {
+      "category": "parlay_2",
+      "date": "2026-04-21",
+      "matchup": "STL @ MIA + NYY @ BOS",
+      "team": "2-leg Parlay",
+      "side": "Parlay",
+      "label": "STL ML + BOS ML",
+      "odds": 259,
+      "model_probability": 0.4695,
+      "book_probability": null,
+      "edge": null,
+      "ev": 68.44,
+      "stake": 100.0,
+      "qualified": true,
+      "strategy": "edge",
+      "won": false,
+      "profit": -100.0,
+      "legs": [
+        {
+          "team": "STL",
+          "matchup": "STL @ MIA",
+          "odds": 100,
+          "model_probability": 0.6753,
+          "book_probability": 0.5,
+          "edge": 0.1753,
+          "won": true,
+          "confidence": "Medium"
+        },
+        {
+          "team": "BOS",
+          "matchup": "NYY @ BOS",
+          "odds": -126,
+          "model_probability": 0.6953,
+          "book_probability": 0.5575,
+          "edge": 0.1378,
+          "won": false,
+          "confidence": "High"
+        }
+      ]
+    },
+    {
+      "category": "parlay_2",
+      "date": "2026-04-22",
+      "matchup": "CIN @ TB + TOR @ LAA",
+      "team": "2-leg Parlay",
+      "side": "Parlay",
+      "label": "TB ML + LAA ML",
+      "odds": 183,
+      "model_probability": 0.4885,
+      "book_probability": null,
+      "edge": null,
+      "ev": 38.08,
+      "stake": 100.0,
+      "qualified": true,
+      "strategy": "edge",
+      "won": true,
+      "profit": 182.64,
+      "legs": [
+        {
+          "team": "TB",
+          "matchup": "CIN @ TB",
+          "odds": -141,
+          "model_probability": 0.7,
+          "book_probability": 0.5851,
+          "edge": 0.1149,
+          "won": true,
+          "confidence": "High"
+        },
+        {
+          "team": "LAA",
+          "matchup": "TOR @ LAA",
+          "odds": -153,
+          "model_probability": 0.6979,
+          "book_probability": 0.6047,
+          "edge": 0.0932,
+          "won": true,
+          "confidence": "High"
+        }
+      ]
+    },
+    {
+      "category": "parlay_2",
+      "date": "2026-04-23",
+      "matchup": "PIT @ TEX + MIL @ DET",
+      "team": "2-leg Parlay",
+      "side": "Parlay",
+      "label": "TEX ML + DET ML",
+      "odds": 135,
+      "model_probability": 0.49,
+      "book_probability": null,
+      "edge": null,
+      "ev": 15.11,
+      "stake": 100.0,
+      "qualified": true,
+      "strategy": "anchor",
+      "won": true,
+      "profit": 134.91,
+      "legs": [
+        {
+          "team": "TEX",
+          "matchup": "PIT @ TEX",
+          "odds": -158,
+          "model_probability": 0.7,
+          "book_probability": 0.6124,
+          "edge": 0.0876,
+          "won": true,
+          "confidence": "Elite"
+        },
+        {
+          "team": "DET",
+          "matchup": "MIL @ DET",
+          "odds": -228,
+          "model_probability": 0.7,
+          "book_probability": 0.6951,
+          "edge": 0.0049,
+          "won": true,
+          "confidence": "Elite"
+        }
+      ]
+    },
+    {
+      "category": "parlay_2",
+      "date": "2026-04-24",
+      "matchup": "LAA @ KC + BOS @ BAL",
+      "team": "2-leg Parlay",
+      "side": "Parlay",
+      "label": "KC ML + BAL ML",
+      "odds": 247,
+      "model_probability": 0.485,
+      "book_probability": null,
+      "edge": null,
+      "ev": 68.12,
+      "stake": 100.0,
+      "qualified": true,
+      "strategy": "edge",
+      "won": true,
+      "profit": 246.67,
+      "legs": [
+        {
+          "team": "KC",
+          "matchup": "LAA @ KC",
+          "odds": -108,
+          "model_probability": 0.6928,
+          "book_probability": 0.5192,
+          "edge": 0.1736,
+          "won": true,
+          "confidence": "High"
+        },
+        {
+          "team": "BAL",
+          "matchup": "BOS @ BAL",
+          "odds": -125,
+          "model_probability": 0.7,
+          "book_probability": 0.5556,
+          "edge": 0.1444,
+          "won": true,
+          "confidence": "High"
+        }
+      ]
+    },
+    {
+      "category": "parlay_2",
+      "date": "2026-04-25",
+      "matchup": "MIN @ TB + PIT @ MIL",
+      "team": "2-leg Parlay",
+      "side": "Parlay",
+      "label": "TB ML + MIL ML",
+      "odds": 195,
+      "model_probability": 0.4894,
+      "book_probability": null,
+      "edge": null,
+      "ev": 44.41,
+      "stake": 100.0,
+      "qualified": true,
+      "strategy": "edge",
+      "won": false,
+      "profit": -100.0,
+      "legs": [
+        {
+          "team": "TB",
+          "matchup": "MIN @ TB",
+          "odds": -134,
+          "model_probability": 0.6992,
+          "book_probability": 0.5726,
+          "edge": 0.1266,
+          "won": true,
+          "confidence": "High"
+        },
+        {
+          "team": "MIL",
+          "matchup": "PIT @ MIL",
+          "odds": -145,
+          "model_probability": 0.7,
+          "book_probability": 0.5918,
+          "edge": 0.1082,
+          "won": false,
+          "confidence": "High"
+        }
+      ]
+    },
+    {
+      "category": "parlay_2",
+      "date": "2026-04-26",
+      "matchup": "PIT @ MIL + CHC @ LAD",
+      "team": "2-leg Parlay",
+      "side": "Parlay",
+      "label": "MIL ML + LAD ML",
+      "odds": 235,
+      "model_probability": 0.49,
+      "book_probability": null,
+      "edge": null,
+      "ev": 64.08,
+      "stake": 100.0,
+      "qualified": true,
+      "strategy": "edge",
+      "won": true,
+      "profit": 234.85,
+      "legs": [
+        {
+          "team": "MIL",
+          "matchup": "PIT @ MIL",
+          "odds": -120,
+          "model_probability": 0.7,
+          "book_probability": 0.5455,
+          "edge": 0.1545,
+          "won": true,
+          "confidence": "High"
+        },
+        {
+          "team": "LAD",
+          "matchup": "CHC @ LAD",
+          "odds": -121,
+          "model_probability": 0.7,
+          "book_probability": 0.5475,
+          "edge": 0.1525,
+          "won": true,
+          "confidence": "High"
+        }
+      ]
+    },
+    {
+      "category": "parlay_2",
+      "date": "2026-04-27",
+      "matchup": "LAA @ CWS + TB @ CLE",
+      "team": "2-leg Parlay",
+      "side": "Parlay",
+      "label": "CWS ML + CLE ML",
+      "odds": 222,
+      "model_probability": 0.4745,
+      "book_probability": null,
+      "edge": null,
+      "ev": 52.68,
+      "stake": 100.0,
+      "qualified": true,
+      "strategy": "edge",
+      "won": false,
+      "profit": -100.0,
+      "legs": [
+        {
+          "team": "CWS",
+          "matchup": "LAA @ CWS",
+          "odds": -114,
+          "model_probability": 0.6778,
+          "book_probability": 0.5327,
+          "edge": 0.1451,
+          "won": true,
+          "confidence": "Medium"
+        },
+        {
+          "team": "CLE",
+          "matchup": "TB @ CLE",
+          "odds": -140,
+          "model_probability": 0.7,
+          "book_probability": 0.5833,
+          "edge": 0.1167,
+          "won": false,
+          "confidence": "High"
+        }
+      ]
+    },
+    {
+      "category": "parlay_2",
+      "date": "2026-04-28",
+      "matchup": "AZ @ MIL + COL @ CIN",
+      "team": "2-leg Parlay",
+      "side": "Parlay",
+      "label": "MIL ML + CIN ML",
+      "odds": 164,
+      "model_probability": 0.4754,
+      "book_probability": null,
+      "edge": null,
+      "ev": 25.32,
+      "stake": 100.0,
+      "qualified": true,
+      "strategy": "anchor",
+      "won": true,
+      "profit": 163.63,
+      "legs": [
+        {
+          "team": "MIL",
+          "matchup": "AZ @ MIL",
+          "odds": -131,
+          "model_probability": 0.6791,
+          "book_probability": 0.5671,
+          "edge": 0.112,
+          "won": true,
+          "confidence": "Medium"
+        },
+        {
+          "team": "CIN",
+          "matchup": "COL @ CIN",
+          "odds": -202,
+          "model_probability": 0.7,
+          "book_probability": 0.6689,
+          "edge": 0.0311,
+          "won": true,
+          "confidence": "Elite"
+        }
+      ]
+    },
+    {
+      "category": "parlay_2",
+      "date": "2026-04-30",
+      "matchup": "SF @ PHI + HOU @ BAL",
+      "team": "2-leg Parlay",
+      "side": "Parlay",
+      "label": "PHI ML + BAL ML",
+      "odds": 188,
+      "model_probability": 0.443,
+      "book_probability": null,
+      "edge": null,
+      "ev": 27.58,
+      "stake": 100.0,
+      "qualified": true,
+      "strategy": "edge",
+      "won": false,
+      "profit": -100.0,
+      "legs": [
+        {
+          "team": "PHI",
+          "matchup": "SF @ PHI",
+          "odds": -141,
+          "model_probability": 0.6744,
+          "book_probability": 0.5851,
+          "edge": 0.0893,
+          "won": true,
+          "confidence": "Medium"
+        },
+        {
+          "team": "BAL",
+          "matchup": "HOU @ BAL",
+          "odds": -146,
+          "model_probability": 0.6569,
+          "book_probability": 0.5935,
+          "edge": 0.0634,
+          "won": false,
+          "confidence": "Medium"
+        }
+      ]
+    },
+    {
+      "category": "parlay_2",
+      "date": "2026-05-01",
+      "matchup": "CLE @ ATH + PHI @ MIA",
+      "team": "2-leg Parlay",
+      "side": "Parlay",
+      "label": "ATH ML + PHI ML",
+      "odds": 272,
+      "model_probability": 0.4616,
+      "book_probability": null,
+      "edge": null,
+      "ev": 71.6,
+      "stake": 100.0,
+      "qualified": true,
+      "strategy": "edge",
+      "won": false,
+      "profit": -100.0,
+      "legs": [
+        {
+          "team": "ATH",
+          "matchup": "CLE @ ATH",
+          "odds": -102,
+          "model_probability": 0.6684,
+          "book_probability": 0.505,
+          "edge": 0.1634,
+          "won": false,
+          "confidence": "Medium"
+        },
+        {
+          "team": "PHI",
+          "matchup": "PHI @ MIA",
+          "odds": -114,
+          "model_probability": 0.6906,
+          "book_probability": 0.5327,
+          "edge": 0.1579,
+          "won": true,
+          "confidence": "High"
+        }
+      ]
+    },
+    {
+      "category": "parlay_2",
+      "date": "2026-05-03",
+      "matchup": "CIN @ PIT + NYM @ LAA",
+      "team": "2-leg Parlay",
+      "side": "Parlay",
+      "label": "CIN ML + NYM ML",
+      "odds": 252,
+      "model_probability": 0.4589,
+      "book_probability": null,
+      "edge": null,
+      "ev": 61.32,
+      "stake": 100.0,
+      "qualified": true,
+      "strategy": "edge",
+      "won": false,
+      "profit": -100.0,
+      "legs": [
+        {
+          "team": "CIN",
+          "matchup": "CIN @ PIT",
+          "odds": 100,
+          "model_probability": 0.6685,
+          "book_probability": 0.5,
+          "edge": 0.1685,
+          "won": false,
+          "confidence": "Medium"
+        },
+        {
+          "team": "NYM",
+          "matchup": "NYM @ LAA",
+          "odds": -132,
+          "model_probability": 0.6865,
+          "book_probability": 0.569,
+          "edge": 0.1175,
+          "won": true,
+          "confidence": "Medium"
+        }
+      ]
+    },
+    {
+      "category": "parlay_2",
+      "date": "2026-05-04",
+      "matchup": "TOR @ TB + NYM @ COL",
+      "team": "2-leg Parlay",
+      "side": "Parlay",
+      "label": "TB ML + NYM ML",
+      "odds": 202,
+      "model_probability": 0.4684,
+      "book_probability": null,
+      "edge": null,
+      "ev": 41.36,
+      "stake": 100.0,
+      "qualified": true,
+      "strategy": "edge",
+      "won": true,
+      "profit": 201.82,
+      "legs": [
+        {
+          "team": "TB",
+          "matchup": "TOR @ TB",
+          "odds": -128,
+          "model_probability": 0.7,
+          "book_probability": 0.5614,
+          "edge": 0.1386,
+          "won": true,
+          "confidence": "High"
+        },
+        {
+          "team": "NYM",
+          "matchup": "NYM @ COL",
+          "odds": -144,
+          "model_probability": 0.6691,
+          "book_probability": 0.5902,
+          "edge": 0.0789,
+          "won": true,
+          "confidence": "Medium"
+        }
+      ]
+    },
+    {
+      "category": "parlay_2",
+      "date": "2026-05-05",
+      "matchup": "CWS @ LAA + PIT @ AZ",
+      "team": "2-leg Parlay",
+      "side": "Parlay",
+      "label": "LAA ML + AZ ML",
+      "odds": 225,
+      "model_probability": 0.4696,
+      "book_probability": null,
+      "edge": null,
+      "ev": 52.57,
+      "stake": 100.0,
+      "qualified": true,
+      "strategy": "edge",
+      "won": true,
+      "profit": 224.92,
+      "legs": [
+        {
+          "team": "LAA",
+          "matchup": "CWS @ LAA",
+          "odds": -117,
+          "model_probability": 0.6708,
+          "book_probability": 0.5392,
+          "edge": 0.1316,
+          "won": true,
+          "confidence": "Medium"
+        },
+        {
+          "team": "AZ",
+          "matchup": "PIT @ AZ",
+          "odds": -133,
+          "model_probability": 0.7,
+          "book_probability": 0.5708,
+          "edge": 0.1292,
+          "won": true,
+          "confidence": "High"
+        }
+      ]
+    },
+    {
+      "category": "parlay_2",
+      "date": "2026-05-06",
+      "matchup": "MIL @ STL + CWS @ LAA",
+      "team": "2-leg Parlay",
+      "side": "Parlay",
+      "label": "STL ML + LAA ML",
+      "odds": 278,
+      "model_probability": 0.4624,
+      "book_probability": null,
+      "edge": null,
+      "ev": 74.65,
+      "stake": 100.0,
+      "qualified": true,
+      "strategy": "edge",
+      "won": false,
+      "profit": -100.0,
+      "legs": [
+        {
+          "team": "STL",
+          "matchup": "MIL @ STL",
+          "odds": -106,
+          "model_probability": 0.7,
+          "book_probability": 0.5146,
+          "edge": 0.1854,
+          "won": false,
+          "confidence": "High"
+        },
+        {
+          "team": "LAA",
+          "matchup": "CWS @ LAA",
+          "odds": -106,
+          "model_probability": 0.6606,
+          "book_probability": 0.5146,
+          "edge": 0.146,
+          "won": true,
+          "confidence": "Medium"
+        }
+      ]
+    },
+    {
+      "category": "parlay_2",
+      "date": "2026-05-07",
+      "matchup": "MIN @ WSH + BAL @ MIA",
+      "team": "2-leg Parlay",
+      "side": "Parlay",
+      "label": "WSH ML + MIA ML",
+      "odds": 220,
+      "model_probability": 0.4497,
+      "book_probability": null,
+      "edge": null,
+      "ev": 43.71,
+      "stake": 100.0,
+      "qualified": true,
+      "strategy": "edge",
+      "won": true,
+      "profit": 219.6,
+      "legs": [
+        {
+          "team": "WSH",
+          "matchup": "MIN @ WSH",
+          "odds": -124,
+          "model_probability": 0.6644,
+          "book_probability": 0.5536,
+          "edge": 0.1108,
+          "won": true,
+          "confidence": "Medium"
+        },
+        {
+          "team": "MIA",
+          "matchup": "BAL @ MIA",
+          "odds": -130,
+          "model_probability": 0.6768,
+          "book_probability": 0.5652,
+          "edge": 0.1116,
+          "won": true,
+          "confidence": "Medium"
+        }
+      ]
+    },
+    {
+      "category": "parlay_2",
+      "date": "2026-05-10",
+      "matchup": "ATH @ BAL + DET @ KC",
+      "team": "2-leg Parlay",
+      "side": "Parlay",
+      "label": "ATH ML + KC ML",
+      "odds": 240,
+      "model_probability": 0.4535,
+      "book_probability": null,
+      "edge": null,
+      "ev": 54.01,
+      "stake": 100.0,
+      "qualified": true,
+      "strategy": "edge",
+      "won": false,
+      "profit": -100.0,
+      "legs": [
+        {
+          "team": "ATH",
+          "matchup": "ATH @ BAL",
+          "odds": -108,
+          "model_probability": 0.6541,
+          "book_probability": 0.5192,
+          "edge": 0.1349,
+          "won": false,
+          "confidence": "Medium"
+        },
+        {
+          "team": "KC",
+          "matchup": "DET @ KC",
+          "odds": -131,
+          "model_probability": 0.6933,
+          "book_probability": 0.5671,
+          "edge": 0.1262,
+          "won": false,
+          "confidence": "High"
+        }
+      ]
+    },
+    {
+      "category": "parlay_2",
+      "date": "2026-05-13",
+      "matchup": "AZ @ TEX + PHI @ BOS",
+      "team": "2-leg Parlay",
+      "side": "Parlay",
+      "label": "TEX ML + BOS ML",
+      "odds": 244,
+      "model_probability": 0.4675,
+      "book_probability": null,
+      "edge": null,
+      "ev": 60.93,
+      "stake": 100.0,
+      "qualified": true,
+      "strategy": "edge",
+      "won": true,
+      "profit": 244.27,
+      "legs": [
+        {
+          "team": "TEX",
+          "matchup": "AZ @ TEX",
+          "odds": -105,
+          "model_probability": 0.6678,
+          "book_probability": 0.5122,
+          "edge": 0.1556,
+          "won": true,
+          "confidence": "Medium"
+        },
+        {
+          "team": "BOS",
+          "matchup": "PHI @ BOS",
+          "odds": -131,
+          "model_probability": 0.7,
+          "book_probability": 0.5671,
+          "edge": 0.1329,
+          "won": true,
+          "confidence": "High"
+        }
+      ]
+    },
+    {
+      "category": "parlay_2",
+      "date": "2026-05-14",
+      "matchup": "MIA @ MIN + SD @ MIL",
+      "team": "2-leg Parlay",
+      "side": "Parlay",
+      "label": "MIN ML + MIL ML",
+      "odds": 229,
+      "model_probability": 0.49,
+      "book_probability": null,
+      "edge": null,
+      "ev": 61.36,
+      "stake": 100.0,
+      "qualified": true,
+      "strategy": "edge",
+      "won": true,
+      "profit": 229.3,
+      "legs": [
+        {
+          "team": "MIN",
+          "matchup": "MIA @ MIN",
+          "odds": -106,
+          "model_probability": 0.7,
+          "book_probability": 0.5146,
+          "edge": 0.1854,
+          "won": true,
+          "confidence": "High"
+        },
+        {
+          "team": "MIL",
+          "matchup": "SD @ MIL",
+          "odds": -144,
+          "model_probability": 0.7,
+          "book_probability": 0.5902,
+          "edge": 0.1098,
+          "won": true,
+          "confidence": "High"
+        }
+      ]
+    },
+    {
+      "category": "parlay_2",
+      "date": "2026-05-15",
+      "matchup": "MIL @ MIN + TEX @ HOU",
+      "team": "2-leg Parlay",
+      "side": "Parlay",
+      "label": "MIN ML + HOU ML",
+      "odds": 278,
+      "model_probability": 0.49,
+      "book_probability": null,
+      "edge": null,
+      "ev": 85.06,
+      "stake": 100.0,
+      "qualified": true,
+      "strategy": "edge",
+      "won": false,
+      "profit": -100.0,
+      "legs": [
+        {
+          "team": "MIN",
+          "matchup": "MIL @ MIN",
+          "odds": -106,
+          "model_probability": 0.7,
+          "book_probability": 0.5146,
+          "edge": 0.1854,
+          "won": false,
+          "confidence": "High"
+        },
+        {
+          "team": "HOU",
+          "matchup": "TEX @ HOU",
+          "odds": -106,
+          "model_probability": 0.7,
+          "book_probability": 0.5146,
+          "edge": 0.1854,
+          "won": true,
+          "confidence": "High"
+        }
+      ]
+    },
+    {
+      "category": "parlay_2",
+      "date": "2026-05-16",
+      "matchup": "TOR @ DET + CHC @ CWS",
+      "team": "2-leg Parlay",
+      "side": "Parlay",
+      "label": "DET ML + CWS ML",
+      "odds": 260,
+      "model_probability": 0.4701,
+      "book_probability": null,
+      "edge": null,
+      "ev": 69.35,
+      "stake": 100.0,
+      "qualified": true,
+      "strategy": "edge",
+      "won": false,
+      "profit": -100.0,
+      "legs": [
+        {
+          "team": "DET",
+          "matchup": "TOR @ DET",
+          "odds": -116,
+          "model_probability": 0.7,
+          "book_probability": 0.537,
+          "edge": 0.163,
+          "won": false,
+          "confidence": "High"
+        },
+        {
+          "team": "CWS",
+          "matchup": "CHC @ CWS",
+          "odds": -107,
+          "model_probability": 0.6716,
+          "book_probability": 0.5169,
+          "edge": 0.1547,
+          "won": true,
+          "confidence": "Medium"
+        }
+      ]
+    },
+    {
+      "category": "parlay_2",
+      "date": "2026-05-17",
+      "matchup": "MIA @ TB + AZ @ COL",
+      "team": "2-leg Parlay",
+      "side": "Parlay",
+      "label": "TB ML + AZ ML",
+      "odds": 182,
+      "model_probability": 0.4875,
+      "book_probability": null,
+      "edge": null,
+      "ev": 37.25,
+      "stake": 100.0,
+      "qualified": true,
+      "strategy": "edge",
+      "won": true,
+      "profit": 181.56,
+      "legs": [
+        {
+          "team": "TB",
+          "matchup": "MIA @ TB",
+          "odds": -148,
+          "model_probability": 0.7,
+          "book_probability": 0.5968,
+          "edge": 0.1032,
+          "won": true,
+          "confidence": "High"
+        },
+        {
+          "team": "AZ",
+          "matchup": "AZ @ COL",
+          "odds": -147,
+          "model_probability": 0.6964,
+          "book_probability": 0.5951,
+          "edge": 0.1013,
+          "won": true,
+          "confidence": "High"
+        }
+      ]
+    },
+    {
+      "category": "parlay_2",
+      "date": "2026-05-18",
+      "matchup": "HOU @ MIN + BAL @ TB",
+      "team": "2-leg Parlay",
+      "side": "Parlay",
+      "label": "MIN ML + TB ML",
+      "odds": 219,
+      "model_probability": 0.456,
+      "book_probability": null,
+      "edge": null,
+      "ev": 45.64,
+      "stake": 100.0,
+      "qualified": true,
+      "strategy": "edge",
+      "won": true,
+      "profit": 219.4,
+      "legs": [
+        {
+          "team": "MIN",
+          "matchup": "HOU @ MIN",
+          "odds": -113,
+          "model_probability": 0.7,
+          "book_probability": 0.5305,
+          "edge": 0.1695,
+          "won": true,
+          "confidence": "High"
+        },
+        {
+          "team": "TB",
+          "matchup": "BAL @ TB",
+          "odds": -144,
+          "model_probability": 0.6514,
+          "book_probability": 0.5902,
+          "edge": 0.0612,
+          "won": true,
+          "confidence": "Medium"
+        }
+      ]
+    },
+    {
+      "category": "parlay_2",
+      "date": "2026-05-19",
+      "matchup": "TEX @ COL + BOS @ KC",
+      "team": "2-leg Parlay",
+      "side": "Parlay",
+      "label": "TEX ML + BOS ML",
+      "odds": 242,
+      "model_probability": 0.4694,
+      "book_probability": null,
+      "edge": null,
+      "ev": 60.67,
+      "stake": 100.0,
+      "qualified": true,
+      "strategy": "edge",
+      "won": true,
+      "profit": 242.27,
+      "legs": [
+        {
+          "team": "TEX",
+          "matchup": "TEX @ COL",
+          "odds": -107,
+          "model_probability": 0.6706,
+          "book_probability": 0.5169,
+          "edge": 0.1537,
+          "won": true,
+          "confidence": "Medium"
+        },
+        {
+          "team": "BOS",
+          "matchup": "BOS @ KC",
+          "odds": -130,
+          "model_probability": 0.7,
+          "book_probability": 0.5652,
+          "edge": 0.1348,
+          "won": true,
+          "confidence": "High"
+        }
+      ]
+    },
+    {
+      "category": "parlay_2",
+      "date": "2026-05-20",
+      "matchup": "TEX @ COL + TOR @ NYY",
+      "team": "2-leg Parlay",
+      "side": "Parlay",
+      "label": "TEX ML + NYY ML",
+      "odds": 190,
+      "model_probability": 0.4606,
+      "book_probability": null,
+      "edge": null,
+      "ev": 33.54,
+      "stake": 100.0,
+      "qualified": true,
+      "strategy": "edge",
+      "won": false,
+      "profit": -100.0,
+      "legs": [
+        {
+          "team": "TEX",
+          "matchup": "TEX @ COL",
+          "odds": -120,
+          "model_probability": 0.658,
+          "book_probability": 0.5455,
+          "edge": 0.1125,
+          "won": true,
+          "confidence": "Medium"
+        },
+        {
+          "team": "NYY",
+          "matchup": "TOR @ NYY",
+          "odds": -172,
+          "model_probability": 0.7,
+          "book_probability": 0.6324,
+          "edge": 0.0676,
+          "won": false,
+          "confidence": "Elite"
+        }
+      ]
+    },
+    {
+      "category": "parlay_2",
+      "date": "2026-05-21",
+      "matchup": "NYM @ WSH + ATH @ LAA",
+      "team": "2-leg Parlay",
+      "side": "Parlay",
+      "label": "WSH ML + LAA ML",
+      "odds": 259,
+      "model_probability": 0.476,
+      "book_probability": null,
+      "edge": null,
+      "ev": 70.9,
+      "stake": 100.0,
+      "qualified": true,
+      "strategy": "edge",
+      "won": false,
+      "profit": -100.0,
+      "legs": [
+        {
+          "team": "WSH",
+          "matchup": "NYM @ WSH",
+          "odds": -106,
+          "model_probability": 0.68,
+          "book_probability": 0.5146,
+          "edge": 0.1654,
+          "won": false,
+          "confidence": "Medium"
+        },
+        {
+          "team": "LAA",
+          "matchup": "ATH @ LAA",
+          "odds": -118,
+          "model_probability": 0.7,
+          "book_probability": 0.5413,
+          "edge": 0.1587,
+          "won": false,
+          "confidence": "High"
+        }
+      ]
+    },
+    {
+      "category": "parlay_2",
+      "date": "2026-05-22",
+      "matchup": "LAD @ MIL + PIT @ TOR",
+      "team": "2-leg Parlay",
+      "side": "Parlay",
+      "label": "MIL ML + TOR ML",
+      "odds": 205,
+      "model_probability": 0.4558,
+      "book_probability": null,
+      "edge": null,
+      "ev": 39.11,
+      "stake": 100.0,
+      "qualified": true,
+      "strategy": "edge",
+      "won": true,
+      "profit": 205.23,
+      "legs": [
+        {
+          "team": "MIL",
+          "matchup": "LAD @ MIL",
+          "odds": -110,
+          "model_probability": 0.6511,
+          "book_probability": 0.5238,
+          "edge": 0.1273,
+          "won": true,
+          "confidence": "Medium"
+        },
+        {
+          "team": "TOR",
+          "matchup": "PIT @ TOR",
+          "odds": -167,
+          "model_probability": 0.7,
+          "book_probability": 0.6255,
+          "edge": 0.0745,
+          "won": true,
+          "confidence": "Elite"
+        }
+      ]
+    },
+    {
+      "category": "parlay_2",
+      "date": "2026-05-23",
+      "matchup": "STL @ CIN + CWS @ SF",
+      "team": "2-leg Parlay",
+      "side": "Parlay",
+      "label": "STL ML + CWS ML",
+      "odds": 273,
+      "model_probability": 0.4789,
+      "book_probability": null,
+      "edge": null,
+      "ev": 78.45,
+      "stake": 100.0,
+      "qualified": true,
+      "strategy": "edge",
+      "won": false,
+      "profit": -100.0,
+      "legs": [
+        {
+          "team": "STL",
+          "matchup": "STL @ CIN",
+          "odds": -108,
+          "model_probability": 0.7,
+          "book_probability": 0.5192,
+          "edge": 0.1808,
+          "won": true,
+          "confidence": "High"
+        },
+        {
+          "team": "CWS",
+          "matchup": "CWS @ SF",
+          "odds": -107,
+          "model_probability": 0.6842,
+          "book_probability": 0.5169,
+          "edge": 0.1673,
+          "won": false,
+          "confidence": "Medium"
+        }
+      ]
+    },
+    {
+      "category": "parlay_2",
+      "date": "2026-05-24",
+      "matchup": "CWS @ SF + PIT @ TOR",
+      "team": "2-leg Parlay",
+      "side": "Parlay",
+      "label": "SF ML + TOR ML",
+      "odds": 184,
+      "model_probability": 0.49,
+      "book_probability": null,
+      "edge": null,
+      "ev": 39.03,
+      "stake": 100.0,
+      "qualified": true,
+      "strategy": "edge",
+      "won": false,
+      "profit": -100.0,
+      "legs": [
+        {
+          "team": "SF",
+          "matchup": "CWS @ SF",
+          "odds": -123,
+          "model_probability": 0.7,
+          "book_probability": 0.5516,
+          "edge": 0.1484,
+          "won": true,
+          "confidence": "High"
+        },
+        {
+          "team": "TOR",
+          "matchup": "PIT @ TOR",
+          "odds": -177,
+          "model_probability": 0.7,
+          "book_probability": 0.639,
+          "edge": 0.061,
+          "won": false,
+          "confidence": "Elite"
+        }
+      ]
+    },
+    {
+      "category": "parlay_2",
+      "date": "2026-05-26",
+      "matchup": "PHI @ SD + CHC @ PIT",
+      "team": "2-leg Parlay",
+      "side": "Parlay",
+      "label": "SD ML + PIT ML",
+      "odds": 224,
+      "model_probability": 0.4723,
+      "book_probability": null,
+      "edge": null,
+      "ev": 53.25,
+      "stake": 100.0,
+      "qualified": true,
+      "strategy": "edge",
+      "won": false,
+      "profit": -100.0,
+      "legs": [
+        {
+          "team": "SD",
+          "matchup": "PHI @ SD",
+          "odds": -112,
+          "model_probability": 0.6747,
+          "book_probability": 0.5283,
+          "edge": 0.1464,
+          "won": false,
+          "confidence": "Medium"
+        },
+        {
+          "team": "PIT",
+          "matchup": "CHC @ PIT",
+          "odds": -140,
+          "model_probability": 0.7,
+          "book_probability": 0.5833,
+          "edge": 0.1167,
+          "won": true,
+          "confidence": "High"
+        }
+      ]
+    },
+    {
+      "category": "parlay_2",
+      "date": "2026-05-27",
+      "matchup": "CHC @ PIT + HOU @ TEX",
+      "team": "2-leg Parlay",
+      "side": "Parlay",
+      "label": "PIT ML + TEX ML",
+      "odds": 203,
+      "model_probability": 0.4645,
+      "book_probability": null,
+      "edge": null,
+      "ev": 40.61,
+      "stake": 100.0,
+      "qualified": true,
+      "strategy": "edge",
+      "won": false,
+      "profit": -100.0,
+      "legs": [
+        {
+          "team": "PIT",
+          "matchup": "CHC @ PIT",
+          "odds": -124,
+          "model_probability": 0.7,
+          "book_probability": 0.5536,
+          "edge": 0.1464,
+          "won": false,
+          "confidence": "High"
+        },
+        {
+          "team": "TEX",
+          "matchup": "HOU @ TEX",
+          "odds": -148,
+          "model_probability": 0.6636,
+          "book_probability": 0.5968,
+          "edge": 0.0668,
+          "won": false,
+          "confidence": "Medium"
+        }
+      ]
+    },
+    {
+      "category": "parlay_2",
+      "date": "2026-05-29",
+      "matchup": "DET @ CWS + ATL @ CIN",
+      "team": "2-leg Parlay",
+      "side": "Parlay",
+      "label": "DET ML + ATL ML",
+      "odds": 232,
+      "model_probability": 0.4598,
+      "book_probability": null,
+      "edge": null,
+      "ev": 52.53,
+      "stake": 100.0,
+      "qualified": true,
+      "strategy": "edge",
+      "won": false,
+      "profit": -100.0,
+      "legs": [
+        {
+          "team": "DET",
+          "matchup": "DET @ CWS",
+          "odds": -109,
+          "model_probability": 0.6569,
+          "book_probability": 0.5215,
+          "edge": 0.1354,
+          "won": false,
+          "confidence": "Medium"
+        },
+        {
+          "team": "ATL",
+          "matchup": "ATL @ CIN",
+          "odds": -137,
+          "model_probability": 0.7,
+          "book_probability": 0.5781,
+          "edge": 0.1219,
+          "won": true,
+          "confidence": "High"
+        }
+      ]
+    },
+    {
+      "category": "parlay_2",
+      "date": "2026-05-31",
+      "matchup": "CHC @ STL + SF @ COL",
+      "team": "2-leg Parlay",
+      "side": "Parlay",
+      "label": "STL ML + SF ML",
+      "odds": 250,
+      "model_probability": 0.467,
+      "book_probability": null,
+      "edge": null,
+      "ev": 63.25,
+      "stake": 100.0,
+      "qualified": true,
+      "strategy": "edge",
+      "won": true,
+      "profit": 249.55,
+      "legs": [
+        {
+          "team": "STL",
+          "matchup": "CHC @ STL",
+          "odds": -116,
+          "model_probability": 0.7,
+          "book_probability": 0.537,
+          "edge": 0.163,
+          "won": true,
+          "confidence": "High"
+        },
+        {
+          "team": "SF",
+          "matchup": "SF @ COL",
+          "odds": -114,
+          "model_probability": 0.6672,
+          "book_probability": 0.5327,
+          "edge": 0.1345,
+          "won": true,
+          "confidence": "Medium"
+        }
+      ]
+    },
+    {
+      "category": "parlay_2",
+      "date": "2026-06-01",
+      "matchup": "CWS @ MIN + COL @ LAA",
+      "team": "2-leg Parlay",
+      "side": "Parlay",
+      "label": "MIN ML + LAA ML",
+      "odds": 153,
+      "model_probability": 0.4859,
+      "book_probability": null,
+      "edge": null,
+      "ev": 22.9,
+      "stake": 100.0,
+      "qualified": true,
+      "strategy": "anchor",
+      "won": false,
+      "profit": -100.0,
+      "legs": [
+        {
+          "team": "MIN",
+          "matchup": "CWS @ MIN",
+          "odds": -144,
+          "model_probability": 0.6942,
+          "book_probability": 0.5902,
+          "edge": 0.104,
+          "won": true,
+          "confidence": "High"
+        },
+        {
+          "team": "LAA",
+          "matchup": "COL @ LAA",
+          "odds": -203,
+          "model_probability": 0.7,
+          "book_probability": 0.67,
+          "edge": 0.03,
+          "won": false,
+          "confidence": "Elite"
+        }
+      ]
+    },
+    {
+      "category": "parlay_2",
+      "date": "2026-06-02",
+      "matchup": "CWS @ MIN + CLE @ NYY",
+      "team": "2-leg Parlay",
+      "side": "Parlay",
+      "label": "CWS ML + NYY ML",
+      "odds": 167,
+      "model_probability": 0.4555,
+      "book_probability": null,
+      "edge": null,
+      "ev": 21.84,
+      "stake": 100.0,
+      "qualified": true,
+      "strategy": "anchor",
+      "won": false,
+      "profit": -100.0,
+      "legs": [
+        {
+          "team": "CWS",
+          "matchup": "CWS @ MIN",
+          "odds": -124,
+          "model_probability": 0.6507,
+          "book_probability": 0.5536,
+          "edge": 0.0971,
+          "won": false,
+          "confidence": "Medium"
+        },
+        {
+          "team": "NYY",
+          "matchup": "CLE @ NYY",
+          "odds": -208,
+          "model_probability": 0.7,
+          "book_probability": 0.6753,
+          "edge": 0.0247,
+          "won": false,
+          "confidence": "Elite"
+        }
+      ]
+    },
+    {
+      "category": "parlay_2",
+      "date": "2026-06-06",
+      "matchup": "ATH @ HOU + NYM @ SD",
+      "team": "2-leg Parlay",
+      "side": "Parlay",
+      "label": "HOU ML + NYM ML",
+      "odds": 222,
+      "model_probability": 0.4642,
+      "book_probability": null,
+      "edge": null,
+      "ev": 49.36,
+      "stake": 100.0,
+      "qualified": true,
+      "strategy": "edge",
+      "won": false,
+      "profit": -100.0,
+      "legs": [
+        {
+          "team": "HOU",
+          "matchup": "ATH @ HOU",
+          "odds": -127,
+          "model_probability": 0.7,
+          "book_probability": 0.5595,
+          "edge": 0.1405,
+          "won": true,
+          "confidence": "High"
+        },
+        {
+          "team": "NYM",
+          "matchup": "NYM @ SD",
+          "odds": -125,
+          "model_probability": 0.6632,
+          "book_probability": 0.5556,
+          "edge": 0.1076,
+          "won": false,
+          "confidence": "Medium"
+        }
+      ]
+    },
+    {
+      "category": "parlay_2",
+      "date": "2026-06-07",
+      "matchup": "ATH @ HOU + CWS @ PHI",
+      "team": "2-leg Parlay",
+      "side": "Parlay",
+      "label": "ATH ML + PHI ML",
+      "odds": 206,
+      "model_probability": 0.49,
+      "book_probability": null,
+      "edge": null,
+      "ev": 49.88,
+      "stake": 100.0,
+      "qualified": true,
+      "strategy": "edge",
+      "won": true,
+      "profit": 205.88,
+      "legs": [
+        {
+          "team": "ATH",
+          "matchup": "ATH @ HOU",
+          "odds": -108,
+          "model_probability": 0.7,
+          "book_probability": 0.5192,
+          "edge": 0.1808,
+          "won": true,
+          "confidence": "High"
+        },
+        {
+          "team": "PHI",
+          "matchup": "CWS @ PHI",
+          "odds": -170,
+          "model_probability": 0.7,
+          "book_probability": 0.6296,
+          "edge": 0.0704,
+          "won": true,
+          "confidence": "Elite"
+        }
+      ]
+    },
+    {
+      "category": "parlay_2",
+      "date": "2026-06-08",
+      "matchup": "HOU @ LAA + SEA @ BAL",
+      "team": "2-leg Parlay",
+      "side": "Parlay",
+      "label": "HOU ML + SEA ML",
+      "odds": 220,
+      "model_probability": 0.472,
+      "book_probability": null,
+      "edge": null,
+      "ev": 50.86,
+      "stake": 100.0,
+      "qualified": true,
+      "strategy": "edge",
+      "won": true,
+      "profit": 219.6,
+      "legs": [
+        {
+          "team": "HOU",
+          "matchup": "HOU @ LAA",
+          "odds": -130,
+          "model_probability": 0.7,
+          "book_probability": 0.5652,
+          "edge": 0.1348,
+          "won": true,
+          "confidence": "High"
+        },
+        {
+          "team": "SEA",
+          "matchup": "SEA @ BAL",
+          "odds": -124,
+          "model_probability": 0.6743,
+          "book_probability": 0.5536,
+          "edge": 0.1207,
+          "won": true,
+          "confidence": "Medium"
+        }
+      ]
+    },
+    {
+      "category": "parlay_2",
+      "date": "2026-06-09",
+      "matchup": "MIL @ ATH + WSH @ SF",
+      "team": "2-leg Parlay",
+      "side": "Parlay",
+      "label": "ATH ML + WSH ML",
+      "odds": 268,
+      "model_probability": 0.4782,
+      "book_probability": null,
+      "edge": null,
+      "ev": 75.81,
+      "stake": 100.0,
+      "qualified": true,
+      "strategy": "edge",
+      "won": true,
+      "profit": 267.68,
+      "legs": [
+        {
+          "team": "ATH",
+          "matchup": "MIL @ ATH",
+          "odds": -110,
+          "model_probability": 0.7,
+          "book_probability": 0.5238,
+          "edge": 0.1762,
+          "won": true,
+          "confidence": "High"
+        },
+        {
+          "team": "WSH",
+          "matchup": "WSH @ SF",
+          "odds": -108,
+          "model_probability": 0.6831,
+          "book_probability": 0.5192,
+          "edge": 0.1639,
+          "won": true,
+          "confidence": "Medium"
+        }
+      ]
+    },
+    {
+      "category": "parlay_2",
+      "date": "2026-06-10",
+      "matchup": "PHI @ TOR + CHC @ COL",
+      "team": "2-leg Parlay",
+      "side": "Parlay",
+      "label": "PHI ML + CHC ML",
+      "odds": 170,
+      "model_probability": 0.4886,
+      "book_probability": null,
+      "edge": null,
+      "ev": 32.15,
+      "stake": 100.0,
+      "qualified": true,
+      "strategy": "edge",
+      "won": false,
+      "profit": -100.0,
+      "legs": [
+        {
+          "team": "PHI",
+          "matchup": "PHI @ TOR",
+          "odds": -136,
+          "model_probability": 0.698,
+          "book_probability": 0.5763,
+          "edge": 0.1217,
+          "won": true,
+          "confidence": "High"
+        },
+        {
+          "team": "CHC",
+          "matchup": "CHC @ COL",
+          "odds": -179,
+          "model_probability": 0.7,
+          "book_probability": 0.6416,
+          "edge": 0.0584,
+          "won": false,
+          "confidence": "Elite"
+        }
+      ]
+    },
+    {
+      "category": "parlay_2",
+      "date": "2026-06-11",
+      "matchup": "AZ @ MIA + MIN @ DET",
+      "team": "2-leg Parlay",
+      "side": "Parlay",
+      "label": "MIA ML + DET ML",
+      "odds": 214,
+      "model_probability": 0.4422,
+      "book_probability": null,
+      "edge": null,
+      "ev": 38.9,
+      "stake": 100.0,
+      "qualified": true,
+      "strategy": "edge",
+      "won": true,
+      "profit": 214.07,
+      "legs": [
+        {
+          "team": "MIA",
+          "matchup": "AZ @ MIA",
+          "odds": -129,
+          "model_probability": 0.6787,
+          "book_probability": 0.5633,
+          "edge": 0.1154,
+          "won": true,
+          "confidence": "Medium"
+        },
+        {
+          "team": "DET",
+          "matchup": "MIN @ DET",
+          "odds": -130,
+          "model_probability": 0.6516,
+          "book_probability": 0.5652,
+          "edge": 0.0864,
+          "won": true,
+          "confidence": "Medium"
+        }
+      ]
+    },
+    {
+      "category": "parlay_2",
+      "date": "2026-06-12",
+      "matchup": "AZ @ CIN + DET @ CLE",
+      "team": "2-leg Parlay",
+      "side": "Parlay",
+      "label": "AZ ML + CLE ML",
+      "odds": 256,
+      "model_probability": 0.4348,
+      "book_probability": null,
+      "edge": null,
+      "ev": 54.8,
+      "stake": 100.0,
+      "qualified": true,
+      "strategy": "edge",
+      "won": true,
+      "profit": 256.03,
+      "legs": [
+        {
+          "team": "AZ",
+          "matchup": "AZ @ CIN",
+          "odds": -103,
+          "model_probability": 0.6629,
+          "book_probability": 0.5074,
+          "edge": 0.1555,
+          "won": true,
+          "confidence": "Medium"
+        },
+        {
+          "team": "CLE",
+          "matchup": "DET @ CLE",
+          "odds": -124,
+          "model_probability": 0.6559,
+          "book_probability": 0.5536,
+          "edge": 0.1023,
+          "won": true,
+          "confidence": "Medium"
+        }
+      ]
+    }
+  ]
+}

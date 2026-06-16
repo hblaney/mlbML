@@ -1,0 +1,635 @@
+{
+  "generated_at": "2026-06-16",
+  "method": "walk_forward_time_series",
+  "date_range": {
+    "start": "2026-03-20",
+    "end": "2026-06-15"
+  },
+  "odds_metadata": {
+    "odds_data_start": "2021-04-01",
+    "odds_data_end": "2026-06-15",
+    "odds_data_stale": false,
+    "limited_by": "yesterday's final scores"
+  },
+  "season_progress_pct": 47.3,
+  "stake_pct_grid": [
+    0.1,
+    0.15,
+    0.2,
+    0.25,
+    0.3,
+    0.35,
+    0.4,
+    0.45,
+    0.5
+  ],
+  "starting_bankrolls": [
+    0.1,
+    0.35,
+    1.0,
+    10.0,
+    100.0,
+    1000.0,
+    10000.0
+  ],
+  "strategies_tested": [
+    "single",
+    "parlay_2",
+    "parlay_3",
+    "parlay_4",
+    "best_ticket",
+    "max_score"
+  ],
+  "flat_summaries": {
+    "single": {
+      "bets": 65,
+      "wins": 43,
+      "losses": 22,
+      "flat_profit_per_100": 2375.43,
+      "flat_roi": 0.3655,
+      "mix": {
+        "1": 65
+      }
+    },
+    "parlay_2": {
+      "bets": 47,
+      "wins": 24,
+      "losses": 23,
+      "flat_profit_per_100": 2778.99,
+      "flat_roi": 0.5913,
+      "mix": {
+        "2": 47
+      }
+    },
+    "parlay_3": {
+      "bets": 21,
+      "wins": 9,
+      "losses": 12,
+      "flat_profit_per_100": 2570.71,
+      "flat_roi": 1.2241,
+      "mix": {
+        "3": 21
+      }
+    },
+    "parlay_4": {
+      "bets": 10,
+      "wins": 3,
+      "losses": 7,
+      "flat_profit_per_100": 1587.86,
+      "flat_roi": 1.5879,
+      "mix": {
+        "4": 10
+      }
+    },
+    "best_ticket": {
+      "bets": 66,
+      "wins": 37,
+      "losses": 29,
+      "flat_profit_per_100": 3800.05,
+      "flat_roi": 0.5758,
+      "mix": {
+        "1": 35,
+        "3": 11,
+        "2": 20
+      }
+    },
+    "max_score": {
+      "bets": 66,
+      "wins": 37,
+      "losses": 29,
+      "flat_profit_per_100": 3800.05,
+      "flat_roi": 0.5758,
+      "mix": {
+        "1": 35,
+        "3": 11,
+        "2": 20
+      }
+    }
+  },
+  "optimal_by_bankroll": {
+    "0.1": {
+      "best_pure_strategy": {
+        "strategy": "best_ticket",
+        "optimal_stake_pct": 0.3,
+        "to_date_end": 16.5063,
+        "to_date_profit": 16.4063,
+        "min_bankroll": 0.1,
+        "full_season_projection": 17793.33
+      },
+      "all_strategies_ranked": [
+        {
+          "strategy": "best_ticket",
+          "optimal_stake_pct": 0.3,
+          "to_date_end": 16.5063,
+          "to_date_profit": 16.4063,
+          "min_bankroll": 0.1,
+          "full_season_projection": 17793.33
+        },
+        {
+          "strategy": "max_score",
+          "optimal_stake_pct": 0.3,
+          "to_date_end": 16.5063,
+          "to_date_profit": 16.4063,
+          "min_bankroll": 0.1,
+          "full_season_projection": 17793.33
+        },
+        {
+          "strategy": "single",
+          "optimal_stake_pct": 0.35,
+          "to_date_end": 5.7998,
+          "to_date_profit": 5.6998,
+          "min_bankroll": 0.1,
+          "full_season_projection": 714.13
+        },
+        {
+          "strategy": "parlay_2",
+          "optimal_stake_pct": 0.3,
+          "to_date_end": 3.4795,
+          "to_date_profit": 3.3795,
+          "min_bankroll": 0.1,
+          "full_season_projection": 216.89
+        },
+        {
+          "strategy": "parlay_3",
+          "optimal_stake_pct": 0.3,
+          "to_date_end": 2.033,
+          "to_date_profit": 1.933,
+          "min_bankroll": 0.1,
+          "full_season_projection": 65.9
+        },
+        {
+          "strategy": "parlay_4",
+          "optimal_stake_pct": 0.2,
+          "to_date_end": 0.3355,
+          "to_date_profit": 0.2355,
+          "min_bankroll": 0.1,
+          "full_season_projection": 2.86
+        }
+      ],
+      "best_tiered_max_score": {
+        "stake_map": {
+          "1": 0.35,
+          "2": 0.3,
+          "3": 0.2
+        },
+        "end": 20.5119,
+        "profit": 20.4119,
+        "min_bankroll": 0.1,
+        "return_pct": 20411.9,
+        "full_season_projection": 19131.57
+      }
+    },
+    "0.35": {
+      "best_pure_strategy": {
+        "strategy": "best_ticket",
+        "optimal_stake_pct": 0.3,
+        "to_date_end": 57.7721,
+        "to_date_profit": 57.4221,
+        "min_bankroll": 0.35,
+        "full_season_projection": 62276.66
+      },
+      "all_strategies_ranked": [
+        {
+          "strategy": "best_ticket",
+          "optimal_stake_pct": 0.3,
+          "to_date_end": 57.7721,
+          "to_date_profit": 57.4221,
+          "min_bankroll": 0.35,
+          "full_season_projection": 62276.66
+        },
+        {
+          "strategy": "max_score",
+          "optimal_stake_pct": 0.3,
+          "to_date_end": 57.7721,
+          "to_date_profit": 57.4221,
+          "min_bankroll": 0.35,
+          "full_season_projection": 62276.66
+        },
+        {
+          "strategy": "single",
+          "optimal_stake_pct": 0.35,
+          "to_date_end": 20.2991,
+          "to_date_profit": 19.9491,
+          "min_bankroll": 0.35,
+          "full_season_projection": 2499.46
+        },
+        {
+          "strategy": "parlay_2",
+          "optimal_stake_pct": 0.3,
+          "to_date_end": 12.1782,
+          "to_date_profit": 11.8282,
+          "min_bankroll": 0.35,
+          "full_season_projection": 759.1
+        },
+        {
+          "strategy": "parlay_3",
+          "optimal_stake_pct": 0.3,
+          "to_date_end": 7.1156,
+          "to_date_profit": 6.7656,
+          "min_bankroll": 0.35,
+          "full_season_projection": 230.66
+        },
+        {
+          "strategy": "parlay_4",
+          "optimal_stake_pct": 0.2,
+          "to_date_end": 1.1741,
+          "to_date_profit": 0.8241,
+          "min_bankroll": 0.35,
+          "full_season_projection": 10.02
+        }
+      ],
+      "best_tiered_max_score": {
+        "stake_map": {
+          "1": 0.35,
+          "2": 0.3,
+          "3": 0.2
+        },
+        "end": 71.7916,
+        "profit": 71.4416,
+        "min_bankroll": 0.35,
+        "return_pct": 20411.9,
+        "full_season_projection": 66960.48
+      }
+    },
+    "1.0": {
+      "best_pure_strategy": {
+        "strategy": "best_ticket",
+        "optimal_stake_pct": 0.3,
+        "to_date_end": 165.063,
+        "to_date_profit": 164.063,
+        "min_bankroll": 1.0,
+        "full_season_projection": 177933.32
+      },
+      "all_strategies_ranked": [
+        {
+          "strategy": "best_ticket",
+          "optimal_stake_pct": 0.3,
+          "to_date_end": 165.063,
+          "to_date_profit": 164.063,
+          "min_bankroll": 1.0,
+          "full_season_projection": 177933.32
+        },
+        {
+          "strategy": "max_score",
+          "optimal_stake_pct": 0.3,
+          "to_date_end": 165.063,
+          "to_date_profit": 164.063,
+          "min_bankroll": 1.0,
+          "full_season_projection": 177933.32
+        },
+        {
+          "strategy": "single",
+          "optimal_stake_pct": 0.35,
+          "to_date_end": 57.9975,
+          "to_date_profit": 56.9975,
+          "min_bankroll": 1.0,
+          "full_season_projection": 7141.33
+        },
+        {
+          "strategy": "parlay_2",
+          "optimal_stake_pct": 0.3,
+          "to_date_end": 34.795,
+          "to_date_profit": 33.795,
+          "min_bankroll": 1.0,
+          "full_season_projection": 2168.86
+        },
+        {
+          "strategy": "parlay_3",
+          "optimal_stake_pct": 0.3,
+          "to_date_end": 20.3304,
+          "to_date_profit": 19.3304,
+          "min_bankroll": 1.0,
+          "full_season_projection": 659.04
+        },
+        {
+          "strategy": "parlay_4",
+          "optimal_stake_pct": 0.2,
+          "to_date_end": 3.3547,
+          "to_date_profit": 2.3547,
+          "min_bankroll": 1.0,
+          "full_season_projection": 28.63
+        }
+      ],
+      "best_tiered_max_score": {
+        "stake_map": {
+          "1": 0.35,
+          "2": 0.3,
+          "3": 0.2
+        },
+        "end": 205.119,
+        "profit": 204.119,
+        "min_bankroll": 1.0,
+        "return_pct": 20411.9,
+        "full_season_projection": 191315.66
+      }
+    },
+    "10.0": {
+      "best_pure_strategy": {
+        "strategy": "best_ticket",
+        "optimal_stake_pct": 0.3,
+        "to_date_end": 1650.6303,
+        "to_date_profit": 1640.6303,
+        "min_bankroll": 10.0,
+        "full_season_projection": 1779333.21
+      },
+      "all_strategies_ranked": [
+        {
+          "strategy": "best_ticket",
+          "optimal_stake_pct": 0.3,
+          "to_date_end": 1650.6303,
+          "to_date_profit": 1640.6303,
+          "min_bankroll": 10.0,
+          "full_season_projection": 1779333.21
+        },
+        {
+          "strategy": "max_score",
+          "optimal_stake_pct": 0.3,
+          "to_date_end": 1650.6303,
+          "to_date_profit": 1640.6303,
+          "min_bankroll": 10.0,
+          "full_season_projection": 1779333.21
+        },
+        {
+          "strategy": "single",
+          "optimal_stake_pct": 0.35,
+          "to_date_end": 579.9752,
+          "to_date_profit": 569.9752,
+          "min_bankroll": 10.0,
+          "full_season_projection": 71413.27
+        },
+        {
+          "strategy": "parlay_2",
+          "optimal_stake_pct": 0.3,
+          "to_date_end": 347.9498,
+          "to_date_profit": 337.9498,
+          "min_bankroll": 10.0,
+          "full_season_projection": 21688.55
+        },
+        {
+          "strategy": "parlay_3",
+          "optimal_stake_pct": 0.3,
+          "to_date_end": 203.3042,
+          "to_date_profit": 193.3042,
+          "min_bankroll": 10.0,
+          "full_season_projection": 6590.37
+        },
+        {
+          "strategy": "parlay_4",
+          "optimal_stake_pct": 0.2,
+          "to_date_end": 33.5467,
+          "to_date_profit": 23.5467,
+          "min_bankroll": 10.0,
+          "full_season_projection": 286.29
+        }
+      ],
+      "best_tiered_max_score": {
+        "stake_map": {
+          "1": 0.35,
+          "2": 0.3,
+          "3": 0.2
+        },
+        "end": 2051.1897,
+        "profit": 2041.1897,
+        "min_bankroll": 10.0,
+        "return_pct": 20411.9,
+        "full_season_projection": 1913156.64
+      }
+    },
+    "100.0": {
+      "best_pure_strategy": {
+        "strategy": "best_ticket",
+        "optimal_stake_pct": 0.3,
+        "to_date_end": 16506.3028,
+        "to_date_profit": 16406.3028,
+        "min_bankroll": 100.0,
+        "full_season_projection": 17793332.15
+      },
+      "all_strategies_ranked": [
+        {
+          "strategy": "best_ticket",
+          "optimal_stake_pct": 0.3,
+          "to_date_end": 16506.3028,
+          "to_date_profit": 16406.3028,
+          "min_bankroll": 100.0,
+          "full_season_projection": 17793332.15
+        },
+        {
+          "strategy": "max_score",
+          "optimal_stake_pct": 0.3,
+          "to_date_end": 16506.3028,
+          "to_date_profit": 16406.3028,
+          "min_bankroll": 100.0,
+          "full_season_projection": 17793332.15
+        },
+        {
+          "strategy": "single",
+          "optimal_stake_pct": 0.35,
+          "to_date_end": 5799.7522,
+          "to_date_profit": 5699.7522,
+          "min_bankroll": 100.0,
+          "full_season_projection": 714132.69
+        },
+        {
+          "strategy": "parlay_2",
+          "optimal_stake_pct": 0.3,
+          "to_date_end": 3479.4979,
+          "to_date_profit": 3379.4979,
+          "min_bankroll": 100.0,
+          "full_season_projection": 216885.52
+        },
+        {
+          "strategy": "parlay_3",
+          "optimal_stake_pct": 0.3,
+          "to_date_end": 2033.0417,
+          "to_date_profit": 1933.0417,
+          "min_bankroll": 100.0,
+          "full_season_projection": 65903.73
+        },
+        {
+          "strategy": "parlay_4",
+          "optimal_stake_pct": 0.2,
+          "to_date_end": 335.4672,
+          "to_date_profit": 235.4672,
+          "min_bankroll": 100.0,
+          "full_season_projection": 2862.86
+        }
+      ],
+      "best_tiered_max_score": {
+        "stake_map": {
+          "1": 0.35,
+          "2": 0.3,
+          "3": 0.2
+        },
+        "end": 20511.8967,
+        "profit": 20411.8967,
+        "min_bankroll": 100.0,
+        "return_pct": 20411.9,
+        "full_season_projection": 19131566.42
+      }
+    },
+    "1000.0": {
+      "best_pure_strategy": {
+        "strategy": "best_ticket",
+        "optimal_stake_pct": 0.3,
+        "to_date_end": 165063.0281,
+        "to_date_profit": 164063.0281,
+        "min_bankroll": 1000.0,
+        "full_season_projection": 177933321.48
+      },
+      "all_strategies_ranked": [
+        {
+          "strategy": "best_ticket",
+          "optimal_stake_pct": 0.3,
+          "to_date_end": 165063.0281,
+          "to_date_profit": 164063.0281,
+          "min_bankroll": 1000.0,
+          "full_season_projection": 177933321.48
+        },
+        {
+          "strategy": "max_score",
+          "optimal_stake_pct": 0.3,
+          "to_date_end": 165063.0281,
+          "to_date_profit": 164063.0281,
+          "min_bankroll": 1000.0,
+          "full_season_projection": 177933321.48
+        },
+        {
+          "strategy": "single",
+          "optimal_stake_pct": 0.35,
+          "to_date_end": 57997.5218,
+          "to_date_profit": 56997.5218,
+          "min_bankroll": 1000.0,
+          "full_season_projection": 7141326.89
+        },
+        {
+          "strategy": "parlay_2",
+          "optimal_stake_pct": 0.3,
+          "to_date_end": 34794.979,
+          "to_date_profit": 33794.979,
+          "min_bankroll": 1000.0,
+          "full_season_projection": 2168855.16
+        },
+        {
+          "strategy": "parlay_3",
+          "optimal_stake_pct": 0.3,
+          "to_date_end": 20330.4172,
+          "to_date_profit": 19330.4172,
+          "min_bankroll": 1000.0,
+          "full_season_projection": 659037.34
+        },
+        {
+          "strategy": "parlay_4",
+          "optimal_stake_pct": 0.2,
+          "to_date_end": 3354.6719,
+          "to_date_profit": 2354.6719,
+          "min_bankroll": 1000.0,
+          "full_season_projection": 28628.6
+        }
+      ],
+      "best_tiered_max_score": {
+        "stake_map": {
+          "1": 0.35,
+          "2": 0.3,
+          "3": 0.2
+        },
+        "end": 205118.9665,
+        "profit": 204118.9665,
+        "min_bankroll": 1000.0,
+        "return_pct": 20411.9,
+        "full_season_projection": 191315664.15
+      }
+    },
+    "10000.0": {
+      "best_pure_strategy": {
+        "strategy": "best_ticket",
+        "optimal_stake_pct": 0.3,
+        "to_date_end": 1650630.2814,
+        "to_date_profit": 1640630.2814,
+        "min_bankroll": 10000.0,
+        "full_season_projection": 1779333214.84
+      },
+      "all_strategies_ranked": [
+        {
+          "strategy": "best_ticket",
+          "optimal_stake_pct": 0.3,
+          "to_date_end": 1650630.2814,
+          "to_date_profit": 1640630.2814,
+          "min_bankroll": 10000.0,
+          "full_season_projection": 1779333214.84
+        },
+        {
+          "strategy": "max_score",
+          "optimal_stake_pct": 0.3,
+          "to_date_end": 1650630.2814,
+          "to_date_profit": 1640630.2814,
+          "min_bankroll": 10000.0,
+          "full_season_projection": 1779333214.84
+        },
+        {
+          "strategy": "single",
+          "optimal_stake_pct": 0.35,
+          "to_date_end": 579975.2183,
+          "to_date_profit": 569975.2183,
+          "min_bankroll": 10000.0,
+          "full_season_projection": 71413268.95
+        },
+        {
+          "strategy": "parlay_2",
+          "optimal_stake_pct": 0.3,
+          "to_date_end": 347949.7897,
+          "to_date_profit": 337949.7897,
+          "min_bankroll": 10000.0,
+          "full_season_projection": 21688551.62
+        },
+        {
+          "strategy": "parlay_3",
+          "optimal_stake_pct": 0.3,
+          "to_date_end": 203304.1718,
+          "to_date_profit": 193304.1718,
+          "min_bankroll": 10000.0,
+          "full_season_projection": 6590373.42
+        },
+        {
+          "strategy": "parlay_4",
+          "optimal_stake_pct": 0.2,
+          "to_date_end": 33546.7185,
+          "to_date_profit": 23546.7185,
+          "min_bankroll": 10000.0,
+          "full_season_projection": 286286.01
+        }
+      ],
+      "best_tiered_max_score": {
+        "stake_map": {
+          "1": 0.35,
+          "2": 0.3,
+          "3": 0.2
+        },
+        "end": 2051189.6651,
+        "profit": 2041189.6651,
+        "min_bankroll": 10000.0,
+        "return_pct": 20411.9,
+        "full_season_projection": 1913156641.52
+      }
+    }
+  },
+  "recommendation": {
+    "primary_strategy": "max_score",
+    "description": "Each day bet the highest EV\u00d7probability ticket among singles and 2-4 leg premium parlays.",
+    "tiered_staking": "Size by leg count using per-bankroll tiered stakes in optimal_by_bankroll.best_tiered_max_score.",
+    "notes": [
+      "Pure 2-leg only wins for some mid bankrolls but max_score with tiered stakes maximizes most paths.",
+      "4-leg tickets are rare and strict; they appear only on premium-confidence slates.",
+      "Full-season numbers replay the walk-forward sequence cyclically."
+    ],
+    "tiered_stakes_for_$10": {
+      "1": 0.35,
+      "2": 0.3,
+      "3": 0.2
+    },
+    "tiered_stakes_for_$10000": {
+      "1": 0.35,
+      "2": 0.3,
+      "3": 0.2
+    }
+  }
+}

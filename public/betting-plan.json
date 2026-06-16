@@ -1,0 +1,22 @@
+{
+  "generated_at": "2026-06-16",
+  "strategy": "two_or_three_or_single",
+  "strategy_rules": [
+    "Always-2 parlay (filtered edge/anchor, else top-2 positive-EV legs on different games)",
+    "Premium filtered 3-leg when it scores higher than the always-2 ticket",
+    "Qualified single moneyline when it scores higher than both parlay options",
+    "One bet per day \u2014 highest score wins"
+  ],
+  "stake_by_leg_count": {
+    "1": 0.45,
+    "2": 0.25,
+    "3": 0.5
+  },
+  "flat_stake_fallback": 0.35,
+  "daily_exposure_cap": 0.5,
+  "backtest_period": {
+    "start": "2026-03-20",
+    "end": "2026-06-15"
+  },
+  "retuned_from": "optimize_stake_sizing.py walk-forward on current season"
+}

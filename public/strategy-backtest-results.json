@@ -1,0 +1,1786 @@
+{
+  "generated_at": "2026-06-16",
+  "method": "strict_walk_forward_time_series",
+  "note": "Only actual days backtested. No cyclic full-season projection.",
+  "date_range": {
+    "start": "2026-03-20",
+    "end": "2026-06-15"
+  },
+  "odds_metadata": {
+    "odds_data_start": "2021-04-01",
+    "odds_data_end": "2026-06-15",
+    "odds_data_stale": false,
+    "limited_by": "yesterday's final scores"
+  },
+  "game_days_with_odds": 69,
+  "flat_by_mode": {
+    "single": {
+      "bets": 65,
+      "wins": 43,
+      "losses": 22,
+      "flat_profit": 2375.43,
+      "flat_roi": 0.3655,
+      "hit_rate": 0.6615
+    },
+    "best_ticket": {
+      "bets": 66,
+      "wins": 37,
+      "losses": 29,
+      "flat_profit": 3800.05,
+      "flat_roi": 0.5758,
+      "hit_rate": 0.5606
+    },
+    "parlay_2": {
+      "bets": 47,
+      "wins": 24,
+      "losses": 23,
+      "flat_profit": 2778.99,
+      "flat_roi": 0.5913,
+      "hit_rate": 0.5106
+    },
+    "parlay_3": {
+      "bets": 21,
+      "wins": 9,
+      "losses": 12,
+      "flat_profit": 2570.71,
+      "flat_roi": 1.2241,
+      "hit_rate": 0.4286
+    },
+    "parlay_4": {
+      "bets": 10,
+      "wins": 3,
+      "losses": 7,
+      "flat_profit": 1587.86,
+      "flat_roi": 1.5879,
+      "hit_rate": 0.3
+    },
+    "forced_top_2": {
+      "bets": 69,
+      "wins": 29,
+      "losses": 40,
+      "flat_profit": 7186.44,
+      "flat_roi": 1.0415,
+      "hit_rate": 0.4203
+    },
+    "forced_top_3": {
+      "bets": 68,
+      "wins": 17,
+      "losses": 51,
+      "flat_profit": 10362.92,
+      "flat_roi": 1.524,
+      "hit_rate": 0.25
+    },
+    "forced_top_4": {
+      "bets": 67,
+      "wins": 9,
+      "losses": 58,
+      "flat_profit": 14258.92,
+      "flat_roi": 2.1282,
+      "hit_rate": 0.1343
+    },
+    "best_combo_2": {
+      "bets": 69,
+      "wins": 27,
+      "losses": 42,
+      "flat_profit": 6020.38,
+      "flat_roi": 0.8725,
+      "hit_rate": 0.3913
+    },
+    "best_combo_3": {
+      "bets": 68,
+      "wins": 18,
+      "losses": 50,
+      "flat_profit": 10419.97,
+      "flat_roi": 1.5323,
+      "hit_rate": 0.2647
+    },
+    "best_combo_4": {
+      "bets": 67,
+      "wins": 10,
+      "losses": 57,
+      "flat_profit": 12163.93,
+      "flat_roi": 1.8155,
+      "hit_rate": 0.1493
+    },
+    "always_2": {
+      "bets": 69,
+      "wins": 34,
+      "losses": 35,
+      "flat_profit": 6227.3,
+      "flat_roi": 0.9025,
+      "hit_rate": 0.4928
+    },
+    "always_3": {
+      "bets": 68,
+      "wins": 19,
+      "losses": 49,
+      "flat_profit": 8378.99,
+      "flat_roi": 1.2322,
+      "hit_rate": 0.2794
+    },
+    "always_4": {
+      "bets": 67,
+      "wins": 11,
+      "losses": 56,
+      "flat_profit": 14617.33,
+      "flat_roi": 2.1817,
+      "hit_rate": 0.1642
+    },
+    "max_score_any": {
+      "bets": 69,
+      "wins": 22,
+      "losses": 47,
+      "flat_profit": 9437.91,
+      "flat_roi": 1.3678,
+      "hit_rate": 0.3188
+    }
+  },
+  "winners_by_bankroll": {
+    "0.35": [
+      {
+        "mode": "always_2",
+        "optimal_stake_pct": 0.3,
+        "end_bankroll": 962.8981,
+        "profit": 962.5481,
+        "min_bankroll": 0.245,
+        "bets": 69,
+        "record": "34-35"
+      },
+      {
+        "mode": "forced_top_2",
+        "optimal_stake_pct": 0.25,
+        "end_bankroll": 852.4134,
+        "profit": 852.0634,
+        "min_bankroll": 0.2625,
+        "bets": 69,
+        "record": "29-40"
+      },
+      {
+        "mode": "max_score_any",
+        "optimal_stake_pct": 0.2,
+        "end_bankroll": 257.8695,
+        "profit": 257.5195,
+        "min_bankroll": 0.28,
+        "bets": 69,
+        "record": "22-47"
+      },
+      {
+        "mode": "best_combo_3",
+        "optimal_stake_pct": 0.15,
+        "end_bankroll": 227.7837,
+        "profit": 227.4337,
+        "min_bankroll": 0.35,
+        "bets": 68,
+        "record": "18-50"
+      },
+      {
+        "mode": "forced_top_3",
+        "optimal_stake_pct": 0.15,
+        "end_bankroll": 148.0044,
+        "profit": 147.6544,
+        "min_bankroll": 0.35,
+        "bets": 68,
+        "record": "17-51"
+      },
+      {
+        "mode": "best_combo_2",
+        "optimal_stake_pct": 0.2,
+        "end_bankroll": 99.1562,
+        "profit": 98.8062,
+        "min_bankroll": 0.28,
+        "bets": 69,
+        "record": "27-42"
+      },
+      {
+        "mode": "always_3",
+        "optimal_stake_pct": 0.15,
+        "end_bankroll": 58.833,
+        "profit": 58.483,
+        "min_bankroll": 0.35,
+        "bets": 68,
+        "record": "19-49"
+      },
+      {
+        "mode": "best_ticket",
+        "optimal_stake_pct": 0.3,
+        "end_bankroll": 57.7721,
+        "profit": 57.4221,
+        "min_bankroll": 0.35,
+        "bets": 66,
+        "record": "37-29"
+      },
+      {
+        "mode": "always_4",
+        "optimal_stake_pct": 0.1,
+        "end_bankroll": 49.7149,
+        "profit": 49.3649,
+        "min_bankroll": 0.35,
+        "bets": 67,
+        "record": "11-56"
+      },
+      {
+        "mode": "forced_top_4",
+        "optimal_stake_pct": 0.1,
+        "end_bankroll": 23.0909,
+        "profit": 22.7409,
+        "min_bankroll": 0.35,
+        "bets": 67,
+        "record": "9-58"
+      },
+      {
+        "mode": "single",
+        "optimal_stake_pct": 0.35,
+        "end_bankroll": 20.2991,
+        "profit": 19.9491,
+        "min_bankroll": 0.35,
+        "bets": 65,
+        "record": "43-22"
+      },
+      {
+        "mode": "best_combo_4",
+        "optimal_stake_pct": 0.1,
+        "end_bankroll": 16.5141,
+        "profit": 16.1641,
+        "min_bankroll": 0.35,
+        "bets": 67,
+        "record": "10-57"
+      },
+      {
+        "mode": "parlay_2",
+        "optimal_stake_pct": 0.3,
+        "end_bankroll": 12.1782,
+        "profit": 11.8282,
+        "min_bankroll": 0.35,
+        "bets": 47,
+        "record": "24-23"
+      },
+      {
+        "mode": "parlay_3",
+        "optimal_stake_pct": 0.3,
+        "end_bankroll": 7.1156,
+        "profit": 6.7656,
+        "min_bankroll": 0.35,
+        "bets": 21,
+        "record": "9-12"
+      },
+      {
+        "mode": "parlay_4",
+        "optimal_stake_pct": 0.2,
+        "end_bankroll": 1.1741,
+        "profit": 0.8241,
+        "min_bankroll": 0.35,
+        "bets": 10,
+        "record": "3-7"
+      }
+    ],
+    "10.0": [
+      {
+        "mode": "always_2",
+        "optimal_stake_pct": 0.3,
+        "end_bankroll": 27511.3747,
+        "profit": 27501.3747,
+        "min_bankroll": 7.0,
+        "bets": 69,
+        "record": "34-35"
+      },
+      {
+        "mode": "forced_top_2",
+        "optimal_stake_pct": 0.25,
+        "end_bankroll": 24354.6695,
+        "profit": 24344.6695,
+        "min_bankroll": 7.5,
+        "bets": 69,
+        "record": "29-40"
+      },
+      {
+        "mode": "max_score_any",
+        "optimal_stake_pct": 0.2,
+        "end_bankroll": 7367.7002,
+        "profit": 7357.7002,
+        "min_bankroll": 8.0,
+        "bets": 69,
+        "record": "22-47"
+      },
+      {
+        "mode": "best_combo_3",
+        "optimal_stake_pct": 0.15,
+        "end_bankroll": 6508.1049,
+        "profit": 6498.1049,
+        "min_bankroll": 10.0,
+        "bets": 68,
+        "record": "18-50"
+      },
+      {
+        "mode": "forced_top_3",
+        "optimal_stake_pct": 0.15,
+        "end_bankroll": 4228.6981,
+        "profit": 4218.6981,
+        "min_bankroll": 10.0,
+        "bets": 68,
+        "record": "17-51"
+      },
+      {
+        "mode": "best_combo_2",
+        "optimal_stake_pct": 0.2,
+        "end_bankroll": 2833.0336,
+        "profit": 2823.0336,
+        "min_bankroll": 8.0,
+        "bets": 69,
+        "record": "27-42"
+      },
+      {
+        "mode": "always_3",
+        "optimal_stake_pct": 0.15,
+        "end_bankroll": 1680.9419,
+        "profit": 1670.9419,
+        "min_bankroll": 10.0,
+        "bets": 68,
+        "record": "19-49"
+      },
+      {
+        "mode": "best_ticket",
+        "optimal_stake_pct": 0.3,
+        "end_bankroll": 1650.6303,
+        "profit": 1640.6303,
+        "min_bankroll": 10.0,
+        "bets": 66,
+        "record": "37-29"
+      },
+      {
+        "mode": "always_4",
+        "optimal_stake_pct": 0.1,
+        "end_bankroll": 1420.4268,
+        "profit": 1410.4268,
+        "min_bankroll": 10.0,
+        "bets": 67,
+        "record": "11-56"
+      },
+      {
+        "mode": "forced_top_4",
+        "optimal_stake_pct": 0.1,
+        "end_bankroll": 659.7391,
+        "profit": 649.7391,
+        "min_bankroll": 10.0,
+        "bets": 67,
+        "record": "9-58"
+      },
+      {
+        "mode": "single",
+        "optimal_stake_pct": 0.35,
+        "end_bankroll": 579.9752,
+        "profit": 569.9752,
+        "min_bankroll": 10.0,
+        "bets": 65,
+        "record": "43-22"
+      },
+      {
+        "mode": "best_combo_4",
+        "optimal_stake_pct": 0.1,
+        "end_bankroll": 471.8303,
+        "profit": 461.8303,
+        "min_bankroll": 10.0,
+        "bets": 67,
+        "record": "10-57"
+      },
+      {
+        "mode": "parlay_2",
+        "optimal_stake_pct": 0.3,
+        "end_bankroll": 347.9498,
+        "profit": 337.9498,
+        "min_bankroll": 10.0,
+        "bets": 47,
+        "record": "24-23"
+      },
+      {
+        "mode": "parlay_3",
+        "optimal_stake_pct": 0.3,
+        "end_bankroll": 203.3042,
+        "profit": 193.3042,
+        "min_bankroll": 10.0,
+        "bets": 21,
+        "record": "9-12"
+      },
+      {
+        "mode": "parlay_4",
+        "optimal_stake_pct": 0.2,
+        "end_bankroll": 33.5467,
+        "profit": 23.5467,
+        "min_bankroll": 10.0,
+        "bets": 10,
+        "record": "3-7"
+      }
+    ],
+    "10000.0": [
+      {
+        "mode": "always_2",
+        "optimal_stake_pct": 0.3,
+        "end_bankroll": 27511374.6966,
+        "profit": 27501374.6966,
+        "min_bankroll": 7000.0,
+        "bets": 69,
+        "record": "34-35"
+      },
+      {
+        "mode": "forced_top_2",
+        "optimal_stake_pct": 0.25,
+        "end_bankroll": 24354669.4698,
+        "profit": 24344669.4698,
+        "min_bankroll": 7500.0,
+        "bets": 69,
+        "record": "29-40"
+      },
+      {
+        "mode": "max_score_any",
+        "optimal_stake_pct": 0.2,
+        "end_bankroll": 7367700.1601,
+        "profit": 7357700.1601,
+        "min_bankroll": 8000.0,
+        "bets": 69,
+        "record": "22-47"
+      },
+      {
+        "mode": "best_combo_3",
+        "optimal_stake_pct": 0.15,
+        "end_bankroll": 6508104.8909,
+        "profit": 6498104.8909,
+        "min_bankroll": 10000.0,
+        "bets": 68,
+        "record": "18-50"
+      },
+      {
+        "mode": "forced_top_3",
+        "optimal_stake_pct": 0.15,
+        "end_bankroll": 4228698.064,
+        "profit": 4218698.064,
+        "min_bankroll": 10000.0,
+        "bets": 68,
+        "record": "17-51"
+      },
+      {
+        "mode": "best_combo_2",
+        "optimal_stake_pct": 0.2,
+        "end_bankroll": 2833033.6279,
+        "profit": 2823033.6279,
+        "min_bankroll": 8000.0,
+        "bets": 69,
+        "record": "27-42"
+      },
+      {
+        "mode": "always_3",
+        "optimal_stake_pct": 0.15,
+        "end_bankroll": 1680941.9088,
+        "profit": 1670941.9088,
+        "min_bankroll": 10000.0,
+        "bets": 68,
+        "record": "19-49"
+      },
+      {
+        "mode": "best_ticket",
+        "optimal_stake_pct": 0.3,
+        "end_bankroll": 1650630.2814,
+        "profit": 1640630.2814,
+        "min_bankroll": 10000.0,
+        "bets": 66,
+        "record": "37-29"
+      },
+      {
+        "mode": "always_4",
+        "optimal_stake_pct": 0.1,
+        "end_bankroll": 1420426.7905,
+        "profit": 1410426.7905,
+        "min_bankroll": 10000.0,
+        "bets": 67,
+        "record": "11-56"
+      },
+      {
+        "mode": "forced_top_4",
+        "optimal_stake_pct": 0.1,
+        "end_bankroll": 659739.055,
+        "profit": 649739.055,
+        "min_bankroll": 10000.0,
+        "bets": 67,
+        "record": "9-58"
+      },
+      {
+        "mode": "single",
+        "optimal_stake_pct": 0.35,
+        "end_bankroll": 579975.2183,
+        "profit": 569975.2183,
+        "min_bankroll": 10000.0,
+        "bets": 65,
+        "record": "43-22"
+      },
+      {
+        "mode": "best_combo_4",
+        "optimal_stake_pct": 0.1,
+        "end_bankroll": 471830.3421,
+        "profit": 461830.3421,
+        "min_bankroll": 10000.0,
+        "bets": 67,
+        "record": "10-57"
+      },
+      {
+        "mode": "parlay_2",
+        "optimal_stake_pct": 0.3,
+        "end_bankroll": 347949.7897,
+        "profit": 337949.7897,
+        "min_bankroll": 10000.0,
+        "bets": 47,
+        "record": "24-23"
+      },
+      {
+        "mode": "parlay_3",
+        "optimal_stake_pct": 0.3,
+        "end_bankroll": 203304.1718,
+        "profit": 193304.1718,
+        "min_bankroll": 10000.0,
+        "bets": 21,
+        "record": "9-12"
+      },
+      {
+        "mode": "parlay_4",
+        "optimal_stake_pct": 0.2,
+        "end_bankroll": 33546.7185,
+        "profit": 23546.7185,
+        "min_bankroll": 10000.0,
+        "bets": 10,
+        "record": "3-7"
+      }
+    ]
+  },
+  "best_ticket_validation": {
+    "profitable_flat": true,
+    "flat_roi": 0.5758,
+    "record": "37-29",
+    "compound_10k_at_30pct": {
+      "start": 10000,
+      "end": 1650630.2814,
+      "profit": 1640630.2814,
+      "return_pct": 16406.3,
+      "min_bankroll": 10000,
+      "bets": 66,
+      "wins": 37,
+      "losses": 29,
+      "curve": [
+        {
+          "date": "2026-04-09",
+          "bankroll": 14560.0,
+          "won": true,
+          "label": "AZ ML"
+        },
+        {
+          "date": "2026-04-10",
+          "bankroll": 33165.0592,
+          "won": true,
+          "label": "SEA ML + DET ML + ATL ML"
+        },
+        {
+          "date": "2026-04-11",
+          "bankroll": 23215.5414,
+          "won": false,
+          "label": "TEX ML"
+        },
+        {
+          "date": "2026-04-12",
+          "bankroll": 30807.0235,
+          "won": true,
+          "label": "TEX ML"
+        },
+        {
+          "date": "2026-04-13",
+          "bankroll": 57495.456,
+          "won": true,
+          "label": "LAD ML + PHI ML + NYY ML"
+        },
+        {
+          "date": "2026-04-14",
+          "bankroll": 76123.9838,
+          "won": true,
+          "label": "STL ML"
+        },
+        {
+          "date": "2026-04-15",
+          "bankroll": 53286.7886,
+          "won": false,
+          "label": "WSH ML"
+        },
+        {
+          "date": "2026-04-16",
+          "bankroll": 65306.6895,
+          "won": true,
+          "label": "CLE ML"
+        },
+        {
+          "date": "2026-04-17",
+          "bankroll": 91951.8189,
+          "won": true,
+          "label": "CWS ML"
+        },
+        {
+          "date": "2026-04-18",
+          "bankroll": 125330.3291,
+          "won": true,
+          "label": "STL ML"
+        },
+        {
+          "date": "2026-04-19",
+          "bankroll": 87731.2304,
+          "won": false,
+          "label": "LAA ML"
+        },
+        {
+          "date": "2026-04-20",
+          "bankroll": 117472.1175,
+          "won": true,
+          "label": "HOU ML"
+        },
+        {
+          "date": "2026-04-21",
+          "bankroll": 82230.4822,
+          "won": false,
+          "label": "STL ML + BOS ML"
+        },
+        {
+          "date": "2026-04-22",
+          "bankroll": 116273.9019,
+          "won": true,
+          "label": "HOU ML"
+        },
+        {
+          "date": "2026-04-23",
+          "bankroll": 81391.7313,
+          "won": false,
+          "label": "COL ML"
+        },
+        {
+          "date": "2026-04-24",
+          "bankroll": 201232.9165,
+          "won": true,
+          "label": "KC ML + BAL ML + TB ML"
+        },
+        {
+          "date": "2026-04-25",
+          "bankroll": 140863.0416,
+          "won": false,
+          "label": "TB ML + MIL ML"
+        },
+        {
+          "date": "2026-04-26",
+          "bankroll": 203406.232,
+          "won": true,
+          "label": "COL ML"
+        },
+        {
+          "date": "2026-04-27",
+          "bankroll": 142384.3624,
+          "won": false,
+          "label": "CWS ML + CLE ML"
+        },
+        {
+          "date": "2026-04-28",
+          "bankroll": 99669.0537,
+          "won": false,
+          "label": "HOU ML"
+        },
+        {
+          "date": "2026-04-29",
+          "bankroll": 139736.0133,
+          "won": true,
+          "label": "WSH ML"
+        },
+        {
+          "date": "2026-04-30",
+          "bankroll": 97815.2093,
+          "won": false,
+          "label": "HOU ML"
+        },
+        {
+          "date": "2026-05-01",
+          "bankroll": 68470.6465,
+          "won": false,
+          "label": "ATH ML + PHI ML"
+        },
+        {
+          "date": "2026-05-02",
+          "bankroll": 92093.0196,
+          "won": true,
+          "label": "STL ML"
+        },
+        {
+          "date": "2026-05-03",
+          "bankroll": 64465.1137,
+          "won": false,
+          "label": "CIN ML + NYM ML"
+        },
+        {
+          "date": "2026-05-04",
+          "bankroll": 103496.1614,
+          "won": true,
+          "label": "TB ML + NYM ML"
+        },
+        {
+          "date": "2026-05-05",
+          "bankroll": 173331.2313,
+          "won": true,
+          "label": "LAA ML + AZ ML"
+        },
+        {
+          "date": "2026-05-06",
+          "bankroll": 121331.8619,
+          "won": false,
+          "label": "STL ML + LAA ML + TB ML"
+        },
+        {
+          "date": "2026-05-07",
+          "bankroll": 201265.2925,
+          "won": true,
+          "label": "WSH ML + MIA ML"
+        },
+        {
+          "date": "2026-05-08",
+          "bankroll": 271909.4102,
+          "won": true,
+          "label": "WSH ML"
+        },
+        {
+          "date": "2026-05-09",
+          "bankroll": 363270.972,
+          "won": true,
+          "label": "MIL ML"
+        },
+        {
+          "date": "2026-05-10",
+          "bankroll": 254289.6804,
+          "won": false,
+          "label": "ATH ML + KC ML"
+        },
+        {
+          "date": "2026-05-11",
+          "bankroll": 354225.5248,
+          "won": true,
+          "label": "BAL ML"
+        },
+        {
+          "date": "2026-05-12",
+          "bankroll": 247957.8674,
+          "won": false,
+          "label": "LAA ML"
+        },
+        {
+          "date": "2026-05-13",
+          "bankroll": 607509.173,
+          "won": true,
+          "label": "TEX ML + BOS ML + ATH ML"
+        },
+        {
+          "date": "2026-05-14",
+          "bankroll": 1025414.7331,
+          "won": true,
+          "label": "MIN ML + MIL ML"
+        },
+        {
+          "date": "2026-05-15",
+          "bankroll": 717790.3132,
+          "won": false,
+          "label": "MIN ML + HOU ML + AZ ML"
+        },
+        {
+          "date": "2026-05-16",
+          "bankroll": 502453.2192,
+          "won": false,
+          "label": "DET ML + CWS ML + TB ML"
+        },
+        {
+          "date": "2026-05-17",
+          "bankroll": 677306.9395,
+          "won": true,
+          "label": "MIN ML"
+        },
+        {
+          "date": "2026-05-18",
+          "bankroll": 857131.9319,
+          "won": true,
+          "label": "MIN ML"
+        },
+        {
+          "date": "2026-05-19",
+          "bankroll": 599992.3524,
+          "won": false,
+          "label": "TEX ML + BOS ML + LAA ML"
+        },
+        {
+          "date": "2026-05-20",
+          "bankroll": 788989.9433,
+          "won": true,
+          "label": "WSH ML"
+        },
+        {
+          "date": "2026-05-21",
+          "bankroll": 552292.9603,
+          "won": false,
+          "label": "WSH ML + LAA ML + DET ML"
+        },
+        {
+          "date": "2026-05-22",
+          "bankroll": 892334.2131,
+          "won": true,
+          "label": "MIL ML + TOR ML"
+        },
+        {
+          "date": "2026-05-23",
+          "bankroll": 624633.9492,
+          "won": false,
+          "label": "STL ML + CWS ML"
+        },
+        {
+          "date": "2026-05-24",
+          "bankroll": 437243.7644,
+          "won": false,
+          "label": "TB ML"
+        },
+        {
+          "date": "2026-05-25",
+          "bankroll": 306070.6351,
+          "won": false,
+          "label": "TEX ML"
+        },
+        {
+          "date": "2026-05-26",
+          "bankroll": 214249.4446,
+          "won": false,
+          "label": "SD ML + PIT ML + DET ML"
+        },
+        {
+          "date": "2026-05-27",
+          "bankroll": 149974.6112,
+          "won": false,
+          "label": "PIT ML + TEX ML"
+        },
+        {
+          "date": "2026-05-28",
+          "bankroll": 205315.2427,
+          "won": true,
+          "label": "HOU ML"
+        },
+        {
+          "date": "2026-05-29",
+          "bankroll": 143720.6699,
+          "won": false,
+          "label": "DET ML + ATL ML + SF ML"
+        },
+        {
+          "date": "2026-05-30",
+          "bankroll": 177941.9986,
+          "won": true,
+          "label": "ATL ML"
+        },
+        {
+          "date": "2026-05-31",
+          "bankroll": 124559.399,
+          "won": false,
+          "label": "MIA ML"
+        },
+        {
+          "date": "2026-06-01",
+          "bankroll": 176874.3466,
+          "won": true,
+          "label": "AZ ML"
+        },
+        {
+          "date": "2026-06-02",
+          "bankroll": 249569.7031,
+          "won": true,
+          "label": "COL ML"
+        },
+        {
+          "date": "2026-06-05",
+          "bankroll": 174698.7922,
+          "won": false,
+          "label": "COL ML"
+        },
+        {
+          "date": "2026-06-06",
+          "bankroll": 122289.1545,
+          "won": false,
+          "label": "HOU ML + NYM ML"
+        },
+        {
+          "date": "2026-06-07",
+          "bankroll": 197819.8279,
+          "won": true,
+          "label": "ATH ML + PHI ML"
+        },
+        {
+          "date": "2026-06-08",
+          "bankroll": 328143.5305,
+          "won": true,
+          "label": "HOU ML + SEA ML"
+        },
+        {
+          "date": "2026-06-09",
+          "bankroll": 591655.9113,
+          "won": true,
+          "label": "ATH ML + WSH ML"
+        },
+        {
+          "date": "2026-06-10",
+          "bankroll": 414159.1379,
+          "won": false,
+          "label": "PHI ML + CHC ML"
+        },
+        {
+          "date": "2026-06-11",
+          "bankroll": 680136.2779,
+          "won": true,
+          "label": "MIA ML + DET ML"
+        },
+        {
+          "date": "2026-06-12",
+          "bankroll": 1202542.1515,
+          "won": true,
+          "label": "AZ ML + CLE ML"
+        },
+        {
+          "date": "2026-06-13",
+          "bankroll": 1574127.6764,
+          "won": true,
+          "label": "SD ML"
+        },
+        {
+          "date": "2026-06-14",
+          "bankroll": 2358043.2592,
+          "won": true,
+          "label": "CWS ML"
+        },
+        {
+          "date": "2026-06-15",
+          "bankroll": 1650630.2814,
+          "won": false,
+          "label": "SD ML"
+        }
+      ]
+    },
+    "compound_10k_optimal": {
+      "stake_pct": 0.3,
+      "start": 10000.0,
+      "end": 1650630.2814,
+      "profit": 1640630.2814,
+      "return_pct": 16406.3,
+      "min_bankroll": 10000.0,
+      "bets": 66,
+      "wins": 37,
+      "losses": 29,
+      "curve": [
+        {
+          "date": "2026-04-09",
+          "bankroll": 14560.0,
+          "won": true,
+          "label": "AZ ML"
+        },
+        {
+          "date": "2026-04-10",
+          "bankroll": 33165.0592,
+          "won": true,
+          "label": "SEA ML + DET ML + ATL ML"
+        },
+        {
+          "date": "2026-04-11",
+          "bankroll": 23215.5414,
+          "won": false,
+          "label": "TEX ML"
+        },
+        {
+          "date": "2026-04-12",
+          "bankroll": 30807.0235,
+          "won": true,
+          "label": "TEX ML"
+        },
+        {
+          "date": "2026-04-13",
+          "bankroll": 57495.456,
+          "won": true,
+          "label": "LAD ML + PHI ML + NYY ML"
+        },
+        {
+          "date": "2026-04-14",
+          "bankroll": 76123.9838,
+          "won": true,
+          "label": "STL ML"
+        },
+        {
+          "date": "2026-04-15",
+          "bankroll": 53286.7886,
+          "won": false,
+          "label": "WSH ML"
+        },
+        {
+          "date": "2026-04-16",
+          "bankroll": 65306.6895,
+          "won": true,
+          "label": "CLE ML"
+        },
+        {
+          "date": "2026-04-17",
+          "bankroll": 91951.8189,
+          "won": true,
+          "label": "CWS ML"
+        },
+        {
+          "date": "2026-04-18",
+          "bankroll": 125330.3291,
+          "won": true,
+          "label": "STL ML"
+        },
+        {
+          "date": "2026-04-19",
+          "bankroll": 87731.2304,
+          "won": false,
+          "label": "LAA ML"
+        },
+        {
+          "date": "2026-04-20",
+          "bankroll": 117472.1175,
+          "won": true,
+          "label": "HOU ML"
+        },
+        {
+          "date": "2026-04-21",
+          "bankroll": 82230.4822,
+          "won": false,
+          "label": "STL ML + BOS ML"
+        },
+        {
+          "date": "2026-04-22",
+          "bankroll": 116273.9019,
+          "won": true,
+          "label": "HOU ML"
+        },
+        {
+          "date": "2026-04-23",
+          "bankroll": 81391.7313,
+          "won": false,
+          "label": "COL ML"
+        },
+        {
+          "date": "2026-04-24",
+          "bankroll": 201232.9165,
+          "won": true,
+          "label": "KC ML + BAL ML + TB ML"
+        },
+        {
+          "date": "2026-04-25",
+          "bankroll": 140863.0416,
+          "won": false,
+          "label": "TB ML + MIL ML"
+        },
+        {
+          "date": "2026-04-26",
+          "bankroll": 203406.232,
+          "won": true,
+          "label": "COL ML"
+        },
+        {
+          "date": "2026-04-27",
+          "bankroll": 142384.3624,
+          "won": false,
+          "label": "CWS ML + CLE ML"
+        },
+        {
+          "date": "2026-04-28",
+          "bankroll": 99669.0537,
+          "won": false,
+          "label": "HOU ML"
+        },
+        {
+          "date": "2026-04-29",
+          "bankroll": 139736.0133,
+          "won": true,
+          "label": "WSH ML"
+        },
+        {
+          "date": "2026-04-30",
+          "bankroll": 97815.2093,
+          "won": false,
+          "label": "HOU ML"
+        },
+        {
+          "date": "2026-05-01",
+          "bankroll": 68470.6465,
+          "won": false,
+          "label": "ATH ML + PHI ML"
+        },
+        {
+          "date": "2026-05-02",
+          "bankroll": 92093.0196,
+          "won": true,
+          "label": "STL ML"
+        },
+        {
+          "date": "2026-05-03",
+          "bankroll": 64465.1137,
+          "won": false,
+          "label": "CIN ML + NYM ML"
+        },
+        {
+          "date": "2026-05-04",
+          "bankroll": 103496.1614,
+          "won": true,
+          "label": "TB ML + NYM ML"
+        },
+        {
+          "date": "2026-05-05",
+          "bankroll": 173331.2313,
+          "won": true,
+          "label": "LAA ML + AZ ML"
+        },
+        {
+          "date": "2026-05-06",
+          "bankroll": 121331.8619,
+          "won": false,
+          "label": "STL ML + LAA ML + TB ML"
+        },
+        {
+          "date": "2026-05-07",
+          "bankroll": 201265.2925,
+          "won": true,
+          "label": "WSH ML + MIA ML"
+        },
+        {
+          "date": "2026-05-08",
+          "bankroll": 271909.4102,
+          "won": true,
+          "label": "WSH ML"
+        },
+        {
+          "date": "2026-05-09",
+          "bankroll": 363270.972,
+          "won": true,
+          "label": "MIL ML"
+        },
+        {
+          "date": "2026-05-10",
+          "bankroll": 254289.6804,
+          "won": false,
+          "label": "ATH ML + KC ML"
+        },
+        {
+          "date": "2026-05-11",
+          "bankroll": 354225.5248,
+          "won": true,
+          "label": "BAL ML"
+        },
+        {
+          "date": "2026-05-12",
+          "bankroll": 247957.8674,
+          "won": false,
+          "label": "LAA ML"
+        },
+        {
+          "date": "2026-05-13",
+          "bankroll": 607509.173,
+          "won": true,
+          "label": "TEX ML + BOS ML + ATH ML"
+        },
+        {
+          "date": "2026-05-14",
+          "bankroll": 1025414.7331,
+          "won": true,
+          "label": "MIN ML + MIL ML"
+        },
+        {
+          "date": "2026-05-15",
+          "bankroll": 717790.3132,
+          "won": false,
+          "label": "MIN ML + HOU ML + AZ ML"
+        },
+        {
+          "date": "2026-05-16",
+          "bankroll": 502453.2192,
+          "won": false,
+          "label": "DET ML + CWS ML + TB ML"
+        },
+        {
+          "date": "2026-05-17",
+          "bankroll": 677306.9395,
+          "won": true,
+          "label": "MIN ML"
+        },
+        {
+          "date": "2026-05-18",
+          "bankroll": 857131.9319,
+          "won": true,
+          "label": "MIN ML"
+        },
+        {
+          "date": "2026-05-19",
+          "bankroll": 599992.3524,
+          "won": false,
+          "label": "TEX ML + BOS ML + LAA ML"
+        },
+        {
+          "date": "2026-05-20",
+          "bankroll": 788989.9433,
+          "won": true,
+          "label": "WSH ML"
+        },
+        {
+          "date": "2026-05-21",
+          "bankroll": 552292.9603,
+          "won": false,
+          "label": "WSH ML + LAA ML + DET ML"
+        },
+        {
+          "date": "2026-05-22",
+          "bankroll": 892334.2131,
+          "won": true,
+          "label": "MIL ML + TOR ML"
+        },
+        {
+          "date": "2026-05-23",
+          "bankroll": 624633.9492,
+          "won": false,
+          "label": "STL ML + CWS ML"
+        },
+        {
+          "date": "2026-05-24",
+          "bankroll": 437243.7644,
+          "won": false,
+          "label": "TB ML"
+        },
+        {
+          "date": "2026-05-25",
+          "bankroll": 306070.6351,
+          "won": false,
+          "label": "TEX ML"
+        },
+        {
+          "date": "2026-05-26",
+          "bankroll": 214249.4446,
+          "won": false,
+          "label": "SD ML + PIT ML + DET ML"
+        },
+        {
+          "date": "2026-05-27",
+          "bankroll": 149974.6112,
+          "won": false,
+          "label": "PIT ML + TEX ML"
+        },
+        {
+          "date": "2026-05-28",
+          "bankroll": 205315.2427,
+          "won": true,
+          "label": "HOU ML"
+        },
+        {
+          "date": "2026-05-29",
+          "bankroll": 143720.6699,
+          "won": false,
+          "label": "DET ML + ATL ML + SF ML"
+        },
+        {
+          "date": "2026-05-30",
+          "bankroll": 177941.9986,
+          "won": true,
+          "label": "ATL ML"
+        },
+        {
+          "date": "2026-05-31",
+          "bankroll": 124559.399,
+          "won": false,
+          "label": "MIA ML"
+        },
+        {
+          "date": "2026-06-01",
+          "bankroll": 176874.3466,
+          "won": true,
+          "label": "AZ ML"
+        },
+        {
+          "date": "2026-06-02",
+          "bankroll": 249569.7031,
+          "won": true,
+          "label": "COL ML"
+        },
+        {
+          "date": "2026-06-05",
+          "bankroll": 174698.7922,
+          "won": false,
+          "label": "COL ML"
+        },
+        {
+          "date": "2026-06-06",
+          "bankroll": 122289.1545,
+          "won": false,
+          "label": "HOU ML + NYM ML"
+        },
+        {
+          "date": "2026-06-07",
+          "bankroll": 197819.8279,
+          "won": true,
+          "label": "ATH ML + PHI ML"
+        },
+        {
+          "date": "2026-06-08",
+          "bankroll": 328143.5305,
+          "won": true,
+          "label": "HOU ML + SEA ML"
+        },
+        {
+          "date": "2026-06-09",
+          "bankroll": 591655.9113,
+          "won": true,
+          "label": "ATH ML + WSH ML"
+        },
+        {
+          "date": "2026-06-10",
+          "bankroll": 414159.1379,
+          "won": false,
+          "label": "PHI ML + CHC ML"
+        },
+        {
+          "date": "2026-06-11",
+          "bankroll": 680136.2779,
+          "won": true,
+          "label": "MIA ML + DET ML"
+        },
+        {
+          "date": "2026-06-12",
+          "bankroll": 1202542.1515,
+          "won": true,
+          "label": "AZ ML + CLE ML"
+        },
+        {
+          "date": "2026-06-13",
+          "bankroll": 1574127.6764,
+          "won": true,
+          "label": "SD ML"
+        },
+        {
+          "date": "2026-06-14",
+          "bankroll": 2358043.2592,
+          "won": true,
+          "label": "CWS ML"
+        },
+        {
+          "date": "2026-06-15",
+          "bankroll": 1650630.2814,
+          "won": false,
+          "label": "SD ML"
+        }
+      ]
+    }
+  },
+  "recommended_mode": "always_2",
+  "recommended_stake_pct": 0.3,
+  "recommended_summary": {
+    "mode": "always_2",
+    "optimal_stake_pct": 0.3,
+    "end_bankroll": 27511374.6966,
+    "profit": 27501374.6966,
+    "min_bankroll": 7000.0,
+    "bets": 69,
+    "record": "34-35"
+  },
+  "winner_ledger_sample": [
+    {
+      "category": "parlay_2",
+      "date": "2026-06-06",
+      "matchup": "ATH @ HOU + NYM @ SD",
+      "team": "2-leg Parlay",
+      "side": "Parlay",
+      "label": "HOU ML + NYM ML",
+      "odds": 222,
+      "model_probability": 0.4642,
+      "book_probability": null,
+      "edge": null,
+      "ev": 49.36,
+      "stake": 100.0,
+      "qualified": true,
+      "strategy": "edge",
+      "won": false,
+      "profit": -100.0,
+      "legs": [
+        {
+          "team": "HOU",
+          "matchup": "ATH @ HOU",
+          "odds": -127,
+          "model_probability": 0.7,
+          "book_probability": 0.5595,
+          "edge": 0.1405,
+          "won": true,
+          "confidence": "High"
+        },
+        {
+          "team": "NYM",
+          "matchup": "NYM @ SD",
+          "odds": -125,
+          "model_probability": 0.6632,
+          "book_probability": 0.5556,
+          "edge": 0.1076,
+          "won": false,
+          "confidence": "Medium"
+        }
+      ]
+    },
+    {
+      "category": "parlay_2",
+      "date": "2026-06-07",
+      "matchup": "ATH @ HOU + CWS @ PHI",
+      "team": "2-leg Parlay",
+      "side": "Parlay",
+      "label": "ATH ML + PHI ML",
+      "odds": 206,
+      "model_probability": 0.49,
+      "book_probability": null,
+      "edge": null,
+      "ev": 49.88,
+      "stake": 100.0,
+      "qualified": true,
+      "strategy": "edge",
+      "won": true,
+      "profit": 205.88,
+      "legs": [
+        {
+          "team": "ATH",
+          "matchup": "ATH @ HOU",
+          "odds": -108,
+          "model_probability": 0.7,
+          "book_probability": 0.5192,
+          "edge": 0.1808,
+          "won": true,
+          "confidence": "High"
+        },
+        {
+          "team": "PHI",
+          "matchup": "CWS @ PHI",
+          "odds": -170,
+          "model_probability": 0.7,
+          "book_probability": 0.6296,
+          "edge": 0.0704,
+          "won": true,
+          "confidence": "Elite"
+        }
+      ]
+    },
+    {
+      "category": "parlay_2",
+      "date": "2026-06-08",
+      "matchup": "HOU @ LAA + SEA @ BAL",
+      "team": "2-leg Parlay",
+      "side": "Parlay",
+      "label": "HOU ML + SEA ML",
+      "odds": 220,
+      "model_probability": 0.472,
+      "book_probability": null,
+      "edge": null,
+      "ev": 50.86,
+      "stake": 100.0,
+      "qualified": true,
+      "strategy": "edge",
+      "won": true,
+      "profit": 219.6,
+      "legs": [
+        {
+          "team": "HOU",
+          "matchup": "HOU @ LAA",
+          "odds": -130,
+          "model_probability": 0.7,
+          "book_probability": 0.5652,
+          "edge": 0.1348,
+          "won": true,
+          "confidence": "High"
+        },
+        {
+          "team": "SEA",
+          "matchup": "SEA @ BAL",
+          "odds": -124,
+          "model_probability": 0.6743,
+          "book_probability": 0.5536,
+          "edge": 0.1207,
+          "won": true,
+          "confidence": "Medium"
+        }
+      ]
+    },
+    {
+      "category": "parlay_2",
+      "date": "2026-06-09",
+      "matchup": "MIL @ ATH + WSH @ SF",
+      "team": "2-leg Parlay",
+      "side": "Parlay",
+      "label": "ATH ML + WSH ML",
+      "odds": 268,
+      "model_probability": 0.4782,
+      "book_probability": null,
+      "edge": null,
+      "ev": 75.81,
+      "stake": 100.0,
+      "qualified": true,
+      "strategy": "edge",
+      "won": true,
+      "profit": 267.68,
+      "legs": [
+        {
+          "team": "ATH",
+          "matchup": "MIL @ ATH",
+          "odds": -110,
+          "model_probability": 0.7,
+          "book_probability": 0.5238,
+          "edge": 0.1762,
+          "won": true,
+          "confidence": "High"
+        },
+        {
+          "team": "WSH",
+          "matchup": "WSH @ SF",
+          "odds": -108,
+          "model_probability": 0.6831,
+          "book_probability": 0.5192,
+          "edge": 0.1639,
+          "won": true,
+          "confidence": "Medium"
+        }
+      ]
+    },
+    {
+      "category": "parlay_2",
+      "date": "2026-06-10",
+      "matchup": "PHI @ TOR + CHC @ COL",
+      "team": "2-leg Parlay",
+      "side": "Parlay",
+      "label": "PHI ML + CHC ML",
+      "odds": 170,
+      "model_probability": 0.4886,
+      "book_probability": null,
+      "edge": null,
+      "ev": 32.15,
+      "stake": 100.0,
+      "qualified": true,
+      "strategy": "edge",
+      "won": false,
+      "profit": -100.0,
+      "legs": [
+        {
+          "team": "PHI",
+          "matchup": "PHI @ TOR",
+          "odds": -136,
+          "model_probability": 0.698,
+          "book_probability": 0.5763,
+          "edge": 0.1217,
+          "won": true,
+          "confidence": "High"
+        },
+        {
+          "team": "CHC",
+          "matchup": "CHC @ COL",
+          "odds": -179,
+          "model_probability": 0.7,
+          "book_probability": 0.6416,
+          "edge": 0.0584,
+          "won": false,
+          "confidence": "Elite"
+        }
+      ]
+    },
+    {
+      "category": "parlay_2",
+      "date": "2026-06-11",
+      "matchup": "AZ @ MIA + MIN @ DET",
+      "team": "2-leg Parlay",
+      "side": "Parlay",
+      "label": "MIA ML + DET ML",
+      "odds": 214,
+      "model_probability": 0.4422,
+      "book_probability": null,
+      "edge": null,
+      "ev": 38.9,
+      "stake": 100.0,
+      "qualified": true,
+      "strategy": "edge",
+      "won": true,
+      "profit": 214.07,
+      "legs": [
+        {
+          "team": "MIA",
+          "matchup": "AZ @ MIA",
+          "odds": -129,
+          "model_probability": 0.6787,
+          "book_probability": 0.5633,
+          "edge": 0.1154,
+          "won": true,
+          "confidence": "Medium"
+        },
+        {
+          "team": "DET",
+          "matchup": "MIN @ DET",
+          "odds": -130,
+          "model_probability": 0.6516,
+          "book_probability": 0.5652,
+          "edge": 0.0864,
+          "won": true,
+          "confidence": "Medium"
+        }
+      ]
+    },
+    {
+      "category": "parlay_2",
+      "date": "2026-06-12",
+      "matchup": "AZ @ CIN + DET @ CLE",
+      "team": "2-leg Parlay",
+      "side": "Parlay",
+      "label": "AZ ML + CLE ML",
+      "odds": 256,
+      "model_probability": 0.4348,
+      "book_probability": null,
+      "edge": null,
+      "ev": 54.8,
+      "stake": 100.0,
+      "qualified": true,
+      "strategy": "edge",
+      "won": true,
+      "profit": 256.03,
+      "legs": [
+        {
+          "team": "AZ",
+          "matchup": "AZ @ CIN",
+          "odds": -103,
+          "model_probability": 0.6629,
+          "book_probability": 0.5074,
+          "edge": 0.1555,
+          "won": true,
+          "confidence": "Medium"
+        },
+        {
+          "team": "CLE",
+          "matchup": "DET @ CLE",
+          "odds": -124,
+          "model_probability": 0.6559,
+          "book_probability": 0.5536,
+          "edge": 0.1023,
+          "won": true,
+          "confidence": "Medium"
+        }
+      ]
+    },
+    {
+      "category": "parlay_2",
+      "date": "2026-06-13",
+      "matchup": "SD @ BAL + COL @ ATH",
+      "team": "2-leg Parlay",
+      "side": "Parlay",
+      "label": "SD ML + COL ML",
+      "odds": 363,
+      "model_probability": 0.3681,
+      "book_probability": null,
+      "edge": null,
+      "ev": 70.36,
+      "stake": 100.0,
+      "qualified": true,
+      "strategy": "forced_top_2",
+      "won": false,
+      "profit": -100.0,
+      "legs": [
+        {
+          "team": "SD",
+          "matchup": "SD @ BAL",
+          "odds": 103,
+          "model_probability": 0.6454,
+          "book_probability": 0.4926,
+          "edge": 0.1528,
+          "won": true,
+          "confidence": "Medium"
+        },
+        {
+          "team": "COL",
+          "matchup": "COL @ ATH",
+          "odds": 128,
+          "model_probability": 0.5703,
+          "book_probability": 0.4386,
+          "edge": 0.1317,
+          "won": false,
+          "confidence": "Low"
+        }
+      ]
+    },
+    {
+      "category": "parlay_2",
+      "date": "2026-06-14",
+      "matchup": "LAD @ CWS + COL @ ATH",
+      "team": "2-leg Parlay",
+      "side": "Parlay",
+      "label": "CWS ML + COL ML",
+      "odds": 602,
+      "model_probability": 0.3639,
+      "book_probability": null,
+      "edge": null,
+      "ev": 155.54,
+      "stake": 100.0,
+      "qualified": true,
+      "strategy": "forced_top_2",
+      "won": true,
+      "profit": 602.24,
+      "legs": [
+        {
+          "team": "CWS",
+          "matchup": "LAD @ CWS",
+          "odds": 166,
+          "model_probability": 0.6559,
+          "book_probability": 0.3759,
+          "edge": 0.28,
+          "won": true,
+          "confidence": "Medium"
+        },
+        {
+          "team": "COL",
+          "matchup": "COL @ ATH",
+          "odds": 164,
+          "model_probability": 0.5548,
+          "book_probability": 0.3788,
+          "edge": 0.176,
+          "won": true,
+          "confidence": "Low"
+        }
+      ]
+    },
+    {
+      "category": "parlay_2",
+      "date": "2026-06-15",
+      "matchup": "TB @ LAD + SD @ STL",
+      "team": "2-leg Parlay",
+      "side": "Parlay",
+      "label": "TB ML + SD ML",
+      "odds": 482,
+      "model_probability": 0.3951,
+      "book_probability": null,
+      "edge": null,
+      "ev": 129.89,
+      "stake": 100.0,
+      "qualified": true,
+      "strategy": "forced_top_2",
+      "won": false,
+      "profit": -100.0,
+      "legs": [
+        {
+          "team": "TB",
+          "matchup": "TB @ LAD",
+          "odds": 153,
+          "model_probability": 0.6148,
+          "book_probability": 0.3953,
+          "edge": 0.2195,
+          "won": false,
+          "confidence": "Medium"
+        },
+        {
+          "team": "SD",
+          "matchup": "SD @ STL",
+          "odds": 130,
+          "model_probability": 0.6426,
+          "book_probability": 0.4348,
+          "edge": 0.2078,
+          "won": false,
+          "confidence": "Medium"
+        }
+      ]
+    }
+  ]
+}

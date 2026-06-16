@@ -26,7 +26,8 @@
     "parlay": {
       "leg_counts": [
         2,
-        3
+        3,
+        4
       ],
       "qualified_min_edge": 0.05,
       "qualified_min_probability": 0.65,
@@ -79,6 +80,15 @@
       "profit": 2570.71,
       "roi": 1.2241,
       "hit_rate": 0.4286
+    },
+    "parlay_4": {
+      "bets": 10,
+      "wins": 3,
+      "losses": 7,
+      "staked": 1000.0,
+      "profit": 1587.86,
+      "roi": 1.5879,
+      "hit_rate": 0.3
     }
   },
   "weekly": {

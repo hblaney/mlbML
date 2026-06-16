@@ -129,7 +129,12 @@ export type RecommendationPerformanceOutput = {
   stake: number;
   starting_bankroll: number;
   date_range: { start: string; end: string };
-  odds_metadata?: ParlayBacktestOutput["odds_metadata"];
+  odds_metadata?: {
+    odds_data_start: string | null;
+    odds_data_end: string | null;
+    odds_data_stale: boolean;
+    limited_by: string;
+  };
   strategy: {
     moneyline: {
       qualified_min_edge: number;
@@ -163,6 +168,71 @@ export type RecommendationPerformanceOutput = {
     return_pct: number;
   }>;
   daily: DailyRecommendationSnapshot[];
+};
+
+export type Parlay2CompoundBet = RecommendedBetRow & {
+  strategy?: "edge" | "anchor";
+  legs: RecommendationBetLeg[];
+};
+
+export type Parlay2CompoundBacktestOutput = {
+  generated_at: string;
+  method: string;
+  strategy: string;
+  recommended_stake_pct: number;
+  date_range: { start: string; end: string };
+  odds_metadata?: RecommendationPerformanceOutput["odds_metadata"];
+  criteria: {
+    edge_leg_min_edge: number;
+    edge_leg_min_model_probability: number;
+    edge_leg_min_book_probability: number;
+    edge_leg_positive_ev: boolean;
+    anchor_leg_confidence: string[];
+    anchor_leg_min_model_probability: number;
+    anchor_leg_min_book_probability: number;
+    anchor_leg_min_ev: number;
+    ticket_must_have_positive_ev: boolean;
+    legs_must_be_different_games: boolean;
+    selection_score: string;
+  };
+  coverage: {
+    game_days_with_candidates: number;
+    qualifying_parlay_days: number;
+    qualifying_rate: number;
+    estimated_season_games_played: number;
+    estimated_season_progress_pct: number;
+  };
+  flat_stake: number;
+  flat_summary: RecommendationSummary;
+  by_strategy: Record<
+    string,
+    {
+      bets: number;
+      wins: number;
+      losses: number;
+      flat_profit: number;
+    }
+  >;
+  compound_scenarios: Array<{
+    stake_pct: number;
+    starting_bankroll: number;
+    to_date: {
+      bets: number;
+      end: number;
+      profit: number;
+      return_pct: number;
+      min_bankroll: number;
+    };
+    full_season_projection: {
+      estimated_total_bets: number;
+      estimated_season_progress_pct: number;
+      end: number;
+      profit: number;
+      return_pct: number;
+      note: string;
+    };
+  }>;
+  bets: Parlay2CompoundBet[];
 };
 
 export type ParlayBacktestOutput = {
@@ -221,6 +291,249 @@ export async function loadRecommendationPerformance(): Promise<RecommendationPer
     const filePath = path.join(process.cwd(), "public", "recommendation-performance.json");
     const raw = await readFile(filePath, "utf8");
     return JSON.parse(raw) as RecommendationPerformanceOutput;
+  } catch {
+    return null;
+  }
+}
+
+export async function loadStrategyBacktestResults() {
+  try {
+    const filePath = path.join(process.cwd(), "public", "strategy-backtest-results.json");
+    const raw = await readFile(filePath, "utf8");
+    return JSON.parse(raw) as StrategyBacktestResults;
+  } catch {
+    return null;
+  }
+}
+
+export type StrategyBacktestResults = {
+  generated_at: string;
+  method: string;
+  note: string;
+  date_range: { start: string; end: string };
+  odds_metadata?: RecommendationPerformanceOutput["odds_metadata"];
+  game_days_with_odds: number;
+  flat_by_mode: Record<
+    string,
+    {
+      bets: number;
+      wins: number;
+      losses: number;
+      flat_profit: number;
+      flat_roi: number;
+      hit_rate: number;
+    }
+  >;
+  winners_by_bankroll: Record<
+    string,
+    Array<{
+      mode: string;
+      optimal_stake_pct: number;
+      end_bankroll: number;
+      profit: number;
+      min_bankroll: number;
+      bets: number;
+      record: string;
+    }>
+  >;
+  recommended_mode: string;
+  recommended_stake_pct: number;
+  recommended_summary: {
+    mode: string;
+    optimal_stake_pct: number;
+    end_bankroll: number;
+    profit: number;
+    min_bankroll: number;
+    bets: number;
+    record: string;
+  };
+};
+
+export type ExhaustiveStrategyRow = {
+  strategy_id: string;
+  rule: string;
+  bankroll: number;
+  days: number;
+  multi_bet_days: number;
+  mode: string;
+  stake_pct: number;
+  end: number;
+  profit: number;
+  min_bankroll: number;
+  bets: number;
+  wins: number;
+  losses: number;
+};
+
+export type ExhaustiveStrategySearch = {
+  generated_at: string;
+  method: string;
+  date_range: { start: string; end: string };
+  odds_metadata?: RecommendationPerformanceOutput["odds_metadata"];
+  strategies_tested: number;
+  fair_daily_exposure_cap: number;
+  note_raw: string;
+  note_fair: string;
+  top_fair_10k: ExhaustiveStrategyRow[];
+  top_raw_10k: ExhaustiveStrategyRow[];
+  top_fair_10: ExhaustiveStrategyRow[];
+  weird_result_analysis: {
+    strategy: string;
+    raw_10k: ExhaustiveStrategyRow;
+    fair_10k: ExhaustiveStrategyRow;
+    always_2_fair_10k: ExhaustiveStrategyRow;
+    verdict: string;
+  };
+  recommendation: {
+    one_bet_per_day_fair: ExhaustiveStrategyRow | null;
+    multi_bet_fair: ExhaustiveStrategyRow | null;
+  };
+};
+
+export async function loadExhaustiveStrategySearch() {
+  try {
+    const filePath = path.join(process.cwd(), "public", "exhaustive-strategy-search.json");
+    const raw = await readFile(filePath, "utf8");
+    return JSON.parse(raw) as ExhaustiveStrategySearch;
+  } catch {
+    return null;
+  }
+}
+
+export type OosStrategyValidation = {
+  generated_at: string;
+  method: string;
+  fair_daily_exposure_cap: number;
+  stake_pct: number;
+  note: string;
+  period_2025: {
+    label: string;
+    date_range: { start: string; end: string };
+    winner_one_bet_fair: ExhaustiveStrategyRow | null;
+    top_fair_10k: ExhaustiveStrategyRow[];
+    focus_strategies_fair_10k: Record<string, ExhaustiveStrategyRow | undefined>;
+  };
+  period_2026: {
+    label: string;
+    date_range: { start: string; end: string };
+    winner_one_bet_fair: ExhaustiveStrategyRow | null;
+    top_fair_10k: ExhaustiveStrategyRow[];
+    focus_strategies_fair_10k: Record<string, ExhaustiveStrategyRow | undefined>;
+  };
+  overfitting_analysis: {
+    verdict: string;
+    two_or_three_best: {
+      "2025": ExhaustiveStrategyRow | null;
+      "2026": ExhaustiveStrategyRow | null;
+      "2025_rank": number | null;
+      "2026_rank": number | null;
+    };
+  };
+};
+
+export async function loadOosStrategyValidation() {
+  try {
+    const filePath = path.join(process.cwd(), "public", "oos-strategy-validation.json");
+    const raw = await readFile(filePath, "utf8");
+    return JSON.parse(raw) as OosStrategyValidation;
+  } catch {
+    return null;
+  }
+}
+
+export type BettingPlan = {
+  generated_at: string;
+  strategy: string;
+  strategy_rules: string[];
+  stake_by_leg_count: Record<string, number>;
+  flat_stake_fallback: number;
+  daily_exposure_cap: number;
+  backtest_period: { start: string; end: string };
+  retuned_from: string;
+};
+
+export async function loadBettingPlan() {
+  try {
+    const filePath = path.join(process.cwd(), "public", "betting-plan.json");
+    const raw = await readFile(filePath, "utf8");
+    return JSON.parse(raw) as BettingPlan;
+  } catch {
+    return null;
+  }
+}
+
+export async function loadBettingStrategyOptimizer() {
+  try {
+    const filePath = path.join(process.cwd(), "public", "betting-strategy-optimizer.json");
+    const raw = await readFile(filePath, "utf8");
+    return JSON.parse(raw) as BettingStrategyOptimizerOutput;
+  } catch {
+    return null;
+  }
+}
+
+export type BettingStrategyOptimizerOutput = {
+  generated_at: string;
+  method: string;
+  date_range: { start: string; end: string };
+  season_progress_pct: number;
+  stake_pct_grid: number[];
+  starting_bankrolls: number[];
+  strategies_tested: string[];
+  flat_summaries: Record<
+    string,
+    {
+      bets: number;
+      wins: number;
+      losses: number;
+      flat_profit_per_100: number;
+      flat_roi: number;
+      mix: Record<string, number>;
+    }
+  >;
+  optimal_by_bankroll: Record<
+    string,
+    {
+      best_pure_strategy: {
+        strategy: string;
+        optimal_stake_pct: number;
+        to_date_end: number;
+        to_date_profit: number;
+        min_bankroll: number;
+        full_season_projection: number;
+      } | null;
+      all_strategies_ranked: Array<{
+        strategy: string;
+        optimal_stake_pct: number;
+        to_date_end: number;
+        to_date_profit: number;
+        min_bankroll: number;
+        full_season_projection: number;
+      }>;
+      best_tiered_max_score: {
+        stake_map: Record<string, number>;
+        end: number;
+        profit: number;
+        min_bankroll: number;
+        return_pct: number;
+        full_season_projection: number | null;
+      } | null;
+    }
+  >;
+  recommendation: {
+    primary_strategy: string;
+    description: string;
+    tiered_staking: string;
+    notes: string[];
+    [key: string]: unknown;
+  };
+};
+
+export async function loadParlay2CompoundBacktest(): Promise<Parlay2CompoundBacktestOutput | null> {
+  try {
+    const filePath = path.join(process.cwd(), "public", "parlay2-compound-backtest.json");
+    const raw = await readFile(filePath, "utf8");
+    return JSON.parse(raw) as Parlay2CompoundBacktestOutput;
   } catch {
     return null;
   }
