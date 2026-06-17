@@ -134,19 +134,16 @@ export default async function BestBetsPage() {
           {liveBacktest ? (
             <div className="grid">
               <article>
-                <p className="muted">2026 season-to-date (walk-forward)</p>
-                <div className="metric positive">{formatPercent(liveBacktest.flat_roi)} flat ROI</div>
+                <p className="muted">2026 backtest · $10 start · 45/35/50% of bankroll daily</p>
+                <div className="metric positive">{formatBankroll(liveBacktest.end / 10)}</div>
                 <p className="muted">
-                  {liveBacktest.record} · {liveBacktest.days} bet days · ${liveBacktest.flat_profit.toLocaleString()} flat
-                  profit / $100 per ticket
+                  {liveBacktest.record} · {liveBacktest.days} bet days · worst sim dip ~$5.50 (55% of $10)
                 </p>
               </article>
               <article>
-                <p className="muted">$10 compound (45/35/50 stakes, 2026 backtest)</p>
-                <div className="metric positive">{formatBankroll(liveBacktest.end / 10)}</div>
-                <p className="muted">
-                  $100 → {formatBankroll(liveBacktest.end)} · worst dip ~45% of start ($55 from $100)
-                </p>
+                <p className="muted">Same backtest · $100 start · compound % stakes</p>
+                <div className="metric positive">{formatBankroll(liveBacktest.end)}</div>
+                <p className="muted">Min dip in sim: ~$55 (one 45% single loss on day 1)</p>
               </article>
               {strategyGuard ? (
                 <article>
@@ -242,7 +239,7 @@ export default async function BestBetsPage() {
                 <div className="metric">{formatOdds(bestTicket.bet.odds)}</div>
                 <p className="muted">
                   Model {formatPercent(bestTicket.bet.modelProbability)} · Edge {formatPercent(bestTicket.bet.edge)} · EV
-                  ${bestTicket.bet.ev.toFixed(2)} / $100
+                  ${bestTicket.bet.ev.toFixed(2)} (unit stake)
                 </p>
               </article>
             </div>
@@ -284,7 +281,7 @@ export default async function BestBetsPage() {
               </table>
               <p className="muted">
                 Combined {formatPercent(bestTicket.parlay.probability)} at {formatOdds(bestTicket.parlay.americanOdds)} · EV
-                ${bestTicket.parlay.ev.toFixed(2)} / $100
+                ${bestTicket.parlay.ev.toFixed(2)} (unit stake)
               </p>
             </div>
           )}
@@ -314,9 +311,9 @@ export default async function BestBetsPage() {
               : ""}
             Live plan: <strong>{activeStrategy}</strong>
             {liveBacktest
-              ? ` — ${formatPercent(liveBacktest.flat_roi)} flat ROI, ${liveBacktest.record} (${strategyGuard?.period.season_start ?? bettingPlan?.backtest_period.start} to ${strategyGuard?.period.end ?? bettingPlan?.backtest_period.end})`
+              ? ` — ${liveBacktest.record}, 45/35/50% compound (${strategyGuard?.period.season_start ?? bettingPlan?.backtest_period.start} to ${strategyGuard?.period.end ?? bettingPlan?.backtest_period.end})`
               : activeStrategyRow
-                ? ` (${formatPercent(activeStrategyRow.stake_pct)} stake in exhaustive search, $10k fair ${formatBankroll(activeStrategyRow.end)})`
+                ? ` (${formatPercent(activeStrategyRow.stake_pct)} stake in exhaustive search, $10k compound ${formatBankroll(activeStrategyRow.end)})`
                 : null}
             .
           </p>
@@ -329,8 +326,7 @@ export default async function BestBetsPage() {
                 <p className="muted">$100 compound (live plan, 45/35/50)</p>
                 <div className="metric positive">{formatBankroll(winnerEnd)}</div>
                 <p className="muted">
-                  {winnerRecord} · {liveBacktest?.days ?? winnerBets} bet days
-                  {liveBacktest ? ` · ${formatPercent(liveBacktest.flat_roi)} flat ROI` : ""}
+                  {winnerRecord} · {liveBacktest?.days ?? winnerBets} bet days · 45/35/50% of bankroll each ticket
                 </p>
               </article>
             ) : null}
@@ -366,22 +362,24 @@ export default async function BestBetsPage() {
               <thead>
                 <tr>
                   <th>Strategy</th>
-                  <th>Season flat ROI</th>
                   <th>Record</th>
-                  <th>14d flat ROI</th>
+                  <th>$10 compound</th>
                   <th>$100 compound</th>
+                  <th>14d $10 compound</th>
                 </tr>
               </thead>
               <tbody>
                 {Object.entries(strategyGuard.comparisons).map(([sid, row]) => (
                   <tr key={sid}>
                     <td>{sid === activeStrategy ? `★ ${sid} (live)` : sid}</td>
-                    <td>{formatPercent(row.season_to_date.flat_roi)}</td>
                     <td>{row.season_to_date.record}</td>
-                    <td>{formatPercent(row.rolling_14d.flat_roi)}</td>
+                    <td className={row.season_to_date.end >= 100 ? "positive" : ""}>
+                      {formatBankroll(row.season_to_date.end / 10)}
+                    </td>
                     <td className={row.season_to_date.end >= 10000 ? "positive" : ""}>
                       {formatBankroll(row.season_to_date.end)}
                     </td>
+                    <td>{formatBankroll(row.rolling_14d.end / 10)}</td>
                   </tr>
                 ))}
               </tbody>
@@ -463,17 +461,15 @@ export default async function BestBetsPage() {
           </div>
           <p className="muted">{oosValidation.overfitting_analysis.verdict}</p>
           <p className="muted">
-            At {formatPercent(oosValidation.stake_pct)} fair daily cap. Flat ROI is fixed $100/bet (more stable than
-            compound). 2025 always-bet parlays had positive flat edge but compound bankroll collapsed on bad streaks.
+            Same rules applied to 2025 vs 2026 with no re-tuning. All numbers are compound bankroll growth with
+            percentage-of-bankroll stakes — not fixed dollars per ticket.
           </p>
           <table className="table">
             <thead>
               <tr>
                 <th>Strategy</th>
-                <th>2025 fair $10k</th>
-                <th>2025 flat ROI</th>
-                <th>2026 fair $10k</th>
-                <th>2026 flat ROI</th>
+                <th>2025 compound $10k</th>
+                <th>2026 compound $10k</th>
               </tr>
             </thead>
             <tbody>
@@ -495,11 +491,9 @@ export default async function BestBetsPage() {
                 }
                 return (
                   <tr key={sid}>
-                    <td>{sid}</td>
+                    <td>{sid === activeStrategy ? `★ ${sid}` : sid}</td>
                     <td>{formatBankroll(r25.end)}</td>
-                    <td>{formatPercent(r25.flat_roi ?? 0)}</td>
                     <td className={r26.end >= 10000 ? "positive" : ""}>{formatBankroll(r26.end)}</td>
-                    <td>{formatPercent(r26.flat_roi ?? 0)}</td>
                   </tr>
                 );
               })}
@@ -591,8 +585,8 @@ export default async function BestBetsPage() {
                 <th>Model</th>
                 <th>Book</th>
                 <th>Edge</th>
-                <th>Wins / $100</th>
-                <th>EV / $100</th>
+                <th>Unit win</th>
+                <th>Unit EV</th>
               </tr>
             </thead>
             <tbody>
@@ -644,8 +638,8 @@ export default async function BestBetsPage() {
                 <th>Ticket</th>
                 <th>Probability</th>
                 <th>Odds</th>
-                <th>Profit / $100</th>
-                <th>EV / $100</th>
+                <th>Unit profit</th>
+                <th>Unit EV</th>
               </tr>
             </thead>
             <tbody>
@@ -705,7 +699,7 @@ export default async function BestBetsPage() {
                 <th>Model</th>
                 <th>Book</th>
                 <th>Edge</th>
-                <th>EV / $100</th>
+                <th>Unit EV</th>
               </tr>
             </thead>
             <tbody>

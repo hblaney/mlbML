@@ -83,8 +83,7 @@ def main() -> None:
     ranked = sorted(
         CHALLENGERS,
         key=lambda rule: (
-            comparisons[rule]["rolling_14d"]["flat_roi"],
-            comparisons[rule]["season_to_date"]["flat_roi"],
+            comparisons[rule]["rolling_14d"]["end"],
             comparisons[rule]["season_to_date"]["end"],
         ),
         reverse=True,
