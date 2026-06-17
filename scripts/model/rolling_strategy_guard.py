@@ -79,8 +79,12 @@ def main() -> None:
             "rolling_14d": window_stats(ml, rule, d14, end_day),
         }
 
-    live = comparisons[LIVE_STRATEGY]
-    ranked = sorted(
+    season_ranked = sorted(
+        CHALLENGERS,
+        key=lambda rule: comparisons[rule]["season_to_date"]["end"],
+        reverse=True,
+    )
+    ranked_14d = sorted(
         CHALLENGERS,
         key=lambda rule: (
             comparisons[rule]["rolling_14d"]["end"],
@@ -88,29 +92,56 @@ def main() -> None:
         ),
         reverse=True,
     )
-    leader = ranked[0]
+    leader_14d = ranked_14d[0]
+    season_leader = season_ranked[0]
 
     state = load_state()
-    if leader != LIVE_STRATEGY and leader != state.get("leader_strategy"):
+    if leader_14d != LIVE_STRATEGY and leader_14d != state.get("leader_strategy"):
         state["leader_streak_days"] = 1
-        state["leader_strategy"] = leader
-    elif leader != LIVE_STRATEGY and leader == state.get("leader_strategy"):
+        state["leader_strategy"] = leader_14d
+    elif leader_14d != LIVE_STRATEGY and leader_14d == state.get("leader_strategy"):
         state["leader_streak_days"] = int(state.get("leader_streak_days", 0)) + 1
     else:
         state["leader_streak_days"] = 0
-        state["leader_strategy"] = LIVE_STRATEGY if leader == LIVE_STRATEGY else leader
+        state["leader_strategy"] = LIVE_STRATEGY if leader_14d == LIVE_STRATEGY else leader_14d
 
-    switch_recommended = leader != LIVE_STRATEGY and state["leader_streak_days"] >= SWITCH_SIGNAL_DAYS
+    switch_recommended = leader_14d != LIVE_STRATEGY and state["leader_streak_days"] >= SWITCH_SIGNAL_DAYS
     state["signals"] = (state.get("signals") or [])[-30:]
     state["signals"].append(
         {
             "date": today.isoformat(),
-            "leader": leader,
+            "leader_14d": leader_14d,
+            "season_leader": season_leader,
             "leader_streak_days": state["leader_streak_days"],
             "switch_recommended": switch_recommended,
         }
     )
     save_state(state)
+
+    live_season_end = comparisons[LIVE_STRATEGY]["season_to_date"]["end"]
+    if season_leader == LIVE_STRATEGY and leader_14d != LIVE_STRATEGY:
+        guard_message = (
+            f"Keep {LIVE_STRATEGY} — #1 full season (${live_season_end:,.0f} from $100 compound). "
+            f"{leader_14d} leads last 14 days only "
+            f"({state['leader_streak_days']}/{SWITCH_SIGNAL_DAYS} daily signals toward switch)."
+        )
+    elif season_leader == LIVE_STRATEGY:
+        guard_message = f"Keep {LIVE_STRATEGY} — leads both full season and last 14 days."
+    elif leader_14d == LIVE_STRATEGY:
+        guard_message = (
+            f"Keep {LIVE_STRATEGY} — leads last 14 days; "
+            f"{season_leader} still ahead on full season."
+        )
+    elif switch_recommended:
+        guard_message = (
+            f"Switch to {leader_14d} — beat live on rolling 14d compound "
+            f"for {SWITCH_SIGNAL_DAYS}+ consecutive daily signals."
+        )
+    else:
+        guard_message = (
+            f"{leader_14d} leads rolling 14d ({state['leader_streak_days']}/{SWITCH_SIGNAL_DAYS} "
+            f"daily signals toward switch). Full-season leader: {season_leader}."
+        )
 
     output = {
         "generated_at": today.isoformat(),
@@ -118,21 +149,15 @@ def main() -> None:
         "period": {"season_start": start_day, "end": end_day, "rolling_14d_start": d14},
         "stakes": STAKE_TIERED,
         "comparisons": comparisons,
-        "ranked_by_rolling_14d_flat_roi": ranked,
+        "ranked_by_season_compound": season_ranked,
+        "ranked_by_rolling_14d_compound": ranked_14d,
         "guard": {
-            "leader": leader,
+            "season_leader": season_leader,
+            "leader_14d": leader_14d,
             "leader_streak_days": state["leader_streak_days"],
             "switch_signal_days_required": SWITCH_SIGNAL_DAYS,
             "switch_recommended": switch_recommended,
-            "message": (
-                f"Keep {LIVE_STRATEGY}."
-                if leader == LIVE_STRATEGY
-                else (
-                    f"{leader} leads rolling 14d ({state['leader_streak_days']}/{SWITCH_SIGNAL_DAYS} days toward switch)."
-                    if not switch_recommended
-                    else f"Switch to {leader} — beat live on rolling windows for {SWITCH_SIGNAL_DAYS}+ daily signals."
-                )
-            ),
+            "message": guard_message,
         },
         "execution_rules": [
             "One ticket per day, all legs same calendar day",
@@ -143,8 +168,8 @@ def main() -> None:
     OUTPUT_PATH.write_text(json.dumps(output, indent=2))
 
     print(f"Live: {LIVE_STRATEGY}")
-    print(f"Leader: {leader} (streak {state['leader_streak_days']}/{SWITCH_SIGNAL_DAYS})")
-    for rule in ranked:
+    print(f"Season leader: {season_leader} | 14d leader: {leader_14d} (streak {state['leader_streak_days']}/{SWITCH_SIGNAL_DAYS})")
+    for rule in season_ranked:
         s = comparisons[rule]["season_to_date"]
         r = comparisons[rule]["rolling_14d"]
         print(f"  {rule:<24} season flat {s['flat_roi']:.1%} ({s['record']}) | 14d flat {r['flat_roi']:.1%}")

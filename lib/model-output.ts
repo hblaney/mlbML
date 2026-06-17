@@ -480,8 +480,11 @@ export type StrategyGuard = {
       };
     }
   >;
+  ranked_by_season_compound?: string[];
+  ranked_by_rolling_14d_compound?: string[];
   guard: {
-    leader: string;
+    season_leader: string;
+    leader_14d: string;
     leader_streak_days: number;
     switch_signal_days_required: number;
     switch_recommended: boolean;

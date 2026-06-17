@@ -3,81 +3,58 @@ import {
   getAdvancedBets,
   getBestBets,
   getBestDailyTicket,
-  getAlwaysTwoLegParlay,
-  getDailyParlayTickets,
   getOptimizedStakePctForTicket,
-  OPTIMIZED_GROWTH_STAKE_PCT,
-  OPTIMIZED_STAKE_BY_LEG_COUNT
+  OPTIMIZED_STAKE_BY_LEG_COUNT,
+  LIVE_BETTING_STRATEGY
 } from "@/lib/data";
-import { loadPredictionBoard, loadRecommendationPerformance, loadStrategyBacktestResults, loadExhaustiveStrategySearch, loadOosStrategyValidation, loadBettingPlan, loadStrategyGuard } from "@/lib/model-output";
-import { LIVE_BETTING_STRATEGY } from "@/lib/data";
-import { decimalOdds, formatOdds, formatPercent } from "@/lib/odds";
+import { loadPredictionBoard, loadBettingPlan, loadStrategyGuard } from "@/lib/model-output";
+import { formatOdds, formatPercent } from "@/lib/odds";
 import { formatStandingRecord, loadLiveStandings } from "@/lib/standings";
 import { formatCentralGameTime } from "@/lib/time";
 
 export const dynamic = "force-dynamic";
 
+const STRATEGY_LABELS: Record<string, string> = {
+  corr_nl_reject_both: "corr_nl_reject_both (live)",
+  no_low_parlay_223s: "no_low_parlay_223s",
+  best_ticket: "best_ticket (selective)",
+  no_low_skip_forced: "no_low_skip_forced"
+};
+
 export default async function BestBetsPage() {
   const board = await loadPredictionBoard();
   const standings = await loadLiveStandings();
   const standingsByTeamId = new Map(standings.map((standing) => [standing.teamId, standing]));
+  const [bettingPlan, strategyGuard] = await Promise.all([loadBettingPlan(), loadStrategyGuard()]);
   const bets = getBestBets(board);
   const advancedBets = getAdvancedBets(board);
   const usingModelOnlyPicks = bets.some((bet) => bet.modelOnly) || advancedBets.some((bet) => bet.modelOnly);
-  const [recommendationPerformance, strategyBacktest, exhaustiveSearch, oosValidation, bettingPlan, strategyGuard] = await Promise.all([
-    loadRecommendationPerformance(),
-    loadStrategyBacktestResults(),
-    loadExhaustiveStrategySearch(),
-    loadOosStrategyValidation(),
-    loadBettingPlan(),
-    loadStrategyGuard()
-  ]);
-  const stakeByLeg = bettingPlan?.stake_by_leg_count;
-  const oddsMetadata = strategyBacktest?.odds_metadata ?? recommendationPerformance?.odds_metadata;
-  const parlays = getDailyParlayTickets(board);
   const bestTicket = getBestDailyTicket(board);
+  const stakeByLeg = bettingPlan?.stake_by_leg_count;
   const ticketStakePct = getOptimizedStakePctForTicket(bestTicket, stakeByLeg);
-  const growthParlay = getAlwaysTwoLegParlay(board);
+  const activeStrategy = bettingPlan?.strategy ?? LIVE_BETTING_STRATEGY;
+  const liveStats = strategyGuard?.comparisons[activeStrategy]?.season_to_date;
+
   const formatBankroll = (value: number) =>
     value >= 100
       ? `$${value.toLocaleString(undefined, { maximumFractionDigits: 0 })}`
       : `$${value.toFixed(2)}`;
-  const backtest10k = strategyBacktest?.winners_by_bankroll["10000.0"] ?? [];
-  const backtest10 = strategyBacktest?.winners_by_bankroll["10.0"] ?? [];
-  const activeStrategy = bettingPlan?.strategy ?? LIVE_BETTING_STRATEGY;
-  const liveBacktest = strategyGuard?.comparisons[activeStrategy]?.season_to_date;
-  const activeStrategyRow = exhaustiveSearch?.top_fair_10k.find((row) => row.strategy_id === activeStrategy);
-  const winner = activeStrategyRow ?? exhaustiveSearch?.recommendation.one_bet_per_day_fair ?? strategyBacktest?.recommended_summary;
-  const fairTop = exhaustiveSearch?.top_fair_10k ?? [];
-  const winnerEnd =
-    liveBacktest?.end ??
-    (winner && "end" in winner ? winner.end : winner && "end_bankroll" in winner ? winner.end_bankroll : 0);
-  const winnerRecord = liveBacktest?.record ??
-    (winner && "wins" in winner
-      ? `${winner.wins}-${winner.losses}`
-      : winner && "record" in winner
-        ? winner.record
-        : "");
-  const winnerLabel =
-    winner && "strategy_id" in winner
-      ? winner.strategy_id
-      : winner && "mode" in winner
-        ? winner.mode
-        : activeStrategy;
-  const winnerBets = winner && ("days" in winner ? winner.days : "bets" in winner ? winner.bets : 0);
-  const winnerMin =
-    winner && "min_bankroll" in winner ? winner.min_bankroll : 0;
-  const winnerStake =
-    winner && "stake_pct" in winner
-      ? winner.stake_pct
-      : winner && "optimal_stake_pct" in winner
-        ? winner.optimal_stake_pct
-        : OPTIMIZED_GROWTH_STAKE_PCT;
-  const fair10End = exhaustiveSearch?.top_fair_10[0]?.end;
-  const topMoneylineBet = getBestBets(board)[0] ?? null;
-  const topAdvancedBet = getAdvancedBets(board)[0] ?? null;
+
+  const comparisonRows = strategyGuard
+    ? Object.entries(strategyGuard.comparisons)
+        .map(([id, row]) => ({
+          id,
+          label: STRATEGY_LABELS[id] ?? id,
+          record: row.season_to_date.record,
+          end10: row.season_to_date.end / 10,
+          end100: row.season_to_date.end,
+          end14d10: row.rolling_14d.end / 10,
+          isLive: id === activeStrategy
+        }))
+        .sort((left, right) => right.end100 - left.end100)
+    : [];
+
   const recordFor = (teamId: string) => formatStandingRecord(standingsByTeamId.get(teamId));
-  const profitForStake = (odds: number, stake = 100) => (decimalOdds(odds) - 1) * stake;
   const teamLink = (team: { id: string; name: string; abbreviation: string }) => (
     <Link className="team-stream-link" href={`/watch/${team.id}`} title={`Open ${team.name} stream page`}>
       {team.name}
@@ -92,110 +69,24 @@ export default async function BestBetsPage() {
   return (
     <main className="shell stack">
       <section className="panel strong">
-        <p className="eyebrow">Qualified betting edges</p>
+        <p className="eyebrow">Daily ticket</p>
         <h1>Best Bets</h1>
         <p className="lead">
-          Qualified edges first, followed by the best available positive model edges when the slate does not clear the
-          stricter backtested filter.
+          One bet per day from <strong>{activeStrategy}</strong>: stake a percentage of your bankroll (45% / 35% / 50% by
+          ticket type), all legs same calendar day.
         </p>
-        {oddsMetadata?.odds_data_stale ? (
-          <p className="muted">
-            ROI backtests are limited by imported historical odds through {oddsMetadata.odds_data_end}. Today&apos;s board
-            still uses live odds, but profit validation needs newer historical odds imported to include recent games.
-          </p>
-        ) : null}
         {usingModelOnlyPicks ? (
           <p className="muted">
-            Live sportsbook odds aren&apos;t on today&apos;s board, so picks below use model win rates and standard
-            reference pricing (-110 / 8.5 total) instead of market EV.
+            Live sportsbook odds aren&apos;t on today&apos;s board yet — picks use model pricing until odds load.
           </p>
         ) : null}
       </section>
-
-      {bettingPlan ? (
-        <section className="panel strong">
-          <div className="section-heading compact">
-            <div>
-              <p className="eyebrow">Daily betting plan</p>
-              <h2>Live strategy: corr_nl_reject_both</h2>
-            </div>
-            <span>Retuned {bettingPlan.generated_at}</span>
-          </div>
-          <p className="lead">
-            <strong>corr_nl_reject_both</strong> — one ticket per day. Parlays use Medium+ legs only and skip correlated
-            pairs (same division or start times within 60 minutes). Singles can still be Low confidence. Highest-scoring
-            legal ticket wins: always-2 parlay, premium 3-leg, or qualified single.
-          </p>
-          <ol className="muted">
-            {bettingPlan.strategy_rules.map((rule) => (
-              <li key={rule}>{rule}</li>
-            ))}
-          </ol>
-          {liveBacktest ? (
-            <div className="grid">
-              <article>
-                <p className="muted">2026 backtest · $10 start · 45/35/50% of bankroll daily</p>
-                <div className="metric positive">{formatBankroll(liveBacktest.end / 10)}</div>
-                <p className="muted">
-                  {liveBacktest.record} · {liveBacktest.days} bet days · worst sim dip ~$5.50 (55% of $10)
-                </p>
-              </article>
-              <article>
-                <p className="muted">Same backtest · $100 start · compound % stakes</p>
-                <div className="metric positive">{formatBankroll(liveBacktest.end)}</div>
-                <p className="muted">Min dip in sim: ~$55 (one 45% single loss on day 1)</p>
-              </article>
-              {strategyGuard ? (
-                <article>
-                  <p className="muted">Rolling guard</p>
-                  <div className="metric">{strategyGuard.guard.message}</div>
-                  <p className="muted">Strategy switch needs {strategyGuard.guard.switch_signal_days_required} daily leader signals</p>
-                </article>
-              ) : null}
-            </div>
-          ) : null}
-          <table className="table">
-            <thead>
-              <tr>
-                <th>Ticket type</th>
-                <th>Stake % of bankroll</th>
-                <th>Example @ $10</th>
-                <th>Example @ 35¢</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Single moneyline</td>
-                <td>{formatPercent(bettingPlan.stake_by_leg_count["1"] ?? OPTIMIZED_STAKE_BY_LEG_COUNT[1])}</td>
-                <td>${(10 * (bettingPlan.stake_by_leg_count["1"] ?? 0.45)).toFixed(2)}</td>
-                <td>{(0.35 * (bettingPlan.stake_by_leg_count["1"] ?? 0.45)).toFixed(2)}¢</td>
-              </tr>
-              <tr>
-                <td>2-leg parlay</td>
-                <td>{formatPercent(bettingPlan.stake_by_leg_count["2"] ?? OPTIMIZED_STAKE_BY_LEG_COUNT[2])}</td>
-                <td>${(10 * (bettingPlan.stake_by_leg_count["2"] ?? 0.35)).toFixed(2)}</td>
-                <td>{(0.35 * (bettingPlan.stake_by_leg_count["2"] ?? 0.35)).toFixed(2)}¢</td>
-              </tr>
-              <tr>
-                <td>3-leg parlay</td>
-                <td>{formatPercent(bettingPlan.stake_by_leg_count["3"] ?? OPTIMIZED_STAKE_BY_LEG_COUNT[3])}</td>
-                <td>${(10 * (bettingPlan.stake_by_leg_count["3"] ?? 0.5)).toFixed(2)}</td>
-                <td>{(0.35 * (bettingPlan.stake_by_leg_count["3"] ?? 0.5)).toFixed(2)}¢</td>
-              </tr>
-            </tbody>
-          </table>
-          <p className="muted">
-            Model retrains through yesterday&apos;s final scores each morning (GitHub Actions ~5 AM Central). Strategy
-            rules and stake tiers refresh via <code>npm run model:daily</code> after new odds and results land.
-          </p>
-        </section>
-      ) : null}
 
       {bestTicket ? (
         <section className="panel strong">
           <div className="section-heading compact">
             <div>
-              <p className="eyebrow">Best ticket today</p>
+              <p className="eyebrow">Bet this</p>
               <h2>
                 {bestTicket.kind === "single"
                   ? "Single Moneyline"
@@ -204,24 +95,11 @@ export default async function BestBetsPage() {
                     : "2-Leg Parlay"}
               </h2>
             </div>
-            <span>
-              {bestTicket.kind === "single"
-                ? "Single wins today"
-                : bestTicket.kind === "parlay" && bestTicket.parlay.legCount === 3
-                  ? "3-leg wins today"
-                  : bestTicket.qualified
-                    ? "Filtered parlay"
-                    : "Top-2 EV fallback"}
-            </span>
+            <span>Stake {formatPercent(ticketStakePct)} of bankroll</span>
           </div>
           <p className="muted">
-            Stake {formatPercent(ticketStakePct)} of bankroll on this ticket
-            {bettingPlan
-              ? ` (${activeStrategy}, retuned ${bettingPlan.generated_at})`
-              : bestTicket.kind === "parlay"
-                ? ` (${bestTicket.parlay.legCount}-leg tier)`
-                : " (single tier)"}
-            . Parlays exclude Low-confidence legs and correlated pairs (same division or starts within 60 min).
+            At a <strong>$10</strong> bankroll that&apos;s <strong>${(10 * ticketStakePct).toFixed(2)}</strong> on this
+            ticket. Parlays skip Low-confidence legs and correlated pairs (same division or starts within 60 minutes).
           </p>
           {bestTicket.kind === "single" ? (
             <div className="grid two">
@@ -235,27 +113,15 @@ export default async function BestBetsPage() {
                 <p className="muted">{formatCentralGameTime(bestTicket.bet.game.startsAt)}</p>
               </article>
               <article>
-                <p className="muted">Ticket math</p>
+                <p className="muted">Line</p>
                 <div className="metric">{formatOdds(bestTicket.bet.odds)}</div>
                 <p className="muted">
-                  Model {formatPercent(bestTicket.bet.modelProbability)} · Edge {formatPercent(bestTicket.bet.edge)} · EV
-                  ${bestTicket.bet.ev.toFixed(2)} (unit stake)
+                  Model {formatPercent(bestTicket.bet.modelProbability)} · Edge {formatPercent(bestTicket.bet.edge)}
                 </p>
               </article>
             </div>
           ) : (
             <div className="stack">
-              <p className="muted">
-                {bestTicket.parlay.strategy === "anchor"
-                  ? "Anchor ticket: one edge leg paired with one High/Elite confidence leg."
-                  : bestTicket.parlay.strategy === "forced_top_2"
-                    ? "Uncorrelated fallback: best positive-EV Medium+ pair on different games (no filtered parlay today)."
-                    : bestTicket.parlay.strategy === "premium"
-                    ? "Premium 3-leg ticket: only shown when the model is very confident across multiple qualified legs."
-                    : bestTicket.parlay.strategy === "premium_4"
-                      ? "Premium 4-leg ticket: rare slate with four qualified high-confidence legs."
-                      : "Edge ticket: both legs clear the qualified parlay filters."}
-              </p>
               <table className="table">
                 <thead>
                   <tr>
@@ -280,302 +146,129 @@ export default async function BestBetsPage() {
                 </tbody>
               </table>
               <p className="muted">
-                Combined {formatPercent(bestTicket.parlay.probability)} at {formatOdds(bestTicket.parlay.americanOdds)} · EV
-                ${bestTicket.parlay.ev.toFixed(2)} (unit stake)
+                Combined {formatPercent(bestTicket.parlay.probability)} at {formatOdds(bestTicket.parlay.americanOdds)}
               </p>
             </div>
           )}
         </section>
       ) : (
-        <section className="panel">
-          <h2>Best Ticket Today</h2>
-          <p className="muted">No positive-EV single or parlay ticket cleared today&apos;s filters. Sitting out is valid.</p>
+        <section className="panel strong">
+          <h2>No ticket today</h2>
+          <p className="muted">No positive-EV ticket cleared today&apos;s filters. Sitting out is valid.</p>
         </section>
       )}
 
-      {exhaustiveSearch || strategyBacktest ? (
+      {bettingPlan && strategyGuard ? (
         <section className="panel strong">
           <div className="section-heading compact">
             <div>
-              <p className="eyebrow">Strict walk-forward backtest</p>
-              <h2>2026 Exhaustive Strategy Search</h2>
+              <p className="eyebrow">Live plan</p>
+              <h2>{activeStrategy}</h2>
             </div>
-            <span>
-              {(exhaustiveSearch ?? strategyBacktest)!.date_range.start} to{" "}
-              {(exhaustiveSearch ?? strategyBacktest)!.date_range.end}
-            </span>
+            <span>Updated {bettingPlan.generated_at}</span>
           </div>
           <p className="lead">
-            {exhaustiveSearch
-              ? `${exhaustiveSearch.strategies_tested} rules × stake grid, fair daily cap ${formatPercent(exhaustiveSearch.fair_daily_exposure_cap)}. `
-              : ""}
-            Live plan: <strong>{activeStrategy}</strong>
-            {liveBacktest
-              ? ` — ${liveBacktest.record}, 45/35/50% compound (${strategyGuard?.period.season_start ?? bettingPlan?.backtest_period.start} to ${strategyGuard?.period.end ?? bettingPlan?.backtest_period.end})`
-              : activeStrategyRow
-                ? ` (${formatPercent(activeStrategyRow.stake_pct)} stake in exhaustive search, $10k compound ${formatBankroll(activeStrategyRow.end)})`
-                : null}
-            .
+            Medium+ legs only on parlays · reject same-division and same-time pairs · one ticket/day · highest score
+            wins among legal 2-leg, 3-leg, or single.
           </p>
-          {exhaustiveSearch?.weird_result_analysis ? (
-            <p className="muted">{exhaustiveSearch.weird_result_analysis.verdict}</p>
-          ) : null}
-          <div className="grid">
-            {winner ? (
-              <article>
-                <p className="muted">$100 compound (live plan, 45/35/50)</p>
-                <div className="metric positive">{formatBankroll(winnerEnd)}</div>
-                <p className="muted">
-                  {winnerRecord} · {liveBacktest?.days ?? winnerBets} bet days · 45/35/50% of bankroll each ticket
-                </p>
-              </article>
-            ) : null}
-            {fair10End ? (
-              <article>
-                <p className="muted">$10 compound (exhaustive search)</p>
-                <div className="metric positive">{formatBankroll(liveBacktest ? liveBacktest.end / 10 : fair10End)}</div>
-                <p className="muted">{activeStrategy} @ 45/35/50 stakes</p>
-              </article>
-            ) : backtest10[0] ? (
-              <article>
-                <p className="muted">$10 compound (actual)</p>
-                <div className="metric positive">{formatBankroll(backtest10[0].end_bankroll)}</div>
-                <p className="muted">
-                  {backtest10[0].mode} @ {formatPercent(backtest10[0].optimal_stake_pct)}
-                </p>
-              </article>
-            ) : null}
-            <article>
-              <p className="muted">always_2 (previous pick)</p>
-              <div className="metric">
-                {formatBankroll(
-                  exhaustiveSearch?.weird_result_analysis.always_2_fair_10k.end ??
-                    backtest10k.find((row) => row.mode === "always_2")?.end_bankroll ??
-                    0
-                )}
-              </div>
-              <p className="muted">Same stake, no 3-leg upgrade days</p>
-            </article>
-          </div>
-          {strategyGuard ? (
-            <table className="table">
-              <thead>
-                <tr>
-                  <th>Strategy</th>
-                  <th>Record</th>
-                  <th>$10 compound</th>
-                  <th>$100 compound</th>
-                  <th>14d $10 compound</th>
-                </tr>
-              </thead>
-              <tbody>
-                {Object.entries(strategyGuard.comparisons).map(([sid, row]) => (
-                  <tr key={sid}>
-                    <td>{sid === activeStrategy ? `★ ${sid} (live)` : sid}</td>
-                    <td>{row.season_to_date.record}</td>
-                    <td className={row.season_to_date.end >= 100 ? "positive" : ""}>
-                      {formatBankroll(row.season_to_date.end / 10)}
-                    </td>
-                    <td className={row.season_to_date.end >= 10000 ? "positive" : ""}>
-                      {formatBankroll(row.season_to_date.end)}
-                    </td>
-                    <td>{formatBankroll(row.rolling_14d.end / 10)}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          ) : null}
-          {fairTop.length > 0 ? (
-            <table className="table">
-              <thead>
-                <tr>
-                  <th>Strategy</th>
-                  <th>Days</th>
-                  <th>Record</th>
-                  <th>$10k fair</th>
-                  <th>Stake</th>
-                  <th>Multi-bet days</th>
-                  <th>Min bal</th>
-                </tr>
-              </thead>
-              <tbody>
-                {fairTop.map((row) => (
-                  <tr key={row.strategy_id}>
-                    <td>
-                      {row.strategy_id === activeStrategy ? `★ ${row.strategy_id} (live)` : row.strategy_id}
-                    </td>
-                    <td>{row.days}</td>
-                    <td>
-                      {row.wins}-{row.losses}
-                    </td>
-                    <td className={row.end >= 10000 ? "positive" : ""}>{formatBankroll(row.end)}</td>
-                    <td>{formatPercent(row.stake_pct)}</td>
-                    <td>{row.multi_bet_days}</td>
-                    <td>{formatBankroll(row.min_bankroll)}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          ) : strategyBacktest ? (
-            <table className="table">
-              <thead>
-                <tr>
-                  <th>Strategy</th>
-                  <th>Days</th>
-                  <th>Record</th>
-                  <th>Flat ROI</th>
-                  <th>$10k compound</th>
-                  <th>Opt stake</th>
-                  <th>Min bal</th>
-                </tr>
-              </thead>
-              <tbody>
-                {backtest10k.map((row) => (
-                  <tr key={row.mode}>
-                    <td>{row.mode === "always_2" ? "★ always_2" : row.mode}</td>
-                    <td>{row.bets}</td>
-                    <td>{row.record}</td>
-                    <td>{formatPercent(strategyBacktest.flat_by_mode[row.mode]?.flat_roi ?? 0)}</td>
-                    <td className={row.end_bankroll >= 10000 ? "positive" : ""}>{formatBankroll(row.end_bankroll)}</td>
-                    <td>{formatPercent(row.optimal_stake_pct)}</td>
-                    <td>{formatBankroll(row.min_bankroll)}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          ) : null}
-        </section>
-      ) : null}
+          <ol className="muted">
+            {bettingPlan.strategy_rules.map((rule) => (
+              <li key={rule}>{rule}</li>
+            ))}
+          </ol>
 
-      {oosValidation ? (
-        <section className="panel">
-          <div className="section-heading compact">
+          <table className="table">
+            <thead>
+              <tr>
+                <th>Ticket type</th>
+                <th>% of bankroll</th>
+                <th>@ $10 bankroll</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Single</td>
+                <td>{formatPercent(bettingPlan.stake_by_leg_count["1"] ?? OPTIMIZED_STAKE_BY_LEG_COUNT[1])}</td>
+                <td>${(10 * (bettingPlan.stake_by_leg_count["1"] ?? 0.45)).toFixed(2)}</td>
+              </tr>
+              <tr>
+                <td>2-leg parlay</td>
+                <td>{formatPercent(bettingPlan.stake_by_leg_count["2"] ?? OPTIMIZED_STAKE_BY_LEG_COUNT[2])}</td>
+                <td>${(10 * (bettingPlan.stake_by_leg_count["2"] ?? 0.35)).toFixed(2)}</td>
+              </tr>
+              <tr>
+                <td>3-leg parlay</td>
+                <td>{formatPercent(bettingPlan.stake_by_leg_count["3"] ?? OPTIMIZED_STAKE_BY_LEG_COUNT[3])}</td>
+                <td>${(10 * (bettingPlan.stake_by_leg_count["3"] ?? 0.5)).toFixed(2)}</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div className="section-heading compact" style={{ marginTop: "1.5rem" }}>
             <div>
-              <p className="eyebrow">Out-of-sample check</p>
-              <h2>2025 Holdout vs 2026 (Same Rules, No Re-Tuning)</h2>
+              <p className="eyebrow">2026 backtest</p>
+              <h2>Same stakes (45/35/50), apples-to-apples</h2>
             </div>
             <span>
-              {oosValidation.period_2025.date_range.start}–{oosValidation.period_2025.date_range.end} vs{" "}
-              {oosValidation.period_2026.date_range.start}–{oosValidation.period_2026.date_range.end}
+              {strategyGuard.period.season_start} → {strategyGuard.period.end}
             </span>
           </div>
-          <p className="muted">{oosValidation.overfitting_analysis.verdict}</p>
           <p className="muted">
-            Same rules applied to 2025 vs 2026 with no re-tuning. All numbers are compound bankroll growth with
-            percentage-of-bankroll stakes — not fixed dollars per ticket.
+            All rows use the <strong>same</strong> walk-forward model and <strong>same</strong> 45/35/50% compounding.
+            Older tables on this site used 30% caps and different rules — ignore those. Live plan wins on full-season $
+            100 compound ({liveStats ? formatBankroll(liveStats.end) : "—"}).
           </p>
+
+          {liveStats ? (
+            <div className="grid">
+              <article>
+                <p className="muted">Your $10 bankroll (season sim)</p>
+                <div className="metric positive">{formatBankroll(liveStats.end / 10)}</div>
+                <p className="muted">
+                  {liveStats.record} · worst dip ~$5.50
+                </p>
+              </article>
+              <article>
+                <p className="muted">$100 bankroll (season sim)</p>
+                <div className="metric positive">{formatBankroll(liveStats.end)}</div>
+                <p className="muted">Best among tested rules at same stakes</p>
+              </article>
+            </div>
+          ) : null}
+
           <table className="table">
             <thead>
               <tr>
                 <th>Strategy</th>
-                <th>2025 compound $10k</th>
-                <th>2026 compound $10k</th>
+                <th>Record</th>
+                <th>$10 → end</th>
+                <th>$100 → end</th>
+                <th>Last 14d ($10) — short window</th>
               </tr>
             </thead>
             <tbody>
-              {(
-                [
-                  "two_or_three_best",
-                  "two_or_three_or_single",
-                  "two_or_three_plus_single",
-                  "two_and_three",
-                  "always_2",
-                  "best_ticket",
-                  "single"
-                ] as const
-              ).map((sid) => {
-                const r25 = oosValidation.period_2025.focus_strategies_fair_10k[sid];
-                const r26 = oosValidation.period_2026.focus_strategies_fair_10k[sid];
-                if (!r25 || !r26) {
-                  return null;
-                }
-                return (
-                  <tr key={sid}>
-                    <td>{sid === activeStrategy ? `★ ${sid}` : sid}</td>
-                    <td>{formatBankroll(r25.end)}</td>
-                    <td className={r26.end >= 10000 ? "positive" : ""}>{formatBankroll(r26.end)}</td>
-                  </tr>
-                );
-              })}
+              {comparisonRows.map((row) => (
+                <tr key={row.id}>
+                  <td>{row.isLive ? `★ ${row.label}` : row.label}</td>
+                  <td>{row.record}</td>
+                  <td className={row.isLive ? "positive" : ""}>{formatBankroll(row.end10)}</td>
+                  <td className={row.isLive ? "positive" : ""}>{formatBankroll(row.end100)}</td>
+                  <td>{formatBankroll(row.end14d10)}</td>
+                </tr>
+              ))}
             </tbody>
           </table>
-        </section>
-      ) : null}
-
-      {recommendationPerformance ? (
-        <section className="panel">
-          <div className="section-heading compact">
-            <div>
-              <p className="eyebrow">Historical track record</p>
-              <h2>Model Paper Portfolio</h2>
-            </div>
-            <span>
-              {recommendationPerformance.date_range.start} to {recommendationPerformance.date_range.end}
-            </span>
-          </div>
-          <div className="grid">
-            <article>
-              <p className="muted">Portfolio ROI</p>
-              <div className={recommendationPerformance.cumulative.roi >= 0 ? "metric positive" : "metric negative"}>
-                {formatPercent(recommendationPerformance.cumulative.roi)}
-              </div>
-              <p className="muted">
-                ${recommendationPerformance.cumulative.profit.toFixed(2)} on {recommendationPerformance.cumulative.bets} tickets
-              </p>
-            </article>
-            <article>
-              <p className="muted">Daily Moneyline</p>
-              <div className="metric">
-                {recommendationPerformance.by_category.moneyline
-                  ? formatPercent(recommendationPerformance.by_category.moneyline.roi)
-                  : "-"}
-              </div>
-              <p className="muted">
-                {recommendationPerformance.by_category.moneyline
-                  ? `${recommendationPerformance.by_category.moneyline.wins}-${recommendationPerformance.by_category.moneyline.losses} record`
-                  : "No history"}
-              </p>
-            </article>
-            <article>
-              <p className="muted">Daily Advanced</p>
-              <div className="metric">
-                {recommendationPerformance.by_category.advanced
-                  ? formatPercent(recommendationPerformance.by_category.advanced.roi)
-                  : "-"}
-              </div>
-              <p className="muted">
-                {recommendationPerformance.by_category.advanced
-                  ? `${recommendationPerformance.by_category.advanced.wins}-${recommendationPerformance.by_category.advanced.losses} record`
-                  : "No history"}
-              </p>
-            </article>
-            <article>
-              <p className="muted">2-Leg Parlays</p>
-              <div className="metric">
-                {recommendationPerformance.by_category.parlay_2
-                  ? formatPercent(recommendationPerformance.by_category.parlay_2.roi)
-                  : "-"}
-              </div>
-              <p className="muted">
-                {recommendationPerformance.by_category.parlay_2
-                  ? `${recommendationPerformance.by_category.parlay_2.wins}-${recommendationPerformance.by_category.parlay_2.losses} record`
-                  : "No history"}
-              </p>
-            </article>
-          </div>
+          <p className="muted">{strategyGuard.guard.message}</p>
+          <p className="muted">
+            Sort the table by <strong>$100 → end</strong> for the decision that matters. The 14-day column is noisy —
+            we only consider switching after another rule beats the live plan for 14 straight daily runs.
+          </p>
         </section>
       ) : null}
 
       <section className="panel">
-        <h2>Moneyline Best Bets</h2>
-        {recommendationPerformance?.by_category.moneyline ? (
-          <p className="muted">
-            Daily moneyline track record: {recommendationPerformance.by_category.moneyline.bets} tickets,{" "}
-            {recommendationPerformance.by_category.moneyline.wins}-{recommendationPerformance.by_category.moneyline.losses}{" "}
-            record, {formatPercent(recommendationPerformance.by_category.moneyline.roi)} ROI.
-            {topMoneylineBet?.qualified ? " Today&apos;s top pick clears the qualified filter." : " Today&apos;s top pick is the best available edge."}
-          </p>
-        ) : null}
+        <h2>All moneyline edges today</h2>
+        <p className="muted">Reference only — your daily bet is the ticket above, not every row here.</p>
         {bets.length > 0 ? (
           <table className="table">
             <thead>
@@ -583,10 +276,7 @@ export default async function BestBetsPage() {
                 <th>Matchup / Side</th>
                 <th>Odds</th>
                 <th>Model</th>
-                <th>Book</th>
                 <th>Edge</th>
-                <th>Unit win</th>
-                <th>Unit EV</th>
               </tr>
             </thead>
             <tbody>
@@ -595,111 +285,34 @@ export default async function BestBetsPage() {
                   <td>
                     <strong>{bet.matchup}</strong>
                     <p>
-                      {teamLink(bet.team)} ({recordFor(bet.team.id)}) {bet.side} vs {teamLink(bet.opponent)} (
+                      {teamLink(bet.team)} ({recordFor(bet.team.id)}) vs {teamLink(bet.opponent)} (
                       {recordFor(bet.opponent.id)})
                     </p>
                     <p className="muted">{formatCentralGameTime(bet.game.startsAt)}</p>
-                    {bet.qualified ? <p className="muted">Qualified edge · clears backtested filter</p> : null}
-                    {!bet.qualified && !bet.modelOnly ? <p className="muted">Best available edge · below strict filter</p> : null}
-                    {bet.modelOnly ? <p className="muted">Model pick · fair line shown</p> : null}
                   </td>
                   <td>{formatOdds(bet.odds)}</td>
                   <td>{formatPercent(bet.modelProbability)}</td>
-                  <td>{formatPercent(bet.bookProbability)}</td>
                   <td className={bet.edge > 0 ? "positive" : "warning"}>{formatPercent(bet.edge)}</td>
-                  <td className="positive">${profitForStake(bet.odds).toFixed(2)}</td>
-                  <td className={bet.ev > 0 ? "positive" : "negative"}>${bet.ev.toFixed(2)}</td>
                 </tr>
               ))}
             </tbody>
           </table>
         ) : (
-          <p className="muted">
-            No moneyline edges are available yet. Check back after live odds are loaded or tomorrow&apos;s board drops.
-          </p>
+          <p className="muted">No moneyline edges on today&apos;s board yet.</p>
         )}
       </section>
 
-      <section className="panel">
-        <h2>Daily 2-Leg Parlays</h2>
-        {recommendationPerformance ? (
-          <p className="muted">
-            Historical daily parlay ledger: 2-leg {recommendationPerformance.by_category.parlay_2?.wins ?? 0}-
-            {recommendationPerformance.by_category.parlay_2?.losses ?? 0} (
-            {formatPercent(recommendationPerformance.by_category.parlay_2?.roi ?? 0)} ROI).
-            Anchor tickets pair one edge leg with one High/Elite confidence leg when the combined parlay stays positive EV.
-          </p>
-        ) : null}
-        {parlays.length > 0 ? (
-          <table className="table">
-            <thead>
-              <tr>
-                <th>Legs</th>
-                <th>Ticket</th>
-                <th>Probability</th>
-                <th>Odds</th>
-                <th>Unit profit</th>
-                <th>Unit EV</th>
-              </tr>
-            </thead>
-            <tbody>
-              {parlays.map((parlay) => (
-                <tr key={parlay.id}>
-                  <td>{parlay.legCount}</td>
-                  <td>
-                    {parlay.legs.map((leg) => (
-                      <p key={leg.id}>
-                        <strong>{teamAbbrevLink(leg.team)} ML</strong> ({recordFor(leg.team.id)}) vs{" "}
-                        {teamAbbrevLink(leg.opponent)} ({recordFor(leg.opponent.id)}) · {leg.matchup} ·{" "}
-                        {formatOdds(leg.odds)} · {formatPercent(leg.modelProbability)}
-                      </p>
-                    ))}
-                    {parlay.strategy === "anchor" ? (
-                      <p className="muted">Anchor parlay · edge leg plus High/Elite confidence leg</p>
-                    ) : parlay.strategy === "premium" ? (
-                      <p className="muted">Premium 3-leg parlay · very high combined confidence</p>
-                    ) : (
-                      <p className="muted">Edge parlay · every leg clears standalone edge filter</p>
-                    )}
-                  </td>
-                  <td>{formatPercent(parlay.probability)}</td>
-                  <td>{formatOdds(parlay.americanOdds)}</td>
-                  <td className="positive">${parlay.payoutProfit.toFixed(2)}</td>
-                  <td className={parlay.ev > 0 ? "positive" : "negative"}>${parlay.ev.toFixed(2)}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        ) : (
-          <p className="muted">
-            No alternate parlay ticket cleared today&apos;s filters. Use the Best Ticket section above for the top ROI play.
-          </p>
-        )}
-      </section>
-
-      <section className="panel">
-        <h2>Advanced Markets</h2>
-        {recommendationPerformance?.by_category.advanced ? (
-          <p className="muted">
-            Daily totals track record: {recommendationPerformance.by_category.advanced.bets} tickets,{" "}
-            {recommendationPerformance.by_category.advanced.wins}-{recommendationPerformance.by_category.advanced.losses}{" "}
-            record, {formatPercent(recommendationPerformance.by_category.advanced.roi)} ROI.
-            {topAdvancedBet ? " Today&apos;s top advanced pick is shown below." : ""}
-          </p>
-        ) : (
-          <p className="muted">Run line and totals are separated from moneyline. Historical totals backtests are shown above when available.</p>
-        )}
-        {advancedBets.length > 0 ? (
+      {advancedBets.length > 0 ? (
+        <section className="panel">
+          <h2>Advanced markets</h2>
+          <p className="muted">Totals and run lines — not part of the daily moneyline ticket.</p>
           <table className="table">
             <thead>
               <tr>
                 <th>Market</th>
-                <th>Matchup / Pick</th>
+                <th>Pick</th>
                 <th>Odds</th>
-                <th>Model</th>
-                <th>Book</th>
                 <th>Edge</th>
-                <th>Unit EV</th>
               </tr>
             </thead>
             <tbody>
@@ -713,25 +326,15 @@ export default async function BestBetsPage() {
                     <p>
                       {bet.label} · {formatCentralGameTime(bet.game.startsAt)}
                     </p>
-                    {bet.market === "Total" ? (
-                      <p className="muted">Projected total: {bet.game.projectedTotal?.toFixed(1)}</p>
-                    ) : null}
-                    {bet.modelOnly ? <p className="muted">Model lean · reference line</p> : null}
                   </td>
                   <td>{formatOdds(bet.odds)}</td>
-                  <td>{formatPercent(bet.modelProbability)}</td>
-                  <td>{formatPercent(bet.bookProbability)}</td>
                   <td className="positive">{formatPercent(bet.edge)}</td>
-                  <td className={bet.ev > 0 ? "positive" : "negative"}>${bet.ev.toFixed(2)}</td>
                 </tr>
               ))}
             </tbody>
           </table>
-        ) : (
-          <p className="muted">No positive-EV run line or totals picks passed today&apos;s advanced-market filters.</p>
-        )}
-      </section>
-
+        </section>
+      ) : null}
     </main>
   );
 }

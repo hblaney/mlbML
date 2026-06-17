@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-06-16",
+  "generated_at": "2026-06-17",
   "live_strategy": "corr_nl_reject_both",
   "period": {
     "season_start": "2026-03-20",
     "end": "2026-06-15",
-    "rolling_14d_start": "2026-06-02"
+    "rolling_14d_start": "2026-06-03"
   },
   "stakes": {
     "1": 0.45,
@@ -21,11 +21,11 @@
         "record": "50-30"
       },
       "rolling_14d": {
-        "days": 14,
-        "flat_roi": 1.116,
-        "flat_profit": 1562.35,
-        "end": 2958.398,
-        "record": "10-4"
+        "days": 13,
+        "flat_roi": 1.0964,
+        "flat_profit": 1425.35,
+        "end": 1830.1256,
+        "record": "9-4"
       }
     },
     "corr_nl_reject_both": {
@@ -37,11 +37,11 @@
         "record": "48-32"
       },
       "rolling_14d": {
-        "days": 14,
-        "flat_roi": 1.0713,
-        "flat_profit": 1499.77,
-        "end": 2614.6242,
-        "record": "10-4"
+        "days": 13,
+        "flat_roi": 1.0483,
+        "flat_profit": 1362.77,
+        "end": 1617.4601,
+        "record": "9-4"
       }
     },
     "best_ticket": {
@@ -53,11 +53,11 @@
         "record": "49-27"
       },
       "rolling_14d": {
-        "days": 14,
-        "flat_roi": 1.009,
-        "flat_profit": 1412.54,
-        "end": 3838.0522,
-        "record": "11-3"
+        "days": 13,
+        "flat_roi": 0.9812,
+        "flat_profit": 1275.54,
+        "end": 2374.2977,
+        "record": "10-3"
       }
     },
     "no_low_skip_forced": {
@@ -69,26 +69,33 @@
         "record": "49-27"
       },
       "rolling_14d": {
-        "days": 14,
-        "flat_roi": 1.009,
-        "flat_profit": 1412.54,
-        "end": 3838.0522,
-        "record": "11-3"
+        "days": 13,
+        "flat_roi": 0.9812,
+        "flat_profit": 1275.54,
+        "end": 2374.2977,
+        "record": "10-3"
       }
     }
   },
-  "ranked_by_rolling_14d_flat_roi": [
-    "no_low_parlay_223s",
+  "ranked_by_season_compound": [
     "corr_nl_reject_both",
+    "no_low_parlay_223s",
     "best_ticket",
     "no_low_skip_forced"
   ],
+  "ranked_by_rolling_14d_compound": [
+    "best_ticket",
+    "no_low_skip_forced",
+    "no_low_parlay_223s",
+    "corr_nl_reject_both"
+  ],
   "guard": {
-    "leader": "no_low_parlay_223s",
+    "season_leader": "corr_nl_reject_both",
+    "leader_14d": "best_ticket",
     "leader_streak_days": 1,
     "switch_signal_days_required": 14,
     "switch_recommended": false,
-    "message": "no_low_parlay_223s leads rolling 14d (1/14 days toward switch)."
+    "message": "Keep corr_nl_reject_both \u2014 #1 full season ($73,564,557 from $100 compound). best_ticket leads last 14 days only (1/14 daily signals toward switch)."
   },
   "execution_rules": [
     "One ticket per day, all legs same calendar day",
