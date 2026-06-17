@@ -110,10 +110,15 @@ export default async function BestBetsPage() {
           </div>
           <p className="muted">
             Stake <strong>{formatPercent(ticketStakePct)}</strong> of bankroll ={" "}
-            <strong>{formatBankroll(bankroll * ticketStakePct)}</strong> on this ticket. Parlays only when{" "}
-            <strong>two quality legs</strong> clear the bar (6%+ edge, 62–64%+ model prob, at least one High/Elite) —
-            otherwise best single.
+            <strong>{formatBankroll(bankroll * ticketStakePct)}</strong> on this ticket. One bet every day per
+            backtest — filtered parlay when available, else best positive-EV combo (can include medium-confidence legs).
           </p>
+          {bestTicket.kind === "parlay" && bestTicket.parlay.strategy === "forced_top_2" ? (
+            <p className="muted">
+              No strict 65%+ parlay pair today — using top-2 positive-EV legs. Backtest shows always betting beats
+              sitting out on thin slates.
+            </p>
+          ) : null}
           {bestTicket.kind === "single" ? (
             <div className="grid two">
               <article>

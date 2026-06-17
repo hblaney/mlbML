@@ -1459,40 +1459,9 @@ export function getCorrNlRejectBothTicket(board: GamePrediction[] = predictions)
   return getTwoOrThreeOrSingleTicket(board);
 }
 
-/** Live site ticket: quality parlays when 2+ legs clear the bar, else best qualified single. */
-export function getLiveDailyTicket(board: GamePrediction[] = predictions): DailyTicket | null {
-  const options: DailyTicket[] = [];
-
-  const twoLeg = getLiveTwoLegParlay(board);
-  if (twoLeg) {
-    options.push({ kind: "parlay", parlay: twoLeg, score: twoLeg.score, qualified: true });
-  }
-
-  const threeLeg = getLiveThreeLegParlay(board);
-  if (threeLeg) {
-    options.push({ kind: "parlay", parlay: threeLeg, score: threeLeg.score, qualified: true });
-  }
-
-  const single = getTopMoneylineTicket(board);
-  if (single && single.ev > 0 && single.qualified) {
-    options.push({
-      kind: "single",
-      bet: single,
-      score: ticketScoreForSingle(single),
-      qualified: true
-    });
-  }
-
-  if (options.length === 0) {
-    return null;
-  }
-
-  return options.sort((left, right) => right.score - left.score)[0];
-}
-
-/** Daily ticket: corr_nl_reject_both backtest variant (includes forced-2 fallback). */
+/** Daily ticket: corr_nl_reject_both — always one bet; forced 2-leg when filtered parlay unavailable. */
 export function getBestDailyTicket(board: GamePrediction[] = predictions): DailyTicket | null {
-  return getLiveDailyTicket(board);
+  return getCorrNlRejectBothTicket(board);
 }
 
 export function getDailyParlayTickets(board: GamePrediction[] = predictions) {
