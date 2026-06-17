@@ -573,6 +573,69 @@ export async function loadBettingPlan() {
   }
 }
 
+export type BestTicketWalkforwardLeg = {
+  team: string;
+  matchup: string;
+  odds?: number;
+  model_probability: number;
+  confidence: string;
+  won: boolean;
+};
+
+export type BestTicketWalkforwardRow = {
+  date: string;
+  strategy: string;
+  ticket_type: string;
+  label: string;
+  leg_count: number;
+  legs: BestTicketWalkforwardLeg[];
+  won: boolean;
+  result: "HIT" | "MISS";
+  flat_profit: number;
+};
+
+export type BestTicketWalkforwardOutput = {
+  generated_at: string;
+  method: string;
+  model_version: string;
+  feature_count: number;
+  strategy: string;
+  date_range: { start: string; end: string };
+  game_prediction_accuracy: {
+    games: number;
+    correct: number;
+    accuracy: number;
+  };
+  best_ticket_accuracy: {
+    bet_days: number;
+    wins: number;
+    losses: number;
+    hit_rate: number;
+    record: string;
+  };
+  last_14_days: {
+    start: string;
+    end: string;
+    bet_days: number;
+    wins: number;
+    losses: number;
+    hit_rate: number;
+    record: string;
+    tickets: BestTicketWalkforwardRow[];
+  };
+  tickets: BestTicketWalkforwardRow[];
+};
+
+export async function loadBestTicketWalkforward() {
+  try {
+    const filePath = path.join(process.cwd(), "public", "best-ticket-walkforward.json");
+    const raw = await readFile(filePath, "utf8");
+    return JSON.parse(raw) as BestTicketWalkforwardOutput;
+  } catch {
+    return null;
+  }
+}
+
 export async function loadBettingStrategyOptimizer() {
   try {
     const filePath = path.join(process.cwd(), "public", "betting-strategy-optimizer.json");
