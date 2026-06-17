@@ -449,11 +449,56 @@ export type BettingPlan = {
   strategy: string;
   strategy_rules: string[];
   stake_by_leg_count: Record<string, number>;
+  stake_optimizer_suggestion?: Record<string, number>;
   flat_stake_fallback: number;
   daily_exposure_cap: number;
   backtest_period: { start: string; end: string };
   retuned_from: string;
 };
+
+export type StrategyGuard = {
+  generated_at: string;
+  live_strategy: string;
+  period: { season_start: string; end: string; rolling_14d_start: string };
+  stakes: Record<string, number>;
+  comparisons: Record<
+    string,
+    {
+      season_to_date: {
+        days: number;
+        flat_roi: number;
+        flat_profit: number;
+        end: number;
+        record: string;
+      };
+      rolling_14d: {
+        days: number;
+        flat_roi: number;
+        flat_profit: number;
+        end: number;
+        record: string;
+      };
+    }
+  >;
+  guard: {
+    leader: string;
+    leader_streak_days: number;
+    switch_signal_days_required: number;
+    switch_recommended: boolean;
+    message: string;
+  };
+  execution_rules: string[];
+};
+
+export async function loadStrategyGuard() {
+  try {
+    const filePath = path.join(process.cwd(), "public", "strategy-guard.json");
+    const raw = await readFile(filePath, "utf8");
+    return JSON.parse(raw) as StrategyGuard;
+  } catch {
+    return null;
+  }
+}
 
 export async function loadBettingPlan() {
   try {

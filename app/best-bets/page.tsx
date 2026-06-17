@@ -9,7 +9,8 @@ import {
   OPTIMIZED_GROWTH_STAKE_PCT,
   OPTIMIZED_STAKE_BY_LEG_COUNT
 } from "@/lib/data";
-import { loadPredictionBoard, loadRecommendationPerformance, loadStrategyBacktestResults, loadExhaustiveStrategySearch, loadOosStrategyValidation, loadBettingPlan } from "@/lib/model-output";
+import { loadPredictionBoard, loadRecommendationPerformance, loadStrategyBacktestResults, loadExhaustiveStrategySearch, loadOosStrategyValidation, loadBettingPlan, loadStrategyGuard } from "@/lib/model-output";
+import { LIVE_BETTING_STRATEGY } from "@/lib/data";
 import { decimalOdds, formatOdds, formatPercent } from "@/lib/odds";
 import { formatStandingRecord, loadLiveStandings } from "@/lib/standings";
 import { formatCentralGameTime } from "@/lib/time";
@@ -23,12 +24,13 @@ export default async function BestBetsPage() {
   const bets = getBestBets(board);
   const advancedBets = getAdvancedBets(board);
   const usingModelOnlyPicks = bets.some((bet) => bet.modelOnly) || advancedBets.some((bet) => bet.modelOnly);
-  const [recommendationPerformance, strategyBacktest, exhaustiveSearch, oosValidation, bettingPlan] = await Promise.all([
+  const [recommendationPerformance, strategyBacktest, exhaustiveSearch, oosValidation, bettingPlan, strategyGuard] = await Promise.all([
     loadRecommendationPerformance(),
     loadStrategyBacktestResults(),
     loadExhaustiveStrategySearch(),
     loadOosStrategyValidation(),
-    loadBettingPlan()
+    loadBettingPlan(),
+    loadStrategyGuard()
   ]);
   const stakeByLeg = bettingPlan?.stake_by_leg_count;
   const oddsMetadata = strategyBacktest?.odds_metadata ?? recommendationPerformance?.odds_metadata;
@@ -42,18 +44,20 @@ export default async function BestBetsPage() {
       : `$${value.toFixed(2)}`;
   const backtest10k = strategyBacktest?.winners_by_bankroll["10000.0"] ?? [];
   const backtest10 = strategyBacktest?.winners_by_bankroll["10.0"] ?? [];
-  const activeStrategy = bettingPlan?.strategy ?? "corr_nl_reject_both";
+  const activeStrategy = bettingPlan?.strategy ?? LIVE_BETTING_STRATEGY;
+  const liveBacktest = strategyGuard?.comparisons[activeStrategy]?.season_to_date;
   const activeStrategyRow = exhaustiveSearch?.top_fair_10k.find((row) => row.strategy_id === activeStrategy);
   const winner = activeStrategyRow ?? exhaustiveSearch?.recommendation.one_bet_per_day_fair ?? strategyBacktest?.recommended_summary;
   const fairTop = exhaustiveSearch?.top_fair_10k ?? [];
   const winnerEnd =
-    winner && "end" in winner ? winner.end : winner && "end_bankroll" in winner ? winner.end_bankroll : 0;
-  const winnerRecord =
-    winner && "wins" in winner
+    liveBacktest?.end ??
+    (winner && "end" in winner ? winner.end : winner && "end_bankroll" in winner ? winner.end_bankroll : 0);
+  const winnerRecord = liveBacktest?.record ??
+    (winner && "wins" in winner
       ? `${winner.wins}-${winner.losses}`
       : winner && "record" in winner
         ? winner.record
-        : "";
+        : "");
   const winnerLabel =
     winner && "strategy_id" in winner
       ? winner.strategy_id
@@ -113,19 +117,46 @@ export default async function BestBetsPage() {
           <div className="section-heading compact">
             <div>
               <p className="eyebrow">Daily betting plan</p>
-              <h2>Automated Strategy (retuned {bettingPlan.generated_at})</h2>
+              <h2>Live strategy: corr_nl_reject_both</h2>
             </div>
-            <span>{bettingPlan.strategy}</span>
+            <span>Retuned {bettingPlan.generated_at}</span>
           </div>
           <p className="lead">
-            One ticket per day: pick the highest-scoring qualified single, always-2 parlay, or premium 3-leg parlay.
-            Stakes are re-optimized each morning from walk-forward backtests on the current season.
+            <strong>corr_nl_reject_both</strong> — one ticket per day. Parlays use Medium+ legs only and skip correlated
+            pairs (same division or start times within 60 minutes). Singles can still be Low confidence. Highest-scoring
+            legal ticket wins: always-2 parlay, premium 3-leg, or qualified single.
           </p>
           <ol className="muted">
             {bettingPlan.strategy_rules.map((rule) => (
               <li key={rule}>{rule}</li>
             ))}
           </ol>
+          {liveBacktest ? (
+            <div className="grid">
+              <article>
+                <p className="muted">2026 season-to-date (walk-forward)</p>
+                <div className="metric positive">{formatPercent(liveBacktest.flat_roi)} flat ROI</div>
+                <p className="muted">
+                  {liveBacktest.record} · {liveBacktest.days} bet days · ${liveBacktest.flat_profit.toLocaleString()} flat
+                  profit / $100 per ticket
+                </p>
+              </article>
+              <article>
+                <p className="muted">$10 compound (45/35/50 stakes, 2026 backtest)</p>
+                <div className="metric positive">{formatBankroll(liveBacktest.end / 10)}</div>
+                <p className="muted">
+                  $100 → {formatBankroll(liveBacktest.end)} · worst dip ~45% of start ($55 from $100)
+                </p>
+              </article>
+              {strategyGuard ? (
+                <article>
+                  <p className="muted">Rolling guard</p>
+                  <div className="metric">{strategyGuard.guard.message}</div>
+                  <p className="muted">Strategy switch needs {strategyGuard.guard.switch_signal_days_required} daily leader signals</p>
+                </article>
+              ) : null}
+            </div>
+          ) : null}
           <table className="table">
             <thead>
               <tr>
@@ -145,8 +176,8 @@ export default async function BestBetsPage() {
               <tr>
                 <td>2-leg parlay</td>
                 <td>{formatPercent(bettingPlan.stake_by_leg_count["2"] ?? OPTIMIZED_STAKE_BY_LEG_COUNT[2])}</td>
-                <td>${(10 * (bettingPlan.stake_by_leg_count["2"] ?? 0.25)).toFixed(2)}</td>
-                <td>{(0.35 * (bettingPlan.stake_by_leg_count["2"] ?? 0.25)).toFixed(2)}¢</td>
+                <td>${(10 * (bettingPlan.stake_by_leg_count["2"] ?? 0.35)).toFixed(2)}</td>
+                <td>{(0.35 * (bettingPlan.stake_by_leg_count["2"] ?? 0.35)).toFixed(2)}¢</td>
               </tr>
               <tr>
                 <td>3-leg parlay</td>
@@ -189,11 +220,11 @@ export default async function BestBetsPage() {
           <p className="muted">
             Stake {formatPercent(ticketStakePct)} of bankroll on this ticket
             {bettingPlan
-              ? ` (plan retuned ${bettingPlan.generated_at})`
+              ? ` (${activeStrategy}, retuned ${bettingPlan.generated_at})`
               : bestTicket.kind === "parlay"
                 ? ` (${bestTicket.parlay.legCount}-leg tier)`
                 : " (single tier)"}
-            .
+            . Parlays exclude Low-confidence legs and correlated pairs (same division or starts within 60 min).
           </p>
           {bestTicket.kind === "single" ? (
             <div className="grid two">
@@ -221,7 +252,7 @@ export default async function BestBetsPage() {
                 {bestTicket.parlay.strategy === "anchor"
                   ? "Anchor ticket: one edge leg paired with one High/Elite confidence leg."
                   : bestTicket.parlay.strategy === "forced_top_2"
-                    ? "Fallback ticket: top two positive-EV legs on different games (no filtered parlay today)."
+                    ? "Uncorrelated fallback: best positive-EV Medium+ pair on different games (no filtered parlay today)."
                     : bestTicket.parlay.strategy === "premium"
                     ? "Premium 3-leg ticket: only shown when the model is very confident across multiple qualified legs."
                     : bestTicket.parlay.strategy === "premium_4"
@@ -279,15 +310,15 @@ export default async function BestBetsPage() {
           </div>
           <p className="lead">
             {exhaustiveSearch
-              ? `${exhaustiveSearch.strategies_tested} rules × stake grid, fair daily cap ${formatPercent(exhaustiveSearch.fair_daily_exposure_cap)}. Live plan: `
-              : "Live plan: "}
-            <strong>
-              {activeStrategy}
-            </strong>
-            {activeStrategyRow
-              ? ` (${formatPercent(activeStrategyRow.stake_pct)} stake in backtest, $10k fair ${formatBankroll(activeStrategyRow.end)})`
-              : null}
-            . Parlay-only variant <strong>two_or_three_best</strong> is similar but never takes singles.
+              ? `${exhaustiveSearch.strategies_tested} rules × stake grid, fair daily cap ${formatPercent(exhaustiveSearch.fair_daily_exposure_cap)}. `
+              : ""}
+            Live plan: <strong>{activeStrategy}</strong>
+            {liveBacktest
+              ? ` — ${formatPercent(liveBacktest.flat_roi)} flat ROI, ${liveBacktest.record} (${strategyGuard?.period.season_start ?? bettingPlan?.backtest_period.start} to ${strategyGuard?.period.end ?? bettingPlan?.backtest_period.end})`
+              : activeStrategyRow
+                ? ` (${formatPercent(activeStrategyRow.stake_pct)} stake in exhaustive search, $10k fair ${formatBankroll(activeStrategyRow.end)})`
+                : null}
+            .
           </p>
           {exhaustiveSearch?.weird_result_analysis ? (
             <p className="muted">{exhaustiveSearch.weird_result_analysis.verdict}</p>
@@ -295,18 +326,19 @@ export default async function BestBetsPage() {
           <div className="grid">
             {winner ? (
               <article>
-                <p className="muted">$10,000 fair compound</p>
+                <p className="muted">$100 compound (live plan, 45/35/50)</p>
                 <div className="metric positive">{formatBankroll(winnerEnd)}</div>
                 <p className="muted">
-                  {winnerRecord} · min balance {formatBankroll(winnerMin)} · {winnerBets} bet days
+                  {winnerRecord} · {liveBacktest?.days ?? winnerBets} bet days
+                  {liveBacktest ? ` · ${formatPercent(liveBacktest.flat_roi)} flat ROI` : ""}
                 </p>
               </article>
             ) : null}
             {fair10End ? (
               <article>
-                <p className="muted">$10 fair compound</p>
-                <div className="metric positive">{formatBankroll(fair10End)}</div>
-                <p className="muted">{winnerLabel} @ {formatPercent(winnerStake)}</p>
+                <p className="muted">$10 compound (exhaustive search)</p>
+                <div className="metric positive">{formatBankroll(liveBacktest ? liveBacktest.end / 10 : fair10End)}</div>
+                <p className="muted">{activeStrategy} @ 45/35/50 stakes</p>
               </article>
             ) : backtest10[0] ? (
               <article>
@@ -329,6 +361,32 @@ export default async function BestBetsPage() {
               <p className="muted">Same stake, no 3-leg upgrade days</p>
             </article>
           </div>
+          {strategyGuard ? (
+            <table className="table">
+              <thead>
+                <tr>
+                  <th>Strategy</th>
+                  <th>Season flat ROI</th>
+                  <th>Record</th>
+                  <th>14d flat ROI</th>
+                  <th>$100 compound</th>
+                </tr>
+              </thead>
+              <tbody>
+                {Object.entries(strategyGuard.comparisons).map(([sid, row]) => (
+                  <tr key={sid}>
+                    <td>{sid === activeStrategy ? `★ ${sid} (live)` : sid}</td>
+                    <td>{formatPercent(row.season_to_date.flat_roi)}</td>
+                    <td>{row.season_to_date.record}</td>
+                    <td>{formatPercent(row.rolling_14d.flat_roi)}</td>
+                    <td className={row.season_to_date.end >= 10000 ? "positive" : ""}>
+                      {formatBankroll(row.season_to_date.end)}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          ) : null}
           {fairTop.length > 0 ? (
             <table className="table">
               <thead>
