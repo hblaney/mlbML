@@ -678,6 +678,15 @@ export function getAdvancedBets(board: GamePrediction[] = predictions): Advanced
 const SAFE_PARLAY_MIN_LEG_PROBABILITY = 0.65;
 const SAFE_PARLAY_MIN_LEG_EDGE = 0.05;
 const SAFE_PARLAY_MIN_BOOK_PROBABILITY = 0.50;
+/** Live site parlays: stricter legs than backtest pool — no forced pairings. */
+const LIVE_PARLAY_MIN_LEG_EDGE = 0.06;
+const LIVE_PARLAY_MIN_BOOK_PROBABILITY = 0.50;
+const LIVE_PARLAY_HIGH_ELITE_MIN_PROBABILITY = 0.62;
+const LIVE_PARLAY_MEDIUM_MIN_PROBABILITY = 0.64;
+const LIVE_PARLAY_MIN_COMBINED_PROBABILITY_2 = 0.38;
+const LIVE_PARLAY_MIN_COMBINED_PROBABILITY_3 = 0.28;
+const LIVE_PARLAY_MIN_HIGH_ELITE_LEGS_2 = 1;
+const LIVE_PARLAY_MIN_HIGH_ELITE_LEGS_3 = 2;
 const ANCHOR_PARLAY_MIN_CONFIDENCE_PROBABILITY = 0.645;
 const ANCHOR_PARLAY_MIN_BOOK_PROBABILITY = 0.50;
 const ANCHOR_PARLAY_MIN_LEG_EV = -2;
@@ -825,7 +834,7 @@ export type ParlayCandidate = {
   ev: number;
   payoutProfit: number;
   score: number;
-  strategy?: "edge" | "anchor" | "premium" | "premium_4" | "forced_top_2";
+  strategy?: "edge" | "anchor" | "premium" | "premium_4" | "forced_top_2" | "live_quality" | "live_premium";
 };
 
 /** Flat fallback when leg-specific stake is unavailable (2026 sweep best: 35%). */
@@ -915,6 +924,108 @@ function getParlayLegCandidates(board: GamePrediction[] = predictions) {
     )
     .sort((left, right) => (right.ev * right.modelProbability) - (left.ev * left.modelProbability))
     .slice(0, 8);
+}
+
+function passesLiveParlayLegFilter(bet: BestBet) {
+  if (!isParlayEligibleConfidence(bet.game.confidence)) {
+    return false;
+  }
+  if (bet.edge < LIVE_PARLAY_MIN_LEG_EDGE || bet.bookProbability < LIVE_PARLAY_MIN_BOOK_PROBABILITY || bet.ev <= 0) {
+    return false;
+  }
+  const minProbability =
+    bet.game.confidence === "High" || bet.game.confidence === "Elite"
+      ? LIVE_PARLAY_HIGH_ELITE_MIN_PROBABILITY
+      : LIVE_PARLAY_MEDIUM_MIN_PROBABILITY;
+  return bet.modelProbability >= minProbability;
+}
+
+function getLiveParlayLegCandidates(board: GamePrediction[] = predictions) {
+  if (!boardHasMarketOdds(board)) {
+    return [];
+  }
+
+  return buildMarketMoneylineCandidates(board)
+    .filter(passesLiveParlayLegFilter)
+    .sort(
+      (left, right) =>
+        CONFIDENCE_RANK[right.game.confidence] - CONFIDENCE_RANK[left.game.confidence] ||
+        right.modelProbability - left.modelProbability ||
+        right.ev * right.modelProbability - left.ev * left.modelProbability
+    )
+    .slice(0, 8);
+}
+
+function countHighEliteLegs(legs: BestBet[]) {
+  return legs.filter((leg) => leg.game.confidence === "Elite" || leg.game.confidence === "High").length;
+}
+
+function getLiveTwoLegParlay(board: GamePrediction[] = predictions) {
+  const singles = getLiveParlayLegCandidates(board);
+  if (singles.length < 2) {
+    return null;
+  }
+
+  let best: ParlayCandidate | null = null;
+
+  for (const legs of combinations(singles, 2)) {
+    const uniqueGames = new Set(legs.map((leg) => leg.game.id));
+    if (uniqueGames.size !== legs.length) {
+      continue;
+    }
+    if (!isParlayCorrelationAllowed(legs)) {
+      continue;
+    }
+    if (countHighEliteLegs(legs) < LIVE_PARLAY_MIN_HIGH_ELITE_LEGS_2) {
+      continue;
+    }
+
+    const candidate = buildParlayCandidate(legs);
+    if (candidate.ev <= 0 || candidate.probability < LIVE_PARLAY_MIN_COMBINED_PROBABILITY_2) {
+      continue;
+    }
+
+    candidate.strategy = "live_quality";
+    if (!best || candidate.score > best.score) {
+      best = candidate;
+    }
+  }
+
+  return best;
+}
+
+function getLiveThreeLegParlay(board: GamePrediction[] = predictions) {
+  const singles = getLiveParlayLegCandidates(board).slice(0, 6);
+  if (singles.length < 3) {
+    return null;
+  }
+
+  let best: ParlayCandidate | null = null;
+
+  for (const legs of combinations(singles, 3)) {
+    const uniqueGames = new Set(legs.map((leg) => leg.game.id));
+    if (uniqueGames.size !== legs.length) {
+      continue;
+    }
+    if (!isParlayCorrelationAllowed(legs)) {
+      continue;
+    }
+    if (countHighEliteLegs(legs) < LIVE_PARLAY_MIN_HIGH_ELITE_LEGS_3) {
+      continue;
+    }
+
+    const candidate = buildParlayCandidate(legs);
+    if (candidate.ev <= 0 || candidate.probability < LIVE_PARLAY_MIN_COMBINED_PROBABILITY_3) {
+      continue;
+    }
+
+    candidate.strategy = "live_premium";
+    if (!best || candidate.score > best.score) {
+      best = candidate;
+    }
+  }
+
+  return best;
 }
 
 function getAnchorParlayLegCandidates(board: GamePrediction[] = predictions) {
@@ -1348,16 +1459,16 @@ export function getCorrNlRejectBothTicket(board: GamePrediction[] = predictions)
   return getTwoOrThreeOrSingleTicket(board);
 }
 
-/** Live site ticket: filtered parlays and qualified singles only — no forced top-2 fallback. */
+/** Live site ticket: quality parlays when 2+ legs clear the bar, else best qualified single. */
 export function getLiveDailyTicket(board: GamePrediction[] = predictions): DailyTicket | null {
   const options: DailyTicket[] = [];
 
-  const twoLeg = getBestTwoLegParlay(board);
+  const twoLeg = getLiveTwoLegParlay(board);
   if (twoLeg) {
     options.push({ kind: "parlay", parlay: twoLeg, score: twoLeg.score, qualified: true });
   }
 
-  const threeLeg = getPremiumThreeLegParlay(board);
+  const threeLeg = getLiveThreeLegParlay(board);
   if (threeLeg) {
     options.push({ kind: "parlay", parlay: threeLeg, score: threeLeg.score, qualified: true });
   }

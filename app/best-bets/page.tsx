@@ -110,8 +110,9 @@ export default async function BestBetsPage() {
           </div>
           <p className="muted">
             Stake <strong>{formatPercent(ticketStakePct)}</strong> of bankroll ={" "}
-            <strong>{formatBankroll(bankroll * ticketStakePct)}</strong> on this ticket. Parlays require Medium+ legs at
-            65%+ model probability — weak forced combos are excluded.
+            <strong>{formatBankroll(bankroll * ticketStakePct)}</strong> on this ticket. Parlays only when{" "}
+            <strong>two quality legs</strong> clear the bar (6%+ edge, 62–64%+ model prob, at least one High/Elite) —
+            otherwise best single.
           </p>
           {bestTicket.kind === "single" ? (
             <div className="grid two">
