@@ -7,7 +7,7 @@ import {
   OPTIMIZED_STAKE_BY_LEG_COUNT,
   LIVE_BETTING_STRATEGY
 } from "@/lib/data";
-import { loadPredictionBoard, loadBettingPlan, loadStrategyGuard } from "@/lib/model-output";
+import { loadPredictionBoard, loadBettingPlan, loadLiveBankroll, loadStrategyGuard } from "@/lib/model-output";
 import { formatOdds, formatPercent } from "@/lib/odds";
 import { formatStandingRecord, loadLiveStandings } from "@/lib/standings";
 import { formatCentralGameTime } from "@/lib/time";
@@ -25,7 +25,11 @@ export default async function BestBetsPage() {
   const board = await loadPredictionBoard();
   const standings = await loadLiveStandings();
   const standingsByTeamId = new Map(standings.map((standing) => [standing.teamId, standing]));
-  const [bettingPlan, strategyGuard] = await Promise.all([loadBettingPlan(), loadStrategyGuard()]);
+  const [bettingPlan, strategyGuard, liveBankroll] = await Promise.all([
+    loadBettingPlan(),
+    loadStrategyGuard(),
+    loadLiveBankroll()
+  ]);
   const bets = getBestBets(board);
   const advancedBets = getAdvancedBets(board);
   const usingModelOnlyPicks = bets.some((bet) => bet.modelOnly) || advancedBets.some((bet) => bet.modelOnly);
@@ -34,6 +38,8 @@ export default async function BestBetsPage() {
   const ticketStakePct = getOptimizedStakePctForTicket(bestTicket, stakeByLeg);
   const activeStrategy = bettingPlan?.strategy ?? LIVE_BETTING_STRATEGY;
   const liveStats = strategyGuard?.comparisons[activeStrategy]?.season_to_date;
+  const bankroll = liveBankroll?.balance ?? 10;
+  const startedAt = liveBankroll?.started_at;
 
   const formatBankroll = (value: number) =>
     value >= 100
@@ -75,6 +81,11 @@ export default async function BestBetsPage() {
           One bet per day from <strong>{activeStrategy}</strong>: stake a percentage of your bankroll (45% / 35% / 50% by
           ticket type), all legs same calendar day.
         </p>
+        <p className="muted">
+          Your bankroll: <strong>{formatBankroll(bankroll)}</strong>
+          {startedAt ? ` · started ${startedAt}` : ""}
+          {liveBankroll && liveBankroll.record !== "0-0" ? ` · ${liveBankroll.record}` : ""}
+        </p>
         {usingModelOnlyPicks ? (
           <p className="muted">
             Live sportsbook odds aren&apos;t on today&apos;s board yet — picks use model pricing until odds load.
@@ -98,8 +109,9 @@ export default async function BestBetsPage() {
             <span>Stake {formatPercent(ticketStakePct)} of bankroll</span>
           </div>
           <p className="muted">
-            At a <strong>$10</strong> bankroll that&apos;s <strong>${(10 * ticketStakePct).toFixed(2)}</strong> on this
-            ticket. Parlays skip Low-confidence legs and correlated pairs (same division or starts within 60 minutes).
+            Stake <strong>{formatPercent(ticketStakePct)}</strong> of bankroll ={" "}
+            <strong>{formatBankroll(bankroll * ticketStakePct)}</strong> on this ticket. Parlays skip Low-confidence legs
+            and correlated pairs (same division or starts within 60 minutes).
           </p>
           {bestTicket.kind === "single" ? (
             <div className="grid two">
@@ -182,24 +194,24 @@ export default async function BestBetsPage() {
               <tr>
                 <th>Ticket type</th>
                 <th>% of bankroll</th>
-                <th>@ $10 bankroll</th>
+                <th>@ your bankroll</th>
               </tr>
             </thead>
             <tbody>
               <tr>
                 <td>Single</td>
                 <td>{formatPercent(bettingPlan.stake_by_leg_count["1"] ?? OPTIMIZED_STAKE_BY_LEG_COUNT[1])}</td>
-                <td>${(10 * (bettingPlan.stake_by_leg_count["1"] ?? 0.45)).toFixed(2)}</td>
+                <td>${(bankroll * (bettingPlan.stake_by_leg_count["1"] ?? 0.45)).toFixed(2)}</td>
               </tr>
               <tr>
                 <td>2-leg parlay</td>
                 <td>{formatPercent(bettingPlan.stake_by_leg_count["2"] ?? OPTIMIZED_STAKE_BY_LEG_COUNT[2])}</td>
-                <td>${(10 * (bettingPlan.stake_by_leg_count["2"] ?? 0.35)).toFixed(2)}</td>
+                <td>${(bankroll * (bettingPlan.stake_by_leg_count["2"] ?? 0.35)).toFixed(2)}</td>
               </tr>
               <tr>
                 <td>3-leg parlay</td>
                 <td>{formatPercent(bettingPlan.stake_by_leg_count["3"] ?? OPTIMIZED_STAKE_BY_LEG_COUNT[3])}</td>
-                <td>${(10 * (bettingPlan.stake_by_leg_count["3"] ?? 0.5)).toFixed(2)}</td>
+                <td>${(bankroll * (bettingPlan.stake_by_leg_count["3"] ?? 0.5)).toFixed(2)}</td>
               </tr>
             </tbody>
           </table>
@@ -207,7 +219,7 @@ export default async function BestBetsPage() {
           <div className="section-heading compact" style={{ marginTop: "1.5rem" }}>
             <div>
               <p className="eyebrow">2026 backtest</p>
-              <h2>Same stakes (45/35/50), apples-to-apples</h2>
+              <h2>Season sim (if you started opening day)</h2>
             </div>
             <span>
               {strategyGuard.period.season_start} → {strategyGuard.period.end}
@@ -222,10 +234,10 @@ export default async function BestBetsPage() {
           {liveStats ? (
             <div className="grid">
               <article>
-                <p className="muted">Your $10 bankroll (season sim)</p>
+                <p className="muted">Season sim from $10 (Mar 20 start)</p>
                 <div className="metric positive">{formatBankroll(liveStats.end / 10)}</div>
                 <p className="muted">
-                  {liveStats.record} · worst dip ~$5.50
+                  {liveStats.record} · not your live tracker
                 </p>
               </article>
               <article>

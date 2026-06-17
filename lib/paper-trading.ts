@@ -64,7 +64,7 @@ type PaperBetRow = {
   settled_at: string | null;
 };
 
-const DEFAULT_BALANCE = 10000;
+const DEFAULT_BALANCE = 10;
 
 function toNumber(value: number | string | null, fallback = 0) {
   if (value === null) {

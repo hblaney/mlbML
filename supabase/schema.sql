@@ -31,8 +31,8 @@ with check (auth.uid() = user_id);
 
 create table if not exists public.paper_trading_accounts (
   user_id uuid primary key references auth.users(id) on delete cascade,
-  starting_balance numeric(12, 2) not null default 10000.00,
-  balance numeric(12, 2) not null default 10000.00,
+  starting_balance numeric(12, 2) not null default 10.00,
+  balance numeric(12, 2) not null default 10.00,
   updated_at timestamptz not null default now()
 );
 

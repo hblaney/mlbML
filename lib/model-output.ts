@@ -531,6 +531,38 @@ export async function loadStrategyGuard() {
   }
 }
 
+export type LiveBankroll = {
+  generated_at: string;
+  strategy: string;
+  stakes: Record<string, number>;
+  daily_exposure_cap: number;
+  started_at: string;
+  starting_balance: number;
+  balance: number;
+  profit: number;
+  return_pct: number;
+  record: string;
+  last_settled_date: string | null;
+  today_ticket: {
+    date: string;
+    leg_count: number;
+    stake_pct: number;
+    stake_amount: number;
+    status: string;
+  } | null;
+  checkpoints: StrategyCompoundCheckpoint[];
+};
+
+export async function loadLiveBankroll() {
+  try {
+    const filePath = path.join(process.cwd(), "public", "live-bankroll.json");
+    const raw = await readFile(filePath, "utf8");
+    return JSON.parse(raw) as LiveBankroll;
+  } catch {
+    return null;
+  }
+}
+
 export async function loadBettingPlan() {
   try {
     const filePath = path.join(process.cwd(), "public", "betting-plan.json");

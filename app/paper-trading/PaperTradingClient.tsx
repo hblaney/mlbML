@@ -63,7 +63,7 @@ function parlayOdds(legs: MoneylineCandidate[]) {
 }
 
 function buildEquityCurve(account: PaperAccount | null, settledBets: PaperBet[]) {
-  const startingBalance = account?.startingBalance ?? 10000;
+  const startingBalance = account?.startingBalance ?? 10;
   let runningBalance = startingBalance;
 
   return [...settledBets]
@@ -431,7 +431,7 @@ export function PaperTradingClient({ board }: { board: GamePrediction[] }) {
               {accountReturn === null ? "-" : formatPercent(accountReturn)}
             </div>
             <p className="muted">
-              {currency(account?.startingBalance ?? 10000)} start to {currency(account?.balance ?? 0)}
+              {currency(account?.startingBalance ?? 10)} start to {currency(account?.balance ?? 0)}
             </p>
           </article>
           <article>

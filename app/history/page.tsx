@@ -3,6 +3,7 @@ import { LIVE_BETTING_STRATEGY } from "@/lib/data";
 import {
   loadAccuracyOutput,
   loadFullPredictionHistory,
+  loadLiveBankroll,
   loadLiveModelPerformance,
   loadBettingPlan,
   loadStrategyGuard
@@ -81,7 +82,11 @@ function ticketTypeLabel(legCount: number) {
 export default async function HistoryPage() {
   const output = await loadAccuracyOutput();
   const fullHistory = await loadFullPredictionHistory();
-  const [strategyGuard, bettingPlan] = await Promise.all([loadStrategyGuard(), loadBettingPlan()]);
+  const [strategyGuard, bettingPlan, liveBankroll] = await Promise.all([
+    loadStrategyGuard(),
+    loadBettingPlan(),
+    loadLiveBankroll()
+  ]);
   const liveModelPerformance = await loadLiveModelPerformance();
   const recentWeeks = output ? Object.entries(output.weekly_accuracy).slice(-8) : [];
   const predictionRows = fullHistory.length > 0 ? fullHistory : output?.prediction_history ?? output?.recent_predictions ?? [];
@@ -280,20 +285,61 @@ export default async function HistoryPage() {
         </>
       ) : null}
 
-      {compoundFrom10 && strategyGuard ? (
+      {liveBankroll ? (
         <section className="panel strong">
           <div className="section-heading compact">
             <div>
-              <p className="eyebrow">Live betting backtest</p>
-              <h2>{activeStrategy}</h2>
+              <p className="eyebrow">Your live bankroll</p>
+              <h2>{formatBankroll(liveBankroll.balance)}</h2>
+            </div>
+            <span>Started {liveBankroll.started_at}</span>
+          </div>
+          <p className="muted">
+            {liveBankroll.strategy} · 45/35/50% of current balance · {liveBankroll.record} since you started
+          </p>
+          <div className="grid">
+            <article>
+              <p className="muted">Started with</p>
+              <div className="metric">{formatBankroll(liveBankroll.starting_balance)}</div>
+              <p className="muted">Today&apos;s tracker only — not the full-season sim</p>
+            </article>
+            <article>
+              <p className="muted">Profit / loss</p>
+              <div className={liveBankroll.profit >= 0 ? "metric positive" : "metric negative"}>
+                {formatBankroll(liveBankroll.profit)}
+              </div>
+              <p className="muted">{formatPercent(liveBankroll.return_pct)} return</p>
+            </article>
+            <article>
+              <p className="muted">Today&apos;s stake</p>
+              <div className="metric">
+                {liveBankroll.today_ticket
+                  ? formatBankroll(liveBankroll.today_ticket.stake_amount)
+                  : "—"}
+              </div>
+              <p className="muted">
+                {liveBankroll.today_ticket
+                  ? `${ticketTypeLabel(liveBankroll.today_ticket.leg_count)} · ${formatPercent(liveBankroll.today_ticket.stake_pct)} of bankroll`
+                  : "Ticket pending"}
+              </p>
+            </article>
+          </div>
+        </section>
+      ) : null}
+
+      {compoundFrom10 && strategyGuard ? (
+        <section className="panel">
+          <div className="section-heading compact">
+            <div>
+              <p className="eyebrow">Season sim</p>
+              <h2>If you started $10 on opening day</h2>
             </div>
             <span>
               {strategyGuard.period.season_start} → {strategyGuard.period.end}
             </span>
           </div>
           <p className="muted">
-            One ticket per day · stake 45% / 35% / 50% of current bankroll by ticket type · walk-forward model with
-            real historical odds. Numbers below compound from a <strong>$10</strong> start (your bankroll scale).
+            Walk-forward backtest from Mar 20 — useful reference, not your live tracker above.
           </p>
           <div className="grid">
             <article>
@@ -340,9 +386,43 @@ export default async function HistoryPage() {
         </section>
       ) : null}
 
+      {liveBankroll && liveBankroll.checkpoints.length > 0 ? (
+        <section className="panel">
+          <h2>Your Daily Results</h2>
+          <table className="table">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Ticket</th>
+                <th>Result</th>
+                <th>Day P/L</th>
+                <th>Balance</th>
+                <th>Return</th>
+              </tr>
+            </thead>
+            <tbody>
+              {[...liveBankroll.checkpoints].reverse().map((checkpoint) => (
+                <tr key={checkpoint.date}>
+                  <td>{checkpoint.date}</td>
+                  <td>{ticketTypeLabel(checkpoint.leg_count)}</td>
+                  <td className={checkpoint.won ? "positive" : "negative"}>{checkpoint.won ? "Win" : "Loss"}</td>
+                  <td className={checkpoint.profit >= 0 ? "positive" : "negative"}>
+                    {formatBankroll(checkpoint.profit)}
+                  </td>
+                  <td>{formatBankroll(checkpoint.balance)}</td>
+                  <td className={checkpoint.return_pct >= 0 ? "positive" : "negative"}>
+                    {formatPercent(checkpoint.return_pct)}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </section>
+      ) : null}
+
       {recentCompoundCheckpoints.length > 0 ? (
         <section className="panel">
-          <h2>Recent Daily Bankroll (from $10)</h2>
+          <h2>Season Sim — Recent Days (Mar 20 start)</h2>
           <table className="table">
             <thead>
               <tr>
@@ -433,7 +513,20 @@ export default async function HistoryPage() {
                 </div>
               </div>
 
-              {liveCheckpointsByDate.get(day.date) ? (
+              {liveBankroll?.checkpoints.find((checkpoint) => checkpoint.date === day.date) ? (
+                <div className="stack compact">
+                  <p className="eyebrow">Your live ticket</p>
+                  {(() => {
+                    const checkpoint = liveBankroll.checkpoints.find((item) => item.date === day.date)!;
+                    return (
+                      <p className="muted">
+                        {ticketTypeLabel(checkpoint.leg_count)} · {checkpoint.won ? "Win" : "Loss"} · day P/L{" "}
+                        {formatBankroll(checkpoint.profit)} · balance {formatBankroll(checkpoint.balance)}
+                      </p>
+                    );
+                  })()}
+                </div>
+              ) : liveCheckpointsByDate.get(day.date) ? (
                 <div className="stack compact">
                   <p className="eyebrow">Live daily ticket (compound from $10)</p>
                   {(() => {
