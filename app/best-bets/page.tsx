@@ -7,7 +7,7 @@ import {
   OPTIMIZED_STAKE_BY_LEG_COUNT,
   LIVE_BETTING_STRATEGY
 } from "@/lib/data";
-import { loadPredictionBoard, loadBettingPlan, loadLiveBankroll, loadStrategyGuard } from "@/lib/model-output";
+import { loadPredictionBoard, loadBettingPlan, loadLiveBankroll, loadStrategyGuard, loadBestTicketWalkforward } from "@/lib/model-output";
 import { formatOdds, formatPercent } from "@/lib/odds";
 import { formatStandingRecord, loadLiveStandings } from "@/lib/standings";
 import { formatCentralGameTime } from "@/lib/time";
@@ -25,10 +25,11 @@ export default async function BestBetsPage() {
   const board = await loadPredictionBoard();
   const standings = await loadLiveStandings();
   const standingsByTeamId = new Map(standings.map((standing) => [standing.teamId, standing]));
-  const [bettingPlan, strategyGuard, liveBankroll] = await Promise.all([
+  const [bettingPlan, strategyGuard, liveBankroll, ticketWalkforward] = await Promise.all([
     loadBettingPlan(),
     loadStrategyGuard(),
-    loadLiveBankroll()
+    loadLiveBankroll(),
+    loadBestTicketWalkforward()
   ]);
   const bets = getBestBets(board);
   const advancedBets = getAdvancedBets(board);
@@ -78,7 +79,7 @@ export default async function BestBetsPage() {
         <p className="eyebrow">Daily ticket</p>
         <h1>Best Bets</h1>
         <p className="lead">
-          One bet per day from <strong>{activeStrategy}</strong>: stake a percentage of your bankroll (45% / 35% / 50% by
+          One bet per day from <strong>{activeStrategy}</strong>: stake a percentage of your bankroll (35% / 40% / 30% by
           ticket type), all legs same calendar day.
         </p>
         <p className="muted">
@@ -207,17 +208,17 @@ export default async function BestBetsPage() {
               <tr>
                 <td>Single</td>
                 <td>{formatPercent(bettingPlan.stake_by_leg_count["1"] ?? OPTIMIZED_STAKE_BY_LEG_COUNT[1])}</td>
-                <td>${(bankroll * (bettingPlan.stake_by_leg_count["1"] ?? 0.45)).toFixed(2)}</td>
+                <td>${(bankroll * (bettingPlan.stake_by_leg_count["1"] ?? 0.35)).toFixed(2)}</td>
               </tr>
               <tr>
                 <td>2-leg parlay</td>
                 <td>{formatPercent(bettingPlan.stake_by_leg_count["2"] ?? OPTIMIZED_STAKE_BY_LEG_COUNT[2])}</td>
-                <td>${(bankroll * (bettingPlan.stake_by_leg_count["2"] ?? 0.35)).toFixed(2)}</td>
+                <td>${(bankroll * (bettingPlan.stake_by_leg_count["2"] ?? 0.4)).toFixed(2)}</td>
               </tr>
               <tr>
                 <td>3-leg parlay</td>
                 <td>{formatPercent(bettingPlan.stake_by_leg_count["3"] ?? OPTIMIZED_STAKE_BY_LEG_COUNT[3])}</td>
-                <td>${(bankroll * (bettingPlan.stake_by_leg_count["3"] ?? 0.5)).toFixed(2)}</td>
+                <td>${(bankroll * (bettingPlan.stake_by_leg_count["3"] ?? 0.3)).toFixed(2)}</td>
               </tr>
             </tbody>
           </table>
@@ -232,7 +233,7 @@ export default async function BestBetsPage() {
             </span>
           </div>
           <p className="muted">
-            All rows use the <strong>same</strong> walk-forward model and <strong>same</strong> 45/35/50% compounding.
+            All rows use the <strong>same</strong> walk-forward model and <strong>same</strong> 35/40/30% compounding.
             Older tables on this site used 30% caps and different rules — ignore those. Live plan wins on full-season $
             100 compound ({liveStats ? formatBankroll(liveStats.end) : "—"}).
           </p>
@@ -284,8 +285,69 @@ export default async function BestBetsPage() {
         </section>
       ) : null}
 
+      {ticketWalkforward ? (
+        <section className="panel">
+          <div className="section-heading compact">
+            <div>
+              <p className="eyebrow">Walk-forward ledger</p>
+              <h2>Best tickets — last 14 days</h2>
+            </div>
+            <span>
+              {ticketWalkforward.last_14_days.start} → {ticketWalkforward.last_14_days.end}
+            </span>
+          </div>
+          <p className="muted">
+            Strict walk-forward replay using the full {ticketWalkforward.feature_count}-feature model (registry +
+            Statcast + injuries when live). Strategy: {ticketWalkforward.strategy}. Season ticket record{" "}
+            <strong>{ticketWalkforward.best_ticket_accuracy.record}</strong> (
+            {formatPercent(ticketWalkforward.best_ticket_accuracy.hit_rate)}). Game picks{" "}
+            {formatPercent(ticketWalkforward.game_prediction_accuracy.accuracy)}.
+          </p>
+          <div className="grid">
+            <article>
+              <p className="muted">Last 14 days tickets</p>
+              <div className="metric">{ticketWalkforward.last_14_days.record}</div>
+              <p className="muted">{formatPercent(ticketWalkforward.last_14_days.hit_rate)} hit rate</p>
+            </article>
+            <article>
+              <p className="muted">Season tickets</p>
+              <div className="metric">{ticketWalkforward.best_ticket_accuracy.record}</div>
+              <p className="muted">{ticketWalkforward.best_ticket_accuracy.bet_days} bet days</p>
+            </article>
+          </div>
+          <table className="table">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Ticket</th>
+                <th>Legs</th>
+                <th>Result</th>
+              </tr>
+            </thead>
+            <tbody>
+              {ticketWalkforward.last_14_days.tickets.map((ticket) => (
+                <tr key={ticket.date}>
+                  <td>{ticket.date}</td>
+                  <td>
+                    <strong>{ticket.label}</strong>
+                    <p className="muted">{ticket.ticket_type}</p>
+                  </td>
+                  <td>
+                    {ticket.legs.map((leg) => (
+                      <p key={`${ticket.date}-${leg.team}`}>
+                        {leg.team} ({formatPercent(leg.model_probability)}) — {leg.matchup}
+                      </p>
+                    ))}
+                  </td>
+                  <td className={ticket.won ? "positive" : "warning"}>{ticket.result}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </section>
+      ) : null}
+
       <section className="panel">
-        <h2>All moneyline edges today</h2>
         <p className="muted">Reference only — your daily bet is the ticket above, not every row here.</p>
         {bets.length > 0 ? (
           <table className="table">

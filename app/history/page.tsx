@@ -295,7 +295,7 @@ export default async function HistoryPage() {
             <span>Started {liveBankroll.started_at}</span>
           </div>
           <p className="muted">
-            {liveBankroll.strategy} · 45/35/50% of current balance · {liveBankroll.record} since you started
+            {liveBankroll.strategy} · 35/40/30% of current balance · {liveBankroll.record} since you started
           </p>
           <div className="grid">
             <article>
@@ -357,7 +357,7 @@ export default async function HistoryPage() {
             <article>
               <p className="muted">$100 bankroll → end (same stakes)</p>
               <div className="metric positive">{formatBankroll(liveCompound.from_100.end)}</div>
-              <p className="muted">{liveCompound.from_100.record} at 45/35/50% compound</p>
+              <p className="muted">{liveCompound.from_100.record} at 35/40/30% compound</p>
             </article>
           </div>
           {Object.keys(ticketMix).length > 0 ? (

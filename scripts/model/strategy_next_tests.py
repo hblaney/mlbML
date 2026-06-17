@@ -23,7 +23,7 @@ from exhaustive_strategy_search import (
 from strategy_research import compound, filter_candidates
 
 OUTPUT_PATH = Path(__file__).resolve().parents[2] / "public" / "strategy-next-tests.json"
-STAKE_TIERED = {1: 0.45, 2: 0.35, 3: 0.5}
+STAKE_TIERED = {1: 0.35, 2: 0.40, 3: 0.30}
 CONF_OK = {"Medium", "High", "Elite"}
 
 TEAM_DIVISION = {

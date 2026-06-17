@@ -9,9 +9,9 @@
     "One bet per day \u2014 highest score wins; ride losing streaks unless bankroll cannot place minimum bet"
   ],
   "stake_by_leg_count": {
-    "1": 0.45,
-    "2": 0.35,
-    "3": 0.5
+    "1": 0.35,
+    "2": 0.4,
+    "3": 0.3
   },
   "stake_optimizer_suggestion": {
     "1": 0.35,

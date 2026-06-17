@@ -7,9 +7,9 @@
     "rolling_14d_start": "2026-06-03"
   },
   "stakes": {
-    "1": 0.45,
-    "2": 0.35,
-    "3": 0.5
+    "1": 0.35,
+    "2": 0.4,
+    "3": 0.3
   },
   "comparisons": {
     "no_low_parlay_223s": {
@@ -100,9 +100,9 @@
   "live_compound": {
     "strategy": "corr_nl_reject_both",
     "stakes": {
-      "1": 0.45,
-      "2": 0.35,
-      "3": 0.5
+      "1": 0.35,
+      "2": 0.4,
+      "3": 0.3
     },
     "daily_exposure_cap": 0.5,
     "from_10": {
@@ -1428,7 +1428,7 @@
   },
   "execution_rules": [
     "One ticket per day, all legs same calendar day",
-    "Stake 45% single / 35% two-leg / 50% three-leg of current bankroll",
+    "Stake 35% single / 40% two-leg / 30% three-leg of current bankroll",
     "Keep betting through losing streaks unless minimum bet size cannot be placed"
   ]
 }

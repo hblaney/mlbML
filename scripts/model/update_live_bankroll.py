@@ -13,7 +13,7 @@ from strategy_next_tests import build_snapshots, enrich_moneyline
 from strategy_research import DAILY_CAP
 
 LIVE_STRATEGY = "corr_nl_reject_both"
-STAKE_TIERED = {1: 0.45, 2: 0.35, 3: 0.50}
+STAKE_TIERED = {1: 0.35, 2: 0.40, 3: 0.30}
 STARTING_BALANCE = 10.0
 STATE_PATH = Path(__file__).resolve().parents[2] / "data" / "live-bankroll-state.json"
 OUTPUT_PATH = Path(__file__).resolve().parents[2] / "public" / "live-bankroll.json"

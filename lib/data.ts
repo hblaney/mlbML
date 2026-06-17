@@ -840,11 +840,11 @@ export type ParlayCandidate = {
 /** Flat fallback when leg-specific stake is unavailable (2026 sweep best: 35%). */
 export const OPTIMIZED_GROWTH_STAKE_PCT = 0.35;
 
-/** 2026 walk-forward tiered sizing for corr_nl_reject_both. */
+/** 2026 walk-forward tiered sizing for corr_nl_reject_both (optimizer winner). */
 export const OPTIMIZED_STAKE_BY_LEG_COUNT: Record<number, number> = {
-  1: 0.45,
-  2: 0.35,
-  3: 0.5
+  1: 0.35,
+  2: 0.4,
+  3: 0.3
 };
 
 export function getOptimizedStakePctForTicket(

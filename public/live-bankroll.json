@@ -2,14 +2,14 @@
   "generated_at": "2026-06-17",
   "strategy": "corr_nl_reject_both",
   "stakes": {
-    "1": 0.45,
-    "2": 0.35,
-    "3": 0.5
+    "1": 0.35,
+    "2": 0.4,
+    "3": 0.3
   },
   "daily_exposure_cap": 0.5,
   "started_at": "2026-06-17",
-  "starting_balance": 10.0,
-  "balance": 10.0,
+  "starting_balance": 23.28,
+  "balance": 23.28,
   "profit": 0.0,
   "return_pct": 0.0,
   "record": "0-0",
