@@ -90,7 +90,7 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: "Update daily MLB model outputs"
-          file_pattern: public/*.json data/model/*.pkl data/cache/*.json
+          file_pattern: public/*.json data/live-bankroll-state.json data/model/*.pkl data/cache/*.json
 
       - name: Verify today's board was published
         if: steps.run_control.outputs.should_run == 'true'
