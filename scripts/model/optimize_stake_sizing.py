@@ -19,7 +19,8 @@ from exhaustive_strategy_search import (
 
 OUTPUT_PATH = Path(__file__).resolve().parents[2] / "public" / "stake-sizing-optimizer.json"
 
-STRATEGY = "two_or_three_or_single"
+STRATEGY = "corr_nl_reject_both"
+LIVE_STAKE_BY_LEGS = {"1": 0.45, "2": 0.35, "3": 0.5}
 FLAT_STAKE_GRID = [round(x * 0.05, 2) for x in range(1, 11)]  # 5% .. 50%
 TIERED_STAKE_GRID = [0.10, 0.15, 0.20, 0.25, 0.30, 0.35, 0.40, 0.45, 0.50]
 BANKROLLS = [0.35, 10.0, 100.0, 1000.0, 10_000.0]
@@ -251,12 +252,14 @@ def main() -> None:
                 "generated_at": date.today().isoformat(),
                 "strategy": STRATEGY,
                 "strategy_rules": [
-                    "Always-2 parlay (filtered edge/anchor, else top-2 positive-EV legs on different games)",
-                    "Premium filtered 3-leg when it scores higher than the always-2 ticket",
-                    "Qualified single moneyline when it scores higher than both parlay options",
-                    "One bet per day — highest score wins",
+                    "Always-2 parlay from Medium+ legs only (filtered edge/anchor, else best uncorrelated top-2 positive-EV)",
+                    "Reject parlay legs in the same division or starting within 60 minutes",
+                    "Premium filtered 3-leg (Medium+ pool, uncorrelated) when it scores higher than always-2",
+                    "Qualified single moneyline (any confidence) when it scores highest",
+                    "One bet per day — highest score wins; ride losing streaks unless bankroll cannot place minimum bet",
                 ],
-                "stake_by_leg_count": safe_tiered["stake_by_legs"] if safe_tiered else {"1": 0.45, "2": 0.25, "3": 0.5},
+                "stake_by_leg_count": LIVE_STAKE_BY_LEGS,
+                "stake_optimizer_suggestion": safe_tiered["stake_by_legs"] if safe_tiered else LIVE_STAKE_BY_LEGS,
                 "flat_stake_fallback": rec_10["flat_best"]["stake_pct"] if rec_10.get("flat_best") else 0.35,
                 "daily_exposure_cap": MAX_DAILY_EXPOSURE,
                 "backtest_period": {"start": start_2026.isoformat(), "end": end_2026.isoformat()},

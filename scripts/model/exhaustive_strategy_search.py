@@ -182,6 +182,29 @@ def day_actions_for_rule(candidates: list[dict], rule: str, threshold: float | N
             return [single_action()]  # type: ignore
         return [parlay_action(ticket, tag)]  # type: ignore
 
+    if rule == "corr_nl_reject_both":
+        from strategy_next_tests import day_actions_for_test
+
+        return day_actions_for_test(candidates, rule)
+
+    if rule == "no_low_parlay_223s":
+        pool = [c for c in candidates if c.get("confidence") in {"Medium", "High", "Elite"}]
+        p2_nl = pick_always_n(pool, 2)
+        p3_nl = pick_filtered(pool, 3)
+        opts = []
+        if p2_nl:
+            opts.append((p2_nl["score"], p2_nl, "p2", False))
+        if p3_nl:
+            opts.append((p3_nl["score"], p3_nl, "p3", False))
+        if single:
+            opts.append((single["ev"] * single["model_probability"], single, "single", True))
+        if not opts:
+            return []
+        _, ticket, tag, is_single = max(opts, key=lambda item: item[0])
+        if is_single:
+            return [single_action()]  # type: ignore
+        return [parlay_action(ticket, tag)]  # type: ignore
+
     if rule == "two_or_three_plus_single":
         out = []
         parlay_opts = [t for t in (p2, p3) if t]

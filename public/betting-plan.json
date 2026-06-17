@@ -1,18 +1,24 @@
 {
   "generated_at": "2026-06-16",
-  "strategy": "two_or_three_or_single",
+  "strategy": "corr_nl_reject_both",
   "strategy_rules": [
-    "Always-2 parlay (filtered edge/anchor, else top-2 positive-EV legs on different games)",
-    "Premium filtered 3-leg when it scores higher than the always-2 ticket",
-    "Qualified single moneyline when it scores higher than both parlay options",
-    "One bet per day \u2014 highest score wins"
+    "Always-2 parlay from Medium+ legs only (filtered edge/anchor, else best uncorrelated top-2 positive-EV)",
+    "Reject parlay legs in the same division or starting within 60 minutes",
+    "Premium filtered 3-leg (Medium+ pool, uncorrelated) when it scores higher than always-2",
+    "Qualified single moneyline (any confidence) when it scores highest",
+    "One bet per day \u2014 highest score wins; ride losing streaks unless bankroll cannot place minimum bet"
   ],
   "stake_by_leg_count": {
     "1": 0.45,
-    "2": 0.25,
+    "2": 0.35,
     "3": 0.5
   },
-  "flat_stake_fallback": 0.35,
+  "stake_optimizer_suggestion": {
+    "1": 0.35,
+    "2": 0.4,
+    "3": 0.3
+  },
+  "flat_stake_fallback": 0.4,
   "daily_exposure_cap": 0.5,
   "backtest_period": {
     "start": "2026-03-20",

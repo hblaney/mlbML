@@ -42,7 +42,7 @@ export default async function BestBetsPage() {
       : `$${value.toFixed(2)}`;
   const backtest10k = strategyBacktest?.winners_by_bankroll["10000.0"] ?? [];
   const backtest10 = strategyBacktest?.winners_by_bankroll["10.0"] ?? [];
-  const activeStrategy = bettingPlan?.strategy ?? "two_or_three_or_single";
+  const activeStrategy = bettingPlan?.strategy ?? "corr_nl_reject_both";
   const activeStrategyRow = exhaustiveSearch?.top_fair_10k.find((row) => row.strategy_id === activeStrategy);
   const winner = activeStrategyRow ?? exhaustiveSearch?.recommendation.one_bet_per_day_fair ?? strategyBacktest?.recommended_summary;
   const fairTop = exhaustiveSearch?.top_fair_10k ?? [];

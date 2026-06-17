@@ -694,6 +694,84 @@ const CONFIDENCE_RANK: Record<GamePrediction["confidence"], number> = {
   Low: 1
 };
 
+/** Parlays exclude Low-confidence legs (2026 strategy research: +87.5% flat vs +81.1%). */
+function isParlayEligibleConfidence(confidence: GamePrediction["confidence"]) {
+  return confidence !== "Low";
+}
+
+/** Live plan: corr_nl_reject_both — block same-division and same-start-window parlay legs. */
+export const LIVE_BETTING_STRATEGY = "corr_nl_reject_both";
+const PARLAY_CORRELATION_WINDOW_MINUTES = 60;
+
+const TEAM_DIVISION: Record<string, string> = {
+  bal: "AL_E",
+  bos: "AL_E",
+  nyy: "AL_E",
+  tb: "AL_E",
+  tor: "AL_E",
+  cws: "AL_C",
+  cle: "AL_C",
+  det: "AL_C",
+  kc: "AL_C",
+  min: "AL_C",
+  hou: "AL_W",
+  laa: "AL_W",
+  ath: "AL_W",
+  sea: "AL_W",
+  tex: "AL_W",
+  atl: "NL_E",
+  mia: "NL_E",
+  nym: "NL_E",
+  phi: "NL_E",
+  wsh: "NL_E",
+  chc: "NL_C",
+  cin: "NL_C",
+  mil: "NL_C",
+  pit: "NL_C",
+  stl: "NL_C",
+  ari: "NL_W",
+  col: "NL_W",
+  lad: "NL_W",
+  sd: "NL_W",
+  sf: "NL_W"
+};
+
+function teamDivision(teamId: string) {
+  return TEAM_DIVISION[teamId.toLowerCase()];
+}
+
+function gameStartMinutes(game: GamePrediction) {
+  if (!game.startsAt) {
+    return null;
+  }
+  const parsed = Date.parse(game.startsAt);
+  if (Number.isNaN(parsed)) {
+    return null;
+  }
+  return Math.floor(parsed / 60000);
+}
+
+function isParlayCorrelationAllowed(legs: BestBet[]) {
+  for (let left = 0; left < legs.length; left += 1) {
+    for (let right = left + 1; right < legs.length; right += 1) {
+      const a = legs[left];
+      const b = legs[right];
+      const divisionA = teamDivision(a.team.id);
+      const divisionB = teamDivision(b.team.id);
+      if (divisionA && divisionB && divisionA === divisionB) {
+        return false;
+      }
+
+      const startA = gameStartMinutes(a.game);
+      const startB = gameStartMinutes(b.game);
+      if (startA !== null && startB !== null && Math.abs(startA - startB) <= PARLAY_CORRELATION_WINDOW_MINUTES) {
+        return false;
+      }
+    }
+  }
+  return true;
+}
+
 function parlayLegOdds(leg: BestBet) {
   return leg.modelOnly ? MARKET_BASELINE_ODDS : leg.odds;
 }
@@ -753,10 +831,10 @@ export type ParlayCandidate = {
 /** Flat fallback when leg-specific stake is unavailable (2026 sweep best: 35%). */
 export const OPTIMIZED_GROWTH_STAKE_PCT = 0.35;
 
-/** 2026 walk-forward tiered sizing for two_or_three_or_single (safe 50% min-bankroll floor). */
+/** 2026 walk-forward tiered sizing for corr_nl_reject_both. */
 export const OPTIMIZED_STAKE_BY_LEG_COUNT: Record<number, number> = {
   1: 0.45,
-  2: 0.25,
+  2: 0.35,
   3: 0.5
 };
 
@@ -829,6 +907,7 @@ function getParlayLegCandidates(board: GamePrediction[] = predictions) {
   return buildMarketMoneylineCandidates(board)
     .filter(
       (bet) =>
+        isParlayEligibleConfidence(bet.game.confidence) &&
         bet.modelProbability >= SAFE_PARLAY_MIN_LEG_PROBABILITY &&
         bet.edge >= SAFE_PARLAY_MIN_LEG_EDGE &&
         bet.bookProbability >= SAFE_PARLAY_MIN_BOOK_PROBABILITY &&
@@ -889,6 +968,9 @@ function bestAnchorParlay(board: GamePrediction[] = predictions, stake = 100) {
       if (edgeLeg.game.id === anchorLeg.game.id) {
         continue;
       }
+      if (!isParlayCorrelationAllowed([edgeLeg, anchorLeg])) {
+        continue;
+      }
 
       const candidate = buildParlayCandidate([edgeLeg, anchorLeg], stake);
       if (candidate.ev <= 0) {
@@ -916,6 +998,9 @@ export function getParlayCandidates(board: GamePrediction[] = predictions, stake
     for (const legs of combos) {
       const uniqueGames = new Set(legs.map((leg) => leg.game.id));
       if (uniqueGames.size !== legs.length) {
+        continue;
+      }
+      if (!isParlayCorrelationAllowed(legs)) {
         continue;
       }
 
@@ -972,15 +1057,18 @@ export function getParlayForStrategy(board: GamePrediction[] = predictions, stra
 
   let best: ParlayCandidate | null = null;
   for (const legs of combinations(singles, strategy.leg_count)) {
-    const uniqueGames = new Set(legs.map((leg) => leg.game.id));
-    if (uniqueGames.size !== legs.length) {
-      continue;
-    }
+      const uniqueGames = new Set(legs.map((leg) => leg.game.id));
+      if (uniqueGames.size !== legs.length) {
+        continue;
+      }
+      if (!isParlayCorrelationAllowed(legs)) {
+        continue;
+      }
 
-    const candidate = buildParlayCandidate(legs);
-    if (candidate.ev <= 0) {
-      continue;
-    }
+      const candidate = buildParlayCandidate(legs);
+      if (candidate.ev <= 0) {
+        continue;
+      }
       candidate.strategy = "edge";
 
     if (!best || candidate.score > best.score) {
@@ -1007,6 +1095,9 @@ export function getBestTwoLegParlay(board: GamePrediction[] = predictions) {
     for (const legs of combinations(singles, 2)) {
       const uniqueGames = new Set(legs.map((leg) => leg.game.id));
       if (uniqueGames.size !== legs.length) {
+        continue;
+      }
+      if (!isParlayCorrelationAllowed(legs)) {
         continue;
       }
 
@@ -1043,6 +1134,9 @@ export function getPremiumThreeLegParlay(board: GamePrediction[] = predictions) 
   for (const legs of combinations(singles, 3)) {
     const uniqueGames = new Set(legs.map((leg) => leg.game.id));
     if (uniqueGames.size !== legs.length) {
+      continue;
+    }
+    if (!isParlayCorrelationAllowed(legs)) {
       continue;
     }
 
@@ -1111,7 +1205,7 @@ function getPositiveEvLegCandidates(board: GamePrediction[] = predictions) {
   }
 
   return buildMarketMoneylineCandidates(board)
-    .filter((bet) => bet.ev > 0)
+    .filter((bet) => isParlayEligibleConfidence(bet.game.confidence) && bet.ev > 0)
     .sort(
       (left, right) =>
         right.ev * right.modelProbability - left.ev * left.modelProbability ||
@@ -1121,31 +1215,29 @@ function getPositiveEvLegCandidates(board: GamePrediction[] = predictions) {
 }
 
 export function getForcedTopTwoLegParlay(board: GamePrediction[] = predictions) {
-  const legs: BestBet[] = [];
-  const seenGames = new Set<string>();
+  const pool = getPositiveEvLegCandidates(board).slice(0, 8);
+  let best: ParlayCandidate | null = null;
 
-  for (const leg of getPositiveEvLegCandidates(board)) {
-    if (seenGames.has(leg.game.id)) {
+  for (const legs of combinations(pool, 2)) {
+    const uniqueGames = new Set(legs.map((leg) => leg.game.id));
+    if (uniqueGames.size !== legs.length) {
       continue;
     }
-    legs.push(leg);
-    seenGames.add(leg.game.id);
-    if (legs.length === 2) {
-      break;
+    if (!isParlayCorrelationAllowed(legs)) {
+      continue;
+    }
+
+    const candidate = buildParlayCandidate(legs);
+    if (candidate.ev <= 0) {
+      continue;
+    }
+    candidate.strategy = "forced_top_2";
+    if (!best || candidate.score > best.score) {
+      best = candidate;
     }
   }
 
-  if (legs.length < 2) {
-    return null;
-  }
-
-  const candidate = buildParlayCandidate(legs);
-  if (candidate.ev <= 0) {
-    return null;
-  }
-
-  candidate.strategy = "forced_top_2";
-  return candidate;
+  return best;
 }
 
 /** Backtest winner (Mar–Jun 2026): filtered 2-leg when available, else top-2 positive-EV legs. */
@@ -1251,9 +1343,14 @@ export function getMaxScoreDailyTicket(board: GamePrediction[] = predictions): D
   return options.sort((left, right) => right.score - left.score)[0];
 }
 
-/** Daily ticket: best of always-2, premium 3-leg, or qualified single (2026-validated). */
-export function getBestDailyTicket(board: GamePrediction[] = predictions): DailyTicket | null {
+/** corr_nl_reject_both: always-2, premium 3-leg, or single — highest score wins one bet. */
+export function getCorrNlRejectBothTicket(board: GamePrediction[] = predictions): DailyTicket | null {
   return getTwoOrThreeOrSingleTicket(board);
+}
+
+/** Daily ticket: corr_nl_reject_both (2026-validated). */
+export function getBestDailyTicket(board: GamePrediction[] = predictions): DailyTicket | null {
+  return getCorrNlRejectBothTicket(board);
 }
 
 export function getDailyParlayTickets(board: GamePrediction[] = predictions) {

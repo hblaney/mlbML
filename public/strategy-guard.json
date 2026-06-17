@@ -1,0 +1,98 @@
+{
+  "generated_at": "2026-06-16",
+  "live_strategy": "corr_nl_reject_both",
+  "period": {
+    "season_start": "2026-03-20",
+    "end": "2026-06-15",
+    "rolling_14d_start": "2026-06-02"
+  },
+  "stakes": {
+    "1": 0.45,
+    "2": 0.35,
+    "3": 0.5
+  },
+  "comparisons": {
+    "no_low_parlay_223s": {
+      "season_to_date": {
+        "days": 80,
+        "flat_roi": 0.8748,
+        "flat_profit": 6998.69,
+        "end": 53880340.9107,
+        "record": "50-30"
+      },
+      "rolling_14d": {
+        "days": 14,
+        "flat_roi": 1.116,
+        "flat_profit": 1562.35,
+        "end": 2958.398,
+        "record": "10-4"
+      }
+    },
+    "corr_nl_reject_both": {
+      "season_to_date": {
+        "days": 80,
+        "flat_roi": 1.0333,
+        "flat_profit": 8266.36,
+        "end": 73564556.99,
+        "record": "48-32"
+      },
+      "rolling_14d": {
+        "days": 14,
+        "flat_roi": 1.0713,
+        "flat_profit": 1499.77,
+        "end": 2614.6242,
+        "record": "10-4"
+      }
+    },
+    "best_ticket": {
+      "season_to_date": {
+        "days": 76,
+        "flat_roi": 0.6196,
+        "flat_profit": 4708.76,
+        "end": 647118.9449,
+        "record": "49-27"
+      },
+      "rolling_14d": {
+        "days": 14,
+        "flat_roi": 1.009,
+        "flat_profit": 1412.54,
+        "end": 3838.0522,
+        "record": "11-3"
+      }
+    },
+    "no_low_skip_forced": {
+      "season_to_date": {
+        "days": 76,
+        "flat_roi": 0.6196,
+        "flat_profit": 4708.76,
+        "end": 647118.9449,
+        "record": "49-27"
+      },
+      "rolling_14d": {
+        "days": 14,
+        "flat_roi": 1.009,
+        "flat_profit": 1412.54,
+        "end": 3838.0522,
+        "record": "11-3"
+      }
+    }
+  },
+  "ranked_by_rolling_14d_flat_roi": [
+    "no_low_parlay_223s",
+    "corr_nl_reject_both",
+    "best_ticket",
+    "no_low_skip_forced"
+  ],
+  "guard": {
+    "leader": "no_low_parlay_223s",
+    "leader_streak_days": 1,
+    "switch_signal_days_required": 14,
+    "switch_recommended": false,
+    "message": "no_low_parlay_223s leads rolling 14d (1/14 days toward switch)."
+  },
+  "execution_rules": [
+    "One ticket per day, all legs same calendar day",
+    "Stake 45% single / 35% two-leg / 50% three-leg of current bankroll",
+    "Keep betting through losing streaks unless minimum bet size cannot be placed"
+  ]
+}
