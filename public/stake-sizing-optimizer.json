@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-06-16",
+  "generated_at": "2026-06-17",
   "method": "stake_sizing_sweep_2026",
   "strategy": "corr_nl_reject_both",
   "date_range": {
     "start": "2026-03-20",
-    "end": "2026-06-15"
+    "end": "2026-06-16"
   },
   "daily_exposure_cap": 0.5,
   "flat_stake_grid": [
@@ -40,12 +40,12 @@
       "hit_rate": 0.6667
     },
     "2": {
-      "bets": 50,
+      "bets": 51,
       "wins": 29,
-      "losses": 21,
-      "flat_profit": 5807.29,
-      "flat_roi": 1.1615,
-      "hit_rate": 0.58
+      "losses": 22,
+      "flat_profit": 5707.29,
+      "flat_roi": 1.1191,
+      "hit_rate": 0.5686
     },
     "3": {
       "bets": 15,
@@ -60,26 +60,26 @@
     "0.35": {
       "bankroll": 0.35,
       "flat_best": {
-        "stake_pct": 0.4,
-        "end": 369792.8212,
-        "profit": 369792.4712,
-        "min_bankroll": 0.21,
-        "min_pct_of_start": 0.6,
-        "bets": 80,
-        "flat_profit": 9162.25,
-        "flat_roi": 1.1453,
-        "hit_rate": 0.5625
+        "stake_pct": 0.35,
+        "end": 235330.1275,
+        "profit": 235329.7775,
+        "min_bankroll": 0.2275,
+        "min_pct_of_start": 0.65,
+        "bets": 81,
+        "flat_profit": 9062.25,
+        "flat_roi": 1.1188,
+        "hit_rate": 0.5556
       },
       "flat_safe_50pct_floor": {
-        "stake_pct": 0.4,
-        "end": 369792.8212,
-        "profit": 369792.4712,
-        "min_bankroll": 0.21,
-        "min_pct_of_start": 0.6,
-        "bets": 80,
-        "flat_profit": 9162.25,
-        "flat_roi": 1.1453,
-        "hit_rate": 0.5625
+        "stake_pct": 0.35,
+        "end": 235330.1275,
+        "profit": 235329.7775,
+        "min_bankroll": 0.2275,
+        "min_pct_of_start": 0.65,
+        "bets": 81,
+        "flat_profit": 9062.25,
+        "flat_roi": 1.1188,
+        "hit_rate": 0.5556
       },
       "tiered_by_legs_best": {
         "stake_by_legs": {
@@ -87,14 +87,14 @@
           "2": 0.4,
           "3": 0.3
         },
-        "end": 483062.8083,
-        "profit": 483062.4583,
+        "end": 289837.685,
+        "profit": 289837.335,
         "min_bankroll": 0.2275,
         "min_pct_of_start": 0.65,
-        "bets": 80,
-        "flat_profit": 9162.25,
-        "flat_roi": 1.1453,
-        "hit_rate": 0.5625
+        "bets": 81,
+        "flat_profit": 9062.25,
+        "flat_roi": 1.1188,
+        "hit_rate": 0.5556
       },
       "tiered_by_legs_safe_50pct_floor": {
         "stake_by_legs": {
@@ -102,58 +102,58 @@
           "2": 0.4,
           "3": 0.3
         },
-        "end": 483062.8083,
-        "profit": 483062.4583,
+        "end": 289837.685,
+        "profit": 289837.335,
         "min_bankroll": 0.2275,
         "min_pct_of_start": 0.65,
-        "bets": 80,
-        "flat_profit": 9162.25,
-        "flat_roi": 1.1453,
-        "hit_rate": 0.5625
+        "bets": 81,
+        "flat_profit": 9062.25,
+        "flat_roi": 1.1188,
+        "hit_rate": 0.5556
       },
       "score_tiered_best": {
         "stake_by_score_tier": {
           "low": 0.45,
-          "mid": 0.25,
-          "high": 0.45
+          "mid": 0.3,
+          "high": 0.4
         },
         "score_cutoffs": {
-          "t1": 18.74,
-          "t2": 29.24
+          "t1": 18.76,
+          "t2": 29.34
         },
-        "end": 1005333.2195,
-        "profit": 1005332.8695,
-        "min_bankroll": 0.1925,
-        "min_pct_of_start": 0.55,
-        "bets": 80,
-        "flat_profit": 9162.25,
-        "flat_roi": 1.1453,
-        "hit_rate": 0.5625
+        "end": 334925.8552,
+        "profit": 334925.5052,
+        "min_bankroll": 0.21,
+        "min_pct_of_start": 0.6,
+        "bets": 81,
+        "flat_profit": 9062.25,
+        "flat_roi": 1.1188,
+        "hit_rate": 0.5556
       }
     },
     "10.0": {
       "bankroll": 10.0,
       "flat_best": {
-        "stake_pct": 0.4,
-        "end": 10565509.1781,
-        "profit": 10565499.1781,
-        "min_bankroll": 6.0,
-        "min_pct_of_start": 0.6,
-        "bets": 80,
-        "flat_profit": 9162.25,
-        "flat_roi": 1.1453,
-        "hit_rate": 0.5625
+        "stake_pct": 0.35,
+        "end": 6723717.9275,
+        "profit": 6723707.9275,
+        "min_bankroll": 6.5,
+        "min_pct_of_start": 0.65,
+        "bets": 81,
+        "flat_profit": 9062.25,
+        "flat_roi": 1.1188,
+        "hit_rate": 0.5556
       },
       "flat_safe_50pct_floor": {
-        "stake_pct": 0.4,
-        "end": 10565509.1781,
-        "profit": 10565499.1781,
-        "min_bankroll": 6.0,
-        "min_pct_of_start": 0.6,
-        "bets": 80,
-        "flat_profit": 9162.25,
-        "flat_roi": 1.1453,
-        "hit_rate": 0.5625
+        "stake_pct": 0.35,
+        "end": 6723717.9275,
+        "profit": 6723707.9275,
+        "min_bankroll": 6.5,
+        "min_pct_of_start": 0.65,
+        "bets": 81,
+        "flat_profit": 9062.25,
+        "flat_roi": 1.1188,
+        "hit_rate": 0.5556
       },
       "tiered_by_legs_best": {
         "stake_by_legs": {
@@ -161,14 +161,14 @@
           "2": 0.4,
           "3": 0.3
         },
-        "end": 13801794.5219,
-        "profit": 13801784.5219,
+        "end": 8281076.7132,
+        "profit": 8281066.7132,
         "min_bankroll": 6.5,
         "min_pct_of_start": 0.65,
-        "bets": 80,
-        "flat_profit": 9162.25,
-        "flat_roi": 1.1453,
-        "hit_rate": 0.5625
+        "bets": 81,
+        "flat_profit": 9062.25,
+        "flat_roi": 1.1188,
+        "hit_rate": 0.5556
       },
       "tiered_by_legs_safe_50pct_floor": {
         "stake_by_legs": {
@@ -176,58 +176,58 @@
           "2": 0.4,
           "3": 0.3
         },
-        "end": 13801794.5219,
-        "profit": 13801784.5219,
+        "end": 8281076.7132,
+        "profit": 8281066.7132,
         "min_bankroll": 6.5,
         "min_pct_of_start": 0.65,
-        "bets": 80,
-        "flat_profit": 9162.25,
-        "flat_roi": 1.1453,
-        "hit_rate": 0.5625
+        "bets": 81,
+        "flat_profit": 9062.25,
+        "flat_roi": 1.1188,
+        "hit_rate": 0.5556
       },
       "score_tiered_best": {
         "stake_by_score_tier": {
           "low": 0.45,
-          "mid": 0.25,
-          "high": 0.45
+          "mid": 0.3,
+          "high": 0.4
         },
         "score_cutoffs": {
-          "t1": 18.74,
-          "t2": 29.24
+          "t1": 18.76,
+          "t2": 29.34
         },
-        "end": 28723806.2726,
-        "profit": 28723796.2726,
-        "min_bankroll": 5.5,
-        "min_pct_of_start": 0.55,
-        "bets": 80,
-        "flat_profit": 9162.25,
-        "flat_roi": 1.1453,
-        "hit_rate": 0.5625
+        "end": 9569310.1496,
+        "profit": 9569300.1496,
+        "min_bankroll": 6.0,
+        "min_pct_of_start": 0.6,
+        "bets": 81,
+        "flat_profit": 9062.25,
+        "flat_roi": 1.1188,
+        "hit_rate": 0.5556
       }
     },
     "100.0": {
       "bankroll": 100.0,
       "flat_best": {
-        "stake_pct": 0.4,
-        "end": 105655091.7812,
-        "profit": 105654991.7812,
-        "min_bankroll": 60.0,
-        "min_pct_of_start": 0.6,
-        "bets": 80,
-        "flat_profit": 9162.25,
-        "flat_roi": 1.1453,
-        "hit_rate": 0.5625
+        "stake_pct": 0.35,
+        "end": 67237179.2748,
+        "profit": 67237079.2748,
+        "min_bankroll": 65.0,
+        "min_pct_of_start": 0.65,
+        "bets": 81,
+        "flat_profit": 9062.25,
+        "flat_roi": 1.1188,
+        "hit_rate": 0.5556
       },
       "flat_safe_50pct_floor": {
-        "stake_pct": 0.4,
-        "end": 105655091.7812,
-        "profit": 105654991.7812,
-        "min_bankroll": 60.0,
-        "min_pct_of_start": 0.6,
-        "bets": 80,
-        "flat_profit": 9162.25,
-        "flat_roi": 1.1453,
-        "hit_rate": 0.5625
+        "stake_pct": 0.35,
+        "end": 67237179.2748,
+        "profit": 67237079.2748,
+        "min_bankroll": 65.0,
+        "min_pct_of_start": 0.65,
+        "bets": 81,
+        "flat_profit": 9062.25,
+        "flat_roi": 1.1188,
+        "hit_rate": 0.5556
       },
       "tiered_by_legs_best": {
         "stake_by_legs": {
@@ -235,14 +235,14 @@
           "2": 0.4,
           "3": 0.3
         },
-        "end": 138017945.2194,
-        "profit": 138017845.2194,
+        "end": 82810767.1316,
+        "profit": 82810667.1316,
         "min_bankroll": 65.0,
         "min_pct_of_start": 0.65,
-        "bets": 80,
-        "flat_profit": 9162.25,
-        "flat_roi": 1.1453,
-        "hit_rate": 0.5625
+        "bets": 81,
+        "flat_profit": 9062.25,
+        "flat_roi": 1.1188,
+        "hit_rate": 0.5556
       },
       "tiered_by_legs_safe_50pct_floor": {
         "stake_by_legs": {
@@ -250,58 +250,58 @@
           "2": 0.4,
           "3": 0.3
         },
-        "end": 138017945.2194,
-        "profit": 138017845.2194,
+        "end": 82810767.1316,
+        "profit": 82810667.1316,
         "min_bankroll": 65.0,
         "min_pct_of_start": 0.65,
-        "bets": 80,
-        "flat_profit": 9162.25,
-        "flat_roi": 1.1453,
-        "hit_rate": 0.5625
+        "bets": 81,
+        "flat_profit": 9062.25,
+        "flat_roi": 1.1188,
+        "hit_rate": 0.5556
       },
       "score_tiered_best": {
         "stake_by_score_tier": {
           "low": 0.45,
-          "mid": 0.25,
-          "high": 0.45
+          "mid": 0.3,
+          "high": 0.4
         },
         "score_cutoffs": {
-          "t1": 18.74,
-          "t2": 29.24
+          "t1": 18.76,
+          "t2": 29.34
         },
-        "end": 287238062.7261,
-        "profit": 287237962.7261,
-        "min_bankroll": 55.0,
-        "min_pct_of_start": 0.55,
-        "bets": 80,
-        "flat_profit": 9162.25,
-        "flat_roi": 1.1453,
-        "hit_rate": 0.5625
+        "end": 95693101.4959,
+        "profit": 95693001.4959,
+        "min_bankroll": 60.0,
+        "min_pct_of_start": 0.6,
+        "bets": 81,
+        "flat_profit": 9062.25,
+        "flat_roi": 1.1188,
+        "hit_rate": 0.5556
       }
     },
     "1000.0": {
       "bankroll": 1000.0,
       "flat_best": {
-        "stake_pct": 0.4,
-        "end": 1056550917.812,
-        "profit": 1056549917.812,
-        "min_bankroll": 600.0,
-        "min_pct_of_start": 0.6,
-        "bets": 80,
-        "flat_profit": 9162.25,
-        "flat_roi": 1.1453,
-        "hit_rate": 0.5625
+        "stake_pct": 0.35,
+        "end": 672371792.7484,
+        "profit": 672370792.7484,
+        "min_bankroll": 650.0,
+        "min_pct_of_start": 0.65,
+        "bets": 81,
+        "flat_profit": 9062.25,
+        "flat_roi": 1.1188,
+        "hit_rate": 0.5556
       },
       "flat_safe_50pct_floor": {
-        "stake_pct": 0.4,
-        "end": 1056550917.812,
-        "profit": 1056549917.812,
-        "min_bankroll": 600.0,
-        "min_pct_of_start": 0.6,
-        "bets": 80,
-        "flat_profit": 9162.25,
-        "flat_roi": 1.1453,
-        "hit_rate": 0.5625
+        "stake_pct": 0.35,
+        "end": 672371792.7484,
+        "profit": 672370792.7484,
+        "min_bankroll": 650.0,
+        "min_pct_of_start": 0.65,
+        "bets": 81,
+        "flat_profit": 9062.25,
+        "flat_roi": 1.1188,
+        "hit_rate": 0.5556
       },
       "tiered_by_legs_best": {
         "stake_by_legs": {
@@ -309,14 +309,14 @@
           "2": 0.4,
           "3": 0.3
         },
-        "end": 1380179452.1938,
-        "profit": 1380178452.1938,
+        "end": 828107671.3163,
+        "profit": 828106671.3163,
         "min_bankroll": 650.0,
         "min_pct_of_start": 0.65,
-        "bets": 80,
-        "flat_profit": 9162.25,
-        "flat_roi": 1.1453,
-        "hit_rate": 0.5625
+        "bets": 81,
+        "flat_profit": 9062.25,
+        "flat_roi": 1.1188,
+        "hit_rate": 0.5556
       },
       "tiered_by_legs_safe_50pct_floor": {
         "stake_by_legs": {
@@ -324,58 +324,58 @@
           "2": 0.4,
           "3": 0.3
         },
-        "end": 1380179452.1938,
-        "profit": 1380178452.1938,
+        "end": 828107671.3163,
+        "profit": 828106671.3163,
         "min_bankroll": 650.0,
         "min_pct_of_start": 0.65,
-        "bets": 80,
-        "flat_profit": 9162.25,
-        "flat_roi": 1.1453,
-        "hit_rate": 0.5625
+        "bets": 81,
+        "flat_profit": 9062.25,
+        "flat_roi": 1.1188,
+        "hit_rate": 0.5556
       },
       "score_tiered_best": {
         "stake_by_score_tier": {
           "low": 0.45,
-          "mid": 0.25,
-          "high": 0.45
+          "mid": 0.3,
+          "high": 0.4
         },
         "score_cutoffs": {
-          "t1": 18.74,
-          "t2": 29.24
+          "t1": 18.76,
+          "t2": 29.34
         },
-        "end": 2872380627.2608,
-        "profit": 2872379627.2608,
-        "min_bankroll": 550.0,
-        "min_pct_of_start": 0.55,
-        "bets": 80,
-        "flat_profit": 9162.25,
-        "flat_roi": 1.1453,
-        "hit_rate": 0.5625
+        "end": 956931014.9595,
+        "profit": 956930014.9595,
+        "min_bankroll": 600.0,
+        "min_pct_of_start": 0.6,
+        "bets": 81,
+        "flat_profit": 9062.25,
+        "flat_roi": 1.1188,
+        "hit_rate": 0.5556
       }
     },
     "10000.0": {
       "bankroll": 10000.0,
       "flat_best": {
-        "stake_pct": 0.4,
-        "end": 10565509178.1201,
-        "profit": 10565499178.1201,
-        "min_bankroll": 6000.0,
-        "min_pct_of_start": 0.6,
-        "bets": 80,
-        "flat_profit": 9162.25,
-        "flat_roi": 1.1453,
-        "hit_rate": 0.5625
+        "stake_pct": 0.35,
+        "end": 6723717927.4844,
+        "profit": 6723707927.4844,
+        "min_bankroll": 6500.0,
+        "min_pct_of_start": 0.65,
+        "bets": 81,
+        "flat_profit": 9062.25,
+        "flat_roi": 1.1188,
+        "hit_rate": 0.5556
       },
       "flat_safe_50pct_floor": {
-        "stake_pct": 0.4,
-        "end": 10565509178.1201,
-        "profit": 10565499178.1201,
-        "min_bankroll": 6000.0,
-        "min_pct_of_start": 0.6,
-        "bets": 80,
-        "flat_profit": 9162.25,
-        "flat_roi": 1.1453,
-        "hit_rate": 0.5625
+        "stake_pct": 0.35,
+        "end": 6723717927.4844,
+        "profit": 6723707927.4844,
+        "min_bankroll": 6500.0,
+        "min_pct_of_start": 0.65,
+        "bets": 81,
+        "flat_profit": 9062.25,
+        "flat_roi": 1.1188,
+        "hit_rate": 0.5556
       },
       "tiered_by_legs_best": {
         "stake_by_legs": {
@@ -383,14 +383,14 @@
           "2": 0.4,
           "3": 0.3
         },
-        "end": 13801794521.9377,
-        "profit": 13801784521.9377,
+        "end": 8281076713.1626,
+        "profit": 8281066713.1626,
         "min_bankroll": 6500.0,
         "min_pct_of_start": 0.65,
-        "bets": 80,
-        "flat_profit": 9162.25,
-        "flat_roi": 1.1453,
-        "hit_rate": 0.5625
+        "bets": 81,
+        "flat_profit": 9062.25,
+        "flat_roi": 1.1188,
+        "hit_rate": 0.5556
       },
       "tiered_by_legs_safe_50pct_floor": {
         "stake_by_legs": {
@@ -398,33 +398,33 @@
           "2": 0.4,
           "3": 0.3
         },
-        "end": 13801794521.9377,
-        "profit": 13801784521.9377,
+        "end": 8281076713.1626,
+        "profit": 8281066713.1626,
         "min_bankroll": 6500.0,
         "min_pct_of_start": 0.65,
-        "bets": 80,
-        "flat_profit": 9162.25,
-        "flat_roi": 1.1453,
-        "hit_rate": 0.5625
+        "bets": 81,
+        "flat_profit": 9062.25,
+        "flat_roi": 1.1188,
+        "hit_rate": 0.5556
       },
       "score_tiered_best": {
         "stake_by_score_tier": {
           "low": 0.45,
-          "mid": 0.25,
-          "high": 0.45
+          "mid": 0.3,
+          "high": 0.4
         },
         "score_cutoffs": {
-          "t1": 18.74,
-          "t2": 29.24
+          "t1": 18.76,
+          "t2": 29.34
         },
-        "end": 28723806272.6081,
-        "profit": 28723796272.6081,
-        "min_bankroll": 5500.0,
-        "min_pct_of_start": 0.55,
-        "bets": 80,
-        "flat_profit": 9162.25,
-        "flat_roi": 1.1453,
-        "hit_rate": 0.5625
+        "end": 9569310149.5946,
+        "profit": 9569300149.5946,
+        "min_bankroll": 6000.0,
+        "min_pct_of_start": 0.6,
+        "bets": 81,
+        "flat_profit": 9062.25,
+        "flat_roi": 1.1188,
+        "hit_rate": 0.5556
       }
     }
   },
@@ -432,26 +432,26 @@
     "summary": "Tiered stakes by leg count usually beat one flat % when singles and parlays mix. Aggressive flat 40-50% maximizes backtest end but often breaches 50% min-bankroll floor. Use tiered safe rows for live betting.",
     "for_10_dollars": {
       "aggressive_flat": {
-        "stake_pct": 0.4,
-        "end": 10565509.1781,
-        "profit": 10565499.1781,
-        "min_bankroll": 6.0,
-        "min_pct_of_start": 0.6,
-        "bets": 80,
-        "flat_profit": 9162.25,
-        "flat_roi": 1.1453,
-        "hit_rate": 0.5625
+        "stake_pct": 0.35,
+        "end": 6723717.9275,
+        "profit": 6723707.9275,
+        "min_bankroll": 6.5,
+        "min_pct_of_start": 0.65,
+        "bets": 81,
+        "flat_profit": 9062.25,
+        "flat_roi": 1.1188,
+        "hit_rate": 0.5556
       },
       "safe_flat": {
-        "stake_pct": 0.4,
-        "end": 10565509.1781,
-        "profit": 10565499.1781,
-        "min_bankroll": 6.0,
-        "min_pct_of_start": 0.6,
-        "bets": 80,
-        "flat_profit": 9162.25,
-        "flat_roi": 1.1453,
-        "hit_rate": 0.5625
+        "stake_pct": 0.35,
+        "end": 6723717.9275,
+        "profit": 6723707.9275,
+        "min_bankroll": 6.5,
+        "min_pct_of_start": 0.65,
+        "bets": 81,
+        "flat_profit": 9062.25,
+        "flat_roi": 1.1188,
+        "hit_rate": 0.5556
       },
       "aggressive_tiered": {
         "stake_by_legs": {
@@ -459,14 +459,14 @@
           "2": 0.4,
           "3": 0.3
         },
-        "end": 13801794.5219,
-        "profit": 13801784.5219,
+        "end": 8281076.7132,
+        "profit": 8281066.7132,
         "min_bankroll": 6.5,
         "min_pct_of_start": 0.65,
-        "bets": 80,
-        "flat_profit": 9162.25,
-        "flat_roi": 1.1453,
-        "hit_rate": 0.5625
+        "bets": 81,
+        "flat_profit": 9062.25,
+        "flat_roi": 1.1188,
+        "hit_rate": 0.5556
       },
       "safe_tiered": {
         "stake_by_legs": {
@@ -474,38 +474,38 @@
           "2": 0.4,
           "3": 0.3
         },
-        "end": 13801794.5219,
-        "profit": 13801784.5219,
+        "end": 8281076.7132,
+        "profit": 8281066.7132,
         "min_bankroll": 6.5,
         "min_pct_of_start": 0.65,
-        "bets": 80,
-        "flat_profit": 9162.25,
-        "flat_roi": 1.1453,
-        "hit_rate": 0.5625
+        "bets": 81,
+        "flat_profit": 9062.25,
+        "flat_roi": 1.1188,
+        "hit_rate": 0.5556
       }
     },
     "for_10k": {
       "aggressive_flat": {
-        "stake_pct": 0.4,
-        "end": 10565509178.1201,
-        "profit": 10565499178.1201,
-        "min_bankroll": 6000.0,
-        "min_pct_of_start": 0.6,
-        "bets": 80,
-        "flat_profit": 9162.25,
-        "flat_roi": 1.1453,
-        "hit_rate": 0.5625
+        "stake_pct": 0.35,
+        "end": 6723717927.4844,
+        "profit": 6723707927.4844,
+        "min_bankroll": 6500.0,
+        "min_pct_of_start": 0.65,
+        "bets": 81,
+        "flat_profit": 9062.25,
+        "flat_roi": 1.1188,
+        "hit_rate": 0.5556
       },
       "safe_flat": {
-        "stake_pct": 0.4,
-        "end": 10565509178.1201,
-        "profit": 10565499178.1201,
-        "min_bankroll": 6000.0,
-        "min_pct_of_start": 0.6,
-        "bets": 80,
-        "flat_profit": 9162.25,
-        "flat_roi": 1.1453,
-        "hit_rate": 0.5625
+        "stake_pct": 0.35,
+        "end": 6723717927.4844,
+        "profit": 6723707927.4844,
+        "min_bankroll": 6500.0,
+        "min_pct_of_start": 0.65,
+        "bets": 81,
+        "flat_profit": 9062.25,
+        "flat_roi": 1.1188,
+        "hit_rate": 0.5556
       },
       "aggressive_tiered": {
         "stake_by_legs": {
@@ -513,14 +513,14 @@
           "2": 0.4,
           "3": 0.3
         },
-        "end": 13801794521.9377,
-        "profit": 13801784521.9377,
+        "end": 8281076713.1626,
+        "profit": 8281066713.1626,
         "min_bankroll": 6500.0,
         "min_pct_of_start": 0.65,
-        "bets": 80,
-        "flat_profit": 9162.25,
-        "flat_roi": 1.1453,
-        "hit_rate": 0.5625
+        "bets": 81,
+        "flat_profit": 9062.25,
+        "flat_roi": 1.1188,
+        "hit_rate": 0.5556
       },
       "safe_tiered": {
         "stake_by_legs": {
@@ -528,14 +528,14 @@
           "2": 0.4,
           "3": 0.3
         },
-        "end": 13801794521.9377,
-        "profit": 13801784521.9377,
+        "end": 8281076713.1626,
+        "profit": 8281066713.1626,
         "min_bankroll": 6500.0,
         "min_pct_of_start": 0.65,
-        "bets": 80,
-        "flat_profit": 9162.25,
-        "flat_roi": 1.1453,
-        "hit_rate": 0.5625
+        "bets": 81,
+        "flat_profit": 9062.25,
+        "flat_roi": 1.1188,
+        "hit_rate": 0.5556
       }
     }
   }

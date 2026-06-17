@@ -1,34 +1,34 @@
 {
-  "generated_at": "2026-06-16",
+  "generated_at": "2026-06-17",
   "method": "strict_walk_forward_time_series",
   "note": "Only actual days backtested. No cyclic full-season projection.",
   "date_range": {
     "start": "2026-03-20",
-    "end": "2026-06-15"
+    "end": "2026-06-16"
   },
   "odds_metadata": {
     "odds_data_start": "2021-04-01",
-    "odds_data_end": "2026-06-15",
+    "odds_data_end": "2026-06-16",
     "odds_data_stale": false,
     "limited_by": "yesterday's final scores"
   },
-  "game_days_with_odds": 69,
+  "game_days_with_odds": 70,
   "flat_by_mode": {
     "single": {
-      "bets": 65,
+      "bets": 66,
       "wins": 43,
-      "losses": 22,
-      "flat_profit": 2375.43,
-      "flat_roi": 0.3655,
-      "hit_rate": 0.6615
+      "losses": 23,
+      "flat_profit": 2275.43,
+      "flat_roi": 0.3448,
+      "hit_rate": 0.6515
     },
     "best_ticket": {
-      "bets": 66,
+      "bets": 67,
       "wins": 37,
-      "losses": 29,
-      "flat_profit": 3800.05,
-      "flat_roi": 0.5758,
-      "hit_rate": 0.5606
+      "losses": 30,
+      "flat_profit": 3700.05,
+      "flat_roi": 0.5522,
+      "hit_rate": 0.5522
     },
     "parlay_2": {
       "bets": 47,
@@ -55,84 +55,84 @@
       "hit_rate": 0.3
     },
     "forced_top_2": {
-      "bets": 69,
+      "bets": 70,
       "wins": 29,
-      "losses": 40,
-      "flat_profit": 7186.44,
-      "flat_roi": 1.0415,
-      "hit_rate": 0.4203
+      "losses": 41,
+      "flat_profit": 7086.44,
+      "flat_roi": 1.0123,
+      "hit_rate": 0.4143
     },
     "forced_top_3": {
-      "bets": 68,
+      "bets": 69,
       "wins": 17,
-      "losses": 51,
-      "flat_profit": 10362.92,
-      "flat_roi": 1.524,
-      "hit_rate": 0.25
+      "losses": 52,
+      "flat_profit": 10262.92,
+      "flat_roi": 1.4874,
+      "hit_rate": 0.2464
     },
     "forced_top_4": {
-      "bets": 67,
+      "bets": 68,
       "wins": 9,
-      "losses": 58,
-      "flat_profit": 14258.92,
-      "flat_roi": 2.1282,
-      "hit_rate": 0.1343
+      "losses": 59,
+      "flat_profit": 14158.92,
+      "flat_roi": 2.0822,
+      "hit_rate": 0.1324
     },
     "best_combo_2": {
-      "bets": 69,
+      "bets": 70,
       "wins": 27,
-      "losses": 42,
-      "flat_profit": 6020.38,
-      "flat_roi": 0.8725,
-      "hit_rate": 0.3913
+      "losses": 43,
+      "flat_profit": 5920.38,
+      "flat_roi": 0.8458,
+      "hit_rate": 0.3857
     },
     "best_combo_3": {
-      "bets": 68,
+      "bets": 69,
       "wins": 18,
-      "losses": 50,
-      "flat_profit": 10419.97,
-      "flat_roi": 1.5323,
-      "hit_rate": 0.2647
+      "losses": 51,
+      "flat_profit": 10319.97,
+      "flat_roi": 1.4956,
+      "hit_rate": 0.2609
     },
     "best_combo_4": {
-      "bets": 67,
+      "bets": 68,
       "wins": 10,
-      "losses": 57,
-      "flat_profit": 12163.93,
-      "flat_roi": 1.8155,
-      "hit_rate": 0.1493
+      "losses": 58,
+      "flat_profit": 12063.93,
+      "flat_roi": 1.7741,
+      "hit_rate": 0.1471
     },
     "always_2": {
-      "bets": 69,
+      "bets": 70,
       "wins": 34,
-      "losses": 35,
-      "flat_profit": 6227.3,
-      "flat_roi": 0.9025,
-      "hit_rate": 0.4928
+      "losses": 36,
+      "flat_profit": 6127.3,
+      "flat_roi": 0.8753,
+      "hit_rate": 0.4857
     },
     "always_3": {
-      "bets": 68,
+      "bets": 69,
       "wins": 19,
-      "losses": 49,
-      "flat_profit": 8378.99,
-      "flat_roi": 1.2322,
-      "hit_rate": 0.2794
+      "losses": 50,
+      "flat_profit": 8278.99,
+      "flat_roi": 1.1999,
+      "hit_rate": 0.2754
     },
     "always_4": {
-      "bets": 67,
+      "bets": 68,
       "wins": 11,
-      "losses": 56,
-      "flat_profit": 14617.33,
-      "flat_roi": 2.1817,
-      "hit_rate": 0.1642
+      "losses": 57,
+      "flat_profit": 14517.33,
+      "flat_roi": 2.1349,
+      "hit_rate": 0.1618
     },
     "max_score_any": {
-      "bets": 69,
+      "bets": 70,
       "wins": 22,
-      "losses": 47,
-      "flat_profit": 9437.91,
-      "flat_roi": 1.3678,
-      "hit_rate": 0.3188
+      "losses": 48,
+      "flat_profit": 9337.91,
+      "flat_roi": 1.334,
+      "hit_rate": 0.3143
     }
   },
   "winners_by_bankroll": {
@@ -140,110 +140,110 @@
       {
         "mode": "always_2",
         "optimal_stake_pct": 0.3,
-        "end_bankroll": 962.8981,
-        "profit": 962.5481,
+        "end_bankroll": 674.0287,
+        "profit": 673.6787,
         "min_bankroll": 0.245,
-        "bets": 69,
-        "record": "34-35"
+        "bets": 70,
+        "record": "34-36"
       },
       {
         "mode": "forced_top_2",
         "optimal_stake_pct": 0.25,
-        "end_bankroll": 852.4134,
-        "profit": 852.0634,
+        "end_bankroll": 639.3101,
+        "profit": 638.9601,
         "min_bankroll": 0.2625,
-        "bets": 69,
-        "record": "29-40"
+        "bets": 70,
+        "record": "29-41"
       },
       {
         "mode": "max_score_any",
         "optimal_stake_pct": 0.2,
-        "end_bankroll": 257.8695,
-        "profit": 257.5195,
+        "end_bankroll": 206.2956,
+        "profit": 205.9456,
         "min_bankroll": 0.28,
-        "bets": 69,
-        "record": "22-47"
+        "bets": 70,
+        "record": "22-48"
       },
       {
         "mode": "best_combo_3",
         "optimal_stake_pct": 0.15,
-        "end_bankroll": 227.7837,
-        "profit": 227.4337,
+        "end_bankroll": 193.6161,
+        "profit": 193.2661,
         "min_bankroll": 0.35,
-        "bets": 68,
-        "record": "18-50"
+        "bets": 69,
+        "record": "18-51"
       },
       {
         "mode": "forced_top_3",
         "optimal_stake_pct": 0.15,
-        "end_bankroll": 148.0044,
-        "profit": 147.6544,
+        "end_bankroll": 125.8038,
+        "profit": 125.4538,
         "min_bankroll": 0.35,
-        "bets": 68,
-        "record": "17-51"
+        "bets": 69,
+        "record": "17-52"
       },
       {
         "mode": "best_combo_2",
         "optimal_stake_pct": 0.2,
-        "end_bankroll": 99.1562,
-        "profit": 98.8062,
+        "end_bankroll": 79.3249,
+        "profit": 78.9749,
         "min_bankroll": 0.28,
-        "bets": 69,
-        "record": "27-42"
+        "bets": 70,
+        "record": "27-43"
       },
       {
         "mode": "always_3",
         "optimal_stake_pct": 0.15,
-        "end_bankroll": 58.833,
-        "profit": 58.483,
+        "end_bankroll": 50.008,
+        "profit": 49.658,
         "min_bankroll": 0.35,
-        "bets": 68,
-        "record": "19-49"
-      },
-      {
-        "mode": "best_ticket",
-        "optimal_stake_pct": 0.3,
-        "end_bankroll": 57.7721,
-        "profit": 57.4221,
-        "min_bankroll": 0.35,
-        "bets": 66,
-        "record": "37-29"
+        "bets": 69,
+        "record": "19-50"
       },
       {
         "mode": "always_4",
         "optimal_stake_pct": 0.1,
-        "end_bankroll": 49.7149,
-        "profit": 49.3649,
+        "end_bankroll": 44.7434,
+        "profit": 44.3934,
+        "min_bankroll": 0.35,
+        "bets": 68,
+        "record": "11-57"
+      },
+      {
+        "mode": "best_ticket",
+        "optimal_stake_pct": 0.3,
+        "end_bankroll": 40.4404,
+        "profit": 40.0904,
         "min_bankroll": 0.35,
         "bets": 67,
-        "record": "11-56"
+        "record": "37-30"
       },
       {
         "mode": "forced_top_4",
         "optimal_stake_pct": 0.1,
-        "end_bankroll": 23.0909,
-        "profit": 22.7409,
+        "end_bankroll": 20.7818,
+        "profit": 20.4318,
         "min_bankroll": 0.35,
-        "bets": 67,
-        "record": "9-58"
-      },
-      {
-        "mode": "single",
-        "optimal_stake_pct": 0.35,
-        "end_bankroll": 20.2991,
-        "profit": 19.9491,
-        "min_bankroll": 0.35,
-        "bets": 65,
-        "record": "43-22"
+        "bets": 68,
+        "record": "9-59"
       },
       {
         "mode": "best_combo_4",
         "optimal_stake_pct": 0.1,
-        "end_bankroll": 16.5141,
-        "profit": 16.1641,
+        "end_bankroll": 14.8627,
+        "profit": 14.5127,
         "min_bankroll": 0.35,
-        "bets": 67,
-        "record": "10-57"
+        "bets": 68,
+        "record": "10-58"
+      },
+      {
+        "mode": "single",
+        "optimal_stake_pct": 0.3,
+        "end_bankroll": 13.4568,
+        "profit": 13.1068,
+        "min_bankroll": 0.35,
+        "bets": 66,
+        "record": "43-23"
       },
       {
         "mode": "parlay_2",
@@ -277,110 +277,110 @@
       {
         "mode": "always_2",
         "optimal_stake_pct": 0.3,
-        "end_bankroll": 27511.3747,
-        "profit": 27501.3747,
+        "end_bankroll": 19257.9623,
+        "profit": 19247.9623,
         "min_bankroll": 7.0,
-        "bets": 69,
-        "record": "34-35"
+        "bets": 70,
+        "record": "34-36"
       },
       {
         "mode": "forced_top_2",
         "optimal_stake_pct": 0.25,
-        "end_bankroll": 24354.6695,
-        "profit": 24344.6695,
+        "end_bankroll": 18266.0021,
+        "profit": 18256.0021,
         "min_bankroll": 7.5,
-        "bets": 69,
-        "record": "29-40"
+        "bets": 70,
+        "record": "29-41"
       },
       {
         "mode": "max_score_any",
         "optimal_stake_pct": 0.2,
-        "end_bankroll": 7367.7002,
-        "profit": 7357.7002,
+        "end_bankroll": 5894.1601,
+        "profit": 5884.1601,
         "min_bankroll": 8.0,
-        "bets": 69,
-        "record": "22-47"
+        "bets": 70,
+        "record": "22-48"
       },
       {
         "mode": "best_combo_3",
         "optimal_stake_pct": 0.15,
-        "end_bankroll": 6508.1049,
-        "profit": 6498.1049,
+        "end_bankroll": 5531.8892,
+        "profit": 5521.8892,
         "min_bankroll": 10.0,
-        "bets": 68,
-        "record": "18-50"
+        "bets": 69,
+        "record": "18-51"
       },
       {
         "mode": "forced_top_3",
         "optimal_stake_pct": 0.15,
-        "end_bankroll": 4228.6981,
-        "profit": 4218.6981,
+        "end_bankroll": 3594.3934,
+        "profit": 3584.3934,
         "min_bankroll": 10.0,
-        "bets": 68,
-        "record": "17-51"
+        "bets": 69,
+        "record": "17-52"
       },
       {
         "mode": "best_combo_2",
         "optimal_stake_pct": 0.2,
-        "end_bankroll": 2833.0336,
-        "profit": 2823.0336,
+        "end_bankroll": 2266.4269,
+        "profit": 2256.4269,
         "min_bankroll": 8.0,
-        "bets": 69,
-        "record": "27-42"
+        "bets": 70,
+        "record": "27-43"
       },
       {
         "mode": "always_3",
         "optimal_stake_pct": 0.15,
-        "end_bankroll": 1680.9419,
-        "profit": 1670.9419,
+        "end_bankroll": 1428.8006,
+        "profit": 1418.8006,
         "min_bankroll": 10.0,
-        "bets": 68,
-        "record": "19-49"
-      },
-      {
-        "mode": "best_ticket",
-        "optimal_stake_pct": 0.3,
-        "end_bankroll": 1650.6303,
-        "profit": 1640.6303,
-        "min_bankroll": 10.0,
-        "bets": 66,
-        "record": "37-29"
+        "bets": 69,
+        "record": "19-50"
       },
       {
         "mode": "always_4",
         "optimal_stake_pct": 0.1,
-        "end_bankroll": 1420.4268,
-        "profit": 1410.4268,
+        "end_bankroll": 1278.3841,
+        "profit": 1268.3841,
+        "min_bankroll": 10.0,
+        "bets": 68,
+        "record": "11-57"
+      },
+      {
+        "mode": "best_ticket",
+        "optimal_stake_pct": 0.3,
+        "end_bankroll": 1155.4412,
+        "profit": 1145.4412,
         "min_bankroll": 10.0,
         "bets": 67,
-        "record": "11-56"
+        "record": "37-30"
       },
       {
         "mode": "forced_top_4",
         "optimal_stake_pct": 0.1,
-        "end_bankroll": 659.7391,
-        "profit": 649.7391,
+        "end_bankroll": 593.7651,
+        "profit": 583.7651,
         "min_bankroll": 10.0,
-        "bets": 67,
-        "record": "9-58"
-      },
-      {
-        "mode": "single",
-        "optimal_stake_pct": 0.35,
-        "end_bankroll": 579.9752,
-        "profit": 569.9752,
-        "min_bankroll": 10.0,
-        "bets": 65,
-        "record": "43-22"
+        "bets": 68,
+        "record": "9-59"
       },
       {
         "mode": "best_combo_4",
         "optimal_stake_pct": 0.1,
-        "end_bankroll": 471.8303,
-        "profit": 461.8303,
+        "end_bankroll": 424.6473,
+        "profit": 414.6473,
         "min_bankroll": 10.0,
-        "bets": 67,
-        "record": "10-57"
+        "bets": 68,
+        "record": "10-58"
+      },
+      {
+        "mode": "single",
+        "optimal_stake_pct": 0.3,
+        "end_bankroll": 384.4789,
+        "profit": 374.4789,
+        "min_bankroll": 10.0,
+        "bets": 66,
+        "record": "43-23"
       },
       {
         "mode": "parlay_2",
@@ -414,110 +414,110 @@
       {
         "mode": "always_2",
         "optimal_stake_pct": 0.3,
-        "end_bankroll": 27511374.6966,
-        "profit": 27501374.6966,
+        "end_bankroll": 19257962.2876,
+        "profit": 19247962.2876,
         "min_bankroll": 7000.0,
-        "bets": 69,
-        "record": "34-35"
+        "bets": 70,
+        "record": "34-36"
       },
       {
         "mode": "forced_top_2",
         "optimal_stake_pct": 0.25,
-        "end_bankroll": 24354669.4698,
-        "profit": 24344669.4698,
+        "end_bankroll": 18266002.1024,
+        "profit": 18256002.1024,
         "min_bankroll": 7500.0,
-        "bets": 69,
-        "record": "29-40"
+        "bets": 70,
+        "record": "29-41"
       },
       {
         "mode": "max_score_any",
         "optimal_stake_pct": 0.2,
-        "end_bankroll": 7367700.1601,
-        "profit": 7357700.1601,
+        "end_bankroll": 5894160.1281,
+        "profit": 5884160.1281,
         "min_bankroll": 8000.0,
-        "bets": 69,
-        "record": "22-47"
+        "bets": 70,
+        "record": "22-48"
       },
       {
         "mode": "best_combo_3",
         "optimal_stake_pct": 0.15,
-        "end_bankroll": 6508104.8909,
-        "profit": 6498104.8909,
+        "end_bankroll": 5531889.1573,
+        "profit": 5521889.1573,
         "min_bankroll": 10000.0,
-        "bets": 68,
-        "record": "18-50"
+        "bets": 69,
+        "record": "18-51"
       },
       {
         "mode": "forced_top_3",
         "optimal_stake_pct": 0.15,
-        "end_bankroll": 4228698.064,
-        "profit": 4218698.064,
+        "end_bankroll": 3594393.3544,
+        "profit": 3584393.3544,
         "min_bankroll": 10000.0,
-        "bets": 68,
-        "record": "17-51"
+        "bets": 69,
+        "record": "17-52"
       },
       {
         "mode": "best_combo_2",
         "optimal_stake_pct": 0.2,
-        "end_bankroll": 2833033.6279,
-        "profit": 2823033.6279,
+        "end_bankroll": 2266426.9023,
+        "profit": 2256426.9023,
         "min_bankroll": 8000.0,
-        "bets": 69,
-        "record": "27-42"
+        "bets": 70,
+        "record": "27-43"
       },
       {
         "mode": "always_3",
         "optimal_stake_pct": 0.15,
-        "end_bankroll": 1680941.9088,
-        "profit": 1670941.9088,
+        "end_bankroll": 1428800.6225,
+        "profit": 1418800.6225,
         "min_bankroll": 10000.0,
-        "bets": 68,
-        "record": "19-49"
-      },
-      {
-        "mode": "best_ticket",
-        "optimal_stake_pct": 0.3,
-        "end_bankroll": 1650630.2814,
-        "profit": 1640630.2814,
-        "min_bankroll": 10000.0,
-        "bets": 66,
-        "record": "37-29"
+        "bets": 69,
+        "record": "19-50"
       },
       {
         "mode": "always_4",
         "optimal_stake_pct": 0.1,
-        "end_bankroll": 1420426.7905,
-        "profit": 1410426.7905,
+        "end_bankroll": 1278384.1115,
+        "profit": 1268384.1115,
+        "min_bankroll": 10000.0,
+        "bets": 68,
+        "record": "11-57"
+      },
+      {
+        "mode": "best_ticket",
+        "optimal_stake_pct": 0.3,
+        "end_bankroll": 1155441.197,
+        "profit": 1145441.197,
         "min_bankroll": 10000.0,
         "bets": 67,
-        "record": "11-56"
+        "record": "37-30"
       },
       {
         "mode": "forced_top_4",
         "optimal_stake_pct": 0.1,
-        "end_bankroll": 659739.055,
-        "profit": 649739.055,
+        "end_bankroll": 593765.1495,
+        "profit": 583765.1495,
         "min_bankroll": 10000.0,
-        "bets": 67,
-        "record": "9-58"
-      },
-      {
-        "mode": "single",
-        "optimal_stake_pct": 0.35,
-        "end_bankroll": 579975.2183,
-        "profit": 569975.2183,
-        "min_bankroll": 10000.0,
-        "bets": 65,
-        "record": "43-22"
+        "bets": 68,
+        "record": "9-59"
       },
       {
         "mode": "best_combo_4",
         "optimal_stake_pct": 0.1,
-        "end_bankroll": 471830.3421,
-        "profit": 461830.3421,
+        "end_bankroll": 424647.3079,
+        "profit": 414647.3079,
         "min_bankroll": 10000.0,
-        "bets": 67,
-        "record": "10-57"
+        "bets": 68,
+        "record": "10-58"
+      },
+      {
+        "mode": "single",
+        "optimal_stake_pct": 0.3,
+        "end_bankroll": 384478.9002,
+        "profit": 374478.9002,
+        "min_bankroll": 10000.0,
+        "bets": 66,
+        "record": "43-23"
       },
       {
         "mode": "parlay_2",
@@ -550,17 +550,17 @@
   },
   "best_ticket_validation": {
     "profitable_flat": true,
-    "flat_roi": 0.5758,
-    "record": "37-29",
+    "flat_roi": 0.5522,
+    "record": "37-30",
     "compound_10k_at_30pct": {
       "start": 10000,
-      "end": 1650630.2814,
-      "profit": 1640630.2814,
-      "return_pct": 16406.3,
+      "end": 1155441.197,
+      "profit": 1145441.197,
+      "return_pct": 11454.41,
       "min_bankroll": 10000,
-      "bets": 66,
+      "bets": 67,
       "wins": 37,
-      "losses": 29,
+      "losses": 30,
       "curve": [
         {
           "date": "2026-04-09",
@@ -957,19 +957,25 @@
           "bankroll": 1650630.2814,
           "won": false,
           "label": "SD ML"
+        },
+        {
+          "date": "2026-06-16",
+          "bankroll": 1155441.197,
+          "won": false,
+          "label": "CLE ML"
         }
       ]
     },
     "compound_10k_optimal": {
       "stake_pct": 0.3,
       "start": 10000.0,
-      "end": 1650630.2814,
-      "profit": 1640630.2814,
-      "return_pct": 16406.3,
+      "end": 1155441.197,
+      "profit": 1145441.197,
+      "return_pct": 11454.41,
       "min_bankroll": 10000.0,
-      "bets": 66,
+      "bets": 67,
       "wins": 37,
-      "losses": 29,
+      "losses": 30,
       "curve": [
         {
           "date": "2026-04-09",
@@ -1366,6 +1372,12 @@
           "bankroll": 1650630.2814,
           "won": false,
           "label": "SD ML"
+        },
+        {
+          "date": "2026-06-16",
+          "bankroll": 1155441.197,
+          "won": false,
+          "label": "CLE ML"
         }
       ]
     }
@@ -1375,53 +1387,13 @@
   "recommended_summary": {
     "mode": "always_2",
     "optimal_stake_pct": 0.3,
-    "end_bankroll": 27511374.6966,
-    "profit": 27501374.6966,
+    "end_bankroll": 19257962.2876,
+    "profit": 19247962.2876,
     "min_bankroll": 7000.0,
-    "bets": 69,
-    "record": "34-35"
+    "bets": 70,
+    "record": "34-36"
   },
   "winner_ledger_sample": [
-    {
-      "category": "parlay_2",
-      "date": "2026-06-06",
-      "matchup": "ATH @ HOU + NYM @ SD",
-      "team": "2-leg Parlay",
-      "side": "Parlay",
-      "label": "HOU ML + NYM ML",
-      "odds": 222,
-      "model_probability": 0.4642,
-      "book_probability": null,
-      "edge": null,
-      "ev": 49.36,
-      "stake": 100.0,
-      "qualified": true,
-      "strategy": "edge",
-      "won": false,
-      "profit": -100.0,
-      "legs": [
-        {
-          "team": "HOU",
-          "matchup": "ATH @ HOU",
-          "odds": -127,
-          "model_probability": 0.7,
-          "book_probability": 0.5595,
-          "edge": 0.1405,
-          "won": true,
-          "confidence": "High"
-        },
-        {
-          "team": "NYM",
-          "matchup": "NYM @ SD",
-          "odds": -125,
-          "model_probability": 0.6632,
-          "book_probability": 0.5556,
-          "edge": 0.1076,
-          "won": false,
-          "confidence": "Medium"
-        }
-      ]
-    },
     {
       "category": "parlay_2",
       "date": "2026-06-07",
@@ -1777,6 +1749,46 @@
           "model_probability": 0.6426,
           "book_probability": 0.4348,
           "edge": 0.2078,
+          "won": false,
+          "confidence": "Medium"
+        }
+      ]
+    },
+    {
+      "category": "parlay_2",
+      "date": "2026-06-16",
+      "matchup": "CLE @ MIL + MIA @ PHI",
+      "team": "2-leg Parlay",
+      "side": "Parlay",
+      "label": "CLE ML + MIA ML",
+      "odds": 464,
+      "model_probability": 0.4332,
+      "book_probability": null,
+      "edge": null,
+      "ev": 144.09,
+      "stake": 100.0,
+      "qualified": true,
+      "strategy": "forced_top_2",
+      "won": false,
+      "profit": -100.0,
+      "legs": [
+        {
+          "team": "CLE",
+          "matchup": "CLE @ MIL",
+          "odds": 130,
+          "model_probability": 0.7,
+          "book_probability": 0.4348,
+          "edge": 0.2652,
+          "won": false,
+          "confidence": "High"
+        },
+        {
+          "team": "MIA",
+          "matchup": "MIA @ PHI",
+          "odds": 145,
+          "model_probability": 0.6188,
+          "book_probability": 0.4082,
+          "edge": 0.2106,
           "won": false,
           "confidence": "Medium"
         }

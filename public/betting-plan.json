@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-16",
+  "generated_at": "2026-06-17",
   "strategy": "corr_nl_reject_both",
   "strategy_rules": [
     "Always-2 parlay from Medium+ legs only (filtered edge/anchor, else best uncorrelated top-2 positive-EV)",
@@ -18,11 +18,11 @@
     "2": 0.4,
     "3": 0.3
   },
-  "flat_stake_fallback": 0.4,
+  "flat_stake_fallback": 0.35,
   "daily_exposure_cap": 0.5,
   "backtest_period": {
     "start": "2026-03-20",
-    "end": "2026-06-15"
+    "end": "2026-06-16"
   },
   "retuned_from": "optimize_stake_sizing.py walk-forward on current season"
 }

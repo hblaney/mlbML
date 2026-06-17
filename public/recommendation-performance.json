@@ -1,14 +1,14 @@
 {
-  "generated_at": "2026-06-16",
+  "generated_at": "2026-06-17",
   "stake": 100.0,
   "starting_bankroll": 10000.0,
   "date_range": {
     "start": "2026-03-20",
-    "end": "2026-06-15"
+    "end": "2026-06-16"
   },
   "odds_metadata": {
     "odds_data_start": "2021-04-01",
-    "odds_data_end": "2026-06-15",
+    "odds_data_end": "2026-06-16",
     "odds_data_stale": false,
     "limited_by": "yesterday's final scores"
   },
@@ -46,22 +46,22 @@
   },
   "by_category": {
     "best_ticket": {
-      "bets": 66,
+      "bets": 67,
       "wins": 37,
-      "losses": 29,
-      "staked": 6600.0,
-      "profit": 3800.05,
-      "roi": 0.5758,
-      "hit_rate": 0.5606
+      "losses": 30,
+      "staked": 6700.0,
+      "profit": 3700.05,
+      "roi": 0.5522,
+      "hit_rate": 0.5522
     },
     "moneyline": {
-      "bets": 65,
+      "bets": 66,
       "wins": 43,
-      "losses": 22,
-      "staked": 6500.0,
-      "profit": 2375.43,
-      "roi": 0.3655,
-      "hit_rate": 0.6615
+      "losses": 23,
+      "staked": 6600.0,
+      "profit": 2275.43,
+      "roi": 0.3448,
+      "hit_rate": 0.6515
     },
     "parlay_2": {
       "bets": 47,
@@ -183,11 +183,11 @@
       "hit_rate": 0.8571
     },
     "2026-W25": {
-      "bets": 1,
+      "bets": 2,
       "wins": 0,
-      "losses": 1,
-      "staked": 100.0,
-      "profit": -100.0,
+      "losses": 2,
+      "staked": 200.0,
+      "profit": -200.0,
       "roi": -1.0,
       "hit_rate": 0.0
     }
@@ -212,29 +212,23 @@
       "hit_rate": 0.4839
     },
     "2026-06": {
-      "bets": 13,
+      "bets": 14,
       "wins": 9,
-      "losses": 4,
-      "staked": 1300.0,
-      "profit": 1309.26,
-      "roi": 1.0071,
-      "hit_rate": 0.6923
+      "losses": 5,
+      "staked": 1400.0,
+      "profit": 1209.26,
+      "roi": 0.8638,
+      "hit_rate": 0.6429
     }
   },
   "cumulative": {
-    "bets": 66,
-    "profit": 3800.05,
-    "roi": 0.5758,
-    "balance": 13800.05,
-    "return_pct": 0.38
+    "bets": 67,
+    "profit": 3700.05,
+    "roi": 0.5522,
+    "balance": 13700.05,
+    "return_pct": 0.37
   },
   "checkpoints": [
-    {
-      "date": "2026-04-15",
-      "profit": -100.0,
-      "balance": 10883.71,
-      "return_pct": 0.0884
-    },
     {
       "date": "2026-04-16",
       "profit": 75.19,
@@ -588,6 +582,12 @@
       "profit": -100.0,
       "balance": 13800.05,
       "return_pct": 0.38
+    },
+    {
+      "date": "2026-06-16",
+      "profit": -100.0,
+      "balance": 13700.05,
+      "return_pct": 0.37
     }
   ],
   "daily": [
@@ -3544,6 +3544,39 @@
           "book_probability": 0.4348,
           "edge": 0.2078,
           "ev": 47.8,
+          "stake": 100.0,
+          "qualified": true,
+          "won": false,
+          "profit": -100.0,
+          "ticket_kind": "single"
+        }
+      ],
+      "summary": {
+        "bets": 1,
+        "wins": 0,
+        "losses": 1,
+        "staked": 100.0,
+        "profit": -100.0,
+        "roi": -1.0,
+        "hit_rate": 0.0
+      }
+    },
+    {
+      "date": "2026-06-16",
+      "bets": [
+        {
+          "category": "best_ticket",
+          "date": "2026-06-16",
+          "gamePk": 823775,
+          "matchup": "CLE @ MIL",
+          "team": "CLE",
+          "side": "Moneyline",
+          "label": "CLE ML",
+          "odds": 130,
+          "model_probability": 0.7,
+          "book_probability": 0.4348,
+          "edge": 0.2652,
+          "ev": 61.0,
           "stake": 100.0,
           "qualified": true,
           "won": false,

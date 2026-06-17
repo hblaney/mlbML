@@ -3,7 +3,7 @@
   "live_strategy": "corr_nl_reject_both",
   "period": {
     "season_start": "2026-03-20",
-    "end": "2026-06-15",
+    "end": "2026-06-16",
     "rolling_14d_start": "2026-06-03"
   },
   "stakes": {
@@ -14,66 +14,66 @@
   "comparisons": {
     "no_low_parlay_223s": {
       "season_to_date": {
-        "days": 80,
-        "flat_roi": 0.8748,
-        "flat_profit": 6998.69,
-        "end": 53880340.9107,
-        "record": "50-30"
+        "days": 81,
+        "flat_roi": 0.8517,
+        "flat_profit": 6898.69,
+        "end": 35022221.592,
+        "record": "50-31"
       },
       "rolling_14d": {
-        "days": 13,
-        "flat_roi": 1.0964,
-        "flat_profit": 1425.35,
-        "end": 1830.1256,
-        "record": "9-4"
+        "days": 14,
+        "flat_roi": 0.9467,
+        "flat_profit": 1325.35,
+        "end": 1189.5816,
+        "record": "9-5"
       }
     },
     "corr_nl_reject_both": {
       "season_to_date": {
-        "days": 80,
-        "flat_roi": 1.0333,
-        "flat_profit": 8266.36,
-        "end": 73564556.99,
-        "record": "48-32"
+        "days": 81,
+        "flat_roi": 1.0082,
+        "flat_profit": 8166.36,
+        "end": 47816962.0435,
+        "record": "48-33"
       },
       "rolling_14d": {
-        "days": 13,
-        "flat_roi": 1.0483,
-        "flat_profit": 1362.77,
-        "end": 1617.4601,
-        "record": "9-4"
+        "days": 14,
+        "flat_roi": 0.902,
+        "flat_profit": 1262.77,
+        "end": 1051.3491,
+        "record": "9-5"
       }
     },
     "best_ticket": {
       "season_to_date": {
-        "days": 76,
-        "flat_roi": 0.6196,
-        "flat_profit": 4708.76,
-        "end": 647118.9449,
-        "record": "49-27"
+        "days": 77,
+        "flat_roi": 0.5985,
+        "flat_profit": 4608.76,
+        "end": 355915.4197,
+        "record": "49-28"
       },
       "rolling_14d": {
-        "days": 13,
-        "flat_roi": 0.9812,
-        "flat_profit": 1275.54,
-        "end": 2374.2977,
-        "record": "10-3"
+        "days": 14,
+        "flat_roi": 0.8397,
+        "flat_profit": 1175.54,
+        "end": 1305.8637,
+        "record": "10-4"
       }
     },
     "no_low_skip_forced": {
       "season_to_date": {
-        "days": 76,
-        "flat_roi": 0.6196,
-        "flat_profit": 4708.76,
-        "end": 647118.9449,
-        "record": "49-27"
+        "days": 77,
+        "flat_roi": 0.5985,
+        "flat_profit": 4608.76,
+        "end": 355915.4197,
+        "record": "49-28"
       },
       "rolling_14d": {
-        "days": 13,
-        "flat_roi": 0.9812,
-        "flat_profit": 1275.54,
-        "end": 2374.2977,
-        "record": "10-3"
+        "days": 14,
+        "flat_roi": 0.8397,
+        "flat_profit": 1175.54,
+        "end": 1305.8637,
+        "record": "10-4"
       }
     }
   },
@@ -92,10 +92,10 @@
   "guard": {
     "season_leader": "corr_nl_reject_both",
     "leader_14d": "best_ticket",
-    "leader_streak_days": 2,
+    "leader_streak_days": 3,
     "switch_signal_days_required": 14,
     "switch_recommended": false,
-    "message": "Keep corr_nl_reject_both \u2014 #1 full season ($73,564,557 from $100 compound). best_ticket leads last 14 days only (2/14 daily signals toward switch)."
+    "message": "Keep corr_nl_reject_both \u2014 #1 full season ($47,816,962 from $100 compound). best_ticket leads last 14 days only (3/14 daily signals toward switch)."
   },
   "live_compound": {
     "strategy": "corr_nl_reject_both",
@@ -107,13 +107,13 @@
     "daily_exposure_cap": 0.5,
     "from_10": {
       "starting_bankroll": 10.0,
-      "end": 7356455.699,
-      "profit": 7356445.699,
+      "end": 4781696.2044,
+      "profit": 4781686.2044,
       "min_bankroll": 5.5,
-      "record": "48-32",
-      "days": 80,
-      "flat_roi": 1.0333,
-      "flat_profit": 8266.36,
+      "record": "48-33",
+      "days": 81,
+      "flat_roi": 1.0082,
+      "flat_profit": 8166.36,
       "checkpoints": [
         {
           "date": "2026-03-26",
@@ -754,18 +754,26 @@
           "return_pct": 735644.5699,
           "won": false,
           "leg_count": 2
+        },
+        {
+          "date": "2026-06-16",
+          "profit": -2574759.4947,
+          "balance": 4781696.2044,
+          "return_pct": 478168.6204,
+          "won": false,
+          "leg_count": 2
         }
       ]
     },
     "from_100": {
       "starting_bankroll": 100.0,
-      "end": 73564556.99,
-      "profit": 73564456.99,
+      "end": 47816962.0435,
+      "profit": 47816862.0435,
       "min_bankroll": 55.0,
-      "record": "48-32",
-      "days": 80,
-      "flat_roi": 1.0333,
-      "flat_profit": 8266.36,
+      "record": "48-33",
+      "days": 81,
+      "flat_roi": 1.0082,
+      "flat_profit": 8166.36,
       "checkpoints": [
         {
           "date": "2026-03-26",
@@ -1404,6 +1412,14 @@
           "profit": -39611684.5331,
           "balance": 73564556.99,
           "return_pct": 735644.5699,
+          "won": false,
+          "leg_count": 2
+        },
+        {
+          "date": "2026-06-16",
+          "profit": -25747594.9465,
+          "balance": 47816962.0435,
+          "return_pct": 478168.6204,
           "won": false,
           "leg_count": 2
         }

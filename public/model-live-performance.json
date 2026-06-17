@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-06-16",
-  "trained_through": "2026-06-15",
+  "generated_at": "2026-06-17",
+  "trained_through": "2026-06-16",
   "model_version": "daily-auto-v2.1",
   "season": "2026",
   "method": "current-season walk-forward retrain with daily checkpoints",
@@ -9,34 +9,34 @@
   "baseline_odds": -110,
   "date_range": {
     "start": "2026-03-25",
-    "end": "2026-06-15"
+    "end": "2026-06-16"
   },
   "overall": {
-    "bets": 1078,
-    "wins": 655,
-    "losses": 423,
+    "bets": 1088,
+    "wins": 660,
+    "losses": 428,
     "staked": 0.0,
     "profit": 0.0,
     "roi": 0.0,
-    "hit_rate": 0.6076
+    "hit_rate": 0.6066
   },
   "high_confidence": {
-    "bets": 108,
-    "wins": 82,
+    "bets": 109,
+    "wins": 83,
     "losses": 26,
-    "staked": 10800.0,
-    "profit": 4854.55,
-    "roi": 0.4495,
-    "hit_rate": 0.7593
+    "staked": 10900.0,
+    "profit": 4945.45,
+    "roi": 0.4537,
+    "hit_rate": 0.7615
   },
   "cumulative": {
-    "bets": 108,
-    "wins": 82,
+    "bets": 109,
+    "wins": 83,
     "losses": 26,
-    "profit": 4854.55,
-    "roi": 0.4495,
-    "balance": 14854.55,
-    "return_pct": 0.4855
+    "profit": 4945.45,
+    "roi": 0.4537,
+    "balance": 14945.45,
+    "return_pct": 0.4945
   },
   "checkpoints": [
     {
@@ -702,6 +702,14 @@
       "return_pct": 0.4855,
       "season_accuracy": 0.5,
       "high_confidence_bets": 3
+    },
+    {
+      "date": "2026-06-16",
+      "profit": 90.91,
+      "balance": 14945.45,
+      "return_pct": 0.4945,
+      "season_accuracy": 0.5,
+      "high_confidence_bets": 1
     }
   ],
   "daily": [
@@ -1863,6 +1871,20 @@
         "losses": 0,
         "staked": 300.0,
         "profit": 272.73,
+        "roi": 0.9091,
+        "hit_rate": 1.0
+      }
+    },
+    {
+      "date": "2026-06-16",
+      "games": 10,
+      "accuracy": 0.5,
+      "high_confidence": {
+        "bets": 1,
+        "wins": 1,
+        "losses": 0,
+        "staked": 100.0,
+        "profit": 90.91,
         "roi": 0.9091,
         "hit_rate": 1.0
       }
