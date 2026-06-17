@@ -1,14 +1,13 @@
 import Link from "next/link";
+import { LIVE_BETTING_STRATEGY } from "@/lib/data";
 import {
   loadAccuracyOutput,
   loadFullPredictionHistory,
   loadLiveModelPerformance,
-  loadParlayBacktest,
-  loadRecommendationPerformance,
-  type DailyRecommendationSnapshot,
-  type RecommendationSummary
+  loadBettingPlan,
+  loadStrategyGuard
 } from "@/lib/model-output";
-import { formatOdds, formatPercent } from "@/lib/odds";
+import { formatPercent } from "@/lib/odds";
 import { normalizeTeamId, teams } from "@/lib/data";
 
 export const dynamic = "force-dynamic";
@@ -56,36 +55,34 @@ function summarizeRows(rows: { correct: number }[]) {
   };
 }
 
-function recommendationByDate(daily: DailyRecommendationSnapshot[]) {
-  return new Map(daily.map((snapshot) => [snapshot.date, snapshot]));
+function formatBankroll(value: number) {
+  if (value >= 1_000_000) {
+    return `$${value.toLocaleString(undefined, { maximumFractionDigits: 0 })}`;
+  }
+  if (value >= 100) {
+    return currency(value);
+  }
+  return `$${value.toFixed(2)}`;
 }
 
-function categoryLabel(category: string) {
-  if (category === "moneyline") {
-    return "Moneyline";
+function ticketTypeLabel(legCount: number) {
+  if (legCount === 1) {
+    return "Single";
   }
-  if (category === "advanced") {
-    return "Advanced";
+  if (legCount === 2) {
+    return "2-leg parlay";
   }
-  if (category === "parlay_2") {
-    return "2-Leg Parlay";
+  if (legCount === 3) {
+    return "3-leg parlay";
   }
-  if (category === "parlay_3") {
-    return "3-Leg Parlay";
-  }
-  if (category === "parlay_4") {
-    return "4-Leg Parlay";
-  }
-  return category;
+  return `${legCount}-leg`;
 }
 
 export default async function HistoryPage() {
   const output = await loadAccuracyOutput();
   const fullHistory = await loadFullPredictionHistory();
-  const parlayBacktest = await loadParlayBacktest();
-  const recommendationPerformance = await loadRecommendationPerformance();
+  const [strategyGuard, bettingPlan] = await Promise.all([loadStrategyGuard(), loadBettingPlan()]);
   const liveModelPerformance = await loadLiveModelPerformance();
-  const parlayStrategies = parlayBacktest?.best_by_leg_count ?? [];
   const recentWeeks = output ? Object.entries(output.weekly_accuracy).slice(-8) : [];
   const predictionRows = fullHistory.length > 0 ? fullHistory : output?.prediction_history ?? output?.recent_predictions ?? [];
   const currentSeason = output?.season ?? liveModelPerformance?.season ?? new Date().getFullYear().toString();
@@ -108,16 +105,16 @@ export default async function HistoryPage() {
     return groups;
   }, {});
 
-  const recommendationDays = recommendationByDate(recommendationPerformance?.daily ?? []);
-  const recentRecommendationWeeks = recommendationPerformance
-    ? Object.entries(recommendationPerformance.weekly).slice(-8)
-    : [];
-  const recentRecommendationMonths = recommendationPerformance
-    ? Object.entries(recommendationPerformance.monthly).slice(-6)
-    : [];
-  const recentCheckpoints = liveModelPerformance?.checkpoints.slice(-12).reverse()
-    ?? recommendationPerformance?.checkpoints.slice(-12).reverse()
-    ?? [];
+  const activeStrategy = bettingPlan?.strategy ?? strategyGuard?.live_strategy ?? LIVE_BETTING_STRATEGY;
+  const liveCompound = strategyGuard?.live_compound;
+  const compoundFrom10 = liveCompound?.from_10;
+  const compoundCheckpoints = compoundFrom10?.checkpoints ?? [];
+  const liveCheckpointsByDate = new Map(compoundCheckpoints.map((checkpoint) => [checkpoint.date, checkpoint]));
+  const recentCompoundCheckpoints = compoundCheckpoints.slice(-12).reverse();
+  const ticketMix = compoundCheckpoints.reduce<Record<number, number>>((counts, checkpoint) => {
+    counts[checkpoint.leg_count] = (counts[checkpoint.leg_count] ?? 0) + 1;
+    return counts;
+  }, {});
   const primaryAccuracy =
     liveModelPerformance?.overall.hit_rate
     ?? output?.current_season?.market_backed_accuracy
@@ -166,7 +163,7 @@ export default async function HistoryPage() {
         <p className="eyebrow">Public backtesting</p>
         <h1>Accuracy</h1>
         <p className="lead">
-          Model accuracy, daily picks, outcomes, and strategy backtests.
+          Model pick accuracy plus walk-forward backtests for the live daily ticket ({activeStrategy}).
         </p>
       </section>
 
@@ -283,231 +280,131 @@ export default async function HistoryPage() {
         </>
       ) : null}
 
+      {compoundFrom10 && strategyGuard ? (
+        <section className="panel strong">
+          <div className="section-heading compact">
+            <div>
+              <p className="eyebrow">Live betting backtest</p>
+              <h2>{activeStrategy}</h2>
+            </div>
+            <span>
+              {strategyGuard.period.season_start} → {strategyGuard.period.end}
+            </span>
+          </div>
+          <p className="muted">
+            One ticket per day · stake 45% / 35% / 50% of current bankroll by ticket type · walk-forward model with
+            real historical odds. Numbers below compound from a <strong>$10</strong> start (your bankroll scale).
+          </p>
+          <div className="grid">
+            <article>
+              <p className="muted">$10 bankroll → end</p>
+              <div className="metric positive">{formatBankroll(compoundFrom10.end)}</div>
+              <p className="muted">
+                {compoundFrom10.record} · worst dip {formatBankroll(compoundFrom10.min_bankroll)}
+              </p>
+            </article>
+            <article>
+              <p className="muted">Flat $100-per-ticket ROI (picks only)</p>
+              <div className="metric positive">{formatPercent(compoundFrom10.flat_roi)}</div>
+              <p className="muted">{formatBankroll(compoundFrom10.flat_profit)} on {compoundFrom10.days} tickets</p>
+            </article>
+            <article>
+              <p className="muted">$100 bankroll → end (same stakes)</p>
+              <div className="metric positive">{formatBankroll(liveCompound.from_100.end)}</div>
+              <p className="muted">{liveCompound.from_100.record} at 45/35/50% compound</p>
+            </article>
+          </div>
+          {Object.keys(ticketMix).length > 0 ? (
+            <table className="table">
+              <thead>
+                <tr>
+                  <th>Ticket type</th>
+                  <th>Days</th>
+                  <th>Stake %</th>
+                </tr>
+              </thead>
+              <tbody>
+                {[1, 2, 3]
+                  .filter((legCount) => ticketMix[legCount])
+                  .map((legCount) => (
+                    <tr key={legCount}>
+                      <td>{ticketTypeLabel(legCount)}</td>
+                      <td>{ticketMix[legCount]}</td>
+                      <td>{formatPercent(strategyGuard.stakes[String(legCount)] ?? 0)}</td>
+                    </tr>
+                  ))}
+              </tbody>
+            </table>
+          ) : null}
+          <p className="muted">{strategyGuard.guard.message}</p>
+        </section>
+      ) : null}
+
+      {recentCompoundCheckpoints.length > 0 ? (
+        <section className="panel">
+          <h2>Recent Daily Bankroll (from $10)</h2>
+          <table className="table">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Ticket</th>
+                <th>Result</th>
+                <th>Day P/L</th>
+                <th>Balance</th>
+                <th>Return</th>
+              </tr>
+            </thead>
+            <tbody>
+              {recentCompoundCheckpoints.map((checkpoint) => (
+                <tr key={checkpoint.date}>
+                  <td>{checkpoint.date}</td>
+                  <td>{ticketTypeLabel(checkpoint.leg_count)}</td>
+                  <td className={checkpoint.won ? "positive" : "negative"}>{checkpoint.won ? "Win" : "Loss"}</td>
+                  <td className={checkpoint.profit >= 0 ? "positive" : "negative"}>
+                    {formatBankroll(checkpoint.profit)}
+                  </td>
+                  <td>{formatBankroll(checkpoint.balance)}</td>
+                  <td className={checkpoint.return_pct >= 0 ? "positive" : "negative"}>
+                    {formatPercent(checkpoint.return_pct)}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </section>
+      ) : null}
+
       {liveModelPerformance ? (
         <section className="panel">
           <div className="section-heading compact">
             <div>
-              <p className="eyebrow">Live retrain curve</p>
-              <h2>Current Season Model Bankroll</h2>
+              <p className="eyebrow">Model grading</p>
+              <h2>Pick Accuracy (not bankroll)</h2>
             </div>
             <span>
               {liveModelPerformance.date_range.start} to {liveModelPerformance.date_range.end}
             </span>
           </div>
           <p className="muted">
-            Retrained through {liveModelPerformance.trained_through ?? "yesterday"} · High and Elite picks at -110 paper stakes
+            Retrained through {liveModelPerformance.trained_through ?? "yesterday"} · market-backed game picks only
           </p>
           <div className="grid">
             <article>
-              <p className="muted">Paper Balance</p>
-              <div className={liveModelPerformance.cumulative.return_pct >= 0 ? "metric positive" : "metric negative"}>
-                {currency(liveModelPerformance.cumulative.balance)}
-              </div>
-              <p className="muted">
-                Started at {currency(liveModelPerformance.starting_bankroll)} · {currency(liveModelPerformance.cumulative.profit)} P/L
-              </p>
-            </article>
-            <article>
-              <p className="muted">Season Accuracy</p>
+              <p className="muted">Season hit rate</p>
               <div className="metric">{formatPercent(liveModelPerformance.overall.hit_rate)}</div>
-              <p className="muted">{liveModelPerformance.overall.wins}-{liveModelPerformance.overall.losses} on {liveModelPerformance.overall.bets} graded games</p>
+              <p className="muted">
+                {liveModelPerformance.overall.wins}-{liveModelPerformance.overall.losses} on{" "}
+                {liveModelPerformance.overall.bets} graded games
+              </p>
             </article>
             <article>
-              <p className="muted">High-Confidence ROI</p>
-              <div className={liveModelPerformance.high_confidence.roi >= 0 ? "metric positive" : "metric negative"}>
-                {formatPercent(liveModelPerformance.high_confidence.roi)}
+              <p className="muted">High-confidence hit rate</p>
+              <div className={liveModelPerformance.high_confidence.hit_rate >= 0.6 ? "metric positive" : "metric warning"}>
+                {formatPercent(liveModelPerformance.high_confidence.hit_rate)}
               </div>
-              <p className="muted">{liveModelPerformance.high_confidence.bets} High/Elite tickets</p>
+              <p className="muted">{liveModelPerformance.high_confidence.bets} High/Elite picks</p>
             </article>
           </div>
-        </section>
-      ) : null}
-
-      {recommendationPerformance ? (
-        <>
-          <section className="panel">
-            <div className="section-heading compact">
-              <div>
-                <p className="eyebrow">Odds-backed backtest</p>
-                <h2>Historical Betting Portfolio</h2>
-              </div>
-              <span>
-                {recommendationPerformance.date_range.start} to {recommendationPerformance.date_range.end}
-              </span>
-            </div>
-            {recommendationPerformance.odds_metadata?.odds_data_stale ? (
-              <p className="muted">
-                Historical odds end at {recommendationPerformance.odds_metadata.odds_data_end}. This curve only updates when odds data is refreshed.
-              </p>
-            ) : null}
-            <div className="grid">
-              <article>
-                <p className="muted">Paper Balance</p>
-                <div className={recommendationPerformance.cumulative.return_pct >= 0 ? "metric positive" : "metric negative"}>
-                  {currency(recommendationPerformance.cumulative.balance)}
-                </div>
-                <p className="muted">
-                  Started at {currency(recommendationPerformance.starting_bankroll)} · {currency(recommendationPerformance.cumulative.profit)} P/L
-                </p>
-              </article>
-              <article>
-                <p className="muted">Portfolio ROI</p>
-                <div className={recommendationPerformance.cumulative.roi >= 0 ? "metric positive" : "metric negative"}>
-                  {formatPercent(recommendationPerformance.cumulative.roi)}
-                </div>
-                <p className="muted">{recommendationPerformance.cumulative.bets} paper tickets at {currency(recommendationPerformance.stake)} each</p>
-              </article>
-              <article>
-                <p className="muted">Daily Tickets</p>
-                <div className="metric">{recommendationPerformance.daily.length}</div>
-                <p className="muted">Qualified moneyline and 2-leg parlay tickets per slate day</p>
-              </article>
-            </div>
-          </section>
-
-          <section className="panel">
-            <h2>Strategy Track Record</h2>
-            <table className="table">
-              <thead>
-                <tr>
-                  <th>Strategy</th>
-                  <th>Record</th>
-                  <th>Hit Rate</th>
-                  <th>ROI</th>
-                  <th>Profit</th>
-                  <th>Tickets</th>
-                </tr>
-              </thead>
-              <tbody>
-                {Object.entries(recommendationPerformance.by_category).map(([category, summary]: [string, RecommendationSummary]) => (
-                  <tr key={category}>
-                    <td>{categoryLabel(category)}</td>
-                    <td>{summary.wins}-{summary.losses}</td>
-                    <td>{formatPercent(summary.hit_rate)}</td>
-                    <td className={summary.roi > 0 ? "positive" : "negative"}>{formatPercent(summary.roi)}</td>
-                    <td className={summary.profit > 0 ? "positive" : "negative"}>{currency(summary.profit)}</td>
-                    <td>{summary.bets}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </section>
-
-          {recentCheckpoints.length > 0 ? (
-            <section className="panel">
-              <h2>{liveModelPerformance ? "Live Model Bankroll Curve" : "Model Bankroll Curve"}</h2>
-              <table className="table">
-                <thead>
-                  <tr>
-                    <th>Date</th>
-                    <th>Daily P/L</th>
-                    <th>Balance</th>
-                    <th>Return</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {recentCheckpoints.map((checkpoint) => (
-                    <tr key={checkpoint.date}>
-                      <td>{checkpoint.date}</td>
-                      <td className={checkpoint.profit >= 0 ? "positive" : "negative"}>{currency(checkpoint.profit)}</td>
-                      <td>{currency(checkpoint.balance)}</td>
-                      <td className={checkpoint.return_pct >= 0 ? "positive" : "negative"}>{formatPercent(checkpoint.return_pct)}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </section>
-          ) : null}
-
-          {recentRecommendationWeeks.length > 0 ? (
-            <section className="panel">
-              <h2>Weekly Paper P/L</h2>
-              <table className="table">
-                <thead>
-                  <tr>
-                    <th>Week</th>
-                    <th>Record</th>
-                    <th>ROI</th>
-                    <th>Profit</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {recentRecommendationWeeks.map(([week, summary]) => (
-                    <tr key={week}>
-                      <td>{week}</td>
-                      <td>{summary.wins}-{summary.losses}</td>
-                      <td className={summary.roi > 0 ? "positive" : "negative"}>{formatPercent(summary.roi)}</td>
-                      <td className={summary.profit > 0 ? "positive" : "negative"}>{currency(summary.profit)}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </section>
-          ) : null}
-
-          {recentRecommendationMonths.length > 0 ? (
-            <section className="panel">
-              <h2>Monthly Paper P/L</h2>
-              <table className="table">
-                <thead>
-                  <tr>
-                    <th>Month</th>
-                    <th>Record</th>
-                    <th>ROI</th>
-                    <th>Profit</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {recentRecommendationMonths.map(([month, summary]) => (
-                    <tr key={month}>
-                      <td>{month}</td>
-                      <td>{summary.wins}-{summary.losses}</td>
-                      <td className={summary.roi > 0 ? "positive" : "negative"}>{formatPercent(summary.roi)}</td>
-                      <td className={summary.profit > 0 ? "positive" : "negative"}>{currency(summary.profit)}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </section>
-          ) : null}
-        </>
-      ) : null}
-
-      {parlayStrategies.length > 0 ? (
-        <section className="panel">
-          <div className="section-heading compact">
-            <div>
-              <p className="eyebrow">Strategy validation</p>
-              <h2>Parlay Backtest</h2>
-            </div>
-            <span>{parlayBacktest?.date_range.start} to {parlayBacktest?.date_range.end}</span>
-          </div>
-          <table className="table">
-            <thead>
-              <tr>
-                <th>Legs</th>
-                <th>Record</th>
-                <th>Hit Rate</th>
-                <th>ROI</th>
-                <th>Profit</th>
-                <th>Rule</th>
-              </tr>
-            </thead>
-            <tbody>
-              {parlayStrategies.map((strategy) => (
-                <tr key={`${strategy.leg_count}-${strategy.min_edge}-${strategy.min_probability}-${strategy.top_n}`}>
-                  <td>{strategy.leg_count}</td>
-                  <td>{strategy.wins}-{strategy.losses}</td>
-                  <td>{formatPercent(strategy.hit_rate)}</td>
-                  <td className={strategy.roi > 0 ? "positive" : "negative"}>{formatPercent(strategy.roi)}</td>
-                  <td className={strategy.profit > 0 ? "positive" : "negative"}>${strategy.profit.toFixed(2)}</td>
-                  <td>
-                    edge ≥ {formatPercent(strategy.min_edge)}, model ≥ {formatPercent(strategy.min_probability)}, top {strategy.top_n}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
         </section>
       ) : null}
 
@@ -536,41 +433,18 @@ export default async function HistoryPage() {
                 </div>
               </div>
 
-              {recommendationDays.get(day.date) ? (
+              {liveCheckpointsByDate.get(day.date) ? (
                 <div className="stack compact">
-                  <p className="eyebrow">Recommended paper bets</p>
-                  <table className="table">
-                    <thead>
-                      <tr>
-                        <th>Strategy</th>
-                        <th>Pick</th>
-                        <th>Odds</th>
-                        <th>Model</th>
-                        <th>Result</th>
-                        <th>P/L</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {recommendationDays.get(day.date)?.bets.map((bet) => (
-                        <tr key={`${day.date}-${bet.category}-${bet.label}`}>
-                          <td>{categoryLabel(bet.category)}</td>
-                          <td>
-                            <strong>{bet.label}</strong>
-                            <p className="muted">{bet.matchup}</p>
-                            {!bet.qualified ? <p className="muted">Best available · below strict filter</p> : null}
-                          </td>
-                          <td>{formatOdds(bet.odds)}</td>
-                          <td>{formatPercent(bet.model_probability)}</td>
-                          <td className={bet.won ? "positive" : "negative"}>{bet.won ? "Win" : "Loss"}</td>
-                          <td className={bet.profit >= 0 ? "positive" : "negative"}>{currency(bet.profit)}</td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                  <p className="muted">
-                    Day paper P/L: {currency(recommendationDays.get(day.date)?.summary.profit ?? 0)} ·{" "}
-                    {formatPercent(recommendationDays.get(day.date)?.summary.roi ?? 0)} ROI
-                  </p>
+                  <p className="eyebrow">Live daily ticket (compound from $10)</p>
+                  {(() => {
+                    const checkpoint = liveCheckpointsByDate.get(day.date)!;
+                    return (
+                      <p className="muted">
+                        {ticketTypeLabel(checkpoint.leg_count)} · {checkpoint.won ? "Win" : "Loss"} · day P/L{" "}
+                        {formatBankroll(checkpoint.profit)} · balance {formatBankroll(checkpoint.balance)}
+                      </p>
+                    );
+                  })()}
                 </div>
               ) : null}
 

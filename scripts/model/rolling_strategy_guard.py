@@ -7,9 +7,9 @@ from datetime import date, timedelta
 from pathlib import Path
 
 from backtest_parlays import season_start_for
-from exhaustive_strategy_search import flat_stats_for_snapshots, load_moneyline_by_day
+from exhaustive_strategy_search import STAKE, flat_stats_for_snapshots, load_moneyline_by_day
 from strategy_next_tests import build_snapshots, enrich_moneyline
-from strategy_research import compound
+from strategy_research import DAILY_CAP, compound
 
 LIVE_STRATEGY = "corr_nl_reject_both"
 CHALLENGERS = [
@@ -48,6 +48,54 @@ def window_stats(ml: dict, rule: str, start_day: str, end_day: str, bankroll: fl
         "flat_profit": flat["flat_profit"],
         "end": comp["end"],
         "record": comp["record"],
+    }
+
+
+def compound_checkpoints(snaps: list[dict], start: float, stake_map: dict[int, float]) -> dict:
+    bankroll = start
+    min_br = start
+    wins = losses = 0
+    checkpoints: list[dict] = []
+
+    for snap in snaps:
+        prev = bankroll
+        day_won = True
+        leg_count = 1
+        raw = [stake_map.get(len(b.get("legs", [])) or 1, 0.25) for b in snap["bets"]]
+        total = sum(raw)
+        scale = DAILY_CAP / total if total > DAILY_CAP else 1.0
+        for bet, pct in zip(snap["bets"], [r * scale for r in raw]):
+            leg_count = len(bet.get("legs", [])) or 1
+            bankroll += bet["profit"] * (bankroll * pct / STAKE)
+            if not bet["won"]:
+                day_won = False
+        min_br = min(min_br, bankroll)
+        if day_won:
+            wins += 1
+        else:
+            losses += 1
+        checkpoints.append(
+            {
+                "date": snap["date"],
+                "profit": round(bankroll - prev, 4),
+                "balance": round(bankroll, 4),
+                "return_pct": round((bankroll - start) / start, 4) if start else 0.0,
+                "won": day_won,
+                "leg_count": leg_count,
+            }
+        )
+
+    flat = flat_stats_for_snapshots(snaps)
+    return {
+        "starting_bankroll": start,
+        "end": round(bankroll, 4),
+        "profit": round(bankroll - start, 4),
+        "min_bankroll": round(min_br, 4),
+        "record": f"{wins}-{losses}",
+        "days": wins + losses,
+        "flat_roi": flat["flat_roi"],
+        "flat_profit": flat["flat_profit"],
+        "checkpoints": checkpoints,
     }
 
 
@@ -143,6 +191,13 @@ def main() -> None:
             f"daily signals toward switch). Full-season leader: {season_leader}."
         )
 
+    season_snaps = build_snapshots(
+        {day: cands for day, cands in ml.items() if start_day <= day <= end_day},
+        LIVE_STRATEGY,
+    )
+    live_from_10 = compound_checkpoints(season_snaps, 10.0, STAKE_TIERED)
+    live_from_100 = compound_checkpoints(season_snaps, 100.0, STAKE_TIERED)
+
     output = {
         "generated_at": today.isoformat(),
         "live_strategy": LIVE_STRATEGY,
@@ -158,6 +213,13 @@ def main() -> None:
             "switch_signal_days_required": SWITCH_SIGNAL_DAYS,
             "switch_recommended": switch_recommended,
             "message": guard_message,
+        },
+        "live_compound": {
+            "strategy": LIVE_STRATEGY,
+            "stakes": STAKE_TIERED,
+            "daily_exposure_cap": DAILY_CAP,
+            "from_10": live_from_10,
+            "from_100": live_from_100,
         },
         "execution_rules": [
             "One ticket per day, all legs same calendar day",

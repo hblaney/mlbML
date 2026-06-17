@@ -490,7 +490,35 @@ export type StrategyGuard = {
     switch_recommended: boolean;
     message: string;
   };
+  live_compound?: {
+    strategy: string;
+    stakes: Record<string, number>;
+    daily_exposure_cap: number;
+    from_10: StrategyCompoundCurve;
+    from_100: StrategyCompoundCurve;
+  };
   execution_rules: string[];
+};
+
+export type StrategyCompoundCheckpoint = {
+  date: string;
+  profit: number;
+  balance: number;
+  return_pct: number;
+  won: boolean;
+  leg_count: number;
+};
+
+export type StrategyCompoundCurve = {
+  starting_bankroll: number;
+  end: number;
+  profit: number;
+  min_bankroll: number;
+  record: string;
+  days: number;
+  flat_roi: number;
+  flat_profit: number;
+  checkpoints: StrategyCompoundCheckpoint[];
 };
 
 export async function loadStrategyGuard() {
