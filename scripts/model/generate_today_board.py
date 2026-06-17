@@ -123,6 +123,15 @@ def main() -> None:
             }
         )
 
+    seen_ids: set[str] = set()
+    deduped_board: list[dict] = []
+    for row in board:
+        game_id = row["id"]
+        if game_id in seen_ids:
+            continue
+        seen_ids.add(game_id)
+        deduped_board.append(row)
+    board = deduped_board
     board.sort(key=lambda row: row["pickProbability"], reverse=True)
     payload = {
         "generated_at": today.isoformat(),
