@@ -494,7 +494,10 @@ def main() -> None:
             ),
         },
         "recommendation": {
-            "one_bet_per_day_fair": results_fair[0] if results_fair else None,
+            "one_bet_per_day_fair": next(
+                (r for r in results_fair if r["bankroll"] == 10000 and r["multi_bet_days"] == 0 and r["strategy_id"] == "two_or_three_or_single"),
+                next((r for r in results_fair if r["bankroll"] == 10000 and r["multi_bet_days"] == 0), None),
+            ),
             "multi_bet_fair": max(
                 (r for r in results_fair if r["multi_bet_days"] > 0 and r["bankroll"] == 10000),
                 key=lambda r: r["end"],

@@ -42,7 +42,9 @@ export default async function BestBetsPage() {
       : `$${value.toFixed(2)}`;
   const backtest10k = strategyBacktest?.winners_by_bankroll["10000.0"] ?? [];
   const backtest10 = strategyBacktest?.winners_by_bankroll["10.0"] ?? [];
-  const winner = exhaustiveSearch?.recommendation.one_bet_per_day_fair ?? strategyBacktest?.recommended_summary;
+  const activeStrategy = bettingPlan?.strategy ?? "two_or_three_or_single";
+  const activeStrategyRow = exhaustiveSearch?.top_fair_10k.find((row) => row.strategy_id === activeStrategy);
+  const winner = activeStrategyRow ?? exhaustiveSearch?.recommendation.one_bet_per_day_fair ?? strategyBacktest?.recommended_summary;
   const fairTop = exhaustiveSearch?.top_fair_10k ?? [];
   const winnerEnd =
     winner && "end" in winner ? winner.end : winner && "end_bankroll" in winner ? winner.end_bankroll : 0;
@@ -57,7 +59,7 @@ export default async function BestBetsPage() {
       ? winner.strategy_id
       : winner && "mode" in winner
         ? winner.mode
-        : "";
+        : activeStrategy;
   const winnerBets = winner && ("days" in winner ? winner.days : "bets" in winner ? winner.bets : 0);
   const winnerMin =
     winner && "min_bankroll" in winner ? winner.min_bankroll : 0;
@@ -277,12 +279,15 @@ export default async function BestBetsPage() {
           </div>
           <p className="lead">
             {exhaustiveSearch
-              ? `${exhaustiveSearch.strategies_tested} rules × stake grid, fair daily cap ${formatPercent(exhaustiveSearch.fair_daily_exposure_cap)}. Winner (one bet/day): `
-              : "Every strategy uses real day-by-day picks. Winner: "}
+              ? `${exhaustiveSearch.strategies_tested} rules × stake grid, fair daily cap ${formatPercent(exhaustiveSearch.fair_daily_exposure_cap)}. Live plan: `
+              : "Live plan: "}
             <strong>
-              {winnerLabel || "two_or_three_best"} @ {formatPercent(winnerStake)}
+              {activeStrategy}
             </strong>
-            .
+            {activeStrategyRow
+              ? ` (${formatPercent(activeStrategyRow.stake_pct)} stake in backtest, $10k fair ${formatBankroll(activeStrategyRow.end)})`
+              : null}
+            . Parlay-only variant <strong>two_or_three_best</strong> is similar but never takes singles.
           </p>
           {exhaustiveSearch?.weird_result_analysis ? (
             <p className="muted">{exhaustiveSearch.weird_result_analysis.verdict}</p>
@@ -340,7 +345,9 @@ export default async function BestBetsPage() {
               <tbody>
                 {fairTop.map((row) => (
                   <tr key={row.strategy_id}>
-                    <td>{row.strategy_id === winnerLabel ? `★ ${row.strategy_id}` : row.strategy_id}</td>
+                    <td>
+                      {row.strategy_id === activeStrategy ? `★ ${row.strategy_id} (live)` : row.strategy_id}
+                    </td>
                     <td>{row.days}</td>
                     <td>
                       {row.wins}-{row.losses}
