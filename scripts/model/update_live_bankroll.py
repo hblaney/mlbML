@@ -1,23 +1,31 @@
-"""Track live system-ticket results automatically — one corr_nl_reject_both bet per day."""
+"""Track live system-ticket replay — one no_low_parlay_223s ticket per day from archived boards."""
 
 from __future__ import annotations
 
 import json
+import subprocess
 import sys
 from datetime import date, timedelta
 from pathlib import Path
 
-from backtest_parlays import season_start_for
-from exhaustive_strategy_search import STAKE, load_moneyline_by_day
+from backtest_parlays import STAKE, decimal_odds, season_start_for, settle_parlay
+from exhaustive_strategy_search import load_moneyline_by_day
 from strategy_next_tests import build_snapshots, enrich_moneyline
 from strategy_research import DAILY_CAP
 
 LIVE_STRATEGY = "no_low_parlay_223s"
 STAKE_TIERED = {1: 0.35, 2: 0.45, 3: 0.10}
+FLAT_PROVE_OUT_USD = 5.0
+PROVE_OUT_TICKETS = 5
 DEFAULT_STARTING_BALANCE = 25.0
 DEFAULT_STARTED_AT = "2026-06-13"
-STATE_PATH = Path(__file__).resolve().parents[2] / "data" / "live-bankroll-state.json"
-OUTPUT_PATH = Path(__file__).resolve().parents[2] / "public" / "live-bankroll.json"
+TRACKING_DISCLAIMER = (
+    "System ticket replay from archived daily boards — not auto-synced to Robinhood. "
+    f"Prove-out: ${FLAT_PROVE_OUT_USD:.0f} flat per ticket for first {PROVE_OUT_TICKETS} tickets."
+)
+REPO_ROOT = Path(__file__).resolve().parents[2]
+STATE_PATH = REPO_ROOT / "data" / "live-bankroll-state.json"
+OUTPUT_PATH = REPO_ROOT / "public" / "live-bankroll.json"
 
 
 def load_state() -> dict:
@@ -78,6 +86,8 @@ def snapshot_is_graded(snapshot: dict) -> bool:
 
 def ticket_legs(bet: dict) -> list[str]:
     legs = bet.get("legs") or []
+    if legs and isinstance(legs[0], str):
+        return [str(leg).upper() for leg in legs]
     if legs:
         return [str(leg.get("team", "")).upper() for leg in legs if leg.get("team")]
     team = bet.get("team")
@@ -117,8 +127,293 @@ def parse_wallet_balance(argv: list[str]) -> float | None:
     return float(argv[index + 1]) if len(argv) > index + 1 else None
 
 
+def find_archived_board_commit(day_iso: str) -> str | None:
+    grep = subprocess.run(
+        [
+            "git",
+            "log",
+            "--all",
+            "--format=%H",
+            f"--grep=Update daily MLB model outputs for {day_iso}",
+            "-1",
+        ],
+        capture_output=True,
+        text=True,
+        cwd=REPO_ROOT,
+        check=False,
+    )
+    commit = grep.stdout.strip()
+    if commit:
+        return commit
+
+    matches: list[tuple[str, str]] = []
+    proc = subprocess.run(
+        ["git", "log", "--all", "--format=%H", "--", "public/predictions.json"],
+        capture_output=True,
+        text=True,
+        cwd=REPO_ROOT,
+        check=False,
+    )
+    for commit in proc.stdout.splitlines()[:120]:
+        show = subprocess.run(
+            ["git", "show", f"{commit}:public/predictions.json"],
+            capture_output=True,
+            text=True,
+            cwd=REPO_ROOT,
+            check=False,
+        )
+        if show.returncode != 0:
+            continue
+        try:
+            payload = json.loads(show.stdout)
+        except json.JSONDecodeError:
+            continue
+        if payload.get("generated_at") != day_iso:
+            continue
+        predictions = payload.get("predictions", [])
+        if not any(str(row.get("date", "")).startswith(day_iso) for row in predictions):
+            continue
+        board_at = str(payload.get("board_generated_at", ""))
+        matches.append((board_at, commit))
+
+    if not matches:
+        return None
+
+    same_day = [match for match in matches if match[0].startswith(day_iso)]
+    if same_day:
+        return sorted(same_day, key=lambda item: item[0])[0][1]
+    return sorted(matches, key=lambda item: item[0])[0][1]
+
+
+def load_archived_board(day_iso: str) -> dict | None:
+    commit = find_archived_board_commit(day_iso)
+    if not commit:
+        return None
+    show = subprocess.run(
+        ["git", "show", f"{commit}:public/predictions.json"],
+        capture_output=True,
+        text=True,
+        cwd=REPO_ROOT,
+        check=True,
+    )
+    return json.loads(show.stdout)
+
+
+def ticket_from_archived_board(board_path: Path) -> dict | None:
+    script_path = REPO_ROOT / "scripts" / "model" / "_ticket_from_board.mjs"
+    script_path.write_text(
+        "import { readFileSync } from 'fs';\n"
+        "import { getBestDailyTicket } from '../../lib/data.ts';\n"
+        "const board = JSON.parse(readFileSync(process.argv.at(-1), 'utf8')).predictions;\n"
+        "const ticket = getBestDailyTicket(board);\n"
+        "if (!ticket) { console.log('null'); process.exit(0); }\n"
+        "if (ticket.kind === 'single') {\n"
+        "  const bet = ticket.bet;\n"
+        "  console.log(JSON.stringify({ kind: 'single', label: `${bet.team.abbreviation} ML`, legs: [bet.team.abbreviation], leg_count: 1, odds: bet.odds, model_probability: bet.modelProbability }));\n"
+        "} else {\n"
+        "  const legs = ticket.parlay.legs;\n"
+        "  console.log(JSON.stringify({ kind: 'parlay', label: legs.map((leg) => `${leg.team.abbreviation} ML`).join(' + '), legs: legs.map((leg) => leg.team.abbreviation), leg_count: legs.length, odds: ticket.parlay.americanOdds, model_probability: ticket.parlay.probability }));\n"
+        "}\n"
+    )
+    proc = subprocess.run(
+        ["npx", "--yes", "tsx", str(script_path), str(board_path)],
+        capture_output=True,
+        text=True,
+        cwd=REPO_ROOT,
+        check=False,
+    )
+    if proc.returncode != 0:
+        return None
+    raw = proc.stdout.strip()
+    if not raw or raw == "null":
+        return None
+    return json.loads(raw)
+
+
+def team_won_on_day(team_abbr: str, day: date, games, team_abbr_map: dict[int, str]) -> bool | None:
+    team = team_abbr.lower()
+    for game in games:
+        if game.game_date != day:
+            continue
+        home = team_abbr_map.get(game.home_team_id, "").lower()
+        away = team_abbr_map.get(game.away_team_id, "").lower()
+        if team not in {home, away}:
+            continue
+        if not game.is_final or game.home_score is None or game.away_score is None:
+            return None
+        winner = home if game.home_score > game.away_score else away
+        return team == winner
+    return None
+
+
+def grade_archived_ticket(ticket: dict, day_iso: str, board: dict) -> dict | None:
+    from mlb_api import load_or_fetch_games, load_team_abbreviations
+
+    day = date.fromisoformat(day_iso)
+    games = load_or_fetch_games(day, day)
+    abbr_map = load_team_abbreviations()
+    predictions = board.get("predictions", [])
+    pred_by_team: dict[str, dict] = {}
+    for row in predictions:
+        pick = str(row.get("predictedTeam", "")).lower()
+        if pick:
+            pred_by_team[pick] = row
+
+    leg_rows = []
+    for leg in ticket["legs"]:
+        row = pred_by_team.get(str(leg).lower())
+        if not row:
+            return None
+        pick_home = str(row.get("predictedTeam", "")).lower() == str(row.get("homeTeam", "")).lower()
+        odds = row.get("homeMoneyline") if pick_home else row.get("awayMoneyline")
+        won = team_won_on_day(str(leg), day, games, abbr_map)
+        if won is None or odds is None:
+            return None
+        leg_rows.append(
+            {
+                "team": str(leg).upper(),
+                "odds": odds,
+                "won": won,
+                "model_probability": row.get("pickProbability"),
+            }
+        )
+
+    if ticket["leg_count"] == 1:
+        leg = leg_rows[0]
+        profit = STAKE * (decimal_odds(int(leg["odds"])) - 1) if leg["won"] else -STAKE
+        return {
+            "label": ticket["label"],
+            "legs": ticket["legs"],
+            "won": leg["won"],
+            "profit": profit,
+            "odds": leg["odds"],
+            "model_probability": ticket.get("model_probability"),
+        }
+
+    settled = settle_parlay(leg_rows)
+    return {
+        "label": ticket["label"],
+        "legs": ticket["legs"],
+        "won": settled["won"],
+        "profit": settled["profit"],
+        "odds": ticket.get("odds"),
+        "model_probability": ticket.get("model_probability"),
+    }
+
+
+def apply_day_flat(stake_usd: float, bet: dict) -> tuple[float, bool]:
+    """Flat stake P/L from a graded bet (profit field is per $100)."""
+    if bet.get("profit") is None or bet.get("won") is None:
+        return 0.0, False
+    profit = float(bet["profit"]) * (stake_usd / STAKE)
+    return profit, bool(bet.get("won"))
+
+
+def graded_snapshot_for_day(day_iso: str, snaps_by_day: dict[str, dict]) -> tuple[dict | None, str]:
+    """Prefer the archived board ticket (what the site showed) over walk-forward rebuild."""
+    board_snapshot = fallback_snapshot_for_day(day_iso)
+    if board_snapshot and snapshot_is_graded(board_snapshot):
+        return board_snapshot, "archived_board"
+    snapshot = snaps_by_day.get(day_iso)
+    if snapshot and snapshot_is_graded(snapshot):
+        return snapshot, "walk_forward_rebuild"
+    return None, "missing"
+
+
+def fallback_snapshot_for_day(day_iso: str) -> dict | None:
+    board = load_archived_board(day_iso)
+    if not board:
+        return None
+    temp_path = REPO_ROOT / "data" / f"archived-board-{day_iso}.json"
+    temp_path.write_text(json.dumps(board, indent=2))
+    ticket = ticket_from_archived_board(temp_path)
+    if not ticket:
+        return None
+    graded = grade_archived_ticket(ticket, day_iso, board)
+    if not graded:
+        return None
+    return {"date": day_iso, "bets": [graded]}
+
+
+def settle_day(
+    state: dict,
+    day_iso: str,
+    snapshot: dict,
+    *,
+    source: str,
+) -> None:
+    bet = snapshot["bets"][0]
+    tickets_done = len(state.get("tickets", []))
+    in_prove_out = tickets_done < PROVE_OUT_TICKETS
+
+    if in_prove_out:
+        stake_amount = FLAT_PROVE_OUT_USD
+        stake_pct = round(stake_amount / max(state["balance"], 1.0), 4)
+        profit, won = apply_day_flat(FLAT_PROVE_OUT_USD, bet)
+        balance = round(state["balance"] + profit, 4)
+    else:
+        stake_pct = stake_pct_for_bet(bet)
+        balance, profit, won, leg_count, stake_amount = apply_day(state["balance"], snapshot["bets"])
+        balance = round(balance, 4)
+        leg_count = len(bet.get("legs", [])) or 1
+
+    state["balance"] = balance
+    if won:
+        state["record"]["wins"] += 1
+    else:
+        state["record"]["losses"] += 1
+
+    ticket = serialize_ticket(
+        day_iso,
+        bet,
+        stake_amount=stake_amount,
+        stake_pct=stake_pct,
+        profit=profit,
+        balance=balance,
+        won=won,
+    )
+    ticket["grade_source"] = source
+    ticket["prove_out"] = in_prove_out
+
+    leg_count = len(bet.get("legs", [])) or 1
+    checkpoint = {
+        "date": day_iso,
+        "profit": round(profit, 4),
+        "balance": balance,
+        "return_pct": round((balance - state["starting_balance"]) / state["starting_balance"], 4),
+        "won": won,
+        "leg_count": leg_count,
+        "label": ticket["label"],
+        "legs": ticket["legs"],
+        "stake_amount": ticket["stake_amount"],
+        "grade_source": source,
+        "prove_out": in_prove_out,
+    }
+    state["checkpoints"].append(checkpoint)
+    state.setdefault("tickets", []).append(ticket)
+    state["last_settled_date"] = day_iso
+
+
+def rebuild_state_from_boards(state: dict, snaps_by_day: dict[str, dict], *, through: date) -> None:
+    started_at = state["started_at"]
+    state["balance"] = state["starting_balance"]
+    state["record"] = {"wins": 0, "losses": 0}
+    state["checkpoints"] = []
+    state["tickets"] = []
+    state["last_settled_date"] = None
+
+    cursor = date.fromisoformat(started_at)
+    while cursor <= through:
+        day_iso = cursor.isoformat()
+        snapshot, source = graded_snapshot_for_day(day_iso, snaps_by_day)
+        if snapshot and snapshot_is_graded(snapshot):
+            settle_day(state, day_iso, snapshot, source=source)
+        cursor += timedelta(days=1)
+
+
 def main() -> None:
     reset = "--reset" in sys.argv
+    rebuild = "--rebuild" in sys.argv
     init_day, init_balance = parse_init_args(sys.argv)
     wallet_balance = parse_wallet_balance(sys.argv)
     today = date.today()
@@ -152,78 +447,65 @@ def main() -> None:
     ml = enrich_moneyline(ml, rows)
     snaps_by_day = {snap["date"]: snap for snap in build_snapshots(ml, LIVE_STRATEGY)}
 
-    started_at = state["started_at"]
-    last_settled = state.get("last_settled_date")
-    cursor = date.fromisoformat(last_settled) + timedelta(days=1) if last_settled else date.fromisoformat(started_at)
     yesterday = today - timedelta(days=1)
+    if rebuild:
+        rebuild_state_from_boards(state, snaps_by_day, through=yesterday)
+    else:
+        started_at = state["started_at"]
+        last_settled = state.get("last_settled_date")
+        cursor = date.fromisoformat(last_settled) + timedelta(days=1) if last_settled else date.fromisoformat(started_at)
 
-    while cursor <= yesterday:
-        day_iso = cursor.isoformat()
-        if day_iso < started_at:
+        while cursor <= yesterday:
+            day_iso = cursor.isoformat()
+            if day_iso < started_at:
+                cursor += timedelta(days=1)
+                continue
+
+            snapshot, source = graded_snapshot_for_day(day_iso, snaps_by_day)
+            if snapshot and snapshot_is_graded(snapshot):
+                settle_day(state, day_iso, snapshot, source=source)
             cursor += timedelta(days=1)
-            continue
 
-        snapshot = snaps_by_day.get(day_iso)
-        if snapshot and snapshot_is_graded(snapshot):
-            bet = snapshot["bets"][0]
-            stake_pct = stake_pct_for_bet(bet)
-            balance_before = state["balance"]
-            balance, profit, won, leg_count, stake_amount = apply_day(state["balance"], snapshot["bets"])
-            state["balance"] = round(balance, 4)
-            if won:
-                state["record"]["wins"] += 1
-            else:
-                state["record"]["losses"] += 1
-            ticket = serialize_ticket(
-                day_iso,
-                bet,
-                stake_amount=stake_amount,
-                stake_pct=stake_pct,
-                profit=profit,
-                balance=balance,
-                won=won,
-            )
-            checkpoint = {
-                "date": day_iso,
-                "profit": round(profit, 4),
-                "balance": round(balance, 4),
-                "return_pct": round((balance - state["starting_balance"]) / state["starting_balance"], 4),
-                "won": won,
-                "leg_count": leg_count,
-                "label": ticket["label"],
-                "legs": ticket["legs"],
-                "stake_amount": ticket["stake_amount"],
-            }
-            state["checkpoints"].append(checkpoint)
-            state.setdefault("tickets", []).append(ticket)
-            state["last_settled_date"] = day_iso
-        cursor += timedelta(days=1)
-
-    today_snapshot = snaps_by_day.get(today_iso)
+    today_snapshot, _ = graded_snapshot_for_day(today_iso, snaps_by_day)
+    if not today_snapshot:
+        today_snapshot = snaps_by_day.get(today_iso)
     today_ticket = None
     if today_snapshot and today_snapshot.get("bets"):
         bet = today_snapshot["bets"][0]
         leg_count = len(bet.get("legs", [])) or 1
+        tickets_done = len(state.get("tickets", []))
+        in_prove_out = tickets_done < PROVE_OUT_TICKETS
         stake_pct = STAKE_TIERED.get(leg_count, 0.35)
+        stake_amount = FLAT_PROVE_OUT_USD if in_prove_out else round(state["balance"] * stake_pct, 2)
         today_ticket = {
             "date": today_iso,
             "label": bet.get("label") or bet.get("side") or "system ticket",
             "legs": ticket_legs(bet),
             "leg_count": leg_count,
-            "stake_pct": stake_pct,
-            "stake_amount": round(state["balance"] * stake_pct, 2),
+            "stake_pct": stake_pct if not in_prove_out else round(stake_amount / max(state["balance"], 1.0), 4),
+            "stake_amount": stake_amount,
             "status": "graded" if snapshot_is_graded(today_snapshot) else "pending",
             "odds": bet.get("odds"),
             "model_probability": bet.get("model_probability"),
+            "prove_out": in_prove_out,
         }
 
     wins = state["record"]["wins"]
     losses = state["record"]["losses"]
     total = wins + losses
+    prove_out_done = min(total, PROVE_OUT_TICKETS)
     output = {
         "generated_at": today_iso,
+        "tracking_mode": "system_ticket_replay",
+        "disclaimer": TRACKING_DISCLAIMER,
         "strategy": LIVE_STRATEGY,
         "stakes": STAKE_TIERED,
+        "prove_out": {
+            "flat_stake_usd": FLAT_PROVE_OUT_USD,
+            "target_tickets": PROVE_OUT_TICKETS,
+            "completed_tickets": prove_out_done,
+            "active": total < PROVE_OUT_TICKETS,
+        },
         "daily_exposure_cap": DAILY_CAP,
         "started_at": state["started_at"],
         "starting_balance": state["starting_balance"],
@@ -238,12 +520,15 @@ def main() -> None:
         "today_ticket": today_ticket,
         "checkpoints": state["checkpoints"],
         "tickets": state.get("tickets", []),
-        "tracking_note": "no_low_parlay_223s · model pick only · stakes 35%/45%/10%. Auto-graded after games finish.",
+        "tracking_note": (
+            f"{LIVE_STRATEGY} · archived board ticket when available · "
+            f"prove-out ${FLAT_PROVE_OUT_USD:.0f} flat × {PROVE_OUT_TICKETS} tickets"
+        ),
     }
     save_state(state)
     OUTPUT_PATH.write_text(json.dumps(output, indent=2))
 
-    print(f"Live bankroll: ${state['balance']:.2f} (started ${state['starting_balance']:.2f} on {started_at})")
+    print(f"System replay balance: ${state['balance']:.2f} (started ${state['starting_balance']:.2f} on {state['started_at']})")
     print(f"System ticket record: {wins}-{losses} · tickets logged: {len(state.get('tickets', []))}")
 
 

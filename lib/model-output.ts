@@ -548,8 +548,16 @@ export type LiveBankrollTicket = {
 
 export type LiveBankroll = {
   generated_at: string;
+  tracking_mode?: string;
+  disclaimer?: string;
   strategy: string;
   stakes: Record<string, number>;
+  prove_out?: {
+    flat_stake_usd: number;
+    target_tickets: number;
+    completed_tickets: number;
+    active: boolean;
+  };
   daily_exposure_cap: number;
   started_at: string;
   starting_balance: number;

@@ -299,7 +299,14 @@ export default async function HistoryPage() {
             <span>Started {liveBankroll.started_at}</span>
           </div>
           <p className="muted">
-            {liveBankroll.strategy} · {stakeTierLabel} of current balance · {liveBankroll.record} since you started
+            {liveBankroll.disclaimer ??
+              "System ticket replay from archived boards — not auto-synced to Robinhood."}
+          </p>
+          <p className="muted">
+            {liveBankroll.strategy} · {stakeTierLabel} · system replay <strong>{liveBankroll.record}</strong>
+            {liveBankroll.prove_out?.active
+              ? ` · prove-out $${liveBankroll.prove_out.flat_stake_usd} flat (${liveBankroll.prove_out.completed_tickets}/${liveBankroll.prove_out.target_tickets})`
+              : ""}
           </p>
           <div className="grid">
             <article>

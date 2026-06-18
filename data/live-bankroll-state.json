@@ -1,134 +1,178 @@
 {
   "started_at": "2026-06-13",
   "starting_balance": 25.0,
-  "balance": 13.6568,
+  "balance": 40.1407,
   "record": {
-    "wins": 1,
-    "losses": 3
+    "wins": 3,
+    "losses": 2
   },
-  "last_settled_date": "2026-06-16",
+  "last_settled_date": "2026-06-17",
   "checkpoints": [
     {
       "date": "2026-06-13",
-      "profit": -10.0,
-      "balance": 15.0,
-      "return_pct": -0.4,
+      "profit": -5.0,
+      "balance": 20.0,
+      "return_pct": -0.2,
       "won": false,
-      "leg_count": 2,
-      "label": "SD ML + KC ML",
+      "leg_count": 1,
+      "label": "MIA ML",
       "legs": [
-        "SD",
-        "KC"
+        "MIA"
       ],
-      "stake_amount": 10.0
+      "stake_amount": 5.0,
+      "grade_source": "archived_board",
+      "prove_out": true
     },
     {
       "date": "2026-06-14",
-      "profit": 22.9356,
-      "balance": 37.9356,
-      "return_pct": 0.5174,
+      "profit": 5.85,
+      "balance": 25.85,
+      "return_pct": 0.034,
       "won": true,
-      "leg_count": 2,
-      "label": "CWS ML + TB ML",
+      "leg_count": 1,
+      "label": "SD ML",
       "legs": [
-        "CWS",
-        "TB"
+        "SD"
       ],
-      "stake_amount": 6.0
+      "stake_amount": 5.0,
+      "grade_source": "archived_board",
+      "prove_out": true
     },
     {
       "date": "2026-06-15",
-      "profit": -15.1742,
-      "balance": 22.7614,
-      "return_pct": -0.0895,
-      "won": false,
-      "leg_count": 2,
-      "label": "LAA ML + WSH ML",
+      "profit": 3.7879,
+      "balance": 29.6379,
+      "return_pct": 0.1855,
+      "won": true,
+      "leg_count": 1,
+      "label": "WSH ML",
       "legs": [
-        "LAA",
         "WSH"
       ],
-      "stake_amount": 15.17
+      "stake_amount": 5.0,
+      "grade_source": "archived_board",
+      "prove_out": true
     },
     {
       "date": "2026-06-16",
-      "profit": -9.1046,
-      "balance": 13.6568,
-      "return_pct": -0.4537,
+      "profit": 15.5028,
+      "balance": 45.1407,
+      "return_pct": 0.8056,
+      "won": true,
+      "leg_count": 2,
+      "label": "CIN ML + HOU ML",
+      "legs": [
+        "CIN",
+        "HOU"
+      ],
+      "stake_amount": 5.0,
+      "grade_source": "archived_board",
+      "prove_out": true
+    },
+    {
+      "date": "2026-06-17",
+      "profit": -5.0,
+      "balance": 40.1407,
+      "return_pct": 0.6056,
       "won": false,
       "leg_count": 2,
-      "label": "CLE ML + CIN ML",
+      "label": "MIA ML + BOS ML",
       "legs": [
-        "CLE",
-        "CIN"
+        "MIA",
+        "BOS"
       ],
-      "stake_amount": 9.1
+      "stake_amount": 5.0,
+      "grade_source": "archived_board",
+      "prove_out": true
     }
   ],
   "tickets": [
     {
       "date": "2026-06-13",
-      "label": "SD ML + KC ML",
+      "label": "MIA ML",
       "legs": [
-        "SD",
-        "KC"
+        "MIA"
       ],
-      "leg_count": 2,
-      "stake_pct": 0.4,
-      "stake_amount": 10.0,
-      "profit": -10.0,
-      "balance_after": 15.0,
+      "leg_count": 1,
+      "stake_pct": 0.2,
+      "stake_amount": 5.0,
+      "profit": -5.0,
+      "balance_after": 20.0,
       "won": false,
-      "odds": 259,
-      "model_probability": 0.4059
+      "odds": 111,
+      "model_probability": 0.5349,
+      "grade_source": "archived_board",
+      "prove_out": true
     },
     {
       "date": "2026-06-14",
-      "label": "CWS ML + TB ML",
+      "label": "SD ML",
       "legs": [
-        "CWS",
-        "TB"
+        "SD"
       ],
-      "leg_count": 2,
-      "stake_pct": 0.4,
-      "stake_amount": 6.0,
-      "profit": 22.94,
-      "balance_after": 37.94,
+      "leg_count": 1,
+      "stake_pct": 0.25,
+      "stake_amount": 5.0,
+      "profit": 5.85,
+      "balance_after": 25.85,
       "won": true,
-      "odds": 382,
-      "model_probability": 0.4562
+      "odds": 117,
+      "model_probability": 0.546,
+      "grade_source": "archived_board",
+      "prove_out": true
     },
     {
       "date": "2026-06-15",
-      "label": "LAA ML + WSH ML",
+      "label": "WSH ML",
       "legs": [
-        "LAA",
         "WSH"
       ],
-      "leg_count": 2,
-      "stake_pct": 0.4,
-      "stake_amount": 15.17,
-      "profit": -15.17,
-      "balance_after": 22.76,
-      "won": false,
-      "odds": 277,
-      "model_probability": 0.4281
+      "leg_count": 1,
+      "stake_pct": 0.1934,
+      "stake_amount": 5.0,
+      "profit": 3.79,
+      "balance_after": 29.64,
+      "won": true,
+      "odds": -132,
+      "model_probability": 0.6539,
+      "grade_source": "archived_board",
+      "prove_out": true
     },
     {
       "date": "2026-06-16",
-      "label": "CLE ML + CIN ML",
+      "label": "CIN ML + HOU ML",
       "legs": [
-        "CLE",
-        "CIN"
+        "CIN",
+        "HOU"
       ],
       "leg_count": 2,
-      "stake_pct": 0.4,
-      "stake_amount": 9.1,
-      "profit": -9.1,
-      "balance_after": 13.66,
+      "stake_pct": 0.1687,
+      "stake_amount": 5.0,
+      "profit": 15.5,
+      "balance_after": 45.14,
+      "won": true,
+      "odds": 310,
+      "model_probability": 0.4189770400000001,
+      "grade_source": "archived_board",
+      "prove_out": true
+    },
+    {
+      "date": "2026-06-17",
+      "label": "MIA ML + BOS ML",
+      "legs": [
+        "MIA",
+        "BOS"
+      ],
+      "leg_count": 2,
+      "stake_pct": 0.1108,
+      "stake_amount": 5.0,
+      "profit": -5.0,
+      "balance_after": 40.14,
       "won": false,
-      "odds": 371,
-      "model_probability": 0.4116
+      "odds": 255,
+      "model_probability": 0.39922314999999997,
+      "grade_source": "archived_board",
+      "prove_out": true
     }
   ],
   "wallet_balance": 23.28

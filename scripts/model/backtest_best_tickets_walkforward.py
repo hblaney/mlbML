@@ -1,4 +1,4 @@
-"""Walk-forward backtest of corr_nl_reject_both best tickets + recent ticket ledger."""
+"""Walk-forward backtest of live system tickets + recent ticket ledger."""
 
 from __future__ import annotations
 
@@ -14,7 +14,7 @@ from mlb_api import load_or_fetch_games, load_team_abbreviations
 from strategy_next_tests import day_actions_for_test, enrich_moneyline
 
 OUTPUT_PATH = Path(__file__).resolve().parents[2] / "public" / "best-ticket-walkforward.json"
-LIVE_STRATEGY = "corr_nl_reject_both"
+LIVE_STRATEGY = "no_low_parlay_223s"
 
 
 def ticket_label(action, day: str) -> str:

@@ -15,8 +15,8 @@ import { formatCentralGameTime } from "@/lib/time";
 export const dynamic = "force-dynamic";
 
 const STRATEGY_LABELS: Record<string, string> = {
-  corr_nl_reject_both: "corr_nl_reject_both (live)",
-  no_low_parlay_223s: "no_low_parlay_223s",
+  corr_nl_reject_both: "corr_nl_reject_both",
+  no_low_parlay_223s: "no_low_parlay_223s (live plan)",
   best_ticket: "best_ticket (selective)",
   no_low_skip_forced: "no_low_skip_forced"
 };
@@ -52,6 +52,8 @@ export default async function BestBetsPage() {
     : null;
   const unstableStarterGames = board.filter((game) => game.pitcherChanged || game.starterCertain === false).length;
 
+  const proveOutActive = liveBankroll?.prove_out?.active ?? true;
+  const proveOutStake = liveBankroll?.prove_out?.flat_stake_usd ?? 5;
   const formatBankroll = (value: number) =>
     value >= 100
       ? `$${value.toLocaleString(undefined, { maximumFractionDigits: 0 })}`
@@ -157,18 +159,26 @@ export default async function BestBetsPage() {
                     : "2-Leg Parlay"}
               </h2>
             </div>
-            <span>Stake {formatPercent(ticketStakePct)} of bankroll</span>
+            <span>{proveOutActive ? `Bet $${proveOutStake} flat` : `Stake ${formatPercent(ticketStakePct)} of bankroll`}</span>
           </div>
           <p className="muted">
-            <strong>corr_nl_reject_both</strong> · stakes{" "}
-            <strong>
-              {formatPercent(OPTIMIZED_STAKE_BY_LEG_COUNT[1])} single /{" "}
-              {formatPercent(OPTIMIZED_STAKE_BY_LEG_COUNT[2])} two-leg /{" "}
-              {formatPercent(OPTIMIZED_STAKE_BY_LEG_COUNT[3])} three-leg
-            </strong>{" "}
-            of wallet. Stake <strong>{formatPercent(ticketStakePct)}</strong> ={" "}
-            <strong>{formatBankroll(bankroll * ticketStakePct)}</strong> on this ticket. Model predicted winner
-            only — one bet per day.
+            <strong>{activeStrategy}</strong> ·{" "}
+            {proveOutActive ? (
+              <>
+                Prove-out: bet exactly <strong>${proveOutStake.toFixed(0)} flat</strong> on this ticket — same legs,
+                no substitutes.
+              </>
+            ) : (
+              <>
+                Stakes{" "}
+                <strong>
+                  {formatPercent(stakeSingle)} single / {formatPercent(stakeParlay2)} two-leg /{" "}
+                  {formatPercent(stakeParlay3)} three-leg
+                </strong>{" "}
+                of wallet ({formatBankroll(bankroll * ticketStakePct)} on this ticket).
+              </>
+            )}{" "}
+            Model predicted winner only — one bet per day.
           </p>
           {bestTicket.kind === "parlay" && bestTicket.parlay.strategy === "forced_top_2" ? (
             <p className="muted">
@@ -409,19 +419,18 @@ export default async function BestBetsPage() {
         <section className="panel">
           <div className="section-heading compact">
             <div>
-              <p className="eyebrow">Walk-forward ledger</p>
-              <h2>Best tickets — last 14 days</h2>
+              <p className="eyebrow">System ticket audit (backtest)</p>
+              <h2>{activeStrategy} — last 14 days</h2>
             </div>
             <span>
               {ticketWalkforward.last_14_days.start} → {ticketWalkforward.last_14_days.end}
             </span>
           </div>
           <p className="muted">
-            Strict walk-forward replay using the full {ticketWalkforward.feature_count}-feature model (registry +
-            Statcast + injuries when live). Strategy: {ticketWalkforward.strategy}. Season ticket record{" "}
+            Backtest replay only — not your Robinhood slip history. Same model, same{" "}
+            <strong>{ticketWalkforward.strategy}</strong> rules. Season ticket record{" "}
             <strong>{ticketWalkforward.best_ticket_accuracy.record}</strong> (
-            {formatPercent(ticketWalkforward.best_ticket_accuracy.hit_rate)}). Game picks{" "}
-            {formatPercent(ticketWalkforward.game_prediction_accuracy.accuracy)}.
+            {formatPercent(ticketWalkforward.best_ticket_accuracy.hit_rate)}).
           </p>
           <div className="grid">
             <article>
