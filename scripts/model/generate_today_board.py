@@ -109,7 +109,7 @@ def market_aware_probabilities(prediction, market_snapshot, odds_available: bool
 def main() -> None:
     today = date.today()
     yesterday = today - timedelta(days=1)
-    bundle = ensure_trained_through(yesterday)
+    bundle, retrained = ensure_trained_through(yesterday)
     today_games = fetch_upcoming_games(today, today)
     team_abbr = load_team_abbreviations()
     market = fetch_moneyline_market(force_refresh=True)
@@ -226,12 +226,15 @@ def main() -> None:
         "generated_at": today.isoformat(),
         "board_generated_at": board_generated_at,
         "trained_through": bundle.trained_through.isoformat(),
+        "model_version": MODEL_VERSION,
+        "retrained_this_run": retrained,
         "predictions": board,
     }
     PUBLIC_PATH.parent.mkdir(parents=True, exist_ok=True)
     PUBLIC_PATH.write_text(json.dumps(payload, indent=2))
     print(f"generated_predictions={len(board)}")
     print(f"trained_through={bundle.trained_through.isoformat()}")
+    print(f"retrained_this_run={retrained}")
 
 
 if __name__ == "__main__":

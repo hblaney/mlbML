@@ -133,10 +133,10 @@ def prior_season_games(yesterday: date) -> list[GameRecord]:
     return load_or_fetch_games(date(yesterday.year - 1, 3, 20), date(yesterday.year - 1, 10, 5))
 
 
-def ensure_trained_through(yesterday: date) -> DailyModelBundle:
+def ensure_trained_through(yesterday: date) -> tuple[DailyModelBundle, bool]:
     existing = load_bundle()
     if existing is not None and existing.trained_through >= yesterday:
-        return existing
+        return existing, False
 
     games = season_games_through(yesterday)
     if not games:
@@ -145,7 +145,7 @@ def ensure_trained_through(yesterday: date) -> DailyModelBundle:
     bundle = train_on_games(games, prior_games=prior_season_games(yesterday))
     bundle.trained_through = yesterday
     save_bundle(bundle)
-    return bundle
+    return bundle, True
 
 
 def no_vig_market_probabilities(home_moneyline: int, away_moneyline: int) -> tuple[float, float] | None:

@@ -7,7 +7,7 @@ import {
   OPTIMIZED_STAKE_BY_LEG_COUNT,
   LIVE_BETTING_STRATEGY
 } from "@/lib/data";
-import { loadPredictionBoard, loadBettingPlan, loadLiveBankroll, loadStrategyGuard, loadBestTicketWalkforward, loadPredictionBoardMetadata } from "@/lib/model-output";
+import { loadPredictionBoard, loadBettingPlan, loadLiveBankroll, loadStrategyGuard, loadBestTicketWalkforward, loadPredictionBoardMetadata, loadAccuracyOutput } from "@/lib/model-output";
 import { formatOdds, formatPercent } from "@/lib/odds";
 import { formatStandingRecord, loadLiveStandings } from "@/lib/standings";
 import { formatCentralGameTime } from "@/lib/time";
@@ -26,11 +26,12 @@ export default async function BestBetsPage() {
   const boardMeta = await loadPredictionBoardMetadata();
   const standings = await loadLiveStandings();
   const standingsByTeamId = new Map(standings.map((standing) => [standing.teamId, standing]));
-  const [bettingPlan, strategyGuard, liveBankroll, ticketWalkforward] = await Promise.all([
+  const [bettingPlan, strategyGuard, liveBankroll, ticketWalkforward, accuracyOutput] = await Promise.all([
     loadBettingPlan(),
     loadStrategyGuard(),
     loadLiveBankroll(),
-    loadBestTicketWalkforward()
+    loadBestTicketWalkforward(),
+    loadAccuracyOutput()
   ]);
   const bets = getBestBets(board);
   const advancedBets = getAdvancedBets(board);
@@ -47,11 +48,19 @@ export default async function BestBetsPage() {
   const bankroll = liveBankroll?.wallet_balance ?? liveBankroll?.balance ?? 23.28;
   const startedAt = liveBankroll?.started_at;
   const boardGeneratedAt = boardMeta.board_generated_at;
+  const modelTrainedThrough = boardMeta.trained_through;
+  const modelVersion = boardMeta.model_version;
   const boardAgeMinutes = boardGeneratedAt
     ? Math.max(0, Math.round((Date.now() - new Date(boardGeneratedAt).getTime()) / 60_000))
     : null;
   const unstableStarterGames = board.filter((game) => game.pitcherChanged || game.starterCertain === false).length;
 
+  const accuracyStale =
+    accuracyOutput?.trained_through &&
+    modelTrainedThrough &&
+    accuracyOutput.trained_through < modelTrainedThrough;
+  const seasonPickAccuracy = accuracyOutput?.current_season?.market_backed_accuracy ?? null;
+  const highConfAccuracy = accuracyOutput?.current_season?.high_confidence_accuracy ?? null;
   const proveOutActive = liveBankroll?.prove_out?.active ?? true;
   const proveOutStake = liveBankroll?.prove_out?.flat_stake_usd ?? 5;
   const formatBankroll = (value: number) =>
@@ -135,6 +144,25 @@ export default async function BestBetsPage() {
           <p className="muted">
             Board auto-refreshed {boardAgeMinutes} min ago
             {boardGeneratedAt ? ` · ${formatCentralGameTime(boardGeneratedAt)}` : ""}.
+          </p>
+        ) : null}
+        {modelTrainedThrough ? (
+          <p className="muted">
+            Model trained through <strong>{modelTrainedThrough}</strong>
+            {modelVersion ? ` (${modelVersion})` : ""}
+            {seasonPickAccuracy != null ? (
+              <>
+                {" "}
+                · 2026 pick accuracy <strong>{formatPercent(seasonPickAccuracy)}</strong> overall
+                {highConfAccuracy != null ? ` · ${formatPercent(highConfAccuracy)} on High/Elite only` : ""}
+              </>
+            ) : null}
+            {accuracyStale ? (
+              <>
+                {" "}
+                · <span className="warning">accuracy audit stale — full retrain pending</span>
+              </>
+            ) : null}
           </p>
         ) : null}
         {unstableStarterGames > 0 ? (

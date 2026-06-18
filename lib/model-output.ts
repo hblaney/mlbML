@@ -755,6 +755,8 @@ type PredictionBoardFile = {
   generated_at?: string;
   board_generated_at?: string;
   trained_through?: string;
+  model_version?: string;
+  retrained_this_run?: boolean;
   predictions?: PredictionOutputRow[];
 };
 
