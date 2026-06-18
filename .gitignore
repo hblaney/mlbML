@@ -8,3 +8,5 @@ node_modules/
 data/odds_live_cache.json
 scripts/model/tmp_*
 data/cache/
+__pycache__/
+*.pyc

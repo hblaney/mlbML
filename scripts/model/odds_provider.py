@@ -8,11 +8,14 @@ from __future__ import annotations
 
 import json
 import os
+import ssl
 import time
 from pathlib import Path
 from urllib.error import HTTPError
 from urllib.parse import urlencode
 from urllib.request import urlopen
+
+import certifi
 
 from context import MarketSnapshot
 from mlb_api import GameRecord, load_team_names
@@ -25,6 +28,11 @@ ODDS_CACHE_TTL_SECONDS = int(os.getenv("ODDS_CACHE_TTL_SECONDS", "21600"))
 LAST_ODDS_ERROR: str | None = None
 
 _LIVE_MARKET_CACHE: dict[tuple[str, str], MarketSnapshot] | None = None
+
+
+def _urlopen(url: str, *, timeout: int = 30):
+    context = ssl.create_default_context(cafile=certifi.where())
+    return urlopen(url, timeout=timeout, context=context)
 _LIVE_MARKET_CACHE_AT: float | None = None
 
 
@@ -169,7 +177,7 @@ def fetch_moneyline_market(*, force_refresh: bool = False) -> dict[tuple[str, st
     )
 
     try:
-        with urlopen(f"{ODDS_API_BASE}?{params}", timeout=30) as response:
+        with _urlopen(f"{ODDS_API_BASE}?{params}") as response:
             events = json.load(response)
     except HTTPError as error:
         body = error.read().decode("utf-8", errors="replace")
@@ -323,7 +331,7 @@ def fetch_historical_moneyline_market(iso_datetime: str) -> dict[tuple[str, str]
     )
 
     try:
-        with urlopen(f"{ODDS_HISTORICAL_API_BASE}?{params}", timeout=30) as response:
+        with _urlopen(f"{ODDS_HISTORICAL_API_BASE}?{params}") as response:
             payload = json.load(response)
     except Exception:
         return {}
