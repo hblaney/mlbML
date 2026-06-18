@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-06-17",
-  "strategy": "corr_nl_reject_both",
+  "generated_at": "2026-06-18",
+  "strategy": "no_low_parlay_223s",
   "stakes": {
     "1": 0.35,
-    "2": 0.4,
-    "3": 0.3
+    "2": 0.45,
+    "3": 0.1
   },
   "daily_exposure_cap": 0.5,
   "started_at": "2026-06-13",
@@ -142,5 +142,5 @@
       "model_probability": 0.4116
     }
   ],
-  "tracking_note": "corr_nl_reject_both \u00b7 model pick only \u00b7 stakes 35%/40%/30%. Auto-graded after games finish."
+  "tracking_note": "no_low_parlay_223s \u00b7 model pick only \u00b7 stakes 35%/45%/10%. Auto-graded after games finish."
 }

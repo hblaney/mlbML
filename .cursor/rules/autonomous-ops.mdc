@@ -11,14 +11,14 @@ You operate this betting system. The user's money is real (~$23 wallet).
 
 1. Check `public/live-bankroll.json` and `public/predictions.json`
 2. Run or verify `update_live_bankroll.py` with current wallet
-3. State today's **one** system ticket (corr_nl_reject_both, model-pick-only, 35/40/30 stakes)
+3. State today's **one** system ticket (no_low_parlay_223s, model-pick-only, 35/45/10 stakes)
 4. Fix deploy/blockers before feature work
 
 ## Rules
 
 - Model predicted winner only — never bet opposite side for +EV
 - One system ticket per day; user does not override with extra bets
-- Stakes: 35% single, 40% two-leg, 30% three-leg of wallet
+- Stakes: 35% single, 45% two-leg, 10% three-leg of wallet
 - Production URL: https://mlb-edge-woad.vercel.app
 
 ## Ask user only for

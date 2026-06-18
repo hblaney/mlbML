@@ -1,6 +1,6 @@
 {
-  "leader_streak_days": 3,
-  "leader_strategy": "best_ticket",
+  "leader_streak_days": 1,
+  "leader_strategy": "corr_nl_reject_both",
   "signals": [
     {
       "date": "2026-06-16",
@@ -27,6 +27,13 @@
       "leader_14d": "best_ticket",
       "season_leader": "corr_nl_reject_both",
       "leader_streak_days": 3,
+      "switch_recommended": false
+    },
+    {
+      "date": "2026-06-18",
+      "leader_14d": "corr_nl_reject_both",
+      "season_leader": "no_low_parlay_223s",
+      "leader_streak_days": 1,
       "switch_recommended": false
     }
   ]

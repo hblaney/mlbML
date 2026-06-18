@@ -713,11 +713,18 @@ function isParlayEligibleConfidence(confidence: GamePrediction["confidence"]) {
 }
 
 function isStarterReadyForParlay(game: GamePrediction) {
-  return game.starterCertain !== false && game.pitcherChanged !== true && game.seriesFade !== true;
+  if (game.starterCertain === false || game.pitcherChanged === true) {
+    return false;
+  }
+  if (USE_PARLAY_CORRELATION_FILTER && game.seriesFade === true) {
+    return false;
+  }
+  return true;
 }
 
-/** Live plan: corr_nl_reject_both — block same-division and same-start-window parlay legs. */
-export const LIVE_BETTING_STRATEGY = "corr_nl_reject_both";
+/** Live plan: no_low_parlay_223s — overnight rigorous sweep winner (33,865 configs). */
+export const LIVE_BETTING_STRATEGY = "no_low_parlay_223s";
+const USE_PARLAY_CORRELATION_FILTER = false;
 const PARLAY_CORRELATION_WINDOW_MINUTES = 60;
 
 const TEAM_DIVISION: Record<string, string> = {
@@ -769,6 +776,9 @@ function gameStartMinutes(game: GamePrediction) {
 }
 
 function isParlayCorrelationAllowed(legs: BestBet[]) {
+  if (!USE_PARLAY_CORRELATION_FILTER) {
+    return true;
+  }
   for (let left = 0; left < legs.length; left += 1) {
     for (let right = left + 1; right < legs.length; right += 1) {
       const a = legs[left];
@@ -848,11 +858,11 @@ export type ParlayCandidate = {
 /** Flat fallback when leg-specific stake is unavailable (2026 sweep best: 35%). */
 export const OPTIMIZED_GROWTH_STAKE_PCT = 0.35;
 
-/** 2026 walk-forward tiered sizing for corr_nl_reject_both (optimizer winner). */
+/** 2026 rigorous sweep: 35% single · 45% two-leg · 10% three-leg of wallet. */
 export const OPTIMIZED_STAKE_BY_LEG_COUNT: Record<number, number> = {
   1: 0.35,
-  2: 0.4,
-  3: 0.3
+  2: 0.45,
+  3: 0.1
 };
 
 /** Locked live stakes — same as OPTIMIZED_STAKE_BY_LEG_COUNT. */
@@ -1469,14 +1479,14 @@ export function getMaxScoreDailyTicket(board: GamePrediction[] = predictions): D
   return options.sort((left, right) => right.score - left.score)[0];
 }
 
-/** corr_nl_reject_both: always-2, premium 3-leg, or single — highest score wins one bet. */
-export function getCorrNlRejectBothTicket(board: GamePrediction[] = predictions): DailyTicket | null {
+/** no_low_parlay_223s: always-2, premium 3-leg, or single — highest score wins one bet. */
+export function getNoLowParlay223sTicket(board: GamePrediction[] = predictions): DailyTicket | null {
   return getTwoOrThreeOrSingleTicket(board);
 }
 
-/** Daily ticket: corr_nl_reject_both — always one bet; forced 2-leg when filtered parlay unavailable. */
+/** Daily ticket: one system bet per day. */
 export function getBestDailyTicket(board: GamePrediction[] = predictions): DailyTicket | null {
-  return getCorrNlRejectBothTicket(board);
+  return getNoLowParlay223sTicket(board);
 }
 
 export function getDailyParlayTickets(board: GamePrediction[] = predictions) {

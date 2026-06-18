@@ -21,9 +21,9 @@ If board `generated_at` ≠ today → investigate Actions, run locally, push fix
 
 ## Betting rules (canonical — never drift)
 
-- **Strategy**: `corr_nl_reject_both`
+- **Strategy**: `no_low_parlay_223s`
 - **Sides**: model predicted winner only (never +EV fade)
-- **Stakes**: 35% single · 40% two-leg · 30% three-leg of **wallet_balance**
+- **Stakes**: 35% single · 45% two-leg · 10% three-leg of **wallet_balance**
 - **One ticket per day** — user does not add picks
 
 ## Model improvement loop (ongoing)

@@ -12,8 +12,8 @@ from exhaustive_strategy_search import STAKE, load_moneyline_by_day
 from strategy_next_tests import build_snapshots, enrich_moneyline
 from strategy_research import DAILY_CAP
 
-LIVE_STRATEGY = "corr_nl_reject_both"
-STAKE_TIERED = {1: 0.35, 2: 0.40, 3: 0.30}
+LIVE_STRATEGY = "no_low_parlay_223s"
+STAKE_TIERED = {1: 0.35, 2: 0.45, 3: 0.10}
 DEFAULT_STARTING_BALANCE = 25.0
 DEFAULT_STARTED_AT = "2026-06-13"
 STATE_PATH = Path(__file__).resolve().parents[2] / "data" / "live-bankroll-state.json"
@@ -238,7 +238,7 @@ def main() -> None:
         "today_ticket": today_ticket,
         "checkpoints": state["checkpoints"],
         "tickets": state.get("tickets", []),
-        "tracking_note": "corr_nl_reject_both · model pick only · stakes 35%/40%/30%. Auto-graded after games finish.",
+        "tracking_note": "no_low_parlay_223s · model pick only · stakes 35%/45%/10%. Auto-graded after games finish.",
     }
     save_state(state)
     OUTPUT_PATH.write_text(json.dumps(output, indent=2))

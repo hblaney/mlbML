@@ -1,26 +1,25 @@
 {
-  "generated_at": "2026-06-17",
-  "strategy": "corr_nl_reject_both",
+  "generated_at": "2026-06-18",
+  "strategy": "no_low_parlay_223s",
   "strategy_rules": [
-    "corr_nl_reject_both \u2014 one system ticket per day",
-    "Model predicted winner only \u2014 never bet the opposite side for +EV",
-    "Parlay legs require Medium+ and \u226568% model probability",
-    "Block parlay legs after pick lost last 2 vs same opponent (series fade)",
+    "no_low_parlay_223s — one system ticket per day",
+    "Model predicted winner only — never bet the opposite side for +EV",
+    "Parlay legs require Medium+ confidence (no Low legs)",
     "Always-2 parlay from Medium+ model-pick legs (filtered, else forced top-2 model picks)",
-    "Reject parlay legs in the same division or starting within 60 minutes",
     "Premium filtered 3-leg when it scores higher than always-2",
     "Qualified single on a model pick when it scores highest",
-    "Stakes locked: 35% single \u00b7 40% two-leg \u00b7 30% three-leg of wallet"
+    "No correlation blocks (same division / start window) — rigorous sweep winner",
+    "Stakes locked: 35% single · 45% two-leg · 10% three-leg of wallet"
   ],
   "stake_by_leg_count": {
     "1": 0.35,
-    "2": 0.4,
-    "3": 0.3
+    "2": 0.45,
+    "3": 0.1
   },
   "stake_optimizer_suggestion": {
     "1": 0.35,
-    "2": 0.4,
-    "3": 0.3
+    "2": 0.45,
+    "3": 0.1
   },
   "flat_stake_fallback": 0.35,
   "daily_exposure_cap": 0.5,
@@ -28,5 +27,5 @@
     "start": "2026-03-20",
     "end": "2026-06-16"
   },
-  "retuned_from": "optimize_stake_sizing.py walk-forward on current season"
+  "retuned_from": "overnight_rigorous_report.json — 33,865 config sweep winner"
 }
