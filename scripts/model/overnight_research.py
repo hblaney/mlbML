@@ -81,7 +81,7 @@ def experiment_ablation(state: dict) -> dict:
     return row
 
 
-def experiment_strategy_thresholds() -> dict:
+def experiment_strategy_thresholds(_state: dict) -> dict:
     from overnight_improve_live import sweep_live_thresholds
 
     _, _, _, rows, ml = load_ml_rows()
@@ -96,7 +96,7 @@ def experiment_strategy_thresholds() -> dict:
     }
 
 
-def experiment_ticket_strategies() -> dict:
+def experiment_ticket_strategies(_state: dict) -> dict:
     _, _, _, rows, ml = load_ml_rows()
     strategies = [
         "corr_nl_reject_both",
@@ -119,7 +119,7 @@ def experiment_ticket_strategies() -> dict:
     return {"experiment": "ticket_strategy_compare", "ranked": results}
 
 
-def experiment_calibration_windows() -> dict:
+def experiment_calibration_windows(_state: dict) -> dict:
     _, _, _, rows, _ = load_ml_rows()
     windows = {}
     for days in (7, 14, 30):
@@ -143,7 +143,7 @@ def experiment_calibration_windows() -> dict:
     }
 
 
-def experiment_live_counterfactuals() -> dict:
+def experiment_live_counterfactuals(_state: dict) -> dict:
     """What-if on user's live window Jun 13-16."""
     from strategy_next_tests import day_actions_for_test
     from exhaustive_strategy_search import action_to_bet
@@ -172,7 +172,7 @@ def experiment_live_counterfactuals() -> dict:
     }
 
 
-def experiment_combined_prob_floor() -> dict:
+def experiment_combined_prob_floor(_state: dict) -> dict:
     """Sweep minimum 2-leg combined probability for corr strategy."""
     from backtest_parlays import settle_parlay
     from strategy_next_tests import live_parlay_pool, pick_corr_parlay
