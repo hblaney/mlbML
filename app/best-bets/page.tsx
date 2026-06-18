@@ -165,8 +165,8 @@ export default async function BestBetsPage() {
             <strong>{activeStrategy}</strong> ·{" "}
             {proveOutActive ? (
               <>
-                Prove-out: bet exactly <strong>${proveOutStake.toFixed(0)} flat</strong> on this ticket — same legs,
-                no substitutes.
+                Your Robinhood bet: <strong>${proveOutStake.toFixed(0)} flat</strong> on this ticket — copy legs
+                exactly.
               </>
             ) : (
               <>
@@ -427,9 +427,8 @@ export default async function BestBetsPage() {
             </span>
           </div>
           <p className="muted">
-            Backtest replay only — not your Robinhood slip history. Same model, same{" "}
-            <strong>{ticketWalkforward.strategy}</strong> rules. Season ticket record{" "}
-            <strong>{ticketWalkforward.best_ticket_accuracy.record}</strong> (
+            Backtest replay only — historical audit of the same <strong>{activeStrategy}</strong> rules you bet on
+            Robinhood. Season ticket record <strong>{ticketWalkforward.best_ticket_accuracy.record}</strong> (
             {formatPercent(ticketWalkforward.best_ticket_accuracy.hit_rate)}).
           </p>
           <div className="grid">

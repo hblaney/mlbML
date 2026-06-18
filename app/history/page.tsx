@@ -299,8 +299,7 @@ export default async function HistoryPage() {
             <span>Started {liveBankroll.started_at}</span>
           </div>
           <p className="muted">
-            {liveBankroll.disclaimer ??
-              "System ticket replay from archived boards — not auto-synced to Robinhood."}
+            {liveBankroll.disclaimer ?? "Tracks the Best Bets card — bet this ticket on Robinhood."}
           </p>
           <p className="muted">
             {liveBankroll.strategy} · {stakeTierLabel} · system replay <strong>{liveBankroll.record}</strong>

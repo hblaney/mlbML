@@ -1,7 +1,7 @@
 {
   "generated_at": "2026-06-18",
-  "tracking_mode": "system_ticket_replay",
-  "disclaimer": "System ticket replay from archived daily boards \u2014 not auto-synced to Robinhood. Prove-out: $5 flat per ticket for first 5 tickets.",
+  "tracking_mode": "live_best_bets",
+  "disclaimer": "Tracks the Best Bets system ticket \u2014 bet this exact card on Robinhood. Currently $5 flat per ticket.",
   "strategy": "no_low_parlay_223s",
   "stakes": {
     "1": 0.35,
@@ -12,7 +12,8 @@
     "flat_stake_usd": 5.0,
     "target_tickets": 5,
     "completed_tickets": 5,
-    "active": false
+    "active": true,
+    "mode": "flat_5"
   },
   "daily_exposure_cap": 0.5,
   "started_at": "2026-06-13",
@@ -25,7 +26,21 @@
   "hit_rate": 0.6,
   "backtest_ticket_hit_rate": 0.58,
   "last_settled_date": "2026-06-17",
-  "today_ticket": null,
+  "today_ticket": {
+    "date": "2026-06-18",
+    "label": "ATL ML + MIN ML",
+    "legs": [
+      "ATL",
+      "MIN"
+    ],
+    "leg_count": 2,
+    "stake_pct": 0.1246,
+    "stake_amount": 5.0,
+    "status": "pending",
+    "odds": 211,
+    "model_probability": 0.35771822,
+    "prove_out": true
+  },
   "checkpoints": [
     {
       "date": "2026-06-13",

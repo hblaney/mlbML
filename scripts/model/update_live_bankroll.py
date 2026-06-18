@@ -17,11 +17,12 @@ LIVE_STRATEGY = "no_low_parlay_223s"
 STAKE_TIERED = {1: 0.35, 2: 0.45, 3: 0.10}
 FLAT_PROVE_OUT_USD = 5.0
 PROVE_OUT_TICKETS = 5
+LIVE_STAKE_MODE = "flat_5"  # flat_5 until live proves out; then compound_tiered
 DEFAULT_STARTING_BALANCE = 25.0
 DEFAULT_STARTED_AT = "2026-06-13"
 TRACKING_DISCLAIMER = (
-    "System ticket replay from archived daily boards — not auto-synced to Robinhood. "
-    f"Prove-out: ${FLAT_PROVE_OUT_USD:.0f} flat per ticket for first {PROVE_OUT_TICKETS} tickets."
+    "Tracks the Best Bets system ticket — bet this exact card on Robinhood. "
+    f"Currently ${FLAT_PROVE_OUT_USD:.0f} flat per ticket."
 )
 REPO_ROOT = Path(__file__).resolve().parents[2]
 STATE_PATH = REPO_ROOT / "data" / "live-bankroll-state.json"
@@ -344,9 +345,9 @@ def settle_day(
 ) -> None:
     bet = snapshot["bets"][0]
     tickets_done = len(state.get("tickets", []))
-    in_prove_out = tickets_done < PROVE_OUT_TICKETS
+    use_flat = LIVE_STAKE_MODE == "flat_5" or tickets_done < PROVE_OUT_TICKETS
 
-    if in_prove_out:
+    if use_flat:
         stake_amount = FLAT_PROVE_OUT_USD
         stake_pct = round(stake_amount / max(state["balance"], 1.0), 4)
         profit, won = apply_day_flat(FLAT_PROVE_OUT_USD, bet)
@@ -373,7 +374,7 @@ def settle_day(
         won=won,
     )
     ticket["grade_source"] = source
-    ticket["prove_out"] = in_prove_out
+    ticket["prove_out"] = use_flat
 
     leg_count = len(bet.get("legs", [])) or 1
     checkpoint = {
@@ -387,7 +388,7 @@ def settle_day(
         "legs": ticket["legs"],
         "stake_amount": ticket["stake_amount"],
         "grade_source": source,
-        "prove_out": in_prove_out,
+        "prove_out": use_flat,
     }
     state["checkpoints"].append(checkpoint)
     state.setdefault("tickets", []).append(ticket)
@@ -409,6 +410,32 @@ def rebuild_state_from_boards(state: dict, snaps_by_day: dict[str, dict], *, thr
         if snapshot and snapshot_is_graded(snapshot):
             settle_day(state, day_iso, snapshot, source=source)
         cursor += timedelta(days=1)
+
+
+def pending_snapshot_from_live_board(today_iso: str) -> dict | None:
+    """Today's ticket from the live predictions board (pre-grade)."""
+    board_path = REPO_ROOT / "public" / "predictions.json"
+    if not board_path.exists():
+        return None
+    board = json.loads(board_path.read_text())
+    if not any(str(row.get("date", "")).startswith(today_iso) for row in board.get("predictions", [])):
+        return None
+    ticket = ticket_from_archived_board(board_path)
+    if not ticket:
+        return None
+    return {
+        "date": today_iso,
+        "bets": [
+            {
+                "label": ticket["label"],
+                "legs": ticket["legs"],
+                "won": None,
+                "profit": None,
+                "odds": ticket.get("odds"),
+                "model_probability": ticket.get("model_probability"),
+            }
+        ],
+    }
 
 
 def main() -> None:
@@ -468,13 +495,15 @@ def main() -> None:
 
     today_snapshot, _ = graded_snapshot_for_day(today_iso, snaps_by_day)
     if not today_snapshot:
+        today_snapshot = pending_snapshot_from_live_board(today_iso)
+    if not today_snapshot:
         today_snapshot = snaps_by_day.get(today_iso)
     today_ticket = None
     if today_snapshot and today_snapshot.get("bets"):
         bet = today_snapshot["bets"][0]
         leg_count = len(bet.get("legs", [])) or 1
         tickets_done = len(state.get("tickets", []))
-        in_prove_out = tickets_done < PROVE_OUT_TICKETS
+        in_prove_out = LIVE_STAKE_MODE == "flat_5" or tickets_done < PROVE_OUT_TICKETS
         stake_pct = STAKE_TIERED.get(leg_count, 0.35)
         stake_amount = FLAT_PROVE_OUT_USD if in_prove_out else round(state["balance"] * stake_pct, 2)
         today_ticket = {
@@ -496,7 +525,7 @@ def main() -> None:
     prove_out_done = min(total, PROVE_OUT_TICKETS)
     output = {
         "generated_at": today_iso,
-        "tracking_mode": "system_ticket_replay",
+        "tracking_mode": "live_best_bets",
         "disclaimer": TRACKING_DISCLAIMER,
         "strategy": LIVE_STRATEGY,
         "stakes": STAKE_TIERED,
@@ -504,7 +533,8 @@ def main() -> None:
             "flat_stake_usd": FLAT_PROVE_OUT_USD,
             "target_tickets": PROVE_OUT_TICKETS,
             "completed_tickets": prove_out_done,
-            "active": total < PROVE_OUT_TICKETS,
+            "active": LIVE_STAKE_MODE == "flat_5",
+            "mode": LIVE_STAKE_MODE,
         },
         "daily_exposure_cap": DAILY_CAP,
         "started_at": state["started_at"],
