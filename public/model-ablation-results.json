@@ -1,6 +1,6 @@
 {
   "generated_at": "2026-06-17",
-  "run_mode": "statcast-retest",
+  "run_mode": "quick",
   "period": {
     "start": "2026-03-20",
     "end": "2026-06-16"
@@ -28,17 +28,69 @@
       "delta_vs_baseline": 0.0
     },
     {
-      "name": "v2.1_statcast",
+      "name": "v2.1_injuries",
       "mode": "v21",
       "model": "shallow",
       "robust": false,
-      "injuries": false,
-      "statcast": true,
+      "injuries": true,
+      "statcast": false,
       "games": 1088,
-      "correct": 659,
-      "accuracy": 0.6057,
-      "record": "659-429",
-      "delta_vs_baseline": -0.0009
+      "correct": 660,
+      "accuracy": 0.6066,
+      "record": "660-428",
+      "delta_vs_baseline": 0.0
+    },
+    {
+      "name": "v2.1_histgbm",
+      "mode": "v21",
+      "model": "histgbm",
+      "robust": false,
+      "injuries": false,
+      "statcast": false,
+      "games": 1088,
+      "correct": 653,
+      "accuracy": 0.6002,
+      "record": "653-435",
+      "delta_vs_baseline": -0.0064
+    },
+    {
+      "name": "v2.1_histgbm_scaled",
+      "mode": "v21",
+      "model": "histgbm_scaled",
+      "robust": false,
+      "injuries": false,
+      "statcast": false,
+      "games": 1088,
+      "correct": 642,
+      "accuracy": 0.5901,
+      "record": "642-446",
+      "delta_vs_baseline": -0.0165
+    },
+    {
+      "name": "v2.1_robust_blend",
+      "mode": "v21",
+      "model": "shallow",
+      "robust": true,
+      "injuries": false,
+      "statcast": false,
+      "games": 1088,
+      "correct": 622,
+      "accuracy": 0.5717,
+      "record": "622-466",
+      "delta_vs_baseline": -0.0349
+    },
+    {
+      "name": "v2.1_robust_injuries",
+      "mode": "v21",
+      "model": "shallow",
+      "robust": true,
+      "injuries": true,
+      "statcast": false,
+      "games": 1088,
+      "correct": 622,
+      "accuracy": 0.5717,
+      "record": "622-466",
+      "delta_vs_baseline": -0.0349
     }
   ],
   "beats_baseline": [],
