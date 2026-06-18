@@ -24,6 +24,7 @@ from trained_edge_model import (
     REFIT_EVERY,
     WARMUP_GAMES,
     TrainingExample,
+    apply_live_context_adjustments,
     blend_with_market,
     confidence_for,
     feature_row,
@@ -33,7 +34,7 @@ from trained_edge_model import (
 )
 
 MODEL_PATH = Path(__file__).resolve().parents[2] / "data" / "model" / "daily_edge.pkl"
-MODEL_VERSION = "daily-auto-v2.3-series-context"
+MODEL_VERSION = "daily-auto-v2.4-blend10"
 
 
 @dataclass
@@ -198,6 +199,8 @@ def walk_forward_history(
                     home_probability /= total
                     away_probability /= total
             home_probability = sharpen_public_probability(home_probability)
+            away_probability = 1.0 - home_probability
+            home_probability, _ = apply_live_context_adjustments(game, league, home_probability)
             away_probability = 1.0 - home_probability
             predicted_home = home_probability >= away_probability
             pick_probability = max(home_probability, away_probability)

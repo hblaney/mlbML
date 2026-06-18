@@ -23,8 +23,8 @@ LOG_PATH = ROOT / "data" / "overnight-model-research.jsonl"
 REPORT_PATH = ROOT / "public" / "overnight-model-research.json"
 IDEAS_PATH = ROOT / "public" / "overnight-model-ideas.json"
 
-BASELINE = 0.6066
-SHIPPED_BASELINE = "daily-auto-v2.2-h2h"
+BASELINE = 0.6112
+SHIPPED_BASELINE = "daily-auto-v2.4-blend10"
 
 
 @dataclass(frozen=True)
