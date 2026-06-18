@@ -7,7 +7,7 @@ import {
   OPTIMIZED_STAKE_BY_LEG_COUNT,
   LIVE_BETTING_STRATEGY
 } from "@/lib/data";
-import { loadPredictionBoard, loadBettingPlan, loadLiveBankroll, loadStrategyGuard, loadBestTicketWalkforward } from "@/lib/model-output";
+import { loadPredictionBoard, loadBettingPlan, loadLiveBankroll, loadStrategyGuard, loadBestTicketWalkforward, loadPredictionBoardMetadata } from "@/lib/model-output";
 import { formatOdds, formatPercent } from "@/lib/odds";
 import { formatStandingRecord, loadLiveStandings } from "@/lib/standings";
 import { formatCentralGameTime } from "@/lib/time";
@@ -23,6 +23,7 @@ const STRATEGY_LABELS: Record<string, string> = {
 
 export default async function BestBetsPage() {
   const board = await loadPredictionBoard();
+  const boardMeta = await loadPredictionBoardMetadata();
   const standings = await loadLiveStandings();
   const standingsByTeamId = new Map(standings.map((standing) => [standing.teamId, standing]));
   const [bettingPlan, strategyGuard, liveBankroll, ticketWalkforward] = await Promise.all([
@@ -39,8 +40,13 @@ export default async function BestBetsPage() {
   const ticketStakePct = getOptimizedStakePctForTicket(bestTicket, stakeByLeg);
   const activeStrategy = bettingPlan?.strategy ?? LIVE_BETTING_STRATEGY;
   const liveStats = strategyGuard?.comparisons[activeStrategy]?.season_to_date;
-  const bankroll = liveBankroll?.balance ?? 10;
+  const bankroll = liveBankroll?.wallet_balance ?? liveBankroll?.balance ?? 23.28;
   const startedAt = liveBankroll?.started_at;
+  const boardGeneratedAt = boardMeta.board_generated_at;
+  const boardAgeMinutes = boardGeneratedAt
+    ? Math.max(0, Math.round((Date.now() - new Date(boardGeneratedAt).getTime()) / 60_000))
+    : null;
+  const unstableStarterGames = board.filter((game) => game.pitcherChanged || game.starterCertain === false).length;
 
   const formatBankroll = (value: number) =>
     value >= 100
@@ -84,12 +90,47 @@ export default async function BestBetsPage() {
         </p>
         <p className="muted">
           Your bankroll: <strong>{formatBankroll(bankroll)}</strong>
-          {startedAt ? ` · started ${startedAt}` : ""}
-          {liveBankroll && liveBankroll.record !== "0-0" ? ` · ${liveBankroll.record}` : ""}
+          {startedAt ? ` · live tracking since ${startedAt}` : ""}
+          {liveBankroll && liveBankroll.record !== "0-0" ? (
+            <>
+              {" "}
+              · system ticket <strong>{liveBankroll.record}</strong>
+              {liveBankroll.hit_rate != null ? ` (${formatPercent(liveBankroll.hit_rate)})` : ""}
+            </>
+          ) : liveBankroll?.today_ticket ? (
+            " · first ticket pending"
+          ) : (
+            ""
+          )}
         </p>
+        {liveBankroll && (liveBankroll.tickets?.length || liveBankroll.today_ticket) ? (
+          <p className="muted">
+            Site auto-logs every system ticket when games finish — you don&apos;t need to track this manually.
+            {liveBankroll.hit_rate != null && liveBankroll.backtest_ticket_hit_rate != null ? (
+              <>
+                {" "}
+                Backtest over same window was ~{formatPercent(liveBankroll.backtest_ticket_hit_rate)} on tickets.
+              </>
+            ) : null}
+          </p>
+        ) : null}
         {usingModelOnlyPicks ? (
           <p className="muted">
             Live sportsbook odds aren&apos;t on today&apos;s board yet — picks use model pricing until odds load.
+          </p>
+        ) : null}
+        {boardAgeMinutes !== null && boardAgeMinutes > 120 ? (
+          <p className="warning">
+            Board is <strong>{boardAgeMinutes} minutes old</strong> — refresh before betting. Starters and lines change.
+          </p>
+        ) : boardAgeMinutes !== null ? (
+          <p className="muted">Board refreshed {boardAgeMinutes} min ago{boardGeneratedAt ? ` (${boardGeneratedAt})` : ""}.</p>
+        ) : null}
+        {unstableStarterGames > 0 ? (
+          <p className="warning">
+            {unstableStarterGames} game{unstableStarterGames === 1 ? "" : "s"}{" "}
+            {unstableStarterGames === 1 ? "has" : "have"} uncertain or changed probable starters — those legs are
+            excluded from parlays and confidence is capped.
           </p>
         ) : null}
       </section>
@@ -110,9 +151,15 @@ export default async function BestBetsPage() {
             <span>Stake {formatPercent(ticketStakePct)} of bankroll</span>
           </div>
           <p className="muted">
-            Stake <strong>{formatPercent(ticketStakePct)}</strong> of bankroll ={" "}
-            <strong>{formatBankroll(bankroll * ticketStakePct)}</strong> on this ticket. One bet every day per
-            backtest — filtered parlay when available, else best positive-EV combo (can include medium-confidence legs).
+            <strong>corr_nl_reject_both</strong> · stakes{" "}
+            <strong>
+              {formatPercent(OPTIMIZED_STAKE_BY_LEG_COUNT[1])} single /{" "}
+              {formatPercent(OPTIMIZED_STAKE_BY_LEG_COUNT[2])} two-leg /{" "}
+              {formatPercent(OPTIMIZED_STAKE_BY_LEG_COUNT[3])} three-leg
+            </strong>{" "}
+            of wallet. Stake <strong>{formatPercent(ticketStakePct)}</strong> ={" "}
+            <strong>{formatBankroll(bankroll * ticketStakePct)}</strong> on this ticket. Model predicted winner
+            only — one bet per day.
           </p>
           {bestTicket.kind === "parlay" && bestTicket.parlay.strategy === "forced_top_2" ? (
             <p className="muted">
@@ -176,6 +223,70 @@ export default async function BestBetsPage() {
           <p className="muted">No positive-EV ticket cleared today&apos;s filters. Sitting out is valid.</p>
         </section>
       )}
+
+      {liveBankroll && (liveBankroll.tickets?.length || liveBankroll.today_ticket) ? (
+        <section className="panel">
+          <div className="section-heading compact">
+            <div>
+              <p className="eyebrow">Live system record</p>
+              <h2>Your tickets (auto-tracked)</h2>
+            </div>
+            <span>
+              {liveBankroll.record}
+              {liveBankroll.hit_rate != null ? ` · ${formatPercent(liveBankroll.hit_rate)}` : ""}
+            </span>
+          </div>
+          <p className="muted">
+            Started {formatBankroll(liveBankroll.starting_balance)} on {liveBankroll.started_at} → system track{" "}
+            {formatBankroll(liveBankroll.balance)} ({formatBankroll(liveBankroll.profit)}).
+            {liveBankroll.wallet_balance != null ? (
+              <>
+                {" "}
+                Your wallet: <strong>{formatBankroll(liveBankroll.wallet_balance)}</strong> — stakes use this.
+              </>
+            ) : null}
+          </p>
+          <table className="table">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Ticket</th>
+                <th>Stake</th>
+                <th>Result</th>
+                <th>Balance</th>
+              </tr>
+            </thead>
+            <tbody>
+              {liveBankroll.today_ticket?.status === "pending" ? (
+                <tr>
+                  <td>{liveBankroll.today_ticket.date}</td>
+                  <td>
+                    <strong>{liveBankroll.today_ticket.label}</strong>
+                    <p className="muted">{liveBankroll.today_ticket.legs.join(" + ")}</p>
+                  </td>
+                  <td>{formatBankroll(liveBankroll.today_ticket.stake_amount)}</td>
+                  <td className="muted">Pending</td>
+                  <td>—</td>
+                </tr>
+              ) : null}
+              {[...(liveBankroll.tickets ?? [])].reverse().map((ticket) => (
+                <tr key={ticket.date}>
+                  <td>{ticket.date}</td>
+                  <td>
+                    <strong>{ticket.label}</strong>
+                    <p className="muted">{ticket.legs.join(" + ")}</p>
+                  </td>
+                  <td>{formatBankroll(ticket.stake_amount)}</td>
+                  <td className={ticket.won ? "positive" : "warning"}>
+                    {ticket.won ? "WIN" : "LOSS"} ({formatBankroll(ticket.profit ?? 0)})
+                  </td>
+                  <td>{ticket.balance_after != null ? formatBankroll(ticket.balance_after) : "—"}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </section>
+      ) : null}
 
       {bettingPlan && strategyGuard ? (
         <section className="panel strong">

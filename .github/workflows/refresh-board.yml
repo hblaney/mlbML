@@ -1,0 +1,59 @@
+name: Refresh Live Board
+
+on:
+  schedule:
+    # ~12 PM Central — refresh probables before afternoon games.
+    - cron: "0 17 * * *"
+    # ~4 PM Central — before evening slate.
+    - cron: "0 21 * * *"
+    # ~7 PM Central — before west coast night games.
+    - cron: "0 0 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: refresh-live-board
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      TZ: America/Chicago
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+          cache-dependency-path: requirements.txt
+
+      - name: Install Python dependencies
+        run: pip install -r requirements.txt
+
+      - name: Regenerate today's board
+        env:
+          ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
+          ODDS_REGIONS: us
+          ODDS_MARKETS: h2h,spreads,totals
+        run: |
+          python3 scripts/model/generate_today_board.py
+          python3 scripts/model/update_live_bankroll.py
+
+      - name: Commit refreshed board
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/predictions.json public/live-bankroll.json data/live-bankroll-state.json
+          if git diff --staged --quiet; then
+            echo "No board changes to commit."
+            exit 0
+          fi
+          git commit -m "Refresh live MLB board for $(date +%F)"
+          git push

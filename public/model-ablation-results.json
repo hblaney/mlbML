@@ -1,0 +1,46 @@
+{
+  "generated_at": "2026-06-17",
+  "run_mode": "statcast-retest",
+  "period": {
+    "start": "2026-03-20",
+    "end": "2026-06-16"
+  },
+  "baseline": "v2.1_baseline",
+  "baseline_accuracy": 0.6066,
+  "odds_metadata": {
+    "odds_data_start": "2021-04-01",
+    "odds_data_end": "2026-06-16",
+    "odds_data_stale": false,
+    "limited_by": "yesterday's final scores"
+  },
+  "ranked": [
+    {
+      "name": "v2.1_baseline",
+      "mode": "v21",
+      "model": "shallow",
+      "robust": false,
+      "injuries": false,
+      "statcast": false,
+      "games": 1088,
+      "correct": 660,
+      "accuracy": 0.6066,
+      "record": "660-428",
+      "delta_vs_baseline": 0.0
+    },
+    {
+      "name": "v2.1_statcast",
+      "mode": "v21",
+      "model": "shallow",
+      "robust": false,
+      "injuries": false,
+      "statcast": true,
+      "games": 1088,
+      "correct": 659,
+      "accuracy": 0.6057,
+      "record": "659-429",
+      "delta_vs_baseline": -0.0009
+    }
+  ],
+  "beats_baseline": [],
+  "recommendation": "v2.1_baseline"
+}

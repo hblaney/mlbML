@@ -113,10 +113,25 @@ CORE_FEATURES = [
     "matchup_slg_vs_pitching_slg_allowed",
     "matchup_obp_vs_pitching_obp_allowed",
     "matchup_run_creation_gap",
-    "home_road_context"
+    "home_road_context",
+    "home_injury_count",
+    "away_injury_count",
+    "injury_count_delta",
+    "home_injury_pressure",
+    "away_injury_pressure",
+    "market_prob_delta",
 ]
 
 ROLLING_WINDOWS = [3, 5, 7, 10, 14, 21, 30, 45, 60, 90]
+STATCAST_WINDOWS = [7, 14, 30, 45]
+STATCAST_METRICS = [
+    "barrel_rate",
+    "hard_hit_rate",
+    "avg_exit_velocity",
+    "avg_launch_angle",
+    "xwoba",
+    "whiff_rate",
+]
 TEAM_METRICS = [
     "runs_scored",
     "runs_allowed",
@@ -163,6 +178,24 @@ TEAM_METRICS = [
 ]
 
 
+def statcast_rolling_features() -> list[str]:
+    features: list[str] = []
+    for side in ("home", "away"):
+        for metric in STATCAST_METRICS:
+            for window in STATCAST_WINDOWS:
+                features.append(f"{side}_statcast_{metric}_last_{window}")
+    for window in (14, 30):
+        for metric in ("xwoba", "barrel_rate", "hard_hit_rate", "whiff_rate"):
+            features.append(f"statcast_{metric}_delta_last_{window}")
+        features.append(f"statcast_contact_edge_last_{window}")
+        features.append(f"statcast_offense_edge_last_{window}")
+    return features
+
+
+def zero_statcast_feature_map() -> dict[str, float]:
+    return {name: 0.0 for name in statcast_rolling_features()}
+
+
 def rolling_features() -> list[str]:
     features: list[str] = []
 
@@ -174,7 +207,7 @@ def rolling_features() -> list[str]:
     return features
 
 
-FEATURES = CORE_FEATURES + rolling_features()
+FEATURES = CORE_FEATURES + rolling_features() + statcast_rolling_features()
 
 
 def validate_feature_count(minimum: int = 200) -> None:

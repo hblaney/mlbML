@@ -3,11 +3,14 @@
 from __future__ import annotations
 
 import json
+import ssl
 from dataclasses import dataclass
 from datetime import date, datetime, timedelta
 from pathlib import Path
 from typing import Any
 from urllib.request import urlopen
+
+import certifi
 
 API_BASE = "https://statsapi.mlb.com/api/v1"
 CACHE_DIR = Path(__file__).resolve().parents[2] / "data" / "cache"
@@ -37,7 +40,8 @@ class GameRecord:
 
 
 def _get_json(url: str) -> dict[str, Any]:
-    with urlopen(url, timeout=30) as response:
+    context = ssl.create_default_context(cafile=certifi.where())
+    with urlopen(url, timeout=30, context=context) as response:
         return json.load(response)
 
 

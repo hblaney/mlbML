@@ -179,12 +179,22 @@ def build_feature_map(
         "matchup_obp_vs_pitching_obp_allowed": context.home_stats.obp - context.away_stats.pitching_obp_allowed,
         "matchup_run_creation_gap": context.home_stats.runs_per_game - context.away_stats.runs_per_game,
         "home_road_context": 1.0,
+        "home_injury_count": float(context.home_injury_count),
+        "away_injury_count": float(context.away_injury_count),
+        "injury_count_delta": float(context.away_injury_count - context.home_injury_count),
+        "home_injury_pressure": float(context.home_injury_count) / 10.0,
+        "away_injury_pressure": float(context.away_injury_count) / 10.0,
+        "market_prob_delta": context.market.home_implied_probability - context.market.away_implied_probability,
     }
 
     for side, team in (("home", home), ("away", away)):
         for metric in TEAM_METRICS:
             for window in ROLLING_WINDOWS:
                 values[f"{side}_{metric}_last_{window}"] = _metric_value(team, metric, window)
+
+    if context.statcast_features:
+        for key, value in context.statcast_features.items():
+            values[key] = float(value)
 
     return values
 

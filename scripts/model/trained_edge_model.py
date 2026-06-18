@@ -16,8 +16,9 @@ from sklearn.ensemble import GradientBoostingClassifier
 from sklearn.pipeline import Pipeline
 
 from fast_edge_model import FastPrediction, predict_fast
-from mlb_api import GameRecord, fetch_pitcher_season_era, fetch_pitcher_season_stats
+from mlb_api import GameRecord, fetch_pitcher_season_era, fetch_pitcher_season_stats, load_team_abbreviations
 from park_factors import park_for_team
+from statcast_provider import StatcastTeamCache, statcast_feature_vector
 from team_stats_provider import team_stats_as_of
 from team_tracker import LeagueState
 from weather import cached_historical_weather_or_default, fetch_weather
@@ -32,6 +33,9 @@ CURRENT_SEASON_SAMPLE_WEIGHT = 1.25
 MARKET_BLEND_WEIGHT = 0.05
 PUBLIC_CONFIDENCE_SHARPENING = 0.8
 PUBLIC_PROBABILITY_CAP = 0.70
+
+_STATCAST_CACHE: StatcastTeamCache | None = None
+_TEAM_ABBR: dict[int, str] | None = None
 
 
 @dataclass
@@ -120,7 +124,44 @@ def _rolling_matchup_features(home, away, windows: list[int]) -> list[float]:
     return features
 
 
-def feature_row(game: GameRecord, league: LeagueState) -> list[float]:
+def _team_abbreviations() -> dict[int, str]:
+    global _TEAM_ABBR
+    if _TEAM_ABBR is None:
+        _TEAM_ABBR = load_team_abbreviations()
+    return _TEAM_ABBR
+
+
+def statcast_cache() -> StatcastTeamCache:
+    global _STATCAST_CACHE
+    if _STATCAST_CACHE is None:
+        _STATCAST_CACHE = StatcastTeamCache()
+    return _STATCAST_CACHE
+
+
+def preload_statcast_years(years: set[int]) -> None:
+    for year in sorted(years):
+        if year >= 2015:
+            statcast_cache().preload_season(year)
+
+
+def statcast_features_for_game(game: GameRecord) -> list[float]:
+    from feature_registry import zero_statcast_feature_map
+
+    zeros = list(zero_statcast_feature_map().values())
+    if game.game_date.year < 2015:
+        return zeros
+    abbr = _team_abbreviations()
+    home = abbr.get(game.home_team_id, "")
+    away = abbr.get(game.away_team_id, "")
+    if not home or not away:
+        return zeros
+    try:
+        return statcast_feature_vector(statcast_cache(), home, away, game.game_date)
+    except Exception:
+        return zeros
+
+
+def feature_row(game: GameRecord, league: LeagueState, *, include_statcast: bool = False) -> list[float]:
     home = league.team(game.home_team_id)
     away = league.team(game.away_team_id)
     elo_probability = league.predict_home_win_probability(game.home_team_id, game.away_team_id)
@@ -222,7 +263,16 @@ def feature_row(game: GameRecord, league: LeagueState) -> list[float]:
     features.extend(_rolling_team_features(home, rolling_windows))
     features.extend(_rolling_team_features(away, rolling_windows))
     features.extend(_rolling_matchup_features(home, away, rolling_windows))
+    if include_statcast:
+        features.extend(statcast_features_for_game(game))
     return features
+
+
+_CONFIDENCE_ORDER = ("Low", "Medium", "High", "Elite")
+
+
+def cap_confidence(level: str, max_level: str) -> str:
+    return _CONFIDENCE_ORDER[min(_CONFIDENCE_ORDER.index(level), _CONFIDENCE_ORDER.index(max_level))]
 
 
 def confidence_for(
@@ -344,7 +394,7 @@ def predict_with_model(game: GameRecord, league: LeagueState, model: Pipeline | 
         confidence=confidence_for(pick_probability),
         notes=[
             "Trained on prior games only using walk-forward features",
-            "Blends a frequently refit shallow gradient-boosting output with Elo, real team hitting/pitching stats, starter profile, rolling form, park, weather, timing, and matchup context",
+            "Blends a frequently refit shallow gradient-boosting output with Elo, real team hitting/pitching stats, rolling Statcast contact quality, starter profile, rolling form, park, weather, timing, and matchup context",
             "Probability is capped to a realistic pregame range",
         ],
     )

@@ -1,11 +1,135 @@
 {
-  "started_at": "2026-06-17",
-  "starting_balance": 10.0,
-  "balance": 10.0,
+  "started_at": "2026-06-13",
+  "starting_balance": 25.0,
+  "balance": 13.6568,
   "record": {
-    "wins": 0,
-    "losses": 0
+    "wins": 1,
+    "losses": 3
   },
-  "last_settled_date": null,
-  "checkpoints": []
+  "last_settled_date": "2026-06-16",
+  "checkpoints": [
+    {
+      "date": "2026-06-13",
+      "profit": -10.0,
+      "balance": 15.0,
+      "return_pct": -0.4,
+      "won": false,
+      "leg_count": 2,
+      "label": "SD ML + KC ML",
+      "legs": [
+        "SD",
+        "KC"
+      ],
+      "stake_amount": 10.0
+    },
+    {
+      "date": "2026-06-14",
+      "profit": 22.9356,
+      "balance": 37.9356,
+      "return_pct": 0.5174,
+      "won": true,
+      "leg_count": 2,
+      "label": "CWS ML + TB ML",
+      "legs": [
+        "CWS",
+        "TB"
+      ],
+      "stake_amount": 6.0
+    },
+    {
+      "date": "2026-06-15",
+      "profit": -15.1742,
+      "balance": 22.7614,
+      "return_pct": -0.0895,
+      "won": false,
+      "leg_count": 2,
+      "label": "LAA ML + WSH ML",
+      "legs": [
+        "LAA",
+        "WSH"
+      ],
+      "stake_amount": 15.17
+    },
+    {
+      "date": "2026-06-16",
+      "profit": -9.1046,
+      "balance": 13.6568,
+      "return_pct": -0.4537,
+      "won": false,
+      "leg_count": 2,
+      "label": "CLE ML + CIN ML",
+      "legs": [
+        "CLE",
+        "CIN"
+      ],
+      "stake_amount": 9.1
+    }
+  ],
+  "tickets": [
+    {
+      "date": "2026-06-13",
+      "label": "SD ML + KC ML",
+      "legs": [
+        "SD",
+        "KC"
+      ],
+      "leg_count": 2,
+      "stake_pct": 0.4,
+      "stake_amount": 10.0,
+      "profit": -10.0,
+      "balance_after": 15.0,
+      "won": false,
+      "odds": 259,
+      "model_probability": 0.4059
+    },
+    {
+      "date": "2026-06-14",
+      "label": "CWS ML + TB ML",
+      "legs": [
+        "CWS",
+        "TB"
+      ],
+      "leg_count": 2,
+      "stake_pct": 0.4,
+      "stake_amount": 6.0,
+      "profit": 22.94,
+      "balance_after": 37.94,
+      "won": true,
+      "odds": 382,
+      "model_probability": 0.4562
+    },
+    {
+      "date": "2026-06-15",
+      "label": "LAA ML + WSH ML",
+      "legs": [
+        "LAA",
+        "WSH"
+      ],
+      "leg_count": 2,
+      "stake_pct": 0.4,
+      "stake_amount": 15.17,
+      "profit": -15.17,
+      "balance_after": 22.76,
+      "won": false,
+      "odds": 277,
+      "model_probability": 0.4281
+    },
+    {
+      "date": "2026-06-16",
+      "label": "CLE ML + CIN ML",
+      "legs": [
+        "CLE",
+        "CIN"
+      ],
+      "leg_count": 2,
+      "stake_pct": 0.4,
+      "stake_amount": 9.1,
+      "profit": -9.1,
+      "balance_after": 13.66,
+      "won": false,
+      "odds": 371,
+      "model_probability": 0.4116
+    }
+  ],
+  "wallet_balance": 23.28
 }

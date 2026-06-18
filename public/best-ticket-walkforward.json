@@ -1,0 +1,2522 @@
+{
+  "generated_at": "2026-06-17",
+  "method": "strict_walk_forward_full_registry",
+  "model_version": "daily-auto-v2.1",
+  "feature_count": 1014,
+  "strategy": "corr_nl_reject_both",
+  "date_range": {
+    "start": "2026-03-20",
+    "end": "2026-06-16"
+  },
+  "odds_metadata": {
+    "odds_data_start": "2021-04-01",
+    "odds_data_end": "2026-06-16",
+    "odds_data_stale": false,
+    "limited_by": "yesterday's final scores"
+  },
+  "game_prediction_accuracy": {
+    "games": 1088,
+    "correct": 660,
+    "accuracy": 0.6066
+  },
+  "best_ticket_accuracy": {
+    "bet_days": 82,
+    "wins": 47,
+    "losses": 35,
+    "hit_rate": 0.5732,
+    "record": "47-35"
+  },
+  "last_14_days": {
+    "start": "2026-06-03",
+    "end": "2026-06-16",
+    "bet_days": 14,
+    "wins": 10,
+    "losses": 4,
+    "hit_rate": 0.7143,
+    "record": "10-4",
+    "tickets": [
+      {
+        "date": "2026-06-03",
+        "strategy": "corr_nl_reject_both",
+        "ticket_type": "single",
+        "label": "LAA ML",
+        "leg_count": 1,
+        "legs": [
+          {
+            "team": "LAA",
+            "matchup": "COL @ LAA",
+            "odds": -149,
+            "model_probability": 0.7,
+            "confidence": "Low",
+            "won": true
+          }
+        ],
+        "won": true,
+        "result": "HIT",
+        "flat_profit": 67.11
+      },
+      {
+        "date": "2026-06-04",
+        "strategy": "corr_nl_reject_both",
+        "ticket_type": "single",
+        "label": "HOU ML",
+        "leg_count": 1,
+        "legs": [
+          {
+            "team": "HOU",
+            "matchup": "PIT @ HOU",
+            "odds": -114,
+            "model_probability": 0.6353,
+            "confidence": "Low",
+            "won": false
+          }
+        ],
+        "won": false,
+        "result": "MISS",
+        "flat_profit": -100.0
+      },
+      {
+        "date": "2026-06-05",
+        "strategy": "corr_nl_reject_both",
+        "ticket_type": "single",
+        "label": "HOU ML",
+        "leg_count": 1,
+        "legs": [
+          {
+            "team": "HOU",
+            "matchup": "ATH @ HOU",
+            "odds": -110,
+            "model_probability": 0.6721,
+            "confidence": "Low",
+            "won": true
+          }
+        ],
+        "won": true,
+        "result": "HIT",
+        "flat_profit": 90.91
+      },
+      {
+        "date": "2026-06-06",
+        "strategy": "corr_nl_reject_both",
+        "ticket_type": "p2",
+        "label": "HOU ML + NYM ML",
+        "leg_count": 2,
+        "legs": [
+          {
+            "team": "HOU",
+            "matchup": "ATH @ HOU",
+            "odds": -127,
+            "model_probability": 0.7,
+            "confidence": "High",
+            "won": true
+          },
+          {
+            "team": "NYM",
+            "matchup": "NYM @ SD",
+            "odds": -125,
+            "model_probability": 0.6382,
+            "confidence": "Medium",
+            "won": false
+          }
+        ],
+        "won": false,
+        "result": "MISS",
+        "flat_profit": -100.0
+      },
+      {
+        "date": "2026-06-07",
+        "strategy": "corr_nl_reject_both",
+        "ticket_type": "single",
+        "label": "ATH ML",
+        "leg_count": 1,
+        "legs": [
+          {
+            "team": "ATH",
+            "matchup": "ATH @ HOU",
+            "odds": -108,
+            "model_probability": 0.6282,
+            "confidence": "Low",
+            "won": true
+          }
+        ],
+        "won": true,
+        "result": "HIT",
+        "flat_profit": 92.59
+      },
+      {
+        "date": "2026-06-08",
+        "strategy": "corr_nl_reject_both",
+        "ticket_type": "p2",
+        "label": "HOU ML + SEA ML",
+        "leg_count": 2,
+        "legs": [
+          {
+            "team": "HOU",
+            "matchup": "HOU @ LAA",
+            "odds": -130,
+            "model_probability": 0.7,
+            "confidence": "High",
+            "won": true
+          },
+          {
+            "team": "SEA",
+            "matchup": "SEA @ BAL",
+            "odds": -124,
+            "model_probability": 0.6368,
+            "confidence": "Medium",
+            "won": true
+          }
+        ],
+        "won": true,
+        "result": "HIT",
+        "flat_profit": 219.6
+      },
+      {
+        "date": "2026-06-09",
+        "strategy": "corr_nl_reject_both",
+        "ticket_type": "p2",
+        "label": "ATH ML + KC ML",
+        "leg_count": 2,
+        "legs": [
+          {
+            "team": "ATH",
+            "matchup": "MIL @ ATH",
+            "odds": -110,
+            "model_probability": 0.6808,
+            "confidence": "Medium",
+            "won": true
+          },
+          {
+            "team": "KC",
+            "matchup": "TEX @ KC",
+            "odds": 105,
+            "model_probability": 0.6356,
+            "confidence": "Medium",
+            "won": true
+          }
+        ],
+        "won": true,
+        "result": "HIT",
+        "flat_profit": 291.36
+      },
+      {
+        "date": "2026-06-10",
+        "strategy": "corr_nl_reject_both",
+        "ticket_type": "single",
+        "label": "PHI ML",
+        "leg_count": 1,
+        "legs": [
+          {
+            "team": "PHI",
+            "matchup": "PHI @ TOR",
+            "odds": -136,
+            "model_probability": 0.696,
+            "confidence": "Low",
+            "won": true
+          }
+        ],
+        "won": true,
+        "result": "HIT",
+        "flat_profit": 73.53
+      },
+      {
+        "date": "2026-06-11",
+        "strategy": "corr_nl_reject_both",
+        "ticket_type": "p2",
+        "label": "MIA ML + DET ML",
+        "leg_count": 2,
+        "legs": [
+          {
+            "team": "MIA",
+            "matchup": "AZ @ MIA",
+            "odds": -129,
+            "model_probability": 0.7,
+            "confidence": "High",
+            "won": true
+          },
+          {
+            "team": "DET",
+            "matchup": "MIN @ DET",
+            "odds": -130,
+            "model_probability": 0.6543,
+            "confidence": "Medium",
+            "won": true
+          }
+        ],
+        "won": true,
+        "result": "HIT",
+        "flat_profit": 214.07
+      },
+      {
+        "date": "2026-06-12",
+        "strategy": "corr_nl_reject_both",
+        "ticket_type": "p2",
+        "label": "BAL ML + MIN ML",
+        "leg_count": 2,
+        "legs": [
+          {
+            "team": "BAL",
+            "matchup": "SD @ BAL",
+            "odds": -131,
+            "model_probability": 0.6872,
+            "confidence": "Medium",
+            "won": true
+          },
+          {
+            "team": "MIN",
+            "matchup": "STL @ MIN",
+            "odds": -135,
+            "model_probability": 0.6471,
+            "confidence": "Medium",
+            "won": true
+          }
+        ],
+        "won": true,
+        "result": "HIT",
+        "flat_profit": 206.96
+      },
+      {
+        "date": "2026-06-13",
+        "strategy": "corr_nl_reject_both",
+        "ticket_type": "p2",
+        "label": "SD ML + KC ML",
+        "leg_count": 2,
+        "legs": [
+          {
+            "team": "SD",
+            "matchup": "SD @ BAL",
+            "odds": 103,
+            "model_probability": 0.6161,
+            "confidence": "Medium",
+            "won": true
+          },
+          {
+            "team": "KC",
+            "matchup": "HOU @ KC",
+            "odds": -130,
+            "model_probability": 0.6537,
+            "confidence": "Medium",
+            "won": false
+          }
+        ],
+        "won": false,
+        "result": "MISS",
+        "flat_profit": -100.0
+      },
+      {
+        "date": "2026-06-14",
+        "strategy": "corr_nl_reject_both",
+        "ticket_type": "p2",
+        "label": "CWS ML + TB ML",
+        "leg_count": 2,
+        "legs": [
+          {
+            "team": "CWS",
+            "matchup": "LAD @ CWS",
+            "odds": 166,
+            "model_probability": 0.652,
+            "confidence": "Medium",
+            "won": true
+          },
+          {
+            "team": "TB",
+            "matchup": "TB @ LAA",
+            "odds": -123,
+            "model_probability": 0.675,
+            "confidence": "Medium",
+            "won": true
+          }
+        ],
+        "won": true,
+        "result": "HIT",
+        "flat_profit": 382.26
+      },
+      {
+        "date": "2026-06-15",
+        "strategy": "corr_nl_reject_both",
+        "ticket_type": "p2",
+        "label": "WSH ML + ATH ML",
+        "leg_count": 2,
+        "legs": [
+          {
+            "team": "WSH",
+            "matchup": "KC @ WSH",
+            "odds": -137,
+            "model_probability": 0.7,
+            "confidence": "High",
+            "won": true
+          },
+          {
+            "team": "ATH",
+            "matchup": "PIT @ ATH",
+            "odds": -126,
+            "model_probability": 0.659,
+            "confidence": "Medium",
+            "won": true
+          }
+        ],
+        "won": true,
+        "result": "HIT",
+        "flat_profit": 210.29
+      },
+      {
+        "date": "2026-06-16",
+        "strategy": "corr_nl_reject_both",
+        "ticket_type": "p2",
+        "label": "CIN ML + CLE ML",
+        "leg_count": 2,
+        "legs": [
+          {
+            "team": "CIN",
+            "matchup": "NYM @ CIN",
+            "odds": 105,
+            "model_probability": 0.6882,
+            "confidence": "Medium",
+            "won": true
+          },
+          {
+            "team": "CLE",
+            "matchup": "CLE @ MIL",
+            "odds": 130,
+            "model_probability": 0.6257,
+            "confidence": "Medium",
+            "won": false
+          }
+        ],
+        "won": false,
+        "result": "MISS",
+        "flat_profit": -100.0
+      }
+    ]
+  },
+  "tickets": [
+    {
+      "date": "2026-03-26",
+      "strategy": "corr_nl_reject_both",
+      "ticket_type": "single",
+      "label": "CIN ML",
+      "leg_count": 1,
+      "legs": [
+        {
+          "team": "CIN",
+          "matchup": "BOS @ CIN",
+          "odds": 135,
+          "model_probability": 0.6897,
+          "confidence": "Low",
+          "won": false
+        }
+      ],
+      "won": false,
+      "result": "MISS",
+      "flat_profit": -100.0
+    },
+    {
+      "date": "2026-03-27",
+      "strategy": "corr_nl_reject_both",
+      "ticket_type": "p2",
+      "label": "ATL ML + SD ML",
+      "leg_count": 2,
+      "legs": [
+        {
+          "team": "ATL",
+          "matchup": "KC @ ATL",
+          "odds": -145,
+          "model_probability": 0.6773,
+          "confidence": "Medium",
+          "won": true
+        },
+        {
+          "team": "SD",
+          "matchup": "DET @ SD",
+          "odds": -133,
+          "model_probability": 0.6276,
+          "confidence": "Medium",
+          "won": false
+        }
+      ],
+      "won": false,
+      "result": "MISS",
+      "flat_profit": -100.0
+    },
+    {
+      "date": "2026-03-28",
+      "strategy": "corr_nl_reject_both",
+      "ticket_type": "p2",
+      "label": "SD ML + STL ML",
+      "leg_count": 2,
+      "legs": [
+        {
+          "team": "SD",
+          "matchup": "DET @ SD",
+          "odds": -113,
+          "model_probability": 0.7,
+          "confidence": "High",
+          "won": true
+        },
+        {
+          "team": "STL",
+          "matchup": "TB @ STL",
+          "odds": -104,
+          "model_probability": 0.6612,
+          "confidence": "Medium",
+          "won": true
+        }
+      ],
+      "won": true,
+      "result": "HIT",
+      "flat_profit": 269.74
+    },
+    {
+      "date": "2026-03-29",
+      "strategy": "corr_nl_reject_both",
+      "ticket_type": "single",
+      "label": "STL ML",
+      "leg_count": 1,
+      "legs": [
+        {
+          "team": "STL",
+          "matchup": "TB @ STL",
+          "odds": -101,
+          "model_probability": 0.6741,
+          "confidence": "Low",
+          "won": false
+        }
+      ],
+      "won": false,
+      "result": "MISS",
+      "flat_profit": -100.0
+    },
+    {
+      "date": "2026-03-30",
+      "strategy": "corr_nl_reject_both",
+      "ticket_type": "p2",
+      "label": "AZ ML + ATL ML",
+      "leg_count": 2,
+      "legs": [
+        {
+          "team": "AZ",
+          "matchup": "DET @ AZ",
+          "odds": -122,
+          "model_probability": 0.7,
+          "confidence": "High",
+          "won": true
+        },
+        {
+          "team": "ATL",
+          "matchup": "ATH @ ATL",
+          "odds": -130,
+          "model_probability": 0.7,
+          "confidence": "High",
+          "won": true
+        }
+      ],
+      "won": true,
+      "result": "HIT",
+      "flat_profit": 221.94
+    },
+    {
+      "date": "2026-03-31",
+      "strategy": "corr_nl_reject_both",
+      "ticket_type": "single",
+      "label": "STL ML",
+      "leg_count": 1,
+      "legs": [
+        {
+          "team": "STL",
+          "matchup": "NYM @ STL",
+          "odds": 129,
+          "model_probability": 0.694,
+          "confidence": "Low",
+          "won": true
+        }
+      ],
+      "won": true,
+      "result": "HIT",
+      "flat_profit": 129.0
+    },
+    {
+      "date": "2026-04-01",
+      "strategy": "corr_nl_reject_both",
+      "ticket_type": "p2",
+      "label": "HOU ML + MIA ML",
+      "leg_count": 2,
+      "legs": [
+        {
+          "team": "HOU",
+          "matchup": "BOS @ HOU",
+          "odds": 121,
+          "model_probability": 0.6174,
+          "confidence": "Medium",
+          "won": true
+        },
+        {
+          "team": "MIA",
+          "matchup": "CWS @ MIA",
+          "odds": -147,
+          "model_probability": 0.7,
+          "confidence": "High",
+          "won": true
+        }
+      ],
+      "won": true,
+      "result": "HIT",
+      "flat_profit": 271.34
+    },
+    {
+      "date": "2026-04-03",
+      "strategy": "corr_nl_reject_both",
+      "ticket_type": "p2",
+      "label": "ATH ML + BOS ML",
+      "leg_count": 2,
+      "legs": [
+        {
+          "team": "ATH",
+          "matchup": "HOU @ ATH",
+          "odds": -110,
+          "model_probability": 0.6812,
+          "confidence": "Medium",
+          "won": true
+        },
+        {
+          "team": "BOS",
+          "matchup": "SD @ BOS",
+          "odds": -123,
+          "model_probability": 0.6406,
+          "confidence": "Medium",
+          "won": true
+        }
+      ],
+      "won": true,
+      "result": "HIT",
+      "flat_profit": 246.12
+    },
+    {
+      "date": "2026-04-04",
+      "strategy": "corr_nl_reject_both",
+      "ticket_type": "p2",
+      "label": "CWS ML + HOU ML",
+      "leg_count": 2,
+      "legs": [
+        {
+          "team": "CWS",
+          "matchup": "TOR @ CWS",
+          "odds": 128,
+          "model_probability": 0.6319,
+          "confidence": "Medium",
+          "won": true
+        },
+        {
+          "team": "HOU",
+          "matchup": "HOU @ ATH",
+          "odds": -105,
+          "model_probability": 0.6509,
+          "confidence": "Medium",
+          "won": true
+        }
+      ],
+      "won": true,
+      "result": "HIT",
+      "flat_profit": 345.14
+    },
+    {
+      "date": "2026-04-05",
+      "strategy": "corr_nl_reject_both",
+      "ticket_type": "p2",
+      "label": "CWS ML + SF ML",
+      "leg_count": 2,
+      "legs": [
+        {
+          "team": "CWS",
+          "matchup": "TOR @ CWS",
+          "odds": 139,
+          "model_probability": 0.7,
+          "confidence": "High",
+          "won": true
+        },
+        {
+          "team": "SF",
+          "matchup": "NYM @ SF",
+          "odds": -122,
+          "model_probability": 0.7,
+          "confidence": "High",
+          "won": false
+        }
+      ],
+      "won": false,
+      "result": "MISS",
+      "flat_profit": -100.0
+    },
+    {
+      "date": "2026-04-06",
+      "strategy": "corr_nl_reject_both",
+      "ticket_type": "single",
+      "label": "CWS ML",
+      "leg_count": 1,
+      "legs": [
+        {
+          "team": "CWS",
+          "matchup": "BAL @ CWS",
+          "odds": 117,
+          "model_probability": 0.6265,
+          "confidence": "Low",
+          "won": false
+        }
+      ],
+      "won": false,
+      "result": "MISS",
+      "flat_profit": -100.0
+    },
+    {
+      "date": "2026-04-07",
+      "strategy": "corr_nl_reject_both",
+      "ticket_type": "p2",
+      "label": "MIL ML + NYM ML",
+      "leg_count": 2,
+      "legs": [
+        {
+          "team": "MIL",
+          "matchup": "MIL @ BOS",
+          "odds": 136,
+          "model_probability": 0.6182,
+          "confidence": "Medium",
+          "won": false
+        },
+        {
+          "team": "NYM",
+          "matchup": "AZ @ NYM",
+          "odds": -153,
+          "model_probability": 0.6697,
+          "confidence": "Medium",
+          "won": true
+        }
+      ],
+      "won": false,
+      "result": "MISS",
+      "flat_profit": -100.0
+    },
+    {
+      "date": "2026-04-08",
+      "strategy": "corr_nl_reject_both",
+      "ticket_type": "single",
+      "label": "COL ML",
+      "leg_count": 1,
+      "legs": [
+        {
+          "team": "COL",
+          "matchup": "HOU @ COL",
+          "odds": 120,
+          "model_probability": 0.7,
+          "confidence": "Low",
+          "won": true
+        }
+      ],
+      "won": true,
+      "result": "HIT",
+      "flat_profit": 120.0
+    },
+    {
+      "date": "2026-04-09",
+      "strategy": "corr_nl_reject_both",
+      "ticket_type": "single",
+      "label": "MIA ML",
+      "leg_count": 1,
+      "legs": [
+        {
+          "team": "MIA",
+          "matchup": "CIN @ MIA",
+          "odds": -122,
+          "model_probability": 0.6617,
+          "confidence": "Low",
+          "won": true
+        }
+      ],
+      "won": true,
+      "result": "HIT",
+      "flat_profit": 81.97
+    },
+    {
+      "date": "2026-04-10",
+      "strategy": "corr_nl_reject_both",
+      "ticket_type": "p3",
+      "label": "SEA ML + DET ML + TOR ML",
+      "leg_count": 3,
+      "legs": [
+        {
+          "team": "SEA",
+          "matchup": "HOU @ SEA",
+          "odds": -133,
+          "model_probability": 0.7,
+          "confidence": "High",
+          "won": true
+        },
+        {
+          "team": "DET",
+          "matchup": "MIA @ DET",
+          "odds": -135,
+          "model_probability": 0.6748,
+          "confidence": "Medium",
+          "won": true
+        },
+        {
+          "team": "TOR",
+          "matchup": "MIN @ TOR",
+          "odds": -152,
+          "model_probability": 0.7,
+          "confidence": "Elite",
+          "won": true
+        }
+      ],
+      "won": true,
+      "result": "HIT",
+      "flat_profit": 405.59
+    },
+    {
+      "date": "2026-04-11",
+      "strategy": "corr_nl_reject_both",
+      "ticket_type": "p2",
+      "label": "CIN ML + DET ML",
+      "leg_count": 2,
+      "legs": [
+        {
+          "team": "CIN",
+          "matchup": "LAA @ CIN",
+          "odds": -130,
+          "model_probability": 0.7,
+          "confidence": "High",
+          "won": true
+        },
+        {
+          "team": "DET",
+          "matchup": "MIA @ DET",
+          "odds": -140,
+          "model_probability": 0.6894,
+          "confidence": "High",
+          "won": true
+        }
+      ],
+      "won": true,
+      "result": "HIT",
+      "flat_profit": 203.3
+    },
+    {
+      "date": "2026-04-12",
+      "strategy": "corr_nl_reject_both",
+      "ticket_type": "single",
+      "label": "STL ML",
+      "leg_count": 1,
+      "legs": [
+        {
+          "team": "STL",
+          "matchup": "BOS @ STL",
+          "odds": 100,
+          "model_probability": 0.6849,
+          "confidence": "Low",
+          "won": false
+        }
+      ],
+      "won": false,
+      "result": "MISS",
+      "flat_profit": -100.0
+    },
+    {
+      "date": "2026-04-13",
+      "strategy": "corr_nl_reject_both",
+      "ticket_type": "single",
+      "label": "MIN ML",
+      "leg_count": 1,
+      "legs": [
+        {
+          "team": "MIN",
+          "matchup": "BOS @ MIN",
+          "odds": 137,
+          "model_probability": 0.6504,
+          "confidence": "Low",
+          "won": true
+        }
+      ],
+      "won": true,
+      "result": "HIT",
+      "flat_profit": 137.0
+    },
+    {
+      "date": "2026-04-14",
+      "strategy": "corr_nl_reject_both",
+      "ticket_type": "single",
+      "label": "STL ML",
+      "leg_count": 1,
+      "legs": [
+        {
+          "team": "STL",
+          "matchup": "CLE @ STL",
+          "odds": 108,
+          "model_probability": 0.6364,
+          "confidence": "Low",
+          "won": true
+        }
+      ],
+      "won": true,
+      "result": "HIT",
+      "flat_profit": 108.0
+    },
+    {
+      "date": "2026-04-15",
+      "strategy": "corr_nl_reject_both",
+      "ticket_type": "single",
+      "label": "CIN ML",
+      "leg_count": 1,
+      "legs": [
+        {
+          "team": "CIN",
+          "matchup": "SF @ CIN",
+          "odds": -106,
+          "model_probability": 0.6359,
+          "confidence": "Low",
+          "won": true
+        }
+      ],
+      "won": true,
+      "result": "HIT",
+      "flat_profit": 94.34
+    },
+    {
+      "date": "2026-04-16",
+      "strategy": "corr_nl_reject_both",
+      "ticket_type": "p2",
+      "label": "CIN ML + CLE ML",
+      "leg_count": 2,
+      "legs": [
+        {
+          "team": "CIN",
+          "matchup": "SF @ CIN",
+          "odds": -122,
+          "model_probability": 0.6827,
+          "confidence": "Medium",
+          "won": false
+        },
+        {
+          "team": "CLE",
+          "matchup": "BAL @ CLE",
+          "odds": -133,
+          "model_probability": 0.6382,
+          "confidence": "Medium",
+          "won": true
+        }
+      ],
+      "won": false,
+      "result": "MISS",
+      "flat_profit": -100.0
+    },
+    {
+      "date": "2026-04-17",
+      "strategy": "corr_nl_reject_both",
+      "ticket_type": "p2",
+      "label": "LAA ML + MIA ML",
+      "leg_count": 2,
+      "legs": [
+        {
+          "team": "LAA",
+          "matchup": "SD @ LAA",
+          "odds": -131,
+          "model_probability": 0.7,
+          "confidence": "High",
+          "won": true
+        },
+        {
+          "team": "MIA",
+          "matchup": "MIL @ MIA",
+          "odds": -114,
+          "model_probability": 0.6577,
+          "confidence": "Medium",
+          "won": false
+        }
+      ],
+      "won": false,
+      "result": "MISS",
+      "flat_profit": -100.0
+    },
+    {
+      "date": "2026-04-18",
+      "strategy": "corr_nl_reject_both",
+      "ticket_type": "p2",
+      "label": "WSH ML + AZ ML",
+      "leg_count": 2,
+      "legs": [
+        {
+          "team": "WSH",
+          "matchup": "SF @ WSH",
+          "odds": -108,
+          "model_probability": 0.6449,
+          "confidence": "Medium",
+          "won": false
+        },
+        {
+          "team": "AZ",
+          "matchup": "TOR @ AZ",
+          "odds": -151,
+          "model_probability": 0.7,
+          "confidence": "Elite",
+          "won": true
+        }
+      ],
+      "won": false,
+      "result": "MISS",
+      "flat_profit": -100.0
+    },
+    {
+      "date": "2026-04-19",
+      "strategy": "corr_nl_reject_both",
+      "ticket_type": "p2",
+      "label": "LAA ML + CLE ML",
+      "leg_count": 2,
+      "legs": [
+        {
+          "team": "LAA",
+          "matchup": "SD @ LAA",
+          "odds": 126,
+          "model_probability": 0.617,
+          "confidence": "Medium",
+          "won": false
+        },
+        {
+          "team": "CLE",
+          "matchup": "BAL @ CLE",
+          "odds": -121,
+          "model_probability": 0.6443,
+          "confidence": "Medium",
+          "won": true
+        }
+      ],
+      "won": false,
+      "result": "MISS",
+      "flat_profit": -100.0
+    },
+    {
+      "date": "2026-04-20",
+      "strategy": "corr_nl_reject_both",
+      "ticket_type": "single",
+      "label": "BOS ML",
+      "leg_count": 1,
+      "legs": [
+        {
+          "team": "BOS",
+          "matchup": "DET @ BOS",
+          "odds": -138,
+          "model_probability": 0.7,
+          "confidence": "Low",
+          "won": true
+        }
+      ],
+      "won": true,
+      "result": "HIT",
+      "flat_profit": 72.46
+    },
+    {
+      "date": "2026-04-21",
+      "strategy": "corr_nl_reject_both",
+      "ticket_type": "p3",
+      "label": "BOS ML + CLE ML + NYM ML",
+      "leg_count": 3,
+      "legs": [
+        {
+          "team": "BOS",
+          "matchup": "NYY @ BOS",
+          "odds": -126,
+          "model_probability": 0.6754,
+          "confidence": "Medium",
+          "won": false
+        },
+        {
+          "team": "CLE",
+          "matchup": "HOU @ CLE",
+          "odds": -152,
+          "model_probability": 0.7,
+          "confidence": "Elite",
+          "won": true
+        },
+        {
+          "team": "NYM",
+          "matchup": "MIN @ NYM",
+          "odds": -163,
+          "model_probability": 0.7,
+          "confidence": "Elite",
+          "won": false
+        }
+      ],
+      "won": false,
+      "result": "MISS",
+      "flat_profit": -100.0
+    },
+    {
+      "date": "2026-04-22",
+      "strategy": "corr_nl_reject_both",
+      "ticket_type": "p2",
+      "label": "TB ML + LAA ML",
+      "leg_count": 2,
+      "legs": [
+        {
+          "team": "TB",
+          "matchup": "CIN @ TB",
+          "odds": -141,
+          "model_probability": 0.7,
+          "confidence": "High",
+          "won": true
+        },
+        {
+          "team": "LAA",
+          "matchup": "TOR @ LAA",
+          "odds": -153,
+          "model_probability": 0.6853,
+          "confidence": "Medium",
+          "won": true
+        }
+      ],
+      "won": true,
+      "result": "HIT",
+      "flat_profit": 182.64
+    },
+    {
+      "date": "2026-04-23",
+      "strategy": "corr_nl_reject_both",
+      "ticket_type": "single",
+      "label": "COL ML",
+      "leg_count": 1,
+      "legs": [
+        {
+          "team": "COL",
+          "matchup": "SD @ COL",
+          "odds": 129,
+          "model_probability": 0.6873,
+          "confidence": "Low",
+          "won": false
+        }
+      ],
+      "won": false,
+      "result": "MISS",
+      "flat_profit": -100.0
+    },
+    {
+      "date": "2026-04-24",
+      "strategy": "corr_nl_reject_both",
+      "ticket_type": "p2",
+      "label": "BAL ML + KC ML",
+      "leg_count": 2,
+      "legs": [
+        {
+          "team": "BAL",
+          "matchup": "BOS @ BAL",
+          "odds": -125,
+          "model_probability": 0.7,
+          "confidence": "High",
+          "won": true
+        },
+        {
+          "team": "KC",
+          "matchup": "LAA @ KC",
+          "odds": -108,
+          "model_probability": 0.6325,
+          "confidence": "Medium",
+          "won": true
+        }
+      ],
+      "won": true,
+      "result": "HIT",
+      "flat_profit": 246.67
+    },
+    {
+      "date": "2026-04-25",
+      "strategy": "corr_nl_reject_both",
+      "ticket_type": "p2",
+      "label": "LAA ML + TB ML",
+      "leg_count": 2,
+      "legs": [
+        {
+          "team": "LAA",
+          "matchup": "LAA @ KC",
+          "odds": 116,
+          "model_probability": 0.6154,
+          "confidence": "Medium",
+          "won": false
+        },
+        {
+          "team": "TB",
+          "matchup": "MIN @ TB",
+          "odds": -134,
+          "model_probability": 0.6267,
+          "confidence": "Medium",
+          "won": true
+        }
+      ],
+      "won": false,
+      "result": "MISS",
+      "flat_profit": -100.0
+    },
+    {
+      "date": "2026-04-26",
+      "strategy": "corr_nl_reject_both",
+      "ticket_type": "p2",
+      "label": "HOU ML + LAD ML",
+      "leg_count": 2,
+      "legs": [
+        {
+          "team": "HOU",
+          "matchup": "NYY @ HOU",
+          "odds": 112,
+          "model_probability": 0.6736,
+          "confidence": "Medium",
+          "won": true
+        },
+        {
+          "team": "LAD",
+          "matchup": "CHC @ LAD",
+          "odds": -121,
+          "model_probability": 0.6561,
+          "confidence": "Medium",
+          "won": true
+        }
+      ],
+      "won": true,
+      "result": "HIT",
+      "flat_profit": 287.21
+    },
+    {
+      "date": "2026-04-27",
+      "strategy": "corr_nl_reject_both",
+      "ticket_type": "p2",
+      "label": "SD ML + CLE ML",
+      "leg_count": 2,
+      "legs": [
+        {
+          "team": "SD",
+          "matchup": "CHC @ SD",
+          "odds": -120,
+          "model_probability": 0.6633,
+          "confidence": "Medium",
+          "won": true
+        },
+        {
+          "team": "CLE",
+          "matchup": "TB @ CLE",
+          "odds": -140,
+          "model_probability": 0.6906,
+          "confidence": "High",
+          "won": false
+        }
+      ],
+      "won": false,
+      "result": "MISS",
+      "flat_profit": -100.0
+    },
+    {
+      "date": "2026-04-28",
+      "strategy": "corr_nl_reject_both",
+      "ticket_type": "p2",
+      "label": "MIL ML + PIT ML",
+      "leg_count": 2,
+      "legs": [
+        {
+          "team": "MIL",
+          "matchup": "AZ @ MIL",
+          "odds": -131,
+          "model_probability": 0.662,
+          "confidence": "Medium",
+          "won": true
+        },
+        {
+          "team": "PIT",
+          "matchup": "STL @ PIT",
+          "odds": -164,
+          "model_probability": 0.6665,
+          "confidence": "Medium",
+          "won": false
+        }
+      ],
+      "won": false,
+      "result": "MISS",
+      "flat_profit": -100.0
+    },
+    {
+      "date": "2026-04-29",
+      "strategy": "corr_nl_reject_both",
+      "ticket_type": "single",
+      "label": "CHC ML",
+      "leg_count": 1,
+      "legs": [
+        {
+          "team": "CHC",
+          "matchup": "CHC @ SD",
+          "odds": -103,
+          "model_probability": 0.6324,
+          "confidence": "Low",
+          "won": true
+        }
+      ],
+      "won": true,
+      "result": "HIT",
+      "flat_profit": 97.09
+    },
+    {
+      "date": "2026-04-30",
+      "strategy": "corr_nl_reject_both",
+      "ticket_type": "single",
+      "label": "BAL ML",
+      "leg_count": 1,
+      "legs": [
+        {
+          "team": "BAL",
+          "matchup": "HOU @ BAL",
+          "odds": -146,
+          "model_probability": 0.692,
+          "confidence": "Low",
+          "won": false
+        }
+      ],
+      "won": false,
+      "result": "MISS",
+      "flat_profit": -100.0
+    },
+    {
+      "date": "2026-05-01",
+      "strategy": "corr_nl_reject_both",
+      "ticket_type": "p2",
+      "label": "TOR ML + NYY ML",
+      "leg_count": 2,
+      "legs": [
+        {
+          "team": "TOR",
+          "matchup": "TOR @ MIN",
+          "odds": -108,
+          "model_probability": 0.6064,
+          "confidence": "Medium",
+          "won": true
+        },
+        {
+          "team": "NYY",
+          "matchup": "BAL @ NYY",
+          "odds": -186,
+          "model_probability": 0.6544,
+          "confidence": "Medium",
+          "won": true
+        }
+      ],
+      "won": true,
+      "result": "HIT",
+      "flat_profit": 196.14
+    },
+    {
+      "date": "2026-05-02",
+      "strategy": "corr_nl_reject_both",
+      "ticket_type": "p2",
+      "label": "STL ML + MIA ML",
+      "leg_count": 2,
+      "legs": [
+        {
+          "team": "STL",
+          "matchup": "LAD @ STL",
+          "odds": 115,
+          "model_probability": 0.6536,
+          "confidence": "Medium",
+          "won": true
+        },
+        {
+          "team": "MIA",
+          "matchup": "PHI @ MIA",
+          "odds": -132,
+          "model_probability": 0.6812,
+          "confidence": "Medium",
+          "won": true
+        }
+      ],
+      "won": true,
+      "result": "HIT",
+      "flat_profit": 277.88
+    },
+    {
+      "date": "2026-05-03",
+      "strategy": "corr_nl_reject_both",
+      "ticket_type": "single",
+      "label": "CWS ML",
+      "leg_count": 1,
+      "legs": [
+        {
+          "team": "CWS",
+          "matchup": "CWS @ SD",
+          "odds": 140,
+          "model_probability": 0.626,
+          "confidence": "Low",
+          "won": false
+        }
+      ],
+      "won": false,
+      "result": "MISS",
+      "flat_profit": -100.0
+    },
+    {
+      "date": "2026-05-04",
+      "strategy": "corr_nl_reject_both",
+      "ticket_type": "single",
+      "label": "TB ML",
+      "leg_count": 1,
+      "legs": [
+        {
+          "team": "TB",
+          "matchup": "TOR @ TB",
+          "odds": -128,
+          "model_probability": 0.6776,
+          "confidence": "Low",
+          "won": true
+        }
+      ],
+      "won": true,
+      "result": "HIT",
+      "flat_profit": 78.12
+    },
+    {
+      "date": "2026-05-05",
+      "strategy": "corr_nl_reject_both",
+      "ticket_type": "p2",
+      "label": "LAA ML + AZ ML",
+      "leg_count": 2,
+      "legs": [
+        {
+          "team": "LAA",
+          "matchup": "CWS @ LAA",
+          "odds": -117,
+          "model_probability": 0.6447,
+          "confidence": "Medium",
+          "won": true
+        },
+        {
+          "team": "AZ",
+          "matchup": "PIT @ AZ",
+          "odds": -133,
+          "model_probability": 0.6412,
+          "confidence": "Medium",
+          "won": true
+        }
+      ],
+      "won": true,
+      "result": "HIT",
+      "flat_profit": 224.92
+    },
+    {
+      "date": "2026-05-06",
+      "strategy": "corr_nl_reject_both",
+      "ticket_type": "p2",
+      "label": "LAA ML + STL ML",
+      "leg_count": 2,
+      "legs": [
+        {
+          "team": "LAA",
+          "matchup": "CWS @ LAA",
+          "odds": -106,
+          "model_probability": 0.669,
+          "confidence": "Medium",
+          "won": true
+        },
+        {
+          "team": "STL",
+          "matchup": "MIL @ STL",
+          "odds": -106,
+          "model_probability": 0.6442,
+          "confidence": "Medium",
+          "won": false
+        }
+      ],
+      "won": false,
+      "result": "MISS",
+      "flat_profit": -100.0
+    },
+    {
+      "date": "2026-05-07",
+      "strategy": "corr_nl_reject_both",
+      "ticket_type": "p2",
+      "label": "ATH ML + WSH ML",
+      "leg_count": 2,
+      "legs": [
+        {
+          "team": "ATH",
+          "matchup": "ATH @ PHI",
+          "odds": 110,
+          "model_probability": 0.6076,
+          "confidence": "Medium",
+          "won": true
+        },
+        {
+          "team": "WSH",
+          "matchup": "MIN @ WSH",
+          "odds": -124,
+          "model_probability": 0.6797,
+          "confidence": "Medium",
+          "won": true
+        }
+      ],
+      "won": true,
+      "result": "HIT",
+      "flat_profit": 279.35
+    },
+    {
+      "date": "2026-05-08",
+      "strategy": "corr_nl_reject_both",
+      "ticket_type": "p2",
+      "label": "STL ML + WSH ML",
+      "leg_count": 2,
+      "legs": [
+        {
+          "team": "STL",
+          "matchup": "STL @ SD",
+          "odds": 125,
+          "model_probability": 0.6391,
+          "confidence": "Medium",
+          "won": true
+        },
+        {
+          "team": "WSH",
+          "matchup": "WSH @ MIA",
+          "odds": 117,
+          "model_probability": 0.6161,
+          "confidence": "Medium",
+          "won": true
+        }
+      ],
+      "won": true,
+      "result": "HIT",
+      "flat_profit": 388.25
+    },
+    {
+      "date": "2026-05-09",
+      "strategy": "corr_nl_reject_both",
+      "ticket_type": "p2",
+      "label": "ATL ML + TOR ML",
+      "leg_count": 2,
+      "legs": [
+        {
+          "team": "ATL",
+          "matchup": "ATL @ LAD",
+          "odds": 154,
+          "model_probability": 0.6127,
+          "confidence": "Medium",
+          "won": true
+        },
+        {
+          "team": "TOR",
+          "matchup": "LAA @ TOR",
+          "odds": -181,
+          "model_probability": 0.6797,
+          "confidence": "Medium",
+          "won": true
+        }
+      ],
+      "won": true,
+      "result": "HIT",
+      "flat_profit": 294.33
+    },
+    {
+      "date": "2026-05-10",
+      "strategy": "corr_nl_reject_both",
+      "ticket_type": "p2",
+      "label": "ATH ML + TEX ML",
+      "leg_count": 2,
+      "legs": [
+        {
+          "team": "ATH",
+          "matchup": "ATH @ BAL",
+          "odds": -108,
+          "model_probability": 0.6515,
+          "confidence": "Medium",
+          "won": false
+        },
+        {
+          "team": "TEX",
+          "matchup": "CHC @ TEX",
+          "odds": -123,
+          "model_probability": 0.6554,
+          "confidence": "Medium",
+          "won": true
+        }
+      ],
+      "won": false,
+      "result": "MISS",
+      "flat_profit": -100.0
+    },
+    {
+      "date": "2026-05-11",
+      "strategy": "corr_nl_reject_both",
+      "ticket_type": "single",
+      "label": "BAL ML",
+      "leg_count": 1,
+      "legs": [
+        {
+          "team": "BAL",
+          "matchup": "NYY @ BAL",
+          "odds": 131,
+          "model_probability": 0.6342,
+          "confidence": "Low",
+          "won": true
+        }
+      ],
+      "won": true,
+      "result": "HIT",
+      "flat_profit": 131.0
+    },
+    {
+      "date": "2026-05-12",
+      "strategy": "corr_nl_reject_both",
+      "ticket_type": "p2",
+      "label": "NYM ML + NYY ML",
+      "leg_count": 2,
+      "legs": [
+        {
+          "team": "NYM",
+          "matchup": "DET @ NYM",
+          "odds": -149,
+          "model_probability": 0.6343,
+          "confidence": "Medium",
+          "won": true
+        },
+        {
+          "team": "NYY",
+          "matchup": "NYY @ BAL",
+          "odds": -135,
+          "model_probability": 0.6045,
+          "confidence": "Medium",
+          "won": true
+        }
+      ],
+      "won": true,
+      "result": "HIT",
+      "flat_profit": 190.9
+    },
+    {
+      "date": "2026-05-13",
+      "strategy": "corr_nl_reject_both",
+      "ticket_type": "p2",
+      "label": "TEX ML + BOS ML",
+      "leg_count": 2,
+      "legs": [
+        {
+          "team": "TEX",
+          "matchup": "AZ @ TEX",
+          "odds": -105,
+          "model_probability": 0.6706,
+          "confidence": "Medium",
+          "won": true
+        },
+        {
+          "team": "BOS",
+          "matchup": "PHI @ BOS",
+          "odds": -131,
+          "model_probability": 0.6799,
+          "confidence": "Medium",
+          "won": true
+        }
+      ],
+      "won": true,
+      "result": "HIT",
+      "flat_profit": 244.27
+    },
+    {
+      "date": "2026-05-14",
+      "strategy": "corr_nl_reject_both",
+      "ticket_type": "p2",
+      "label": "MIN ML + STL ML",
+      "leg_count": 2,
+      "legs": [
+        {
+          "team": "MIN",
+          "matchup": "MIA @ MIN",
+          "odds": -106,
+          "model_probability": 0.7,
+          "confidence": "High",
+          "won": true
+        },
+        {
+          "team": "STL",
+          "matchup": "STL @ ATH",
+          "odds": 105,
+          "model_probability": 0.6535,
+          "confidence": "Medium",
+          "won": true
+        }
+      ],
+      "won": true,
+      "result": "HIT",
+      "flat_profit": 298.4
+    },
+    {
+      "date": "2026-05-15",
+      "strategy": "corr_nl_reject_both",
+      "ticket_type": "p2",
+      "label": "HOU ML + PIT ML",
+      "leg_count": 2,
+      "legs": [
+        {
+          "team": "HOU",
+          "matchup": "TEX @ HOU",
+          "odds": -106,
+          "model_probability": 0.6741,
+          "confidence": "Medium",
+          "won": true
+        },
+        {
+          "team": "PIT",
+          "matchup": "PHI @ PIT",
+          "odds": -133,
+          "model_probability": 0.6981,
+          "confidence": "High",
+          "won": false
+        }
+      ],
+      "won": false,
+      "result": "MISS",
+      "flat_profit": -100.0
+    },
+    {
+      "date": "2026-05-16",
+      "strategy": "corr_nl_reject_both",
+      "ticket_type": "p2",
+      "label": "CWS ML + TB ML",
+      "leg_count": 2,
+      "legs": [
+        {
+          "team": "CWS",
+          "matchup": "CHC @ CWS",
+          "odds": -107,
+          "model_probability": 0.6858,
+          "confidence": "Medium",
+          "won": true
+        },
+        {
+          "team": "TB",
+          "matchup": "MIA @ TB",
+          "odds": -138,
+          "model_probability": 0.6806,
+          "confidence": "Medium",
+          "won": false
+        }
+      ],
+      "won": false,
+      "result": "MISS",
+      "flat_profit": -100.0
+    },
+    {
+      "date": "2026-05-17",
+      "strategy": "corr_nl_reject_both",
+      "ticket_type": "p2",
+      "label": "MIN ML + TB ML",
+      "leg_count": 2,
+      "legs": [
+        {
+          "team": "MIN",
+          "matchup": "MIL @ MIN",
+          "odds": 116,
+          "model_probability": 0.658,
+          "confidence": "Medium",
+          "won": true
+        },
+        {
+          "team": "TB",
+          "matchup": "MIA @ TB",
+          "odds": -148,
+          "model_probability": 0.6806,
+          "confidence": "Medium",
+          "won": true
+        }
+      ],
+      "won": true,
+      "result": "HIT",
+      "flat_profit": 261.95
+    },
+    {
+      "date": "2026-05-18",
+      "strategy": "corr_nl_reject_both",
+      "ticket_type": "single",
+      "label": "MIN ML",
+      "leg_count": 1,
+      "legs": [
+        {
+          "team": "MIN",
+          "matchup": "HOU @ MIN",
+          "odds": -113,
+          "model_probability": 0.6757,
+          "confidence": "Low",
+          "won": true
+        }
+      ],
+      "won": true,
+      "result": "HIT",
+      "flat_profit": 88.5
+    },
+    {
+      "date": "2026-05-19",
+      "strategy": "corr_nl_reject_both",
+      "ticket_type": "p2",
+      "label": "MIN ML + SEA ML",
+      "leg_count": 2,
+      "legs": [
+        {
+          "team": "MIN",
+          "matchup": "HOU @ MIN",
+          "odds": -140,
+          "model_probability": 0.6958,
+          "confidence": "High",
+          "won": false
+        },
+        {
+          "team": "SEA",
+          "matchup": "CWS @ SEA",
+          "odds": -140,
+          "model_probability": 0.6929,
+          "confidence": "High",
+          "won": false
+        }
+      ],
+      "won": false,
+      "result": "MISS",
+      "flat_profit": -100.0
+    },
+    {
+      "date": "2026-05-20",
+      "strategy": "corr_nl_reject_both",
+      "ticket_type": "p2",
+      "label": "WSH ML + MIN ML",
+      "leg_count": 2,
+      "legs": [
+        {
+          "team": "WSH",
+          "matchup": "NYM @ WSH",
+          "odds": 105,
+          "model_probability": 0.7,
+          "confidence": "High",
+          "won": true
+        },
+        {
+          "team": "MIN",
+          "matchup": "HOU @ MIN",
+          "odds": -144,
+          "model_probability": 0.6881,
+          "confidence": "High",
+          "won": true
+        }
+      ],
+      "won": true,
+      "result": "HIT",
+      "flat_profit": 247.36
+    },
+    {
+      "date": "2026-05-21",
+      "strategy": "corr_nl_reject_both",
+      "ticket_type": "p2",
+      "label": "WSH ML + LAA ML",
+      "leg_count": 2,
+      "legs": [
+        {
+          "team": "WSH",
+          "matchup": "NYM @ WSH",
+          "odds": -106,
+          "model_probability": 0.6507,
+          "confidence": "Medium",
+          "won": false
+        },
+        {
+          "team": "LAA",
+          "matchup": "ATH @ LAA",
+          "odds": -118,
+          "model_probability": 0.6455,
+          "confidence": "Medium",
+          "won": false
+        }
+      ],
+      "won": false,
+      "result": "MISS",
+      "flat_profit": -100.0
+    },
+    {
+      "date": "2026-05-22",
+      "strategy": "corr_nl_reject_both",
+      "ticket_type": "p2",
+      "label": "BOS ML + TEX ML",
+      "leg_count": 2,
+      "legs": [
+        {
+          "team": "BOS",
+          "matchup": "MIN @ BOS",
+          "odds": -151,
+          "model_probability": 0.6845,
+          "confidence": "Medium",
+          "won": false
+        },
+        {
+          "team": "TEX",
+          "matchup": "TEX @ LAA",
+          "odds": -159,
+          "model_probability": 0.6692,
+          "confidence": "Medium",
+          "won": false
+        }
+      ],
+      "won": false,
+      "result": "MISS",
+      "flat_profit": -100.0
+    },
+    {
+      "date": "2026-05-23",
+      "strategy": "corr_nl_reject_both",
+      "ticket_type": "p2",
+      "label": "LAA ML + KC ML",
+      "leg_count": 2,
+      "legs": [
+        {
+          "team": "LAA",
+          "matchup": "TEX @ LAA",
+          "odds": 119,
+          "model_probability": 0.6396,
+          "confidence": "Medium",
+          "won": true
+        },
+        {
+          "team": "KC",
+          "matchup": "SEA @ KC",
+          "odds": 107,
+          "model_probability": 0.6468,
+          "confidence": "Medium",
+          "won": true
+        }
+      ],
+      "won": true,
+      "result": "HIT",
+      "flat_profit": 353.33
+    },
+    {
+      "date": "2026-05-24",
+      "strategy": "corr_nl_reject_both",
+      "ticket_type": "p2",
+      "label": "CLE ML + SF ML",
+      "leg_count": 2,
+      "legs": [
+        {
+          "team": "CLE",
+          "matchup": "CLE @ PHI",
+          "odds": -116,
+          "model_probability": 0.6457,
+          "confidence": "Medium",
+          "won": true
+        },
+        {
+          "team": "SF",
+          "matchup": "CWS @ SF",
+          "odds": -123,
+          "model_probability": 0.6571,
+          "confidence": "Medium",
+          "won": true
+        }
+      ],
+      "won": true,
+      "result": "HIT",
+      "flat_profit": 237.59
+    },
+    {
+      "date": "2026-05-25",
+      "strategy": "corr_nl_reject_both",
+      "ticket_type": "single",
+      "label": "TEX ML",
+      "leg_count": 1,
+      "legs": [
+        {
+          "team": "TEX",
+          "matchup": "HOU @ TEX",
+          "odds": -121,
+          "model_probability": 0.6882,
+          "confidence": "Low",
+          "won": false
+        }
+      ],
+      "won": false,
+      "result": "MISS",
+      "flat_profit": -100.0
+    },
+    {
+      "date": "2026-05-26",
+      "strategy": "corr_nl_reject_both",
+      "ticket_type": "p3",
+      "label": "SD ML + PIT ML + TEX ML",
+      "leg_count": 3,
+      "legs": [
+        {
+          "team": "SD",
+          "matchup": "PHI @ SD",
+          "odds": -112,
+          "model_probability": 0.6448,
+          "confidence": "Medium",
+          "won": false
+        },
+        {
+          "team": "PIT",
+          "matchup": "CHC @ PIT",
+          "odds": -140,
+          "model_probability": 0.7,
+          "confidence": "High",
+          "won": true
+        },
+        {
+          "team": "TEX",
+          "matchup": "HOU @ TEX",
+          "odds": -134,
+          "model_probability": 0.6848,
+          "confidence": "Medium",
+          "won": true
+        }
+      ],
+      "won": false,
+      "result": "MISS",
+      "flat_profit": -100.0
+    },
+    {
+      "date": "2026-05-27",
+      "strategy": "corr_nl_reject_both",
+      "ticket_type": "p2",
+      "label": "PIT ML + TEX ML",
+      "leg_count": 2,
+      "legs": [
+        {
+          "team": "PIT",
+          "matchup": "CHC @ PIT",
+          "odds": -124,
+          "model_probability": 0.7,
+          "confidence": "High",
+          "won": false
+        },
+        {
+          "team": "TEX",
+          "matchup": "HOU @ TEX",
+          "odds": -148,
+          "model_probability": 0.6805,
+          "confidence": "Medium",
+          "won": false
+        }
+      ],
+      "won": false,
+      "result": "MISS",
+      "flat_profit": -100.0
+    },
+    {
+      "date": "2026-05-28",
+      "strategy": "corr_nl_reject_both",
+      "ticket_type": "p2",
+      "label": "DET ML + PIT ML",
+      "leg_count": 2,
+      "legs": [
+        {
+          "team": "DET",
+          "matchup": "LAA @ DET",
+          "odds": -135,
+          "model_probability": 0.6503,
+          "confidence": "Medium",
+          "won": false
+        },
+        {
+          "team": "PIT",
+          "matchup": "CHC @ PIT",
+          "odds": -173,
+          "model_probability": 0.7,
+          "confidence": "Elite",
+          "won": false
+        }
+      ],
+      "won": false,
+      "result": "MISS",
+      "flat_profit": -100.0
+    },
+    {
+      "date": "2026-05-29",
+      "strategy": "corr_nl_reject_both",
+      "ticket_type": "p2",
+      "label": "HOU ML + SD ML",
+      "leg_count": 2,
+      "legs": [
+        {
+          "team": "HOU",
+          "matchup": "MIL @ HOU",
+          "odds": 117,
+          "model_probability": 0.6427,
+          "confidence": "Medium",
+          "won": false
+        },
+        {
+          "team": "SD",
+          "matchup": "SD @ WSH",
+          "odds": -102,
+          "model_probability": 0.6104,
+          "confidence": "Medium",
+          "won": true
+        }
+      ],
+      "won": false,
+      "result": "MISS",
+      "flat_profit": -100.0
+    },
+    {
+      "date": "2026-05-30",
+      "strategy": "corr_nl_reject_both",
+      "ticket_type": "p2",
+      "label": "HOU ML + ATL ML",
+      "leg_count": 2,
+      "legs": [
+        {
+          "team": "HOU",
+          "matchup": "MIL @ HOU",
+          "odds": -103,
+          "model_probability": 0.6427,
+          "confidence": "Medium",
+          "won": true
+        },
+        {
+          "team": "ATL",
+          "matchup": "ATL @ CIN",
+          "odds": -126,
+          "model_probability": 0.6314,
+          "confidence": "Medium",
+          "won": true
+        }
+      ],
+      "won": true,
+      "result": "HIT",
+      "flat_profit": 253.51
+    },
+    {
+      "date": "2026-05-31",
+      "strategy": "corr_nl_reject_both",
+      "ticket_type": "p2",
+      "label": "STL ML + WSH ML",
+      "leg_count": 2,
+      "legs": [
+        {
+          "team": "STL",
+          "matchup": "CHC @ STL",
+          "odds": -116,
+          "model_probability": 0.7,
+          "confidence": "High",
+          "won": true
+        },
+        {
+          "team": "WSH",
+          "matchup": "SD @ WSH",
+          "odds": -105,
+          "model_probability": 0.6433,
+          "confidence": "Medium",
+          "won": true
+        }
+      ],
+      "won": true,
+      "result": "HIT",
+      "flat_profit": 263.55
+    },
+    {
+      "date": "2026-06-01",
+      "strategy": "corr_nl_reject_both",
+      "ticket_type": "p2",
+      "label": "AZ ML + KC ML",
+      "leg_count": 2,
+      "legs": [
+        {
+          "team": "AZ",
+          "matchup": "LAD @ AZ",
+          "odds": 140,
+          "model_probability": 0.653,
+          "confidence": "Medium",
+          "won": true
+        },
+        {
+          "team": "KC",
+          "matchup": "KC @ CIN",
+          "odds": 108,
+          "model_probability": 0.62,
+          "confidence": "Medium",
+          "won": true
+        }
+      ],
+      "won": true,
+      "result": "HIT",
+      "flat_profit": 399.2
+    },
+    {
+      "date": "2026-06-02",
+      "strategy": "corr_nl_reject_both",
+      "ticket_type": "p2",
+      "label": "COL ML + NYY ML",
+      "leg_count": 2,
+      "legs": [
+        {
+          "team": "COL",
+          "matchup": "COL @ LAA",
+          "odds": 137,
+          "model_probability": 0.6167,
+          "confidence": "Medium",
+          "won": true
+        },
+        {
+          "team": "NYY",
+          "matchup": "CLE @ NYY",
+          "odds": -208,
+          "model_probability": 0.6984,
+          "confidence": "High",
+          "won": false
+        }
+      ],
+      "won": false,
+      "result": "MISS",
+      "flat_profit": -100.0
+    },
+    {
+      "date": "2026-06-03",
+      "strategy": "corr_nl_reject_both",
+      "ticket_type": "single",
+      "label": "LAA ML",
+      "leg_count": 1,
+      "legs": [
+        {
+          "team": "LAA",
+          "matchup": "COL @ LAA",
+          "odds": -149,
+          "model_probability": 0.7,
+          "confidence": "Low",
+          "won": true
+        }
+      ],
+      "won": true,
+      "result": "HIT",
+      "flat_profit": 67.11
+    },
+    {
+      "date": "2026-06-04",
+      "strategy": "corr_nl_reject_both",
+      "ticket_type": "single",
+      "label": "HOU ML",
+      "leg_count": 1,
+      "legs": [
+        {
+          "team": "HOU",
+          "matchup": "PIT @ HOU",
+          "odds": -114,
+          "model_probability": 0.6353,
+          "confidence": "Low",
+          "won": false
+        }
+      ],
+      "won": false,
+      "result": "MISS",
+      "flat_profit": -100.0
+    },
+    {
+      "date": "2026-06-05",
+      "strategy": "corr_nl_reject_both",
+      "ticket_type": "single",
+      "label": "HOU ML",
+      "leg_count": 1,
+      "legs": [
+        {
+          "team": "HOU",
+          "matchup": "ATH @ HOU",
+          "odds": -110,
+          "model_probability": 0.6721,
+          "confidence": "Low",
+          "won": true
+        }
+      ],
+      "won": true,
+      "result": "HIT",
+      "flat_profit": 90.91
+    },
+    {
+      "date": "2026-06-06",
+      "strategy": "corr_nl_reject_both",
+      "ticket_type": "p2",
+      "label": "HOU ML + NYM ML",
+      "leg_count": 2,
+      "legs": [
+        {
+          "team": "HOU",
+          "matchup": "ATH @ HOU",
+          "odds": -127,
+          "model_probability": 0.7,
+          "confidence": "High",
+          "won": true
+        },
+        {
+          "team": "NYM",
+          "matchup": "NYM @ SD",
+          "odds": -125,
+          "model_probability": 0.6382,
+          "confidence": "Medium",
+          "won": false
+        }
+      ],
+      "won": false,
+      "result": "MISS",
+      "flat_profit": -100.0
+    },
+    {
+      "date": "2026-06-07",
+      "strategy": "corr_nl_reject_both",
+      "ticket_type": "single",
+      "label": "ATH ML",
+      "leg_count": 1,
+      "legs": [
+        {
+          "team": "ATH",
+          "matchup": "ATH @ HOU",
+          "odds": -108,
+          "model_probability": 0.6282,
+          "confidence": "Low",
+          "won": true
+        }
+      ],
+      "won": true,
+      "result": "HIT",
+      "flat_profit": 92.59
+    },
+    {
+      "date": "2026-06-08",
+      "strategy": "corr_nl_reject_both",
+      "ticket_type": "p2",
+      "label": "HOU ML + SEA ML",
+      "leg_count": 2,
+      "legs": [
+        {
+          "team": "HOU",
+          "matchup": "HOU @ LAA",
+          "odds": -130,
+          "model_probability": 0.7,
+          "confidence": "High",
+          "won": true
+        },
+        {
+          "team": "SEA",
+          "matchup": "SEA @ BAL",
+          "odds": -124,
+          "model_probability": 0.6368,
+          "confidence": "Medium",
+          "won": true
+        }
+      ],
+      "won": true,
+      "result": "HIT",
+      "flat_profit": 219.6
+    },
+    {
+      "date": "2026-06-09",
+      "strategy": "corr_nl_reject_both",
+      "ticket_type": "p2",
+      "label": "ATH ML + KC ML",
+      "leg_count": 2,
+      "legs": [
+        {
+          "team": "ATH",
+          "matchup": "MIL @ ATH",
+          "odds": -110,
+          "model_probability": 0.6808,
+          "confidence": "Medium",
+          "won": true
+        },
+        {
+          "team": "KC",
+          "matchup": "TEX @ KC",
+          "odds": 105,
+          "model_probability": 0.6356,
+          "confidence": "Medium",
+          "won": true
+        }
+      ],
+      "won": true,
+      "result": "HIT",
+      "flat_profit": 291.36
+    },
+    {
+      "date": "2026-06-10",
+      "strategy": "corr_nl_reject_both",
+      "ticket_type": "single",
+      "label": "PHI ML",
+      "leg_count": 1,
+      "legs": [
+        {
+          "team": "PHI",
+          "matchup": "PHI @ TOR",
+          "odds": -136,
+          "model_probability": 0.696,
+          "confidence": "Low",
+          "won": true
+        }
+      ],
+      "won": true,
+      "result": "HIT",
+      "flat_profit": 73.53
+    },
+    {
+      "date": "2026-06-11",
+      "strategy": "corr_nl_reject_both",
+      "ticket_type": "p2",
+      "label": "MIA ML + DET ML",
+      "leg_count": 2,
+      "legs": [
+        {
+          "team": "MIA",
+          "matchup": "AZ @ MIA",
+          "odds": -129,
+          "model_probability": 0.7,
+          "confidence": "High",
+          "won": true
+        },
+        {
+          "team": "DET",
+          "matchup": "MIN @ DET",
+          "odds": -130,
+          "model_probability": 0.6543,
+          "confidence": "Medium",
+          "won": true
+        }
+      ],
+      "won": true,
+      "result": "HIT",
+      "flat_profit": 214.07
+    },
+    {
+      "date": "2026-06-12",
+      "strategy": "corr_nl_reject_both",
+      "ticket_type": "p2",
+      "label": "BAL ML + MIN ML",
+      "leg_count": 2,
+      "legs": [
+        {
+          "team": "BAL",
+          "matchup": "SD @ BAL",
+          "odds": -131,
+          "model_probability": 0.6872,
+          "confidence": "Medium",
+          "won": true
+        },
+        {
+          "team": "MIN",
+          "matchup": "STL @ MIN",
+          "odds": -135,
+          "model_probability": 0.6471,
+          "confidence": "Medium",
+          "won": true
+        }
+      ],
+      "won": true,
+      "result": "HIT",
+      "flat_profit": 206.96
+    },
+    {
+      "date": "2026-06-13",
+      "strategy": "corr_nl_reject_both",
+      "ticket_type": "p2",
+      "label": "SD ML + KC ML",
+      "leg_count": 2,
+      "legs": [
+        {
+          "team": "SD",
+          "matchup": "SD @ BAL",
+          "odds": 103,
+          "model_probability": 0.6161,
+          "confidence": "Medium",
+          "won": true
+        },
+        {
+          "team": "KC",
+          "matchup": "HOU @ KC",
+          "odds": -130,
+          "model_probability": 0.6537,
+          "confidence": "Medium",
+          "won": false
+        }
+      ],
+      "won": false,
+      "result": "MISS",
+      "flat_profit": -100.0
+    },
+    {
+      "date": "2026-06-14",
+      "strategy": "corr_nl_reject_both",
+      "ticket_type": "p2",
+      "label": "CWS ML + TB ML",
+      "leg_count": 2,
+      "legs": [
+        {
+          "team": "CWS",
+          "matchup": "LAD @ CWS",
+          "odds": 166,
+          "model_probability": 0.652,
+          "confidence": "Medium",
+          "won": true
+        },
+        {
+          "team": "TB",
+          "matchup": "TB @ LAA",
+          "odds": -123,
+          "model_probability": 0.675,
+          "confidence": "Medium",
+          "won": true
+        }
+      ],
+      "won": true,
+      "result": "HIT",
+      "flat_profit": 382.26
+    },
+    {
+      "date": "2026-06-15",
+      "strategy": "corr_nl_reject_both",
+      "ticket_type": "p2",
+      "label": "WSH ML + ATH ML",
+      "leg_count": 2,
+      "legs": [
+        {
+          "team": "WSH",
+          "matchup": "KC @ WSH",
+          "odds": -137,
+          "model_probability": 0.7,
+          "confidence": "High",
+          "won": true
+        },
+        {
+          "team": "ATH",
+          "matchup": "PIT @ ATH",
+          "odds": -126,
+          "model_probability": 0.659,
+          "confidence": "Medium",
+          "won": true
+        }
+      ],
+      "won": true,
+      "result": "HIT",
+      "flat_profit": 210.29
+    },
+    {
+      "date": "2026-06-16",
+      "strategy": "corr_nl_reject_both",
+      "ticket_type": "p2",
+      "label": "CIN ML + CLE ML",
+      "leg_count": 2,
+      "legs": [
+        {
+          "team": "CIN",
+          "matchup": "NYM @ CIN",
+          "odds": 105,
+          "model_probability": 0.6882,
+          "confidence": "Medium",
+          "won": true
+        },
+        {
+          "team": "CLE",
+          "matchup": "CLE @ MIL",
+          "odds": 130,
+          "model_probability": 0.6257,
+          "confidence": "Medium",
+          "won": false
+        }
+      ],
+      "won": false,
+      "result": "MISS",
+      "flat_profit": -100.0
+    }
+  ]
+}

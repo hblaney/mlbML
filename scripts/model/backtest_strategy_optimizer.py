@@ -32,7 +32,7 @@ def leg_score(leg: dict) -> float:
 
 def positive_ev_legs(candidates: list[dict]) -> list[dict]:
     return sorted(
-        [c for c in candidates if c["ev"] > 0],
+        [c for c in candidates if c.get("is_model_pick", True) and c["ev"] > 0],
         key=lambda leg: (leg_score(leg), leg["ev"], leg["model_probability"]),
         reverse=True,
     )

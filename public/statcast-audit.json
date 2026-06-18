@@ -1,0 +1,53 @@
+{
+  "checked_at": "2026-06-17",
+  "season_preloaded": 2026,
+  "sample_teams_14d": [
+    {
+      "team": "NYY",
+      "window_days": 14,
+      "metrics": {
+        "barrel_rate": 0.0787,
+        "hard_hit_rate": 0.3705,
+        "avg_exit_velocity": 87.8502,
+        "avg_launch_angle": 13.9673,
+        "xwoba": 0.3685
+      }
+    },
+    {
+      "team": "LAD",
+      "window_days": 14,
+      "metrics": {
+        "barrel_rate": 0.0917,
+        "hard_hit_rate": 0.4194,
+        "avg_exit_velocity": 88.8508,
+        "avg_launch_angle": 13.5583,
+        "xwoba": 0.397
+      }
+    },
+    {
+      "team": "HOU",
+      "window_days": 14,
+      "metrics": {
+        "barrel_rate": 0.0743,
+        "hard_hit_rate": 0.4057,
+        "avg_exit_velocity": 88.3966,
+        "avg_launch_angle": 12.6743,
+        "xwoba": 0.3423
+      }
+    },
+    {
+      "team": "ATL",
+      "window_days": 14,
+      "metrics": {
+        "barrel_rate": 0.0647,
+        "hard_hit_rate": 0.3885,
+        "avg_exit_velocity": 88.382,
+        "avg_launch_angle": 14.1799,
+        "xwoba": 0.3358
+      }
+    }
+  ],
+  "nyy_vs_bos_feature_count": 60,
+  "nyy_vs_bos_nonzero_features": 48,
+  "status": "ok"
+}

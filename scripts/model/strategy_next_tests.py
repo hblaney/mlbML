@@ -7,7 +7,12 @@ import json
 from datetime import date, datetime
 from pathlib import Path
 
-from backtest_daily_recommendations import pick_best_daily_ticket, pick_best_moneyline, pick_best_parlay
+from backtest_daily_recommendations import (
+    model_pick_candidates,
+    pick_best_daily_ticket,
+    pick_best_moneyline,
+    pick_best_parlay,
+)
 from backtest_parlays import season_start_for, settle_parlay
 from backtest_strategy_optimizer import leg_score_for_parlay, pick_forced_top_legs
 from exhaustive_strategy_search import (
@@ -117,7 +122,7 @@ def pick_corr_parlay(
     penalty_div: float = 0.0,
     penalty_time: float = 0.0,
 ) -> dict | None:
-    pool = [c for c in candidates if c["ev"] > 0]
+    pool = [c for c in model_pick_candidates(candidates) if c["ev"] > 0]
     pool.sort(key=lambda leg: leg["ev"] * leg["model_probability"], reverse=True)
     pool = pool[:8]
     if len(pool) < leg_count:
@@ -255,10 +260,11 @@ def day_actions_for_test(candidates: list[dict], rule: str) -> list[DayAction]:
             corr_kwargs = {"penalty_div": 0.15, "penalty_time": 0.10}
         else:
             raise ValueError(rule)
-        pool = no_low_pool(candidates)
+        live_candidates = model_pick_candidates(candidates)
+        pool = no_low_pool(live_candidates)
         p2 = pick_always_n_corr(pool, 2, **corr_kwargs)
         p3 = pick_corr_parlay(pool, 3, **corr_kwargs)
-        return pick_two_or_three_or_single_custom(candidates, pool=pool, p2_ticket=p2, p3_ticket=p3)
+        return pick_two_or_three_or_single_custom(live_candidates, pool=pool, p2_ticket=p2, p3_ticket=p3)
 
     raise ValueError(rule)
 

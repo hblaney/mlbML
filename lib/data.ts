@@ -39,6 +39,9 @@ export type GamePrediction = {
   confidence: "Low" | "Medium" | "High" | "Elite";
   modelVersion: string;
   explanation: string[];
+  /** False when a probable starter is TBD or changed since the last board refresh. */
+  starterCertain?: boolean;
+  pitcherChanged?: boolean;
 };
 
 export type StreamEmbed = {
@@ -280,44 +283,43 @@ function boardHasMarketOdds(board: GamePrediction[]) {
   return board.some((game) => game.homeMoneyline !== null && game.awayMoneyline !== null);
 }
 
+/** Live plan: always the model's predicted winner — never the opposite side for +EV. */
+function modelPickSideForGame(game: GamePrediction) {
+  const predicted = game.predictedTeam?.toLowerCase();
+  const pickHome = predicted
+    ? predicted === game.homeTeam.toLowerCase()
+    : game.modelHomeWinProbability >= game.modelAwayWinProbability;
+  return pickHome ? ("home" as const) : ("away" as const);
+}
+
 function buildMarketMoneylineCandidates(board: GamePrediction[]) {
   return board
     .filter((game) => game.homeMoneyline !== null && game.awayMoneyline !== null)
-    .flatMap((game) => {
+    .map((game) => {
       const away = getTeam(game.awayTeam);
       const home = getTeam(game.homeTeam);
       const matchup = `${away.abbreviation} @ ${home.abbreviation}`;
-      const homeMarket = impliedProbability(game.homeMoneyline as number);
-      const awayMarket = impliedProbability(game.awayMoneyline as number);
+      const pickHome = modelPickSideForGame(game) === "home";
+      const team = pickHome ? home : away;
+      const opponent = pickHome ? away : home;
+      const odds = (pickHome ? game.homeMoneyline : game.awayMoneyline) as number;
+      const modelProbability = pickHome ? game.modelHomeWinProbability : game.modelAwayWinProbability;
+      const bookProbability = impliedProbability(odds);
 
-      return [
-        {
-          id: `${game.id}-home`,
-          game,
-          team: home,
-          opponent: away,
-          matchup,
-          side: "Moneyline",
-          odds: game.homeMoneyline as number,
-          modelProbability: game.modelHomeWinProbability,
-          bookProbability: homeMarket,
-          ev: expectedValue(game.modelHomeWinProbability, game.homeMoneyline as number)
-        },
-        {
-          id: `${game.id}-away`,
-          game,
-          team: away,
-          opponent: home,
-          matchup,
-          side: "Moneyline",
-          odds: game.awayMoneyline as number,
-          modelProbability: game.modelAwayWinProbability,
-          bookProbability: awayMarket,
-          ev: expectedValue(game.modelAwayWinProbability, game.awayMoneyline as number)
-        }
-      ];
-    })
-    .map((bet) => ({ ...bet, edge: bet.modelProbability - bet.bookProbability }));
+      return {
+        id: `${game.id}-${pickHome ? "home" : "away"}`,
+        game,
+        team,
+        opponent,
+        matchup,
+        side: "Moneyline",
+        odds,
+        modelProbability,
+        bookProbability,
+        ev: expectedValue(modelProbability, odds),
+        edge: modelProbability - bookProbability
+      };
+    });
 }
 
 function buildMarketMoneylineBets(board: GamePrediction[]) {
@@ -708,6 +710,10 @@ function isParlayEligibleConfidence(confidence: GamePrediction["confidence"]) {
   return confidence !== "Low";
 }
 
+function isStarterReadyForParlay(game: GamePrediction) {
+  return game.starterCertain !== false && game.pitcherChanged !== true;
+}
+
 /** Live plan: corr_nl_reject_both — block same-division and same-start-window parlay legs. */
 export const LIVE_BETTING_STRATEGY = "corr_nl_reject_both";
 const PARLAY_CORRELATION_WINDOW_MINUTES = 60;
@@ -847,6 +853,9 @@ export const OPTIMIZED_STAKE_BY_LEG_COUNT: Record<number, number> = {
   3: 0.3
 };
 
+/** Locked live stakes — same as OPTIMIZED_STAKE_BY_LEG_COUNT. */
+export const LIVE_STAKE_BY_LEG_COUNT = OPTIMIZED_STAKE_BY_LEG_COUNT;
+
 export function getOptimizedStakePctForTicket(
   ticket: DailyTicket | null,
   stakeByLeg?: Record<string, number>
@@ -917,6 +926,7 @@ function getParlayLegCandidates(board: GamePrediction[] = predictions) {
     .filter(
       (bet) =>
         isParlayEligibleConfidence(bet.game.confidence) &&
+        isStarterReadyForParlay(bet.game) &&
         bet.modelProbability >= SAFE_PARLAY_MIN_LEG_PROBABILITY &&
         bet.edge >= SAFE_PARLAY_MIN_LEG_EDGE &&
         bet.bookProbability >= SAFE_PARLAY_MIN_BOOK_PROBABILITY &&
@@ -928,6 +938,9 @@ function getParlayLegCandidates(board: GamePrediction[] = predictions) {
 
 function passesLiveParlayLegFilter(bet: BestBet) {
   if (!isParlayEligibleConfidence(bet.game.confidence)) {
+    return false;
+  }
+  if (!isStarterReadyForParlay(bet.game)) {
     return false;
   }
   if (bet.edge < LIVE_PARLAY_MIN_LEG_EDGE || bet.bookProbability < LIVE_PARLAY_MIN_BOOK_PROBABILITY || bet.ev <= 0) {

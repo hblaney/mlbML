@@ -100,10 +100,15 @@ def serialize_leg(leg: dict) -> dict:
     }
 
 
+def model_pick_candidates(candidates: list[dict]) -> list[dict]:
+    return [candidate for candidate in candidates if candidate.get("is_model_pick", True)]
+
+
 def pick_best_moneyline(candidates: list[dict]) -> tuple[dict | None, bool]:
+    pool = model_pick_candidates(candidates)
     qualified = [
         candidate
-        for candidate in candidates
+        for candidate in pool
         if (
             candidate["edge"] >= QUALIFIED_MIN_EDGE
             and candidate["model_probability"] >= QUALIFIED_MIN_PROBABILITY
@@ -202,9 +207,10 @@ def pick_best_total(candidates: list[dict]) -> tuple[dict | None, bool]:
 
 
 def pick_best_parlay(candidates: list[dict], leg_count: int) -> tuple[dict | None, bool]:
+    pool = model_pick_candidates(candidates)
     qualified_legs = [
         candidate
-        for candidate in candidates
+        for candidate in pool
         if (
             candidate["edge"] >= PARLAY_QUALIFIED_MIN_EDGE
             and candidate["model_probability"] >= PARLAY_QUALIFIED_MIN_PROBABILITY
@@ -213,7 +219,7 @@ def pick_best_parlay(candidates: list[dict], leg_count: int) -> tuple[dict | Non
     ][:PARLAY_TOP_N]
     anchor_legs = [
         candidate
-        for candidate in candidates
+        for candidate in pool
         if (
             candidate.get("confidence") in {"Elite", "High"}
             and candidate.get("is_model_pick", True)

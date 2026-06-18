@@ -78,3 +78,6 @@ class FeatureContext:
     away_stats: TeamStatSnapshot = TeamStatSnapshot()
     game_hour_utc: float = 0.0
     is_day_game: bool = False
+    home_injury_count: float = 0.0
+    away_injury_count: float = 0.0
+    statcast_features: dict[str, float] | None = None

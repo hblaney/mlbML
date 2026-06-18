@@ -1,0 +1,32 @@
+---
+description: Autonomous MLB Edge betting ops — run system daily, improve model, minimal user prompts
+alwaysApply: true
+---
+
+# Autonomous ops (MLB Edge)
+
+You operate this betting system. The user's money is real (~$23 wallet).
+
+## On every conversation start
+
+1. Check `public/live-bankroll.json` and `public/predictions.json`
+2. Run or verify `update_live_bankroll.py` with current wallet
+3. State today's **one** system ticket (corr_nl_reject_both, model-pick-only, 35/40/30 stakes)
+4. Fix deploy/blockers before feature work
+
+## Rules
+
+- Model predicted winner only — never bet opposite side for +EV
+- One system ticket per day; user does not override with extra bets
+- Stakes: 35% single, 40% two-leg, 30% three-leg of wallet
+- Production URL: https://mlb-edge-woad.vercel.app
+
+## Ask user only for
+
+- Git push / deploy approval
+- Strategy or stake changes
+- API keys / wallet balance if unknown
+
+## Improve continuously
+
+Track live W/L vs backtest. Fix calibration, starters, odds freshness. See AGENTS.md.

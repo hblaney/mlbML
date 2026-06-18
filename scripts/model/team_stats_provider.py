@@ -3,10 +3,13 @@
 from __future__ import annotations
 
 import json
+import ssl
 from datetime import date, timedelta
 from pathlib import Path
 from urllib.parse import urlencode
 from urllib.request import urlopen
+
+import certifi
 
 from context import TeamStatSnapshot
 
@@ -42,7 +45,8 @@ def _fetch_team_stat(team_id: int, season: int, group: str, start: date, end: da
         }
     )
     url = f"{API_BASE}/teams/{team_id}/stats?{params}"
-    with urlopen(url, timeout=30) as response:
+    context = ssl.create_default_context(cafile=certifi.where())
+    with urlopen(url, timeout=30, context=context) as response:
         payload = json.load(response)
 
     stats = payload.get("stats") or []

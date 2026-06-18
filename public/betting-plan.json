@@ -2,11 +2,13 @@
   "generated_at": "2026-06-17",
   "strategy": "corr_nl_reject_both",
   "strategy_rules": [
-    "Always-2 parlay from Medium+ legs only (filtered edge/anchor, else best uncorrelated top-2 positive-EV)",
+    "corr_nl_reject_both \u2014 one system ticket per day",
+    "Model predicted winner only \u2014 never bet the opposite side for +EV",
+    "Always-2 parlay from Medium+ model-pick legs (filtered, else forced top-2 model picks)",
     "Reject parlay legs in the same division or starting within 60 minutes",
-    "Premium filtered 3-leg (Medium+ pool, uncorrelated) when it scores higher than always-2",
-    "Qualified single moneyline (any confidence) when it scores highest",
-    "One bet per day \u2014 highest score wins; ride losing streaks unless bankroll cannot place minimum bet"
+    "Premium filtered 3-leg when it scores higher than always-2",
+    "Qualified single on a model pick when it scores highest",
+    "Stakes locked: 35% single \u00b7 40% two-leg \u00b7 30% three-leg of wallet"
   ],
   "stake_by_leg_count": {
     "1": 0.35,
