@@ -29,8 +29,8 @@ REFIT_EVERY = 60
 TRAINED_MODEL_WEIGHT = 1.00
 PRIOR_SEASON_SAMPLE_WEIGHT = 0.60
 CURRENT_SEASON_SAMPLE_WEIGHT = 1.25
-# 2026 overnight sweep: 0.10 beat 0.05 on overall game accuracy (61.12% vs 60.66%).
-MARKET_BLEND_WEIGHT = 0.10
+# Season walk-forward best: 0.05 (60.66%). 0.10 helped last-7d only but cost ~1.4pts season.
+MARKET_BLEND_WEIGHT = 0.05
 PUBLIC_CONFIDENCE_SHARPENING = 0.8
 PUBLIC_PROBABILITY_CAP = 0.70
 # Live context: shrink stubborn home-chalk picks after getting handled in-series.

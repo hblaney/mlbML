@@ -23,8 +23,8 @@ LOG_PATH = ROOT / "data" / "overnight-model-research.jsonl"
 REPORT_PATH = ROOT / "public" / "overnight-model-research.json"
 IDEAS_PATH = ROOT / "public" / "overnight-model-ideas.json"
 
-BASELINE = 0.6112
-SHIPPED_BASELINE = "daily-auto-v2.4-blend10"
+BASELINE = 0.6066
+SHIPPED_BASELINE = "daily-auto-v2.5-base6066"
 
 
 @dataclass(frozen=True)
@@ -52,7 +52,6 @@ HYPOTHESIS_QUEUE: list[ModelConfig] = [
     ModelConfig("series_penalty_0.15", series_penalty=0.15),
     ModelConfig("gb_depth2", max_depth=2),
     ModelConfig("gb_lr_0.05", learning_rate=0.05),
-    ModelConfig("combo_blend08_series10", market_blend=0.08, series_penalty=0.10),
 ]
 
 
