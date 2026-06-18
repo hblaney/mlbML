@@ -33,7 +33,7 @@ from trained_edge_model import (
 )
 
 MODEL_PATH = Path(__file__).resolve().parents[2] / "data" / "model" / "daily_edge.pkl"
-MODEL_VERSION = "daily-auto-v2.5-base6066"
+MODEL_VERSION = "daily-auto-v2.6-blend6121"
 
 
 @dataclass

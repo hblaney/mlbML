@@ -23,8 +23,8 @@ LOG_PATH = ROOT / "data" / "overnight-model-research.jsonl"
 REPORT_PATH = ROOT / "public" / "overnight-model-research.json"
 IDEAS_PATH = ROOT / "public" / "overnight-model-ideas.json"
 
-BASELINE = 0.6066
-SHIPPED_BASELINE = "daily-auto-v2.5-base6066"
+BASELINE = 0.6121
+SHIPPED_BASELINE = "daily-auto-v2.6-blend6121"
 
 
 @dataclass(frozen=True)
@@ -41,17 +41,15 @@ class ModelConfig:
 # Queue of hypotheses to test one per cycle — no repeats.
 HYPOTHESIS_QUEUE: list[ModelConfig] = [
     ModelConfig("baseline_current"),
-    ModelConfig("market_blend_0.08", market_blend=0.08),
-    ModelConfig("market_blend_0.10", market_blend=0.10),
-    ModelConfig("market_blend_0.03", market_blend=0.03),
+    ModelConfig("market_blend_0.085", market_blend=0.085),
+    ModelConfig("market_blend_0.092", market_blend=0.092),
+    ModelConfig("market_blend_0.095", market_blend=0.095),
     ModelConfig("refit_30", refit_every=30),
     ModelConfig("refit_90", refit_every=90),
     ModelConfig("current_weight_1.5", current_weight=1.5),
-    ModelConfig("current_weight_1.0", current_weight=1.0),
     ModelConfig("series_penalty_0.10", series_penalty=0.10),
     ModelConfig("series_penalty_0.15", series_penalty=0.15),
     ModelConfig("gb_depth2", max_depth=2),
-    ModelConfig("gb_lr_0.05", learning_rate=0.05),
 ]
 
 
@@ -68,8 +66,8 @@ RESEARCH_IDEAS = [
     },
     {
         "idea": "Market blend weight tune",
-        "why": "0.05 is hand-tuned; wrong blend hurts game accuracy",
-        "status": "testing tonight",
+        "why": "0.09 beats 0.05 — 61.21% vs 60.66% on full-season walk-forward",
+        "status": "shipped v2.6",
     },
     {
         "idea": "Bullpen fatigue / innings last 3 days",

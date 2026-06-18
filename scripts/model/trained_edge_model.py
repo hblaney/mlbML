@@ -29,8 +29,8 @@ REFIT_EVERY = 60
 TRAINED_MODEL_WEIGHT = 1.00
 PRIOR_SEASON_SAMPLE_WEIGHT = 0.60
 CURRENT_SEASON_SAMPLE_WEIGHT = 1.25
-# Season walk-forward best: 0.05 (60.66%). 0.10 helped last-7d only but cost ~1.4pts season.
-MARKET_BLEND_WEIGHT = 0.05
+# Season walk-forward best: 0.09 (61.21%). 0.10 OK alone; 0.10 + series-in-wf regressed.
+MARKET_BLEND_WEIGHT = 0.09
 PUBLIC_CONFIDENCE_SHARPENING = 0.8
 PUBLIC_PROBABILITY_CAP = 0.70
 # Live context: shrink stubborn home-chalk picks after getting handled in-series.

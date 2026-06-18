@@ -1,0 +1,50 @@
+{
+  "generated_at": "2026-06-18T17:54:02.421986",
+  "ideas": [
+    {
+      "idea": "Fresh retrain through yesterday",
+      "why": "Model still on Jun 16; Jun 17 results change weights",
+      "status": "auto on morning GitHub job"
+    },
+    {
+      "idea": "Series probability penalty",
+      "why": "ATL kept picking Braves after SF swept \u2014 shrink confidence after 2 losses vs opponent",
+      "status": "testing tonight"
+    },
+    {
+      "idea": "Market blend weight tune",
+      "why": "0.09 beats 0.05 \u2014 61.21% vs 60.66% on full-season walk-forward",
+      "status": "shipped v2.6"
+    },
+    {
+      "idea": "Bullpen fatigue / innings last 3 days",
+      "why": "Not in feature set yet",
+      "status": "backlog"
+    },
+    {
+      "idea": "Pitcher vs opponent team OPS",
+      "why": "Handedness + history not explicit",
+      "status": "backlog"
+    },
+    {
+      "idea": "HistGBM / registry 948-feature model",
+      "why": "Tested \u2014 does NOT beat shallow GBM on walk-forward",
+      "status": "rejected"
+    },
+    {
+      "idea": "Statcast features",
+      "why": "Tested \u2014 60.57% vs 60.66% baseline",
+      "status": "rejected"
+    },
+    {
+      "idea": "Robust blend",
+      "why": "Tested \u2014 57.17%, much worse",
+      "status": "rejected"
+    },
+    {
+      "idea": "Ticket rules (68% legs, series fade)",
+      "why": "Not model accuracy \u2014 but ticket 47-35 \u2192 52-27",
+      "status": "shipped"
+    }
+  ]
+}

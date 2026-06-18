@@ -244,14 +244,63 @@ def team_won_on_day(team_abbr: str, day: date, games, team_abbr_map: dict[int, s
             return None
         winner = home if game.home_score > game.away_score else away
         return team == winner
+
+
+def team_leg_status_on_day(team_abbr: str, day: date, team_abbr_map: dict[int, str]) -> str | None:
+    """Return won | lost | void | pending for a team's game on a date."""
+    import ssl
+    from urllib.request import urlopen
+    import certifi
+
+    team = team_abbr.lower()
+    url = f"https://statsapi.mlb.com/api/v1/schedule?sportId=1&date={day.isoformat()}&hydrate=team"
+    ctx = ssl.create_default_context(cafile=certifi.where())
+    with urlopen(url, timeout=30, context=ctx) as response:
+        payload = json.loads(response.read())
+
+    for day_block in payload.get("dates", []):
+        for game in day_block.get("games", []):
+            home = game["teams"]["home"]["team"]["abbreviation"].lower()
+            away = game["teams"]["away"]["team"]["abbreviation"].lower()
+            if team not in {home, away}:
+                continue
+            status = str(game.get("status", {}).get("detailedState", "")).lower()
+            if "postpon" in status or "cancel" in status:
+                return "void"
+            abstract = game.get("status", {}).get("abstractGameState")
+            if abstract != "Final":
+                return "pending"
+            hs = game["teams"]["home"].get("score")
+            aw = game["teams"]["away"].get("score")
+            if hs is None or aw is None:
+                return "pending"
+            winner = home if hs > aw else away
+            return "won" if team == winner else "lost"
     return None
 
 
+def settle_parlay_with_voids(leg_rows: list[dict]) -> dict:
+    """Robinhood-style: void legs drop off; all remaining must win."""
+    active = [leg for leg in leg_rows if not leg.get("void")]
+    if not active:
+        return {"won": True, "profit": 0.0, "odds": None, "void_legs": len(leg_rows)}
+    if any(not leg["won"] for leg in active):
+        return {"won": False, "profit": -STAKE, "odds": None, "void_legs": len(leg_rows) - len(active)}
+
+    if len(active) == 1:
+        leg = active[0]
+        profit = STAKE * (decimal_odds(int(leg["odds"])) - 1) if leg["won"] else -STAKE
+        return {"won": True, "profit": profit, "odds": leg["odds"], "void_legs": len(leg_rows) - len(active)}
+
+    settled = settle_parlay(active)
+    settled["void_legs"] = len(leg_rows) - len(active)
+    return settled
+
+
 def grade_archived_ticket(ticket: dict, day_iso: str, board: dict) -> dict | None:
-    from mlb_api import load_or_fetch_games, load_team_abbreviations
+    from mlb_api import load_team_abbreviations
 
     day = date.fromisoformat(day_iso)
-    games = load_or_fetch_games(day, day)
     abbr_map = load_team_abbreviations()
     predictions = board.get("predictions", [])
     pred_by_team: dict[str, dict] = {}
@@ -267,20 +316,42 @@ def grade_archived_ticket(ticket: dict, day_iso: str, board: dict) -> dict | Non
             return None
         pick_home = str(row.get("predictedTeam", "")).lower() == str(row.get("homeTeam", "")).lower()
         odds = row.get("homeMoneyline") if pick_home else row.get("awayMoneyline")
-        won = team_won_on_day(str(leg), day, games, abbr_map)
-        if won is None or odds is None:
+        status = team_leg_status_on_day(str(leg), day, abbr_map)
+        if status is None or status == "pending" or odds is None:
             return None
+        if status == "void":
+            leg_rows.append(
+                {
+                    "team": str(leg).upper(),
+                    "odds": odds,
+                    "won": True,
+                    "void": True,
+                    "model_probability": row.get("pickProbability"),
+                }
+            )
+            continue
         leg_rows.append(
             {
                 "team": str(leg).upper(),
                 "odds": odds,
-                "won": won,
+                "won": status == "won",
+                "void": False,
                 "model_probability": row.get("pickProbability"),
             }
         )
 
     if ticket["leg_count"] == 1:
         leg = leg_rows[0]
+        if leg.get("void"):
+            return {
+                "label": ticket["label"],
+                "legs": ticket["legs"],
+                "won": True,
+                "profit": 0.0,
+                "odds": leg["odds"],
+                "model_probability": ticket.get("model_probability"),
+                "void": True,
+            }
         profit = STAKE * (decimal_odds(int(leg["odds"])) - 1) if leg["won"] else -STAKE
         return {
             "label": ticket["label"],
@@ -291,14 +362,15 @@ def grade_archived_ticket(ticket: dict, day_iso: str, board: dict) -> dict | Non
             "model_probability": ticket.get("model_probability"),
         }
 
-    settled = settle_parlay(leg_rows)
+    settled = settle_parlay_with_voids(leg_rows)
     return {
         "label": ticket["label"],
         "legs": ticket["legs"],
         "won": settled["won"],
         "profit": settled["profit"],
-        "odds": ticket.get("odds"),
+        "odds": settled.get("odds") or ticket.get("odds"),
         "model_probability": ticket.get("model_probability"),
+        "void_legs": settled.get("void_legs", 0),
     }
 
 
@@ -492,6 +564,12 @@ def main() -> None:
             if snapshot and snapshot_is_graded(snapshot):
                 settle_day(state, day_iso, snapshot, source=source)
             cursor += timedelta(days=1)
+
+        # Settle today when every leg is final or void (e.g. rainout + other leg won).
+        if state.get("last_settled_date") != today_iso:
+            today_board_snapshot, today_source = graded_snapshot_for_day(today_iso, snaps_by_day)
+            if today_board_snapshot and snapshot_is_graded(today_board_snapshot):
+                settle_day(state, today_iso, today_board_snapshot, source=today_source)
 
     today_snapshot, _ = graded_snapshot_for_day(today_iso, snaps_by_day)
     if not today_snapshot:

@@ -18,14 +18,14 @@
   "daily_exposure_cap": 0.5,
   "started_at": "2026-06-13",
   "starting_balance": 25.0,
-  "balance": 40.1407,
-  "wallet_balance": 23.28,
-  "profit": 15.1407,
-  "return_pct": 0.6056,
-  "record": "3-2",
-  "hit_rate": 0.6,
+  "balance": 44.173,
+  "wallet_balance": 29.0,
+  "profit": 19.173,
+  "return_pct": 0.7669,
+  "record": "4-2",
+  "hit_rate": 0.6667,
   "backtest_ticket_hit_rate": 0.58,
-  "last_settled_date": "2026-06-17",
+  "last_settled_date": "2026-06-18",
   "today_ticket": {
     "date": "2026-06-18",
     "label": "ATL ML + MIN ML",
@@ -34,9 +34,9 @@
       "MIN"
     ],
     "leg_count": 2,
-    "stake_pct": 0.1246,
+    "stake_pct": 0.1132,
     "stake_amount": 5.0,
-    "status": "pending",
+    "status": "graded",
     "odds": 211,
     "model_probability": 0.35771822,
     "prove_out": true
@@ -114,6 +114,22 @@
       "legs": [
         "MIA",
         "BOS"
+      ],
+      "stake_amount": 5.0,
+      "grade_source": "archived_board",
+      "prove_out": true
+    },
+    {
+      "date": "2026-06-18",
+      "profit": 4.0323,
+      "balance": 44.173,
+      "return_pct": 0.7669,
+      "won": true,
+      "leg_count": 2,
+      "label": "ATL ML + MIN ML",
+      "legs": [
+        "ATL",
+        "MIN"
       ],
       "stake_amount": 5.0,
       "grade_source": "archived_board",
@@ -205,6 +221,24 @@
       "won": false,
       "odds": 255,
       "model_probability": 0.39922314999999997,
+      "grade_source": "archived_board",
+      "prove_out": true
+    },
+    {
+      "date": "2026-06-18",
+      "label": "ATL ML + MIN ML",
+      "legs": [
+        "ATL",
+        "MIN"
+      ],
+      "leg_count": 2,
+      "stake_pct": 0.1246,
+      "stake_amount": 5.0,
+      "profit": 4.03,
+      "balance_after": 44.17,
+      "won": true,
+      "odds": 211,
+      "model_probability": 0.35771822,
       "grade_source": "archived_board",
       "prove_out": true
     }

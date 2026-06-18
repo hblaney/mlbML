@@ -1,0 +1,405 @@
+{
+  "baseline": 0.6066,
+  "best": {
+    "config": "blend_0.08",
+    "games": 1088,
+    "accuracy": 0.6094,
+    "delta_vs_baseline": 0.0028,
+    "record": "663-425",
+    "high_conf_accuracy": 0.7604,
+    "high_conf_games": 96,
+    "medium_accuracy": 0.6986,
+    "medium_games": 292,
+    "period": {
+      "start": "2026-03-20",
+      "end": "2026-06-16"
+    },
+    "beats_baseline": true,
+    "last_7d_accuracy": 0.5698,
+    "last_7d_games": 86,
+    "last_14d_accuracy": 0.6328,
+    "last_14d_games": 177
+  },
+  "results": [
+    {
+      "config": "blend_0.08",
+      "games": 1088,
+      "accuracy": 0.6094,
+      "delta_vs_baseline": 0.0028,
+      "record": "663-425",
+      "high_conf_accuracy": 0.7604,
+      "high_conf_games": 96,
+      "medium_accuracy": 0.6986,
+      "medium_games": 292,
+      "period": {
+        "start": "2026-03-20",
+        "end": "2026-06-16"
+      },
+      "beats_baseline": true,
+      "last_7d_accuracy": 0.5698,
+      "last_7d_games": 86,
+      "last_14d_accuracy": 0.6328,
+      "last_14d_games": 177
+    },
+    {
+      "config": "blend_0.04",
+      "games": 1088,
+      "accuracy": 0.6085,
+      "delta_vs_baseline": 0.0019,
+      "record": "662-426",
+      "high_conf_accuracy": 0.7611,
+      "high_conf_games": 113,
+      "medium_accuracy": 0.694,
+      "medium_games": 281,
+      "period": {
+        "start": "2026-03-20",
+        "end": "2026-06-16"
+      },
+      "beats_baseline": true,
+      "last_7d_accuracy": 0.5814,
+      "last_7d_games": 86,
+      "last_14d_accuracy": 0.6441,
+      "last_14d_games": 177
+    },
+    {
+      "config": "blend_0.07",
+      "games": 1088,
+      "accuracy": 0.6075,
+      "delta_vs_baseline": 0.0009,
+      "record": "661-427",
+      "high_conf_accuracy": 0.7426,
+      "high_conf_games": 101,
+      "medium_accuracy": 0.7014,
+      "medium_games": 288,
+      "period": {
+        "start": "2026-03-20",
+        "end": "2026-06-16"
+      },
+      "beats_baseline": true,
+      "last_7d_accuracy": 0.5698,
+      "last_7d_games": 86,
+      "last_14d_accuracy": 0.6328,
+      "last_14d_games": 177
+    },
+    {
+      "config": "baseline",
+      "games": 1088,
+      "accuracy": 0.6066,
+      "delta_vs_baseline": 0.0,
+      "record": "660-428",
+      "high_conf_accuracy": 0.7615,
+      "high_conf_games": 109,
+      "medium_accuracy": 0.6961,
+      "medium_games": 283,
+      "period": {
+        "start": "2026-03-20",
+        "end": "2026-06-16"
+      },
+      "beats_baseline": false,
+      "last_7d_accuracy": 0.5814,
+      "last_7d_games": 86,
+      "last_14d_accuracy": 0.6384,
+      "last_14d_games": 177
+    },
+    {
+      "config": "blend_0.06",
+      "games": 1088,
+      "accuracy": 0.6066,
+      "delta_vs_baseline": 0.0,
+      "record": "660-428",
+      "high_conf_accuracy": 0.7524,
+      "high_conf_games": 105,
+      "medium_accuracy": 0.6972,
+      "medium_games": 284,
+      "period": {
+        "start": "2026-03-20",
+        "end": "2026-06-16"
+      },
+      "beats_baseline": false,
+      "last_7d_accuracy": 0.5698,
+      "last_7d_games": 86,
+      "last_14d_accuracy": 0.6328,
+      "last_14d_games": 177
+    },
+    {
+      "config": "refit_30",
+      "games": 1088,
+      "accuracy": 0.6066,
+      "delta_vs_baseline": 0.0,
+      "record": "660-428",
+      "high_conf_accuracy": 0.7615,
+      "high_conf_games": 109,
+      "medium_accuracy": 0.6961,
+      "medium_games": 283,
+      "period": {
+        "start": "2026-03-20",
+        "end": "2026-06-16"
+      },
+      "beats_baseline": false,
+      "last_7d_accuracy": 0.5814,
+      "last_7d_games": 86,
+      "last_14d_accuracy": 0.6384,
+      "last_14d_games": 177
+    },
+    {
+      "config": "refit_45",
+      "games": 1088,
+      "accuracy": 0.6066,
+      "delta_vs_baseline": 0.0,
+      "record": "660-428",
+      "high_conf_accuracy": 0.7615,
+      "high_conf_games": 109,
+      "medium_accuracy": 0.6961,
+      "medium_games": 283,
+      "period": {
+        "start": "2026-03-20",
+        "end": "2026-06-16"
+      },
+      "beats_baseline": false,
+      "last_7d_accuracy": 0.5814,
+      "last_7d_games": 86,
+      "last_14d_accuracy": 0.6384,
+      "last_14d_games": 177
+    },
+    {
+      "config": "current_weight_1.5",
+      "games": 1088,
+      "accuracy": 0.6066,
+      "delta_vs_baseline": 0.0,
+      "record": "660-428",
+      "high_conf_accuracy": 0.7615,
+      "high_conf_games": 109,
+      "medium_accuracy": 0.6961,
+      "medium_games": 283,
+      "period": {
+        "start": "2026-03-20",
+        "end": "2026-06-16"
+      },
+      "beats_baseline": false,
+      "last_7d_accuracy": 0.5814,
+      "last_7d_games": 86,
+      "last_14d_accuracy": 0.6384,
+      "last_14d_games": 177
+    },
+    {
+      "config": "current_weight_1.25",
+      "games": 1088,
+      "accuracy": 0.6066,
+      "delta_vs_baseline": 0.0,
+      "record": "660-428",
+      "high_conf_accuracy": 0.7615,
+      "high_conf_games": 109,
+      "medium_accuracy": 0.6961,
+      "medium_games": 283,
+      "period": {
+        "start": "2026-03-20",
+        "end": "2026-06-16"
+      },
+      "beats_baseline": false,
+      "last_7d_accuracy": 0.5814,
+      "last_7d_games": 86,
+      "last_14d_accuracy": 0.6384,
+      "last_14d_games": 177
+    },
+    {
+      "config": "trained_1.0",
+      "games": 1088,
+      "accuracy": 0.6066,
+      "delta_vs_baseline": 0.0,
+      "record": "660-428",
+      "high_conf_accuracy": 0.7615,
+      "high_conf_games": 109,
+      "medium_accuracy": 0.6961,
+      "medium_games": 283,
+      "period": {
+        "start": "2026-03-20",
+        "end": "2026-06-16"
+      },
+      "beats_baseline": false,
+      "last_7d_accuracy": 0.5814,
+      "last_7d_games": 86,
+      "last_14d_accuracy": 0.6384,
+      "last_14d_games": 177
+    },
+    {
+      "config": "sharpen_0.75",
+      "games": 1088,
+      "accuracy": 0.6066,
+      "delta_vs_baseline": 0.0,
+      "record": "660-428",
+      "high_conf_accuracy": 0.7759,
+      "high_conf_games": 58,
+      "medium_accuracy": 0.7045,
+      "medium_games": 308,
+      "period": {
+        "start": "2026-03-20",
+        "end": "2026-06-16"
+      },
+      "beats_baseline": false,
+      "last_7d_accuracy": 0.5814,
+      "last_7d_games": 86,
+      "last_14d_accuracy": 0.6384,
+      "last_14d_games": 177
+    },
+    {
+      "config": "sharpen_0.85",
+      "games": 1088,
+      "accuracy": 0.6066,
+      "delta_vs_baseline": 0.0,
+      "record": "660-428",
+      "high_conf_accuracy": 0.731,
+      "high_conf_games": 145,
+      "medium_accuracy": 0.6891,
+      "medium_games": 267,
+      "period": {
+        "start": "2026-03-20",
+        "end": "2026-06-16"
+      },
+      "beats_baseline": false,
+      "last_7d_accuracy": 0.5814,
+      "last_7d_games": 86,
+      "last_14d_accuracy": 0.6384,
+      "last_14d_games": 177
+    },
+    {
+      "config": "combo_refit30_w125",
+      "games": 1088,
+      "accuracy": 0.6066,
+      "delta_vs_baseline": 0.0,
+      "record": "660-428",
+      "high_conf_accuracy": 0.7615,
+      "high_conf_games": 109,
+      "medium_accuracy": 0.6961,
+      "medium_games": 283,
+      "period": {
+        "start": "2026-03-20",
+        "end": "2026-06-16"
+      },
+      "beats_baseline": false,
+      "last_7d_accuracy": 0.5814,
+      "last_7d_games": 86,
+      "last_14d_accuracy": 0.6384,
+      "last_14d_games": 177
+    },
+    {
+      "config": "combo_blend06_refit30",
+      "games": 1088,
+      "accuracy": 0.6066,
+      "delta_vs_baseline": 0.0,
+      "record": "660-428",
+      "high_conf_accuracy": 0.7524,
+      "high_conf_games": 105,
+      "medium_accuracy": 0.6972,
+      "medium_games": 284,
+      "period": {
+        "start": "2026-03-20",
+        "end": "2026-06-16"
+      },
+      "beats_baseline": false,
+      "last_7d_accuracy": 0.5698,
+      "last_7d_games": 86,
+      "last_14d_accuracy": 0.6328,
+      "last_14d_games": 177
+    },
+    {
+      "config": "trained_0.95",
+      "games": 1088,
+      "accuracy": 0.6048,
+      "delta_vs_baseline": -0.0018,
+      "record": "658-430",
+      "high_conf_accuracy": 0.7732,
+      "high_conf_games": 97,
+      "medium_accuracy": 0.692,
+      "medium_games": 289,
+      "period": {
+        "start": "2026-03-20",
+        "end": "2026-06-16"
+      },
+      "beats_baseline": false,
+      "last_7d_accuracy": 0.5814,
+      "last_7d_games": 86,
+      "last_14d_accuracy": 0.6384,
+      "last_14d_games": 177
+    },
+    {
+      "config": "gb_depth2_lr035",
+      "games": 1088,
+      "accuracy": 0.6039,
+      "delta_vs_baseline": -0.0027,
+      "record": "657-431",
+      "high_conf_accuracy": 0.7403,
+      "high_conf_games": 154,
+      "medium_accuracy": 0.6667,
+      "medium_games": 303,
+      "period": {
+        "start": "2026-03-20",
+        "end": "2026-06-16"
+      },
+      "beats_baseline": false,
+      "last_7d_accuracy": 0.5349,
+      "last_7d_games": 86,
+      "last_14d_accuracy": 0.5989,
+      "last_14d_games": 177
+    },
+    {
+      "config": "gb_depth2_n200",
+      "games": 1088,
+      "accuracy": 0.6039,
+      "delta_vs_baseline": -0.0027,
+      "record": "657-431",
+      "high_conf_accuracy": 0.7403,
+      "high_conf_games": 154,
+      "medium_accuracy": 0.6667,
+      "medium_games": 303,
+      "period": {
+        "start": "2026-03-20",
+        "end": "2026-06-16"
+      },
+      "beats_baseline": false,
+      "last_7d_accuracy": 0.5349,
+      "last_7d_games": 86,
+      "last_14d_accuracy": 0.5989,
+      "last_14d_games": 177
+    },
+    {
+      "config": "gb_n200_depth2",
+      "games": 1088,
+      "accuracy": 0.6039,
+      "delta_vs_baseline": -0.0027,
+      "record": "657-431",
+      "high_conf_accuracy": 0.7403,
+      "high_conf_games": 154,
+      "medium_accuracy": 0.6667,
+      "medium_games": 303,
+      "period": {
+        "start": "2026-03-20",
+        "end": "2026-06-16"
+      },
+      "beats_baseline": false,
+      "last_7d_accuracy": 0.5349,
+      "last_7d_games": 86,
+      "last_14d_accuracy": 0.5989,
+      "last_14d_games": 177
+    },
+    {
+      "config": "gb_n200",
+      "games": 1088,
+      "accuracy": 0.5947,
+      "delta_vs_baseline": -0.0119,
+      "record": "647-441",
+      "high_conf_accuracy": 0.7293,
+      "high_conf_games": 133,
+      "medium_accuracy": 0.692,
+      "medium_games": 289,
+      "period": {
+        "start": "2026-03-20",
+        "end": "2026-06-16"
+      },
+      "beats_baseline": false,
+      "last_7d_accuracy": 0.5814,
+      "last_7d_games": 86,
+      "last_14d_accuracy": 0.6384,
+      "last_14d_games": 177
+    }
+  ]
+}
