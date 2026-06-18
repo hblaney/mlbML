@@ -9,7 +9,13 @@ from pathlib import Path
 from daily_auto_model import MODEL_VERSION, ensure_trained_through
 from mlb_api import fetch_upcoming_games, load_team_abbreviations
 from odds_provider import fetch_moneyline_market, market_for_game
-from trained_edge_model import blend_with_market, cap_confidence, confidence_for, sharpen_public_probability
+from trained_edge_model import (
+    apply_live_context_adjustments,
+    blend_with_market,
+    cap_confidence,
+    confidence_for,
+    sharpen_public_probability,
+)
 
 PUBLIC_PATH = Path(__file__).resolve().parents[2] / "public" / "predictions.json"
 
@@ -116,6 +122,11 @@ def main() -> None:
         market_snapshot = market_for_game(game, market)
         odds_available = market_snapshot.source_count > 0 and market_snapshot.home_moneyline != 0 and market_snapshot.away_moneyline != 0
         home_probability, away_probability, notes = market_aware_probabilities(prediction, market_snapshot, odds_available)
+        context_home, context_notes = apply_live_context_adjustments(game, bundle.league, home_probability)
+        if context_notes:
+            home_probability = context_home
+            away_probability = 1.0 - home_probability
+            notes.extend(context_notes)
         predicted_home = home_probability >= away_probability
         pick_probability = max(home_probability, away_probability)
         internal_agrees = prediction.predicted_home == predicted_home
@@ -151,6 +162,12 @@ def main() -> None:
             starter_certain=starter_certain,
             pitcher_changed=pitcher_changed,
         )
+        if any("lost last 2 vs this opponent" in note for note in notes):
+            live_confidence = cap_confidence(live_confidence, "Medium")
+        if any("Opponent won the last meeting" in note for note in notes):
+            live_confidence = cap_confidence(live_confidence, "Medium")
+        if any("Veteran away starter vs thin home sample" in note for note in notes):
+            live_confidence = cap_confidence(live_confidence, "Medium")
         if not starter_certain:
             notes.append("Probable starter missing on one side — confidence capped at Medium")
         if pitcher_changed:

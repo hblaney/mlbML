@@ -33,6 +33,15 @@ CURRENT_SEASON_SAMPLE_WEIGHT = 1.25
 MARKET_BLEND_WEIGHT = 0.05
 PUBLIC_CONFIDENCE_SHARPENING = 0.8
 PUBLIC_PROBABILITY_CAP = 0.70
+# Live context: shrink stubborn home-chalk picks after getting handled in-series.
+SERIES_PICK_LOST_TWO_SHIFT = 0.10
+SERIES_OPPONENT_WON_LAST_SHIFT = 0.06
+VETERAN_STARTER_IP_MIN = 80.0
+ROOKIE_STARTER_IP_MAX = 35.0
+VETERAN_STARTER_ERA_EDGE = 0.75
+VETERAN_STARTER_NUDGE = 0.10
+ELITE_STARTER_ERA_EDGE = 1.50
+ELITE_STARTER_EXTRA_NUDGE = 0.05
 
 _STATCAST_CACHE: StatcastTeamCache | None = None
 _TEAM_ABBR: dict[int, str] | None = None
@@ -329,6 +338,76 @@ def sharpen_public_probability(home_probability: float) -> float:
     else:
         sharpened = 0.5 - ((0.5 - home_probability) * PUBLIC_CONFIDENCE_SHARPENING)
     return float(np.clip(sharpened, 1 - PUBLIC_PROBABILITY_CAP, PUBLIC_PROBABILITY_CAP))
+
+
+def apply_live_context_adjustments(
+    game: GameRecord,
+    league: LeagueState,
+    home_probability: float,
+) -> tuple[float, list[str]]:
+    """Post-model nudges for in-series momentum and starter experience gaps."""
+    notes: list[str] = []
+    home_probability = float(np.clip(home_probability, 0.30, 0.70))
+    predicted_home = home_probability >= 0.5
+    pick_id = game.home_team_id if predicted_home else game.away_team_id
+    opponent_id = game.away_team_id if predicted_home else game.home_team_id
+
+    home_pitcher = _safe_pitcher_stats(game, game.home_pitcher_id)
+    away_pitcher = _safe_pitcher_stats(game, game.away_pitcher_id)
+    if (
+        away_pitcher["innings_pitched"] >= VETERAN_STARTER_IP_MIN
+        and home_pitcher["innings_pitched"] <= ROOKIE_STARTER_IP_MAX
+        and away_pitcher["era"] + VETERAN_STARTER_ERA_EDGE < home_pitcher["era"]
+    ):
+        shift = VETERAN_STARTER_NUDGE
+        if away_pitcher["era"] + ELITE_STARTER_ERA_EDGE < home_pitcher["era"]:
+            shift += ELITE_STARTER_EXTRA_NUDGE
+        home_probability = float(np.clip(home_probability - shift, 0.30, 0.70))
+        notes.append(
+            "Veteran away starter vs thin home sample — probability nudged toward road team"
+        )
+        predicted_home = home_probability >= 0.5
+        pick_id = game.home_team_id if predicted_home else game.away_team_id
+        opponent_id = game.away_team_id if predicted_home else game.home_team_id
+    elif (
+        home_pitcher["innings_pitched"] >= VETERAN_STARTER_IP_MIN
+        and away_pitcher["innings_pitched"] <= ROOKIE_STARTER_IP_MAX
+        and home_pitcher["era"] + VETERAN_STARTER_ERA_EDGE < away_pitcher["era"]
+    ):
+        shift = VETERAN_STARTER_NUDGE
+        if home_pitcher["era"] + ELITE_STARTER_ERA_EDGE < away_pitcher["era"]:
+            shift += ELITE_STARTER_EXTRA_NUDGE
+        home_probability = float(np.clip(home_probability + shift, 0.30, 0.70))
+        notes.append(
+            "Veteran home starter vs thin away sample — probability nudged toward home team"
+        )
+        predicted_home = home_probability >= 0.5
+        pick_id = game.home_team_id if predicted_home else game.away_team_id
+        opponent_id = game.away_team_id if predicted_home else game.home_team_id
+
+    recent = league.recent_head_to_head(pick_id, opponent_id, game.game_date, max_games=3)
+    if len(recent) >= 2 and league.pick_lost_last_two_in_series(pick_id, opponent_id, game.game_date):
+        if predicted_home:
+            home_probability -= SERIES_PICK_LOST_TWO_SHIFT
+        else:
+            home_probability += SERIES_PICK_LOST_TWO_SHIFT
+        home_probability = float(np.clip(home_probability, 0.30, 0.70))
+        notes.append(
+            f"Pick lost last 2 vs this opponent — probability shifted {SERIES_PICK_LOST_TWO_SHIFT:.0%} toward opponent"
+        )
+    elif recent:
+        last = recent[-1]
+        days_since = (game.game_date - last.game_date).days
+        opponent_won_last = league.team_won_in_h2h(opponent_id, last)
+        if days_since <= 4 and opponent_won_last:
+            if predicted_home:
+                home_probability -= SERIES_OPPONENT_WON_LAST_SHIFT
+            else:
+                home_probability += SERIES_OPPONENT_WON_LAST_SHIFT
+            home_probability = float(np.clip(home_probability, 0.30, 0.70))
+            notes.append("Opponent won the last meeting in this series — probability nudged toward opponent")
+
+    return home_probability, notes
 
 
 def build_model() -> Pipeline:
