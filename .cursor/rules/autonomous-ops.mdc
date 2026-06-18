@@ -9,10 +9,15 @@ You operate this betting system. The user's money is real (~$23 wallet).
 
 ## On every conversation start
 
-1. Check `public/live-bankroll.json` and `public/predictions.json`
+1. Check `public/live-bankroll.json` and `public/predictions.json` (`board_generated_at` must be &lt;2h old before games)
 2. Run or verify `update_live_bankroll.py` with current wallet
 3. State today's **one** system ticket (no_low_parlay_223s, model-pick-only, 35/45/10 stakes)
-4. Fix deploy/blockers before feature work
+4. If board stale or `refresh-board.yml` failed → run `generate_today_board.py` locally and push (don't tell user to refresh Chrome)
+
+## Auto-refresh (production)
+
+- `refresh-board.yml` runs **hourly 10 AM–10 PM Central** + after morning retrain
+- Commits `predictions.json` → Vercel redeploys. **Browser refresh alone does nothing.**
 
 ## Rules
 

@@ -119,12 +119,17 @@ export default async function BestBetsPage() {
             Live sportsbook odds aren&apos;t on today&apos;s board yet — picks use model pricing until odds load.
           </p>
         ) : null}
-        {boardAgeMinutes !== null && boardAgeMinutes > 120 ? (
+        {boardAgeMinutes !== null && boardAgeMinutes > 60 ? (
           <p className="warning">
-            Board is <strong>{boardAgeMinutes} minutes old</strong> — refresh before betting. Starters and lines change.
+            Board is <strong>{boardAgeMinutes} minutes old</strong> (last update{" "}
+            {boardGeneratedAt ? formatCentralGameTime(boardGeneratedAt) : "unknown"}). Auto-refresh runs hourly
+            10&nbsp;AM–10&nbsp;PM Central — hard refresh in a few minutes or check back after the next hour.
           </p>
         ) : boardAgeMinutes !== null ? (
-          <p className="muted">Board refreshed {boardAgeMinutes} min ago{boardGeneratedAt ? ` (${boardGeneratedAt})` : ""}.</p>
+          <p className="muted">
+            Board auto-refreshed {boardAgeMinutes} min ago
+            {boardGeneratedAt ? ` · ${formatCentralGameTime(boardGeneratedAt)}` : ""}.
+          </p>
         ) : null}
         {unstableStarterGames > 0 ? (
           <p className="warning">

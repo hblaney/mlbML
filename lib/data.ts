@@ -1341,7 +1341,12 @@ function getPositiveEvLegCandidates(board: GamePrediction[] = predictions) {
   }
 
   return buildMarketMoneylineCandidates(board)
-    .filter((bet) => isParlayEligibleConfidence(bet.game.confidence) && bet.ev > 0)
+    .filter(
+      (bet) =>
+        isParlayEligibleConfidence(bet.game.confidence) &&
+        isStarterReadyForParlay(bet.game) &&
+        bet.ev > 0
+    )
     .sort(
       (left, right) =>
         right.ev * right.modelProbability - left.ev * left.modelProbability ||

@@ -2,12 +2,12 @@ name: Refresh Live Board
 
 on:
   schedule:
-    # ~12 PM Central — refresh probables before afternoon games.
-    - cron: "0 17 * * *"
-    # ~4 PM Central — before evening slate.
-    - cron: "0 21 * * *"
-    # ~7 PM Central — before west coast night games.
-    - cron: "0 0 * * *"
+    # Hourly 10 AM – 10 PM Central (CDT/CST). Starters and lines move all afternoon.
+    - cron: "0 15-23 * * *"
+    - cron: "0 0-3 * * *"
+  workflow_run:
+    workflows: ["Daily Model Retrain"]
+    types: [completed]
   workflow_dispatch:
 
 permissions:
@@ -19,6 +19,10 @@ concurrency:
 
 jobs:
   refresh:
+    if: >-
+      github.event_name == 'schedule' ||
+      github.event_name == 'workflow_dispatch' ||
+      (github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success')
     runs-on: ubuntu-latest
     timeout-minutes: 20
     env:
@@ -26,6 +30,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          ref: main
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -43,17 +49,34 @@ jobs:
           ODDS_REGIONS: us
           ODDS_MARKETS: h2h,spreads,totals
         run: |
+          set -euo pipefail
           python3 scripts/model/generate_today_board.py
           python3 scripts/model/update_live_bankroll.py
+          board_at=$(python3 -c "import json; print(json.load(open('public/predictions.json'))['board_generated_at'])")
+          echo "board_generated_at=${board_at}"
+          test -n "${board_at}"
 
-      - name: Commit refreshed board
+      - name: Commit and push refreshed board
         run: |
+          set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add public/predictions.json public/live-bankroll.json data/live-bankroll-state.json
           if git diff --staged --quiet; then
-            echo "No board changes to commit."
-            exit 0
+            echo "::error::Board regenerate produced no diff — generator may have failed silently."
+            exit 1
           fi
-          git commit -m "Refresh live MLB board for $(date +%F)"
-          git push
+          git commit -m "Refresh live MLB board ($(TZ=America/Chicago date '+%Y-%m-%d %I:%M %p %Z'))"
+          git pull --rebase origin main
+          git push origin main
+
+      - name: Verify live board timestamp
+        run: |
+          set -euo pipefail
+          today=$(date +%F)
+          generated=$(python3 -c "import json; print(json.load(open('public/predictions.json'))['generated_at'])")
+          if [ "$generated" != "$today" ]; then
+            echo "::error::Expected generated_at=${today}, got ${generated}"
+            exit 1
+          fi
+          echo "Board published for ${today} ($(python3 -c "import json; print(len(json.load(open('public/predictions.json'))['predictions']))") games)."

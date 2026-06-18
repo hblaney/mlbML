@@ -15,9 +15,10 @@ You own this system. Treat the user's wallet (~$23) as real money. Do not wait t
 | Time (CT) | Workflow | Purpose |
 |-----------|----------|---------|
 | ~5 AM | `daily-model.yml` | Retrain, full `model:daily`, commit outputs |
-| ~12/4/7 PM | `refresh-board.yml` | Starters/odds refresh, live bankroll |
+| Hourly 10 AM–10 PM CT | `refresh-board.yml` | Starters/odds refresh → commit → Vercel redeploy |
+| After daily model | `refresh-board.yml` | Same refresh when morning retrain finishes |
 
-If board `generated_at` ≠ today → investigate Actions, run locally, push fix.
+**Refreshing Chrome does not fetch MLB live.** Updates only appear after GitHub Actions commits `predictions.json` and Vercel redeploys (~2 min).
 
 ## Betting rules (canonical — never drift)
 
