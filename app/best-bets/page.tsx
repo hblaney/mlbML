@@ -37,6 +37,10 @@ export default async function BestBetsPage() {
   const usingModelOnlyPicks = bets.some((bet) => bet.modelOnly) || advancedBets.some((bet) => bet.modelOnly);
   const bestTicket = getBestDailyTicket(board);
   const stakeByLeg = bettingPlan?.stake_by_leg_count;
+  const stakeSingle = stakeByLeg?.["1"] ?? OPTIMIZED_STAKE_BY_LEG_COUNT[1];
+  const stakeParlay2 = stakeByLeg?.["2"] ?? OPTIMIZED_STAKE_BY_LEG_COUNT[2];
+  const stakeParlay3 = stakeByLeg?.["3"] ?? OPTIMIZED_STAKE_BY_LEG_COUNT[3];
+  const stakeTierLabel = `${formatPercent(stakeSingle)} single / ${formatPercent(stakeParlay2)} two-leg / ${formatPercent(stakeParlay3)} three-leg`;
   const ticketStakePct = getOptimizedStakePctForTicket(bestTicket, stakeByLeg);
   const activeStrategy = bettingPlan?.strategy ?? LIVE_BETTING_STRATEGY;
   const liveStats = strategyGuard?.comparisons[activeStrategy]?.season_to_date;
@@ -85,8 +89,8 @@ export default async function BestBetsPage() {
         <p className="eyebrow">Daily ticket</p>
         <h1>Best Bets</h1>
         <p className="lead">
-          One bet per day from <strong>{activeStrategy}</strong>: stake a percentage of your bankroll (35% / 40% / 30% by
-          ticket type), all legs same calendar day.
+          One bet per day from <strong>{activeStrategy}</strong>: stake a percentage of your bankroll ({stakeTierLabel} of
+          wallet by ticket type), all legs same calendar day.
         </p>
         <p className="muted">
           Your bankroll: <strong>{formatBankroll(bankroll)}</strong>
@@ -324,17 +328,17 @@ export default async function BestBetsPage() {
               <tr>
                 <td>Single</td>
                 <td>{formatPercent(bettingPlan.stake_by_leg_count["1"] ?? OPTIMIZED_STAKE_BY_LEG_COUNT[1])}</td>
-                <td>${(bankroll * (bettingPlan.stake_by_leg_count["1"] ?? 0.35)).toFixed(2)}</td>
+                <td>${(bankroll * stakeSingle).toFixed(2)}</td>
               </tr>
               <tr>
                 <td>2-leg parlay</td>
                 <td>{formatPercent(bettingPlan.stake_by_leg_count["2"] ?? OPTIMIZED_STAKE_BY_LEG_COUNT[2])}</td>
-                <td>${(bankroll * (bettingPlan.stake_by_leg_count["2"] ?? 0.4)).toFixed(2)}</td>
+                <td>${(bankroll * stakeParlay2).toFixed(2)}</td>
               </tr>
               <tr>
                 <td>3-leg parlay</td>
                 <td>{formatPercent(bettingPlan.stake_by_leg_count["3"] ?? OPTIMIZED_STAKE_BY_LEG_COUNT[3])}</td>
-                <td>${(bankroll * (bettingPlan.stake_by_leg_count["3"] ?? 0.3)).toFixed(2)}</td>
+                <td>${(bankroll * stakeParlay3).toFixed(2)}</td>
               </tr>
             </tbody>
           </table>
@@ -349,7 +353,7 @@ export default async function BestBetsPage() {
             </span>
           </div>
           <p className="muted">
-            All rows use the <strong>same</strong> walk-forward model and <strong>same</strong> 35/40/30% compounding.
+            All rows use the <strong>same</strong> walk-forward model and <strong>same</strong> {stakeTierLabel} compounding.
             Older tables on this site used 30% caps and different rules — ignore those. Live plan wins on full-season $
             100 compound ({liveStats ? formatBankroll(liveStats.end) : "—"}).
           </p>

@@ -25,7 +25,7 @@ from backtest_strategy_optimizer import (
 )
 
 OUTPUT_PATH = Path(__file__).resolve().parents[2] / "public" / "strategy-research.json"
-STAKE_TIERED = {1: 0.35, 2: 0.40, 3: 0.30}
+STAKE_TIERED = {1: 0.35, 2: 0.45, 3: 0.10}
 DAILY_CAP = 0.50  # matches betting-plan.json / optimize_stake_sizing.py
 CONF_OK = {"Medium", "High", "Elite"}
 

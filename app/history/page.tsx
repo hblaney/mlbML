@@ -111,6 +111,10 @@ export default async function HistoryPage() {
   }, {});
 
   const activeStrategy = bettingPlan?.strategy ?? strategyGuard?.live_strategy ?? LIVE_BETTING_STRATEGY;
+  const stakeMap = liveBankroll?.stakes ?? strategyGuard?.stakes ?? bettingPlan?.stake_by_leg_count;
+  const stakeTierLabel = stakeMap
+    ? `${formatPercent(stakeMap["1"] ?? 0.35)} / ${formatPercent(stakeMap["2"] ?? 0.45)} / ${formatPercent(stakeMap["3"] ?? 0.1)}`
+    : "35% / 45% / 10%";
   const liveCompound = strategyGuard?.live_compound;
   const compoundFrom10 = liveCompound?.from_10;
   const compoundCheckpoints = compoundFrom10?.checkpoints ?? [];
@@ -295,7 +299,7 @@ export default async function HistoryPage() {
             <span>Started {liveBankroll.started_at}</span>
           </div>
           <p className="muted">
-            {liveBankroll.strategy} · 35/40/30% of current balance · {liveBankroll.record} since you started
+            {liveBankroll.strategy} · {stakeTierLabel} of current balance · {liveBankroll.record} since you started
           </p>
           <div className="grid">
             <article>
@@ -357,7 +361,7 @@ export default async function HistoryPage() {
             <article>
               <p className="muted">$100 bankroll → end (same stakes)</p>
               <div className="metric positive">{formatBankroll(liveCompound.from_100.end)}</div>
-              <p className="muted">{liveCompound.from_100.record} at 35/40/30% compound</p>
+              <p className="muted">{liveCompound.from_100.record} at {stakeTierLabel} compound</p>
             </article>
           </div>
           {Object.keys(ticketMix).length > 0 ? (

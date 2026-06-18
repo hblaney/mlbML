@@ -21,7 +21,7 @@ OUTPUT_PATH = Path(__file__).resolve().parents[2] / "public" / "stake-sizing-opt
 
 STRATEGY = "corr_nl_reject_both"
 # Walk-forward tiered winner (2026 corr_nl_reject_both): beats 45/35/50 on compound + min floor.
-LIVE_STAKE_BY_LEGS = {"1": 0.35, "2": 0.40, "3": 0.30}
+LIVE_STAKE_BY_LEGS = {"1": 0.35, "2": 0.45, "3": 0.10}
 FLAT_STAKE_GRID = [round(x * 0.05, 2) for x in range(1, 11)]  # 5% .. 50%
 TIERED_STAKE_GRID = [0.10, 0.15, 0.20, 0.25, 0.30, 0.35, 0.40, 0.45, 0.50]
 BANKROLLS = [0.35, 10.0, 100.0, 1000.0, 10_000.0]

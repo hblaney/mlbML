@@ -18,7 +18,7 @@ CHALLENGERS = [
     "best_ticket",
     "no_low_skip_forced",
 ]
-STAKE_TIERED = {1: 0.35, 2: 0.40, 3: 0.30}
+STAKE_TIERED = {1: 0.35, 2: 0.45, 3: 0.10}
 SWITCH_SIGNAL_DAYS = 14
 OUTPUT_PATH = Path(__file__).resolve().parents[2] / "public" / "strategy-guard.json"
 STATE_PATH = Path(__file__).resolve().parents[2] / "data" / "strategy-guard-state.json"

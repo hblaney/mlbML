@@ -28,7 +28,7 @@ from exhaustive_strategy_search import (
 from strategy_research import compound, filter_candidates
 
 OUTPUT_PATH = Path(__file__).resolve().parents[2] / "public" / "strategy-next-tests.json"
-STAKE_TIERED = {1: 0.35, 2: 0.40, 3: 0.30}
+STAKE_TIERED = {1: 0.35, 2: 0.45, 3: 0.10}
 CONF_OK = {"Medium", "High", "Elite"}
 LIVE_PARLAY_MIN_MODEL_PROBABILITY = 0.68
 

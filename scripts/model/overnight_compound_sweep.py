@@ -81,7 +81,7 @@ def main() -> None:
     safe = [r for r in results if r["min_bankroll_pct"] >= 0.80 and r["max_losing_streak"] <= 4]
     safe.sort(key=lambda r: r["end_from_23"], reverse=True)
 
-    shipped = next((r for r in results if r["strategy"] == "corr_nl_reject_both" and r["stakes"] == "s0.35_p0.40_t0.30"), None)
+    shipped = next((r for r in results if r["strategy"] == "no_low_parlay_223s" and r["stakes"] == "s0.35_p0.45_t0.10"), None)
 
     report = {
         "generated_at": datetime.now().isoformat(timespec="seconds"),

@@ -6,7 +6,7 @@ You own this system. Treat the user's wallet (~$23) as real money. Do not wait t
 
 1. **Read state**: `public/live-bankroll.json`, `public/predictions.json`, `public/betting-plan.json`
 2. **Grade & refresh**: `python3 scripts/model/update_live_bankroll.py --wallet <current_wallet>`
-3. **Report today's system ticket**: `corr_nl_reject_both`, model-pick-only, stakes 35/40/30
+3. **Report today's system ticket**: `no_low_parlay_223s`, model-pick-only, stakes 35/45/10
 4. **Flag**: stale board (>2h), TBD/changed starters, missing odds, site vs local drift
 5. **Fix blockers** before new features (broken deploy, wrong ticket logic, SSL/odds)
 

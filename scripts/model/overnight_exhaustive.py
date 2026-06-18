@@ -69,6 +69,7 @@ STRATEGY_RULES = [
 ]
 
 STAKE_TIERS: dict[str, dict[int, float]] = {
+    "shipped_35_45_10": {1: 0.35, 2: 0.45, 3: 0.10},
     "shipped_35_40_30": {1: 0.35, 2: 0.40, 3: 0.30},
     "aggressive_45_50_35": {1: 0.45, 2: 0.50, 3: 0.35},
     "mod_25_30_20": {1: 0.25, 2: 0.30, 3: 0.20},
@@ -232,7 +233,7 @@ def write_morning_report(all_results: list[dict]) -> None:
     by_balanced = sorted(all_results, key=lambda r: r["score"], reverse=True)
     by_safety = sorted(all_results, key=lambda r: (r["max_losing_streak"], -r["min_bankroll"], -r.get("end_from_23", 0)))
 
-    shipped = next((r for r in all_results if r["strategy"] == "corr_nl_reject_both" and r["stakes"] == "shipped_35_40_30"), None)
+    shipped = next((r for r in all_results if r["strategy"] == "no_low_parlay_223s" and r["stakes"] == "shipped_35_45_10"), None)
 
     REPORT_PATH.write_text(
         json.dumps(
