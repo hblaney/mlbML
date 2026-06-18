@@ -36,7 +36,7 @@ Priority order:
 4. **Features** — head-to-head series (v2.2-h2h); ablate before shipping
 5. **Strategy** — only change after OOS test; document in `betting-plan.json`
 
-Overnight loop: `scripts/model/run_overnight.sh` (board refresh, bankroll, sweep until 9 AM CT).
+Overnight loop: `scripts/model/run_overnight.sh` — **research rotation** every 15 min (ablations, strategy sweeps, calibration). Board refresh once/hour only. Results: `data/overnight-research.jsonl`, `public/overnight-research-report.json`.
 
 Do not chase backtest compound fantasy numbers. Optimize ticket hit rate and flat ROI at real stakes.
 

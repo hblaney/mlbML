@@ -170,7 +170,6 @@ def make_features(
     *,
     team_abbr: dict[int, str],
     registry_builder: FullRegistryFeatureBuilder | None,
-    *,
     include_statcast: bool,
 ) -> list[float]:
     if spec.mode == "registry":

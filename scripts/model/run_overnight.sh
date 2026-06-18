@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Overnight improvement loop — runs until 9:00 AM America/Chicago.
+# Overnight RESEARCH loop — rotates experiments until 9:00 AM America/Chicago.
 set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
 LOG="$ROOT/data/overnight-improve.log"
@@ -17,20 +17,23 @@ print(int(target.timestamp()))
 PY
 )"
 
-echo "=== overnight loop start $(date) until CT 9am epoch=$end_epoch ===" | tee -a "$LOG"
+echo "=== overnight RESEARCH start $(date) until CT 9am ===" | tee -a "$LOG"
 
 cycle=0
 while [ "$(date +%s)" -lt "$end_epoch" ]; do
   cycle=$((cycle + 1))
-  echo "--- cycle $cycle $(date) ---" | tee -a "$LOG"
+  echo "--- research cycle $cycle $(date) ---" | tee -a "$LOG"
   (
     cd "$ROOT/scripts/model"
-    python3 generate_today_board.py
-    python3 update_live_bankroll.py --wallet 23.28
-    python3 overnight_improve_live.py
-    python3 backtest_best_tickets_walkforward.py
+    # Light refresh once per hour only (every 4 cycles @ 15min)
+    if [ $((cycle % 4)) -eq 1 ]; then
+      echo "[refresh] board + bankroll" | tee -a "$LOG"
+      python3 generate_today_board.py
+      python3 update_live_bankroll.py --wallet 23.28
+    fi
+    python3 overnight_research.py --cycle "$cycle"
   ) >>"$LOG" 2>&1 || echo "cycle $cycle failed" | tee -a "$LOG"
-  sleep 1800
+  sleep 900
 done
 
-echo "=== overnight loop done $(date) ===" | tee -a "$LOG"
+echo "=== overnight RESEARCH done $(date) ===" | tee -a "$LOG"
