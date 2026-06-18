@@ -1438,3 +1438,173 @@ strong {
     border-bottom: 0;
   }
 }
+
+.bet-watcher-summary {
+  display: grid;
+  gap: 20px;
+}
+
+.bet-watcher-payout-grid {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.bet-watcher-payout-grid span {
+  color: var(--muted);
+  display: block;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.bet-watcher-payout-grid strong {
+  display: block;
+  font-size: 22px;
+  margin-top: 4px;
+}
+
+.bet-watcher-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.bet-watcher-controls {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-bottom: 20px;
+}
+
+.bet-watcher-controls label {
+  display: grid;
+  gap: 6px;
+}
+
+.bet-watcher-controls span {
+  color: var(--muted);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.bet-watcher-controls input,
+.bet-watcher-leg-fields input,
+.bet-watcher-leg-fields select {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  color: #f4f6f8;
+  padding: 10px 12px;
+}
+
+.bet-watcher-auto-odds {
+  grid-column: 1 / -1;
+  margin: 0;
+}
+
+.bet-watcher-leg-list {
+  display: grid;
+  gap: 14px;
+}
+
+.bet-watcher-leg {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  display: grid;
+  gap: 14px;
+  padding: 16px;
+}
+
+.bet-watcher-leg-head {
+  align-items: start;
+  display: flex;
+  gap: 12px;
+  justify-content: space-between;
+}
+
+.bet-watcher-leg-head h3 {
+  margin: 4px 0;
+}
+
+.bet-watcher-leg-fields {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.bet-watcher-leg-fields label {
+  display: grid;
+  gap: 6px;
+}
+
+.bet-watcher-leg-fields span {
+  color: var(--muted);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.text-button {
+  background: transparent;
+  border: 0;
+  color: var(--muted);
+  cursor: pointer;
+  font-size: 12px;
+  text-decoration: underline;
+}
+
+.leg-status.good {
+  color: #7ddea2;
+}
+
+.leg-status.bad {
+  color: #ff8f8f;
+}
+
+.leg-status.live {
+  color: #ffd27d;
+}
+
+.bet-watcher-stream-grid {
+  display: grid;
+  gap: 18px;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+}
+
+.bet-watcher-stream-card {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  display: grid;
+  gap: 12px;
+  padding: 14px;
+}
+
+.bet-watcher-stream-head {
+  align-items: center;
+  display: flex;
+  gap: 12px;
+}
+
+.bet-watcher-stream-logos {
+  display: flex;
+  gap: 6px;
+}
+
+.bet-watcher-stream-logos img {
+  height: 28px;
+  width: 28px;
+}
+
+.bet-watcher-stream-head h3 {
+  margin: 0 0 4px;
+}
+
+@media (max-width: 900px) {
+  .bet-watcher-payout-grid,
+  .bet-watcher-leg-fields,
+  .bet-watcher-controls {
+    grid-template-columns: 1fr;
+  }
+}

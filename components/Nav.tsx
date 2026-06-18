@@ -10,6 +10,7 @@ const links = [
   { href: "/history", label: "Accuracy" },
   { href: "/paper-trading", label: "Paper Bets" },
   { href: "/watch", label: "Watch" },
+  { href: "/bet-watcher", label: "Bet Watcher" },
   { href: "/favorites", label: "Favorites" }
 ];
 
