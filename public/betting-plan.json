@@ -4,6 +4,8 @@
   "strategy_rules": [
     "corr_nl_reject_both \u2014 one system ticket per day",
     "Model predicted winner only \u2014 never bet the opposite side for +EV",
+    "Parlay legs require Medium+ and \u226568% model probability",
+    "Block parlay legs after pick lost last 2 vs same opponent (series fade)",
     "Always-2 parlay from Medium+ model-pick legs (filtered, else forced top-2 model picks)",
     "Reject parlay legs in the same division or starting within 60 minutes",
     "Premium filtered 3-leg when it scores higher than always-2",

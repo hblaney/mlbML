@@ -31,9 +31,12 @@ If board `generated_at` ≠ today → investigate Actions, run locally, push fix
 Priority order:
 
 1. **Live accuracy** — compare walk-forward vs settled tickets weekly
-2. **Calibration** — High/Medium/Low hit rates vs claimed confidence
-3. **Features** — injuries, statcast, starters; ablate before shipping
-4. **Strategy** — only change after OOS test; document in `betting-plan.json`
+2. **Parlay quality** — Medium+ legs ≥68% model prob; block series-fade (lost last 2 vs opponent)
+3. **Calibration** — High/Medium/Low hit rates vs claimed confidence
+4. **Features** — head-to-head series (v2.2-h2h); ablate before shipping
+5. **Strategy** — only change after OOS test; document in `betting-plan.json`
+
+Overnight loop: `scripts/model/run_overnight.sh` (board refresh, bankroll, sweep until 9 AM CT).
 
 Do not chase backtest compound fantasy numbers. Optimize ticket hit rate and flat ROI at real stakes.
 

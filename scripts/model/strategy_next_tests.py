@@ -30,6 +30,7 @@ from strategy_research import compound, filter_candidates
 OUTPUT_PATH = Path(__file__).resolve().parents[2] / "public" / "strategy-next-tests.json"
 STAKE_TIERED = {1: 0.35, 2: 0.40, 3: 0.30}
 CONF_OK = {"Medium", "High", "Elite"}
+LIVE_PARLAY_MIN_MODEL_PROBABILITY = 0.68
 
 TEAM_DIVISION = {
     "bal": "AL_E",
@@ -160,6 +161,14 @@ def no_low_pool(candidates: list[dict]) -> list[dict]:
     return [c for c in candidates if c.get("confidence") in CONF_OK]
 
 
+def live_parlay_pool(candidates: list[dict]) -> list[dict]:
+    return [
+        c
+        for c in no_low_pool(model_pick_candidates(candidates))
+        if c["model_probability"] >= LIVE_PARLAY_MIN_MODEL_PROBABILITY
+    ]
+
+
 def pick_two_or_three_or_single_custom(
     candidates: list[dict],
     *,
@@ -261,7 +270,7 @@ def day_actions_for_test(candidates: list[dict], rule: str) -> list[DayAction]:
         else:
             raise ValueError(rule)
         live_candidates = model_pick_candidates(candidates)
-        pool = no_low_pool(live_candidates)
+        pool = live_parlay_pool(live_candidates)
         p2 = pick_always_n_corr(pool, 2, **corr_kwargs)
         p3 = pick_corr_parlay(pool, 3, **corr_kwargs)
         return pick_two_or_three_or_single_custom(live_candidates, pool=pool, p2_ticket=p2, p3_ticket=p3)

@@ -1,0 +1,100 @@
+{
+  "generated_at": "2026-06-17T22:59:21",
+  "model_version": "daily-auto-v2.2-h2h",
+  "period": {
+    "start": "2026-03-20",
+    "end": "2026-06-16"
+  },
+  "odds_metadata": {
+    "odds_data_start": "2021-04-01",
+    "odds_data_end": "2026-06-16",
+    "odds_data_stale": false,
+    "limited_by": "yesterday's final scores"
+  },
+  "game_accuracy": {
+    "games": 1088,
+    "correct": 660,
+    "accuracy": 0.6066
+  },
+  "ticket_baseline": {
+    "season": {
+      "label": "corr_nl_reject_both",
+      "tickets": 82,
+      "record": "47-35",
+      "hit_rate": 0.5732
+    },
+    "since_live_start": {
+      "label": "corr_nl_reject_both",
+      "tickets": 4,
+      "record": "2-2",
+      "hit_rate": 0.5
+    }
+  },
+  "live_loss_forensics": {
+    "2026-06-13": "SD won, KC lost \u2014 parlay miss",
+    "2026-06-15_wrong": "LAA leg (old code) \u2014 fixed path WSH+ATH wins",
+    "2026-06-16": "CIN won, CLE lost \u2014 parlay miss"
+  },
+  "threshold_sweep": [
+    {
+      "min_medium_probability": 0.64,
+      "season": {
+        "label": "min_medium_0.64",
+        "tickets": 80,
+        "record": "48-32",
+        "hit_rate": 0.6
+      },
+      "since_live_start": {
+        "label": "min_medium_0.64",
+        "tickets": 4,
+        "record": "3-1",
+        "hit_rate": 0.75
+      }
+    },
+    {
+      "min_medium_probability": 0.66,
+      "season": {
+        "label": "min_medium_0.66",
+        "tickets": 80,
+        "record": "51-29",
+        "hit_rate": 0.6375
+      },
+      "since_live_start": {
+        "label": "min_medium_0.66",
+        "tickets": 4,
+        "record": "3-1",
+        "hit_rate": 0.75
+      }
+    },
+    {
+      "min_medium_probability": 0.68,
+      "season": {
+        "label": "min_medium_0.68",
+        "tickets": 79,
+        "record": "53-26",
+        "hit_rate": 0.6709
+      },
+      "since_live_start": {
+        "label": "min_medium_0.68",
+        "tickets": 4,
+        "record": "3-1",
+        "hit_rate": 0.75
+      }
+    }
+  ],
+  "recommendation": {
+    "min_medium_probability": 0.64,
+    "season": {
+      "label": "min_medium_0.64",
+      "tickets": 80,
+      "record": "48-32",
+      "hit_rate": 0.6
+    },
+    "since_live_start": {
+      "label": "min_medium_0.64",
+      "tickets": 4,
+      "record": "3-1",
+      "hit_rate": 0.75
+    }
+  }
+}

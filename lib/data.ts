@@ -42,6 +42,8 @@ export type GamePrediction = {
   /** False when a probable starter is TBD or changed since the last board refresh. */
   starterCertain?: boolean;
   pitcherChanged?: boolean;
+  /** True when the model pick lost its last 2 games vs this opponent — parlay leg blocked. */
+  seriesFade?: boolean;
 };
 
 export type StreamEmbed = {
@@ -684,7 +686,7 @@ const SAFE_PARLAY_MIN_BOOK_PROBABILITY = 0.50;
 const LIVE_PARLAY_MIN_LEG_EDGE = 0.06;
 const LIVE_PARLAY_MIN_BOOK_PROBABILITY = 0.50;
 const LIVE_PARLAY_HIGH_ELITE_MIN_PROBABILITY = 0.62;
-const LIVE_PARLAY_MEDIUM_MIN_PROBABILITY = 0.64;
+const LIVE_PARLAY_MEDIUM_MIN_PROBABILITY = 0.68;
 const LIVE_PARLAY_MIN_COMBINED_PROBABILITY_2 = 0.38;
 const LIVE_PARLAY_MIN_COMBINED_PROBABILITY_3 = 0.28;
 const LIVE_PARLAY_MIN_HIGH_ELITE_LEGS_2 = 1;
@@ -711,7 +713,7 @@ function isParlayEligibleConfidence(confidence: GamePrediction["confidence"]) {
 }
 
 function isStarterReadyForParlay(game: GamePrediction) {
-  return game.starterCertain !== false && game.pitcherChanged !== true;
+  return game.starterCertain !== false && game.pitcherChanged !== true && game.seriesFade !== true;
 }
 
 /** Live plan: corr_nl_reject_both — block same-division and same-start-window parlay legs. */

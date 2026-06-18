@@ -156,6 +156,12 @@ def main() -> None:
         if pitcher_changed:
             notes.append("Probable starter changed since last board refresh — confidence capped at Medium")
 
+        pick_team_id = game.home_team_id if predicted_home else game.away_team_id
+        opponent_id = game.away_team_id if predicted_home else game.home_team_id
+        series_fade = bundle.league.pick_lost_last_two_in_series(pick_team_id, opponent_id, game.game_date)
+        if series_fade:
+            notes.append("Pick lost last 2 vs this opponent — excluded from parlays (series fade)")
+
         board.append(
             {
                 "id": game_id,
@@ -167,6 +173,7 @@ def main() -> None:
                 "homePitcher": home_pitcher,
                 "starterCertain": starter_certain,
                 "pitcherChanged": pitcher_changed,
+                "seriesFade": series_fade,
                 "predictedTeam": predicted_team,
                 "pickProbability": round(pick_probability, 4),
                 "modelHomeWinProbability": round(home_probability, 4),

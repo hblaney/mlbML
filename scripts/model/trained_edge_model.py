@@ -263,6 +263,7 @@ def feature_row(game: GameRecord, league: LeagueState, *, include_statcast: bool
     features.extend(_rolling_team_features(home, rolling_windows))
     features.extend(_rolling_team_features(away, rolling_windows))
     features.extend(_rolling_matchup_features(home, away, rolling_windows))
+    features.extend(league.head_to_head_features(game.home_team_id, game.away_team_id, game.game_date))
     if include_statcast:
         features.extend(statcast_features_for_game(game))
     return features
