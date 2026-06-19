@@ -161,6 +161,34 @@ def no_low_pool(candidates: list[dict]) -> list[dict]:
     return [c for c in candidates if c.get("confidence") in CONF_OK]
 
 
+MED60_MIN_PROB = 0.60
+
+
+def pool60(candidates: list[dict]) -> list[dict]:
+    return [c for c in no_low_pool(candidates) if float(c.get("model_probability", 0)) >= MED60_MIN_PROB]
+
+
+def top_n_by_prob(pool: list[dict], n: int) -> list[dict]:
+    legs: list[dict] = []
+    seen: set[int | str] = set()
+    for candidate in sorted(pool, key=lambda row: float(row.get("model_probability", 0)), reverse=True):
+        game_pk = candidate.get("gamePk")
+        if game_pk in seen:
+            continue
+        legs.append(candidate)
+        seen.add(game_pk)
+        if len(legs) == n:
+            break
+    return legs
+
+
+def day_actions_med60_force2_223s(candidates: list[dict]) -> list[DayAction]:
+    legs = top_n_by_prob(pool60(candidates), 2)
+    if len(legs) >= 2:
+        return [DayAction(legs=legs, single=None, label="p2_med60")]
+    return day_actions_for_rule(candidates, "no_low_parlay_223s")
+
+
 def live_parlay_pool(candidates: list[dict]) -> list[dict]:
     return [
         c
@@ -206,6 +234,9 @@ def pick_two_or_three_or_single_custom(
 
 
 def day_actions_for_test(candidates: list[dict], rule: str) -> list[DayAction]:
+    if rule == "med60_force2_223s":
+        return day_actions_med60_force2_223s(candidates)
+
     if rule == "no_low_parlay_223s":
         return day_actions_for_rule(candidates, rule)
 

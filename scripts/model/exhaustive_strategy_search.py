@@ -205,6 +205,11 @@ def day_actions_for_rule(candidates: list[dict], rule: str, threshold: float | N
             return [single_action()]  # type: ignore
         return [parlay_action(ticket, tag)]  # type: ignore
 
+    if rule == "med60_force2_223s":
+        from strategy_next_tests import day_actions_med60_force2_223s
+
+        return day_actions_med60_force2_223s(candidates)
+
     if rule == "two_or_three_plus_single":
         out = []
         parlay_opts = [t for t in (p2, p3) if t]

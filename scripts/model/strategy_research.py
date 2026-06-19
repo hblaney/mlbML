@@ -109,6 +109,11 @@ def day_actions_advanced(candidates: list[dict], rule: str) -> list[DayAction]:
     if rule == "no_low_parlay_223s":
         return pick_two_or_three_or_single_variant(candidates, min_conf="no_low")
 
+    if rule == "med60_force2_223s":
+        from strategy_next_tests import day_actions_med60_force2_223s
+
+        return day_actions_med60_force2_223s(candidates)
+
     if rule == "no_forced_223s":
         return pick_two_or_three_or_single_variant(candidates, allow_forced=False)
 
