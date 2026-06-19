@@ -33,15 +33,9 @@ CURRENT_SEASON_SAMPLE_WEIGHT = 1.25
 MARKET_BLEND_WEIGHT = 0.09
 PUBLIC_CONFIDENCE_SHARPENING = 0.8
 PUBLIC_PROBABILITY_CAP = 0.70
-# Live context: shrink stubborn home-chalk picks after getting handled in-series.
-SERIES_PICK_LOST_TWO_SHIFT = 0.10
-SERIES_OPPONENT_WON_LAST_SHIFT = 0.06
+# Starter experience thresholds — learned via features, not post-hoc nudges.
 VETERAN_STARTER_IP_MIN = 80.0
 ROOKIE_STARTER_IP_MAX = 35.0
-VETERAN_STARTER_ERA_EDGE = 0.75
-VETERAN_STARTER_NUDGE = 0.10
-ELITE_STARTER_ERA_EDGE = 1.50
-ELITE_STARTER_EXTRA_NUDGE = 0.05
 
 _STATCAST_CACHE: StatcastTeamCache | None = None
 _TEAM_ABBR: dict[int, str] | None = None
@@ -272,10 +266,61 @@ def feature_row(game: GameRecord, league: LeagueState, *, include_statcast: bool
     features.extend(_rolling_team_features(home, rolling_windows))
     features.extend(_rolling_team_features(away, rolling_windows))
     features.extend(_rolling_matchup_features(home, away, rolling_windows))
+    features.extend(_starter_experience_features(game))
     features.extend(league.head_to_head_features(game.home_team_id, game.away_team_id, game.game_date))
     if include_statcast:
         features.extend(statcast_features_for_game(game))
     return features
+
+
+def _starter_experience_features(game: GameRecord) -> list[float]:
+    """Veteran-vs-thin starter matchup — trained in the GBM, not applied after the fact."""
+    home_pitcher = _safe_pitcher_stats(game, game.home_pitcher_id)
+    away_pitcher = _safe_pitcher_stats(game, game.away_pitcher_id)
+    home_vet = 1.0 if home_pitcher["innings_pitched"] >= VETERAN_STARTER_IP_MIN else 0.0
+    away_vet = 1.0 if away_pitcher["innings_pitched"] >= VETERAN_STARTER_IP_MIN else 0.0
+    home_thin = 1.0 if home_pitcher["innings_pitched"] <= ROOKIE_STARTER_IP_MAX else 0.0
+    away_thin = 1.0 if away_pitcher["innings_pitched"] <= ROOKIE_STARTER_IP_MAX else 0.0
+    era_edge_home = _clip(home_pitcher["era"] - away_pitcher["era"], -4.0, 4.0)
+    era_edge_away = _clip(away_pitcher["era"] - home_pitcher["era"], -4.0, 4.0)
+    vet_home_vs_thin_away = home_vet * away_thin * max(0.0, era_edge_away)
+    vet_away_vs_thin_home = away_vet * home_thin * max(0.0, era_edge_home)
+    return [
+        vet_home_vs_thin_away,
+        vet_away_vs_thin_home,
+        _clip(home_pitcher["innings_pitched"] - away_pitcher["innings_pitched"], -150.0, 150.0) / 150.0,
+    ]
+
+
+def public_confidence_for(pick_probability: float) -> str:
+    """Confidence label always matches the single displayed pick probability."""
+    if pick_probability >= 0.70:
+        return "High"
+    if pick_probability >= 0.55:
+        return "Medium"
+    return "Low"
+
+
+def final_public_probabilities(
+    prediction: "FastPrediction",
+    *,
+    market_home: float | None = None,
+    market_away: float | None = None,
+) -> tuple[float, float, float, str]:
+    """One pipeline for live board + walk-forward: GBM output → market blend → calibration → confidence."""
+    home_probability = prediction.home_probability
+    away_probability = prediction.away_probability
+    if market_home is not None and market_away is not None:
+        home_probability = blend_with_market(home_probability, market_home)
+        away_probability = blend_with_market(away_probability, market_away)
+        total = home_probability + away_probability
+        if total > 0:
+            home_probability /= total
+            away_probability /= total
+    home_probability = sharpen_public_probability(home_probability)
+    away_probability = 1.0 - home_probability
+    pick_probability = max(home_probability, away_probability)
+    return home_probability, away_probability, pick_probability, public_confidence_for(pick_probability)
 
 
 _CONFIDENCE_ORDER = ("Low", "Medium", "High", "Elite")
@@ -291,34 +336,8 @@ def confidence_for(
     internal_pick_probability: float | None = None,
     internal_agrees: bool = True,
 ) -> str:
-    if not market_backed:
-        internal_probability = internal_pick_probability if internal_pick_probability is not None else pick_probability
-        if pick_probability >= 0.70 and internal_probability >= 0.68:
-            return "High"
-        if pick_probability >= 0.60:
-            return "Medium"
-        return "Low"
-
-    internal_probability = (
-        internal_pick_probability if internal_pick_probability is not None else pick_probability
-    )
-    # Public probabilities are deliberately softened after calibration, so
-    # confidence thresholds live on the calibrated scale rather than raw 70%+.
-    if (
-        pick_probability >= 0.655
-        and internal_agrees
-        and internal_probability >= 0.70
-    ):
-        return "Elite"
-    if (
-        pick_probability >= 0.645
-        and internal_agrees
-        and internal_probability >= 0.62
-    ):
-        return "High"
-    if pick_probability >= 0.58 and internal_agrees:
-        return "Medium"
-    return "Low"
+    """Legacy alias — confidence always matches the unified final pick probability."""
+    return public_confidence_for(pick_probability)
 
 
 def calibrate_public_probability(home_probability: float) -> float:
@@ -338,76 +357,6 @@ def sharpen_public_probability(home_probability: float) -> float:
     else:
         sharpened = 0.5 - ((0.5 - home_probability) * PUBLIC_CONFIDENCE_SHARPENING)
     return float(np.clip(sharpened, 1 - PUBLIC_PROBABILITY_CAP, PUBLIC_PROBABILITY_CAP))
-
-
-def apply_live_context_adjustments(
-    game: GameRecord,
-    league: LeagueState,
-    home_probability: float,
-) -> tuple[float, list[str]]:
-    """Post-model nudges for in-series momentum and starter experience gaps."""
-    notes: list[str] = []
-    home_probability = float(np.clip(home_probability, 0.30, 0.70))
-    predicted_home = home_probability >= 0.5
-    pick_id = game.home_team_id if predicted_home else game.away_team_id
-    opponent_id = game.away_team_id if predicted_home else game.home_team_id
-
-    home_pitcher = _safe_pitcher_stats(game, game.home_pitcher_id)
-    away_pitcher = _safe_pitcher_stats(game, game.away_pitcher_id)
-    if (
-        away_pitcher["innings_pitched"] >= VETERAN_STARTER_IP_MIN
-        and home_pitcher["innings_pitched"] <= ROOKIE_STARTER_IP_MAX
-        and away_pitcher["era"] + VETERAN_STARTER_ERA_EDGE < home_pitcher["era"]
-    ):
-        shift = VETERAN_STARTER_NUDGE
-        if away_pitcher["era"] + ELITE_STARTER_ERA_EDGE < home_pitcher["era"]:
-            shift += ELITE_STARTER_EXTRA_NUDGE
-        home_probability = float(np.clip(home_probability - shift, 0.30, 0.70))
-        notes.append(
-            "Veteran away starter vs thin home sample — probability nudged toward road team"
-        )
-        predicted_home = home_probability >= 0.5
-        pick_id = game.home_team_id if predicted_home else game.away_team_id
-        opponent_id = game.away_team_id if predicted_home else game.home_team_id
-    elif (
-        home_pitcher["innings_pitched"] >= VETERAN_STARTER_IP_MIN
-        and away_pitcher["innings_pitched"] <= ROOKIE_STARTER_IP_MAX
-        and home_pitcher["era"] + VETERAN_STARTER_ERA_EDGE < away_pitcher["era"]
-    ):
-        shift = VETERAN_STARTER_NUDGE
-        if home_pitcher["era"] + ELITE_STARTER_ERA_EDGE < away_pitcher["era"]:
-            shift += ELITE_STARTER_EXTRA_NUDGE
-        home_probability = float(np.clip(home_probability + shift, 0.30, 0.70))
-        notes.append(
-            "Veteran home starter vs thin away sample — probability nudged toward home team"
-        )
-        predicted_home = home_probability >= 0.5
-        pick_id = game.home_team_id if predicted_home else game.away_team_id
-        opponent_id = game.away_team_id if predicted_home else game.home_team_id
-
-    recent = league.recent_head_to_head(pick_id, opponent_id, game.game_date, max_games=3)
-    if len(recent) >= 2 and league.pick_lost_last_two_in_series(pick_id, opponent_id, game.game_date):
-        if predicted_home:
-            home_probability -= SERIES_PICK_LOST_TWO_SHIFT
-        else:
-            home_probability += SERIES_PICK_LOST_TWO_SHIFT
-        home_probability = float(np.clip(home_probability, 0.30, 0.70))
-        notes.append(
-            f"Pick lost last 2 vs this opponent — probability shifted {SERIES_PICK_LOST_TWO_SHIFT:.0%} toward opponent"
-        )
-    elif recent:
-        last = recent[-1]
-        days_since = (game.game_date - last.game_date).days
-        opponent_won_last = league.team_won_in_h2h(opponent_id, last)
-        if days_since <= 4 and opponent_won_last:
-            if predicted_home:
-                home_probability -= SERIES_OPPONENT_WON_LAST_SHIFT
-            else:
-                home_probability += SERIES_OPPONENT_WON_LAST_SHIFT
-            home_probability = float(np.clip(home_probability, 0.30, 0.70))
-            notes.append("Opponent won the last meeting in this series — probability nudged toward opponent")
-
-    return home_probability, notes
 
 
 def build_model() -> Pipeline:
@@ -471,7 +420,7 @@ def predict_with_model(game: GameRecord, league: LeagueState, model: Pipeline | 
         away_probability=away_probability,
         predicted_home=predicted_home,
         pick_probability=pick_probability,
-        confidence=confidence_for(pick_probability),
+        confidence=public_confidence_for(pick_probability),
         notes=[
             "Trained on prior games only using walk-forward features",
             "Blends a frequently refit shallow gradient-boosting output with Elo, real team hitting/pitching stats, rolling Statcast contact quality, starter profile, rolling form, park, weather, timing, and matchup context",

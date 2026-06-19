@@ -24,16 +24,14 @@ from trained_edge_model import (
     REFIT_EVERY,
     WARMUP_GAMES,
     TrainingExample,
-    blend_with_market,
-    confidence_for,
     feature_row,
+    final_public_probabilities,
     fit_model,
     predict_with_model,
-    sharpen_public_probability,
 )
 
 MODEL_PATH = Path(__file__).resolve().parents[2] / "data" / "model" / "daily_edge.pkl"
-MODEL_VERSION = "daily-auto-v2.6-blend6121"
+MODEL_VERSION = "daily-auto-v2.7-unified"
 
 
 @dataclass
@@ -186,22 +184,17 @@ def walk_forward_history(
             away_abbr = team_abbr.get(game.away_team_id, str(game.away_team_id))
             market = odds.for_game(game.game_date.isoformat(), away_abbr, home_abbr)
             odds_available = market.source_count > 0 and market.home_moneyline != 0 and market.away_moneyline != 0
-            home_probability = prediction.home_probability
-            away_probability = prediction.away_probability
-            if odds_available:
-                market_probs = no_vig_market_probabilities(market.home_moneyline, market.away_moneyline)
-                if market_probs is not None:
-                    market_home, market_away = market_probs
-                    home_probability = blend_with_market(prediction.home_probability, market_home)
-                    away_probability = blend_with_market(prediction.away_probability, market_away)
-                    total = home_probability + away_probability
-                    home_probability /= total
-                    away_probability /= total
-            home_probability = sharpen_public_probability(home_probability)
-            away_probability = 1.0 - home_probability
+            market_probs = (
+                no_vig_market_probabilities(market.home_moneyline, market.away_moneyline)
+                if odds_available
+                else None
+            )
+            home_probability, away_probability, pick_probability, confidence = final_public_probabilities(
+                prediction,
+                market_home=market_probs[0] if market_probs else None,
+                market_away=market_probs[1] if market_probs else None,
+            )
             predicted_home = home_probability >= away_probability
-            pick_probability = max(home_probability, away_probability)
-            internal_agrees = prediction.predicted_home == predicted_home
             actual_winner = home_abbr if game.home_won else away_abbr
             predicted_winner = home_abbr if predicted_home else away_abbr
 
@@ -216,12 +209,7 @@ def walk_forward_history(
                     "internalPickProbability": round(prediction.pick_probability, 4),
                     "probability": round(home_probability, 4),
                     "pickProbability": round(pick_probability, 4),
-                    "confidence": confidence_for(
-                        pick_probability,
-                        market_backed=odds_available,
-                        internal_pick_probability=prediction.pick_probability,
-                        internal_agrees=internal_agrees,
-                    ),
+                    "confidence": confidence,
                     "marketBacked": odds_available,
                     "predicted": predicted_winner,
                     "actual": actual_winner,

@@ -9,17 +9,9 @@ from pathlib import Path
 from daily_auto_model import MODEL_VERSION, ensure_trained_through
 from mlb_api import fetch_upcoming_games, load_team_abbreviations
 from odds_provider import fetch_moneyline_market, market_for_game
+from trained_edge_model import final_public_probabilities
 
 PUBLIC_PATH = Path(__file__).resolve().parents[2] / "public" / "predictions.json"
-
-
-def board_confidence(pick_probability: float) -> str:
-    """Confidence matches the displayed pick probability — no separate internal scale."""
-    if pick_probability >= 0.70:
-        return "High"
-    if pick_probability >= 0.55:
-        return "Medium"
-    return "Low"
 
 
 def _load_previous_pitchers() -> dict[str, tuple[str, str]]:
@@ -82,14 +74,26 @@ def main() -> None:
         prediction = bundle.predict(game)
         market_snapshot = market_for_game(game, market)
         odds_available = market_snapshot.source_count > 0 and market_snapshot.home_moneyline != 0 and market_snapshot.away_moneyline != 0
+        market_probs = None
+        if odds_available:
+            total = market_snapshot.home_implied_probability + market_snapshot.away_implied_probability
+            if total > 0:
+                market_probs = (
+                    market_snapshot.home_implied_probability / total,
+                    market_snapshot.away_implied_probability / total,
+                )
 
-        # Display the trained model output only — same number drives pick and confidence.
-        home_probability = prediction.home_probability
-        away_probability = prediction.away_probability
-        predicted_home = prediction.predicted_home
-        pick_probability = prediction.pick_probability
+        home_probability, away_probability, pick_probability, live_confidence = final_public_probabilities(
+            prediction,
+            market_home=market_probs[0] if market_probs else None,
+            market_away=market_probs[1] if market_probs else None,
+        )
+        predicted_home = home_probability >= away_probability
         notes = list(prediction.notes)
-        notes.append("Pick probability is the trained model output (not market-blended or heuristic-adjusted)")
+        notes.append(
+            "Unified model output: GBM + Elo/form/stats (incl. starter & series features), "
+            f"9% market blend when odds available, then calibration — confidence matches displayed %"
+        )
 
         home_abbr = team_abbr.get(game.home_team_id, str(game.home_team_id)).lower()
         away_abbr = team_abbr.get(game.away_team_id, str(game.away_team_id)).lower()
@@ -112,7 +116,6 @@ def main() -> None:
         home_pitcher = game.home_pitcher_name or "TBD"
         starter_certain = _starter_certain(game)
         pitcher_changed = _pitcher_changed(previous_pitchers, game_id, away_pitcher, home_pitcher)
-        live_confidence = board_confidence(pick_probability)
         if not starter_certain:
             notes.append("Probable starter not confirmed on one side")
         if pitcher_changed:
