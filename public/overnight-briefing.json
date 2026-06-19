@@ -1,0 +1,141 @@
+{
+  "generated_at": "2026-06-18T09:03:00",
+  "read_this_first": "/Users/henryblaney/Desktop/VIP/mlb-edge/public/overnight-morning-report.json",
+  "model_best_found": {
+    "accuracy": 0.6112,
+    "beats_baseline": true,
+    "config": "market_blend_0.10",
+    "delta_vs_baseline": 0.0046,
+    "experiment": "model_hypothesis",
+    "games": 1088,
+    "high_conf_accuracy": 0.7727,
+    "high_conf_games": 88,
+    "logged_at": "2026-06-18T00:03:13",
+    "medium_accuracy": 0.6979,
+    "medium_games": 288,
+    "period": {
+      "end": "2026-06-16",
+      "start": "2026-03-20"
+    },
+    "record": "665-423"
+  },
+  "strategy_experiments_run": 8,
+  "model_experiments_run": 14,
+  "exhaustive_summary": {
+    "best_compound": {
+      "bet_days": 82,
+      "end_from_23": 15240799.78,
+      "flat_profit": 6821.1,
+      "flat_roi": 0.8318,
+      "hit_rate": 0.6341,
+      "key": "no_low_parlay_223s|aggressive_45_50_35",
+      "logged_at": "2026-06-18T00:10:52",
+      "max_losing_streak": 5,
+      "min_bankroll": 12.8,
+      "record": "52-30",
+      "score": 67.4833,
+      "stake_pct": {
+        "1": 0.45,
+        "2": 0.5,
+        "3": 0.35
+      },
+      "stakes": "aggressive_45_50_35",
+      "strategy": "no_low_parlay_223s",
+      "compound_return_pct": 65467253.01,
+      "compound_profit": 15240776.5,
+      "min_bankroll_pct": 0.5498
+    },
+    "best_compound_balanced": {
+      "bet_days": 78,
+      "end_from_23": 95445.02,
+      "flat_profit": 6258.35,
+      "flat_roi": 0.8024,
+      "hit_rate": 0.6026,
+      "key": "no_low_min_edge7|safe_15_20_10",
+      "logged_at": "2026-06-18T00:10:52",
+      "max_losing_streak": 4,
+      "min_bankroll": 19.79,
+      "record": "47-31",
+      "score": 75.7894,
+      "stake_pct": {
+        "1": 0.15,
+        "2": 0.2,
+        "3": 0.1
+      },
+      "stakes": "safe_15_20_10",
+      "strategy": "no_low_min_edge7",
+      "compound_return_pct": 409887.2,
+      "compound_profit": 95421.74,
+      "min_bankroll_pct": 0.8501
+    },
+    "best_compound_safe": {
+      "bet_days": 78,
+      "end_from_23": 761167.09,
+      "flat_profit": 6258.35,
+      "flat_roi": 0.8024,
+      "hit_rate": 0.6026,
+      "key": "no_low_min_edge7|mod_25_30_20",
+      "logged_at": "2026-06-18T00:10:52",
+      "max_losing_streak": 4,
+      "min_bankroll": 17.46,
+      "record": "47-31",
+      "score": 75.0603,
+      "stake_pct": {
+        "1": 0.25,
+        "2": 0.3,
+        "3": 0.2
+      },
+      "stakes": "mod_25_30_20",
+      "strategy": "no_low_min_edge7",
+      "compound_return_pct": 3269518.08,
+      "compound_profit": 761143.81,
+      "min_bankroll_pct": 0.75
+    },
+    "safest_profitable": {
+      "bet_days": 78,
+      "end_from_23": 714.56,
+      "flat_profit": 4135.01,
+      "flat_roi": 0.5301,
+      "hit_rate": 0.6538,
+      "key": "no_low_min_edge12|flat_10",
+      "logged_at": "2026-06-18T00:10:52",
+      "max_losing_streak": 3,
+      "min_bankroll": 20.95,
+      "record": "51-27",
+      "score": 59.0246,
+      "stake_pct": {
+        "1": 0.1,
+        "2": 0.1,
+        "3": 0.1
+      },
+      "stakes": "flat_10",
+      "strategy": "no_low_min_edge12",
+      "compound_return_pct": 2969.42,
+      "compound_profit": 691.28,
+      "min_bankroll_pct": 0.8999
+    },
+    "current_shipped": {
+      "bet_days": 79,
+      "end_from_23": 9061.56,
+      "flat_profit": 3379.58,
+      "flat_roi": 0.4278,
+      "hit_rate": 0.6582,
+      "key": "corr_nl_reject_both|shipped_35_40_30",
+      "logged_at": "2026-06-18T00:10:52",
+      "max_losing_streak": 5,
+      "min_bankroll": 15.13,
+      "record": "52-27",
+      "score": 24.6797,
+      "stake_pct": {
+        "1": 0.35,
+        "2": 0.4,
+        "3": 0.3
+      },
+      "stakes": "shipped_35_40_30",
+      "strategy": "corr_nl_reject_both",
+      "compound_return_pct": 38824.23,
+      "compound_profit": 9038.28,
+      "min_bankroll_pct": 0.6499
+    }
+  }
+}

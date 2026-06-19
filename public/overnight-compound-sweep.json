@@ -1,0 +1,666 @@
+{
+  "generated_at": "2026-06-18T00:25:46",
+  "live_bankroll": 23.28,
+  "strategies": [
+    "no_low_parlay_223s",
+    "no_low_min_edge7",
+    "no_low_min_edge8",
+    "corr_nl_reject_both",
+    "corr_nl_prob_65",
+    "corr_nl_prob_62",
+    "best_ticket",
+    "no_low_skip_forced"
+  ],
+  "stake_combos_tested": 512,
+  "total_configs": 4096,
+  "best_compound": {
+    "key": "no_low_parlay_223s|s0.35_p0.45_t0.10",
+    "strategy": "no_low_parlay_223s",
+    "stakes": "s0.35_p0.45_t0.10",
+    "stake_pct": {
+      "1": 0.35,
+      "2": 0.45,
+      "3": 0.1
+    },
+    "record": "52-30",
+    "hit_rate": 0.6341,
+    "compound_return_pct": 110634229.33,
+    "end_from_23": 25755671.87,
+    "min_bankroll": 15.13,
+    "min_bankroll_pct": 0.65,
+    "max_losing_streak": 5,
+    "metric": "tiered_compound_fine_grid",
+    "score": 5531711435.5089
+  },
+  "best_balanced": {
+    "key": "no_low_parlay_223s|s0.35_p0.45_t0.10",
+    "strategy": "no_low_parlay_223s",
+    "stakes": "s0.35_p0.45_t0.10",
+    "stake_pct": {
+      "1": 0.35,
+      "2": 0.45,
+      "3": 0.1
+    },
+    "record": "52-30",
+    "hit_rate": 0.6341,
+    "compound_return_pct": 110634229.33,
+    "end_from_23": 25755671.87,
+    "min_bankroll": 15.13,
+    "min_bankroll_pct": 0.65,
+    "max_losing_streak": 5,
+    "metric": "tiered_compound_fine_grid",
+    "score": 5531711435.5089
+  },
+  "best_safe_compound": {
+    "key": "no_low_min_edge7|s0.20_p0.40_t0.10",
+    "strategy": "no_low_min_edge7",
+    "stakes": "s0.20_p0.40_t0.10",
+    "stake_pct": {
+      "1": 0.2,
+      "2": 0.4,
+      "3": 0.1
+    },
+    "record": "47-31",
+    "hit_rate": 0.6026,
+    "compound_return_pct": 6251300.54,
+    "end_from_23": 1455326.05,
+    "min_bankroll": 18.62,
+    "min_bankroll_pct": 0.8,
+    "max_losing_streak": 4,
+    "metric": "tiered_compound_fine_grid",
+    "score": 312565012.0338
+  },
+  "current_shipped_stakes": {
+    "key": "corr_nl_reject_both|s0.35_p0.40_t0.30",
+    "strategy": "corr_nl_reject_both",
+    "stakes": "s0.35_p0.40_t0.30",
+    "stake_pct": {
+      "1": 0.35,
+      "2": 0.4,
+      "3": 0.3
+    },
+    "record": "52-27",
+    "hit_rate": 0.6582,
+    "compound_return_pct": 38824.24,
+    "end_from_23": 9061.56,
+    "min_bankroll": 15.13,
+    "min_bankroll_pct": 0.65,
+    "max_losing_streak": 5,
+    "metric": "tiered_compound_fine_grid",
+    "score": 1941181.3704
+  },
+  "top_15_compound": [
+    {
+      "key": "no_low_parlay_223s|s0.35_p0.45_t0.10",
+      "strategy": "no_low_parlay_223s",
+      "stakes": "s0.35_p0.45_t0.10",
+      "stake_pct": {
+        "1": 0.35,
+        "2": 0.45,
+        "3": 0.1
+      },
+      "record": "52-30",
+      "hit_rate": 0.6341,
+      "compound_return_pct": 110634229.33,
+      "end_from_23": 25755671.87,
+      "min_bankroll": 15.13,
+      "min_bankroll_pct": 0.65,
+      "max_losing_streak": 5,
+      "metric": "tiered_compound_fine_grid",
+      "score": 5531711435.5089
+    },
+    {
+      "key": "no_low_parlay_223s|s0.40_p0.45_t0.10",
+      "strategy": "no_low_parlay_223s",
+      "stakes": "s0.40_p0.45_t0.10",
+      "stake_pct": {
+        "1": 0.4,
+        "2": 0.45,
+        "3": 0.1
+      },
+      "record": "52-30",
+      "hit_rate": 0.6341,
+      "compound_return_pct": 108353216.08,
+      "end_from_23": 25224651.98,
+      "min_bankroll": 13.97,
+      "min_bankroll_pct": 0.6,
+      "max_losing_streak": 5,
+      "metric": "tiered_compound_fine_grid",
+      "score": 5417660771.5141
+    },
+    {
+      "key": "no_low_parlay_223s|s0.35_p0.45_t0.15",
+      "strategy": "no_low_parlay_223s",
+      "stakes": "s0.35_p0.45_t0.15",
+      "stake_pct": {
+        "1": 0.35,
+        "2": 0.45,
+        "3": 0.15
+      },
+      "record": "52-30",
+      "hit_rate": 0.6341,
+      "compound_return_pct": 106647358.86,
+      "end_from_23": 24827528.42,
+      "min_bankroll": 15.13,
+      "min_bankroll_pct": 0.65,
+      "max_losing_streak": 5,
+      "metric": "tiered_compound_fine_grid",
+      "score": 5332367912.0089
+    },
+    {
+      "key": "no_low_parlay_223s|s0.40_p0.45_t0.15",
+      "strategy": "no_low_parlay_223s",
+      "stakes": "s0.40_p0.45_t0.15",
+      "stake_pct": {
+        "1": 0.4,
+        "2": 0.45,
+        "3": 0.15
+      },
+      "record": "52-30",
+      "hit_rate": 0.6341,
+      "compound_return_pct": 104448545.27,
+      "end_from_23": 24315644.62,
+      "min_bankroll": 13.97,
+      "min_bankroll_pct": 0.6,
+      "max_losing_streak": 5,
+      "metric": "tiered_compound_fine_grid",
+      "score": 5222427231.0141
+    },
+    {
+      "key": "no_low_parlay_223s|s0.30_p0.45_t0.10",
+      "strategy": "no_low_parlay_223s",
+      "stakes": "s0.30_p0.45_t0.10",
+      "stake_pct": {
+        "1": 0.3,
+        "2": 0.45,
+        "3": 0.1
+      },
+      "record": "52-30",
+      "hit_rate": 0.6341,
+      "compound_return_pct": 103186490.48,
+      "end_from_23": 24021838.26,
+      "min_bankroll": 16.3,
+      "min_bankroll_pct": 0.7,
+      "max_losing_streak": 5,
+      "metric": "tiered_compound_fine_grid",
+      "score": 5159324494.5167
+    },
+    {
+      "key": "no_low_parlay_223s|s0.35_p0.45_t0.20",
+      "strategy": "no_low_parlay_223s",
+      "stakes": "s0.35_p0.45_t0.20",
+      "stake_pct": {
+        "1": 0.35,
+        "2": 0.45,
+        "3": 0.2
+      },
+      "record": "52-30",
+      "hit_rate": 0.6341,
+      "compound_return_pct": 100123232.28,
+      "end_from_23": 23308711.75,
+      "min_bankroll": 15.13,
+      "min_bankroll_pct": 0.65,
+      "max_losing_streak": 5,
+      "metric": "tiered_compound_fine_grid",
+      "score": 5006161583.0089
+    },
+    {
+      "key": "no_low_parlay_223s|s0.30_p0.45_t0.15",
+      "strategy": "no_low_parlay_223s",
+      "stakes": "s0.30_p0.45_t0.15",
+      "stake_pct": {
+        "1": 0.3,
+        "2": 0.45,
+        "3": 0.15
+      },
+      "record": "52-30",
+      "hit_rate": 0.6341,
+      "compound_return_pct": 99468010.21,
+      "end_from_23": 23156176.06,
+      "min_bankroll": 16.3,
+      "min_bankroll_pct": 0.7,
+      "max_losing_streak": 5,
+      "metric": "tiered_compound_fine_grid",
+      "score": 4973400481.0167
+    },
+    {
+      "key": "no_low_parlay_223s|s0.40_p0.45_t0.20",
+      "strategy": "no_low_parlay_223s",
+      "stakes": "s0.40_p0.45_t0.20",
+      "stake_pct": {
+        "1": 0.4,
+        "2": 0.45,
+        "3": 0.2
+      },
+      "record": "52-30",
+      "hit_rate": 0.6341,
+      "compound_return_pct": 98058930.46,
+      "end_from_23": 22828142.29,
+      "min_bankroll": 13.97,
+      "min_bankroll_pct": 0.6,
+      "max_losing_streak": 5,
+      "metric": "tiered_compound_fine_grid",
+      "score": 4902946490.5141
+    },
+    {
+      "key": "no_low_parlay_223s|s0.45_p0.45_t0.10",
+      "strategy": "no_low_parlay_223s",
+      "stakes": "s0.45_p0.45_t0.10",
+      "stake_pct": {
+        "1": 0.45,
+        "2": 0.45,
+        "3": 0.1
+      },
+      "record": "52-30",
+      "hit_rate": 0.6341,
+      "compound_return_pct": 96166197.83,
+      "end_from_23": 22387514.13,
+      "min_bankroll": 12.8,
+      "min_bankroll_pct": 0.55,
+      "max_losing_streak": 5,
+      "metric": "tiered_compound_fine_grid",
+      "score": 4808309857.5063
+    },
+    {
+      "key": "no_low_parlay_223s|s0.30_p0.45_t0.20",
+      "strategy": "no_low_parlay_223s",
+      "stakes": "s0.30_p0.45_t0.20",
+      "stake_pct": {
+        "1": 0.3,
+        "2": 0.45,
+        "3": 0.2
+      },
+      "record": "52-30",
+      "hit_rate": 0.6341,
+      "compound_return_pct": 93383078.15,
+      "end_from_23": 21739603.87,
+      "min_bankroll": 16.3,
+      "min_bankroll_pct": 0.7,
+      "max_losing_streak": 5,
+      "metric": "tiered_compound_fine_grid",
+      "score": 4669153878.0167
+    },
+    {
+      "key": "no_low_parlay_223s|s0.45_p0.45_t0.15",
+      "strategy": "no_low_parlay_223s",
+      "stakes": "s0.45_p0.45_t0.15",
+      "stake_pct": {
+        "1": 0.45,
+        "2": 0.45,
+        "3": 0.15
+      },
+      "record": "52-30",
+      "hit_rate": 0.6341,
+      "compound_return_pct": 92700704.1,
+      "end_from_23": 21580747.2,
+      "min_bankroll": 12.8,
+      "min_bankroll_pct": 0.55,
+      "max_losing_streak": 5,
+      "metric": "tiered_compound_fine_grid",
+      "score": 4635035171.0063
+    },
+    {
+      "key": "no_low_parlay_223s|s0.35_p0.45_t0.25",
+      "strategy": "no_low_parlay_223s",
+      "stakes": "s0.35_p0.45_t0.25",
+      "stake_pct": {
+        "1": 0.35,
+        "2": 0.45,
+        "3": 0.25
+      },
+      "record": "52-30",
+      "hit_rate": 0.6341,
+      "compound_return_pct": 91736277.33,
+      "end_from_23": 21356228.64,
+      "min_bankroll": 15.13,
+      "min_bankroll_pct": 0.65,
+      "max_losing_streak": 5,
+      "metric": "tiered_compound_fine_grid",
+      "score": 4586813835.5089
+    },
+    {
+      "key": "no_low_parlay_223s|s0.40_p0.45_t0.25",
+      "strategy": "no_low_parlay_223s",
+      "stakes": "s0.40_p0.45_t0.25",
+      "stake_pct": {
+        "1": 0.4,
+        "2": 0.45,
+        "3": 0.25
+      },
+      "record": "52-30",
+      "hit_rate": 0.6341,
+      "compound_return_pct": 89844894.31,
+      "end_from_23": 20915914.68,
+      "min_bankroll": 13.97,
+      "min_bankroll_pct": 0.6,
+      "max_losing_streak": 5,
+      "metric": "tiered_compound_fine_grid",
+      "score": 4492244683.0141
+    },
+    {
+      "key": "no_low_parlay_223s|s0.25_p0.45_t0.10",
+      "strategy": "no_low_parlay_223s",
+      "stakes": "s0.25_p0.45_t0.10",
+      "stake_pct": {
+        "1": 0.25,
+        "2": 0.45,
+        "3": 0.1
+      },
+      "record": "52-30",
+      "hit_rate": 0.6341,
+      "compound_return_pct": 88395501.83,
+      "end_from_23": 20578496.11,
+      "min_bankroll": 17.46,
+      "min_bankroll_pct": 0.75,
+      "max_losing_streak": 5,
+      "metric": "tiered_compound_fine_grid",
+      "score": 4419775063.5115
+    },
+    {
+      "key": "no_low_parlay_223s|s0.45_p0.45_t0.20",
+      "strategy": "no_low_parlay_223s",
+      "stakes": "s0.45_p0.45_t0.20",
+      "stake_pct": {
+        "1": 0.45,
+        "2": 0.45,
+        "3": 0.2
+      },
+      "record": "52-30",
+      "hit_rate": 0.6341,
+      "compound_return_pct": 87029759.98,
+      "end_from_23": 20260551.4,
+      "min_bankroll": 12.8,
+      "min_bankroll_pct": 0.55,
+      "max_losing_streak": 5,
+      "metric": "tiered_compound_fine_grid",
+      "score": 4351487965.0063
+    }
+  ],
+  "top_15_balanced": [
+    {
+      "key": "no_low_parlay_223s|s0.35_p0.45_t0.10",
+      "strategy": "no_low_parlay_223s",
+      "stakes": "s0.35_p0.45_t0.10",
+      "stake_pct": {
+        "1": 0.35,
+        "2": 0.45,
+        "3": 0.1
+      },
+      "record": "52-30",
+      "hit_rate": 0.6341,
+      "compound_return_pct": 110634229.33,
+      "end_from_23": 25755671.87,
+      "min_bankroll": 15.13,
+      "min_bankroll_pct": 0.65,
+      "max_losing_streak": 5,
+      "metric": "tiered_compound_fine_grid",
+      "score": 5531711435.5089
+    },
+    {
+      "key": "no_low_parlay_223s|s0.40_p0.45_t0.10",
+      "strategy": "no_low_parlay_223s",
+      "stakes": "s0.40_p0.45_t0.10",
+      "stake_pct": {
+        "1": 0.4,
+        "2": 0.45,
+        "3": 0.1
+      },
+      "record": "52-30",
+      "hit_rate": 0.6341,
+      "compound_return_pct": 108353216.08,
+      "end_from_23": 25224651.98,
+      "min_bankroll": 13.97,
+      "min_bankroll_pct": 0.6,
+      "max_losing_streak": 5,
+      "metric": "tiered_compound_fine_grid",
+      "score": 5417660771.5141
+    },
+    {
+      "key": "no_low_parlay_223s|s0.35_p0.45_t0.15",
+      "strategy": "no_low_parlay_223s",
+      "stakes": "s0.35_p0.45_t0.15",
+      "stake_pct": {
+        "1": 0.35,
+        "2": 0.45,
+        "3": 0.15
+      },
+      "record": "52-30",
+      "hit_rate": 0.6341,
+      "compound_return_pct": 106647358.86,
+      "end_from_23": 24827528.42,
+      "min_bankroll": 15.13,
+      "min_bankroll_pct": 0.65,
+      "max_losing_streak": 5,
+      "metric": "tiered_compound_fine_grid",
+      "score": 5332367912.0089
+    },
+    {
+      "key": "no_low_parlay_223s|s0.40_p0.45_t0.15",
+      "strategy": "no_low_parlay_223s",
+      "stakes": "s0.40_p0.45_t0.15",
+      "stake_pct": {
+        "1": 0.4,
+        "2": 0.45,
+        "3": 0.15
+      },
+      "record": "52-30",
+      "hit_rate": 0.6341,
+      "compound_return_pct": 104448545.27,
+      "end_from_23": 24315644.62,
+      "min_bankroll": 13.97,
+      "min_bankroll_pct": 0.6,
+      "max_losing_streak": 5,
+      "metric": "tiered_compound_fine_grid",
+      "score": 5222427231.0141
+    },
+    {
+      "key": "no_low_parlay_223s|s0.30_p0.45_t0.10",
+      "strategy": "no_low_parlay_223s",
+      "stakes": "s0.30_p0.45_t0.10",
+      "stake_pct": {
+        "1": 0.3,
+        "2": 0.45,
+        "3": 0.1
+      },
+      "record": "52-30",
+      "hit_rate": 0.6341,
+      "compound_return_pct": 103186490.48,
+      "end_from_23": 24021838.26,
+      "min_bankroll": 16.3,
+      "min_bankroll_pct": 0.7,
+      "max_losing_streak": 5,
+      "metric": "tiered_compound_fine_grid",
+      "score": 5159324494.5167
+    },
+    {
+      "key": "no_low_parlay_223s|s0.35_p0.45_t0.20",
+      "strategy": "no_low_parlay_223s",
+      "stakes": "s0.35_p0.45_t0.20",
+      "stake_pct": {
+        "1": 0.35,
+        "2": 0.45,
+        "3": 0.2
+      },
+      "record": "52-30",
+      "hit_rate": 0.6341,
+      "compound_return_pct": 100123232.28,
+      "end_from_23": 23308711.75,
+      "min_bankroll": 15.13,
+      "min_bankroll_pct": 0.65,
+      "max_losing_streak": 5,
+      "metric": "tiered_compound_fine_grid",
+      "score": 5006161583.0089
+    },
+    {
+      "key": "no_low_parlay_223s|s0.30_p0.45_t0.15",
+      "strategy": "no_low_parlay_223s",
+      "stakes": "s0.30_p0.45_t0.15",
+      "stake_pct": {
+        "1": 0.3,
+        "2": 0.45,
+        "3": 0.15
+      },
+      "record": "52-30",
+      "hit_rate": 0.6341,
+      "compound_return_pct": 99468010.21,
+      "end_from_23": 23156176.06,
+      "min_bankroll": 16.3,
+      "min_bankroll_pct": 0.7,
+      "max_losing_streak": 5,
+      "metric": "tiered_compound_fine_grid",
+      "score": 4973400481.0167
+    },
+    {
+      "key": "no_low_parlay_223s|s0.40_p0.45_t0.20",
+      "strategy": "no_low_parlay_223s",
+      "stakes": "s0.40_p0.45_t0.20",
+      "stake_pct": {
+        "1": 0.4,
+        "2": 0.45,
+        "3": 0.2
+      },
+      "record": "52-30",
+      "hit_rate": 0.6341,
+      "compound_return_pct": 98058930.46,
+      "end_from_23": 22828142.29,
+      "min_bankroll": 13.97,
+      "min_bankroll_pct": 0.6,
+      "max_losing_streak": 5,
+      "metric": "tiered_compound_fine_grid",
+      "score": 4902946490.5141
+    },
+    {
+      "key": "no_low_parlay_223s|s0.45_p0.45_t0.10",
+      "strategy": "no_low_parlay_223s",
+      "stakes": "s0.45_p0.45_t0.10",
+      "stake_pct": {
+        "1": 0.45,
+        "2": 0.45,
+        "3": 0.1
+      },
+      "record": "52-30",
+      "hit_rate": 0.6341,
+      "compound_return_pct": 96166197.83,
+      "end_from_23": 22387514.13,
+      "min_bankroll": 12.8,
+      "min_bankroll_pct": 0.55,
+      "max_losing_streak": 5,
+      "metric": "tiered_compound_fine_grid",
+      "score": 4808309857.5063
+    },
+    {
+      "key": "no_low_parlay_223s|s0.30_p0.45_t0.20",
+      "strategy": "no_low_parlay_223s",
+      "stakes": "s0.30_p0.45_t0.20",
+      "stake_pct": {
+        "1": 0.3,
+        "2": 0.45,
+        "3": 0.2
+      },
+      "record": "52-30",
+      "hit_rate": 0.6341,
+      "compound_return_pct": 93383078.15,
+      "end_from_23": 21739603.87,
+      "min_bankroll": 16.3,
+      "min_bankroll_pct": 0.7,
+      "max_losing_streak": 5,
+      "metric": "tiered_compound_fine_grid",
+      "score": 4669153878.0167
+    },
+    {
+      "key": "no_low_parlay_223s|s0.45_p0.45_t0.15",
+      "strategy": "no_low_parlay_223s",
+      "stakes": "s0.45_p0.45_t0.15",
+      "stake_pct": {
+        "1": 0.45,
+        "2": 0.45,
+        "3": 0.15
+      },
+      "record": "52-30",
+      "hit_rate": 0.6341,
+      "compound_return_pct": 92700704.1,
+      "end_from_23": 21580747.2,
+      "min_bankroll": 12.8,
+      "min_bankroll_pct": 0.55,
+      "max_losing_streak": 5,
+      "metric": "tiered_compound_fine_grid",
+      "score": 4635035171.0063
+    },
+    {
+      "key": "no_low_parlay_223s|s0.35_p0.45_t0.25",
+      "strategy": "no_low_parlay_223s",
+      "stakes": "s0.35_p0.45_t0.25",
+      "stake_pct": {
+        "1": 0.35,
+        "2": 0.45,
+        "3": 0.25
+      },
+      "record": "52-30",
+      "hit_rate": 0.6341,
+      "compound_return_pct": 91736277.33,
+      "end_from_23": 21356228.64,
+      "min_bankroll": 15.13,
+      "min_bankroll_pct": 0.65,
+      "max_losing_streak": 5,
+      "metric": "tiered_compound_fine_grid",
+      "score": 4586813835.5089
+    },
+    {
+      "key": "no_low_parlay_223s|s0.40_p0.45_t0.25",
+      "strategy": "no_low_parlay_223s",
+      "stakes": "s0.40_p0.45_t0.25",
+      "stake_pct": {
+        "1": 0.4,
+        "2": 0.45,
+        "3": 0.25
+      },
+      "record": "52-30",
+      "hit_rate": 0.6341,
+      "compound_return_pct": 89844894.31,
+      "end_from_23": 20915914.68,
+      "min_bankroll": 13.97,
+      "min_bankroll_pct": 0.6,
+      "max_losing_streak": 5,
+      "metric": "tiered_compound_fine_grid",
+      "score": 4492244683.0141
+    },
+    {
+      "key": "no_low_parlay_223s|s0.25_p0.45_t0.10",
+      "strategy": "no_low_parlay_223s",
+      "stakes": "s0.25_p0.45_t0.10",
+      "stake_pct": {
+        "1": 0.25,
+        "2": 0.45,
+        "3": 0.1
+      },
+      "record": "52-30",
+      "hit_rate": 0.6341,
+      "compound_return_pct": 88395501.83,
+      "end_from_23": 20578496.11,
+      "min_bankroll": 17.46,
+      "min_bankroll_pct": 0.75,
+      "max_losing_streak": 5,
+      "metric": "tiered_compound_fine_grid",
+      "score": 4419775063.5115
+    },
+    {
+      "key": "no_low_parlay_223s|s0.45_p0.45_t0.20",
+      "strategy": "no_low_parlay_223s",
+      "stakes": "s0.45_p0.45_t0.20",
+      "stake_pct": {
+        "1": 0.45,
+        "2": 0.45,
+        "3": 0.2
+      },
+      "record": "52-30",
+      "hit_rate": 0.6341,
+      "compound_return_pct": 87029759.98,
+      "end_from_23": 20260551.4,
+      "min_bankroll": 12.8,
+      "min_bankroll_pct": 0.55,
+      "max_losing_streak": 5,
+      "metric": "tiered_compound_fine_grid",
+      "score": 4351487965.0063
+    }
+  ]
+}

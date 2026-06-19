@@ -1,0 +1,12 @@
+{
+  "cycle": 2,
+  "ablation_index": 2,
+  "best_ticket_hit_rate": 0.0,
+  "best_game_accuracy": 0.6066,
+  "best_game_model": "v2.1_baseline",
+  "completed_experiments": [
+    "experiment_calibration_windows",
+    "experiment_status",
+    "experiment_strategy_compare"
+  ]
+}

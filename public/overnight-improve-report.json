@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-17T22:59:21",
+  "generated_at": "2026-06-17T23:18:06",
   "model_version": "daily-auto-v2.2-h2h",
   "period": {
     "start": "2026-03-20",
@@ -19,15 +19,15 @@
   "ticket_baseline": {
     "season": {
       "label": "corr_nl_reject_both",
-      "tickets": 82,
-      "record": "47-35",
-      "hit_rate": 0.5732
+      "tickets": 79,
+      "record": "52-27",
+      "hit_rate": 0.6582
     },
     "since_live_start": {
       "label": "corr_nl_reject_both",
       "tickets": 4,
-      "record": "2-2",
-      "hit_rate": 0.5
+      "record": "3-1",
+      "hit_rate": 0.75
     }
   },
   "live_loss_forensics": {

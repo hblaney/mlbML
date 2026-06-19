@@ -8,6 +8,7 @@ import {
   LIVE_BETTING_STRATEGY
 } from "@/lib/data";
 import { loadPredictionBoard, loadBettingPlan, loadLiveBankroll, loadStrategyGuard, loadBestTicketWalkforward, loadPredictionBoardMetadata, loadAccuracyOutput } from "@/lib/model-output";
+import { assertConfidenceMatchesPick, confidenceFromPickProbability } from "@/lib/confidence";
 import { formatOdds, formatPercent } from "@/lib/odds";
 import { formatStandingRecord, loadLiveStandings } from "@/lib/standings";
 import { formatCentralGameTime } from "@/lib/time";
@@ -50,6 +51,7 @@ export default async function BestBetsPage() {
   const boardGeneratedAt = boardMeta.board_generated_at;
   const modelTrainedThrough = boardMeta.trained_through;
   const modelVersion = boardMeta.model_version;
+  const pipelineVersion = boardMeta.pipeline_version;
   const boardAgeMinutes = boardGeneratedAt
     ? Math.max(0, Math.round((Date.now() - new Date(boardGeneratedAt).getTime()) / 60_000))
     : null;
@@ -149,7 +151,13 @@ export default async function BestBetsPage() {
         {modelTrainedThrough ? (
           <p className="muted">
             Model trained through <strong>{modelTrainedThrough}</strong>
-            {modelVersion ? ` (${modelVersion})` : ""}
+            {modelVersion ? (
+              <>
+                {" "}
+                (<span>{modelVersion}</span>
+                {pipelineVersion ? ` · ${pipelineVersion}` : ""})
+              </>
+            ) : null}
             {seasonPickAccuracy != null ? (
               <>
                 {" "}
@@ -169,7 +177,7 @@ export default async function BestBetsPage() {
           <p className="warning">
             {unstableStarterGames} game{unstableStarterGames === 1 ? "" : "s"}{" "}
             {unstableStarterGames === 1 ? "has" : "have"} uncertain or changed probable starters — those legs are
-            excluded from parlays and confidence is capped.
+            excluded from parlays (pick and confidence unchanged).
           </p>
         ) : null}
       </section>

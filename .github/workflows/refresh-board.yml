@@ -55,7 +55,6 @@ jobs:
         run: |
           set -euo pipefail
           python3 scripts/model/generate_today_board.py
-          python3 scripts/model/validate_live_board.py
           board_at=$(python3 -c "import json; print(json.load(open('public/predictions.json'))['board_generated_at'])")
           echo "board_generated_at=${board_at}"
           test -n "${board_at}"

@@ -1,0 +1,845 @@
+=== overnight loop start Wed Jun 17 23:05:29 CDT 2026 until CT 9am epoch=1781791200 ===
+--- cycle 1 Wed Jun 17 23:05:29 CDT 2026 ---
+generated_predictions=15
+trained_through=2026-06-16
+Live bankroll: $13.66 (started $25.00 on 2026-06-13)
+System ticket record: 1-3 · tickets logged: 4
+wrote=/Users/henryblaney/Desktop/VIP/mlb-edge/public/overnight-improve-report.json
+game_accuracy=0.6066
+baseline_live=3-1
+best_threshold=0.64 live=3-1
+wrote=/Users/henryblaney/Desktop/VIP/mlb-edge/public/best-ticket-walkforward.json
+game_accuracy=0.6066
+ticket_record=52-27
+last_14_record=12-2
+=== overnight loop start Wed Jun 17 23:16:26 CDT 2026 until CT 9am epoch=1781791200 ===
+--- cycle 1 Wed Jun 17 23:16:26 CDT 2026 ---
+generated_predictions=15
+trained_through=2026-06-16
+Live bankroll: $13.66 (started $25.00 on 2026-06-13)
+System ticket record: 1-3 · tickets logged: 4
+wrote=/Users/henryblaney/Desktop/VIP/mlb-edge/public/overnight-improve-report.json
+game_accuracy=0.6066
+baseline_live=3-1
+best_threshold=0.64 live=3-1
+wrote=/Users/henryblaney/Desktop/VIP/mlb-edge/public/best-ticket-walkforward.json
+game_accuracy=0.6066
+ticket_record=52-27
+last_14_record=12-2
+=== overnight RESEARCH start Wed Jun 17 23:28:08 CDT 2026 until CT 9am ===
+--- research cycle 1 Wed Jun 17 23:28:08 CDT 2026 ---
+[refresh] board + bankroll
+[refresh] board + bankroll
+generated_predictions=15
+trained_through=2026-06-16
+Live bankroll: $13.66 (started $25.00 on 2026-06-13)
+System ticket record: 1-3 · tickets logged: 4
+overnight_research cycle=1 experiment=experiment_ablation
+=== overnight RESEARCH start Wed Jun 17 23:29:49 CDT 2026 until CT 9am ===
+--- research cycle 1 Wed Jun 17 23:29:49 CDT 2026 ---
+[refresh] board + bankroll
+[refresh] board + bankroll
+generated_predictions=15
+trained_through=2026-06-16
+{
+  "name": "v2.1_baseline",
+  "mode": "v21",
+  "model": "shallow",
+  "robust": false,
+  "injuries": false,
+  "statcast": false,
+  "games": 1088,
+  "correct": 660,
+  "accuracy": 0.6066,
+  "record": "660-428",
+  "experiment": "ablation",
+  "spec_index": 0,
+  "logged_at": "2026-06-17T23:29:53"
+}
+Live bankroll: $13.66 (started $25.00 on 2026-06-13)
+System ticket record: 1-3 · tickets logged: 4
+overnight_research cycle=1 experiment=experiment_ablation
+{
+  "name": "v2.1_robust_blend",
+  "mode": "v21",
+  "model": "shallow",
+  "robust": true,
+  "injuries": false,
+  "statcast": false,
+  "games": 1088,
+  "correct": 622,
+  "accuracy": 0.5717,
+  "record": "622-466",
+  "experiment": "ablation",
+  "spec_index": 1,
+  "logged_at": "2026-06-17T23:31:34"
+}
+=== overnight RESEARCH start Wed Jun 17 23:37:32 CDT 2026 until CT 9am ===
+--- research cycle 1 Wed Jun 17 23:37:32 CDT 2026 ---
+[refresh] board + bankroll
+[refresh] board + bankroll
+generated_predictions=15
+trained_through=2026-06-16
+Live bankroll: $13.66 (started $25.00 on 2026-06-13)
+System ticket record: 1-3 · tickets logged: 4
+overnight_research cycle=1 experiment_status
+{
+  "experiment": "status",
+  "game_model": "v2.2-h2h @ 60.66% (ablating won't beat this tonight)",
+  "ticket_strategy_shipped": "corr_nl + 68% legs + series fade = 52-27",
+  "focus": "ticket selection and live rules \u2014 not re-running baseline ablation",
+  "logged_at": "2026-06-17T23:38:40"
+}
+=== overnight RESEARCH start Wed Jun 17 23:45:52 CDT 2026 until CT 9am ===
+=== overnight RESEARCH start Wed Jun 17 23:45:52 CDT 2026 until CT 9am ===
+--- research cycle 1 Wed Jun 17 23:45:52 CDT 2026 ---
+--- research cycle 1 Wed Jun 17 23:45:52 CDT 2026 ---
+model_research cycle=1 config=market_blend_0.08
+market_blend_0.08: 60.94% (+0.28pts) high=76.0% med=69.9% *** BEATS BASELINE ***
+[refresh] board + bankroll
+[refresh] board + bankroll
+generated_predictions=15
+trained_through=2026-06-16
+Live bankroll: $13.66 (started $25.00 on 2026-06-13)
+System ticket record: 1-3 · tickets logged: 4
+--- research cycle 2 Thu Jun 18 00:02:36 CDT 2026 ---
+--- research cycle 2 Thu Jun 18 00:02:36 CDT 2026 ---
+model_research cycle=2 config=market_blend_0.10
+market_blend_0.10: 61.12% (+0.46pts) high=77.3% med=69.8% *** BEATS BASELINE ***
+overnight_research cycle=2 experiment_strategy_compare
+{
+  "experiment": "strategy_compare",
+  "ranked": [
+    {
+      "strategy": "corr_nl_reject_both",
+      "season": {
+        "tickets": 79,
+        "record": "52-27",
+        "hit_rate": 0.6582
+      },
+      "since_live": {
+        "tickets": 4,
+        "record": "3-1",
+        "hit_rate": 0.75
+      }
+    },
+    {
+      "strategy": "corr_nl_reject_div",
+      "season": {
+        "tickets": 79,
+        "record": "52-27",
+        "hit_rate": 0.6582
+      },
+      "since_live": {
+        "tickets": 4,
+        "record": "3-1",
+        "hit_rate": 0.75
+      }
+    },
+    {
+      "strategy": "corr_nl_reject_time",
+      "season": {
+        "tickets": 79,
+        "record": "52-27",
+        "hit_rate": 0.6582
+      },
+      "since_live": {
+        "tickets": 4,
+        "record": "3-1",
+        "hit_rate": 0.75
+      }
+    },
+    {
+      "strategy": "no_low_parlay_223s",
+      "season": {
+        "tickets": 82,
+        "record": "52-30",
+        "hit_rate": 0.6341
+      },
+      "since_live": {
+        "tickets": 4,
+        "record": "2-2",
+        "hit_rate": 0.5
+      }
+    },
+    {
+      "strategy": "no_low_skip_forced",
+      "season": {
+        "tickets": 79,
+        "record": "50-29",
+        "hit_rate": 0.6329
+      },
+      "since_live": {
+        "tickets": 4,
+        "record": "2-2",
+        "hit_rate": 0.5
+      }
+    }
+  ],
+  "logged_at": "2026-06-18T00:03:49"
+}
+=== overnight EXHAUSTIVE start Thu Jun 18 00:09:33 CDT 2026 until CT 9am ===
+=== overnight EXHAUSTIVE start Thu Jun 18 00:09:33 CDT 2026 until CT 9am ===
+--- cycle 1 Thu Jun 18 00:09:33 CDT 2026 ---
+--- cycle 1 Thu Jun 18 00:09:33 CDT 2026 ---
+exhaustive: 243 total configs, 0 done
+Loading walk-forward data (cached after first run)...
+exhaustive: 243 total configs, 0 done
+Loading walk-forward data (cached after first run)...
+Testing batch of 15 (243 remaining)...
+  no_low_parlay_223s|shipped_35_40_30: flat=83.2% 52-30 end=$14,316,681 L=5 score=69.4
+  no_low_parlay_223s|aggressive_45_50_35: flat=83.2% 52-30 end=$15,240,800 L=5 score=67.5
+  no_low_parlay_223s|mod_25_30_20: flat=83.2% 52-30 end=$3,931,776 L=5 score=70.1
+  no_low_parlay_223s|cons_20_25_15: flat=83.2% 52-30 end=$1,241,053 L=5 score=70.1
+  no_low_parlay_223s|safe_15_20_10: flat=83.2% 52-30 end=$275,817 L=5 score=70.1
+  no_low_parlay_223s|flat_25: flat=83.2% 52-30 end=$1,351,968 L=5 score=69.2
+  no_low_parlay_223s|flat_20: flat=83.2% 52-30 end=$342,319 L=5 score=69.2
+  no_low_parlay_223s|flat_15: flat=83.2% 52-30 end=$59,931 L=5 score=69.3
+  no_low_parlay_223s|flat_10: flat=83.2% 52-30 end=$7,026 L=5 score=69.4
+  corr_nl_reject_both|shipped_35_40_30: flat=42.8% 52-27 end=$9,062 L=5 score=24.7
+  corr_nl_reject_both|aggressive_45_50_35: flat=42.8% 52-27 end=$5,578 L=5 score=22.5
+  corr_nl_reject_both|mod_25_30_20: flat=42.8% 52-27 end=$6,251 L=5 score=26.5
+  corr_nl_reject_both|cons_20_25_15: flat=42.8% 52-27 end=$3,670 L=5 score=27.4
+  corr_nl_reject_both|safe_15_20_10: flat=42.8% 52-27 end=$1,721 L=5 score=28.1
+  corr_nl_reject_both|flat_25: flat=42.8% 52-27 end=$4,868 L=5 score=26.5
+Morning report: /Users/henryblaney/Desktop/VIP/mlb-edge/public/overnight-morning-report.json (28 configs)
+Testing batch of 243 (243 remaining)...
+  no_low_parlay_223s|shipped_35_40_30: flat=83.2% 52-30 end=$14,316,681 L=5 score=69.4
+  no_low_parlay_223s|aggressive_45_50_35: flat=83.2% 52-30 end=$15,240,800 L=5 score=67.5
+  no_low_parlay_223s|mod_25_30_20: flat=83.2% 52-30 end=$3,931,776 L=5 score=70.1
+  no_low_parlay_223s|cons_20_25_15: flat=83.2% 52-30 end=$1,241,053 L=5 score=70.1
+  no_low_parlay_223s|safe_15_20_10: flat=83.2% 52-30 end=$275,817 L=5 score=70.1
+  no_low_parlay_223s|flat_25: flat=83.2% 52-30 end=$1,351,968 L=5 score=69.2
+  no_low_parlay_223s|flat_20: flat=83.2% 52-30 end=$342,319 L=5 score=69.2
+  no_low_parlay_223s|flat_15: flat=83.2% 52-30 end=$59,931 L=5 score=69.3
+  no_low_parlay_223s|flat_10: flat=83.2% 52-30 end=$7,026 L=5 score=69.4
+  corr_nl_reject_both|shipped_35_40_30: flat=42.8% 52-27 end=$9,062 L=5 score=24.7
+  corr_nl_reject_both|aggressive_45_50_35: flat=42.8% 52-27 end=$5,578 L=5 score=22.5
+  corr_nl_reject_both|mod_25_30_20: flat=42.8% 52-27 end=$6,251 L=5 score=26.5
+  corr_nl_reject_both|cons_20_25_15: flat=42.8% 52-27 end=$3,670 L=5 score=27.4
+  corr_nl_reject_both|safe_15_20_10: flat=42.8% 52-27 end=$1,721 L=5 score=28.1
+  corr_nl_reject_both|flat_25: flat=42.8% 52-27 end=$4,868 L=5 score=26.5
+  corr_nl_reject_both|flat_20: flat=42.8% 52-27 end=$2,672 L=5 score=27.3
+  corr_nl_reject_both|flat_15: flat=42.8% 52-27 end=$1,168 L=5 score=28.0
+  corr_nl_reject_both|flat_10: flat=42.8% 52-27 end=$405 L=5 score=28.8
+  corr_nl_reject_div|shipped_35_40_30: flat=42.8% 52-27 end=$10,572 L=5 score=24.7
+  corr_nl_reject_div|aggressive_45_50_35: flat=42.8% 52-27 end=$7,252 L=5 score=22.6
+  corr_nl_reject_div|mod_25_30_20: flat=42.8% 52-27 end=$7,144 L=5 score=26.6
+  corr_nl_reject_div|cons_20_25_15: flat=42.8% 52-27 end=$4,159 L=5 score=27.4
+  corr_nl_reject_div|safe_15_20_10: flat=42.8% 52-27 end=$1,937 L=5 score=28.2
+  corr_nl_reject_div|flat_25: flat=42.8% 52-27 end=$4,868 L=5 score=26.5
+  corr_nl_reject_div|flat_20: flat=42.8% 52-27 end=$2,672 L=5 score=27.3
+  corr_nl_reject_div|flat_15: flat=42.8% 52-27 end=$1,168 L=5 score=28.0
+  corr_nl_reject_div|flat_10: flat=42.8% 52-27 end=$405 L=5 score=28.8
+  corr_nl_reject_time|shipped_35_40_30: flat=42.8% 52-27 end=$9,062 L=5 score=24.7
+  corr_nl_reject_time|aggressive_45_50_35: flat=42.8% 52-27 end=$5,578 L=5 score=22.5
+  corr_nl_reject_time|mod_25_30_20: flat=42.8% 52-27 end=$6,251 L=5 score=26.5
+  corr_nl_reject_time|cons_20_25_15: flat=42.8% 52-27 end=$3,670 L=5 score=27.4
+  corr_nl_reject_time|safe_15_20_10: flat=42.8% 52-27 end=$1,721 L=5 score=28.1
+  corr_nl_reject_time|flat_25: flat=42.8% 52-27 end=$4,868 L=5 score=26.5
+  corr_nl_reject_time|flat_20: flat=42.8% 52-27 end=$2,672 L=5 score=27.3
+  corr_nl_reject_time|flat_15: flat=42.8% 52-27 end=$1,168 L=5 score=28.0
+  corr_nl_reject_time|flat_10: flat=42.8% 52-27 end=$405 L=5 score=28.8
+  corr_nl_penalize_div15|shipped_35_40_30: flat=42.8% 52-27 end=$9,062 L=5 score=24.7
+  corr_nl_penalize_div15|aggressive_45_50_35: flat=42.8% 52-27 end=$5,578 L=5 score=22.5
+  corr_nl_penalize_div15|mod_25_30_20: flat=42.8% 52-27 end=$6,251 L=5 score=26.5
+  corr_nl_penalize_div15|cons_20_25_15: flat=42.8% 52-27 end=$3,670 L=5 score=27.4
+  corr_nl_penalize_div15|safe_15_20_10: flat=42.8% 52-27 end=$1,721 L=5 score=28.1
+  corr_nl_penalize_div15|flat_25: flat=42.8% 52-27 end=$4,868 L=5 score=26.5
+  corr_nl_penalize_div15|flat_20: flat=42.8% 52-27 end=$2,672 L=5 score=27.3
+  corr_nl_penalize_div15|flat_15: flat=42.8% 52-27 end=$1,168 L=5 score=28.0
+  corr_nl_penalize_div15|flat_10: flat=42.8% 52-27 end=$405 L=5 score=28.8
+  corr_nl_penalize_time10|shipped_35_40_30: flat=42.8% 52-27 end=$8,414 L=5 score=24.7
+  corr_nl_penalize_time10|aggressive_45_50_35: flat=42.8% 52-27 end=$4,720 L=5 score=22.4
+  corr_nl_penalize_time10|mod_25_30_20: flat=42.8% 52-27 end=$5,861 L=5 score=26.5
+  corr_nl_penalize_time10|cons_20_25_15: flat=42.8% 52-27 end=$3,454 L=5 score=27.3
+  corr_nl_penalize_time10|safe_15_20_10: flat=42.8% 52-27 end=$1,626 L=5 score=28.1
+  corr_nl_penalize_time10|flat_25: flat=42.8% 52-27 end=$4,868 L=5 score=26.5
+  corr_nl_penalize_time10|flat_20: flat=42.8% 52-27 end=$2,672 L=5 score=27.3
+  corr_nl_penalize_time10|flat_15: flat=42.8% 52-27 end=$1,168 L=5 score=28.0
+  corr_nl_penalize_time10|flat_10: flat=42.8% 52-27 end=$405 L=5 score=28.8
+  corr_nl_penalize_both|shipped_35_40_30: flat=42.8% 52-27 end=$8,414 L=5 score=24.7
+  corr_nl_penalize_both|aggressive_45_50_35: flat=42.8% 52-27 end=$4,720 L=5 score=22.4
+  corr_nl_penalize_both|mod_25_30_20: flat=42.8% 52-27 end=$5,861 L=5 score=26.5
+  corr_nl_penalize_both|cons_20_25_15: flat=42.8% 52-27 end=$3,454 L=5 score=27.3
+  corr_nl_penalize_both|safe_15_20_10: flat=42.8% 52-27 end=$1,626 L=5 score=28.1
+  corr_nl_penalize_both|flat_25: flat=42.8% 52-27 end=$4,868 L=5 score=26.5
+  corr_nl_penalize_both|flat_20: flat=42.8% 52-27 end=$2,672 L=5 score=27.3
+  corr_nl_penalize_both|flat_15: flat=42.8% 52-27 end=$1,168 L=5 score=28.0
+  corr_nl_penalize_both|flat_10: flat=42.8% 52-27 end=$405 L=5 score=28.8
+  best_ticket|shipped_35_40_30: flat=53.3% 50-29 end=$28,515 L=5 score=35.1
+  best_ticket|aggressive_45_50_35: flat=53.3% 50-29 end=$15,560 L=5 score=32.8
+  best_ticket|mod_25_30_20: flat=53.3% 50-29 end=$19,026 L=5 score=36.9
+  best_ticket|cons_20_25_15: flat=53.3% 50-29 end=$10,328 L=5 score=37.7
+  best_ticket|safe_15_20_10: flat=53.3% 50-29 end=$4,273 L=5 score=38.4
+  best_ticket|flat_25: flat=53.3% 50-29 end=$15,482 L=5 score=36.8
+  best_ticket|flat_20: flat=53.3% 50-29 end=$7,545 L=5 score=37.5
+  best_ticket|flat_15: flat=53.3% 50-29 end=$2,794 L=5 score=38.2
+  best_ticket|flat_10: flat=53.3% 50-29 end=$778 L=5 score=38.9
+  no_low_best_ticket|shipped_35_40_30: flat=53.3% 50-29 end=$28,515 L=5 score=35.1
+  no_low_best_ticket|aggressive_45_50_35: flat=53.3% 50-29 end=$15,560 L=5 score=32.8
+  no_low_best_ticket|mod_25_30_20: flat=53.3% 50-29 end=$19,026 L=5 score=36.9
+  no_low_best_ticket|cons_20_25_15: flat=53.3% 50-29 end=$10,328 L=5 score=37.7
+  no_low_best_ticket|safe_15_20_10: flat=53.3% 50-29 end=$4,273 L=5 score=38.4
+  no_low_best_ticket|flat_25: flat=53.3% 50-29 end=$15,482 L=5 score=36.8
+  no_low_best_ticket|flat_20: flat=53.3% 50-29 end=$7,545 L=5 score=37.5
+  no_low_best_ticket|flat_15: flat=53.3% 50-29 end=$2,794 L=5 score=38.2
+  no_low_best_ticket|flat_10: flat=53.3% 50-29 end=$778 L=5 score=38.9
+  no_low_skip_forced|shipped_35_40_30: flat=53.3% 50-29 end=$28,515 L=5 score=35.1
+  no_low_skip_forced|aggressive_45_50_35: flat=53.3% 50-29 end=$15,560 L=5 score=32.8
+  no_low_skip_forced|mod_25_30_20: flat=53.3% 50-29 end=$19,026 L=5 score=36.9
+  no_low_skip_forced|cons_20_25_15: flat=53.3% 50-29 end=$10,328 L=5 score=37.7
+  no_low_skip_forced|safe_15_20_10: flat=53.3% 50-29 end=$4,273 L=5 score=38.4
+  no_low_skip_forced|flat_25: flat=53.3% 50-29 end=$15,482 L=5 score=36.8
+  no_low_skip_forced|flat_20: flat=53.3% 50-29 end=$7,545 L=5 score=37.5
+  no_low_skip_forced|flat_15: flat=53.3% 50-29 end=$2,794 L=5 score=38.2
+  no_low_skip_forced|flat_10: flat=53.3% 50-29 end=$778 L=5 score=38.9
+  no_low_selective_best|shipped_35_40_30: flat=53.3% 50-29 end=$28,515 L=5 score=35.1
+  no_low_selective_best|aggressive_45_50_35: flat=53.3% 50-29 end=$15,560 L=5 score=32.8
+  no_low_selective_best|mod_25_30_20: flat=53.3% 50-29 end=$19,026 L=5 score=36.9
+  no_low_selective_best|cons_20_25_15: flat=53.3% 50-29 end=$10,328 L=5 score=37.7
+  no_low_selective_best|safe_15_20_10: flat=53.3% 50-29 end=$4,273 L=5 score=38.4
+  no_low_selective_best|flat_25: flat=53.3% 50-29 end=$15,482 L=5 score=36.8
+  no_low_selective_best|flat_20: flat=53.3% 50-29 end=$7,545 L=5 score=37.5
+  no_low_selective_best|flat_15: flat=53.3% 50-29 end=$2,794 L=5 score=38.2
+  no_low_selective_best|flat_10: flat=53.3% 50-29 end=$778 L=5 score=38.9
+  no_low_min_edge5|shipped_35_40_30: flat=79.3% 48-31 end=$1,600,158 L=5 score=57.6
+  no_low_min_edge5|aggressive_45_50_35: flat=79.3% 48-31 end=$988,156 L=5 score=54.9
+  no_low_min_edge5|mod_25_30_20: flat=79.3% 48-31 end=$751,246 L=5 score=59.7
+  no_low_min_edge5|cons_20_25_15: flat=79.3% 48-31 end=$310,545 L=5 score=60.6
+  no_low_min_edge5|safe_15_20_10: flat=79.3% 48-31 end=$90,658 L=5 score=61.5
+  no_low_min_edge5|flat_25: flat=79.3% 48-31 end=$351,022 L=5 score=60.0
+  no_low_min_edge5|flat_20: flat=79.3% 48-31 end=$115,310 L=5 score=60.9
+  no_low_min_edge5|flat_15: flat=79.3% 48-31 end=$26,311 L=5 score=61.8
+  no_low_min_edge5|flat_10: flat=79.3% 48-31 end=$4,040 L=5 score=62.8
+  no_low_min_edge6|shipped_35_40_30: flat=81.4% 49-30 end=$3,310,714 L=5 score=65.9
+  no_low_min_edge6|aggressive_45_50_35: flat=81.4% 49-30 end=$2,589,689 L=5 score=63.6
+  no_low_min_edge6|mod_25_30_20: flat=81.4% 49-30 end=$1,258,256 L=5 score=67.1
+  no_low_min_edge6|cons_20_25_15: flat=81.4% 49-30 end=$471,176 L=5 score=67.3
+  no_low_min_edge6|safe_15_20_10: flat=81.4% 49-30 end=$125,047 L=5 score=67.6
+  no_low_min_edge6|flat_25: flat=81.4% 49-30 end=$548,729 L=5 score=66.5
+  no_low_min_edge6|flat_20: flat=81.4% 49-30 end=$164,020 L=5 score=66.7
+  no_low_min_edge6|flat_15: flat=81.4% 49-30 end=$34,156 L=5 score=66.9
+  no_low_min_edge6|flat_10: flat=81.4% 49-30 end=$4,799 L=5 score=67.1
+  no_low_min_edge7|shipped_35_40_30: flat=80.2% 47-31 end=$1,556,373 L=4 score=73.6
+  no_low_min_edge7|aggressive_45_50_35: flat=80.2% 47-31 end=$921,675 L=4 score=71.2
+  no_low_min_edge7|mod_25_30_20: flat=80.2% 47-31 end=$761,167 L=4 score=75.1
+  no_low_min_edge7|cons_20_25_15: flat=80.2% 47-31 end=$320,878 L=4 score=75.5
+  no_low_min_edge7|safe_15_20_10: flat=80.2% 47-31 end=$95,445 L=4 score=75.8
+  no_low_min_edge7|flat_25: flat=80.2% 47-31 end=$333,025 L=4 score=74.5
+  no_low_min_edge7|flat_20: flat=80.2% 47-31 end=$111,049 L=4 score=74.9
+  no_low_min_edge7|flat_15: flat=80.2% 47-31 end=$25,680 L=4 score=75.2
+  no_low_min_edge7|flat_10: flat=80.2% 47-31 end=$3,988 L=4 score=75.5
+  no_low_min_edge8|shipped_35_40_30: flat=70.7% 46-32 end=$158,951 L=4 score=62.2
+  no_low_min_edge8|aggressive_45_50_35: flat=70.7% 46-32 end=$61,057 L=4 score=59.7
+  no_low_min_edge8|mod_25_30_20: flat=70.7% 46-32 end=$121,660 L=4 score=64.0
+  no_low_min_edge8|cons_20_25_15: flat=70.7% 46-32 end=$64,965 L=4 score=64.7
+  no_low_min_edge8|safe_15_20_10: flat=70.7% 46-32 end=$24,782 L=4 score=65.3
+  no_low_min_edge8|flat_25: flat=70.7% 46-32 end=$75,566 L=4 score=63.8
+  no_low_min_edge8|flat_20: flat=70.7% 46-32 end=$32,462 L=4 score=64.4
+  no_low_min_edge8|flat_15: flat=70.7% 46-32 end=$9,831 L=4 score=64.9
+  no_low_min_edge8|flat_10: flat=70.7% 46-32 end=$2,042 L=4 score=65.4
+  no_low_min_edge9|shipped_35_40_30: flat=67.0% 47-31 end=$87,749 L=4 score=58.5
+  no_low_min_edge9|aggressive_45_50_35: flat=67.0% 47-31 end=$33,078 L=4 score=56.0
+  no_low_min_edge9|mod_25_30_20: flat=67.0% 47-31 end=$67,009 L=4 score=60.3
+  no_low_min_edge9|cons_20_25_15: flat=67.0% 47-31 end=$36,552 L=4 score=61.0
+  no_low_min_edge9|safe_15_20_10: flat=67.0% 47-31 end=$14,475 L=4 score=61.7
+  no_low_min_edge9|flat_25: flat=67.0% 47-31 end=$49,723 L=4 score=60.2
+  no_low_min_edge9|flat_20: flat=67.0% 47-31 end=$22,300 L=4 score=60.8
+  no_low_min_edge9|flat_15: flat=67.0% 47-31 end=$7,177 L=4 score=61.4
+  no_low_min_edge9|flat_10: flat=67.0% 47-31 end=$1,616 L=4 score=61.9
+  no_low_min_edge10|shipped_35_40_30: flat=62.2% 48-30 end=$79,126 L=4 score=54.0
+  no_low_min_edge10|aggressive_45_50_35: flat=62.2% 48-30 end=$36,632 L=4 score=51.6
+  no_low_min_edge10|mod_25_30_20: flat=62.2% 48-30 end=$58,160 L=4 score=55.8
+  no_low_min_edge10|cons_20_25_15: flat=62.2% 48-30 end=$32,212 L=4 score=56.5
+  no_low_min_edge10|safe_15_20_10: flat=62.2% 48-30 end=$13,300 L=4 score=57.2
+  no_low_min_edge10|flat_25: flat=62.2% 48-30 end=$31,593 L=4 score=55.5
+  no_low_min_edge10|flat_20: flat=62.2% 48-30 end=$14,677 L=4 score=56.2
+  no_low_min_edge10|flat_15: flat=62.2% 48-30 end=$5,003 L=4 score=56.8
+  no_low_min_edge10|flat_10: flat=62.2% 48-30 end=$1,225 L=4 score=57.4
+  no_low_min_edge12|shipped_35_40_30: flat=53.0% 51-27 end=$27,824 L=3 score=55.2
+  no_low_min_edge12|aggressive_45_50_35: flat=53.0% 51-27 end=$15,116 L=3 score=53.0
+  no_low_min_edge12|mod_25_30_20: flat=53.0% 51-27 end=$17,535 L=3 score=57.1
+  no_low_min_edge12|cons_20_25_15: flat=53.0% 51-27 end=$9,575 L=3 score=57.8
+  no_low_min_edge12|safe_15_20_10: flat=53.0% 51-27 end=$4,079 L=3 score=58.5
+  no_low_min_edge12|flat_25: flat=53.0% 51-27 end=$13,441 L=3 score=57.0
+  no_low_min_edge12|flat_20: flat=53.0% 51-27 end=$6,579 L=3 score=57.7
+  no_low_min_edge12|flat_15: flat=53.0% 51-27 end=$2,485 L=3 score=58.4
+  no_low_min_edge12|flat_10: flat=53.0% 51-27 end=$715 L=3 score=59.0
+  no_low_min_score025|shipped_35_40_30: flat=83.2% 52-30 end=$14,316,681 L=5 score=69.4
+  no_low_min_score025|aggressive_45_50_35: flat=83.2% 52-30 end=$15,240,800 L=5 score=67.5
+  no_low_min_score025|mod_25_30_20: flat=83.2% 52-30 end=$3,931,776 L=5 score=70.1
+  no_low_min_score025|cons_20_25_15: flat=83.2% 52-30 end=$1,241,053 L=5 score=70.1
+  no_low_min_score025|safe_15_20_10: flat=83.2% 52-30 end=$275,817 L=5 score=70.1
+  no_low_min_score025|flat_25: flat=83.2% 52-30 end=$1,351,968 L=5 score=69.2
+  no_low_min_score025|flat_20: flat=83.2% 52-30 end=$342,319 L=5 score=69.2
+  no_low_min_score025|flat_15: flat=83.2% 52-30 end=$59,931 L=5 score=69.3
+  no_low_min_score025|flat_10: flat=83.2% 52-30 end=$7,026 L=5 score=69.4
+  no_low_min_score050|shipped_35_40_30: flat=83.2% 52-30 end=$14,316,681 L=5 score=69.4
+  no_low_min_score050|aggressive_45_50_35: flat=83.2% 52-30 end=$15,240,800 L=5 score=67.5
+  no_low_min_score050|mod_25_30_20: flat=83.2% 52-30 end=$3,931,776 L=5 score=70.1
+  no_low_min_score050|cons_20_25_15: flat=83.2% 52-30 end=$1,241,053 L=5 score=70.1
+  no_low_min_score050|safe_15_20_10: flat=83.2% 52-30 end=$275,817 L=5 score=70.1
+  no_low_min_score050|flat_25: flat=83.2% 52-30 end=$1,351,968 L=5 score=69.2
+  no_low_min_score050|flat_20: flat=83.2% 52-30 end=$342,319 L=5 score=69.2
+  no_low_min_score050|flat_15: flat=83.2% 52-30 end=$59,931 L=5 score=69.3
+  no_low_min_score050|flat_10: flat=83.2% 52-30 end=$7,026 L=5 score=69.4
+  no_low_min_score075|shipped_35_40_30: flat=83.2% 52-30 end=$14,316,681 L=5 score=69.4
+  no_low_min_score075|aggressive_45_50_35: flat=83.2% 52-30 end=$15,240,800 L=5 score=67.5
+  no_low_min_score075|mod_25_30_20: flat=83.2% 52-30 end=$3,931,776 L=5 score=70.1
+  no_low_min_score075|cons_20_25_15: flat=83.2% 52-30 end=$1,241,053 L=5 score=70.1
+  no_low_min_score075|safe_15_20_10: flat=83.2% 52-30 end=$275,817 L=5 score=70.1
+  no_low_min_score075|flat_25: flat=83.2% 52-30 end=$1,351,968 L=5 score=69.2
+  no_low_min_score075|flat_20: flat=83.2% 52-30 end=$342,319 L=5 score=69.2
+  no_low_min_score075|flat_15: flat=83.2% 52-30 end=$59,931 L=5 score=69.3
+  no_low_min_score075|flat_10: flat=83.2% 52-30 end=$7,026 L=5 score=69.4
+  no_low_min_score100|shipped_35_40_30: flat=83.2% 52-30 end=$14,316,681 L=5 score=69.4
+  no_low_min_score100|aggressive_45_50_35: flat=83.2% 52-30 end=$15,240,800 L=5 score=67.5
+  no_low_min_score100|mod_25_30_20: flat=83.2% 52-30 end=$3,931,776 L=5 score=70.1
+  no_low_min_score100|cons_20_25_15: flat=83.2% 52-30 end=$1,241,053 L=5 score=70.1
+  no_low_min_score100|safe_15_20_10: flat=83.2% 52-30 end=$275,817 L=5 score=70.1
+  no_low_min_score100|flat_25: flat=83.2% 52-30 end=$1,351,968 L=5 score=69.2
+  no_low_min_score100|flat_20: flat=83.2% 52-30 end=$342,319 L=5 score=69.2
+  no_low_min_score100|flat_15: flat=83.2% 52-30 end=$59,931 L=5 score=69.3
+  no_low_min_score100|flat_10: flat=83.2% 52-30 end=$7,026 L=5 score=69.4
+  corr_nl_prob_62|shipped_35_40_30: flat=74.5% 46-34 end=$304,706 L=5 score=50.8
+  corr_nl_prob_62|aggressive_45_50_35: flat=74.5% 46-34 end=$90,362 L=5 score=47.8
+  corr_nl_prob_62|mod_25_30_20: flat=74.5% 46-34 end=$254,416 L=5 score=53.4
+  corr_nl_prob_62|cons_20_25_15: flat=74.5% 46-34 end=$136,984 L=5 score=54.5
+  corr_nl_prob_62|safe_15_20_10: flat=74.5% 46-34 end=$51,348 L=5 score=55.6
+  corr_nl_prob_62|flat_25: flat=74.5% 46-34 end=$123,277 L=5 score=53.7
+  corr_nl_prob_62|flat_20: flat=74.5% 46-34 end=$51,748 L=5 score=54.8
+  corr_nl_prob_62|flat_15: flat=74.5% 46-34 end=$14,850 L=5 score=55.9
+  corr_nl_prob_62|flat_10: flat=74.5% 46-34 end=$2,820 L=5 score=57.1
+  corr_nl_prob_65|shipped_35_40_30: flat=65.3% 50-30 end=$240,511 L=5 score=47.9
+  corr_nl_prob_65|aggressive_45_50_35: flat=65.3% 50-30 end=$131,762 L=5 score=45.6
+  corr_nl_prob_65|mod_25_30_20: flat=65.3% 50-30 end=$133,364 L=5 score=49.6
+  corr_nl_prob_65|cons_20_25_15: flat=65.3% 50-30 end=$63,154 L=5 score=50.2
+  corr_nl_prob_65|safe_15_20_10: flat=65.3% 50-30 end=$22,002 L=5 score=50.7
+  corr_nl_prob_65|flat_25: flat=65.3% 50-30 end=$71,508 L=5 score=49.3
+  corr_nl_prob_65|flat_20: flat=65.3% 50-30 end=$28,726 L=5 score=49.8
+  corr_nl_prob_65|flat_15: flat=65.3% 50-30 end=$8,395 L=5 score=50.3
+  corr_nl_prob_65|flat_10: flat=65.3% 50-30 end=$1,747 L=5 score=50.8
+  corr_nl_prob_68|shipped_35_40_30: flat=42.8% 52-27 end=$9,062 L=5 score=24.7
+  corr_nl_prob_68|aggressive_45_50_35: flat=42.8% 52-27 end=$5,578 L=5 score=22.5
+  corr_nl_prob_68|mod_25_30_20: flat=42.8% 52-27 end=$6,251 L=5 score=26.5
+  corr_nl_prob_68|cons_20_25_15: flat=42.8% 52-27 end=$3,670 L=5 score=27.4
+  corr_nl_prob_68|safe_15_20_10: flat=42.8% 52-27 end=$1,721 L=5 score=28.1
+  corr_nl_prob_68|flat_25: flat=42.8% 52-27 end=$4,868 L=5 score=26.5
+  corr_nl_prob_68|flat_20: flat=42.8% 52-27 end=$2,672 L=5 score=27.3
+  corr_nl_prob_68|flat_15: flat=42.8% 52-27 end=$1,168 L=5 score=28.0
+  corr_nl_prob_68|flat_10: flat=42.8% 52-27 end=$405 L=5 score=28.8
+  corr_nl_prob_70|shipped_35_40_30: flat=41.2% 54-24 end=$11,465 L=3 score=44.1
+  corr_nl_prob_70|aggressive_45_50_35: flat=41.2% 54-24 end=$9,393 L=3 score=42.0
+  corr_nl_prob_70|mod_25_30_20: flat=41.2% 54-24 end=$5,696 L=3 score=45.8
+  corr_nl_prob_70|cons_20_25_15: flat=41.2% 54-24 end=$2,957 L=3 score=46.6
+  corr_nl_prob_70|safe_15_20_10: flat=41.2% 54-24 end=$1,261 L=3 score=47.3
+  corr_nl_prob_70|flat_25: flat=41.2% 54-24 end=$5,377 L=3 score=45.8
+  corr_nl_prob_70|flat_20: flat=41.2% 54-24 end=$2,703 L=3 score=46.6
+  corr_nl_prob_70|flat_15: flat=41.2% 54-24 end=$1,115 L=3 score=47.3
+  corr_nl_prob_70|flat_10: flat=41.2% 54-24 end=$377 L=3 score=48.0
+  corr_nl_prob_72|shipped_35_40_30: flat=37.8% 55-23 end=$8,176 L=3 score=40.9
+  corr_nl_prob_72|aggressive_45_50_35: flat=37.8% 55-23 end=$7,559 L=3 score=38.8
+  corr_nl_prob_72|mod_25_30_20: flat=37.8% 55-23 end=$3,834 L=3 score=42.6
+  corr_nl_prob_72|cons_20_25_15: flat=37.8% 55-23 end=$1,979 L=3 score=43.4
+  corr_nl_prob_72|safe_15_20_10: flat=37.8% 55-23 end=$853 L=3 score=44.2
+  corr_nl_prob_72|flat_25: flat=37.8% 55-23 end=$3,834 L=3 score=42.6
+  corr_nl_prob_72|flat_20: flat=37.8% 55-23 end=$1,979 L=3 score=43.4
+  corr_nl_prob_72|flat_15: flat=37.8% 55-23 end=$853 L=3 score=44.2
+  corr_nl_prob_72|flat_10: flat=37.8% 55-23 end=$308 L=3 score=44.9
+Morning report: /Users/henryblaney/Desktop/VIP/mlb-edge/public/overnight-morning-report.json (243 configs)
+model_research cycle=1 config=market_blend_0.03
+market_blend_0.03: 60.85% (+0.19pts) high=75.2% med=69.4% *** BEATS BASELINE ***
+compound sweep: 4096 configs → /Users/henryblaney/Desktop/VIP/mlb-edge/public/overnight-compound-sweep.json
+  best compound: no_low_parlay_223s|s0.35_p0.45_t0.10 → $25,755,672
+  best balanced: no_low_parlay_223s|s0.35_p0.45_t0.10 → $25,755,672
+--- cycle 2 Thu Jun 18 00:26:31 CDT 2026 ---
+--- cycle 2 Thu Jun 18 00:26:31 CDT 2026 ---
+exhaustive: 243 total configs, 243 done
+Loading walk-forward data (cached after first run)...
+All configs tested — refreshing morning report.
+Morning report: /Users/henryblaney/Desktop/VIP/mlb-edge/public/overnight-morning-report.json (243 configs)
+skip experiment_strategy_compare (already completed this session)
+--- cycle 3 Thu Jun 18 00:42:43 CDT 2026 ---
+--- cycle 3 Thu Jun 18 00:42:43 CDT 2026 ---
+exhaustive: 243 total configs, 243 done
+Loading walk-forward data (cached after first run)...
+All configs tested — refreshing morning report.
+Morning report: /Users/henryblaney/Desktop/VIP/mlb-edge/public/overnight-morning-report.json (243 configs)
+=== overnight RIGOROUS start Thu Jun 18 00:58:24 CDT 2026 until CT 9am ===
+=== overnight RIGOROUS start Thu Jun 18 00:58:24 CDT 2026 until CT 9am ===
+--- rigorous cycle 1 Thu Jun 18 00:58:24 CDT 2026 ---
+--- rigorous cycle 1 Thu Jun 18 00:58:24 CDT 2026 ---
+rigorous sweep: loading data...
+rigorous sweep: loading data...
+discovered 65 strategies with snapshots
+discovered 65 strategies with snapshots
+rigorous: 65 strategies × 521 stake profiles = 33865 configs
+rigorous: testing 300 (33865 remaining)...
+rigorous: 65 strategies × 521 stake profiles = 33865 configs
+rigorous: testing 250 (33865 remaining)...
+rigorous report → /Users/henryblaney/Desktop/VIP/mlb-edge/public/overnight-rigorous-report.json (300 configs logged)
+rigorous report → /Users/henryblaney/Desktop/VIP/mlb-edge/public/overnight-rigorous-report.json (300 configs logged)
+model_research cycle=1 config=refit_30
+refit_30: 60.66% (+0.00pts) high=76.1% med=69.6%
+--- rigorous cycle 2 Thu Jun 18 01:15:25 CDT 2026 ---
+--- rigorous cycle 2 Thu Jun 18 01:15:25 CDT 2026 ---
+rigorous sweep: loading data...
+rigorous: 65 strategies × 521 stake profiles = 33865 configs
+rigorous: testing 250 (33815 remaining)...
+rigorous report → /Users/henryblaney/Desktop/VIP/mlb-edge/public/overnight-rigorous-report.json (300 configs logged)
+--- rigorous cycle 3 Thu Jun 18 01:31:36 CDT 2026 ---
+--- rigorous cycle 3 Thu Jun 18 01:31:36 CDT 2026 ---
+rigorous sweep: loading data...
+rigorous: 65 strategies × 521 stake profiles = 33865 configs
+rigorous: testing 250 (33565 remaining)...
+rigorous report → /Users/henryblaney/Desktop/VIP/mlb-edge/public/overnight-rigorous-report.json (550 configs logged)
+--- rigorous cycle 4 Thu Jun 18 01:47:47 CDT 2026 ---
+--- rigorous cycle 4 Thu Jun 18 01:47:47 CDT 2026 ---
+rigorous sweep: loading data...
+rigorous: 65 strategies × 521 stake profiles = 33865 configs
+rigorous: testing 250 (33315 remaining)...
+rigorous report → /Users/henryblaney/Desktop/VIP/mlb-edge/public/overnight-rigorous-report.json (800 configs logged)
+model_research cycle=4 config=refit_90
+refit_90: 60.66% (+0.00pts) high=76.1% med=69.6%
+generated_predictions=9
+trained_through=2026-06-17
+Live bankroll: $13.66 (started $25.00 on 2026-06-13)
+System ticket record: 1-3 · tickets logged: 4
+--- rigorous cycle 5 Thu Jun 18 02:05:38 CDT 2026 ---
+--- rigorous cycle 5 Thu Jun 18 02:05:38 CDT 2026 ---
+rigorous sweep: loading data...
+rigorous: 65 strategies × 521 stake profiles = 33865 configs
+rigorous: testing 250 (33065 remaining)...
+rigorous report → /Users/henryblaney/Desktop/VIP/mlb-edge/public/overnight-rigorous-report.json (1050 configs logged)
+--- rigorous cycle 6 Thu Jun 18 02:21:48 CDT 2026 ---
+--- rigorous cycle 6 Thu Jun 18 02:21:48 CDT 2026 ---
+rigorous sweep: loading data...
+rigorous: 65 strategies × 521 stake profiles = 33865 configs
+rigorous: testing 250 (32815 remaining)...
+rigorous report → /Users/henryblaney/Desktop/VIP/mlb-edge/public/overnight-rigorous-report.json (1300 configs logged)
+--- rigorous cycle 7 Thu Jun 18 02:37:57 CDT 2026 ---
+--- rigorous cycle 7 Thu Jun 18 02:37:57 CDT 2026 ---
+rigorous sweep: loading data...
+rigorous: 65 strategies × 521 stake profiles = 33865 configs
+rigorous: testing 250 (32565 remaining)...
+rigorous report → /Users/henryblaney/Desktop/VIP/mlb-edge/public/overnight-rigorous-report.json (1550 configs logged)
+model_research cycle=7 config=current_weight_1.5
+current_weight_1.5: 60.66% (+0.00pts) high=76.1% med=69.6%
+--- rigorous cycle 8 Thu Jun 18 02:54:41 CDT 2026 ---
+--- rigorous cycle 8 Thu Jun 18 02:54:41 CDT 2026 ---
+rigorous sweep: loading data...
+rigorous: 65 strategies × 521 stake profiles = 33865 configs
+rigorous: testing 250 (32315 remaining)...
+rigorous report → /Users/henryblaney/Desktop/VIP/mlb-edge/public/overnight-rigorous-report.json (1800 configs logged)
+generated_predictions=9
+trained_through=2026-06-17
+Live bankroll: $13.66 (started $25.00 on 2026-06-13)
+System ticket record: 1-3 · tickets logged: 4
+--- rigorous cycle 9 Thu Jun 18 03:11:54 CDT 2026 ---
+--- rigorous cycle 9 Thu Jun 18 03:11:54 CDT 2026 ---
+rigorous sweep: loading data...
+rigorous: 65 strategies × 521 stake profiles = 33865 configs
+rigorous: testing 250 (32065 remaining)...
+rigorous report → /Users/henryblaney/Desktop/VIP/mlb-edge/public/overnight-rigorous-report.json (2050 configs logged)
+--- rigorous cycle 10 Thu Jun 18 03:28:03 CDT 2026 ---
+--- rigorous cycle 10 Thu Jun 18 03:28:03 CDT 2026 ---
+rigorous sweep: loading data...
+rigorous: 65 strategies × 521 stake profiles = 33865 configs
+rigorous: testing 250 (31815 remaining)...
+rigorous report → /Users/henryblaney/Desktop/VIP/mlb-edge/public/overnight-rigorous-report.json (2300 configs logged)
+model_research cycle=10 config=current_weight_1.0
+current_weight_1.0: 60.66% (+0.00pts) high=76.1% med=69.6%
+--- rigorous cycle 11 Thu Jun 18 03:44:49 CDT 2026 ---
+--- rigorous cycle 11 Thu Jun 18 03:44:49 CDT 2026 ---
+rigorous sweep: loading data...
+rigorous: 65 strategies × 521 stake profiles = 33865 configs
+rigorous: testing 250 (31565 remaining)...
+rigorous report → /Users/henryblaney/Desktop/VIP/mlb-edge/public/overnight-rigorous-report.json (2550 configs logged)
+--- rigorous cycle 12 Thu Jun 18 04:00:58 CDT 2026 ---
+--- rigorous cycle 12 Thu Jun 18 04:00:58 CDT 2026 ---
+rigorous sweep: loading data...
+rigorous: 65 strategies × 521 stake profiles = 33865 configs
+rigorous: testing 250 (31315 remaining)...
+rigorous report → /Users/henryblaney/Desktop/VIP/mlb-edge/public/overnight-rigorous-report.json (2800 configs logged)
+generated_predictions=9
+trained_through=2026-06-17
+Live bankroll: $13.66 (started $25.00 on 2026-06-13)
+System ticket record: 1-3 · tickets logged: 4
+--- rigorous cycle 13 Thu Jun 18 04:18:10 CDT 2026 ---
+--- rigorous cycle 13 Thu Jun 18 04:18:10 CDT 2026 ---
+rigorous sweep: loading data...
+rigorous: 65 strategies × 521 stake profiles = 33865 configs
+rigorous: testing 250 (31065 remaining)...
+rigorous report → /Users/henryblaney/Desktop/VIP/mlb-edge/public/overnight-rigorous-report.json (3050 configs logged)
+model_research cycle=13 config=series_penalty_0.10
+series_penalty_0.10: 60.66% (+0.00pts) high=76.1% med=69.6%
+--- rigorous cycle 14 Thu Jun 18 04:34:56 CDT 2026 ---
+--- rigorous cycle 14 Thu Jun 18 04:34:56 CDT 2026 ---
+rigorous sweep: loading data...
+rigorous: 65 strategies × 521 stake profiles = 33865 configs
+rigorous: testing 250 (30815 remaining)...
+rigorous report → /Users/henryblaney/Desktop/VIP/mlb-edge/public/overnight-rigorous-report.json (3300 configs logged)
+--- rigorous cycle 15 Thu Jun 18 04:51:07 CDT 2026 ---
+--- rigorous cycle 15 Thu Jun 18 04:51:07 CDT 2026 ---
+rigorous sweep: loading data...
+rigorous: 65 strategies × 521 stake profiles = 33865 configs
+rigorous: testing 250 (30565 remaining)...
+rigorous report → /Users/henryblaney/Desktop/VIP/mlb-edge/public/overnight-rigorous-report.json (3550 configs logged)
+--- rigorous cycle 16 Thu Jun 18 05:07:17 CDT 2026 ---
+--- rigorous cycle 16 Thu Jun 18 05:07:17 CDT 2026 ---
+rigorous sweep: loading data...
+rigorous: 65 strategies × 521 stake profiles = 33865 configs
+rigorous: testing 250 (30315 remaining)...
+rigorous report → /Users/henryblaney/Desktop/VIP/mlb-edge/public/overnight-rigorous-report.json (3800 configs logged)
+model_research cycle=16 config=series_penalty_0.15
+series_penalty_0.15: 60.66% (+0.00pts) high=76.1% med=69.6%
+generated_predictions=9
+trained_through=2026-06-17
+Live bankroll: $13.66 (started $25.00 on 2026-06-13)
+System ticket record: 1-3 · tickets logged: 4
+--- rigorous cycle 17 Thu Jun 18 05:25:13 CDT 2026 ---
+--- rigorous cycle 17 Thu Jun 18 05:25:13 CDT 2026 ---
+rigorous sweep: loading data...
+rigorous: 65 strategies × 521 stake profiles = 33865 configs
+rigorous: testing 250 (30065 remaining)...
+rigorous report → /Users/henryblaney/Desktop/VIP/mlb-edge/public/overnight-rigorous-report.json (4050 configs logged)
+--- rigorous cycle 18 Thu Jun 18 05:41:28 CDT 2026 ---
+--- rigorous cycle 18 Thu Jun 18 05:41:28 CDT 2026 ---
+rigorous sweep: loading data...
+rigorous: 65 strategies × 521 stake profiles = 33865 configs
+rigorous: testing 250 (29815 remaining)...
+rigorous report → /Users/henryblaney/Desktop/VIP/mlb-edge/public/overnight-rigorous-report.json (4300 configs logged)
+--- rigorous cycle 19 Thu Jun 18 05:57:42 CDT 2026 ---
+--- rigorous cycle 19 Thu Jun 18 05:57:42 CDT 2026 ---
+rigorous sweep: loading data...
+rigorous: 65 strategies × 521 stake profiles = 33865 configs
+rigorous: testing 250 (29565 remaining)...
+rigorous report → /Users/henryblaney/Desktop/VIP/mlb-edge/public/overnight-rigorous-report.json (4550 configs logged)
+model_research cycle=19 config=gb_depth2
+gb_depth2: 60.02% (-0.64pts) high=74.5% med=67.3%
+--- rigorous cycle 20 Thu Jun 18 06:15:03 CDT 2026 ---
+--- rigorous cycle 20 Thu Jun 18 06:15:03 CDT 2026 ---
+rigorous sweep: loading data...
+rigorous: 65 strategies × 521 stake profiles = 33865 configs
+rigorous: testing 250 (29315 remaining)...
+rigorous report → /Users/henryblaney/Desktop/VIP/mlb-edge/public/overnight-rigorous-report.json (4800 configs logged)
+generated_predictions=9
+trained_through=2026-06-17
+Live bankroll: $13.66 (started $25.00 on 2026-06-13)
+System ticket record: 1-3 · tickets logged: 4
+--- rigorous cycle 21 Thu Jun 18 06:32:23 CDT 2026 ---
+--- rigorous cycle 21 Thu Jun 18 06:32:23 CDT 2026 ---
+rigorous sweep: loading data...
+rigorous: 65 strategies × 521 stake profiles = 33865 configs
+rigorous: testing 250 (29065 remaining)...
+rigorous report → /Users/henryblaney/Desktop/VIP/mlb-edge/public/overnight-rigorous-report.json (5050 configs logged)
+--- rigorous cycle 22 Thu Jun 18 06:48:38 CDT 2026 ---
+--- rigorous cycle 22 Thu Jun 18 06:48:38 CDT 2026 ---
+rigorous sweep: loading data...
+rigorous: 65 strategies × 521 stake profiles = 33865 configs
+rigorous: testing 250 (28815 remaining)...
+rigorous report → /Users/henryblaney/Desktop/VIP/mlb-edge/public/overnight-rigorous-report.json (5300 configs logged)
+model_research cycle=22 config=gb_lr_0.05
+gb_lr_0.05: 59.93% (-0.73pts) high=74.5% med=68.1%
+--- rigorous cycle 23 Thu Jun 18 07:05:24 CDT 2026 ---
+--- rigorous cycle 23 Thu Jun 18 07:05:24 CDT 2026 ---
+rigorous sweep: loading data...
+rigorous: 65 strategies × 521 stake profiles = 33865 configs
+rigorous: testing 250 (28565 remaining)...
+rigorous report → /Users/henryblaney/Desktop/VIP/mlb-edge/public/overnight-rigorous-report.json (5550 configs logged)
+--- rigorous cycle 24 Thu Jun 18 07:21:34 CDT 2026 ---
+--- rigorous cycle 24 Thu Jun 18 07:21:34 CDT 2026 ---
+rigorous sweep: loading data...
+rigorous: 65 strategies × 521 stake profiles = 33865 configs
+rigorous: testing 250 (28315 remaining)...
+rigorous report → /Users/henryblaney/Desktop/VIP/mlb-edge/public/overnight-rigorous-report.json (5800 configs logged)
+generated_predictions=9
+trained_through=2026-06-17
+Live bankroll: $13.66 (started $25.00 on 2026-06-13)
+System ticket record: 1-3 · tickets logged: 4
+--- rigorous cycle 25 Thu Jun 18 07:38:46 CDT 2026 ---
+--- rigorous cycle 25 Thu Jun 18 07:38:46 CDT 2026 ---
+rigorous sweep: loading data...
+rigorous: 65 strategies × 521 stake profiles = 33865 configs
+rigorous: testing 250 (28065 remaining)...
+rigorous report → /Users/henryblaney/Desktop/VIP/mlb-edge/public/overnight-rigorous-report.json (6050 configs logged)
+model_research cycle=25 config=combo_blend08_series10
+combo_blend08_series10: 60.94% (+0.28pts) high=76.0% med=69.9% *** BEATS BASELINE ***
+--- rigorous cycle 26 Thu Jun 18 07:55:31 CDT 2026 ---
+--- rigorous cycle 26 Thu Jun 18 07:55:31 CDT 2026 ---
+rigorous sweep: loading data...
+rigorous: 65 strategies × 521 stake profiles = 33865 configs
+rigorous: testing 250 (27815 remaining)...
+rigorous report → /Users/henryblaney/Desktop/VIP/mlb-edge/public/overnight-rigorous-report.json (6300 configs logged)
+--- rigorous cycle 27 Thu Jun 18 08:11:40 CDT 2026 ---
+--- rigorous cycle 27 Thu Jun 18 08:11:40 CDT 2026 ---
+rigorous sweep: loading data...
+rigorous: 65 strategies × 521 stake profiles = 33865 configs
+rigorous: testing 250 (27565 remaining)...
+rigorous report → /Users/henryblaney/Desktop/VIP/mlb-edge/public/overnight-rigorous-report.json (6550 configs logged)
+--- rigorous cycle 28 Thu Jun 18 08:27:50 CDT 2026 ---
+--- rigorous cycle 28 Thu Jun 18 08:27:50 CDT 2026 ---
+rigorous sweep: loading data...
+rigorous: 65 strategies × 521 stake profiles = 33865 configs
+rigorous: testing 250 (27315 remaining)...
+rigorous report → /Users/henryblaney/Desktop/VIP/mlb-edge/public/overnight-rigorous-report.json (6800 configs logged)
+model_research cycle=28 config=baseline_current
+baseline_current: 60.66% (+0.00pts) high=76.1% med=69.6%
+generated_predictions=9
+trained_through=2026-06-17
+Live bankroll: $13.66 (started $25.00 on 2026-06-13)
+System ticket record: 1-3 · tickets logged: 4
+--- rigorous cycle 29 Thu Jun 18 08:45:37 CDT 2026 ---
+--- rigorous cycle 29 Thu Jun 18 08:45:37 CDT 2026 ---
+rigorous sweep: loading data...
+rigorous: 65 strategies × 521 stake profiles = 33865 configs
+rigorous: testing 250 (27065 remaining)...
+rigorous report → /Users/henryblaney/Desktop/VIP/mlb-edge/public/overnight-rigorous-report.json (7050 configs logged)
+rigorous sweep: loading data...
+rigorous: 65 strategies × 521 stake profiles = 33865 configs
+rigorous: testing 26815 (26815 remaining)...
+rigorous report → /Users/henryblaney/Desktop/VIP/mlb-edge/public/overnight-rigorous-report.json (33865 configs logged)
+{
+  "generated_at": "2026-06-18T09:03:00",
+  "read_this_first": "/Users/henryblaney/Desktop/VIP/mlb-edge/public/overnight-morning-report.json",
+  "model_best_found": {
+    "accuracy": 0.6112,
+    "beats_baseline": true,
+    "config": "market_blend_0.10",
+    "delta_vs_baseline": 0.0046,
+    "experiment": "model_hypothesis",
+    "games": 1088,
+    "high_conf_accuracy": 0.7727,
+    "high_conf_games": 88,
+    "logged_at": "2026-06-18T00:03:13",
+    "medium_accuracy": 0.6979,
+    "medium_games": 288,
+    "period": {
+      "end": "2026-06-16",
+      "start": "2026-03-20"
+    },
+    "record": "665-423"
+  },
+  "strategy_experiments_run": 8,
+  "model_experiments_run": 14,
+  "exhaustive_summary": {
+    "best_compound": {
+      "bet_days": 82,
+      "end_from_23": 15240799.78,
+      "flat_profit": 6821.1,
+      "flat_roi": 0.8318,
+      "hit_rate": 0.6341,
+      "key": "no_low_parlay_223s|aggressive_45_50_35",
+      "logged_at": "2026-06-18T00:10:52",
+      "max_losing_streak": 5,
+      "min_bankroll": 12.8,
+      "record": "52-30",
+      "score": 67.4833,
+      "stake_pct": {
+        "1": 0.45,
+        "2": 0.5,
+        "3": 0.35
+      },
+      "stakes": "aggressive_45_50_35",
+      "strategy": "no_low_parlay_223s",
+      "compound_return_pct": 65467253.01,
+      "compound_profit": 15240776.5,
+      "min_bankroll_pct": 0.5498
+    },
+    "best_compound_balanced": {
+      "bet_days": 78,
+      "end_from_23": 95445.02,
+      "flat_profit": 6258.35,
+      "flat_roi": 0.8024,
+      "hit_rate": 0.6026,
+      "key": "no_low_min_edge7|safe_15_20_10",
+      "logged_at": "2026-06-18T00:10:52",
+      "max_losing_streak": 4,
+      "min_bankroll": 19.79,
+      "record": "47-31",
+      "score": 75.7894,
+      "stake_pct": {
+        "1": 0.15,
+        "2": 0.2,
+        "3": 0.1
+      },
+      "stakes": "safe_15_20_10",
+      "strategy": "no_low_min_edge7",
+      "compound_return_pct": 409887.2,
+      "compound_profit": 95421.74,
+      "min_bankroll_pct": 0.8501
+    },
+    "best_compound_safe": {
+      "bet_days": 78,
+      "end_from_23": 761167.09,
+      "flat_profit": 6258.35,
+      "flat_roi": 0.8024,
+      "hit_rate": 0.6026,
+      "key": "no_low_min_edge7|mod_25_30_20",
+      "logged_at": "2026-06-18T00:10:52",
+      "max_losing_streak": 4,
+      "min_bankroll": 17.46,
+      "record": "47-31",
+      "score": 75.0603,
+      "stake_pct": {
+        "1": 0.25,
+        "2": 0.3,
+        "3": 0.2
+      },
+      "stakes": "mod_25_30_20",
+      "strategy": "no_low_min_edge7",
+      "compound_return_pct": 3269518.08,
+      "compound_profit": 761143.81,
+      "min_bankroll_pct": 0.75
+    },
+    "safest_profitable": {
+      "bet_days": 78,
+      "end_from_23": 714.56,
+      "flat_profit": 4135.01,
+      "flat_roi": 0.5301,
+      "hit_rate": 0.6538,
+      "key": "no_low_min_edge12|flat_10",
+      "logged_at": "2026-06-18T00:10:52",
+      "max_losing_streak": 3,
+      "min_bankroll": 20.95,
+      "record": "51-27",
+      "score": 59.0246,
+      "stake_pct": {
+        "1": 0.1,
+        "2": 0.1,
+        "3": 0.1
+      },
+      "stakes": "flat_10",
+      "strategy": "no_low_min_edge12",
+      "compound_return_pct": 2969.42,
+      "compound_profit": 691.28,
+      "min_bankroll_pct": 0.8999
+    },
+    "current_shipped": {
+      "bet_days": 79,
+      "end_from_23": 9061.56,
+      "flat_profit": 3379.58,
+      "flat_roi": 0.4278,
+      "hit_rate": 0.6582,
+      "key": "corr_nl_reject_both|shipped_35_40_30",
+      "logged_at": "2026-06-18T00:10:52",
+      "max_losing_streak": 5,
+      "min_bankroll": 15.13,
+      "record": "52-27",
+      "score": 24.6797,
+      "stake_pct": {
+        "1": 0.35,
+        "2": 0.4,
+        "3": 0.3
+      },
+      "stakes": "shipped_35_40_30",
+      "strategy": "corr_nl_reject_both",
+      "compound_return_pct": 38824.23,
+      "compound_profit": 9038.28,
+      "min_bankroll_pct": 0.6499
+    }
+  }
+}
+=== overnight RIGOROUS done — public/overnight-rigorous-report.json ===
+=== overnight RIGOROUS done — public/overnight-rigorous-report.json ===

@@ -1,0 +1,50 @@
+name: Prediction Integrity
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "scripts/model/**"
+      - "lib/data.ts"
+      - "lib/model-output.ts"
+      - "lib/confidence.ts"
+      - "public/predictions.json"
+      - "public/accuracy.json"
+      - "package.json"
+  pull_request:
+    paths:
+      - "scripts/model/**"
+      - "lib/data.ts"
+      - "lib/model-output.ts"
+      - "lib/confidence.ts"
+      - "public/predictions.json"
+  workflow_dispatch:
+
+jobs:
+  integrity:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+          cache-dependency-path: requirements.txt
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+
+      - run: pip install -r requirements.txt
+      - run: npm ci
+
+      - name: Full prediction integrity (schema + recompute + ticket + accuracy)
+        env:
+          ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
+        run: python3 scripts/model/prediction_integrity.py --full
+
+      - name: TypeScript build must load board without confidence mismatch
+        run: npm run build

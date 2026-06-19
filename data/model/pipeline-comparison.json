@@ -1,0 +1,44 @@
+{
+  "period": {
+    "start": "2026-03-20",
+    "end": "2026-06-16"
+  },
+  "best": {
+    "pipeline": "2_blend_only",
+    "mode": "blend",
+    "games": 1088,
+    "correct": 665,
+    "accuracy": 0.6112
+  },
+  "results": [
+    {
+      "pipeline": "2_blend_only",
+      "mode": "blend",
+      "games": 1088,
+      "correct": 665,
+      "accuracy": 0.6112
+    },
+    {
+      "pipeline": "3_blend_sharpen_unified",
+      "mode": "blend_sharpen",
+      "games": 1088,
+      "correct": 665,
+      "accuracy": 0.6112
+    },
+    {
+      "pipeline": "1_raw_gbm",
+      "mode": "raw",
+      "games": 1088,
+      "correct": 661,
+      "accuracy": 0.6075
+    },
+    {
+      "pipeline": "4_blend_sharpen_posthoc_context",
+      "mode": "blend_sharpen_context",
+      "games": 1088,
+      "correct": 643,
+      "accuracy": 0.591
+    }
+  ],
+  "note": "Market-backed games only. Post-hoc context = old live-board veteran/series nudges after blend+sharpen."
+}

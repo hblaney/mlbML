@@ -6,7 +6,7 @@ import json
 from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 
-from daily_auto_model import MODEL_VERSION, ensure_trained_through
+from daily_auto_model import MODEL_VERSION, PIPELINE_VERSION, ensure_trained_through
 from mlb_api import fetch_upcoming_games, load_team_abbreviations
 from odds_provider import fetch_moneyline_market, market_for_game
 from trained_edge_model import final_public_probabilities
@@ -175,17 +175,18 @@ def main() -> None:
         "board_generated_at": board_generated_at,
         "trained_through": bundle.trained_through.isoformat(),
         "model_version": MODEL_VERSION,
+        "pipeline_version": PIPELINE_VERSION,
         "retrained_this_run": retrained,
         "predictions": board,
     }
     PUBLIC_PATH.parent.mkdir(parents=True, exist_ok=True)
     PUBLIC_PATH.write_text(json.dumps(payload, indent=2))
 
-    from validate_live_board import validate_live_board
+    from prediction_integrity import run_all
 
-    board_errors = validate_live_board(payload)
+    board_errors = run_all(recompute=True, ticket=True, accuracy=True)
     if board_errors:
-        raise RuntimeError("Live board failed consistency checks:\n" + "\n".join(board_errors))
+        raise RuntimeError("Prediction integrity failed after board generation:\n" + "\n".join(board_errors))
 
     print(f"generated_predictions={len(board)}")
     print(f"trained_through={bundle.trained_through.isoformat()}")
