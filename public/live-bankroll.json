@@ -2,7 +2,7 @@
   "generated_at": "2026-06-19",
   "tracking_mode": "live_best_bets",
   "disclaimer": "Tracks the Best Bets system ticket \u2014 bet this exact card on Robinhood. Currently $5 flat per ticket.",
-  "strategy": "med60_force2_223s",
+  "strategy": "trg59_top_prob_2",
   "stakes": {
     "1": 0.35,
     "2": 0.45,
@@ -243,5 +243,5 @@
       "prove_out": true
     }
   ],
-  "tracking_note": "med60_force2_223s \u00b7 archived board ticket when available \u00b7 prove-out $5 flat \u00d7 5 tickets"
+  "tracking_note": "trg59_top_prob_2 \u00b7 archived board ticket when available \u00b7 prove-out $5 flat \u00d7 5 tickets"
 }

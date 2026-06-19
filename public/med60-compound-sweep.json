@@ -1,0 +1,1023 @@
+{
+  "generated_at": "2026-06-19",
+  "season": "2026-03-20 -> 2026-06-19",
+  "bet_days": 83,
+  "staking": {
+    "mode": "tiered_compound",
+    "tiers": {
+      "1": 0.35,
+      "2": 0.45,
+      "3": 0.1,
+      "4": 0.35
+    },
+    "daily_cap": 0.5,
+    "unit_stake_reference": 100.0,
+    "note": "Each day bets pct of current bankroll (35% single, 45% 2-leg, 10% 3-leg, 35% 4-leg), capped at 50% daily exposure. Winnings reinvested."
+  },
+  "starting_bankrolls_tested": [
+    25.0,
+    100.0,
+    1000.0
+  ],
+  "baseline_start_25_profit": 5887.13,
+  "ranked_by_compound_from_25": [
+    {
+      "name": "med60\u22652 | always | best of (4,)",
+      "record": "34-49",
+      "hit_rate": 0.4096,
+      "mix": {
+        "1": 8,
+        "2": 23,
+        "4": 52
+      },
+      "mix_records": {
+        "1": "6-2",
+        "2": "11-12",
+        "4": "17-35"
+      },
+      "flat_profit_5usd": 757.05,
+      "start_25_end": 5615507.47,
+      "start_25_profit": 5615482.47,
+      "start_25_return_pct": 224619.2987,
+      "start_25_min_bankroll": 16.25,
+      "start_100_end": 22462029.87,
+      "start_100_profit": 22461929.87,
+      "start_100_return_pct": 224619.2987,
+      "start_100_min_bankroll": 65.0,
+      "start_1000_end": 224620298.69,
+      "start_1000_profit": 224619298.69,
+      "start_1000_return_pct": 224619.2987,
+      "start_1000_min_bankroll": 650.0,
+      "vs_current_profit_25": 5609595.34,
+      "vs_current_profit_100": 22438381.34
+    },
+    {
+      "name": "med60\u22652 | forced | best of (4,)",
+      "record": "34-49",
+      "hit_rate": 0.4096,
+      "mix": {
+        "1": 8,
+        "2": 23,
+        "4": 52
+      },
+      "mix_records": {
+        "1": "6-2",
+        "2": "11-12",
+        "4": "17-35"
+      },
+      "flat_profit_5usd": 757.05,
+      "start_25_end": 5615507.47,
+      "start_25_profit": 5615482.47,
+      "start_25_return_pct": 224619.2987,
+      "start_25_min_bankroll": 16.25,
+      "start_100_end": 22462029.87,
+      "start_100_profit": 22461929.87,
+      "start_100_return_pct": 224619.2987,
+      "start_100_min_bankroll": 65.0,
+      "start_1000_end": 224620298.69,
+      "start_1000_profit": 224619298.69,
+      "start_1000_return_pct": 224619.2987,
+      "start_1000_min_bankroll": 650.0,
+      "vs_current_profit_25": 5609595.34,
+      "vs_current_profit_100": 22438381.34
+    },
+    {
+      "name": "med60\u22652 | top_prob | best of (2, 3)",
+      "record": "42-41",
+      "hit_rate": 0.506,
+      "mix": {
+        "1": 2,
+        "2": 53,
+        "3": 28
+      },
+      "mix_records": {
+        "1": "2-0",
+        "2": "31-22",
+        "3": "9-19"
+      },
+      "flat_profit_5usd": 358.07,
+      "start_25_end": 601145.01,
+      "start_25_profit": 601120.01,
+      "start_25_return_pct": 24044.8004,
+      "start_25_min_bankroll": 13.75,
+      "start_100_end": 2404580.04,
+      "start_100_profit": 2404480.04,
+      "start_100_return_pct": 24044.8004,
+      "start_100_min_bankroll": 55.0,
+      "start_1000_end": 24045800.37,
+      "start_1000_profit": 24044800.37,
+      "start_1000_return_pct": 24044.8004,
+      "start_1000_min_bankroll": 550.0,
+      "vs_current_profit_25": 595232.88,
+      "vs_current_profit_100": 2380931.51
+    },
+    {
+      "name": "med60\u22652 | top_prob | best of (2, 4)",
+      "record": "42-41",
+      "hit_rate": 0.506,
+      "mix": {
+        "1": 2,
+        "2": 59,
+        "4": 22
+      },
+      "mix_records": {
+        "1": "2-0",
+        "2": "36-23",
+        "4": "4-18"
+      },
+      "flat_profit_5usd": 383.98,
+      "start_25_end": 340969.69,
+      "start_25_profit": 340944.69,
+      "start_25_return_pct": 13637.7878,
+      "start_25_min_bankroll": 13.75,
+      "start_100_end": 1363878.78,
+      "start_100_profit": 1363778.78,
+      "start_100_return_pct": 13637.7878,
+      "start_100_min_bankroll": 55.0,
+      "start_1000_end": 13638787.76,
+      "start_1000_profit": 13637787.76,
+      "start_1000_return_pct": 13637.7878,
+      "start_1000_min_bankroll": 550.0,
+      "vs_current_profit_25": 335057.56,
+      "vs_current_profit_100": 1340230.25
+    },
+    {
+      "name": "med60\u22652 | forced | best of (2, 3)",
+      "record": "42-41",
+      "hit_rate": 0.506,
+      "mix": {
+        "1": 2,
+        "2": 65,
+        "3": 16
+      },
+      "mix_records": {
+        "1": "2-0",
+        "2": "34-31",
+        "3": "6-10"
+      },
+      "flat_profit_5usd": 419.31,
+      "start_25_end": 286194.34,
+      "start_25_profit": 286169.34,
+      "start_25_return_pct": 11446.7737,
+      "start_25_min_bankroll": 13.75,
+      "start_100_end": 1144777.37,
+      "start_100_profit": 1144677.37,
+      "start_100_return_pct": 11446.7737,
+      "start_100_min_bankroll": 55.0,
+      "start_1000_end": 11447773.7,
+      "start_1000_profit": 11446773.7,
+      "start_1000_return_pct": 11446.7737,
+      "start_1000_min_bankroll": 550.0,
+      "vs_current_profit_25": 280282.21,
+      "vs_current_profit_100": 1121128.84
+    },
+    {
+      "name": "med60\u22652 | forced | best of (2, 3, 4)",
+      "record": "42-41",
+      "hit_rate": 0.506,
+      "mix": {
+        "1": 2,
+        "2": 65,
+        "3": 16
+      },
+      "mix_records": {
+        "1": "2-0",
+        "2": "34-31",
+        "3": "6-10"
+      },
+      "flat_profit_5usd": 419.31,
+      "start_25_end": 286194.34,
+      "start_25_profit": 286169.34,
+      "start_25_return_pct": 11446.7737,
+      "start_25_min_bankroll": 13.75,
+      "start_100_end": 1144777.37,
+      "start_100_profit": 1144677.37,
+      "start_100_return_pct": 11446.7737,
+      "start_100_min_bankroll": 55.0,
+      "start_1000_end": 11447773.7,
+      "start_1000_profit": 11446773.7,
+      "start_1000_return_pct": 11446.7737,
+      "start_1000_min_bankroll": 550.0,
+      "vs_current_profit_25": 280282.21,
+      "vs_current_profit_100": 1121128.84
+    },
+    {
+      "name": "med60\u22652 | always | best of (2, 4)",
+      "record": "41-42",
+      "hit_rate": 0.494,
+      "mix": {
+        "1": 2,
+        "2": 68,
+        "4": 13
+      },
+      "mix_records": {
+        "1": "2-0",
+        "2": "34-34",
+        "4": "5-8"
+      },
+      "flat_profit_5usd": 486.76,
+      "start_25_end": 267333.09,
+      "start_25_profit": 267308.09,
+      "start_25_return_pct": 10692.3235,
+      "start_25_min_bankroll": 13.75,
+      "start_100_end": 1069332.35,
+      "start_100_profit": 1069232.35,
+      "start_100_return_pct": 10692.3235,
+      "start_100_min_bankroll": 55.0,
+      "start_1000_end": 10693323.48,
+      "start_1000_profit": 10692323.48,
+      "start_1000_return_pct": 10692.3235,
+      "start_1000_min_bankroll": 550.0,
+      "vs_current_profit_25": 261420.96,
+      "vs_current_profit_100": 1045683.82
+    },
+    {
+      "name": "med60\u22652 | top_prob | best of (2, 3, 4)",
+      "record": "40-43",
+      "hit_rate": 0.4819,
+      "mix": {
+        "1": 2,
+        "2": 48,
+        "3": 21,
+        "4": 12
+      },
+      "mix_records": {
+        "1": "2-0",
+        "2": "29-19",
+        "3": "7-14",
+        "4": "2-10"
+      },
+      "flat_profit_5usd": 387.62,
+      "start_25_end": 240527.84,
+      "start_25_profit": 240502.84,
+      "start_25_return_pct": 9620.1135,
+      "start_25_min_bankroll": 13.75,
+      "start_100_end": 962111.35,
+      "start_100_profit": 962011.35,
+      "start_100_return_pct": 9620.1135,
+      "start_100_min_bankroll": 55.0,
+      "start_1000_end": 9621113.47,
+      "start_1000_profit": 9620113.47,
+      "start_1000_return_pct": 9620.1135,
+      "start_1000_min_bankroll": 550.0,
+      "vs_current_profit_25": 234615.71,
+      "vs_current_profit_100": 938462.82
+    },
+    {
+      "name": "med60\u22652 | top_prob | best of (2,)",
+      "record": "47-36",
+      "hit_rate": 0.5663,
+      "mix": {
+        "1": 2,
+        "2": 81
+      },
+      "mix_records": {
+        "1": "2-0",
+        "2": "45-36"
+      },
+      "flat_profit_5usd": 312.42,
+      "start_25_end": 235808.84,
+      "start_25_profit": 235783.84,
+      "start_25_return_pct": 9431.3538,
+      "start_25_min_bankroll": 13.75,
+      "start_100_end": 943235.38,
+      "start_100_profit": 943135.38,
+      "start_100_return_pct": 9431.3538,
+      "start_100_min_bankroll": 55.0,
+      "start_1000_end": 9432353.75,
+      "start_1000_profit": 9431353.75,
+      "start_1000_return_pct": 9431.3538,
+      "start_1000_min_bankroll": 550.0,
+      "vs_current_profit_25": 229896.71,
+      "vs_current_profit_100": 919586.85
+    },
+    {
+      "name": "med60\u22652 | force top-2 by prob",
+      "record": "47-36",
+      "hit_rate": 0.5663,
+      "mix": {
+        "1": 2,
+        "2": 81
+      },
+      "mix_records": {
+        "1": "2-0",
+        "2": "45-36"
+      },
+      "flat_profit_5usd": 312.42,
+      "start_25_end": 235808.84,
+      "start_25_profit": 235783.84,
+      "start_25_return_pct": 9431.3538,
+      "start_25_min_bankroll": 13.75,
+      "start_100_end": 943235.38,
+      "start_100_profit": 943135.38,
+      "start_100_return_pct": 9431.3538,
+      "start_100_min_bankroll": 55.0,
+      "start_1000_end": 9432353.75,
+      "start_1000_profit": 9431353.75,
+      "start_1000_return_pct": 9431.3538,
+      "start_1000_min_bankroll": 550.0,
+      "vs_current_profit_25": 229896.71,
+      "vs_current_profit_100": 919586.85
+    },
+    {
+      "name": "med60\u22652 | forced | best of (2, 4)",
+      "record": "43-40",
+      "hit_rate": 0.5181,
+      "mix": {
+        "1": 2,
+        "2": 77,
+        "4": 4
+      },
+      "mix_records": {
+        "1": "2-0",
+        "2": "40-37",
+        "4": "1-3"
+      },
+      "flat_profit_5usd": 368.63,
+      "start_25_end": 228294.14,
+      "start_25_profit": 228269.14,
+      "start_25_return_pct": 9130.7654,
+      "start_25_min_bankroll": 13.75,
+      "start_100_end": 913176.54,
+      "start_100_profit": 913076.54,
+      "start_100_return_pct": 9130.7654,
+      "start_100_min_bankroll": 55.0,
+      "start_1000_end": 9131765.42,
+      "start_1000_profit": 9130765.42,
+      "start_1000_return_pct": 9130.7654,
+      "start_1000_min_bankroll": 550.0,
+      "vs_current_profit_25": 222382.01,
+      "vs_current_profit_100": 889528.01
+    },
+    {
+      "name": "med60\u22652 | forced | best of (2,)",
+      "record": "43-40",
+      "hit_rate": 0.5181,
+      "mix": {
+        "1": 2,
+        "2": 81
+      },
+      "mix_records": {
+        "1": "2-0",
+        "2": "41-40"
+      },
+      "flat_profit_5usd": 340.14,
+      "start_25_end": 71347.06,
+      "start_25_profit": 71322.06,
+      "start_25_return_pct": 2852.8825,
+      "start_25_min_bankroll": 13.75,
+      "start_100_end": 285388.25,
+      "start_100_profit": 285288.25,
+      "start_100_return_pct": 2852.8825,
+      "start_100_min_bankroll": 55.0,
+      "start_1000_end": 2853882.51,
+      "start_1000_profit": 2852882.51,
+      "start_1000_return_pct": 2852.8825,
+      "start_1000_min_bankroll": 550.0,
+      "vs_current_profit_25": 65434.93,
+      "vs_current_profit_100": 261739.72
+    },
+    {
+      "name": "med60\u22652 | always | best of (2, 3)",
+      "record": "41-42",
+      "hit_rate": 0.494,
+      "mix": {
+        "1": 2,
+        "2": 58,
+        "3": 23
+      },
+      "mix_records": {
+        "1": "2-0",
+        "2": "29-29",
+        "3": "10-13"
+      },
+      "flat_profit_5usd": 448.27,
+      "start_25_end": 58844.26,
+      "start_25_profit": 58819.26,
+      "start_25_return_pct": 2352.7703,
+      "start_25_min_bankroll": 13.75,
+      "start_100_end": 235377.03,
+      "start_100_profit": 235277.03,
+      "start_100_return_pct": 2352.7703,
+      "start_100_min_bankroll": 55.0,
+      "start_1000_end": 2353770.32,
+      "start_1000_profit": 2352770.32,
+      "start_1000_return_pct": 2352.7703,
+      "start_1000_min_bankroll": 550.0,
+      "vs_current_profit_25": 52932.13,
+      "vs_current_profit_100": 211728.5
+    },
+    {
+      "name": "med60\u22652 | always | best of (2, 3, 4)",
+      "record": "41-42",
+      "hit_rate": 0.494,
+      "mix": {
+        "1": 2,
+        "2": 58,
+        "3": 23
+      },
+      "mix_records": {
+        "1": "2-0",
+        "2": "29-29",
+        "3": "10-13"
+      },
+      "flat_profit_5usd": 448.27,
+      "start_25_end": 58844.26,
+      "start_25_profit": 58819.26,
+      "start_25_return_pct": 2352.7703,
+      "start_25_min_bankroll": 13.75,
+      "start_100_end": 235377.03,
+      "start_100_profit": 235277.03,
+      "start_100_return_pct": 2352.7703,
+      "start_100_min_bankroll": 55.0,
+      "start_1000_end": 2353770.32,
+      "start_1000_profit": 2352770.32,
+      "start_1000_return_pct": 2352.7703,
+      "start_1000_min_bankroll": 550.0,
+      "vs_current_profit_25": 52932.13,
+      "vs_current_profit_100": 211728.5
+    },
+    {
+      "name": "med60\u22652 | top_prob | best of (4,)",
+      "record": "32-51",
+      "hit_rate": 0.3855,
+      "mix": {
+        "1": 8,
+        "2": 23,
+        "4": 52
+      },
+      "mix_records": {
+        "1": "6-2",
+        "2": "11-12",
+        "4": "15-37"
+      },
+      "flat_profit_5usd": 531.87,
+      "start_25_end": 16465.25,
+      "start_25_profit": 16440.25,
+      "start_25_return_pct": 657.6102,
+      "start_25_min_bankroll": 3.33,
+      "start_100_end": 65861.02,
+      "start_100_profit": 65761.02,
+      "start_100_return_pct": 657.6102,
+      "start_100_min_bankroll": 13.32,
+      "start_1000_end": 658610.19,
+      "start_1000_profit": 657610.19,
+      "start_1000_return_pct": 657.6102,
+      "start_1000_min_bankroll": 133.23,
+      "vs_current_profit_25": 10553.12,
+      "vs_current_profit_100": 42212.49
+    },
+    {
+      "name": "med60\u22654 | force top-4 by prob",
+      "record": "32-51",
+      "hit_rate": 0.3855,
+      "mix": {
+        "1": 8,
+        "2": 23,
+        "4": 52
+      },
+      "mix_records": {
+        "1": "6-2",
+        "2": "11-12",
+        "4": "15-37"
+      },
+      "flat_profit_5usd": 531.87,
+      "start_25_end": 16465.25,
+      "start_25_profit": 16440.25,
+      "start_25_return_pct": 657.6102,
+      "start_25_min_bankroll": 3.33,
+      "start_100_end": 65861.02,
+      "start_100_profit": 65761.02,
+      "start_100_return_pct": 657.6102,
+      "start_100_min_bankroll": 13.32,
+      "start_1000_end": 658610.19,
+      "start_1000_profit": 657610.19,
+      "start_1000_return_pct": 657.6102,
+      "start_1000_min_bankroll": 133.23,
+      "vs_current_profit_25": 10553.12,
+      "vs_current_profit_100": 42212.49
+    },
+    {
+      "name": "med60\u22652 | always | best of (2,)",
+      "record": "43-40",
+      "hit_rate": 0.5181,
+      "mix": {
+        "1": 2,
+        "2": 81
+      },
+      "mix_records": {
+        "1": "2-0",
+        "2": "41-40"
+      },
+      "flat_profit_5usd": 288.8,
+      "start_25_end": 8727.14,
+      "start_25_profit": 8702.14,
+      "start_25_return_pct": 348.0857,
+      "start_25_min_bankroll": 13.75,
+      "start_100_end": 34908.57,
+      "start_100_profit": 34808.57,
+      "start_100_return_pct": 348.0857,
+      "start_100_min_bankroll": 55.0,
+      "start_1000_end": 349085.74,
+      "start_1000_profit": 348085.74,
+      "start_1000_return_pct": 348.0857,
+      "start_1000_min_bankroll": 550.0,
+      "vs_current_profit_25": 2815.01,
+      "vs_current_profit_100": 11260.04
+    },
+    {
+      "name": "med60\u22652 | always-2 + filtered-3/4",
+      "record": "43-40",
+      "hit_rate": 0.5181,
+      "mix": {
+        "1": 2,
+        "2": 81
+      },
+      "mix_records": {
+        "1": "2-0",
+        "2": "41-40"
+      },
+      "flat_profit_5usd": 288.8,
+      "start_25_end": 8727.14,
+      "start_25_profit": 8702.14,
+      "start_25_return_pct": 348.0857,
+      "start_25_min_bankroll": 13.75,
+      "start_100_end": 34908.57,
+      "start_100_profit": 34808.57,
+      "start_100_return_pct": 348.0857,
+      "start_100_min_bankroll": 55.0,
+      "start_1000_end": 349085.74,
+      "start_1000_profit": 348085.74,
+      "start_1000_return_pct": 348.0857,
+      "start_1000_min_bankroll": 550.0,
+      "vs_current_profit_25": 2815.01,
+      "vs_current_profit_100": 11260.04
+    },
+    {
+      "name": "med60\u22652 | always | best of (3,)",
+      "record": "33-50",
+      "hit_rate": 0.3976,
+      "mix": {
+        "1": 8,
+        "2": 12,
+        "3": 63
+      },
+      "mix_records": {
+        "1": "6-2",
+        "2": "5-7",
+        "3": "22-41"
+      },
+      "flat_profit_5usd": 427.34,
+      "start_25_end": 6236.2,
+      "start_25_profit": 6211.2,
+      "start_25_return_pct": 248.4479,
+      "start_25_min_bankroll": 22.5,
+      "start_100_end": 24944.79,
+      "start_100_profit": 24844.79,
+      "start_100_return_pct": 248.4479,
+      "start_100_min_bankroll": 90.0,
+      "start_1000_end": 249447.88,
+      "start_1000_profit": 248447.88,
+      "start_1000_return_pct": 248.4479,
+      "start_1000_min_bankroll": 900.0,
+      "vs_current_profit_25": 324.07,
+      "vs_current_profit_100": 1296.26
+    },
+    {
+      "name": "med60\u22652 | always | best of (3, 4)",
+      "record": "33-50",
+      "hit_rate": 0.3976,
+      "mix": {
+        "1": 8,
+        "2": 12,
+        "3": 63
+      },
+      "mix_records": {
+        "1": "6-2",
+        "2": "5-7",
+        "3": "22-41"
+      },
+      "flat_profit_5usd": 427.34,
+      "start_25_end": 6236.2,
+      "start_25_profit": 6211.2,
+      "start_25_return_pct": 248.4479,
+      "start_25_min_bankroll": 22.5,
+      "start_100_end": 24944.79,
+      "start_100_profit": 24844.79,
+      "start_100_return_pct": 248.4479,
+      "start_100_min_bankroll": 90.0,
+      "start_1000_end": 249447.88,
+      "start_1000_profit": 248447.88,
+      "start_1000_return_pct": 248.4479,
+      "start_1000_min_bankroll": 900.0,
+      "vs_current_profit_25": 324.07,
+      "vs_current_profit_100": 1296.26
+    },
+    {
+      "name": "med60\u22652 | forced | best of (3,)",
+      "record": "33-50",
+      "hit_rate": 0.3976,
+      "mix": {
+        "1": 8,
+        "2": 12,
+        "3": 63
+      },
+      "mix_records": {
+        "1": "6-2",
+        "2": "5-7",
+        "3": "22-41"
+      },
+      "flat_profit_5usd": 427.34,
+      "start_25_end": 6236.2,
+      "start_25_profit": 6211.2,
+      "start_25_return_pct": 248.4479,
+      "start_25_min_bankroll": 22.5,
+      "start_100_end": 24944.79,
+      "start_100_profit": 24844.79,
+      "start_100_return_pct": 248.4479,
+      "start_100_min_bankroll": 90.0,
+      "start_1000_end": 249447.88,
+      "start_1000_profit": 248447.88,
+      "start_1000_return_pct": 248.4479,
+      "start_1000_min_bankroll": 900.0,
+      "vs_current_profit_25": 324.07,
+      "vs_current_profit_100": 1296.26
+    },
+    {
+      "name": "med60\u22652 | forced | best of (3, 4)",
+      "record": "33-50",
+      "hit_rate": 0.3976,
+      "mix": {
+        "1": 8,
+        "2": 12,
+        "3": 63
+      },
+      "mix_records": {
+        "1": "6-2",
+        "2": "5-7",
+        "3": "22-41"
+      },
+      "flat_profit_5usd": 427.34,
+      "start_25_end": 6236.2,
+      "start_25_profit": 6211.2,
+      "start_25_return_pct": 248.4479,
+      "start_25_min_bankroll": 22.5,
+      "start_100_end": 24944.79,
+      "start_100_profit": 24844.79,
+      "start_100_return_pct": 248.4479,
+      "start_100_min_bankroll": 90.0,
+      "start_1000_end": 249447.88,
+      "start_1000_profit": 248447.88,
+      "start_1000_return_pct": 248.4479,
+      "start_1000_min_bankroll": 900.0,
+      "vs_current_profit_25": 324.07,
+      "vs_current_profit_100": 1296.26
+    },
+    {
+      "name": "CURRENT no_low_parlay_223s",
+      "record": "45-38",
+      "hit_rate": 0.5422,
+      "mix": {
+        "1": 19,
+        "2": 64
+      },
+      "mix_records": {
+        "1": "15-4",
+        "2": "30-34"
+      },
+      "flat_profit_5usd": 273.75,
+      "start_25_end": 5912.13,
+      "start_25_profit": 5887.13,
+      "start_25_return_pct": 235.4853,
+      "start_25_min_bankroll": 6.05,
+      "start_100_end": 23648.53,
+      "start_100_profit": 23548.53,
+      "start_100_return_pct": 235.4853,
+      "start_100_min_bankroll": 24.2,
+      "start_1000_end": 236485.26,
+      "start_1000_profit": 235485.26,
+      "start_1000_return_pct": 235.4853,
+      "start_1000_min_bankroll": 241.96,
+      "vs_current_profit_25": 0.0,
+      "vs_current_profit_100": 0.0
+    },
+    {
+      "name": "med60\u22652 | filtered | best of (3,)",
+      "record": "45-38",
+      "hit_rate": 0.5422,
+      "mix": {
+        "1": 19,
+        "2": 64
+      },
+      "mix_records": {
+        "1": "15-4",
+        "2": "30-34"
+      },
+      "flat_profit_5usd": 273.75,
+      "start_25_end": 5912.13,
+      "start_25_profit": 5887.13,
+      "start_25_return_pct": 235.4853,
+      "start_25_min_bankroll": 6.05,
+      "start_100_end": 23648.53,
+      "start_100_profit": 23548.53,
+      "start_100_return_pct": 235.4853,
+      "start_100_min_bankroll": 24.2,
+      "start_1000_end": 236485.26,
+      "start_1000_profit": 235485.26,
+      "start_1000_return_pct": 235.4853,
+      "start_1000_min_bankroll": 241.96,
+      "vs_current_profit_25": 0.0,
+      "vs_current_profit_100": 0.0
+    },
+    {
+      "name": "med60\u22652 | filtered | best of (4,)",
+      "record": "45-38",
+      "hit_rate": 0.5422,
+      "mix": {
+        "1": 19,
+        "2": 64
+      },
+      "mix_records": {
+        "1": "15-4",
+        "2": "30-34"
+      },
+      "flat_profit_5usd": 273.75,
+      "start_25_end": 5912.13,
+      "start_25_profit": 5887.13,
+      "start_25_return_pct": 235.4853,
+      "start_25_min_bankroll": 6.05,
+      "start_100_end": 23648.53,
+      "start_100_profit": 23548.53,
+      "start_100_return_pct": 235.4853,
+      "start_100_min_bankroll": 24.2,
+      "start_1000_end": 236485.26,
+      "start_1000_profit": 235485.26,
+      "start_1000_return_pct": 235.4853,
+      "start_1000_min_bankroll": 241.96,
+      "vs_current_profit_25": 0.0,
+      "vs_current_profit_100": 0.0
+    },
+    {
+      "name": "med60\u22652 | filtered | best of (3, 4)",
+      "record": "45-38",
+      "hit_rate": 0.5422,
+      "mix": {
+        "1": 19,
+        "2": 64
+      },
+      "mix_records": {
+        "1": "15-4",
+        "2": "30-34"
+      },
+      "flat_profit_5usd": 273.75,
+      "start_25_end": 5912.13,
+      "start_25_profit": 5887.13,
+      "start_25_return_pct": 235.4853,
+      "start_25_min_bankroll": 6.05,
+      "start_100_end": 23648.53,
+      "start_100_profit": 23548.53,
+      "start_100_return_pct": 235.4853,
+      "start_100_min_bankroll": 24.2,
+      "start_1000_end": 236485.26,
+      "start_1000_profit": 235485.26,
+      "start_1000_return_pct": 235.4853,
+      "start_1000_min_bankroll": 241.96,
+      "vs_current_profit_25": 0.0,
+      "vs_current_profit_100": 0.0
+    },
+    {
+      "name": "med60\u22652 | always-2/3/4 + allow single",
+      "record": "41-42",
+      "hit_rate": 0.494,
+      "mix": {
+        "1": 15,
+        "2": 47,
+        "3": 21
+      },
+      "mix_records": {
+        "1": "11-4",
+        "2": "22-25",
+        "3": "8-13"
+      },
+      "flat_profit_5usd": 358.05,
+      "start_25_end": 5837.91,
+      "start_25_profit": 5812.91,
+      "start_25_return_pct": 232.5163,
+      "start_25_min_bankroll": 8.6,
+      "start_100_end": 23351.63,
+      "start_100_profit": 23251.63,
+      "start_100_return_pct": 232.5163,
+      "start_100_min_bankroll": 34.41,
+      "start_1000_end": 233516.29,
+      "start_1000_profit": 232516.29,
+      "start_1000_return_pct": 232.5163,
+      "start_1000_min_bankroll": 344.11,
+      "vs_current_profit_25": -74.22,
+      "vs_current_profit_100": -296.9
+    },
+    {
+      "name": "med60\u22652 | top_prob | best of (3,)",
+      "record": "31-52",
+      "hit_rate": 0.3735,
+      "mix": {
+        "1": 8,
+        "2": 12,
+        "3": 63
+      },
+      "mix_records": {
+        "1": "6-2",
+        "2": "5-7",
+        "3": "20-43"
+      },
+      "flat_profit_5usd": 266.99,
+      "start_25_end": 598.4,
+      "start_25_profit": 573.4,
+      "start_25_return_pct": 22.9362,
+      "start_25_min_bankroll": 17.98,
+      "start_100_end": 2393.62,
+      "start_100_profit": 2293.62,
+      "start_100_return_pct": 22.9362,
+      "start_100_min_bankroll": 71.93,
+      "start_1000_end": 23936.15,
+      "start_1000_profit": 22936.15,
+      "start_1000_return_pct": 22.9362,
+      "start_1000_min_bankroll": 719.31,
+      "vs_current_profit_25": -5313.73,
+      "vs_current_profit_100": -21254.91
+    },
+    {
+      "name": "med60\u22653 | force top-3 by prob",
+      "record": "31-52",
+      "hit_rate": 0.3735,
+      "mix": {
+        "1": 8,
+        "2": 12,
+        "3": 63
+      },
+      "mix_records": {
+        "1": "6-2",
+        "2": "5-7",
+        "3": "20-43"
+      },
+      "flat_profit_5usd": 266.99,
+      "start_25_end": 598.4,
+      "start_25_profit": 573.4,
+      "start_25_return_pct": 22.9362,
+      "start_25_min_bankroll": 17.98,
+      "start_100_end": 2393.62,
+      "start_100_profit": 2293.62,
+      "start_100_return_pct": 22.9362,
+      "start_100_min_bankroll": 71.93,
+      "start_1000_end": 23936.15,
+      "start_1000_profit": 22936.15,
+      "start_1000_return_pct": 22.9362,
+      "start_1000_min_bankroll": 719.31,
+      "vs_current_profit_25": -5313.73,
+      "vs_current_profit_100": -21254.91
+    },
+    {
+      "name": "med60\u22652 | filtered | best of (2,)",
+      "record": "41-42",
+      "hit_rate": 0.494,
+      "mix": {
+        "1": 10,
+        "2": 73
+      },
+      "mix_records": {
+        "1": "7-3",
+        "2": "34-39"
+      },
+      "flat_profit_5usd": 244.83,
+      "start_25_end": 345.0,
+      "start_25_profit": 320.0,
+      "start_25_return_pct": 12.7998,
+      "start_25_min_bankroll": 0.35,
+      "start_100_end": 1379.98,
+      "start_100_profit": 1279.98,
+      "start_100_return_pct": 12.7998,
+      "start_100_min_bankroll": 1.41,
+      "start_1000_end": 13799.84,
+      "start_1000_profit": 12799.84,
+      "start_1000_return_pct": 12.7998,
+      "start_1000_min_bankroll": 14.12,
+      "vs_current_profit_25": -5567.13,
+      "vs_current_profit_100": -22268.55
+    },
+    {
+      "name": "med60\u22652 | filtered | best of (2, 3)",
+      "record": "41-42",
+      "hit_rate": 0.494,
+      "mix": {
+        "1": 10,
+        "2": 73
+      },
+      "mix_records": {
+        "1": "7-3",
+        "2": "34-39"
+      },
+      "flat_profit_5usd": 244.83,
+      "start_25_end": 345.0,
+      "start_25_profit": 320.0,
+      "start_25_return_pct": 12.7998,
+      "start_25_min_bankroll": 0.35,
+      "start_100_end": 1379.98,
+      "start_100_profit": 1279.98,
+      "start_100_return_pct": 12.7998,
+      "start_100_min_bankroll": 1.41,
+      "start_1000_end": 13799.84,
+      "start_1000_profit": 12799.84,
+      "start_1000_return_pct": 12.7998,
+      "start_1000_min_bankroll": 14.12,
+      "vs_current_profit_25": -5567.13,
+      "vs_current_profit_100": -22268.55
+    },
+    {
+      "name": "med60\u22652 | filtered | best of (2, 4)",
+      "record": "41-42",
+      "hit_rate": 0.494,
+      "mix": {
+        "1": 10,
+        "2": 73
+      },
+      "mix_records": {
+        "1": "7-3",
+        "2": "34-39"
+      },
+      "flat_profit_5usd": 244.83,
+      "start_25_end": 345.0,
+      "start_25_profit": 320.0,
+      "start_25_return_pct": 12.7998,
+      "start_25_min_bankroll": 0.35,
+      "start_100_end": 1379.98,
+      "start_100_profit": 1279.98,
+      "start_100_return_pct": 12.7998,
+      "start_100_min_bankroll": 1.41,
+      "start_1000_end": 13799.84,
+      "start_1000_profit": 12799.84,
+      "start_1000_return_pct": 12.7998,
+      "start_1000_min_bankroll": 14.12,
+      "vs_current_profit_25": -5567.13,
+      "vs_current_profit_100": -22268.55
+    },
+    {
+      "name": "med60\u22652 | filtered | best of (2, 3, 4)",
+      "record": "41-42",
+      "hit_rate": 0.494,
+      "mix": {
+        "1": 10,
+        "2": 73
+      },
+      "mix_records": {
+        "1": "7-3",
+        "2": "34-39"
+      },
+      "flat_profit_5usd": 244.83,
+      "start_25_end": 345.0,
+      "start_25_profit": 320.0,
+      "start_25_return_pct": 12.7998,
+      "start_25_min_bankroll": 0.35,
+      "start_100_end": 1379.98,
+      "start_100_profit": 1279.98,
+      "start_100_return_pct": 12.7998,
+      "start_100_min_bankroll": 1.41,
+      "start_1000_end": 13799.84,
+      "start_1000_profit": 12799.84,
+      "start_1000_return_pct": 12.7998,
+      "start_1000_min_bankroll": 14.12,
+      "vs_current_profit_25": -5567.13,
+      "vs_current_profit_100": -22268.55
+    },
+    {
+      "name": "med60\u22652 | top_prob | best of (3, 4)",
+      "record": "31-52",
+      "hit_rate": 0.3735,
+      "mix": {
+        "1": 8,
+        "2": 12,
+        "3": 48,
+        "4": 15
+      },
+      "mix_records": {
+        "1": "6-2",
+        "2": "5-7",
+        "3": "18-30",
+        "4": "2-13"
+      },
+      "flat_profit_5usd": 325.18,
+      "start_25_end": 84.38,
+      "start_25_profit": 59.38,
+      "start_25_return_pct": 2.3751,
+      "start_25_min_bankroll": 4.97,
+      "start_100_end": 337.51,
+      "start_100_profit": 237.51,
+      "start_100_return_pct": 2.3751,
+      "start_100_min_bankroll": 19.87,
+      "start_1000_end": 3375.07,
+      "start_1000_profit": 2375.07,
+      "start_1000_return_pct": 2.3751,
+      "start_1000_min_bankroll": 198.73,
+      "vs_current_profit_25": -5827.75,
+      "vs_current_profit_100": -23311.02
+    }
+  ]
+}

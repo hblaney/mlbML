@@ -1,4 +1,4 @@
-"""Track live system-ticket replay — one med60_force2_223s ticket per day from archived boards."""
+"""Track live system-ticket replay — one trg59_top_prob_2 ticket per day from archived boards."""
 
 from __future__ import annotations
 
@@ -13,7 +13,7 @@ from exhaustive_strategy_search import load_moneyline_by_day
 from strategy_next_tests import build_snapshots, enrich_moneyline
 from strategy_research import DAILY_CAP
 
-LIVE_STRATEGY = "med60_force2_223s"
+LIVE_STRATEGY = "trg59_top_prob_2"
 STAKE_TIERED = {1: 0.35, 2: 0.45, 3: 0.10}
 FLAT_PROVE_OUT_USD = 5.0
 PROVE_OUT_TICKETS = 5

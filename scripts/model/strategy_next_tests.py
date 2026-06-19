@@ -161,11 +161,16 @@ def no_low_pool(candidates: list[dict]) -> list[dict]:
     return [c for c in candidates if c.get("confidence") in CONF_OK]
 
 
-MED60_MIN_PROB = 0.60
+MED59_MIN_PROB = 0.59
+MED60_MIN_PROB = MED59_MIN_PROB  # legacy alias
+
+
+def pool59(candidates: list[dict]) -> list[dict]:
+    return [c for c in no_low_pool(candidates) if float(c.get("model_probability", 0)) >= MED59_MIN_PROB]
 
 
 def pool60(candidates: list[dict]) -> list[dict]:
-    return [c for c in no_low_pool(candidates) if float(c.get("model_probability", 0)) >= MED60_MIN_PROB]
+    return pool59(candidates)
 
 
 def top_n_by_prob(pool: list[dict], n: int) -> list[dict]:
@@ -182,11 +187,16 @@ def top_n_by_prob(pool: list[dict], n: int) -> list[dict]:
     return legs
 
 
-def day_actions_med60_force2_223s(candidates: list[dict]) -> list[DayAction]:
-    legs = top_n_by_prob(pool60(candidates), 2)
+def day_actions_trg59_top_prob_2(candidates: list[dict]) -> list[DayAction]:
+    legs = top_n_by_prob(pool59(candidates), 2)
     if len(legs) >= 2:
-        return [DayAction(legs=legs, single=None, label="p2_med60")]
-    return day_actions_for_rule(candidates, "no_low_parlay_223s")
+        return [DayAction(legs=legs, single=None, label="p2_trg59")]
+    return day_actions_for_rule(candidates, "best_ticket")
+
+
+def day_actions_med60_force2_223s(candidates: list[dict]) -> list[DayAction]:
+    """Legacy — use day_actions_trg59_top_prob_2."""
+    return day_actions_trg59_top_prob_2(candidates)
 
 
 def live_parlay_pool(candidates: list[dict]) -> list[dict]:
@@ -234,8 +244,11 @@ def pick_two_or_three_or_single_custom(
 
 
 def day_actions_for_test(candidates: list[dict], rule: str) -> list[DayAction]:
+    if rule == "trg59_top_prob_2":
+        return day_actions_trg59_top_prob_2(candidates)
+
     if rule == "med60_force2_223s":
-        return day_actions_med60_force2_223s(candidates)
+        return day_actions_trg59_top_prob_2(candidates)
 
     if rule == "no_low_parlay_223s":
         return day_actions_for_rule(candidates, rule)

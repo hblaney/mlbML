@@ -722,11 +722,14 @@ function isStarterReadyForParlay(game: GamePrediction) {
   return true;
 }
 
-/** When 2+ Medium+ picks reach this win%, force top-2 parlay (season walk-forward +$39 @ $5 flat vs prior). */
-export const MED60_FORCE_PARLAY_MIN_PROBABILITY = 0.60;
+/** When 2+ Medium+ picks reach this win%, force top-2 parlay by model win%. */
+export const TRG59_FORCE_PARLAY_MIN_PROBABILITY = 0.59;
 
-/** Live plan: med60 force-2 overlay on no_low_parlay_223s fallback. */
-export const LIVE_BETTING_STRATEGY = "med60_force2_223s";
+/** @deprecated use TRG59_FORCE_PARLAY_MIN_PROBABILITY */
+export const MED60_FORCE_PARLAY_MIN_PROBABILITY = TRG59_FORCE_PARLAY_MIN_PROBABILITY;
+
+/** Live plan: trg59_top_prob_2 — force top-2 at 59%+, else best_ticket fallback. */
+export const LIVE_BETTING_STRATEGY = "trg59_top_prob_2";
 const USE_PARLAY_CORRELATION_FILTER = false;
 const PARLAY_CORRELATION_WINDOW_MINUTES = 60;
 
@@ -855,7 +858,7 @@ export type ParlayCandidate = {
   ev: number;
   payoutProfit: number;
   score: number;
-  strategy?: "edge" | "anchor" | "premium" | "premium_4" | "forced_top_2" | "live_quality" | "live_premium" | "med60_top2";
+  strategy?: "edge" | "anchor" | "premium" | "premium_4" | "forced_top_2" | "live_quality" | "live_premium" | "trg59_top2";
 };
 
 /** Flat fallback when leg-specific stake is unavailable (2026 sweep best: 35%). */
@@ -1384,8 +1387,8 @@ export function getForcedTopTwoLegParlay(board: GamePrediction[] = predictions) 
   return best;
 }
 
-/** Top two Medium+ model picks at or above MED60 threshold, by win probability. */
-export function getMed60ForceTwoLegParlay(board: GamePrediction[] = predictions): ParlayCandidate | null {
+/** Top two Medium+ model picks at or above TRG59 threshold, by win probability. */
+export function getTrg59ForceTwoLegParlay(board: GamePrediction[] = predictions): ParlayCandidate | null {
   if (!boardHasMarketOdds(board)) {
     return null;
   }
@@ -1397,7 +1400,7 @@ export function getMed60ForceTwoLegParlay(board: GamePrediction[] = predictions)
     .filter(
       (candidate) =>
         isParlayEligibleConfidence(candidate.game.confidence) &&
-        candidate.modelProbability >= MED60_FORCE_PARLAY_MIN_PROBABILITY
+        candidate.modelProbability >= TRG59_FORCE_PARLAY_MIN_PROBABILITY
     )
     .sort((left, right) => right.modelProbability - left.modelProbability)) {
     if (seenGames.has(bet.game.id)) {
@@ -1415,8 +1418,18 @@ export function getMed60ForceTwoLegParlay(board: GamePrediction[] = predictions)
   }
 
   const candidate = buildParlayCandidate(legs);
-  candidate.strategy = "med60_top2";
+  candidate.strategy = "trg59_top2";
   return candidate;
+}
+
+/** @deprecated use getTrg59ForceTwoLegParlay */
+export function getMed60ForceTwoLegParlay(board: GamePrediction[] = predictions): ParlayCandidate | null {
+  return getTrg59ForceTwoLegParlay(board);
+}
+
+/** Matches Python `best_ticket`: highest-scoring filtered 2/3/4-leg parlay or +EV single. */
+export function getBestTicketDailyTicket(board: GamePrediction[] = predictions): DailyTicket | null {
+  return getMaxScoreDailyTicket(board);
 }
 
 /** Backtest winner (Mar–Jun 2026): filtered 2-leg when available, else top-2 positive-EV legs. */
@@ -1527,18 +1540,23 @@ export function getNoLowParlay223sTicket(board: GamePrediction[] = predictions):
   return getTwoOrThreeOrSingleTicket(board);
 }
 
-/** med60_force2_223s: force top-2 parlay when 2+ Medium+ picks >= 60%; else no_low_parlay_223s. */
-export function getMed60ForceTwo223sTicket(board: GamePrediction[] = predictions): DailyTicket | null {
-  const forced = getMed60ForceTwoLegParlay(board);
+/** trg59_top_prob_2: force top-2 parlay when 2+ Medium+ picks >= 59%; else best_ticket. */
+export function getTrg59TopProb2Ticket(board: GamePrediction[] = predictions): DailyTicket | null {
+  const forced = getTrg59ForceTwoLegParlay(board);
   if (forced) {
     return { kind: "parlay", parlay: forced, score: forced.score, qualified: true };
   }
-  return getNoLowParlay223sTicket(board);
+  return getBestTicketDailyTicket(board);
+}
+
+/** @deprecated use getTrg59TopProb2Ticket */
+export function getMed60ForceTwo223sTicket(board: GamePrediction[] = predictions): DailyTicket | null {
+  return getTrg59TopProb2Ticket(board);
 }
 
 /** Daily ticket: one system bet per day. */
 export function getBestDailyTicket(board: GamePrediction[] = predictions): DailyTicket | null {
-  return getMed60ForceTwo223sTicket(board);
+  return getTrg59TopProb2Ticket(board);
 }
 
 export function getDailyParlayTickets(board: GamePrediction[] = predictions) {

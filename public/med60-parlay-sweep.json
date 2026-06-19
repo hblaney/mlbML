@@ -1,0 +1,1015 @@
+{
+  "generated_at": "2026-06-19",
+  "season_start": "2026-03-20",
+  "season_end": "2026-06-19",
+  "bet_days": 84,
+  "flat_stake_usd": 5.0,
+  "min_prob_trigger": 0.6,
+  "baseline_profit_usd": 273.75,
+  "rule_count": 34,
+  "ranked": [
+    {
+      "name": "med60\u22652 | always | best of (4,)",
+      "days": 83,
+      "wins": 34,
+      "losses": 49,
+      "record": "34-49",
+      "hit_rate": 0.4096,
+      "flat_profit_usd": 757.05,
+      "flat_roi": 1.8242,
+      "mix": {
+        "1": 8,
+        "2": 23,
+        "4": 52
+      },
+      "mix_records": {
+        "1": "6-2",
+        "2": "11-12",
+        "4": "17-35"
+      },
+      "vs_current_usd": 483.3
+    },
+    {
+      "name": "med60\u22652 | forced | best of (4,)",
+      "days": 83,
+      "wins": 34,
+      "losses": 49,
+      "record": "34-49",
+      "hit_rate": 0.4096,
+      "flat_profit_usd": 757.05,
+      "flat_roi": 1.8242,
+      "mix": {
+        "1": 8,
+        "2": 23,
+        "4": 52
+      },
+      "mix_records": {
+        "1": "6-2",
+        "2": "11-12",
+        "4": "17-35"
+      },
+      "vs_current_usd": 483.3
+    },
+    {
+      "name": "med60\u22652 | top_prob | best of (4,)",
+      "days": 83,
+      "wins": 32,
+      "losses": 51,
+      "record": "32-51",
+      "hit_rate": 0.3855,
+      "flat_profit_usd": 531.87,
+      "flat_roi": 1.2816,
+      "mix": {
+        "1": 8,
+        "2": 23,
+        "4": 52
+      },
+      "mix_records": {
+        "1": "6-2",
+        "2": "11-12",
+        "4": "15-37"
+      },
+      "vs_current_usd": 258.12
+    },
+    {
+      "name": "med60\u22654 | force top-4 by prob",
+      "days": 83,
+      "wins": 32,
+      "losses": 51,
+      "record": "32-51",
+      "hit_rate": 0.3855,
+      "flat_profit_usd": 531.87,
+      "flat_roi": 1.2816,
+      "mix": {
+        "1": 8,
+        "2": 23,
+        "4": 52
+      },
+      "mix_records": {
+        "1": "6-2",
+        "2": "11-12",
+        "4": "15-37"
+      },
+      "vs_current_usd": 258.12
+    },
+    {
+      "name": "med60\u22652 | always | best of (2, 4)",
+      "days": 83,
+      "wins": 41,
+      "losses": 42,
+      "record": "41-42",
+      "hit_rate": 0.494,
+      "flat_profit_usd": 486.76,
+      "flat_roi": 1.1729,
+      "mix": {
+        "1": 2,
+        "2": 68,
+        "4": 13
+      },
+      "mix_records": {
+        "1": "2-0",
+        "2": "34-34",
+        "4": "5-8"
+      },
+      "vs_current_usd": 213.01
+    },
+    {
+      "name": "med60\u22652 | always | best of (2, 3)",
+      "days": 83,
+      "wins": 41,
+      "losses": 42,
+      "record": "41-42",
+      "hit_rate": 0.494,
+      "flat_profit_usd": 448.27,
+      "flat_roi": 1.0802,
+      "mix": {
+        "1": 2,
+        "2": 58,
+        "3": 23
+      },
+      "mix_records": {
+        "1": "2-0",
+        "2": "29-29",
+        "3": "10-13"
+      },
+      "vs_current_usd": 174.52
+    },
+    {
+      "name": "med60\u22652 | always | best of (2, 3, 4)",
+      "days": 83,
+      "wins": 41,
+      "losses": 42,
+      "record": "41-42",
+      "hit_rate": 0.494,
+      "flat_profit_usd": 448.27,
+      "flat_roi": 1.0802,
+      "mix": {
+        "1": 2,
+        "2": 58,
+        "3": 23
+      },
+      "mix_records": {
+        "1": "2-0",
+        "2": "29-29",
+        "3": "10-13"
+      },
+      "vs_current_usd": 174.52
+    },
+    {
+      "name": "med60\u22652 | always | best of (3,)",
+      "days": 83,
+      "wins": 33,
+      "losses": 50,
+      "record": "33-50",
+      "hit_rate": 0.3976,
+      "flat_profit_usd": 427.34,
+      "flat_roi": 1.0297,
+      "mix": {
+        "1": 8,
+        "2": 12,
+        "3": 63
+      },
+      "mix_records": {
+        "1": "6-2",
+        "2": "5-7",
+        "3": "22-41"
+      },
+      "vs_current_usd": 153.59
+    },
+    {
+      "name": "med60\u22652 | always | best of (3, 4)",
+      "days": 83,
+      "wins": 33,
+      "losses": 50,
+      "record": "33-50",
+      "hit_rate": 0.3976,
+      "flat_profit_usd": 427.34,
+      "flat_roi": 1.0297,
+      "mix": {
+        "1": 8,
+        "2": 12,
+        "3": 63
+      },
+      "mix_records": {
+        "1": "6-2",
+        "2": "5-7",
+        "3": "22-41"
+      },
+      "vs_current_usd": 153.59
+    },
+    {
+      "name": "med60\u22652 | forced | best of (3,)",
+      "days": 83,
+      "wins": 33,
+      "losses": 50,
+      "record": "33-50",
+      "hit_rate": 0.3976,
+      "flat_profit_usd": 427.34,
+      "flat_roi": 1.0297,
+      "mix": {
+        "1": 8,
+        "2": 12,
+        "3": 63
+      },
+      "mix_records": {
+        "1": "6-2",
+        "2": "5-7",
+        "3": "22-41"
+      },
+      "vs_current_usd": 153.59
+    },
+    {
+      "name": "med60\u22652 | forced | best of (3, 4)",
+      "days": 83,
+      "wins": 33,
+      "losses": 50,
+      "record": "33-50",
+      "hit_rate": 0.3976,
+      "flat_profit_usd": 427.34,
+      "flat_roi": 1.0297,
+      "mix": {
+        "1": 8,
+        "2": 12,
+        "3": 63
+      },
+      "mix_records": {
+        "1": "6-2",
+        "2": "5-7",
+        "3": "22-41"
+      },
+      "vs_current_usd": 153.59
+    },
+    {
+      "name": "med60\u22652 | forced | best of (2, 3)",
+      "days": 83,
+      "wins": 42,
+      "losses": 41,
+      "record": "42-41",
+      "hit_rate": 0.506,
+      "flat_profit_usd": 419.31,
+      "flat_roi": 1.0104,
+      "mix": {
+        "1": 2,
+        "2": 65,
+        "3": 16
+      },
+      "mix_records": {
+        "1": "2-0",
+        "2": "34-31",
+        "3": "6-10"
+      },
+      "vs_current_usd": 145.56
+    },
+    {
+      "name": "med60\u22652 | forced | best of (2, 3, 4)",
+      "days": 83,
+      "wins": 42,
+      "losses": 41,
+      "record": "42-41",
+      "hit_rate": 0.506,
+      "flat_profit_usd": 419.31,
+      "flat_roi": 1.0104,
+      "mix": {
+        "1": 2,
+        "2": 65,
+        "3": 16
+      },
+      "mix_records": {
+        "1": "2-0",
+        "2": "34-31",
+        "3": "6-10"
+      },
+      "vs_current_usd": 145.56
+    },
+    {
+      "name": "med60\u22652 | top_prob | best of (2, 3, 4)",
+      "days": 83,
+      "wins": 40,
+      "losses": 43,
+      "record": "40-43",
+      "hit_rate": 0.4819,
+      "flat_profit_usd": 387.62,
+      "flat_roi": 0.934,
+      "mix": {
+        "1": 2,
+        "2": 48,
+        "3": 21,
+        "4": 12
+      },
+      "mix_records": {
+        "1": "2-0",
+        "2": "29-19",
+        "3": "7-14",
+        "4": "2-10"
+      },
+      "vs_current_usd": 113.87
+    },
+    {
+      "name": "med60\u22652 | top_prob | best of (2, 4)",
+      "days": 83,
+      "wins": 42,
+      "losses": 41,
+      "record": "42-41",
+      "hit_rate": 0.506,
+      "flat_profit_usd": 383.98,
+      "flat_roi": 0.9252,
+      "mix": {
+        "1": 2,
+        "2": 59,
+        "4": 22
+      },
+      "mix_records": {
+        "1": "2-0",
+        "2": "36-23",
+        "4": "4-18"
+      },
+      "vs_current_usd": 110.23
+    },
+    {
+      "name": "med60\u22652 | forced | best of (2, 4)",
+      "days": 83,
+      "wins": 43,
+      "losses": 40,
+      "record": "43-40",
+      "hit_rate": 0.5181,
+      "flat_profit_usd": 368.63,
+      "flat_roi": 0.8883,
+      "mix": {
+        "1": 2,
+        "2": 77,
+        "4": 4
+      },
+      "mix_records": {
+        "1": "2-0",
+        "2": "40-37",
+        "4": "1-3"
+      },
+      "vs_current_usd": 94.88
+    },
+    {
+      "name": "med60\u22652 | top_prob | best of (2, 3)",
+      "days": 83,
+      "wins": 42,
+      "losses": 41,
+      "record": "42-41",
+      "hit_rate": 0.506,
+      "flat_profit_usd": 358.07,
+      "flat_roi": 0.8628,
+      "mix": {
+        "1": 2,
+        "2": 53,
+        "3": 28
+      },
+      "mix_records": {
+        "1": "2-0",
+        "2": "31-22",
+        "3": "9-19"
+      },
+      "vs_current_usd": 84.32
+    },
+    {
+      "name": "med60\u22652 | always-2/3/4 + allow single",
+      "days": 83,
+      "wins": 41,
+      "losses": 42,
+      "record": "41-42",
+      "hit_rate": 0.494,
+      "flat_profit_usd": 358.05,
+      "flat_roi": 0.8628,
+      "mix": {
+        "1": 15,
+        "2": 47,
+        "3": 21
+      },
+      "mix_records": {
+        "1": "11-4",
+        "2": "22-25",
+        "3": "8-13"
+      },
+      "vs_current_usd": 84.3
+    },
+    {
+      "name": "med60\u22652 | forced | best of (2,)",
+      "days": 83,
+      "wins": 43,
+      "losses": 40,
+      "record": "43-40",
+      "hit_rate": 0.5181,
+      "flat_profit_usd": 340.14,
+      "flat_roi": 0.8196,
+      "mix": {
+        "1": 2,
+        "2": 81
+      },
+      "mix_records": {
+        "1": "2-0",
+        "2": "41-40"
+      },
+      "vs_current_usd": 66.39
+    },
+    {
+      "name": "med60\u22652 | top_prob | best of (3, 4)",
+      "days": 83,
+      "wins": 31,
+      "losses": 52,
+      "record": "31-52",
+      "hit_rate": 0.3735,
+      "flat_profit_usd": 325.18,
+      "flat_roi": 0.7836,
+      "mix": {
+        "1": 8,
+        "2": 12,
+        "3": 48,
+        "4": 15
+      },
+      "mix_records": {
+        "1": "6-2",
+        "2": "5-7",
+        "3": "18-30",
+        "4": "2-13"
+      },
+      "vs_current_usd": 51.43
+    },
+    {
+      "name": "med60\u22652 | top_prob | best of (2,)",
+      "days": 83,
+      "wins": 47,
+      "losses": 36,
+      "record": "47-36",
+      "hit_rate": 0.5663,
+      "flat_profit_usd": 312.42,
+      "flat_roi": 0.7528,
+      "mix": {
+        "1": 2,
+        "2": 81
+      },
+      "mix_records": {
+        "1": "2-0",
+        "2": "45-36"
+      },
+      "vs_current_usd": 38.67
+    },
+    {
+      "name": "med60\u22652 | force top-2 by prob",
+      "days": 83,
+      "wins": 47,
+      "losses": 36,
+      "record": "47-36",
+      "hit_rate": 0.5663,
+      "flat_profit_usd": 312.42,
+      "flat_roi": 0.7528,
+      "mix": {
+        "1": 2,
+        "2": 81
+      },
+      "mix_records": {
+        "1": "2-0",
+        "2": "45-36"
+      },
+      "vs_current_usd": 38.67
+    },
+    {
+      "name": "med60\u22652 | always | best of (2,)",
+      "days": 83,
+      "wins": 43,
+      "losses": 40,
+      "record": "43-40",
+      "hit_rate": 0.5181,
+      "flat_profit_usd": 288.8,
+      "flat_roi": 0.6959,
+      "mix": {
+        "1": 2,
+        "2": 81
+      },
+      "mix_records": {
+        "1": "2-0",
+        "2": "41-40"
+      },
+      "vs_current_usd": 15.05
+    },
+    {
+      "name": "med60\u22652 | always-2 + filtered-3/4",
+      "days": 83,
+      "wins": 43,
+      "losses": 40,
+      "record": "43-40",
+      "hit_rate": 0.5181,
+      "flat_profit_usd": 288.8,
+      "flat_roi": 0.6959,
+      "mix": {
+        "1": 2,
+        "2": 81
+      },
+      "mix_records": {
+        "1": "2-0",
+        "2": "41-40"
+      },
+      "vs_current_usd": 15.05
+    },
+    {
+      "name": "CURRENT no_low_parlay_223s",
+      "days": 83,
+      "wins": 45,
+      "losses": 38,
+      "record": "45-38",
+      "hit_rate": 0.5422,
+      "flat_profit_usd": 273.75,
+      "flat_roi": 0.6596,
+      "mix": {
+        "1": 19,
+        "2": 64
+      },
+      "mix_records": {
+        "1": "15-4",
+        "2": "30-34"
+      },
+      "vs_current_usd": 0.0
+    },
+    {
+      "name": "med60\u22652 | filtered | best of (3,)",
+      "days": 83,
+      "wins": 45,
+      "losses": 38,
+      "record": "45-38",
+      "hit_rate": 0.5422,
+      "flat_profit_usd": 273.75,
+      "flat_roi": 0.6596,
+      "mix": {
+        "1": 19,
+        "2": 64
+      },
+      "mix_records": {
+        "1": "15-4",
+        "2": "30-34"
+      },
+      "vs_current_usd": 0.0
+    },
+    {
+      "name": "med60\u22652 | filtered | best of (4,)",
+      "days": 83,
+      "wins": 45,
+      "losses": 38,
+      "record": "45-38",
+      "hit_rate": 0.5422,
+      "flat_profit_usd": 273.75,
+      "flat_roi": 0.6596,
+      "mix": {
+        "1": 19,
+        "2": 64
+      },
+      "mix_records": {
+        "1": "15-4",
+        "2": "30-34"
+      },
+      "vs_current_usd": 0.0
+    },
+    {
+      "name": "med60\u22652 | filtered | best of (3, 4)",
+      "days": 83,
+      "wins": 45,
+      "losses": 38,
+      "record": "45-38",
+      "hit_rate": 0.5422,
+      "flat_profit_usd": 273.75,
+      "flat_roi": 0.6596,
+      "mix": {
+        "1": 19,
+        "2": 64
+      },
+      "mix_records": {
+        "1": "15-4",
+        "2": "30-34"
+      },
+      "vs_current_usd": 0.0
+    },
+    {
+      "name": "med60\u22652 | top_prob | best of (3,)",
+      "days": 83,
+      "wins": 31,
+      "losses": 52,
+      "record": "31-52",
+      "hit_rate": 0.3735,
+      "flat_profit_usd": 266.99,
+      "flat_roi": 0.6433,
+      "mix": {
+        "1": 8,
+        "2": 12,
+        "3": 63
+      },
+      "mix_records": {
+        "1": "6-2",
+        "2": "5-7",
+        "3": "20-43"
+      },
+      "vs_current_usd": -6.76
+    },
+    {
+      "name": "med60\u22653 | force top-3 by prob",
+      "days": 83,
+      "wins": 31,
+      "losses": 52,
+      "record": "31-52",
+      "hit_rate": 0.3735,
+      "flat_profit_usd": 266.99,
+      "flat_roi": 0.6433,
+      "mix": {
+        "1": 8,
+        "2": 12,
+        "3": 63
+      },
+      "mix_records": {
+        "1": "6-2",
+        "2": "5-7",
+        "3": "20-43"
+      },
+      "vs_current_usd": -6.76
+    },
+    {
+      "name": "med60\u22652 | filtered | best of (2,)",
+      "days": 83,
+      "wins": 41,
+      "losses": 42,
+      "record": "41-42",
+      "hit_rate": 0.494,
+      "flat_profit_usd": 244.83,
+      "flat_roi": 0.5899,
+      "mix": {
+        "1": 10,
+        "2": 73
+      },
+      "mix_records": {
+        "1": "7-3",
+        "2": "34-39"
+      },
+      "vs_current_usd": -28.92
+    },
+    {
+      "name": "med60\u22652 | filtered | best of (2, 3)",
+      "days": 83,
+      "wins": 41,
+      "losses": 42,
+      "record": "41-42",
+      "hit_rate": 0.494,
+      "flat_profit_usd": 244.83,
+      "flat_roi": 0.5899,
+      "mix": {
+        "1": 10,
+        "2": 73
+      },
+      "mix_records": {
+        "1": "7-3",
+        "2": "34-39"
+      },
+      "vs_current_usd": -28.92
+    },
+    {
+      "name": "med60\u22652 | filtered | best of (2, 4)",
+      "days": 83,
+      "wins": 41,
+      "losses": 42,
+      "record": "41-42",
+      "hit_rate": 0.494,
+      "flat_profit_usd": 244.83,
+      "flat_roi": 0.5899,
+      "mix": {
+        "1": 10,
+        "2": 73
+      },
+      "mix_records": {
+        "1": "7-3",
+        "2": "34-39"
+      },
+      "vs_current_usd": -28.92
+    },
+    {
+      "name": "med60\u22652 | filtered | best of (2, 3, 4)",
+      "days": 83,
+      "wins": 41,
+      "losses": 42,
+      "record": "41-42",
+      "hit_rate": 0.494,
+      "flat_profit_usd": 244.83,
+      "flat_roi": 0.5899,
+      "mix": {
+        "1": 10,
+        "2": 73
+      },
+      "mix_records": {
+        "1": "7-3",
+        "2": "34-39"
+      },
+      "vs_current_usd": -28.92
+    }
+  ],
+  "top_10": [
+    {
+      "name": "med60\u22652 | always | best of (4,)",
+      "days": 83,
+      "wins": 34,
+      "losses": 49,
+      "record": "34-49",
+      "hit_rate": 0.4096,
+      "flat_profit_usd": 757.05,
+      "flat_roi": 1.8242,
+      "mix": {
+        "1": 8,
+        "2": 23,
+        "4": 52
+      },
+      "mix_records": {
+        "1": "6-2",
+        "2": "11-12",
+        "4": "17-35"
+      },
+      "vs_current_usd": 483.3
+    },
+    {
+      "name": "med60\u22652 | forced | best of (4,)",
+      "days": 83,
+      "wins": 34,
+      "losses": 49,
+      "record": "34-49",
+      "hit_rate": 0.4096,
+      "flat_profit_usd": 757.05,
+      "flat_roi": 1.8242,
+      "mix": {
+        "1": 8,
+        "2": 23,
+        "4": 52
+      },
+      "mix_records": {
+        "1": "6-2",
+        "2": "11-12",
+        "4": "17-35"
+      },
+      "vs_current_usd": 483.3
+    },
+    {
+      "name": "med60\u22652 | top_prob | best of (4,)",
+      "days": 83,
+      "wins": 32,
+      "losses": 51,
+      "record": "32-51",
+      "hit_rate": 0.3855,
+      "flat_profit_usd": 531.87,
+      "flat_roi": 1.2816,
+      "mix": {
+        "1": 8,
+        "2": 23,
+        "4": 52
+      },
+      "mix_records": {
+        "1": "6-2",
+        "2": "11-12",
+        "4": "15-37"
+      },
+      "vs_current_usd": 258.12
+    },
+    {
+      "name": "med60\u22654 | force top-4 by prob",
+      "days": 83,
+      "wins": 32,
+      "losses": 51,
+      "record": "32-51",
+      "hit_rate": 0.3855,
+      "flat_profit_usd": 531.87,
+      "flat_roi": 1.2816,
+      "mix": {
+        "1": 8,
+        "2": 23,
+        "4": 52
+      },
+      "mix_records": {
+        "1": "6-2",
+        "2": "11-12",
+        "4": "15-37"
+      },
+      "vs_current_usd": 258.12
+    },
+    {
+      "name": "med60\u22652 | always | best of (2, 4)",
+      "days": 83,
+      "wins": 41,
+      "losses": 42,
+      "record": "41-42",
+      "hit_rate": 0.494,
+      "flat_profit_usd": 486.76,
+      "flat_roi": 1.1729,
+      "mix": {
+        "1": 2,
+        "2": 68,
+        "4": 13
+      },
+      "mix_records": {
+        "1": "2-0",
+        "2": "34-34",
+        "4": "5-8"
+      },
+      "vs_current_usd": 213.01
+    },
+    {
+      "name": "med60\u22652 | always | best of (2, 3)",
+      "days": 83,
+      "wins": 41,
+      "losses": 42,
+      "record": "41-42",
+      "hit_rate": 0.494,
+      "flat_profit_usd": 448.27,
+      "flat_roi": 1.0802,
+      "mix": {
+        "1": 2,
+        "2": 58,
+        "3": 23
+      },
+      "mix_records": {
+        "1": "2-0",
+        "2": "29-29",
+        "3": "10-13"
+      },
+      "vs_current_usd": 174.52
+    },
+    {
+      "name": "med60\u22652 | always | best of (2, 3, 4)",
+      "days": 83,
+      "wins": 41,
+      "losses": 42,
+      "record": "41-42",
+      "hit_rate": 0.494,
+      "flat_profit_usd": 448.27,
+      "flat_roi": 1.0802,
+      "mix": {
+        "1": 2,
+        "2": 58,
+        "3": 23
+      },
+      "mix_records": {
+        "1": "2-0",
+        "2": "29-29",
+        "3": "10-13"
+      },
+      "vs_current_usd": 174.52
+    },
+    {
+      "name": "med60\u22652 | always | best of (3,)",
+      "days": 83,
+      "wins": 33,
+      "losses": 50,
+      "record": "33-50",
+      "hit_rate": 0.3976,
+      "flat_profit_usd": 427.34,
+      "flat_roi": 1.0297,
+      "mix": {
+        "1": 8,
+        "2": 12,
+        "3": 63
+      },
+      "mix_records": {
+        "1": "6-2",
+        "2": "5-7",
+        "3": "22-41"
+      },
+      "vs_current_usd": 153.59
+    },
+    {
+      "name": "med60\u22652 | always | best of (3, 4)",
+      "days": 83,
+      "wins": 33,
+      "losses": 50,
+      "record": "33-50",
+      "hit_rate": 0.3976,
+      "flat_profit_usd": 427.34,
+      "flat_roi": 1.0297,
+      "mix": {
+        "1": 8,
+        "2": 12,
+        "3": 63
+      },
+      "mix_records": {
+        "1": "6-2",
+        "2": "5-7",
+        "3": "22-41"
+      },
+      "vs_current_usd": 153.59
+    },
+    {
+      "name": "med60\u22652 | forced | best of (3,)",
+      "days": 83,
+      "wins": 33,
+      "losses": 50,
+      "record": "33-50",
+      "hit_rate": 0.3976,
+      "flat_profit_usd": 427.34,
+      "flat_roi": 1.0297,
+      "mix": {
+        "1": 8,
+        "2": 12,
+        "3": 63
+      },
+      "mix_records": {
+        "1": "6-2",
+        "2": "5-7",
+        "3": "22-41"
+      },
+      "vs_current_usd": 153.59
+    }
+  ],
+  "bottom_5": [
+    {
+      "name": "med60\u22653 | force top-3 by prob",
+      "days": 83,
+      "wins": 31,
+      "losses": 52,
+      "record": "31-52",
+      "hit_rate": 0.3735,
+      "flat_profit_usd": 266.99,
+      "flat_roi": 0.6433,
+      "mix": {
+        "1": 8,
+        "2": 12,
+        "3": 63
+      },
+      "mix_records": {
+        "1": "6-2",
+        "2": "5-7",
+        "3": "20-43"
+      },
+      "vs_current_usd": -6.76
+    },
+    {
+      "name": "med60\u22652 | filtered | best of (2,)",
+      "days": 83,
+      "wins": 41,
+      "losses": 42,
+      "record": "41-42",
+      "hit_rate": 0.494,
+      "flat_profit_usd": 244.83,
+      "flat_roi": 0.5899,
+      "mix": {
+        "1": 10,
+        "2": 73
+      },
+      "mix_records": {
+        "1": "7-3",
+        "2": "34-39"
+      },
+      "vs_current_usd": -28.92
+    },
+    {
+      "name": "med60\u22652 | filtered | best of (2, 3)",
+      "days": 83,
+      "wins": 41,
+      "losses": 42,
+      "record": "41-42",
+      "hit_rate": 0.494,
+      "flat_profit_usd": 244.83,
+      "flat_roi": 0.5899,
+      "mix": {
+        "1": 10,
+        "2": 73
+      },
+      "mix_records": {
+        "1": "7-3",
+        "2": "34-39"
+      },
+      "vs_current_usd": -28.92
+    },
+    {
+      "name": "med60\u22652 | filtered | best of (2, 4)",
+      "days": 83,
+      "wins": 41,
+      "losses": 42,
+      "record": "41-42",
+      "hit_rate": 0.494,
+      "flat_profit_usd": 244.83,
+      "flat_roi": 0.5899,
+      "mix": {
+        "1": 10,
+        "2": 73
+      },
+      "mix_records": {
+        "1": "7-3",
+        "2": "34-39"
+      },
+      "vs_current_usd": -28.92
+    },
+    {
+      "name": "med60\u22652 | filtered | best of (2, 3, 4)",
+      "days": 83,
+      "wins": 41,
+      "losses": 42,
+      "record": "41-42",
+      "hit_rate": 0.494,
+      "flat_profit_usd": 244.83,
+      "flat_roi": 0.5899,
+      "mix": {
+        "1": 10,
+        "2": 73
+      },
+      "mix_records": {
+        "1": "7-3",
+        "2": "34-39"
+      },
+      "vs_current_usd": -28.92
+    }
+  ]
+}

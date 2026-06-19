@@ -29,6 +29,9 @@ while [ "$(date +%s)" -lt "$end_epoch" ]; do
     if [ $((cycle % 3)) -eq 1 ]; then
       python3 overnight_model_research.py --cycle "$cycle"
     fi
+    if [ $((cycle % 4)) -eq 2 ]; then
+      python3 explore_all_strategies.py
+    fi
     if [ $((cycle % 4)) -eq 0 ]; then
       python3 generate_today_board.py
       python3 update_live_bankroll.py --wallet 23.28

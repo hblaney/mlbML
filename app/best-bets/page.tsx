@@ -17,7 +17,8 @@ export const dynamic = "force-dynamic";
 
 const STRATEGY_LABELS: Record<string, string> = {
   corr_nl_reject_both: "corr_nl_reject_both",
-  med60_force2_223s: "med60_force2_223s (live plan)",
+  trg59_top_prob_2: "trg59_top_prob_2 (live plan)",
+  med60_force2_223s: "med60_force2_223s (legacy)",
   no_low_parlay_223s: "no_low_parlay_223s (legacy)",
   best_ticket: "best_ticket (selective)",
   no_low_skip_forced: "no_low_skip_forced"

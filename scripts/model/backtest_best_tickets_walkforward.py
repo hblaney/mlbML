@@ -14,7 +14,7 @@ from mlb_api import load_or_fetch_games, load_team_abbreviations
 from strategy_next_tests import day_actions_for_test, enrich_moneyline
 
 OUTPUT_PATH = Path(__file__).resolve().parents[2] / "public" / "best-ticket-walkforward.json"
-LIVE_STRATEGY = "med60_force2_223s"
+LIVE_STRATEGY = "trg59_top_prob_2"
 
 
 def ticket_label(action, day: str) -> str:

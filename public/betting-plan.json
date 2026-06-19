@@ -1,10 +1,10 @@
 {
   "generated_at": "2026-06-19",
-  "strategy": "med60_force2_223s",
+  "strategy": "trg59_top_prob_2",
   "strategy_rules": [
-    "med60_force2_223s — one system ticket per day",
-    "When 2+ Medium+ picks are >= 60% model win probability: force 2-leg parlay of top 2 by win%",
-    "Otherwise: no_low_parlay_223s fallback (always-2, premium 3-leg, or +EV single — highest score wins)",
+    "trg59_top_prob_2 — one system ticket per day",
+    "When 2+ Medium+ picks are >= 59% model win probability: force 2-leg parlay of top 2 by win%",
+    "Otherwise: best_ticket fallback (highest-scoring filtered 2/3/4-leg parlay or +EV single)",
     "Model predicted winner only — never bet the opposite side for +EV",
     "Parlay legs require Medium+ confidence (no Low legs)",
     "Stakes locked: 35% single · 45% two-leg · 10% three-leg of wallet"
@@ -23,7 +23,14 @@
   "daily_exposure_cap": 0.5,
   "backtest_period": {
     "start": "2026-03-20",
-    "end": "2026-06-16"
+    "end": "2026-06-19"
   },
-  "retuned_from": "overnight_rigorous_report.json — 33,865 config sweep winner"
+  "backtest_season": {
+    "record": "49-33",
+    "hit_rate": 0.598,
+    "max_losing_streak": 4,
+    "compound_from_25_usd": 8851139,
+    "flat_5_usd_profit": 357
+  },
+  "retuned_from": "low-streak-strategy-search.json — beats med60_force2_223s on record and compound"
 }

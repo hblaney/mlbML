@@ -11,8 +11,9 @@ from exhaustive_strategy_search import STAKE, flat_stats_for_snapshots, load_mon
 from strategy_next_tests import build_snapshots, enrich_moneyline
 from strategy_research import DAILY_CAP, compound
 
-LIVE_STRATEGY = "med60_force2_223s"
+LIVE_STRATEGY = "trg59_top_prob_2"
 CHALLENGERS = [
+    "med60_force2_223s",
     "no_low_parlay_223s",
     "corr_nl_reject_both",
     "best_ticket",

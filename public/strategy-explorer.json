@@ -1,0 +1,1631 @@
+{
+  "generated_at": "2026-06-19",
+  "season": "2026-03-20 -> 2026-06-19",
+  "bet_days": 84,
+  "live_strategy": "med60_force2_223s",
+  "live_stakes": "shipped_35_45_10",
+  "start_bankroll": 25.0,
+  "rules_tested": 138,
+  "combos_tested": 2070,
+  "live_current": {
+    "strategy": "med60_force2_223s",
+    "stakes": "shipped_35_45_10",
+    "record": "47-36",
+    "hit_rate": 0.5663,
+    "mix": {
+      "1": 2,
+      "2": 81
+    },
+    "start": 25.0,
+    "end": 235808.8438,
+    "profit": 235783.8438,
+    "return_pct": 9431.3538,
+    "min_bankroll": 13.75,
+    "max_losing_streak": 4,
+    "flat_roi": 0.7528,
+    "balanced_score": 4.0167,
+    "is_live": true
+  },
+  "live_rank_by_compound_profit": 679,
+  "top_by_compound_profit": [
+    {
+      "strategy": "med62_always_4",
+      "stakes": "flat_30",
+      "record": "38-45",
+      "hit_rate": 0.4578,
+      "mix": {
+        "1": 9,
+        "2": 37,
+        "4": 37
+      },
+      "start": 25.0,
+      "end": 32730864.9255,
+      "profit": 32730839.9255,
+      "return_pct": 1309233.597,
+      "min_bankroll": 17.5,
+      "max_losing_streak": 9,
+      "flat_roi": 1.5971,
+      "balanced_score": 5.4809,
+      "is_live": false
+    },
+    {
+      "strategy": "med62_forced_4",
+      "stakes": "flat_30",
+      "record": "38-45",
+      "hit_rate": 0.4578,
+      "mix": {
+        "1": 9,
+        "2": 37,
+        "4": 37
+      },
+      "start": 25.0,
+      "end": 32730864.9255,
+      "profit": 32730839.9255,
+      "return_pct": 1309233.597,
+      "min_bankroll": 17.5,
+      "max_losing_streak": 9,
+      "flat_roi": 1.5971,
+      "balanced_score": 5.4809,
+      "is_live": false
+    },
+    {
+      "strategy": "med62_always_4",
+      "stakes": "moderate_25_30_20",
+      "record": "38-45",
+      "hit_rate": 0.4578,
+      "mix": {
+        "1": 9,
+        "2": 37,
+        "4": 37
+      },
+      "start": 25.0,
+      "end": 26132392.9862,
+      "profit": 26132367.9862,
+      "return_pct": 1045294.7194,
+      "min_bankroll": 18.75,
+      "max_losing_streak": 9,
+      "flat_roi": 1.5971,
+      "balanced_score": 5.5519,
+      "is_live": false
+    },
+    {
+      "strategy": "med62_forced_4",
+      "stakes": "moderate_25_30_20",
+      "record": "38-45",
+      "hit_rate": 0.4578,
+      "mix": {
+        "1": 9,
+        "2": 37,
+        "4": 37
+      },
+      "start": 25.0,
+      "end": 26132392.9862,
+      "profit": 26132367.9862,
+      "return_pct": 1045294.7194,
+      "min_bankroll": 18.75,
+      "max_losing_streak": 9,
+      "flat_roi": 1.5971,
+      "balanced_score": 5.5519,
+      "is_live": false
+    },
+    {
+      "strategy": "med62_always_4",
+      "stakes": "flat_35",
+      "record": "38-45",
+      "hit_rate": 0.4578,
+      "mix": {
+        "1": 9,
+        "2": 37,
+        "4": 37
+      },
+      "start": 25.0,
+      "end": 25710040.1566,
+      "profit": 25710015.1566,
+      "return_pct": 1028400.6063,
+      "min_bankroll": 16.25,
+      "max_losing_streak": 9,
+      "flat_roi": 1.5971,
+      "balanced_score": 5.2285,
+      "is_live": false
+    },
+    {
+      "strategy": "med62_forced_4",
+      "stakes": "flat_35",
+      "record": "38-45",
+      "hit_rate": 0.4578,
+      "mix": {
+        "1": 9,
+        "2": 37,
+        "4": 37
+      },
+      "start": 25.0,
+      "end": 25710040.1566,
+      "profit": 25710015.1566,
+      "return_pct": 1028400.6063,
+      "min_bankroll": 16.25,
+      "max_losing_streak": 9,
+      "flat_roi": 1.5971,
+      "balanced_score": 5.2285,
+      "is_live": false
+    },
+    {
+      "strategy": "med62_always_4",
+      "stakes": "equal_25_all",
+      "record": "38-45",
+      "hit_rate": 0.4578,
+      "mix": {
+        "1": 9,
+        "2": 37,
+        "4": 37
+      },
+      "start": 25.0,
+      "end": 24211175.1864,
+      "profit": 24211150.1864,
+      "return_pct": 968446.0075,
+      "min_bankroll": 18.75,
+      "max_losing_streak": 9,
+      "flat_roi": 1.5971,
+      "balanced_score": 5.5213,
+      "is_live": false
+    },
+    {
+      "strategy": "med62_always_4",
+      "stakes": "flat_25",
+      "record": "38-45",
+      "hit_rate": 0.4578,
+      "mix": {
+        "1": 9,
+        "2": 37,
+        "4": 37
+      },
+      "start": 25.0,
+      "end": 24211175.1864,
+      "profit": 24211150.1864,
+      "return_pct": 968446.0075,
+      "min_bankroll": 18.75,
+      "max_losing_streak": 9,
+      "flat_roi": 1.5971,
+      "balanced_score": 5.5213,
+      "is_live": false
+    },
+    {
+      "strategy": "med62_forced_4",
+      "stakes": "equal_25_all",
+      "record": "38-45",
+      "hit_rate": 0.4578,
+      "mix": {
+        "1": 9,
+        "2": 37,
+        "4": 37
+      },
+      "start": 25.0,
+      "end": 24211175.1864,
+      "profit": 24211150.1864,
+      "return_pct": 968446.0075,
+      "min_bankroll": 18.75,
+      "max_losing_streak": 9,
+      "flat_roi": 1.5971,
+      "balanced_score": 5.5213,
+      "is_live": false
+    },
+    {
+      "strategy": "med62_forced_4",
+      "stakes": "flat_25",
+      "record": "38-45",
+      "hit_rate": 0.4578,
+      "mix": {
+        "1": 9,
+        "2": 37,
+        "4": 37
+      },
+      "start": 25.0,
+      "end": 24211175.1864,
+      "profit": 24211150.1864,
+      "return_pct": 968446.0075,
+      "min_bankroll": 18.75,
+      "max_losing_streak": 9,
+      "flat_roi": 1.5971,
+      "balanced_score": 5.5213,
+      "is_live": false
+    },
+    {
+      "strategy": "med60_always_4",
+      "stakes": "moderate_25_30_20",
+      "record": "34-49",
+      "hit_rate": 0.4096,
+      "mix": {
+        "1": 8,
+        "2": 23,
+        "4": 52
+      },
+      "start": 25.0,
+      "end": 21157906.186,
+      "profit": 21157881.186,
+      "return_pct": 846315.2474,
+      "min_bankroll": 18.75,
+      "max_losing_streak": 9,
+      "flat_roi": 1.8242,
+      "balanced_score": 4.8917,
+      "is_live": false
+    },
+    {
+      "strategy": "med60_forced_4",
+      "stakes": "moderate_25_30_20",
+      "record": "34-49",
+      "hit_rate": 0.4096,
+      "mix": {
+        "1": 8,
+        "2": 23,
+        "4": 52
+      },
+      "start": 25.0,
+      "end": 21157906.186,
+      "profit": 21157881.186,
+      "return_pct": 846315.2474,
+      "min_bankroll": 18.75,
+      "max_losing_streak": 9,
+      "flat_roi": 1.8242,
+      "balanced_score": 4.8917,
+      "is_live": false
+    },
+    {
+      "strategy": "med60_always_4",
+      "stakes": "equal_25_all",
+      "record": "34-49",
+      "hit_rate": 0.4096,
+      "mix": {
+        "1": 8,
+        "2": 23,
+        "4": 52
+      },
+      "start": 25.0,
+      "end": 20707924.1033,
+      "profit": 20707899.1033,
+      "return_pct": 828315.9641,
+      "min_bankroll": 18.75,
+      "max_losing_streak": 9,
+      "flat_roi": 1.8242,
+      "balanced_score": 4.884,
+      "is_live": false
+    },
+    {
+      "strategy": "med60_always_4",
+      "stakes": "flat_25",
+      "record": "34-49",
+      "hit_rate": 0.4096,
+      "mix": {
+        "1": 8,
+        "2": 23,
+        "4": 52
+      },
+      "start": 25.0,
+      "end": 20707924.1033,
+      "profit": 20707899.1033,
+      "return_pct": 828315.9641,
+      "min_bankroll": 18.75,
+      "max_losing_streak": 9,
+      "flat_roi": 1.8242,
+      "balanced_score": 4.884,
+      "is_live": false
+    },
+    {
+      "strategy": "med60_forced_4",
+      "stakes": "equal_25_all",
+      "record": "34-49",
+      "hit_rate": 0.4096,
+      "mix": {
+        "1": 8,
+        "2": 23,
+        "4": 52
+      },
+      "start": 25.0,
+      "end": 20707924.1033,
+      "profit": 20707899.1033,
+      "return_pct": 828315.9641,
+      "min_bankroll": 18.75,
+      "max_losing_streak": 9,
+      "flat_roi": 1.8242,
+      "balanced_score": 4.884,
+      "is_live": false
+    },
+    {
+      "strategy": "med60_forced_4",
+      "stakes": "flat_25",
+      "record": "34-49",
+      "hit_rate": 0.4096,
+      "mix": {
+        "1": 8,
+        "2": 23,
+        "4": 52
+      },
+      "start": 25.0,
+      "end": 20707924.1033,
+      "profit": 20707899.1033,
+      "return_pct": 828315.9641,
+      "min_bankroll": 18.75,
+      "max_losing_streak": 9,
+      "flat_roi": 1.8242,
+      "balanced_score": 4.884,
+      "is_live": false
+    },
+    {
+      "strategy": "med60_always_4",
+      "stakes": "flat_30",
+      "record": "34-49",
+      "hit_rate": 0.4096,
+      "mix": {
+        "1": 8,
+        "2": 23,
+        "4": 52
+      },
+      "start": 25.0,
+      "end": 19314170.8846,
+      "profit": 19314145.8846,
+      "return_pct": 772565.8354,
+      "min_bankroll": 17.5,
+      "max_losing_streak": 9,
+      "flat_roi": 1.8242,
+      "balanced_score": 4.7202,
+      "is_live": false
+    },
+    {
+      "strategy": "med60_forced_4",
+      "stakes": "flat_30",
+      "record": "34-49",
+      "hit_rate": 0.4096,
+      "mix": {
+        "1": 8,
+        "2": 23,
+        "4": 52
+      },
+      "start": 25.0,
+      "end": 19314170.8846,
+      "profit": 19314145.8846,
+      "return_pct": 772565.8354,
+      "min_bankroll": 17.5,
+      "max_losing_streak": 9,
+      "flat_roi": 1.8242,
+      "balanced_score": 4.7202,
+      "is_live": false
+    },
+    {
+      "strategy": "med60_always_4",
+      "stakes": "conservative_20_25_15",
+      "record": "34-49",
+      "hit_rate": 0.4096,
+      "mix": {
+        "1": 8,
+        "2": 23,
+        "4": 52
+      },
+      "start": 25.0,
+      "end": 13586640.6064,
+      "profit": 13586615.6064,
+      "return_pct": 543464.6243,
+      "min_bankroll": 20.0,
+      "max_losing_streak": 9,
+      "flat_roi": 1.8242,
+      "balanced_score": 4.8682,
+      "is_live": false
+    },
+    {
+      "strategy": "med60_forced_4",
+      "stakes": "conservative_20_25_15",
+      "record": "34-49",
+      "hit_rate": 0.4096,
+      "mix": {
+        "1": 8,
+        "2": 23,
+        "4": 52
+      },
+      "start": 25.0,
+      "end": 13586640.6064,
+      "profit": 13586615.6064,
+      "return_pct": 543464.6243,
+      "min_bankroll": 20.0,
+      "max_losing_streak": 9,
+      "flat_roi": 1.8242,
+      "balanced_score": 4.8682,
+      "is_live": false
+    },
+    {
+      "strategy": "med62_always_4",
+      "stakes": "conservative_20_25_15",
+      "record": "38-45",
+      "hit_rate": 0.4578,
+      "mix": {
+        "1": 9,
+        "2": 37,
+        "4": 37
+      },
+      "start": 25.0,
+      "end": 13113823.8004,
+      "profit": 13113798.8004,
+      "return_pct": 524551.952,
+      "min_bankroll": 20.0,
+      "max_losing_streak": 9,
+      "flat_roi": 1.5971,
+      "balanced_score": 5.4264,
+      "is_live": false
+    },
+    {
+      "strategy": "med62_forced_4",
+      "stakes": "conservative_20_25_15",
+      "record": "38-45",
+      "hit_rate": 0.4578,
+      "mix": {
+        "1": 9,
+        "2": 37,
+        "4": 37
+      },
+      "start": 25.0,
+      "end": 13113823.8004,
+      "profit": 13113798.8004,
+      "return_pct": 524551.952,
+      "min_bankroll": 20.0,
+      "max_losing_streak": 9,
+      "flat_roi": 1.5971,
+      "balanced_score": 5.4264,
+      "is_live": false
+    },
+    {
+      "strategy": "med62_always_4",
+      "stakes": "flat_40",
+      "record": "38-45",
+      "hit_rate": 0.4578,
+      "mix": {
+        "1": 9,
+        "2": 37,
+        "4": 37
+      },
+      "start": 25.0,
+      "end": 11961430.9316,
+      "profit": 11961405.9316,
+      "return_pct": 478456.2373,
+      "min_bankroll": 15.0,
+      "max_losing_streak": 9,
+      "flat_roi": 1.5971,
+      "balanced_score": 4.7898,
+      "is_live": false
+    },
+    {
+      "strategy": "med62_forced_4",
+      "stakes": "flat_40",
+      "record": "38-45",
+      "hit_rate": 0.4578,
+      "mix": {
+        "1": 9,
+        "2": 37,
+        "4": 37
+      },
+      "start": 25.0,
+      "end": 11961430.9316,
+      "profit": 11961405.9316,
+      "return_pct": 478456.2373,
+      "min_bankroll": 15.0,
+      "max_losing_streak": 9,
+      "flat_roi": 1.5971,
+      "balanced_score": 4.7898,
+      "is_live": false
+    },
+    {
+      "strategy": "med60_always_4",
+      "stakes": "flat_20",
+      "record": "34-49",
+      "hit_rate": 0.4096,
+      "mix": {
+        "1": 8,
+        "2": 23,
+        "4": 52
+      },
+      "start": 25.0,
+      "end": 11712983.0748,
+      "profit": 11712958.0748,
+      "return_pct": 468518.323,
+      "min_bankroll": 20.0,
+      "max_losing_streak": 9,
+      "flat_roi": 1.8242,
+      "balanced_score": 4.8135,
+      "is_live": false
+    }
+  ],
+  "top_by_hit_rate": [
+    {
+      "strategy": "corr_nl_reject_both",
+      "stakes": "flat_40",
+      "record": "52-25",
+      "hit_rate": 0.6753,
+      "mix": {
+        "1": 58,
+        "2": 18,
+        "3": 1
+      },
+      "start": 25.0,
+      "end": 81010.6463,
+      "profit": 80985.6463,
+      "return_pct": 3239.4259,
+      "min_bankroll": 15.0,
+      "max_losing_streak": 4,
+      "flat_roi": 0.5359,
+      "balanced_score": 4.3672,
+      "is_live": false
+    },
+    {
+      "strategy": "corr_nl_reject_both",
+      "stakes": "flat_45",
+      "record": "52-25",
+      "hit_rate": 0.6753,
+      "mix": {
+        "1": 58,
+        "2": 18,
+        "3": 1
+      },
+      "start": 25.0,
+      "end": 72218.8447,
+      "profit": 72193.8447,
+      "return_pct": 2887.7538,
+      "min_bankroll": 13.75,
+      "max_losing_streak": 4,
+      "flat_roi": 0.5359,
+      "balanced_score": 4.1706,
+      "is_live": false
+    },
+    {
+      "strategy": "corr_nl_reject_both",
+      "stakes": "flat_35",
+      "record": "52-25",
+      "hit_rate": 0.6753,
+      "mix": {
+        "1": 58,
+        "2": 18,
+        "3": 1
+      },
+      "start": 25.0,
+      "end": 69645.4733,
+      "profit": 69620.4733,
+      "return_pct": 2784.8189,
+      "min_bankroll": 16.25,
+      "max_losing_streak": 4,
+      "flat_roi": 0.5359,
+      "balanced_score": 4.4195,
+      "is_live": false
+    },
+    {
+      "strategy": "corr_nl_reject_both",
+      "stakes": "aggressive_45_50_35",
+      "record": "52-25",
+      "hit_rate": 0.6753,
+      "mix": {
+        "1": 58,
+        "2": 18,
+        "3": 1
+      },
+      "start": 25.0,
+      "end": 56108.6933,
+      "profit": 56083.6933,
+      "return_pct": 2243.3477,
+      "min_bankroll": 13.75,
+      "max_losing_streak": 4,
+      "flat_roi": 0.5359,
+      "balanced_score": 4.0385,
+      "is_live": false
+    },
+    {
+      "strategy": "corr_nl_reject_both",
+      "stakes": "flat_50",
+      "record": "52-25",
+      "hit_rate": 0.6753,
+      "mix": {
+        "1": 58,
+        "2": 18,
+        "3": 1
+      },
+      "start": 25.0,
+      "end": 48112.661,
+      "profit": 48087.661,
+      "return_pct": 1923.5064,
+      "min_bankroll": 12.1247,
+      "max_losing_streak": 4,
+      "flat_roi": 0.5359,
+      "balanced_score": 3.7921,
+      "is_live": false
+    },
+    {
+      "strategy": "corr_nl_reject_both",
+      "stakes": "flat_30",
+      "record": "52-25",
+      "hit_rate": 0.6753,
+      "mix": {
+        "1": 58,
+        "2": 18,
+        "3": 1
+      },
+      "start": 25.0,
+      "end": 46652.6931,
+      "profit": 46627.6931,
+      "return_pct": 1865.1077,
+      "min_bankroll": 17.5,
+      "max_losing_streak": 4,
+      "flat_roi": 0.5359,
+      "balanced_score": 4.3235,
+      "is_live": false
+    },
+    {
+      "strategy": "corr_nl_reject_both",
+      "stakes": "shipped_35_45_10",
+      "record": "52-25",
+      "hit_rate": 0.6753,
+      "mix": {
+        "1": 58,
+        "2": 18,
+        "3": 1
+      },
+      "start": 25.0,
+      "end": 44163.2823,
+      "profit": 44138.2823,
+      "return_pct": 1765.5313,
+      "min_bankroll": 16.25,
+      "max_losing_streak": 4,
+      "flat_roi": 0.5359,
+      "balanced_score": 4.1658,
+      "is_live": false
+    },
+    {
+      "strategy": "corr_nl_reject_both",
+      "stakes": "moderate_25_30_20",
+      "record": "52-25",
+      "hit_rate": 0.6753,
+      "mix": {
+        "1": 58,
+        "2": 18,
+        "3": 1
+      },
+      "start": 25.0,
+      "end": 27894.1581,
+      "profit": 27869.1581,
+      "return_pct": 1114.7663,
+      "min_bankroll": 18.75,
+      "max_losing_streak": 4,
+      "flat_roi": 0.5359,
+      "balanced_score": 4.147,
+      "is_live": false
+    },
+    {
+      "strategy": "corr_nl_reject_both",
+      "stakes": "equal_25_all",
+      "record": "52-25",
+      "hit_rate": 0.6753,
+      "mix": {
+        "1": 58,
+        "2": 18,
+        "3": 1
+      },
+      "start": 25.0,
+      "end": 24582.6979,
+      "profit": 24557.6979,
+      "return_pct": 982.3079,
+      "min_bankroll": 18.75,
+      "max_losing_streak": 4,
+      "flat_roi": 0.5359,
+      "balanced_score": 4.0724,
+      "is_live": false
+    },
+    {
+      "strategy": "corr_nl_reject_both",
+      "stakes": "flat_25",
+      "record": "52-25",
+      "hit_rate": 0.6753,
+      "mix": {
+        "1": 58,
+        "2": 18,
+        "3": 1
+      },
+      "start": 25.0,
+      "end": 24582.6979,
+      "profit": 24557.6979,
+      "return_pct": 982.3079,
+      "min_bankroll": 18.75,
+      "max_losing_streak": 4,
+      "flat_roi": 0.5359,
+      "balanced_score": 4.0724,
+      "is_live": false
+    },
+    {
+      "strategy": "corr_nl_reject_both",
+      "stakes": "conservative_20_25_15",
+      "record": "52-25",
+      "hit_rate": 0.6753,
+      "mix": {
+        "1": 58,
+        "2": 18,
+        "3": 1
+      },
+      "start": 25.0,
+      "end": 12440.5964,
+      "profit": 12415.5964,
+      "return_pct": 496.6239,
+      "min_bankroll": 20.0,
+      "max_losing_streak": 4,
+      "flat_roi": 0.5359,
+      "balanced_score": 3.7754,
+      "is_live": false
+    },
+    {
+      "strategy": "corr_nl_reject_both",
+      "stakes": "parlay_heavy_15_50_25",
+      "record": "52-25",
+      "hit_rate": 0.6753,
+      "mix": {
+        "1": 58,
+        "2": 18,
+        "3": 1
+      },
+      "start": 25.0,
+      "end": 11373.3191,
+      "profit": 11348.3191,
+      "return_pct": 453.9328,
+      "min_bankroll": 21.25,
+      "max_losing_streak": 4,
+      "flat_roi": 0.5359,
+      "balanced_score": 3.8243,
+      "is_live": false
+    },
+    {
+      "strategy": "corr_nl_reject_both",
+      "stakes": "flat_20",
+      "record": "52-25",
+      "hit_rate": 0.6753,
+      "mix": {
+        "1": 58,
+        "2": 18,
+        "3": 1
+      },
+      "start": 25.0,
+      "end": 10224.8794,
+      "profit": 10199.8794,
+      "return_pct": 407.9952,
+      "min_bankroll": 20.0,
+      "max_losing_streak": 4,
+      "flat_roi": 0.5359,
+      "balanced_score": 3.6564,
+      "is_live": false
+    },
+    {
+      "strategy": "corr_nl_reject_both",
+      "stakes": "flat_15",
+      "record": "52-25",
+      "hit_rate": 0.6753,
+      "mix": {
+        "1": 58,
+        "2": 18,
+        "3": 1
+      },
+      "start": 25.0,
+      "end": 3349.5759,
+      "profit": 3324.5759,
+      "return_pct": 132.983,
+      "min_bankroll": 21.25,
+      "max_losing_streak": 4,
+      "flat_roi": 0.5359,
+      "balanced_score": 3.064,
+      "is_live": false
+    },
+    {
+      "strategy": "corr_nl_reject_both",
+      "stakes": "flat_10",
+      "record": "52-25",
+      "hit_rate": 0.6753,
+      "mix": {
+        "1": 58,
+        "2": 18,
+        "3": 1
+      },
+      "start": 25.0,
+      "end": 857.2002,
+      "profit": 832.2002,
+      "return_pct": 33.288,
+      "min_bankroll": 22.5,
+      "max_losing_streak": 4,
+      "flat_roi": 0.5359,
+      "balanced_score": 2.2861,
+      "is_live": false
+    },
+    {
+      "strategy": "best_ticket",
+      "stakes": "flat_35",
+      "record": "48-28",
+      "hit_rate": 0.6316,
+      "mix": {
+        "1": 47,
+        "2": 29
+      },
+      "start": 25.0,
+      "end": 23711.2563,
+      "profit": 23686.2563,
+      "return_pct": 947.4503,
+      "min_bankroll": 16.25,
+      "max_losing_streak": 4,
+      "flat_roi": 0.5241,
+      "balanced_score": 3.5724,
+      "is_live": false
+    },
+    {
+      "strategy": "no_low_skip_forced",
+      "stakes": "flat_35",
+      "record": "48-28",
+      "hit_rate": 0.6316,
+      "mix": {
+        "1": 47,
+        "2": 29
+      },
+      "start": 25.0,
+      "end": 23711.2563,
+      "profit": 23686.2563,
+      "return_pct": 947.4503,
+      "min_bankroll": 16.25,
+      "max_losing_streak": 4,
+      "flat_roi": 0.5241,
+      "balanced_score": 3.5724,
+      "is_live": false
+    },
+    {
+      "strategy": "best_ticket",
+      "stakes": "flat_40",
+      "record": "48-28",
+      "hit_rate": 0.6316,
+      "mix": {
+        "1": 47,
+        "2": 29
+      },
+      "start": 25.0,
+      "end": 21558.5456,
+      "profit": 21533.5456,
+      "return_pct": 861.3418,
+      "min_bankroll": 15.0,
+      "max_losing_streak": 4,
+      "flat_roi": 0.5241,
+      "balanced_score": 3.4161,
+      "is_live": false
+    },
+    {
+      "strategy": "no_low_skip_forced",
+      "stakes": "flat_40",
+      "record": "48-28",
+      "hit_rate": 0.6316,
+      "mix": {
+        "1": 47,
+        "2": 29
+      },
+      "start": 25.0,
+      "end": 21558.5456,
+      "profit": 21533.5456,
+      "return_pct": 861.3418,
+      "min_bankroll": 15.0,
+      "max_losing_streak": 4,
+      "flat_roi": 0.5241,
+      "balanced_score": 3.4161,
+      "is_live": false
+    },
+    {
+      "strategy": "best_ticket",
+      "stakes": "flat_30",
+      "record": "48-28",
+      "hit_rate": 0.6316,
+      "mix": {
+        "1": 47,
+        "2": 29
+      },
+      "start": 25.0,
+      "end": 19833.1179,
+      "profit": 19808.1179,
+      "return_pct": 792.3247,
+      "min_bankroll": 17.5,
+      "max_losing_streak": 4,
+      "flat_roi": 0.5241,
+      "balanced_score": 3.5849,
+      "is_live": false
+    },
+    {
+      "strategy": "no_low_skip_forced",
+      "stakes": "flat_30",
+      "record": "48-28",
+      "hit_rate": 0.6316,
+      "mix": {
+        "1": 47,
+        "2": 29
+      },
+      "start": 25.0,
+      "end": 19833.1179,
+      "profit": 19808.1179,
+      "return_pct": 792.3247,
+      "min_bankroll": 17.5,
+      "max_losing_streak": 4,
+      "flat_roi": 0.5241,
+      "balanced_score": 3.5849,
+      "is_live": false
+    },
+    {
+      "strategy": "best_ticket",
+      "stakes": "shipped_35_45_10",
+      "record": "48-28",
+      "hit_rate": 0.6316,
+      "mix": {
+        "1": 47,
+        "2": 29
+      },
+      "start": 25.0,
+      "end": 16585.0442,
+      "profit": 16560.0442,
+      "return_pct": 662.4018,
+      "min_bankroll": 16.25,
+      "max_losing_streak": 4,
+      "flat_roi": 0.5241,
+      "balanced_score": 3.3864,
+      "is_live": false
+    },
+    {
+      "strategy": "no_low_skip_forced",
+      "stakes": "shipped_35_45_10",
+      "record": "48-28",
+      "hit_rate": 0.6316,
+      "mix": {
+        "1": 47,
+        "2": 29
+      },
+      "start": 25.0,
+      "end": 16585.0442,
+      "profit": 16560.0442,
+      "return_pct": 662.4018,
+      "min_bankroll": 16.25,
+      "max_losing_streak": 4,
+      "flat_roi": 0.5241,
+      "balanced_score": 3.3864,
+      "is_live": false
+    },
+    {
+      "strategy": "best_ticket",
+      "stakes": "moderate_25_30_20",
+      "record": "48-28",
+      "hit_rate": 0.6316,
+      "mix": {
+        "1": 47,
+        "2": 29
+      },
+      "start": 25.0,
+      "end": 14960.0996,
+      "profit": 14935.0996,
+      "return_pct": 597.404,
+      "min_bankroll": 18.75,
+      "max_losing_streak": 4,
+      "flat_roi": 0.5241,
+      "balanced_score": 3.5347,
+      "is_live": false
+    },
+    {
+      "strategy": "no_low_skip_forced",
+      "stakes": "moderate_25_30_20",
+      "record": "48-28",
+      "hit_rate": 0.6316,
+      "mix": {
+        "1": 47,
+        "2": 29
+      },
+      "start": 25.0,
+      "end": 14960.0996,
+      "profit": 14935.0996,
+      "return_pct": 597.404,
+      "min_bankroll": 18.75,
+      "max_losing_streak": 4,
+      "flat_roi": 0.5241,
+      "balanced_score": 3.5347,
+      "is_live": false
+    }
+  ],
+  "top_by_balanced_score": [
+    {
+      "strategy": "med59_top_prob_2",
+      "stakes": "flat_35",
+      "record": "49-34",
+      "hit_rate": 0.5904,
+      "mix": {
+        "1": 1,
+        "2": 82
+      },
+      "start": 25.0,
+      "end": 5990812.6255,
+      "profit": 5990787.6255,
+      "return_pct": 239631.505,
+      "min_bankroll": 16.25,
+      "max_losing_streak": 4,
+      "flat_roi": 0.8488,
+      "balanced_score": 6.0334,
+      "is_live": false
+    },
+    {
+      "strategy": "med59_top_prob_2",
+      "stakes": "flat_30",
+      "record": "49-34",
+      "hit_rate": 0.5904,
+      "mix": {
+        "1": 1,
+        "2": 82
+      },
+      "start": 25.0,
+      "end": 3559029.61,
+      "profit": 3559004.61,
+      "return_pct": 142360.1844,
+      "min_bankroll": 17.5,
+      "max_losing_streak": 4,
+      "flat_roi": 0.8488,
+      "balanced_score": 5.9549,
+      "is_live": false
+    },
+    {
+      "strategy": "med59_top_prob_2",
+      "stakes": "moderate_25_30_20",
+      "record": "49-34",
+      "hit_rate": 0.5904,
+      "mix": {
+        "1": 1,
+        "2": 82
+      },
+      "start": 25.0,
+      "end": 3391681.1251,
+      "profit": 3391656.1251,
+      "return_pct": 135666.245,
+      "min_bankroll": 17.5,
+      "max_losing_streak": 4,
+      "flat_roi": 0.8488,
+      "balanced_score": 5.9307,
+      "is_live": false
+    },
+    {
+      "strategy": "med59_top_prob_2",
+      "stakes": "flat_40",
+      "record": "49-34",
+      "hit_rate": 0.5904,
+      "mix": {
+        "1": 1,
+        "2": 82
+      },
+      "start": 25.0,
+      "end": 6876605.8238,
+      "profit": 6876580.8238,
+      "return_pct": 275063.233,
+      "min_bankroll": 15.0,
+      "max_losing_streak": 4,
+      "flat_roi": 0.8488,
+      "balanced_score": 5.9157,
+      "is_live": false
+    },
+    {
+      "strategy": "med59_top_prob_2",
+      "stakes": "equal_25_all",
+      "record": "49-34",
+      "hit_rate": 0.5904,
+      "mix": {
+        "1": 1,
+        "2": 82
+      },
+      "start": 25.0,
+      "end": 1445857.2181,
+      "profit": 1445832.2181,
+      "return_pct": 57833.2887,
+      "min_bankroll": 18.75,
+      "max_losing_streak": 4,
+      "flat_roi": 0.8488,
+      "balanced_score": 5.6647,
+      "is_live": false
+    },
+    {
+      "strategy": "med59_top_prob_2",
+      "stakes": "flat_25",
+      "record": "49-34",
+      "hit_rate": 0.5904,
+      "mix": {
+        "1": 1,
+        "2": 82
+      },
+      "start": 25.0,
+      "end": 1445857.2181,
+      "profit": 1445832.2181,
+      "return_pct": 57833.2887,
+      "min_bankroll": 18.75,
+      "max_losing_streak": 4,
+      "flat_roi": 0.8488,
+      "balanced_score": 5.6647,
+      "is_live": false
+    },
+    {
+      "strategy": "med59_top_prob_2",
+      "stakes": "conservative_20_25_15",
+      "record": "49-34",
+      "hit_rate": 0.5904,
+      "mix": {
+        "1": 1,
+        "2": 82
+      },
+      "start": 25.0,
+      "end": 1374517.3705,
+      "profit": 1374492.3705,
+      "return_pct": 54979.6948,
+      "min_bankroll": 18.75,
+      "max_losing_streak": 4,
+      "flat_roi": 0.8488,
+      "balanced_score": 5.6386,
+      "is_live": false
+    },
+    {
+      "strategy": "med59_top_prob_2",
+      "stakes": "flat_45",
+      "record": "49-34",
+      "hit_rate": 0.5904,
+      "mix": {
+        "1": 1,
+        "2": 82
+      },
+      "start": 25.0,
+      "end": 5305373.2433,
+      "profit": 5305348.2433,
+      "return_pct": 212213.9297,
+      "min_bankroll": 13.75,
+      "max_losing_streak": 4,
+      "flat_roi": 0.8488,
+      "balanced_score": 5.6121,
+      "is_live": false
+    },
+    {
+      "strategy": "med59_top_prob_2",
+      "stakes": "shipped_35_45_10",
+      "record": "49-34",
+      "hit_rate": 0.5904,
+      "mix": {
+        "1": 1,
+        "2": 82
+      },
+      "start": 25.0,
+      "end": 4868126.3765,
+      "profit": 4868101.3765,
+      "return_pct": 194724.0551,
+      "min_bankroll": 13.75,
+      "max_losing_streak": 4,
+      "flat_roi": 0.8488,
+      "balanced_score": 5.5728,
+      "is_live": false
+    },
+    {
+      "strategy": "med62_always_4",
+      "stakes": "moderate_25_30_20",
+      "record": "38-45",
+      "hit_rate": 0.4578,
+      "mix": {
+        "1": 9,
+        "2": 37,
+        "4": 37
+      },
+      "start": 25.0,
+      "end": 26132392.9862,
+      "profit": 26132367.9862,
+      "return_pct": 1045294.7194,
+      "min_bankroll": 18.75,
+      "max_losing_streak": 9,
+      "flat_roi": 1.5971,
+      "balanced_score": 5.5519,
+      "is_live": false
+    },
+    {
+      "strategy": "med62_forced_4",
+      "stakes": "moderate_25_30_20",
+      "record": "38-45",
+      "hit_rate": 0.4578,
+      "mix": {
+        "1": 9,
+        "2": 37,
+        "4": 37
+      },
+      "start": 25.0,
+      "end": 26132392.9862,
+      "profit": 26132367.9862,
+      "return_pct": 1045294.7194,
+      "min_bankroll": 18.75,
+      "max_losing_streak": 9,
+      "flat_roi": 1.5971,
+      "balanced_score": 5.5519,
+      "is_live": false
+    },
+    {
+      "strategy": "med57_top_prob_2",
+      "stakes": "flat_35",
+      "record": "48-35",
+      "hit_rate": 0.5783,
+      "mix": {
+        "2": 83
+      },
+      "start": 25.0,
+      "end": 2669885.6404,
+      "profit": 2669860.6404,
+      "return_pct": 106794.4256,
+      "min_bankroll": 16.25,
+      "max_losing_streak": 4,
+      "flat_roi": 0.8209,
+      "balanced_score": 5.5242,
+      "is_live": false
+    },
+    {
+      "strategy": "med62_always_4",
+      "stakes": "equal_25_all",
+      "record": "38-45",
+      "hit_rate": 0.4578,
+      "mix": {
+        "1": 9,
+        "2": 37,
+        "4": 37
+      },
+      "start": 25.0,
+      "end": 24211175.1864,
+      "profit": 24211150.1864,
+      "return_pct": 968446.0075,
+      "min_bankroll": 18.75,
+      "max_losing_streak": 9,
+      "flat_roi": 1.5971,
+      "balanced_score": 5.5213,
+      "is_live": false
+    },
+    {
+      "strategy": "med62_always_4",
+      "stakes": "flat_25",
+      "record": "38-45",
+      "hit_rate": 0.4578,
+      "mix": {
+        "1": 9,
+        "2": 37,
+        "4": 37
+      },
+      "start": 25.0,
+      "end": 24211175.1864,
+      "profit": 24211150.1864,
+      "return_pct": 968446.0075,
+      "min_bankroll": 18.75,
+      "max_losing_streak": 9,
+      "flat_roi": 1.5971,
+      "balanced_score": 5.5213,
+      "is_live": false
+    },
+    {
+      "strategy": "med62_forced_4",
+      "stakes": "equal_25_all",
+      "record": "38-45",
+      "hit_rate": 0.4578,
+      "mix": {
+        "1": 9,
+        "2": 37,
+        "4": 37
+      },
+      "start": 25.0,
+      "end": 24211175.1864,
+      "profit": 24211150.1864,
+      "return_pct": 968446.0075,
+      "min_bankroll": 18.75,
+      "max_losing_streak": 9,
+      "flat_roi": 1.5971,
+      "balanced_score": 5.5213,
+      "is_live": false
+    },
+    {
+      "strategy": "med62_forced_4",
+      "stakes": "flat_25",
+      "record": "38-45",
+      "hit_rate": 0.4578,
+      "mix": {
+        "1": 9,
+        "2": 37,
+        "4": 37
+      },
+      "start": 25.0,
+      "end": 24211175.1864,
+      "profit": 24211150.1864,
+      "return_pct": 968446.0075,
+      "min_bankroll": 18.75,
+      "max_losing_streak": 9,
+      "flat_roi": 1.5971,
+      "balanced_score": 5.5213,
+      "is_live": false
+    },
+    {
+      "strategy": "med57_top_prob_2",
+      "stakes": "moderate_25_30_20",
+      "record": "48-35",
+      "hit_rate": 0.5783,
+      "mix": {
+        "2": 83
+      },
+      "start": 25.0,
+      "end": 1788457.0905,
+      "profit": 1788432.0905,
+      "return_pct": 71537.2836,
+      "min_bankroll": 17.5,
+      "max_losing_streak": 4,
+      "flat_roi": 0.8209,
+      "balanced_score": 5.4946,
+      "is_live": false
+    },
+    {
+      "strategy": "med57_top_prob_2",
+      "stakes": "flat_30",
+      "record": "48-35",
+      "hit_rate": 0.5783,
+      "mix": {
+        "2": 83
+      },
+      "start": 25.0,
+      "end": 1788457.0905,
+      "profit": 1788432.0905,
+      "return_pct": 71537.2836,
+      "min_bankroll": 17.5,
+      "max_losing_streak": 4,
+      "flat_roi": 0.8209,
+      "balanced_score": 5.4946,
+      "is_live": false
+    },
+    {
+      "strategy": "med62_always_4",
+      "stakes": "flat_30",
+      "record": "38-45",
+      "hit_rate": 0.4578,
+      "mix": {
+        "1": 9,
+        "2": 37,
+        "4": 37
+      },
+      "start": 25.0,
+      "end": 32730864.9255,
+      "profit": 32730839.9255,
+      "return_pct": 1309233.597,
+      "min_bankroll": 17.5,
+      "max_losing_streak": 9,
+      "flat_roi": 1.5971,
+      "balanced_score": 5.4809,
+      "is_live": false
+    },
+    {
+      "strategy": "med62_forced_4",
+      "stakes": "flat_30",
+      "record": "38-45",
+      "hit_rate": 0.4578,
+      "mix": {
+        "1": 9,
+        "2": 37,
+        "4": 37
+      },
+      "start": 25.0,
+      "end": 32730864.9255,
+      "profit": 32730839.9255,
+      "return_pct": 1309233.597,
+      "min_bankroll": 17.5,
+      "max_losing_streak": 9,
+      "flat_roi": 1.5971,
+      "balanced_score": 5.4809,
+      "is_live": false
+    },
+    {
+      "strategy": "med62_always_4",
+      "stakes": "conservative_20_25_15",
+      "record": "38-45",
+      "hit_rate": 0.4578,
+      "mix": {
+        "1": 9,
+        "2": 37,
+        "4": 37
+      },
+      "start": 25.0,
+      "end": 13113823.8004,
+      "profit": 13113798.8004,
+      "return_pct": 524551.952,
+      "min_bankroll": 20.0,
+      "max_losing_streak": 9,
+      "flat_roi": 1.5971,
+      "balanced_score": 5.4264,
+      "is_live": false
+    },
+    {
+      "strategy": "med62_forced_4",
+      "stakes": "conservative_20_25_15",
+      "record": "38-45",
+      "hit_rate": 0.4578,
+      "mix": {
+        "1": 9,
+        "2": 37,
+        "4": 37
+      },
+      "start": 25.0,
+      "end": 13113823.8004,
+      "profit": 13113798.8004,
+      "return_pct": 524551.952,
+      "min_bankroll": 20.0,
+      "max_losing_streak": 9,
+      "flat_roi": 1.5971,
+      "balanced_score": 5.4264,
+      "is_live": false
+    },
+    {
+      "strategy": "med57_top_prob_2",
+      "stakes": "flat_40",
+      "record": "48-35",
+      "hit_rate": 0.5783,
+      "mix": {
+        "2": 83
+      },
+      "start": 25.0,
+      "end": 2707325.1275,
+      "profit": 2707300.1275,
+      "return_pct": 108292.0051,
+      "min_bankroll": 15.0,
+      "max_losing_streak": 4,
+      "flat_roi": 0.8209,
+      "balanced_score": 5.3632,
+      "is_live": false
+    },
+    {
+      "strategy": "med62_always_4",
+      "stakes": "flat_20",
+      "record": "38-45",
+      "hit_rate": 0.4578,
+      "mix": {
+        "1": 9,
+        "2": 37,
+        "4": 37
+      },
+      "start": 25.0,
+      "end": 9912316.4897,
+      "profit": 9912291.4897,
+      "return_pct": 396491.6596,
+      "min_bankroll": 20.0,
+      "max_losing_streak": 9,
+      "flat_roi": 1.5971,
+      "balanced_score": 5.3111,
+      "is_live": false
+    },
+    {
+      "strategy": "med62_forced_4",
+      "stakes": "flat_20",
+      "record": "38-45",
+      "hit_rate": 0.4578,
+      "mix": {
+        "1": 9,
+        "2": 37,
+        "4": 37
+      },
+      "start": 25.0,
+      "end": 9912316.4897,
+      "profit": 9912291.4897,
+      "return_pct": 396491.6596,
+      "min_bankroll": 20.0,
+      "max_losing_streak": 9,
+      "flat_roi": 1.5971,
+      "balanced_score": 5.3111,
+      "is_live": false
+    }
+  ],
+  "recommendation": {
+    "best_compound_profit": {
+      "strategy": "med62_always_4",
+      "stakes": "flat_30",
+      "record": "38-45",
+      "end": 32730864.9255
+    },
+    "best_hit_rate_min_70d": {
+      "strategy": "corr_nl_reject_both",
+      "stakes": "flat_40",
+      "record": "52-25",
+      "hit_rate": 0.6753
+    },
+    "best_balanced": {
+      "strategy": "med59_top_prob_2",
+      "stakes": "flat_35",
+      "record": "49-34",
+      "score": 6.0334
+    },
+    "shipped_stake_challengers_vs_live": [
+      {
+        "strategy": "med62_always_4",
+        "stakes": "shipped_35_45_10",
+        "record": "38-45",
+        "hit_rate": 0.4578,
+        "mix": {
+          "1": 9,
+          "2": 37,
+          "4": 37
+        },
+        "start": 25.0,
+        "end": 10963827.1757,
+        "profit": 10963802.1757,
+        "return_pct": 438552.087,
+        "min_bankroll": 16.25,
+        "max_losing_streak": 9,
+        "flat_roi": 1.5971,
+        "balanced_score": 4.9066,
+        "is_live": false
+      },
+      {
+        "strategy": "med62_forced_4",
+        "stakes": "shipped_35_45_10",
+        "record": "38-45",
+        "hit_rate": 0.4578,
+        "mix": {
+          "1": 9,
+          "2": 37,
+          "4": 37
+        },
+        "start": 25.0,
+        "end": 10963827.1757,
+        "profit": 10963802.1757,
+        "return_pct": 438552.087,
+        "min_bankroll": 16.25,
+        "max_losing_streak": 9,
+        "flat_roi": 1.5971,
+        "balanced_score": 4.9066,
+        "is_live": false
+      },
+      {
+        "strategy": "med60_always_4",
+        "stakes": "shipped_35_45_10",
+        "record": "34-49",
+        "hit_rate": 0.4096,
+        "mix": {
+          "1": 8,
+          "2": 23,
+          "4": 52
+        },
+        "start": 25.0,
+        "end": 5615507.4673,
+        "profit": 5615482.4673,
+        "return_pct": 224619.2987,
+        "min_bankroll": 16.25,
+        "max_losing_streak": 9,
+        "flat_roi": 1.8242,
+        "balanced_score": 4.1639,
+        "is_live": false
+      },
+      {
+        "strategy": "med60_forced_4",
+        "stakes": "shipped_35_45_10",
+        "record": "34-49",
+        "hit_rate": 0.4096,
+        "mix": {
+          "1": 8,
+          "2": 23,
+          "4": 52
+        },
+        "start": 25.0,
+        "end": 5615507.4673,
+        "profit": 5615482.4673,
+        "return_pct": 224619.2987,
+        "min_bankroll": 16.25,
+        "max_losing_streak": 9,
+        "flat_roi": 1.8242,
+        "balanced_score": 4.1639,
+        "is_live": false
+      },
+      {
+        "strategy": "med59_top_prob_2",
+        "stakes": "shipped_35_45_10",
+        "record": "49-34",
+        "hit_rate": 0.5904,
+        "mix": {
+          "1": 1,
+          "2": 82
+        },
+        "start": 25.0,
+        "end": 4868126.3765,
+        "profit": 4868101.3765,
+        "return_pct": 194724.0551,
+        "min_bankroll": 13.75,
+        "max_losing_streak": 4,
+        "flat_roi": 0.8488,
+        "balanced_score": 5.5728,
+        "is_live": false
+      }
+    ],
+    "note": "Ship only after user review. Compound backtest \u2260 guaranteed live returns."
+  }
+}
