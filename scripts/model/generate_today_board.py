@@ -180,6 +180,13 @@ def main() -> None:
     }
     PUBLIC_PATH.parent.mkdir(parents=True, exist_ok=True)
     PUBLIC_PATH.write_text(json.dumps(payload, indent=2))
+
+    from validate_live_board import validate_live_board
+
+    board_errors = validate_live_board(payload)
+    if board_errors:
+        raise RuntimeError("Live board failed consistency checks:\n" + "\n".join(board_errors))
+
     print(f"generated_predictions={len(board)}")
     print(f"trained_through={bundle.trained_through.isoformat()}")
     print(f"retrained_this_run={retrained}")
