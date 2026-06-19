@@ -8,5 +8,17 @@ node_modules/
 data/odds_live_cache.json
 scripts/model/tmp_*
 data/cache/
+data/archived-board-*.json
+data/_integrity_board.json
+data/overnight-*.jsonl
+data/overnight-*.pkl
+data/overnight-*-state.json
+data/model/*.log
+data/model/pipeline-comparison.json
+public/overnight-briefing.json
+public/overnight-compound-sweep.json
+public/overnight-morning-report.json
+public/overnight-research-report.json
+public/predictions-soriano-scenario.json
 __pycache__/
 *.pyc
