@@ -216,13 +216,16 @@ def ticket_from_archived_board(board_path: Path) -> dict | None:
         "  console.log(JSON.stringify({ kind: 'parlay', label: legs.map((leg) => `${leg.team.abbreviation} ML`).join(' + '), legs: legs.map((leg) => leg.team.abbreviation), leg_count: legs.length, odds: ticket.parlay.americanOdds, model_probability: ticket.parlay.probability }));\n"
         "}\n"
     )
-    proc = subprocess.run(
-        ["npx", "--yes", "tsx", str(script_path), str(board_path)],
-        capture_output=True,
-        text=True,
-        cwd=REPO_ROOT,
-        check=False,
-    )
+    try:
+        proc = subprocess.run(
+            ["npx", "--yes", "tsx", str(script_path), str(board_path)],
+            capture_output=True,
+            text=True,
+            cwd=REPO_ROOT,
+            check=False,
+        )
+    except FileNotFoundError:
+        return None
     if proc.returncode != 0:
         return None
     raw = proc.stdout.strip()

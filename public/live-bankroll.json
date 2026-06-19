@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-18",
+  "generated_at": "2026-06-19",
   "tracking_mode": "live_best_bets",
   "disclaimer": "Tracks the Best Bets system ticket \u2014 bet this exact card on Robinhood. Currently $5 flat per ticket.",
   "strategy": "no_low_parlay_223s",
@@ -27,18 +27,17 @@
   "backtest_ticket_hit_rate": 0.58,
   "last_settled_date": "2026-06-18",
   "today_ticket": {
-    "date": "2026-06-18",
-    "label": "ATL ML + MIN ML",
+    "date": "2026-06-19",
+    "label": "CLE ML",
     "legs": [
-      "ATL",
-      "MIN"
+      "CLE"
     ],
-    "leg_count": 2,
+    "leg_count": 1,
     "stake_pct": 0.1132,
     "stake_amount": 5.0,
-    "status": "graded",
-    "odds": 211,
-    "model_probability": 0.35771822,
+    "status": "pending",
+    "odds": 106,
+    "model_probability": 0.7,
     "prove_out": true
   },
   "checkpoints": [

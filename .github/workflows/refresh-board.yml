@@ -2,9 +2,11 @@ name: Refresh Live Board
 
 on:
   schedule:
-    # Hourly 10 AM – 10 PM Central (CDT/CST). Starters and lines move all afternoon.
+    # Morning catch-up when Daily Model cron is missed (~5–9 AM CT = 10–14 UTC).
+    - cron: "0 10-14 * * *"
+    # Hourly during game day (~10 AM – 10 PM CT).
     - cron: "0 15-23 * * *"
-    - cron: "0 0-3 * * *"
+    - cron: "0 0-4 * * *"
   workflow_dispatch:
 
 permissions:
@@ -16,12 +18,8 @@ concurrency:
 
 jobs:
   refresh:
-    if: >-
-      github.event_name == 'schedule' ||
-      github.event_name == 'workflow_dispatch' ||
-      (github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success')
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 45
     env:
       TZ: America/Chicago
     steps:
@@ -29,6 +27,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           ref: main
+          fetch-depth: 50
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -37,8 +36,16 @@ jobs:
           cache: pip
           cache-dependency-path: requirements.txt
 
-      - name: Install Python dependencies
-        run: pip install -r requirements.txt
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+          npm ci
 
       - name: Regenerate today's board
         env:
@@ -48,10 +55,13 @@ jobs:
         run: |
           set -euo pipefail
           python3 scripts/model/generate_today_board.py
-          python3 scripts/model/update_live_bankroll.py
           board_at=$(python3 -c "import json; print(json.load(open('public/predictions.json'))['board_generated_at'])")
           echo "board_generated_at=${board_at}"
           test -n "${board_at}"
+
+      - name: Update live bankroll
+        continue-on-error: true
+        run: python3 scripts/model/update_live_bankroll.py
 
       - name: Commit and push refreshed board
         run: |
