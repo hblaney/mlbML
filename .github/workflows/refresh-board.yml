@@ -64,12 +64,28 @@ jobs:
         continue-on-error: true
         run: python3 scripts/model/update_live_bankroll.py
 
+      - name: Sync prediction history and accuracy
+        run: |
+          set -euo pipefail
+          yesterday=$(python3 -c "from datetime import date, timedelta; print((date.today()-timedelta(days=1)).isoformat())")
+          trained=$(
+            python3 -c "import json; from pathlib import Path; p=Path('public/prediction-history.json'); print(json.loads(p.read_text()).get('trained_through','') if p.exists() else '')" \
+              || echo ""
+          )
+          if [ -z "$trained" ] || [[ "$trained" < "$yesterday" ]]; then
+            echo "History stale (${trained:-missing} < ${yesterday}); regenerating accuracy."
+            python3 scripts/model/generate_prediction_history.py --current-season-only
+            python3 scripts/model/generate_accuracy_output.py
+          else
+            echo "History current through ${trained}; skipping accuracy rebuild."
+          fi
+
       - name: Commit and push refreshed board
         run: |
           set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add public/predictions.json public/live-bankroll.json data/live-bankroll-state.json data/model/daily_edge.pkl
+          git add public/predictions.json public/live-bankroll.json public/prediction-history.json public/accuracy.json data/live-bankroll-state.json data/model/daily_edge.pkl
           if git diff --staged --quiet; then
             echo "Board unchanged since last refresh (lines/probabilities identical)."
             exit 0
