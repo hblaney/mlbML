@@ -1,12 +1,12 @@
 {
   "started_at": "2026-06-13",
   "starting_balance": 25.0,
-  "balance": 44.173,
+  "balance": 39.173,
   "record": {
     "wins": 4,
-    "losses": 2
+    "losses": 3
   },
-  "last_settled_date": "2026-06-18",
+  "last_settled_date": "2026-06-19",
   "checkpoints": [
     {
       "date": "2026-06-13",
@@ -96,6 +96,22 @@
       "legs": [
         "ATL",
         "MIN"
+      ],
+      "stake_amount": 5.0,
+      "grade_source": "archived_board",
+      "prove_out": true
+    },
+    {
+      "date": "2026-06-19",
+      "profit": -5.0,
+      "balance": 39.173,
+      "return_pct": 0.5669,
+      "won": false,
+      "leg_count": 2,
+      "label": "CLE ML + NYY ML",
+      "legs": [
+        "CLE",
+        "NYY"
       ],
       "stake_amount": 5.0,
       "grade_source": "archived_board",
@@ -205,6 +221,24 @@
       "won": true,
       "odds": 211,
       "model_probability": 0.35771822,
+      "grade_source": "archived_board",
+      "prove_out": true
+    },
+    {
+      "date": "2026-06-19",
+      "label": "CLE ML + NYY ML",
+      "legs": [
+        "CLE",
+        "NYY"
+      ],
+      "leg_count": 2,
+      "stake_pct": 0.1132,
+      "stake_amount": 5.0,
+      "profit": -5.0,
+      "balance_after": 39.17,
+      "won": false,
+      "odds": 181,
+      "model_probability": 0.45807999999999993,
       "grade_source": "archived_board",
       "prove_out": true
     }

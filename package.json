@@ -2,6 +2,9 @@
   "name": "mlb-edge",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": ">=20.9.0"
+  },
   "scripts": {
     "dev": "next dev --webpack",
     "build": "next build",
@@ -37,6 +40,7 @@
     "@types/react-dom": "latest",
     "eslint": "latest",
     "eslint-config-next": "latest",
+    "tsx": "^4.20.3",
     "typescript": "latest"
   }
 }

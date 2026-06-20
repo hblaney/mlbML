@@ -39,7 +39,7 @@ jobs:
       - name: Set up Node
         uses: actions/setup-node@v4
         with:
-          node-version: "20"
+          node-version: "22"
           cache: npm
 
       - name: Install dependencies
@@ -54,7 +54,8 @@ jobs:
           ODDS_MARKETS: h2h,spreads,totals
         run: |
           set -euo pipefail
-          python3 scripts/model/generate_today_board.py
+          python3 scripts/model/generate_today_board.py 2>&1 | tee board-gen.log
+          test "${PIPESTATUS[0]}" -eq 0
           board_at=$(python3 -c "import json; print(json.load(open('public/predictions.json'))['board_generated_at'])")
           echo "board_generated_at=${board_at}"
           test -n "${board_at}"

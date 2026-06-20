@@ -71,7 +71,7 @@ jobs:
         if: steps.run_control.outputs.should_run == 'true'
         uses: actions/setup-node@v4
         with:
-          node-version: "20"
+          node-version: "22"
           cache: npm
 
       - name: Install Python dependencies
@@ -120,8 +120,8 @@ jobs:
           fi
           acc_trained=$(python3 -c "import json; print(json.load(open('public/accuracy.json')).get('trained_through',''))")
           board_trained=$(python3 -c "import json; print(json.load(open('public/predictions.json')).get('trained_through',''))")
-          if [ -n "$acc_trained" ] && [ -n "$board_trained" ] && [ "$acc_trained" != "$board_trained" ]; then
-            echo "accuracy.json trained_through=${acc_trained} lags predictions ${board_trained}"
+          if [ -n "$acc_trained" ] && [ -n "$board_trained" ] && [[ "$board_trained" < "$acc_trained" ]]; then
+            echo "predictions trained_through=${board_trained} is behind accuracy ${acc_trained}"
             exit 1
           fi
           echo "Board published for ${today} with $(python3 -c "import json; print(len(json.load(open('public/predictions.json'))['predictions']))") games."

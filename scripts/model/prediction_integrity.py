@@ -130,8 +130,10 @@ def verify_best_bets_ticket(payload: dict | None = None) -> list[str]:
 
     temp = ROOT / "data" / "_integrity_board.json"
     temp.write_text(json.dumps(payload))
+    tsx_bin = ROOT / "node_modules" / ".bin" / "tsx"
+    tsx_cmd = [str(tsx_bin)] if tsx_bin.exists() else ["npx", "--yes", "tsx"]
     proc = subprocess.run(
-        ["npx", "--yes", "tsx", str(TICKET_SCRIPT), str(temp)],
+        [*tsx_cmd, str(TICKET_SCRIPT), str(temp)],
         capture_output=True,
         text=True,
         cwd=ROOT,

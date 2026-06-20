@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-19",
+  "generated_at": "2026-06-20",
   "tracking_mode": "live_best_bets",
   "disclaimer": "Tracks the Best Bets system ticket \u2014 bet this exact card on Robinhood. Currently $5 flat per ticket.",
   "strategy": "trg59_top_prob_2",
@@ -18,27 +18,27 @@
   "daily_exposure_cap": 0.5,
   "started_at": "2026-06-13",
   "starting_balance": 25.0,
-  "balance": 44.173,
+  "balance": 39.173,
   "wallet_balance": 29.0,
-  "profit": 19.173,
-  "return_pct": 0.7669,
-  "record": "4-2",
-  "hit_rate": 0.6667,
+  "profit": 14.173,
+  "return_pct": 0.5669,
+  "record": "4-3",
+  "hit_rate": 0.5714,
   "backtest_ticket_hit_rate": 0.58,
-  "last_settled_date": "2026-06-18",
+  "last_settled_date": "2026-06-19",
   "today_ticket": {
-    "date": "2026-06-19",
-    "label": "NYY ML + DET ML",
+    "date": "2026-06-20",
+    "label": "LAD ML + DET ML",
     "legs": [
-      "NYY",
+      "LAD",
       "DET"
     ],
     "leg_count": 2,
-    "stake_pct": 0.1132,
+    "stake_pct": 0.1276,
     "stake_amount": 5.0,
     "status": "pending",
-    "odds": 104,
-    "model_probability": 0.41174848,
+    "odds": 144,
+    "model_probability": 0.42801336,
     "prove_out": true
   },
   "checkpoints": [
@@ -130,6 +130,22 @@
       "legs": [
         "ATL",
         "MIN"
+      ],
+      "stake_amount": 5.0,
+      "grade_source": "archived_board",
+      "prove_out": true
+    },
+    {
+      "date": "2026-06-19",
+      "profit": -5.0,
+      "balance": 39.173,
+      "return_pct": 0.5669,
+      "won": false,
+      "leg_count": 2,
+      "label": "CLE ML + NYY ML",
+      "legs": [
+        "CLE",
+        "NYY"
       ],
       "stake_amount": 5.0,
       "grade_source": "archived_board",
@@ -239,6 +255,24 @@
       "won": true,
       "odds": 211,
       "model_probability": 0.35771822,
+      "grade_source": "archived_board",
+      "prove_out": true
+    },
+    {
+      "date": "2026-06-19",
+      "label": "CLE ML + NYY ML",
+      "legs": [
+        "CLE",
+        "NYY"
+      ],
+      "leg_count": 2,
+      "stake_pct": 0.1132,
+      "stake_amount": 5.0,
+      "profit": -5.0,
+      "balance_after": 39.17,
+      "won": false,
+      "odds": 181,
+      "model_probability": 0.45807999999999993,
       "grade_source": "archived_board",
       "prove_out": true
     }
