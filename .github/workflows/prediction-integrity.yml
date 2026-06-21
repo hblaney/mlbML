@@ -4,6 +4,7 @@ on:
   push:
     branches: [main]
     paths:
+      - ".github/workflows/prediction-integrity.yml"
       - "scripts/model/**"
       - "lib/data.ts"
       - "lib/model-output.ts"
