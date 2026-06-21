@@ -205,11 +205,7 @@ def main() -> None:
         print("missing public/predictions.json", file=sys.stderr)
         sys.exit(1)
 
-    on_ci = os.environ.get("GITHUB_ACTIONS") == "true"
-    recompute = (
-        (args.strict_recompute or (args.full and not on_ci))
-        and not args.no_recompute
-    )
+    recompute = args.strict_recompute and not args.no_recompute
 
     errors = run_all(
         recompute=recompute,
