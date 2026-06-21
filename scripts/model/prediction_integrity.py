@@ -7,13 +7,9 @@ import json
 import os
 import subprocess
 import sys
+import traceback
 from datetime import date, timedelta
 from pathlib import Path
-
-from daily_auto_model import MODEL_VERSION, PIPELINE_VERSION, ensure_trained_through
-from mlb_api import fetch_upcoming_games, load_team_abbreviations
-from odds_provider import implied_probability
-from trained_edge_model import final_public_probabilities, public_confidence_for
 
 ROOT = Path(__file__).resolve().parents[2]
 PUBLIC_PATH = ROOT / "public" / "predictions.json"
@@ -31,6 +27,12 @@ FORBIDDEN_EXPLANATION_FRAGMENTS = (
 TOLERANCE = 0.001 if os.environ.get("GITHUB_ACTIONS") == "true" else 0.0002
 
 
+def _code_model_versions() -> tuple[str, str]:
+    from daily_auto_model import MODEL_VERSION, PIPELINE_VERSION
+
+    return MODEL_VERSION, PIPELINE_VERSION
+
+
 def validate_board_schema(payload: dict) -> list[str]:
     errors: list[str] = []
     predictions = payload.get("predictions", [])
@@ -43,7 +45,7 @@ def validate_board_schema(payload: dict) -> list[str]:
         home = float(row.get("modelHomeWinProbability", 0))
         away = float(row.get("modelAwayWinProbability", 0))
         if abs(home + away - 1.0) > TOLERANCE:
-            errors.append(f"{gid}: probabilities don't sum to 1")
+            errors.append(f"{gid}: probabilities don't sum to 1 ({home + away:.6f})")
         text = " ".join(row.get("explanation") or []).lower()
         for frag in FORBIDDEN_EXPLANATION_FRAGMENTS:
             if frag in text:
@@ -52,6 +54,8 @@ def validate_board_schema(payload: dict) -> list[str]:
 
 
 def _market_probs_from_row(row: dict) -> tuple[float, float] | None:
+    from odds_provider import implied_probability
+
     home_ml = row.get("homeMoneyline")
     away_ml = row.get("awayMoneyline")
     if home_ml is None or away_ml is None:
@@ -65,6 +69,10 @@ def _market_probs_from_row(row: dict) -> tuple[float, float] | None:
 
 
 def recompute_and_verify_board(payload: dict | None = None) -> list[str]:
+    from daily_auto_model import ensure_trained_through
+    from mlb_api import fetch_upcoming_games, load_team_abbreviations
+    from trained_edge_model import final_public_probabilities
+
     errors: list[str] = []
     if payload is None:
         payload = json.loads(PUBLIC_PATH.read_text())
@@ -196,8 +204,16 @@ def main() -> None:
         sys.exit(1)
 
     payload = json.loads(PUBLIC_PATH.read_text())
+    board_model = payload.get("model_version", "unknown")
+    board_pipeline = payload.get("pipeline_version", "unknown")
+
     if args.verbose:
-        print(f"board_model={payload.get('model_version')!r} code_model={MODEL_VERSION!r}")
+        if args.full or args.strict_recompute:
+            code_model, code_pipeline = _code_model_versions()
+            print(f"board_model={board_model!r} code_model={code_model!r}")
+            print(f"board_pipeline={board_pipeline!r} code_pipeline={code_pipeline!r}")
+        else:
+            print(f"board_model={board_model!r} (schema-only; skipping ML import)")
 
     recompute = args.strict_recompute and not args.no_recompute
 
@@ -212,13 +228,16 @@ def main() -> None:
             print(f"  - {err}")
         sys.exit(1)
 
-    games = len(json.loads(PUBLIC_PATH.read_text()).get("predictions", []))
-    print(f"prediction_integrity_ok games={games} model={MODEL_VERSION} pipeline={PIPELINE_VERSION}")
+    games = len(payload.get("predictions", []))
+    print(
+        f"prediction_integrity_ok games={games} model={board_model} pipeline={board_pipeline}"
+    )
 
 
 if __name__ == "__main__":
     try:
         main()
-    except Exception as exc:
-        print(f"PREDICTION INTEGRITY CRASHED: {exc}")
-        raise
+    except Exception:
+        print("PREDICTION INTEGRITY CRASHED")
+        traceback.print_exc()
+        sys.exit(1)

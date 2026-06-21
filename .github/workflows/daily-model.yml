@@ -25,6 +25,7 @@ jobs:
     timeout-minutes: 90
     env:
       TZ: America/Chicago
+      PYTHONPATH: scripts/model
     steps:
       - name: Decide whether to run
         id: run_control
@@ -69,9 +70,9 @@ jobs:
 
       - name: Set up Node
         if: steps.run_control.outputs.should_run == 'true'
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
-          node-version: "22"
+          node-version: "24"
           cache: npm
 
       - name: Install Python dependencies
