@@ -197,19 +197,23 @@ def main() -> None:
     parser.add_argument("--full", action="store_true", help="ticket + accuracy checks (recompute on CI only with --strict-recompute)")
     parser.add_argument("--strict-recompute", action="store_true", help="recompute every pick (run after generate_today_board)")
     parser.add_argument("--no-recompute", action="store_true")
+    parser.add_argument("--verbose", action="store_true")
     args = parser.parse_args()
 
     if not PUBLIC_PATH.exists():
-        print("missing public/predictions.json", file=sys.stderr)
+        print(f"missing {PUBLIC_PATH}")
         sys.exit(1)
+
+    payload = json.loads(PUBLIC_PATH.read_text())
+    if args.verbose:
+        print(f"board_model={payload.get('model_version')!r} code_model={MODEL_VERSION!r}")
 
     recompute = args.strict_recompute and not args.no_recompute
 
-    errors = run_all(
-        recompute=recompute,
-        ticket=args.full,
-        accuracy=args.full,
-    ) if args.full else validate_board_schema(json.loads(PUBLIC_PATH.read_text()))
+    if args.full:
+        errors = run_all(recompute=recompute, ticket=True, accuracy=True)
+    else:
+        errors = validate_board_schema(payload)
 
     if errors:
         print("PREDICTION INTEGRITY FAILED")

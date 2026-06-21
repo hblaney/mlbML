@@ -46,7 +46,7 @@ jobs:
         run: npm run build
 
       - name: Validate board schema
-        run: python3 scripts/model/prediction_integrity.py
+        run: python3 scripts/model/prediction_integrity.py --verbose
 
       - name: Validate ticket and accuracy sync
         run: python3 scripts/model/prediction_integrity.py --full
