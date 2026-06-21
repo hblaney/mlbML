@@ -131,10 +131,8 @@ def verify_best_bets_ticket(payload: dict | None = None) -> list[str]:
 
     temp = ROOT / "data" / "_integrity_board.json"
     temp.write_text(json.dumps(payload))
-    tsx_bin = ROOT / "node_modules" / ".bin" / "tsx"
-    tsx_cmd = [str(tsx_bin)] if tsx_bin.exists() else ["npx", "--yes", "tsx"]
     proc = subprocess.run(
-        [*tsx_cmd, str(TICKET_SCRIPT), str(temp)],
+        ["npx", "--yes", "tsx", str(TICKET_SCRIPT), str(temp)],
         capture_output=True,
         text=True,
         cwd=ROOT,
@@ -214,9 +212,9 @@ def main() -> None:
     ) if args.full else validate_board_schema(json.loads(PUBLIC_PATH.read_text()))
 
     if errors:
-        print("PREDICTION INTEGRITY FAILED", file=sys.stderr)
+        print("PREDICTION INTEGRITY FAILED")
         for err in errors:
-            print(f"  - {err}", file=sys.stderr)
+            print(f"  - {err}")
         sys.exit(1)
 
     games = len(json.loads(PUBLIC_PATH.read_text()).get("predictions", []))
