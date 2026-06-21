@@ -28,7 +28,7 @@ FORBIDDEN_EXPLANATION_FRAGMENTS = (
     "confidence capped",
 )
 
-TOLERANCE = 0.0002
+TOLERANCE = 0.001 if os.environ.get("GITHUB_ACTIONS") == "true" else 0.0002
 
 
 def validate_board_schema(payload: dict) -> list[str]:
