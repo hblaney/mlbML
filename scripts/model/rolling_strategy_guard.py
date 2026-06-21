@@ -122,7 +122,7 @@ def main() -> None:
     d14 = (today - timedelta(days=14)).isoformat()
 
     comparisons: dict[str, dict] = {}
-    for rule in CHALLENGERS:
+    for rule in [LIVE_STRATEGY, *CHALLENGERS]:
         comparisons[rule] = {
             "season_to_date": window_stats(ml, rule, start_day, end_day),
             "rolling_14d": window_stats(ml, rule, d14, end_day),

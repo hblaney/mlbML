@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-20",
+  "generated_at": "2026-06-21",
   "tracking_mode": "live_best_bets",
   "disclaimer": "Tracks the Best Bets system ticket \u2014 bet this exact card on Robinhood. Currently $5 flat per ticket.",
   "strategy": "trg59_top_prob_2",
@@ -18,27 +18,27 @@
   "daily_exposure_cap": 0.5,
   "started_at": "2026-06-13",
   "starting_balance": 25.0,
-  "balance": 39.173,
+  "balance": 34.173,
   "wallet_balance": 29.0,
-  "profit": 14.173,
-  "return_pct": 0.5669,
-  "record": "4-3",
-  "hit_rate": 0.5714,
+  "profit": 9.173,
+  "return_pct": 0.3669,
+  "record": "4-4",
+  "hit_rate": 0.5,
   "backtest_ticket_hit_rate": 0.58,
-  "last_settled_date": "2026-06-19",
+  "last_settled_date": "2026-06-20",
   "today_ticket": {
-    "date": "2026-06-20",
-    "label": "LAD ML + DET ML",
+    "date": "2026-06-21",
+    "label": "PHI ML + KC ML",
     "legs": [
-      "LAD",
-      "DET"
+      "PHI",
+      "KC"
     ],
     "leg_count": 2,
-    "stake_pct": 0.1276,
+    "stake_pct": 0.1463,
     "stake_amount": 5.0,
     "status": "pending",
-    "odds": 144,
-    "model_probability": 0.42801336,
+    "odds": 222,
+    "model_probability": 0.397548,
     "prove_out": true
   },
   "checkpoints": [
@@ -146,6 +146,22 @@
       "legs": [
         "CLE",
         "NYY"
+      ],
+      "stake_amount": 5.0,
+      "grade_source": "archived_board",
+      "prove_out": true
+    },
+    {
+      "date": "2026-06-20",
+      "profit": -5.0,
+      "balance": 34.173,
+      "return_pct": 0.3669,
+      "won": false,
+      "leg_count": 2,
+      "label": "LAD ML + DET ML",
+      "legs": [
+        "LAD",
+        "DET"
       ],
       "stake_amount": 5.0,
       "grade_source": "archived_board",
@@ -273,6 +289,24 @@
       "won": false,
       "odds": 181,
       "model_probability": 0.45807999999999993,
+      "grade_source": "archived_board",
+      "prove_out": true
+    },
+    {
+      "date": "2026-06-20",
+      "label": "LAD ML + DET ML",
+      "legs": [
+        "LAD",
+        "DET"
+      ],
+      "leg_count": 2,
+      "stake_pct": 0.1276,
+      "stake_amount": 5.0,
+      "profit": -5.0,
+      "balance_after": 34.17,
+      "won": false,
+      "odds": 144,
+      "model_probability": 0.42801336,
       "grade_source": "archived_board",
       "prove_out": true
     }
