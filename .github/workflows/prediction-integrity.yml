@@ -41,10 +41,8 @@ jobs:
       - run: pip install -r requirements.txt
       - run: npm ci
 
-      - name: Full prediction integrity (schema + recompute + ticket + accuracy)
-        env:
-          ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
-        run: python3 scripts/model/prediction_integrity.py --full
-
       - name: TypeScript build must load board without confidence mismatch
         run: npm run build
+
+      - name: Full prediction integrity (schema + ticket + accuracy)
+        run: python3 scripts/model/prediction_integrity.py --full
