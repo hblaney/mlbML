@@ -50,8 +50,8 @@
       "wins": 39,
       "losses": 28,
       "staked": 6700.0,
-      "profit": 3486.4,
-      "roi": 0.5204,
+      "profit": 3542.81,
+      "roi": 0.5288,
       "hit_rate": 0.5821
     },
     "moneyline": {
@@ -59,18 +59,18 @@
       "wins": 44,
       "losses": 22,
       "staked": 6600.0,
-      "profit": 2452.35,
-      "roi": 0.3716,
+      "profit": 2518.16,
+      "roi": 0.3815,
       "hit_rate": 0.6667
     },
     "parlay_2": {
-      "bets": 44,
-      "wins": 22,
+      "bets": 43,
+      "wins": 21,
       "losses": 22,
-      "staked": 4400.0,
-      "profit": 2597.63,
-      "roi": 0.5904,
-      "hit_rate": 0.5
+      "staked": 4300.0,
+      "profit": 2361.83,
+      "roi": 0.5493,
+      "hit_rate": 0.4884
     }
   },
   "weekly": {
@@ -88,8 +88,8 @@
       "wins": 6,
       "losses": 1,
       "staked": 700.0,
-      "profit": 677.23,
-      "roi": 0.9675,
+      "profit": 733.64,
+      "roi": 1.0481,
       "hit_rate": 0.8571
     },
     "2026-W17": {
@@ -180,8 +180,8 @@
       "wins": 14,
       "losses": 8,
       "staked": 2200.0,
-      "profit": 1222.86,
-      "roi": 0.5558,
+      "profit": 1279.27,
+      "roi": 0.5815,
       "hit_rate": 0.6364
     },
     "2026-05": {
@@ -205,371 +205,371 @@
   },
   "cumulative": {
     "bets": 67,
-    "profit": 3486.4,
-    "roi": 0.5204,
-    "balance": 13486.4,
-    "return_pct": 0.3486
+    "profit": 3542.81,
+    "roi": 0.5288,
+    "balance": 13542.81,
+    "return_pct": 0.3543
   },
   "checkpoints": [
     {
       "date": "2026-04-16",
-      "profit": 75.19,
-      "balance": 10886.19,
-      "return_pct": 0.0886
+      "profit": 141.0,
+      "balance": 10942.6,
+      "return_pct": 0.0943
     },
     {
       "date": "2026-04-17",
       "profit": 136.0,
-      "balance": 11022.19,
-      "return_pct": 0.1022
+      "balance": 11078.6,
+      "return_pct": 0.1079
     },
     {
       "date": "2026-04-18",
       "profit": 121.0,
-      "balance": 11143.19,
-      "return_pct": 0.1143
+      "balance": 11199.6,
+      "return_pct": 0.12
     },
     {
       "date": "2026-04-19",
       "profit": -100.0,
-      "balance": 11043.19,
-      "return_pct": 0.1043
+      "balance": 11099.6,
+      "return_pct": 0.11
     },
     {
       "date": "2026-04-20",
       "profit": 113.0,
-      "balance": 11156.19,
-      "return_pct": 0.1156
+      "balance": 11212.6,
+      "return_pct": 0.1213
     },
     {
       "date": "2026-04-21",
       "profit": -100.0,
-      "balance": 11056.19,
-      "return_pct": 0.1056
+      "balance": 11112.6,
+      "return_pct": 0.1113
     },
     {
       "date": "2026-04-22",
       "profit": 138.0,
-      "balance": 11194.19,
-      "return_pct": 0.1194
+      "balance": 11250.6,
+      "return_pct": 0.1251
     },
     {
       "date": "2026-04-23",
       "profit": -100.0,
-      "balance": 11094.19,
-      "return_pct": 0.1094
+      "balance": 11150.6,
+      "return_pct": 0.1151
     },
     {
       "date": "2026-04-24",
       "profit": 246.67,
-      "balance": 11340.86,
-      "return_pct": 0.1341
+      "balance": 11397.27,
+      "return_pct": 0.1397
     },
     {
       "date": "2026-04-25",
       "profit": -100.0,
-      "balance": 11240.86,
-      "return_pct": 0.1241
+      "balance": 11297.27,
+      "return_pct": 0.1297
     },
     {
       "date": "2026-04-26",
       "profit": 148.0,
-      "balance": 11388.86,
-      "return_pct": 0.1389
+      "balance": 11445.27,
+      "return_pct": 0.1445
     },
     {
       "date": "2026-04-27",
       "profit": -100.0,
-      "balance": 11288.86,
-      "return_pct": 0.1289
+      "balance": 11345.27,
+      "return_pct": 0.1345
     },
     {
       "date": "2026-04-28",
       "profit": -100.0,
-      "balance": 11188.86,
-      "return_pct": 0.1189
+      "balance": 11245.27,
+      "return_pct": 0.1245
     },
     {
       "date": "2026-04-29",
       "profit": 134.0,
-      "balance": 11322.86,
-      "return_pct": 0.1323
+      "balance": 11379.27,
+      "return_pct": 0.1379
     },
     {
       "date": "2026-04-30",
       "profit": -100.0,
-      "balance": 11222.86,
-      "return_pct": 0.1223
+      "balance": 11279.27,
+      "return_pct": 0.1279
     },
     {
       "date": "2026-05-01",
       "profit": -100.0,
-      "balance": 11122.86,
-      "return_pct": 0.1123
+      "balance": 11179.27,
+      "return_pct": 0.1179
     },
     {
       "date": "2026-05-02",
       "profit": 115.0,
-      "balance": 11237.86,
-      "return_pct": 0.1238
+      "balance": 11294.27,
+      "return_pct": 0.1294
     },
     {
       "date": "2026-05-03",
       "profit": -100.0,
-      "balance": 11137.86,
-      "return_pct": 0.1138
+      "balance": 11194.27,
+      "return_pct": 0.1194
     },
     {
       "date": "2026-05-04",
       "profit": 201.82,
-      "balance": 11339.68,
-      "return_pct": 0.134
+      "balance": 11396.09,
+      "return_pct": 0.1396
     },
     {
       "date": "2026-05-05",
       "profit": 224.92,
-      "balance": 11564.6,
-      "return_pct": 0.1565
+      "balance": 11621.01,
+      "return_pct": 0.1621
     },
     {
       "date": "2026-05-06",
       "profit": -100.0,
-      "balance": 11464.6,
-      "return_pct": 0.1465
+      "balance": 11521.01,
+      "return_pct": 0.1521
     },
     {
       "date": "2026-05-07",
       "profit": 219.6,
-      "balance": 11684.2,
-      "return_pct": 0.1684
+      "balance": 11740.61,
+      "return_pct": 0.1741
     },
     {
       "date": "2026-05-08",
       "profit": 117.0,
-      "balance": 11801.2,
-      "return_pct": 0.1801
+      "balance": 11857.61,
+      "return_pct": 0.1858
     },
     {
       "date": "2026-05-09",
       "profit": 112.0,
-      "balance": 11913.2,
-      "return_pct": 0.1913
+      "balance": 11969.61,
+      "return_pct": 0.197
     },
     {
       "date": "2026-05-10",
       "profit": -100.0,
-      "balance": 11813.2,
-      "return_pct": 0.1813
+      "balance": 11869.61,
+      "return_pct": 0.187
     },
     {
       "date": "2026-05-11",
       "profit": 131.0,
-      "balance": 11944.2,
-      "return_pct": 0.1944
+      "balance": 12000.61,
+      "return_pct": 0.2001
     },
     {
       "date": "2026-05-12",
       "profit": -100.0,
-      "balance": 11844.2,
-      "return_pct": 0.1844
+      "balance": 11900.61,
+      "return_pct": 0.1901
     },
     {
       "date": "2026-05-13",
       "profit": 244.27,
-      "balance": 12088.47,
-      "return_pct": 0.2088
+      "balance": 12144.88,
+      "return_pct": 0.2145
     },
     {
       "date": "2026-05-14",
       "profit": 229.3,
-      "balance": 12317.77,
-      "return_pct": 0.2318
+      "balance": 12374.18,
+      "return_pct": 0.2374
     },
     {
       "date": "2026-05-15",
       "profit": -100.0,
-      "balance": 12217.77,
-      "return_pct": 0.2218
+      "balance": 12274.18,
+      "return_pct": 0.2274
     },
     {
       "date": "2026-05-16",
       "profit": -100.0,
-      "balance": 12117.77,
-      "return_pct": 0.2118
+      "balance": 12174.18,
+      "return_pct": 0.2174
     },
     {
       "date": "2026-05-17",
       "profit": 116.0,
-      "balance": 12233.77,
-      "return_pct": 0.2234
+      "balance": 12290.18,
+      "return_pct": 0.229
     },
     {
       "date": "2026-05-18",
       "profit": 88.5,
-      "balance": 12322.27,
-      "return_pct": 0.2322
+      "balance": 12378.68,
+      "return_pct": 0.2379
     },
     {
       "date": "2026-05-19",
       "profit": 242.27,
-      "balance": 12564.54,
-      "return_pct": 0.2565
+      "balance": 12620.95,
+      "return_pct": 0.2621
     },
     {
       "date": "2026-05-20",
       "profit": 105.0,
-      "balance": 12669.54,
-      "return_pct": 0.267
+      "balance": 12725.95,
+      "return_pct": 0.2726
     },
     {
       "date": "2026-05-21",
       "profit": -100.0,
-      "balance": 12569.54,
-      "return_pct": 0.257
+      "balance": 12625.95,
+      "return_pct": 0.2626
     },
     {
       "date": "2026-05-22",
       "profit": 205.23,
-      "balance": 12774.77,
-      "return_pct": 0.2775
+      "balance": 12831.18,
+      "return_pct": 0.2831
     },
     {
       "date": "2026-05-23",
       "profit": -100.0,
-      "balance": 12674.77,
-      "return_pct": 0.2675
+      "balance": 12731.18,
+      "return_pct": 0.2731
     },
     {
       "date": "2026-05-24",
       "profit": -100.0,
-      "balance": 12574.77,
-      "return_pct": 0.2575
+      "balance": 12631.18,
+      "return_pct": 0.2631
     },
     {
       "date": "2026-05-25",
       "profit": -100.0,
-      "balance": 12474.77,
-      "return_pct": 0.2475
+      "balance": 12531.18,
+      "return_pct": 0.2531
     },
     {
       "date": "2026-05-26",
       "profit": -100.0,
-      "balance": 12374.77,
-      "return_pct": 0.2375
+      "balance": 12431.18,
+      "return_pct": 0.2431
     },
     {
       "date": "2026-05-27",
       "profit": -100.0,
-      "balance": 12274.77,
-      "return_pct": 0.2275
+      "balance": 12331.18,
+      "return_pct": 0.2331
     },
     {
       "date": "2026-05-28",
       "profit": 123.0,
-      "balance": 12397.77,
-      "return_pct": 0.2398
+      "balance": 12454.18,
+      "return_pct": 0.2454
     },
     {
       "date": "2026-05-29",
       "profit": -100.0,
-      "balance": 12297.77,
-      "return_pct": 0.2298
+      "balance": 12354.18,
+      "return_pct": 0.2354
     },
     {
       "date": "2026-05-30",
       "profit": 79.37,
-      "balance": 12377.14,
-      "return_pct": 0.2377
+      "balance": 12433.55,
+      "return_pct": 0.2434
     },
     {
       "date": "2026-05-31",
       "profit": -100.0,
-      "balance": 12277.14,
-      "return_pct": 0.2277
+      "balance": 12333.55,
+      "return_pct": 0.2334
     },
     {
       "date": "2026-06-01",
       "profit": 140.0,
-      "balance": 12417.14,
-      "return_pct": 0.2417
+      "balance": 12473.55,
+      "return_pct": 0.2474
     },
     {
       "date": "2026-06-02",
       "profit": 137.0,
-      "balance": 12554.14,
-      "return_pct": 0.2554
+      "balance": 12610.55,
+      "return_pct": 0.2611
     },
     {
       "date": "2026-06-05",
       "profit": -100.0,
-      "balance": 12454.14,
-      "return_pct": 0.2454
+      "balance": 12510.55,
+      "return_pct": 0.2511
     },
     {
       "date": "2026-06-06",
       "profit": -100.0,
-      "balance": 12354.14,
-      "return_pct": 0.2354
+      "balance": 12410.55,
+      "return_pct": 0.2411
     },
     {
       "date": "2026-06-07",
       "profit": 205.88,
-      "balance": 12560.02,
-      "return_pct": 0.256
+      "balance": 12616.43,
+      "return_pct": 0.2616
     },
     {
       "date": "2026-06-08",
       "profit": 219.6,
-      "balance": 12779.62,
-      "return_pct": 0.278
+      "balance": 12836.03,
+      "return_pct": 0.2836
     },
     {
       "date": "2026-06-09",
       "profit": 267.68,
-      "balance": 13047.3,
-      "return_pct": 0.3047
+      "balance": 13103.71,
+      "return_pct": 0.3104
     },
     {
       "date": "2026-06-10",
       "profit": -100.0,
-      "balance": 12947.3,
-      "return_pct": 0.2947
+      "balance": 13003.71,
+      "return_pct": 0.3004
     },
     {
       "date": "2026-06-11",
       "profit": 214.07,
-      "balance": 13161.37,
-      "return_pct": 0.3161
+      "balance": 13217.78,
+      "return_pct": 0.3218
     },
     {
       "date": "2026-06-12",
       "profit": 256.03,
-      "balance": 13417.4,
-      "return_pct": 0.3417
+      "balance": 13473.81,
+      "return_pct": 0.3474
     },
     {
       "date": "2026-06-13",
       "profit": 103.0,
-      "balance": 13520.4,
-      "return_pct": 0.352
+      "balance": 13576.81,
+      "return_pct": 0.3577
     },
     {
       "date": "2026-06-14",
       "profit": 166.0,
-      "balance": 13686.4,
-      "return_pct": 0.3686
+      "balance": 13742.81,
+      "return_pct": 0.3743
     },
     {
       "date": "2026-06-15",
       "profit": -100.0,
-      "balance": 13586.4,
-      "return_pct": 0.3586
+      "balance": 13642.81,
+      "return_pct": 0.3643
     },
     {
       "date": "2026-06-16",
       "profit": -100.0,
-      "balance": 13486.4,
-      "return_pct": 0.3486
+      "balance": 13542.81,
+      "return_pct": 0.3543
     }
   ],
   "daily": [
@@ -585,10 +585,10 @@
           "side": "Moneyline",
           "label": "AZ ML",
           "odds": 152,
-          "model_probability": 0.6456,
+          "model_probability": 0.6516,
           "book_probability": 0.3968,
-          "edge": 0.2488,
-          "ev": 62.69,
+          "edge": 0.2548,
+          "ev": 64.2,
           "stake": 100.0,
           "qualified": true,
           "won": true,
@@ -673,10 +673,10 @@
           "side": "Moneyline",
           "label": "TEX ML",
           "odds": 157,
-          "model_probability": 0.6979,
+          "model_probability": 0.6824,
           "book_probability": 0.3891,
-          "edge": 0.3088,
-          "ev": 79.36,
+          "edge": 0.2933,
+          "ev": 75.38,
           "stake": 100.0,
           "qualified": true,
           "won": false,
@@ -706,10 +706,10 @@
           "side": "Moneyline",
           "label": "TEX ML",
           "odds": 109,
-          "model_probability": 0.7,
+          "model_probability": 0.6885,
           "book_probability": 0.4785,
-          "edge": 0.2215,
-          "ev": 46.3,
+          "edge": 0.21,
+          "ev": 43.9,
           "stake": 100.0,
           "qualified": true,
           "won": true,
@@ -733,31 +733,21 @@
         {
           "category": "best_ticket",
           "date": "2026-04-13",
-          "matchup": "NYM @ LAD + CHC @ PHI",
+          "matchup": "CHC @ PHI + LAA @ NYY",
           "team": "2-leg Parlay",
           "side": "Parlay",
-          "label": "LAD ML + PHI ML",
-          "odds": 151,
-          "model_probability": 0.4889,
+          "label": "PHI ML + NYY ML",
+          "odds": 142,
+          "model_probability": 0.49,
           "book_probability": null,
           "edge": null,
-          "ev": 22.66,
+          "ev": 18.34,
           "stake": 100.0,
           "qualified": true,
           "strategy": "edge",
           "won": true,
-          "profit": 150.91,
+          "profit": 141.51,
           "legs": [
-            {
-              "team": "LAD",
-              "matchup": "NYM @ LAD",
-              "odds": -164,
-              "model_probability": 0.6984,
-              "book_probability": 0.6212,
-              "edge": 0.0772,
-              "won": true,
-              "confidence": "Medium"
-            },
             {
               "team": "PHI",
               "matchup": "CHC @ PHI",
@@ -765,6 +755,16 @@
               "model_probability": 0.7,
               "book_probability": 0.6416,
               "edge": 0.0584,
+              "won": true,
+              "confidence": "Medium"
+            },
+            {
+              "team": "NYY",
+              "matchup": "LAA @ NYY",
+              "odds": -182,
+              "model_probability": 0.7,
+              "book_probability": 0.6454,
+              "edge": 0.0546,
               "won": true,
               "confidence": "Medium"
             }
@@ -777,8 +777,8 @@
         "wins": 1,
         "losses": 0,
         "staked": 100.0,
-        "profit": 150.91,
-        "roi": 1.5091,
+        "profit": 141.51,
+        "roi": 1.4151,
         "hit_rate": 1.0
       }
     },
@@ -876,20 +876,20 @@
         {
           "category": "best_ticket",
           "date": "2026-04-16",
-          "gamePk": 824453,
-          "matchup": "BAL @ CLE",
-          "team": "CLE",
+          "gamePk": 824208,
+          "matchup": "COL @ HOU",
+          "team": "COL",
           "side": "Moneyline",
-          "label": "CLE ML",
-          "odds": -133,
-          "model_probability": 0.7,
-          "book_probability": 0.5708,
-          "edge": 0.1292,
-          "ev": 22.63,
+          "label": "COL ML",
+          "odds": 141,
+          "model_probability": 0.6211,
+          "book_probability": 0.4149,
+          "edge": 0.2062,
+          "ev": 49.69,
           "stake": 100.0,
           "qualified": true,
           "won": true,
-          "profit": 75.19,
+          "profit": 141.0,
           "ticket_kind": "single"
         }
       ],
@@ -898,8 +898,8 @@
         "wins": 1,
         "losses": 0,
         "staked": 100.0,
-        "profit": 75.19,
-        "roi": 0.7519,
+        "profit": 141.0,
+        "roi": 1.41,
         "hit_rate": 1.0
       }
     },
@@ -915,10 +915,10 @@
           "side": "Moneyline",
           "label": "CWS ML",
           "odds": 136,
-          "model_probability": 0.6625,
+          "model_probability": 0.6676,
           "book_probability": 0.4237,
-          "edge": 0.2388,
-          "ev": 56.35,
+          "edge": 0.2439,
+          "ev": 57.55,
           "stake": 100.0,
           "qualified": true,
           "won": true,
@@ -981,10 +981,10 @@
           "side": "Moneyline",
           "label": "LAA ML",
           "odds": 126,
-          "model_probability": 0.6874,
+          "model_probability": 0.6873,
           "book_probability": 0.4425,
-          "edge": 0.2449,
-          "ev": 55.35,
+          "edge": 0.2448,
+          "ev": 55.33,
           "stake": 100.0,
           "qualified": true,
           "won": false,
@@ -1014,10 +1014,10 @@
           "side": "Moneyline",
           "label": "HOU ML",
           "odds": 113,
-          "model_probability": 0.6751,
+          "model_probability": 0.6755,
           "book_probability": 0.4695,
-          "edge": 0.2056,
-          "ev": 43.8,
+          "edge": 0.206,
+          "ev": 43.88,
           "stake": 100.0,
           "qualified": true,
           "won": true,
@@ -1046,10 +1046,10 @@
           "side": "Parlay",
           "label": "STL ML + BOS ML",
           "odds": 259,
-          "model_probability": 0.4659,
+          "model_probability": 0.4698,
           "book_probability": null,
           "edge": null,
-          "ev": 67.14,
+          "ev": 68.54,
           "stake": 100.0,
           "qualified": true,
           "strategy": "edge",
@@ -1060,9 +1060,9 @@
               "team": "STL",
               "matchup": "STL @ MIA",
               "odds": 100,
-              "model_probability": 0.6702,
+              "model_probability": 0.6756,
               "book_probability": 0.5,
-              "edge": 0.1702,
+              "edge": 0.1756,
               "won": true,
               "confidence": "Medium"
             },
@@ -1070,9 +1070,9 @@
               "team": "BOS",
               "matchup": "NYY @ BOS",
               "odds": -126,
-              "model_probability": 0.6952,
+              "model_probability": 0.6954,
               "book_probability": 0.5575,
-              "edge": 0.1377,
+              "edge": 0.1379,
               "won": false,
               "confidence": "Medium"
             }
@@ -1102,10 +1102,10 @@
           "side": "Moneyline",
           "label": "HOU ML",
           "odds": 138,
-          "model_probability": 0.6274,
+          "model_probability": 0.6262,
           "book_probability": 0.4202,
-          "edge": 0.2072,
-          "ev": 49.32,
+          "edge": 0.206,
+          "ev": 49.04,
           "stake": 100.0,
           "qualified": true,
           "won": true,
@@ -1167,10 +1167,10 @@
           "side": "Parlay",
           "label": "KC ML + BAL ML",
           "odds": 247,
-          "model_probability": 0.4859,
+          "model_probability": 0.49,
           "book_probability": null,
           "edge": null,
-          "ev": 68.43,
+          "ev": 69.87,
           "stake": 100.0,
           "qualified": true,
           "strategy": "edge",
@@ -1181,9 +1181,9 @@
               "team": "KC",
               "matchup": "LAA @ KC",
               "odds": -108,
-              "model_probability": 0.6941,
+              "model_probability": 0.7,
               "book_probability": 0.5192,
-              "edge": 0.1749,
+              "edge": 0.1808,
               "won": true,
               "confidence": "Medium"
             },
@@ -1278,10 +1278,10 @@
           "side": "Moneyline",
           "label": "COL ML",
           "odds": 148,
-          "model_probability": 0.6542,
+          "model_probability": 0.6531,
           "book_probability": 0.4032,
-          "edge": 0.251,
-          "ev": 62.24,
+          "edge": 0.2499,
+          "ev": 61.97,
           "stake": 100.0,
           "qualified": true,
           "won": true,
@@ -1888,15 +1888,15 @@
         {
           "category": "best_ticket",
           "date": "2026-05-10",
-          "matchup": "ATH @ BAL + DET @ KC",
+          "matchup": "DET @ KC + CHC @ TEX",
           "team": "2-leg Parlay",
           "side": "Parlay",
-          "label": "ATH ML + KC ML",
-          "odds": 240,
-          "model_probability": 0.4535,
+          "label": "KC ML + TEX ML",
+          "odds": 220,
+          "model_probability": 0.4529,
           "book_probability": null,
           "edge": null,
-          "ev": 54.01,
+          "ev": 44.79,
           "stake": 100.0,
           "qualified": true,
           "strategy": "edge",
@@ -1904,23 +1904,23 @@
           "profit": -100.0,
           "legs": [
             {
-              "team": "ATH",
-              "matchup": "ATH @ BAL",
-              "odds": -108,
-              "model_probability": 0.6541,
-              "book_probability": 0.5192,
-              "edge": 0.1349,
+              "team": "KC",
+              "matchup": "DET @ KC",
+              "odds": -131,
+              "model_probability": 0.6926,
+              "book_probability": 0.5671,
+              "edge": 0.1255,
               "won": false,
               "confidence": "Medium"
             },
             {
-              "team": "KC",
-              "matchup": "DET @ KC",
-              "odds": -131,
-              "model_probability": 0.6933,
-              "book_probability": 0.5671,
-              "edge": 0.1262,
-              "won": false,
+              "team": "TEX",
+              "matchup": "CHC @ TEX",
+              "odds": -123,
+              "model_probability": 0.6539,
+              "book_probability": 0.5516,
+              "edge": 0.1023,
+              "won": true,
               "confidence": "Medium"
             }
           ],
@@ -1949,10 +1949,10 @@
           "side": "Moneyline",
           "label": "BAL ML",
           "odds": 131,
-          "model_probability": 0.6988,
+          "model_probability": 0.6984,
           "book_probability": 0.4329,
-          "edge": 0.2659,
-          "ev": 61.42,
+          "edge": 0.2655,
+          "ev": 61.33,
           "stake": 100.0,
           "qualified": true,
           "won": true,
@@ -1982,10 +1982,10 @@
           "side": "Moneyline",
           "label": "LAA ML",
           "odds": 113,
-          "model_probability": 0.6705,
+          "model_probability": 0.6709,
           "book_probability": 0.4695,
-          "edge": 0.201,
-          "ev": 42.82,
+          "edge": 0.2014,
+          "ev": 42.9,
           "stake": 100.0,
           "qualified": true,
           "won": false,
@@ -2014,10 +2014,10 @@
           "side": "Parlay",
           "label": "TEX ML + BOS ML",
           "odds": 244,
-          "model_probability": 0.4675,
+          "model_probability": 0.4672,
           "book_probability": null,
           "edge": null,
-          "ev": 60.93,
+          "ev": 60.86,
           "stake": 100.0,
           "qualified": true,
           "strategy": "edge",
@@ -2028,9 +2028,9 @@
               "team": "TEX",
               "matchup": "AZ @ TEX",
               "odds": -105,
-              "model_probability": 0.6678,
+              "model_probability": 0.6675,
               "book_probability": 0.5122,
-              "edge": 0.1556,
+              "edge": 0.1553,
               "won": true,
               "confidence": "Medium"
             },
@@ -2179,10 +2179,10 @@
           "side": "Parlay",
           "label": "DET ML + CWS ML",
           "odds": 260,
-          "model_probability": 0.4701,
+          "model_probability": 0.47,
           "book_probability": null,
           "edge": null,
-          "ev": 69.35,
+          "ev": 69.33,
           "stake": 100.0,
           "qualified": true,
           "strategy": "edge",
@@ -2203,9 +2203,9 @@
               "team": "CWS",
               "matchup": "CHC @ CWS",
               "odds": -107,
-              "model_probability": 0.6716,
+              "model_probability": 0.6715,
               "book_probability": 0.5169,
-              "edge": 0.1547,
+              "edge": 0.1546,
               "won": true,
               "confidence": "Medium"
             }
@@ -2268,10 +2268,10 @@
           "side": "Moneyline",
           "label": "MIN ML",
           "odds": -113,
-          "model_probability": 0.7,
+          "model_probability": 0.6953,
           "book_probability": 0.5305,
-          "edge": 0.1695,
-          "ev": 31.95,
+          "edge": 0.1648,
+          "ev": 31.06,
           "stake": 100.0,
           "qualified": true,
           "won": true,
@@ -2300,10 +2300,10 @@
           "side": "Parlay",
           "label": "TEX ML + BOS ML",
           "odds": 242,
-          "model_probability": 0.4694,
+          "model_probability": 0.4697,
           "book_probability": null,
           "edge": null,
-          "ev": 60.67,
+          "ev": 60.77,
           "stake": 100.0,
           "qualified": true,
           "strategy": "edge",
@@ -2314,9 +2314,9 @@
               "team": "TEX",
               "matchup": "TEX @ COL",
               "odds": -107,
-              "model_probability": 0.6706,
+              "model_probability": 0.671,
               "book_probability": 0.5169,
-              "edge": 0.1537,
+              "edge": 0.1541,
               "won": true,
               "confidence": "Medium"
             },
@@ -2388,10 +2388,10 @@
           "side": "Parlay",
           "label": "WSH ML + LAA ML",
           "odds": 259,
-          "model_probability": 0.476,
+          "model_probability": 0.4756,
           "book_probability": null,
           "edge": null,
-          "ev": 70.9,
+          "ev": 70.77,
           "stake": 100.0,
           "qualified": true,
           "strategy": "edge",
@@ -2402,9 +2402,9 @@
               "team": "WSH",
               "matchup": "NYM @ WSH",
               "odds": -106,
-              "model_probability": 0.68,
+              "model_probability": 0.6795,
               "book_probability": 0.5146,
-              "edge": 0.1654,
+              "edge": 0.1649,
               "won": false,
               "confidence": "Medium"
             },
@@ -2443,10 +2443,10 @@
           "side": "Parlay",
           "label": "MIL ML + TOR ML",
           "odds": 205,
-          "model_probability": 0.4558,
+          "model_probability": 0.4556,
           "book_probability": null,
           "edge": null,
-          "ev": 39.11,
+          "ev": 39.07,
           "stake": 100.0,
           "qualified": true,
           "strategy": "edge",
@@ -2457,9 +2457,9 @@
               "team": "MIL",
               "matchup": "LAD @ MIL",
               "odds": -110,
-              "model_probability": 0.6511,
+              "model_probability": 0.6509,
               "book_probability": 0.5238,
-              "edge": 0.1273,
+              "edge": 0.1271,
               "won": true,
               "confidence": "Medium"
             },
@@ -2498,10 +2498,10 @@
           "side": "Parlay",
           "label": "STL ML + CWS ML",
           "odds": 273,
-          "model_probability": 0.4789,
+          "model_probability": 0.4792,
           "book_probability": null,
           "edge": null,
-          "ev": 78.45,
+          "ev": 78.55,
           "stake": 100.0,
           "qualified": true,
           "strategy": "edge",
@@ -2522,9 +2522,9 @@
               "team": "CWS",
               "matchup": "CWS @ SF",
               "odds": -107,
-              "model_probability": 0.6842,
+              "model_probability": 0.6846,
               "book_probability": 0.5169,
-              "edge": 0.1673,
+              "edge": 0.1677,
               "won": false,
               "confidence": "Medium"
             }
@@ -2554,10 +2554,10 @@
           "side": "Moneyline",
           "label": "TB ML",
           "odds": 118,
-          "model_probability": 0.6346,
+          "model_probability": 0.6359,
           "book_probability": 0.4587,
-          "edge": 0.1759,
-          "ev": 38.34,
+          "edge": 0.1772,
+          "ev": 38.63,
           "stake": 100.0,
           "qualified": true,
           "won": false,
@@ -2587,10 +2587,10 @@
           "side": "Moneyline",
           "label": "TEX ML",
           "odds": -121,
-          "model_probability": 0.6421,
+          "model_probability": 0.6409,
           "book_probability": 0.5475,
-          "edge": 0.0946,
-          "ev": 17.28,
+          "edge": 0.0934,
+          "ev": 17.06,
           "stake": 100.0,
           "qualified": true,
           "won": false,
@@ -2619,10 +2619,10 @@
           "side": "Parlay",
           "label": "SD ML + PIT ML",
           "odds": 224,
-          "model_probability": 0.4745,
+          "model_probability": 0.4733,
           "book_probability": null,
           "edge": null,
-          "ev": 53.98,
+          "ev": 53.59,
           "stake": 100.0,
           "qualified": true,
           "strategy": "edge",
@@ -2633,9 +2633,9 @@
               "team": "SD",
               "matchup": "PHI @ SD",
               "odds": -112,
-              "model_probability": 0.6779,
+              "model_probability": 0.6762,
               "book_probability": 0.5283,
-              "edge": 0.1496,
+              "edge": 0.1479,
               "won": false,
               "confidence": "Medium"
             },
@@ -2674,10 +2674,10 @@
           "side": "Parlay",
           "label": "PIT ML + TEX ML",
           "odds": 203,
-          "model_probability": 0.4642,
+          "model_probability": 0.4657,
           "book_probability": null,
           "edge": null,
-          "ev": 40.53,
+          "ev": 40.97,
           "stake": 100.0,
           "qualified": true,
           "strategy": "edge",
@@ -2698,9 +2698,9 @@
               "team": "TEX",
               "matchup": "HOU @ TEX",
               "odds": -148,
-              "model_probability": 0.6632,
+              "model_probability": 0.6653,
               "book_probability": 0.5968,
-              "edge": 0.0664,
+              "edge": 0.0685,
               "won": false,
               "confidence": "Medium"
             }
@@ -2730,10 +2730,10 @@
           "side": "Moneyline",
           "label": "HOU ML",
           "odds": 123,
-          "model_probability": 0.6312,
+          "model_probability": 0.629,
           "book_probability": 0.4484,
-          "edge": 0.1828,
-          "ev": 40.76,
+          "edge": 0.1806,
+          "ev": 40.27,
           "stake": 100.0,
           "qualified": true,
           "won": true,
@@ -2762,10 +2762,10 @@
           "side": "Parlay",
           "label": "DET ML + ATL ML",
           "odds": 232,
-          "model_probability": 0.4595,
+          "model_probability": 0.4585,
           "book_probability": null,
           "edge": null,
-          "ev": 52.43,
+          "ev": 52.1,
           "stake": 100.0,
           "qualified": true,
           "strategy": "edge",
@@ -2776,9 +2776,9 @@
               "team": "DET",
               "matchup": "DET @ CWS",
               "odds": -109,
-              "model_probability": 0.6615,
+              "model_probability": 0.6591,
               "book_probability": 0.5215,
-              "edge": 0.14,
+              "edge": 0.1376,
               "won": false,
               "confidence": "Medium"
             },
@@ -2786,9 +2786,9 @@
               "team": "ATL",
               "matchup": "ATL @ CIN",
               "odds": -137,
-              "model_probability": 0.6947,
+              "model_probability": 0.6957,
               "book_probability": 0.5781,
-              "edge": 0.1166,
+              "edge": 0.1176,
               "won": true,
               "confidence": "Medium"
             }
@@ -2851,10 +2851,10 @@
           "side": "Moneyline",
           "label": "MIA ML",
           "odds": 131,
-          "model_probability": 0.6504,
+          "model_probability": 0.6483,
           "book_probability": 0.4329,
-          "edge": 0.2175,
-          "ev": 50.24,
+          "edge": 0.2154,
+          "ev": 49.76,
           "stake": 100.0,
           "qualified": true,
           "won": false,
@@ -2884,10 +2884,10 @@
           "side": "Moneyline",
           "label": "AZ ML",
           "odds": 140,
-          "model_probability": 0.652,
+          "model_probability": 0.6498,
           "book_probability": 0.4167,
-          "edge": 0.2353,
-          "ev": 56.48,
+          "edge": 0.2331,
+          "ev": 55.95,
           "stake": 100.0,
           "qualified": true,
           "won": true,
@@ -3092,10 +3092,10 @@
           "side": "Parlay",
           "label": "HOU ML + SEA ML",
           "odds": 220,
-          "model_probability": 0.4784,
+          "model_probability": 0.4707,
           "book_probability": null,
           "edge": null,
-          "ev": 52.89,
+          "ev": 50.43,
           "stake": 100.0,
           "qualified": true,
           "strategy": "edge",
@@ -3116,9 +3116,9 @@
               "team": "SEA",
               "matchup": "SEA @ BAL",
               "odds": -124,
-              "model_probability": 0.6834,
+              "model_probability": 0.6724,
               "book_probability": 0.5536,
-              "edge": 0.1298,
+              "edge": 0.1188,
               "won": true,
               "confidence": "Medium"
             }
@@ -3147,10 +3147,10 @@
           "side": "Parlay",
           "label": "ATH ML + WSH ML",
           "odds": 268,
-          "model_probability": 0.4783,
+          "model_probability": 0.4672,
           "book_probability": null,
           "edge": null,
-          "ev": 75.86,
+          "ev": 71.79,
           "stake": 100.0,
           "qualified": true,
           "strategy": "edge",
@@ -3161,9 +3161,9 @@
               "team": "ATH",
               "matchup": "MIL @ ATH",
               "odds": -110,
-              "model_probability": 0.7,
+              "model_probability": 0.6957,
               "book_probability": 0.5238,
-              "edge": 0.1762,
+              "edge": 0.1719,
               "won": true,
               "confidence": "Medium"
             },
@@ -3171,9 +3171,9 @@
               "team": "WSH",
               "matchup": "WSH @ SF",
               "odds": -108,
-              "model_probability": 0.6833,
+              "model_probability": 0.6716,
               "book_probability": 0.5192,
-              "edge": 0.1641,
+              "edge": 0.1524,
               "won": true,
               "confidence": "Medium"
             }
@@ -3202,10 +3202,10 @@
           "side": "Parlay",
           "label": "PHI ML + CHC ML",
           "odds": 170,
-          "model_probability": 0.49,
+          "model_probability": 0.4854,
           "book_probability": null,
           "edge": null,
-          "ev": 32.53,
+          "ev": 31.3,
           "stake": 100.0,
           "qualified": true,
           "strategy": "edge",
@@ -3216,9 +3216,9 @@
               "team": "PHI",
               "matchup": "PHI @ TOR",
               "odds": -136,
-              "model_probability": 0.7,
+              "model_probability": 0.6935,
               "book_probability": 0.5763,
-              "edge": 0.1237,
+              "edge": 0.1172,
               "won": true,
               "confidence": "Medium"
             },
@@ -3257,10 +3257,10 @@
           "side": "Parlay",
           "label": "MIA ML + DET ML",
           "odds": 214,
-          "model_probability": 0.4417,
+          "model_probability": 0.4395,
           "book_probability": null,
           "edge": null,
-          "ev": 38.73,
+          "ev": 38.02,
           "stake": 100.0,
           "qualified": true,
           "strategy": "edge",
@@ -3271,9 +3271,9 @@
               "team": "MIA",
               "matchup": "AZ @ MIA",
               "odds": -129,
-              "model_probability": 0.6784,
+              "model_probability": 0.6738,
               "book_probability": 0.5633,
-              "edge": 0.1151,
+              "edge": 0.1105,
               "won": true,
               "confidence": "Medium"
             },
@@ -3281,9 +3281,9 @@
               "team": "DET",
               "matchup": "MIN @ DET",
               "odds": -130,
-              "model_probability": 0.6511,
+              "model_probability": 0.6522,
               "book_probability": 0.5652,
-              "edge": 0.0859,
+              "edge": 0.087,
               "won": true,
               "confidence": "Medium"
             }
@@ -3312,10 +3312,10 @@
           "side": "Parlay",
           "label": "AZ ML + CLE ML",
           "odds": 256,
-          "model_probability": 0.4354,
+          "model_probability": 0.4399,
           "book_probability": null,
           "edge": null,
-          "ev": 55.02,
+          "ev": 56.61,
           "stake": 100.0,
           "qualified": true,
           "strategy": "edge",
@@ -3326,9 +3326,9 @@
               "team": "AZ",
               "matchup": "AZ @ CIN",
               "odds": -103,
-              "model_probability": 0.6602,
+              "model_probability": 0.6691,
               "book_probability": 0.5074,
-              "edge": 0.1528,
+              "edge": 0.1617,
               "won": true,
               "confidence": "Medium"
             },
@@ -3336,9 +3336,9 @@
               "team": "CLE",
               "matchup": "DET @ CLE",
               "odds": -124,
-              "model_probability": 0.6595,
+              "model_probability": 0.6574,
               "book_probability": 0.5536,
-              "edge": 0.1059,
+              "edge": 0.1038,
               "won": true,
               "confidence": "Medium"
             }
@@ -3368,10 +3368,10 @@
           "side": "Moneyline",
           "label": "SD ML",
           "odds": 103,
-          "model_probability": 0.6541,
+          "model_probability": 0.6564,
           "book_probability": 0.4926,
-          "edge": 0.1615,
-          "ev": 32.78,
+          "edge": 0.1638,
+          "ev": 33.25,
           "stake": 100.0,
           "qualified": true,
           "won": true,
@@ -3401,10 +3401,10 @@
           "side": "Moneyline",
           "label": "CWS ML",
           "odds": 166,
-          "model_probability": 0.6553,
+          "model_probability": 0.6784,
           "book_probability": 0.3759,
-          "edge": 0.2794,
-          "ev": 74.31,
+          "edge": 0.3025,
+          "ev": 80.45,
           "stake": 100.0,
           "qualified": true,
           "won": true,
@@ -3434,10 +3434,10 @@
           "side": "Moneyline",
           "label": "SD ML",
           "odds": 130,
-          "model_probability": 0.6432,
+          "model_probability": 0.6452,
           "book_probability": 0.4348,
-          "edge": 0.2084,
-          "ev": 47.94,
+          "edge": 0.2104,
+          "ev": 48.4,
           "stake": 100.0,
           "qualified": true,
           "won": false,

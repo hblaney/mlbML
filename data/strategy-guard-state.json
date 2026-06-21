@@ -1,5 +1,5 @@
 {
-  "leader_streak_days": 2,
+  "leader_streak_days": 3,
   "leader_strategy": "no_low_parlay_223s",
   "signals": [
     {
@@ -55,6 +55,13 @@
       "leader_14d": "no_low_parlay_223s",
       "season_leader": "med60_force2_223s",
       "leader_streak_days": 2,
+      "switch_recommended": false
+    },
+    {
+      "date": "2026-06-21",
+      "leader_14d": "no_low_parlay_223s",
+      "season_leader": "med60_force2_223s",
+      "leader_streak_days": 3,
       "switch_recommended": false
     }
   ]

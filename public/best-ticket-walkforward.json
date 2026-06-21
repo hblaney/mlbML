@@ -1,7 +1,7 @@
 {
   "generated_at": "2026-06-21",
   "method": "strict_walk_forward_full_registry",
-  "model_version": "daily-auto-v2.7-unified",
+  "model_version": "daily-auto-v2.8-recent-starter",
   "feature_count": 1014,
   "strategy": "trg59_top_prob_2",
   "date_range": {
@@ -16,24 +16,24 @@
   },
   "game_prediction_accuracy": {
     "games": 1088,
-    "correct": 665,
-    "accuracy": 0.6112
+    "correct": 661,
+    "accuracy": 0.6075
   },
   "best_ticket_accuracy": {
     "bet_days": 82,
-    "wins": 46,
-    "losses": 36,
-    "hit_rate": 0.561,
-    "record": "46-36"
+    "wins": 48,
+    "losses": 34,
+    "hit_rate": 0.5854,
+    "record": "48-34"
   },
   "last_14_days": {
     "start": "2026-06-03",
     "end": "2026-06-16",
     "bet_days": 14,
-    "wins": 9,
-    "losses": 5,
-    "hit_rate": 0.6429,
-    "record": "9-5",
+    "wins": 10,
+    "losses": 4,
+    "hit_rate": 0.7143,
+    "record": "10-4",
     "tickets": [
       {
         "date": "2026-06-03",
@@ -54,7 +54,7 @@
             "team": "BOS",
             "matchup": "BAL @ BOS",
             "odds": -153,
-            "model_probability": 0.6416,
+            "model_probability": 0.6434,
             "confidence": "Medium",
             "won": true
           }
@@ -74,7 +74,7 @@
             "team": "NYY",
             "matchup": "CLE @ NYY",
             "odds": -169,
-            "model_probability": 0.6682,
+            "model_probability": 0.6677,
             "confidence": "Medium",
             "won": true
           },
@@ -82,7 +82,7 @@
             "team": "HOU",
             "matchup": "PIT @ HOU",
             "odds": -114,
-            "model_probability": 0.6353,
+            "model_probability": 0.6372,
             "confidence": "Medium",
             "won": false
           }
@@ -102,7 +102,7 @@
             "team": "HOU",
             "matchup": "ATH @ HOU",
             "odds": -110,
-            "model_probability": 0.6721,
+            "model_probability": 0.6739,
             "confidence": "Medium",
             "won": true
           },
@@ -110,7 +110,7 @@
             "team": "ATL",
             "matchup": "PIT @ ATL",
             "odds": -148,
-            "model_probability": 0.6552,
+            "model_probability": 0.6548,
             "confidence": "Medium",
             "won": true
           }
@@ -138,7 +138,7 @@
             "team": "MIN",
             "matchup": "KC @ MIN",
             "odds": -144,
-            "model_probability": 0.6511,
+            "model_probability": 0.6529,
             "confidence": "Medium",
             "won": false
           }
@@ -194,7 +194,7 @@
             "team": "SEA",
             "matchup": "SEA @ BAL",
             "odds": -124,
-            "model_probability": 0.6368,
+            "model_probability": 0.6385,
             "confidence": "Medium",
             "won": true
           }
@@ -214,7 +214,7 @@
             "team": "ATH",
             "matchup": "MIL @ ATH",
             "odds": -110,
-            "model_probability": 0.6808,
+            "model_probability": 0.6807,
             "confidence": "Medium",
             "won": true
           },
@@ -222,7 +222,7 @@
             "team": "MIA",
             "matchup": "AZ @ MIA",
             "odds": -143,
-            "model_probability": 0.6729,
+            "model_probability": 0.6727,
             "confidence": "Medium",
             "won": true
           }
@@ -235,29 +235,29 @@
         "date": "2026-06-10",
         "strategy": "trg59_top_prob_2",
         "ticket_type": "p2_trg59",
-        "label": "PHI ML + CHC ML",
+        "label": "PHI ML + TB ML",
         "leg_count": 2,
         "legs": [
           {
             "team": "PHI",
             "matchup": "PHI @ TOR",
             "odds": -136,
-            "model_probability": 0.696,
+            "model_probability": 0.6956,
             "confidence": "Medium",
             "won": true
           },
           {
-            "team": "CHC",
-            "matchup": "CHC @ COL",
-            "odds": -179,
-            "model_probability": 0.6549,
+            "team": "TB",
+            "matchup": "BOS @ TB",
+            "odds": -162,
+            "model_probability": 0.654,
             "confidence": "Medium",
-            "won": false
+            "won": true
           }
         ],
-        "won": false,
-        "result": "MISS",
-        "flat_profit": -100.0
+        "won": true,
+        "result": "HIT",
+        "flat_profit": 180.65
       },
       {
         "date": "2026-06-11",
@@ -418,7 +418,7 @@
             "team": "CIN",
             "matchup": "NYM @ CIN",
             "odds": 105,
-            "model_probability": 0.6882,
+            "model_probability": 0.6825,
             "confidence": "Medium",
             "won": true
           }
@@ -477,7 +477,7 @@
           "team": "ATL",
           "matchup": "KC @ ATL",
           "odds": -145,
-          "model_probability": 0.6729,
+          "model_probability": 0.6688,
           "confidence": "Medium",
           "won": true
         }
@@ -490,20 +490,20 @@
       "date": "2026-03-28",
       "strategy": "trg59_top_prob_2",
       "ticket_type": "p2_trg59",
-      "label": "SD ML + TOR ML",
+      "label": "TOR ML + MIA ML",
       "leg_count": 2,
       "legs": [
         {
-          "team": "SD",
-          "matchup": "DET @ SD",
-          "odds": -113,
+          "team": "TOR",
+          "matchup": "ATH @ TOR",
+          "odds": -197,
           "model_probability": 0.7,
           "confidence": "Medium",
           "won": true
         },
         {
-          "team": "TOR",
-          "matchup": "ATH @ TOR",
+          "team": "MIA",
+          "matchup": "COL @ MIA",
           "odds": -197,
           "model_probability": 0.7,
           "confidence": "Medium",
@@ -512,7 +512,7 @@
       ],
       "won": true,
       "result": "HIT",
-      "flat_profit": 184.18
+      "flat_profit": 127.29
     },
     {
       "date": "2026-03-29",
@@ -533,7 +533,7 @@
           "team": "MIA",
           "matchup": "COL @ MIA",
           "odds": -196,
-          "model_probability": 0.6889,
+          "model_probability": 0.6979,
           "confidence": "Medium",
           "won": true
         }
@@ -581,7 +581,7 @@
           "team": "STL",
           "matchup": "NYM @ STL",
           "odds": 129,
-          "model_probability": 0.696,
+          "model_probability": 0.7,
           "confidence": "Medium",
           "won": true
         },
@@ -589,7 +589,7 @@
           "team": "HOU",
           "matchup": "BOS @ HOU",
           "odds": -144,
-          "model_probability": 0.6914,
+          "model_probability": 0.6995,
           "confidence": "Medium",
           "won": true
         }
@@ -617,7 +617,7 @@
           "team": "MIL",
           "matchup": "TB @ MIL",
           "odds": -143,
-          "model_probability": 0.6455,
+          "model_probability": 0.6531,
           "confidence": "Medium",
           "won": true
         }
@@ -630,57 +630,49 @@
       "date": "2026-04-03",
       "strategy": "trg59_top_prob_2",
       "ticket_type": "p2_trg59",
-      "label": "ATH ML + TEX ML",
+      "label": "ATH ML + BOS ML",
       "leg_count": 2,
       "legs": [
         {
           "team": "ATH",
           "matchup": "HOU @ ATH",
           "odds": -110,
-          "model_probability": 0.6803,
+          "model_probability": 0.6861,
           "confidence": "Medium",
           "won": true
         },
         {
-          "team": "TEX",
-          "matchup": "CIN @ TEX",
-          "odds": -170,
-          "model_probability": 0.6459,
-          "confidence": "Medium",
-          "won": false
-        }
-      ],
-      "won": false,
-      "result": "MISS",
-      "flat_profit": -100.0
-    },
-    {
-      "date": "2026-04-04",
-      "strategy": "trg59_top_prob_2",
-      "ticket_type": "p2_trg59",
-      "label": "HOU ML + CWS ML",
-      "leg_count": 2,
-      "legs": [
-        {
-          "team": "HOU",
-          "matchup": "HOU @ ATH",
-          "odds": -105,
-          "model_probability": 0.6509,
-          "confidence": "Medium",
-          "won": true
-        },
-        {
-          "team": "CWS",
-          "matchup": "TOR @ CWS",
-          "odds": 128,
-          "model_probability": 0.6342,
+          "team": "BOS",
+          "matchup": "SD @ BOS",
+          "odds": -123,
+          "model_probability": 0.6454,
           "confidence": "Medium",
           "won": true
         }
       ],
       "won": true,
       "result": "HIT",
-      "flat_profit": 345.14
+      "flat_profit": 246.12
+    },
+    {
+      "date": "2026-04-04",
+      "strategy": "trg59_top_prob_2",
+      "ticket_type": "single",
+      "label": "HOU ML",
+      "leg_count": 1,
+      "legs": [
+        {
+          "team": "HOU",
+          "matchup": "HOU @ ATH",
+          "odds": -105,
+          "model_probability": 0.6411,
+          "confidence": "Low",
+          "won": true
+        }
+      ],
+      "won": true,
+      "result": "HIT",
+      "flat_profit": 95.24
     },
     {
       "date": "2026-04-05",
@@ -721,7 +713,7 @@
           "team": "TB",
           "matchup": "CHC @ TB",
           "odds": -125,
-          "model_probability": 0.6272,
+          "model_probability": 0.628,
           "confidence": "Medium",
           "won": true
         },
@@ -729,7 +721,7 @@
           "team": "CWS",
           "matchup": "BAL @ CWS",
           "odds": 117,
-          "model_probability": 0.6265,
+          "model_probability": 0.6268,
           "confidence": "Medium",
           "won": false
         }
@@ -742,22 +734,22 @@
       "date": "2026-04-07",
       "strategy": "trg59_top_prob_2",
       "ticket_type": "p2_trg59",
-      "label": "NYM ML + PIT ML",
+      "label": "PIT ML + NYM ML",
       "leg_count": 2,
       "legs": [
-        {
-          "team": "NYM",
-          "matchup": "AZ @ NYM",
-          "odds": -153,
-          "model_probability": 0.6697,
-          "confidence": "Medium",
-          "won": true
-        },
         {
           "team": "PIT",
           "matchup": "SD @ PIT",
           "odds": -146,
-          "model_probability": 0.6693,
+          "model_probability": 0.6724,
+          "confidence": "Medium",
+          "won": true
+        },
+        {
+          "team": "NYM",
+          "matchup": "AZ @ NYM",
+          "odds": -153,
+          "model_probability": 0.6702,
           "confidence": "Medium",
           "won": true
         }
@@ -785,7 +777,7 @@
           "team": "MIA",
           "matchup": "CIN @ MIA",
           "odds": -128,
-          "model_probability": 0.6278,
+          "model_probability": 0.6314,
           "confidence": "Medium",
           "won": true
         }
@@ -805,7 +797,7 @@
           "team": "SD",
           "matchup": "COL @ SD",
           "odds": -184,
-          "model_probability": 0.6885,
+          "model_probability": 0.6763,
           "confidence": "Medium",
           "won": true
         },
@@ -813,7 +805,7 @@
           "team": "MIA",
           "matchup": "CIN @ MIA",
           "odds": -122,
-          "model_probability": 0.6613,
+          "model_probability": 0.6638,
           "confidence": "Medium",
           "won": true
         }
@@ -869,7 +861,7 @@
           "team": "DET",
           "matchup": "MIA @ DET",
           "odds": -140,
-          "model_probability": 0.6914,
+          "model_probability": 0.6891,
           "confidence": "Medium",
           "won": true
         }
@@ -897,7 +889,7 @@
           "team": "STL",
           "matchup": "BOS @ STL",
           "odds": 100,
-          "model_probability": 0.6845,
+          "model_probability": 0.681,
           "confidence": "Medium",
           "won": false
         }
@@ -925,7 +917,7 @@
           "team": "NYY",
           "matchup": "LAA @ NYY",
           "odds": -182,
-          "model_probability": 0.6746,
+          "model_probability": 0.6722,
           "confidence": "Medium",
           "won": true
         }
@@ -953,7 +945,7 @@
           "team": "MIL",
           "matchup": "TOR @ MIL",
           "odds": -122,
-          "model_probability": 0.6907,
+          "model_probability": 0.692,
           "confidence": "Medium",
           "won": false
         }
@@ -1001,7 +993,7 @@
           "team": "CIN",
           "matchup": "SF @ CIN",
           "odds": -122,
-          "model_probability": 0.6793,
+          "model_probability": 0.6807,
           "confidence": "Medium",
           "won": false
         },
@@ -1009,7 +1001,7 @@
           "team": "CLE",
           "matchup": "BAL @ CLE",
           "odds": -133,
-          "model_probability": 0.6345,
+          "model_probability": 0.6383,
           "confidence": "Medium",
           "won": true
         }
@@ -1065,7 +1057,7 @@
           "team": "WSH",
           "matchup": "SF @ WSH",
           "odds": -108,
-          "model_probability": 0.6409,
+          "model_probability": 0.6427,
           "confidence": "Medium",
           "won": false
         }
@@ -1085,7 +1077,7 @@
           "team": "CLE",
           "matchup": "BAL @ CLE",
           "odds": -121,
-          "model_probability": 0.644,
+          "model_probability": 0.6427,
           "confidence": "Medium",
           "won": true
         },
@@ -1093,7 +1085,7 @@
           "team": "LAA",
           "matchup": "SD @ LAA",
           "odds": 126,
-          "model_probability": 0.6167,
+          "model_probability": 0.6228,
           "confidence": "Medium",
           "won": false
         }
@@ -1126,17 +1118,9 @@
       "date": "2026-04-21",
       "strategy": "trg59_top_prob_2",
       "ticket_type": "p2_trg59",
-      "label": "CLE ML + NYM ML",
+      "label": "NYM ML + CLE ML",
       "leg_count": 2,
       "legs": [
-        {
-          "team": "CLE",
-          "matchup": "HOU @ CLE",
-          "odds": -152,
-          "model_probability": 0.7,
-          "confidence": "Medium",
-          "won": true
-        },
         {
           "team": "NYM",
           "matchup": "MIN @ NYM",
@@ -1144,6 +1128,14 @@
           "model_probability": 0.7,
           "confidence": "Medium",
           "won": false
+        },
+        {
+          "team": "CLE",
+          "matchup": "HOU @ CLE",
+          "odds": -152,
+          "model_probability": 0.6992,
+          "confidence": "Medium",
+          "won": true
         }
       ],
       "won": false,
@@ -1169,7 +1161,7 @@
           "team": "NYM",
           "matchup": "MIN @ NYM",
           "odds": -162,
-          "model_probability": 0.6899,
+          "model_probability": 0.6931,
           "confidence": "Medium",
           "won": true
         }
@@ -1197,7 +1189,7 @@
           "team": "COL",
           "matchup": "SD @ COL",
           "odds": 129,
-          "model_probability": 0.6873,
+          "model_probability": 0.6872,
           "confidence": "Medium",
           "won": false
         }
@@ -1253,7 +1245,7 @@
           "team": "TB",
           "matchup": "MIN @ TB",
           "odds": -134,
-          "model_probability": 0.6267,
+          "model_probability": 0.6266,
           "confidence": "Medium",
           "won": true
         }
@@ -1281,7 +1273,7 @@
           "team": "TB",
           "matchup": "MIN @ TB",
           "odds": -147,
-          "model_probability": 0.6805,
+          "model_probability": 0.6771,
           "confidence": "Medium",
           "won": true
         }
@@ -1301,7 +1293,7 @@
           "team": "CLE",
           "matchup": "TB @ CLE",
           "odds": -140,
-          "model_probability": 0.6888,
+          "model_probability": 0.6882,
           "confidence": "Medium",
           "won": false
         },
@@ -1309,7 +1301,7 @@
           "team": "SD",
           "matchup": "CHC @ SD",
           "odds": -120,
-          "model_probability": 0.6614,
+          "model_probability": 0.6607,
           "confidence": "Medium",
           "won": true
         }
@@ -1337,7 +1329,7 @@
           "team": "NYM",
           "matchup": "WSH @ NYM",
           "odds": -182,
-          "model_probability": 0.6768,
+          "model_probability": 0.671,
           "confidence": "Medium",
           "won": true
         }
@@ -1357,7 +1349,7 @@
           "team": "CHC",
           "matchup": "CHC @ SD",
           "odds": -103,
-          "model_probability": 0.631,
+          "model_probability": 0.6294,
           "confidence": "Low",
           "won": true
         }
@@ -1377,7 +1369,7 @@
           "team": "CIN",
           "matchup": "COL @ CIN",
           "odds": -167,
-          "model_probability": 0.6932,
+          "model_probability": 0.6978,
           "confidence": "Medium",
           "won": true
         },
@@ -1385,7 +1377,7 @@
           "team": "BAL",
           "matchup": "HOU @ BAL",
           "odds": -146,
-          "model_probability": 0.6849,
+          "model_probability": 0.6896,
           "confidence": "Medium",
           "won": false
         }
@@ -1405,7 +1397,7 @@
           "team": "NYY",
           "matchup": "BAL @ NYY",
           "odds": -186,
-          "model_probability": 0.6525,
+          "model_probability": 0.6518,
           "confidence": "Medium",
           "won": true
         },
@@ -1413,7 +1405,7 @@
           "team": "TOR",
           "matchup": "TOR @ MIN",
           "odds": -108,
-          "model_probability": 0.605,
+          "model_probability": 0.6033,
           "confidence": "Medium",
           "won": true
         }
@@ -1433,7 +1425,7 @@
           "team": "MIA",
           "matchup": "PHI @ MIA",
           "odds": -132,
-          "model_probability": 0.6812,
+          "model_probability": 0.6815,
           "confidence": "Medium",
           "won": true
         },
@@ -1441,7 +1433,7 @@
           "team": "STL",
           "matchup": "LAD @ STL",
           "odds": 115,
-          "model_probability": 0.6536,
+          "model_probability": 0.6539,
           "confidence": "Medium",
           "won": true
         }
@@ -1461,7 +1453,7 @@
           "team": "BOS",
           "matchup": "HOU @ BOS",
           "odds": -172,
-          "model_probability": 0.6647,
+          "model_probability": 0.665,
           "confidence": "Medium",
           "won": false
         },
@@ -1469,7 +1461,7 @@
           "team": "ATL",
           "matchup": "ATL @ COL",
           "odds": -144,
-          "model_probability": 0.6285,
+          "model_probability": 0.631,
           "confidence": "Medium",
           "won": true
         }
@@ -1489,7 +1481,7 @@
           "team": "TB",
           "matchup": "TOR @ TB",
           "odds": -128,
-          "model_probability": 0.6776,
+          "model_probability": 0.6779,
           "confidence": "Low",
           "won": true
         }
@@ -1509,7 +1501,7 @@
           "team": "LAA",
           "matchup": "CWS @ LAA",
           "odds": -117,
-          "model_probability": 0.6447,
+          "model_probability": 0.6451,
           "confidence": "Medium",
           "won": true
         },
@@ -1517,7 +1509,7 @@
           "team": "AZ",
           "matchup": "PIT @ AZ",
           "odds": -133,
-          "model_probability": 0.6412,
+          "model_probability": 0.6415,
           "confidence": "Medium",
           "won": true
         }
@@ -1649,7 +1641,7 @@
           "team": "CLE",
           "matchup": "MIN @ CLE",
           "odds": -162,
-          "model_probability": 0.7,
+          "model_probability": 0.6903,
           "confidence": "Medium",
           "won": false
         },
@@ -1677,7 +1669,7 @@
           "team": "BAL",
           "matchup": "NYY @ BAL",
           "odds": 131,
-          "model_probability": 0.6342,
+          "model_probability": 0.6364,
           "confidence": "Low",
           "won": true
         }
@@ -1697,7 +1689,7 @@
           "team": "NYM",
           "matchup": "DET @ NYM",
           "odds": -149,
-          "model_probability": 0.6343,
+          "model_probability": 0.6344,
           "confidence": "Medium",
           "won": true
         },
@@ -1705,7 +1697,7 @@
           "team": "NYY",
           "matchup": "NYY @ BAL",
           "odds": -135,
-          "model_probability": 0.6045,
+          "model_probability": 0.6023,
           "confidence": "Medium",
           "won": true
         }
@@ -1725,7 +1717,7 @@
           "team": "MIL",
           "matchup": "SD @ MIL",
           "odds": -160,
-          "model_probability": 0.68,
+          "model_probability": 0.6801,
           "confidence": "Medium",
           "won": false
         },
@@ -1733,7 +1725,7 @@
           "team": "BOS",
           "matchup": "PHI @ BOS",
           "odds": -131,
-          "model_probability": 0.6799,
+          "model_probability": 0.68,
           "confidence": "Medium",
           "won": true
         }
@@ -1781,7 +1773,7 @@
           "team": "PIT",
           "matchup": "PHI @ PIT",
           "odds": -133,
-          "model_probability": 0.6981,
+          "model_probability": 0.7,
           "confidence": "Medium",
           "won": false
         },
@@ -1789,7 +1781,7 @@
           "team": "HOU",
           "matchup": "TEX @ HOU",
           "odds": -106,
-          "model_probability": 0.6741,
+          "model_probability": 0.6737,
           "confidence": "Medium",
           "won": true
         }
@@ -1809,7 +1801,7 @@
           "team": "CWS",
           "matchup": "CHC @ CWS",
           "odds": -107,
-          "model_probability": 0.6858,
+          "model_probability": 0.6855,
           "confidence": "Medium",
           "won": true
         },
@@ -1817,7 +1809,7 @@
           "team": "TB",
           "matchup": "MIA @ TB",
           "odds": -138,
-          "model_probability": 0.6806,
+          "model_probability": 0.6803,
           "confidence": "Medium",
           "won": false
         }
@@ -1837,7 +1829,7 @@
           "team": "ATL",
           "matchup": "BOS @ ATL",
           "odds": -151,
-          "model_probability": 0.6998,
+          "model_probability": 0.6994,
           "confidence": "Medium",
           "won": true
         },
@@ -1845,7 +1837,7 @@
           "team": "TB",
           "matchup": "MIA @ TB",
           "odds": -148,
-          "model_probability": 0.6806,
+          "model_probability": 0.6803,
           "confidence": "Medium",
           "won": true
         }
@@ -1865,7 +1857,7 @@
           "team": "TB",
           "matchup": "BAL @ TB",
           "odds": -144,
-          "model_probability": 0.6913,
+          "model_probability": 0.691,
           "confidence": "Medium",
           "won": true
         },
@@ -1873,7 +1865,7 @@
           "team": "MIN",
           "matchup": "HOU @ MIN",
           "odds": -113,
-          "model_probability": 0.6757,
+          "model_probability": 0.6753,
           "confidence": "Medium",
           "won": true
         }
@@ -1886,22 +1878,22 @@
       "date": "2026-05-19",
       "strategy": "trg59_top_prob_2",
       "ticket_type": "p2_trg59",
-      "label": "MIN ML + SEA ML",
+      "label": "SEA ML + MIN ML",
       "leg_count": 2,
       "legs": [
-        {
-          "team": "MIN",
-          "matchup": "HOU @ MIN",
-          "odds": -140,
-          "model_probability": 0.6958,
-          "confidence": "Medium",
-          "won": false
-        },
         {
           "team": "SEA",
           "matchup": "CWS @ SEA",
           "odds": -140,
-          "model_probability": 0.6929,
+          "model_probability": 0.6925,
+          "confidence": "Medium",
+          "won": false
+        },
+        {
+          "team": "MIN",
+          "matchup": "HOU @ MIN",
+          "odds": -140,
+          "model_probability": 0.6871,
           "confidence": "Medium",
           "won": false
         }
@@ -1929,7 +1921,7 @@
           "team": "MIN",
           "matchup": "HOU @ MIN",
           "odds": -144,
-          "model_probability": 0.6881,
+          "model_probability": 0.6887,
           "confidence": "Medium",
           "won": true
         }
@@ -1957,7 +1949,7 @@
           "team": "DET",
           "matchup": "CLE @ DET",
           "odds": -127,
-          "model_probability": 0.6545,
+          "model_probability": 0.6569,
           "confidence": "Medium",
           "won": false
         }
@@ -1977,7 +1969,7 @@
           "team": "BOS",
           "matchup": "MIN @ BOS",
           "odds": -151,
-          "model_probability": 0.6845,
+          "model_probability": 0.6852,
           "confidence": "Medium",
           "won": false
         },
@@ -1985,7 +1977,7 @@
           "team": "TEX",
           "matchup": "TEX @ LAA",
           "odds": -159,
-          "model_probability": 0.6692,
+          "model_probability": 0.6683,
           "confidence": "Medium",
           "won": false
         }
@@ -2005,7 +1997,7 @@
           "team": "PHI",
           "matchup": "CLE @ PHI",
           "odds": -171,
-          "model_probability": 0.6867,
+          "model_probability": 0.6873,
           "confidence": "Medium",
           "won": true
         },
@@ -2013,7 +2005,7 @@
           "team": "AZ",
           "matchup": "COL @ AZ",
           "odds": -193,
-          "model_probability": 0.6631,
+          "model_probability": 0.6637,
           "confidence": "Medium",
           "won": true
         }
@@ -2033,7 +2025,7 @@
           "team": "TOR",
           "matchup": "PIT @ TOR",
           "odds": -177,
-          "model_probability": 0.6794,
+          "model_probability": 0.6802,
           "confidence": "Medium",
           "won": false
         },
@@ -2041,7 +2033,7 @@
           "team": "SF",
           "matchup": "CWS @ SF",
           "odds": -123,
-          "model_probability": 0.6571,
+          "model_probability": 0.6551,
           "confidence": "Medium",
           "won": true
         }
@@ -2173,7 +2165,7 @@
           "team": "SF",
           "matchup": "SF @ COL",
           "odds": -151,
-          "model_probability": 0.6925,
+          "model_probability": 0.6953,
           "confidence": "Medium",
           "won": false
         },
@@ -2181,7 +2173,7 @@
           "team": "ATL",
           "matchup": "ATL @ CIN",
           "odds": -137,
-          "model_probability": 0.6505,
+          "model_probability": 0.6536,
           "confidence": "Medium",
           "won": true
         }
@@ -2201,7 +2193,7 @@
           "team": "HOU",
           "matchup": "MIL @ HOU",
           "odds": -103,
-          "model_probability": 0.6427,
+          "model_probability": 0.6428,
           "confidence": "Medium",
           "won": true
         },
@@ -2209,7 +2201,7 @@
           "team": "ATL",
           "matchup": "ATL @ CIN",
           "odds": -126,
-          "model_probability": 0.6314,
+          "model_probability": 0.6313,
           "confidence": "Medium",
           "won": true
         }
@@ -2237,7 +2229,7 @@
           "team": "SEA",
           "matchup": "AZ @ SEA",
           "odds": -147,
-          "model_probability": 0.6951,
+          "model_probability": 0.6953,
           "confidence": "Medium",
           "won": true
         }
@@ -2285,7 +2277,7 @@
           "team": "NYY",
           "matchup": "CLE @ NYY",
           "odds": -208,
-          "model_probability": 0.6984,
+          "model_probability": 0.696,
           "confidence": "Medium",
           "won": false
         },
@@ -2293,7 +2285,7 @@
           "team": "AZ",
           "matchup": "LAD @ AZ",
           "odds": 100,
-          "model_probability": 0.6564,
+          "model_probability": 0.6582,
           "confidence": "Medium",
           "won": false
         }
@@ -2321,7 +2313,7 @@
           "team": "BOS",
           "matchup": "BAL @ BOS",
           "odds": -153,
-          "model_probability": 0.6416,
+          "model_probability": 0.6434,
           "confidence": "Medium",
           "won": true
         }
@@ -2341,7 +2333,7 @@
           "team": "NYY",
           "matchup": "CLE @ NYY",
           "odds": -169,
-          "model_probability": 0.6682,
+          "model_probability": 0.6677,
           "confidence": "Medium",
           "won": true
         },
@@ -2349,7 +2341,7 @@
           "team": "HOU",
           "matchup": "PIT @ HOU",
           "odds": -114,
-          "model_probability": 0.6353,
+          "model_probability": 0.6372,
           "confidence": "Medium",
           "won": false
         }
@@ -2369,7 +2361,7 @@
           "team": "HOU",
           "matchup": "ATH @ HOU",
           "odds": -110,
-          "model_probability": 0.6721,
+          "model_probability": 0.6739,
           "confidence": "Medium",
           "won": true
         },
@@ -2377,7 +2369,7 @@
           "team": "ATL",
           "matchup": "PIT @ ATL",
           "odds": -148,
-          "model_probability": 0.6552,
+          "model_probability": 0.6548,
           "confidence": "Medium",
           "won": true
         }
@@ -2405,7 +2397,7 @@
           "team": "MIN",
           "matchup": "KC @ MIN",
           "odds": -144,
-          "model_probability": 0.6511,
+          "model_probability": 0.6529,
           "confidence": "Medium",
           "won": false
         }
@@ -2461,7 +2453,7 @@
           "team": "SEA",
           "matchup": "SEA @ BAL",
           "odds": -124,
-          "model_probability": 0.6368,
+          "model_probability": 0.6385,
           "confidence": "Medium",
           "won": true
         }
@@ -2481,7 +2473,7 @@
           "team": "ATH",
           "matchup": "MIL @ ATH",
           "odds": -110,
-          "model_probability": 0.6808,
+          "model_probability": 0.6807,
           "confidence": "Medium",
           "won": true
         },
@@ -2489,7 +2481,7 @@
           "team": "MIA",
           "matchup": "AZ @ MIA",
           "odds": -143,
-          "model_probability": 0.6729,
+          "model_probability": 0.6727,
           "confidence": "Medium",
           "won": true
         }
@@ -2502,29 +2494,29 @@
       "date": "2026-06-10",
       "strategy": "trg59_top_prob_2",
       "ticket_type": "p2_trg59",
-      "label": "PHI ML + CHC ML",
+      "label": "PHI ML + TB ML",
       "leg_count": 2,
       "legs": [
         {
           "team": "PHI",
           "matchup": "PHI @ TOR",
           "odds": -136,
-          "model_probability": 0.696,
+          "model_probability": 0.6956,
           "confidence": "Medium",
           "won": true
         },
         {
-          "team": "CHC",
-          "matchup": "CHC @ COL",
-          "odds": -179,
-          "model_probability": 0.6549,
+          "team": "TB",
+          "matchup": "BOS @ TB",
+          "odds": -162,
+          "model_probability": 0.654,
           "confidence": "Medium",
-          "won": false
+          "won": true
         }
       ],
-      "won": false,
-      "result": "MISS",
-      "flat_profit": -100.0
+      "won": true,
+      "result": "HIT",
+      "flat_profit": 180.65
     },
     {
       "date": "2026-06-11",
@@ -2685,7 +2677,7 @@
           "team": "CIN",
           "matchup": "NYM @ CIN",
           "odds": 105,
-          "model_probability": 0.6882,
+          "model_probability": 0.6825,
           "confidence": "Medium",
           "won": true
         }

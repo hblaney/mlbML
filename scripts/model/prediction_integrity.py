@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import subprocess
 import sys
 from datetime import date, timedelta
@@ -195,7 +196,8 @@ def run_all(*, recompute: bool = True, ticket: bool = True, accuracy: bool = Tru
 
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--full", action="store_true", help="recompute + ticket + accuracy checks")
+    parser.add_argument("--full", action="store_true", help="ticket + accuracy checks (recompute on CI only with --strict-recompute)")
+    parser.add_argument("--strict-recompute", action="store_true", help="recompute every pick (run after generate_today_board)")
     parser.add_argument("--no-recompute", action="store_true")
     args = parser.parse_args()
 
@@ -203,8 +205,14 @@ def main() -> None:
         print("missing public/predictions.json", file=sys.stderr)
         sys.exit(1)
 
+    on_ci = os.environ.get("GITHUB_ACTIONS") == "true"
+    recompute = (
+        (args.strict_recompute or (args.full and not on_ci))
+        and not args.no_recompute
+    )
+
     errors = run_all(
-        recompute=args.full and not args.no_recompute,
+        recompute=recompute,
         ticket=args.full,
         accuracy=args.full,
     ) if args.full else validate_board_schema(json.loads(PUBLIC_PATH.read_text()))

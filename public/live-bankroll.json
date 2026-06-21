@@ -37,8 +37,8 @@
     "stake_pct": 0.1463,
     "stake_amount": 5.0,
     "status": "pending",
-    "odds": 2427,
-    "model_probability": 0.38773818,
+    "odds": 2246,
+    "model_probability": 0.38793447,
     "prove_out": true
   },
   "checkpoints": [

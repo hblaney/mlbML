@@ -90,6 +90,10 @@ jobs:
           ODDS_MARKETS: h2h,spreads,totals
         run: npm run model:daily
 
+      - name: Verify board integrity before commit
+        if: steps.run_control.outputs.should_run == 'true'
+        run: python3 scripts/model/prediction_integrity.py --full --strict-recompute
+
       - name: Commit updated model outputs
         if: steps.run_control.outputs.should_run == 'true'
         run: |

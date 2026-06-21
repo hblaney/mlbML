@@ -1,7 +1,7 @@
 {
   "generated_at": "2026-06-21",
   "trained_through": "2026-06-20",
-  "model_version": "daily-auto-v2.7-unified",
+  "model_version": "daily-auto-v2.8-recent-starter",
   "season": "2026",
   "method": "current-season walk-forward retrain with daily checkpoints",
   "stake": 100.0,
@@ -13,12 +13,12 @@
   },
   "overall": {
     "bets": 1130,
-    "wins": 687,
-    "losses": 443,
+    "wins": 683,
+    "losses": 447,
     "staked": 0.0,
     "profit": 0.0,
     "roi": 0.0,
-    "hit_rate": 0.608
+    "hit_rate": 0.6044
   },
   "high_confidence": {
     "bets": 0,
@@ -60,7 +60,7 @@
       "profit": 0,
       "balance": 10000.0,
       "return_pct": 0.0,
-      "season_accuracy": 0.5,
+      "season_accuracy": 0.625,
       "high_confidence_bets": 0
     },
     {
@@ -68,7 +68,7 @@
       "profit": 0,
       "balance": 10000.0,
       "return_pct": 0.0,
-      "season_accuracy": 0.7333,
+      "season_accuracy": 0.6667,
       "high_confidence_bets": 0
     },
     {
@@ -92,7 +92,7 @@
       "profit": 0,
       "balance": 10000.0,
       "return_pct": 0.0,
-      "season_accuracy": 0.5,
+      "season_accuracy": 0.5714,
       "high_confidence_bets": 0
     },
     {
@@ -188,7 +188,7 @@
       "profit": 0,
       "balance": 10000.0,
       "return_pct": 0.0,
-      "season_accuracy": 0.6667,
+      "season_accuracy": 0.6,
       "high_confidence_bets": 0
     },
     {
@@ -204,7 +204,7 @@
       "profit": 0,
       "balance": 10000.0,
       "return_pct": 0.0,
-      "season_accuracy": 0.6,
+      "season_accuracy": 0.5333,
       "high_confidence_bets": 0
     },
     {
@@ -316,7 +316,7 @@
       "profit": 0,
       "balance": 10000.0,
       "return_pct": 0.0,
-      "season_accuracy": 0.6,
+      "season_accuracy": 0.5333,
       "high_confidence_bets": 0
     },
     {
@@ -460,7 +460,7 @@
       "profit": 0,
       "balance": 10000.0,
       "return_pct": 0.0,
-      "season_accuracy": 0.4,
+      "season_accuracy": 0.4667,
       "high_confidence_bets": 0
     },
     {
@@ -484,7 +484,7 @@
       "profit": 0,
       "balance": 10000.0,
       "return_pct": 0.0,
-      "season_accuracy": 0.7333,
+      "season_accuracy": 0.6667,
       "high_confidence_bets": 0
     },
     {
@@ -564,7 +564,7 @@
       "profit": 0,
       "balance": 10000.0,
       "return_pct": 0.0,
-      "season_accuracy": 0.6,
+      "season_accuracy": 0.5333,
       "high_confidence_bets": 0
     },
     {
@@ -596,7 +596,7 @@
       "profit": 0,
       "balance": 10000.0,
       "return_pct": 0.0,
-      "season_accuracy": 0.4667,
+      "season_accuracy": 0.4,
       "high_confidence_bets": 0
     },
     {
@@ -768,7 +768,7 @@
     {
       "date": "2026-03-27",
       "games": 8,
-      "accuracy": 0.5,
+      "accuracy": 0.625,
       "high_confidence": {
         "bets": 0,
         "wins": 0,
@@ -782,7 +782,7 @@
     {
       "date": "2026-03-28",
       "games": 15,
-      "accuracy": 0.7333,
+      "accuracy": 0.6667,
       "high_confidence": {
         "bets": 0,
         "wins": 0,
@@ -824,7 +824,7 @@
     {
       "date": "2026-03-31",
       "games": 14,
-      "accuracy": 0.5,
+      "accuracy": 0.5714,
       "high_confidence": {
         "bets": 0,
         "wins": 0,
@@ -992,7 +992,7 @@
     {
       "date": "2026-04-12",
       "games": 15,
-      "accuracy": 0.6667,
+      "accuracy": 0.6,
       "high_confidence": {
         "bets": 0,
         "wins": 0,
@@ -1020,7 +1020,7 @@
     {
       "date": "2026-04-14",
       "games": 15,
-      "accuracy": 0.6,
+      "accuracy": 0.5333,
       "high_confidence": {
         "bets": 0,
         "wins": 0,
@@ -1216,7 +1216,7 @@
     {
       "date": "2026-04-28",
       "games": 15,
-      "accuracy": 0.6,
+      "accuracy": 0.5333,
       "high_confidence": {
         "bets": 0,
         "wins": 0,
@@ -1468,7 +1468,7 @@
     {
       "date": "2026-05-16",
       "games": 15,
-      "accuracy": 0.4,
+      "accuracy": 0.4667,
       "high_confidence": {
         "bets": 0,
         "wins": 0,
@@ -1510,7 +1510,7 @@
     {
       "date": "2026-05-19",
       "games": 15,
-      "accuracy": 0.7333,
+      "accuracy": 0.6667,
       "high_confidence": {
         "bets": 0,
         "wins": 0,
@@ -1650,7 +1650,7 @@
     {
       "date": "2026-05-29",
       "games": 15,
-      "accuracy": 0.6,
+      "accuracy": 0.5333,
       "high_confidence": {
         "bets": 0,
         "wins": 0,
@@ -1706,7 +1706,7 @@
     {
       "date": "2026-06-02",
       "games": 15,
-      "accuracy": 0.4667,
+      "accuracy": 0.4,
       "high_confidence": {
         "bets": 0,
         "wins": 0,

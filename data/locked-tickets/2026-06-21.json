@@ -1,7 +1,7 @@
 {
   "date": "2026-06-21",
-  "locked_at": "2026-06-21T18:43:50Z",
-  "board_generated_at": "2026-06-21T18:42:30Z",
+  "locked_at": "2026-06-21T18:55:44Z",
+  "board_generated_at": "2026-06-21T18:46:54Z",
   "ticket": {
     "label": "PHI ML + ATL ML",
     "legs": [
@@ -9,7 +9,7 @@
       "ATL"
     ],
     "leg_count": 2,
-    "odds": 2427,
-    "model_probability": 0.38773818
+    "odds": 2246,
+    "model_probability": 0.38793447
   }
 }

@@ -246,51 +246,39 @@ def _parse_innings_pitched(value: object) -> float:
 
 
 def fetch_pitcher_recent_era(pitcher_id: int, before: date, *, last_n: int = 3) -> float:
-    """ERA over the pitcher's last N starts before `before` (excludes same-day)."""
+    """ERA proxy from last N starts using cached season game logs (deterministic in CI)."""
     memory_key = (pitcher_id, before.isoformat(), last_n)
     if memory_key in _PITCHER_RECENT_ERA_CACHE:
         return _PITCHER_RECENT_ERA_CACHE[memory_key]
 
     CACHE_DIR.mkdir(parents=True, exist_ok=True)
-    cache_path = CACHE_DIR / f"pitcher_recent_era_{pitcher_id}_{before.year}_{last_n}.json"
+    cache_path = CACHE_DIR / f"pitcher_recent_era_v2_{pitcher_id}_{before.year}_{last_n}.json"
     if cache_path.exists():
         era = float(json.loads(cache_path.read_text())["era"])
         _PITCHER_RECENT_ERA_CACHE[memory_key] = era
         return era
 
-    url = (
-        f"{API_BASE}/people/{pitcher_id}/stats"
-        f"?stats=gameLog&group=pitching&season={before.year}"
-    )
-    payload = _get_json(url)
-    splits = payload.get("stats", [{}])[0].get("splits", [])
-    starts: list[tuple[date, float, float]] = []
-    for split in splits:
-        stat = split.get("stat", {})
-        game_date_raw = split.get("date") or stat.get("date")
-        if not game_date_raw:
+    season_start = date(before.year, 3, 20)
+    games = load_or_fetch_games(season_start, before - timedelta(days=1))
+    starts: list[tuple[date, float]] = []
+    for game in games:
+        if not game.is_final or game.game_date >= before:
             continue
-        try:
-            game_date = date.fromisoformat(str(game_date_raw)[:10])
-        except ValueError:
-            continue
-        if game_date >= before:
-            continue
-        innings = _parse_innings_pitched(stat.get("inningsPitched"))
-        if innings <= 0:
-            continue
-        earned = _to_float(stat.get("earnedRuns"), 0.0)
-        starts.append((game_date, innings, earned))
+        if game.home_pitcher_id == pitcher_id and game.away_score is not None:
+            starts.append((game.game_date, float(game.away_score)))
+        elif game.away_pitcher_id == pitcher_id and game.home_score is not None:
+            starts.append((game.game_date, float(game.home_score)))
 
     starts.sort(key=lambda row: row[0], reverse=True)
     recent = starts[:last_n]
     if not recent:
         era = fetch_pitcher_season_era(pitcher_id, before.year)
     else:
-        total_ip = sum(row[1] for row in recent)
-        total_er = sum(row[2] for row in recent)
-        era = (total_er / total_ip) * 9.0 if total_ip > 0 else fetch_pitcher_season_era(pitcher_id, before.year)
+        avg_runs = sum(runs for _, runs in recent) / len(recent)
+        # Typical starter length; convert runs/start to a 9-inning ERA scale.
+        era = (avg_runs / 5.2) * 9.0
 
+    era = max(1.5, min(9.0, era))
     cache_path.write_text(json.dumps({"era": era}))
     _PITCHER_RECENT_ERA_CACHE[memory_key] = era
     return era

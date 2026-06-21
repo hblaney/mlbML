@@ -80,6 +80,9 @@ jobs:
             echo "History current through ${trained}; skipping accuracy rebuild."
           fi
 
+      - name: Verify board integrity
+        run: python3 scripts/model/prediction_integrity.py --full --strict-recompute
+
       - name: Commit and push refreshed board
         run: |
           set -euo pipefail

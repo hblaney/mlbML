@@ -1,36 +1,28 @@
 {
-  "generated_at": "2026-06-19",
-  "strategy": "trg59_top_prob_2",
+  "generated_at": "2026-06-21",
+  "strategy": "corr_nl_reject_both",
   "strategy_rules": [
-    "trg59_top_prob_2 — one system ticket per day",
-    "When 2+ Medium+ picks are >= 59% model win probability: force 2-leg parlay of top 2 by win%",
-    "Otherwise: best_ticket fallback (highest-scoring filtered 2/3/4-leg parlay or +EV single)",
-    "Model predicted winner only — never bet the opposite side for +EV",
-    "Parlay legs require Medium+ confidence (no Low legs)",
-    "Stakes locked: 35% single · 45% two-leg · 10% three-leg of wallet"
+    "Always-2 parlay from Medium+ legs only (filtered edge/anchor, else best uncorrelated top-2 positive-EV)",
+    "Reject parlay legs in the same division or starting within 60 minutes",
+    "Premium filtered 3-leg (Medium+ pool, uncorrelated) when it scores higher than always-2",
+    "Qualified single moneyline (any confidence) when it scores highest",
+    "One bet per day \u2014 highest score wins; ride losing streaks unless bankroll cannot place minimum bet"
   ],
   "stake_by_leg_count": {
-    "1": 0.35,
+    "1": 0.3,
     "2": 0.45,
-    "3": 0.1
+    "3": 0.2
   },
   "stake_optimizer_suggestion": {
-    "1": 0.35,
+    "1": 0.3,
     "2": 0.45,
-    "3": 0.1
+    "3": 0.2
   },
-  "flat_stake_fallback": 0.35,
+  "flat_stake_fallback": 0.3,
   "daily_exposure_cap": 0.5,
   "backtest_period": {
     "start": "2026-03-20",
-    "end": "2026-06-19"
+    "end": "2026-06-16"
   },
-  "backtest_season": {
-    "record": "49-33",
-    "hit_rate": 0.598,
-    "max_losing_streak": 4,
-    "compound_from_25_usd": 8851139,
-    "flat_5_usd_profit": 357
-  },
-  "retuned_from": "low-streak-strategy-search.json — beats med60_force2_223s on record and compound"
+  "retuned_from": "optimize_stake_sizing.py walk-forward on current season"
 }
