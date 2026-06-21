@@ -45,5 +45,8 @@ jobs:
       - name: TypeScript build must load board without confidence mismatch
         run: npm run build
 
-      - name: Full prediction integrity (schema + ticket + accuracy)
+      - name: Validate board schema
+        run: python3 scripts/model/prediction_integrity.py
+
+      - name: Validate ticket and accuracy sync
         run: python3 scripts/model/prediction_integrity.py --full
