@@ -19,7 +19,7 @@
   "started_at": "2026-06-13",
   "starting_balance": 25.0,
   "balance": 34.173,
-  "wallet_balance": 27.0,
+  "wallet_balance": 22.0,
   "profit": 9.173,
   "return_pct": 0.3669,
   "record": "4-4",
@@ -28,17 +28,17 @@
   "last_settled_date": "2026-06-20",
   "today_ticket": {
     "date": "2026-06-21",
-    "label": "PHI ML + KC ML",
+    "label": "PHI ML + ATL ML",
     "legs": [
       "PHI",
-      "KC"
+      "ATL"
     ],
     "leg_count": 2,
     "stake_pct": 0.1463,
     "stake_amount": 5.0,
     "status": "pending",
-    "odds": 222,
-    "model_probability": 0.397548,
+    "odds": 2427,
+    "model_probability": 0.38773818,
     "prove_out": true
   },
   "checkpoints": [

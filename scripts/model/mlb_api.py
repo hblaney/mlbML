@@ -15,6 +15,7 @@ import certifi
 API_BASE = "https://statsapi.mlb.com/api/v1"
 CACHE_DIR = Path(__file__).resolve().parents[2] / "data" / "cache"
 _PITCHER_STATS_CACHE: dict[tuple[int, int], dict[str, float]] = {}
+_PITCHER_RECENT_ERA_CACHE: dict[tuple[int, str, int], float] = {}
 
 
 @dataclass(frozen=True)
@@ -229,3 +230,67 @@ def fetch_pitcher_season_stats(pitcher_id: int, season: int) -> dict[str, float]
 
 def fetch_pitcher_season_era(pitcher_id: int, season: int) -> float:
     return fetch_pitcher_season_stats(pitcher_id, season)["era"]
+
+
+def _parse_innings_pitched(value: object) -> float:
+    if value in (None, ""):
+        return 0.0
+    text = str(value)
+    if "." in text:
+        whole, frac = text.split(".", 1)
+        try:
+            return float(whole) + float(frac) / 3.0
+        except ValueError:
+            return 0.0
+    return _to_float(value, 0.0)
+
+
+def fetch_pitcher_recent_era(pitcher_id: int, before: date, *, last_n: int = 3) -> float:
+    """ERA over the pitcher's last N starts before `before` (excludes same-day)."""
+    memory_key = (pitcher_id, before.isoformat(), last_n)
+    if memory_key in _PITCHER_RECENT_ERA_CACHE:
+        return _PITCHER_RECENT_ERA_CACHE[memory_key]
+
+    CACHE_DIR.mkdir(parents=True, exist_ok=True)
+    cache_path = CACHE_DIR / f"pitcher_recent_era_{pitcher_id}_{before.year}_{last_n}.json"
+    if cache_path.exists():
+        era = float(json.loads(cache_path.read_text())["era"])
+        _PITCHER_RECENT_ERA_CACHE[memory_key] = era
+        return era
+
+    url = (
+        f"{API_BASE}/people/{pitcher_id}/stats"
+        f"?stats=gameLog&group=pitching&season={before.year}"
+    )
+    payload = _get_json(url)
+    splits = payload.get("stats", [{}])[0].get("splits", [])
+    starts: list[tuple[date, float, float]] = []
+    for split in splits:
+        stat = split.get("stat", {})
+        game_date_raw = split.get("date") or stat.get("date")
+        if not game_date_raw:
+            continue
+        try:
+            game_date = date.fromisoformat(str(game_date_raw)[:10])
+        except ValueError:
+            continue
+        if game_date >= before:
+            continue
+        innings = _parse_innings_pitched(stat.get("inningsPitched"))
+        if innings <= 0:
+            continue
+        earned = _to_float(stat.get("earnedRuns"), 0.0)
+        starts.append((game_date, innings, earned))
+
+    starts.sort(key=lambda row: row[0], reverse=True)
+    recent = starts[:last_n]
+    if not recent:
+        era = fetch_pitcher_season_era(pitcher_id, before.year)
+    else:
+        total_ip = sum(row[1] for row in recent)
+        total_er = sum(row[2] for row in recent)
+        era = (total_er / total_ip) * 9.0 if total_ip > 0 else fetch_pitcher_season_era(pitcher_id, before.year)
+
+    cache_path.write_text(json.dumps({"era": era}))
+    _PITCHER_RECENT_ERA_CACHE[memory_key] = era
+    return era

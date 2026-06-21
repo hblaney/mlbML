@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-06-17",
-  "trained_through": "2026-06-16",
-  "model_version": "daily-auto-v2.1",
+  "generated_at": "2026-06-21",
+  "trained_through": "2026-06-20",
+  "model_version": "daily-auto-v2.7-unified",
   "season": "2026",
   "method": "current-season walk-forward retrain with daily checkpoints",
   "stake": 100.0,
@@ -9,34 +9,34 @@
   "baseline_odds": -110,
   "date_range": {
     "start": "2026-03-25",
-    "end": "2026-06-16"
+    "end": "2026-06-19"
   },
   "overall": {
-    "bets": 1088,
-    "wins": 660,
-    "losses": 428,
+    "bets": 1130,
+    "wins": 687,
+    "losses": 443,
     "staked": 0.0,
     "profit": 0.0,
     "roi": 0.0,
-    "hit_rate": 0.6066
+    "hit_rate": 0.608
   },
   "high_confidence": {
-    "bets": 109,
-    "wins": 83,
-    "losses": 26,
-    "staked": 10900.0,
-    "profit": 4945.45,
-    "roi": 0.4537,
-    "hit_rate": 0.7615
+    "bets": 0,
+    "wins": 0,
+    "losses": 0,
+    "staked": 0.0,
+    "profit": 0.0,
+    "roi": 0.0,
+    "hit_rate": 0.0
   },
   "cumulative": {
-    "bets": 109,
-    "wins": 83,
-    "losses": 26,
-    "profit": 4945.45,
-    "roi": 0.4537,
-    "balance": 14945.45,
-    "return_pct": 0.4945
+    "bets": 0,
+    "wins": 0,
+    "losses": 0,
+    "profit": 0.0,
+    "roi": 0.0,
+    "balance": 10000.0,
+    "return_pct": 0.0
   },
   "checkpoints": [
     {
@@ -49,667 +49,691 @@
     },
     {
       "date": "2026-03-26",
-      "profit": 172.73,
-      "balance": 10172.73,
-      "return_pct": 0.0173,
+      "profit": 0,
+      "balance": 10000.0,
+      "return_pct": 0.0,
       "season_accuracy": 0.3636,
-      "high_confidence_bets": 4
+      "high_confidence_bets": 0
     },
     {
       "date": "2026-03-27",
-      "profit": 90.91,
-      "balance": 10263.64,
-      "return_pct": 0.0264,
+      "profit": 0,
+      "balance": 10000.0,
+      "return_pct": 0.0,
       "season_accuracy": 0.5,
-      "high_confidence_bets": 1
+      "high_confidence_bets": 0
     },
     {
       "date": "2026-03-28",
-      "profit": 363.64,
-      "balance": 10627.27,
-      "return_pct": 0.0627,
-      "season_accuracy": 0.6667,
-      "high_confidence_bets": 4
+      "profit": 0,
+      "balance": 10000.0,
+      "return_pct": 0.0,
+      "season_accuracy": 0.7333,
+      "high_confidence_bets": 0
     },
     {
       "date": "2026-03-29",
-      "profit": 181.82,
-      "balance": 10809.09,
-      "return_pct": 0.0809,
+      "profit": 0,
+      "balance": 10000.0,
+      "return_pct": 0.0,
       "season_accuracy": 0.5,
-      "high_confidence_bets": 2
+      "high_confidence_bets": 0
     },
     {
       "date": "2026-03-30",
-      "profit": 272.73,
-      "balance": 11081.82,
-      "return_pct": 0.1082,
+      "profit": 0,
+      "balance": 10000.0,
+      "return_pct": 0.0,
       "season_accuracy": 0.6,
-      "high_confidence_bets": 3
+      "high_confidence_bets": 0
     },
     {
       "date": "2026-03-31",
-      "profit": 90.91,
-      "balance": 11172.73,
-      "return_pct": 0.1173,
+      "profit": 0,
+      "balance": 10000.0,
+      "return_pct": 0.0,
       "season_accuracy": 0.5,
-      "high_confidence_bets": 1
+      "high_confidence_bets": 0
     },
     {
       "date": "2026-04-01",
-      "profit": -9.09,
-      "balance": 11163.64,
-      "return_pct": 0.1164,
+      "profit": 0,
+      "balance": 10000.0,
+      "return_pct": 0.0,
       "season_accuracy": 0.6,
-      "high_confidence_bets": 2
+      "high_confidence_bets": 0
     },
     {
       "date": "2026-04-02",
       "profit": 0,
-      "balance": 11163.64,
-      "return_pct": 0.1164,
+      "balance": 10000.0,
+      "return_pct": 0.0,
       "season_accuracy": 0.6667,
       "high_confidence_bets": 0
     },
     {
       "date": "2026-04-03",
       "profit": 0,
-      "balance": 11163.64,
-      "return_pct": 0.1164,
+      "balance": 10000.0,
+      "return_pct": 0.0,
       "season_accuracy": 0.7143,
       "high_confidence_bets": 0
     },
     {
       "date": "2026-04-04",
       "profit": 0,
-      "balance": 11163.64,
-      "return_pct": 0.1164,
-      "season_accuracy": 0.6667,
+      "balance": 10000.0,
+      "return_pct": 0.0,
+      "season_accuracy": 0.6,
       "high_confidence_bets": 0
     },
     {
       "date": "2026-04-05",
-      "profit": -18.18,
-      "balance": 11145.45,
-      "return_pct": 0.1145,
+      "profit": 0,
+      "balance": 10000.0,
+      "return_pct": 0.0,
       "season_accuracy": 0.5,
-      "high_confidence_bets": 4
+      "high_confidence_bets": 0
     },
     {
       "date": "2026-04-06",
       "profit": 0,
-      "balance": 11145.45,
-      "return_pct": 0.1145,
+      "balance": 10000.0,
+      "return_pct": 0.0,
       "season_accuracy": 0.3846,
       "high_confidence_bets": 0
     },
     {
       "date": "2026-04-07",
-      "profit": 90.91,
-      "balance": 11236.36,
-      "return_pct": 0.1236,
+      "profit": 0,
+      "balance": 10000.0,
+      "return_pct": 0.0,
       "season_accuracy": 0.6,
-      "high_confidence_bets": 1
+      "high_confidence_bets": 0
     },
     {
       "date": "2026-04-08",
-      "profit": 90.91,
-      "balance": 11327.27,
-      "return_pct": 0.1327,
+      "profit": 0,
+      "balance": 10000.0,
+      "return_pct": 0.0,
       "season_accuracy": 0.6,
-      "high_confidence_bets": 1
+      "high_confidence_bets": 0
     },
     {
       "date": "2026-04-09",
-      "profit": 90.91,
-      "balance": 11418.18,
-      "return_pct": 0.1418,
+      "profit": 0,
+      "balance": 10000.0,
+      "return_pct": 0.0,
       "season_accuracy": 0.5,
-      "high_confidence_bets": 1
+      "high_confidence_bets": 0
     },
     {
       "date": "2026-04-10",
-      "profit": -18.18,
-      "balance": 11400.0,
-      "return_pct": 0.14,
+      "profit": 0,
+      "balance": 10000.0,
+      "return_pct": 0.0,
       "season_accuracy": 0.4667,
-      "high_confidence_bets": 4
+      "high_confidence_bets": 0
     },
     {
       "date": "2026-04-11",
-      "profit": 181.82,
-      "balance": 11581.82,
-      "return_pct": 0.1582,
-      "season_accuracy": 0.6667,
-      "high_confidence_bets": 2
+      "profit": 0,
+      "balance": 10000.0,
+      "return_pct": 0.0,
+      "season_accuracy": 0.6,
+      "high_confidence_bets": 0
     },
     {
       "date": "2026-04-12",
-      "profit": 90.91,
-      "balance": 11672.73,
-      "return_pct": 0.1673,
+      "profit": 0,
+      "balance": 10000.0,
+      "return_pct": 0.0,
       "season_accuracy": 0.6667,
-      "high_confidence_bets": 1
+      "high_confidence_bets": 0
     },
     {
       "date": "2026-04-13",
-      "profit": 90.91,
-      "balance": 11763.64,
-      "return_pct": 0.1764,
+      "profit": 0,
+      "balance": 10000.0,
+      "return_pct": 0.0,
       "season_accuracy": 0.8,
-      "high_confidence_bets": 1
+      "high_confidence_bets": 0
     },
     {
       "date": "2026-04-14",
-      "profit": 81.82,
-      "balance": 11845.45,
-      "return_pct": 0.1845,
+      "profit": 0,
+      "balance": 10000.0,
+      "return_pct": 0.0,
       "season_accuracy": 0.6,
-      "high_confidence_bets": 3
+      "high_confidence_bets": 0
     },
     {
       "date": "2026-04-15",
-      "profit": 181.82,
-      "balance": 12027.27,
-      "return_pct": 0.2027,
-      "season_accuracy": 0.7333,
-      "high_confidence_bets": 2
+      "profit": 0,
+      "balance": 10000.0,
+      "return_pct": 0.0,
+      "season_accuracy": 0.8,
+      "high_confidence_bets": 0
     },
     {
       "date": "2026-04-16",
       "profit": 0,
-      "balance": 12027.27,
-      "return_pct": 0.2027,
+      "balance": 10000.0,
+      "return_pct": 0.0,
       "season_accuracy": 0.6,
       "high_confidence_bets": 0
     },
     {
       "date": "2026-04-17",
-      "profit": 81.82,
-      "balance": 12109.09,
-      "return_pct": 0.2109,
+      "profit": 0,
+      "balance": 10000.0,
+      "return_pct": 0.0,
       "season_accuracy": 0.6667,
-      "high_confidence_bets": 3
+      "high_confidence_bets": 0
     },
     {
       "date": "2026-04-18",
-      "profit": 90.91,
-      "balance": 12200.0,
-      "return_pct": 0.22,
+      "profit": 0,
+      "balance": 10000.0,
+      "return_pct": 0.0,
       "season_accuracy": 0.4667,
-      "high_confidence_bets": 1
+      "high_confidence_bets": 0
     },
     {
       "date": "2026-04-19",
       "profit": 0,
-      "balance": 12200.0,
-      "return_pct": 0.22,
+      "balance": 10000.0,
+      "return_pct": 0.0,
       "season_accuracy": 0.6,
       "high_confidence_bets": 0
     },
     {
       "date": "2026-04-20",
-      "profit": 90.91,
-      "balance": 12290.91,
-      "return_pct": 0.2291,
+      "profit": 0,
+      "balance": 10000.0,
+      "return_pct": 0.0,
       "season_accuracy": 0.7,
-      "high_confidence_bets": 1
+      "high_confidence_bets": 0
     },
     {
       "date": "2026-04-21",
-      "profit": -9.09,
-      "balance": 12281.82,
-      "return_pct": 0.2282,
+      "profit": 0,
+      "balance": 10000.0,
+      "return_pct": 0.0,
       "season_accuracy": 0.6,
-      "high_confidence_bets": 2
+      "high_confidence_bets": 0
     },
     {
       "date": "2026-04-22",
-      "profit": 181.82,
-      "balance": 12463.64,
-      "return_pct": 0.2464,
+      "profit": 0,
+      "balance": 10000.0,
+      "return_pct": 0.0,
       "season_accuracy": 0.6667,
-      "high_confidence_bets": 2
+      "high_confidence_bets": 0
     },
     {
       "date": "2026-04-23",
-      "profit": 90.91,
-      "balance": 12554.55,
-      "return_pct": 0.2555,
-      "season_accuracy": 0.5556,
-      "high_confidence_bets": 1
+      "profit": 0,
+      "balance": 10000.0,
+      "return_pct": 0.0,
+      "season_accuracy": 0.6667,
+      "high_confidence_bets": 0
     },
     {
       "date": "2026-04-24",
-      "profit": 81.82,
-      "balance": 12636.36,
-      "return_pct": 0.2636,
+      "profit": 0,
+      "balance": 10000.0,
+      "return_pct": 0.0,
       "season_accuracy": 0.7143,
-      "high_confidence_bets": 3
+      "high_confidence_bets": 0
     },
     {
       "date": "2026-04-25",
-      "profit": -100.0,
-      "balance": 12536.36,
-      "return_pct": 0.2536,
+      "profit": 0,
+      "balance": 10000.0,
+      "return_pct": 0.0,
       "season_accuracy": 0.5714,
-      "high_confidence_bets": 1
+      "high_confidence_bets": 0
     },
     {
       "date": "2026-04-26",
-      "profit": 90.91,
-      "balance": 12627.27,
-      "return_pct": 0.2627,
+      "profit": 0,
+      "balance": 10000.0,
+      "return_pct": 0.0,
       "season_accuracy": 0.6875,
-      "high_confidence_bets": 1
+      "high_confidence_bets": 0
     },
     {
       "date": "2026-04-27",
-      "profit": -9.09,
-      "balance": 12618.18,
-      "return_pct": 0.2618,
+      "profit": 0,
+      "balance": 10000.0,
+      "return_pct": 0.0,
       "season_accuracy": 0.625,
-      "high_confidence_bets": 2
+      "high_confidence_bets": 0
     },
     {
       "date": "2026-04-28",
-      "profit": -9.09,
-      "balance": 12609.09,
-      "return_pct": 0.2609,
-      "season_accuracy": 0.5333,
-      "high_confidence_bets": 2
+      "profit": 0,
+      "balance": 10000.0,
+      "return_pct": 0.0,
+      "season_accuracy": 0.6,
+      "high_confidence_bets": 0
     },
     {
       "date": "2026-04-29",
       "profit": 0,
-      "balance": 12609.09,
-      "return_pct": 0.2609,
+      "balance": 10000.0,
+      "return_pct": 0.0,
       "season_accuracy": 0.6923,
       "high_confidence_bets": 0
     },
     {
       "date": "2026-04-30",
-      "profit": -9.09,
-      "balance": 12600.0,
-      "return_pct": 0.26,
+      "profit": 0,
+      "balance": 10000.0,
+      "return_pct": 0.0,
       "season_accuracy": 0.2727,
-      "high_confidence_bets": 2
+      "high_confidence_bets": 0
     },
     {
       "date": "2026-05-01",
       "profit": 0,
-      "balance": 12600.0,
-      "return_pct": 0.26,
+      "balance": 10000.0,
+      "return_pct": 0.0,
       "season_accuracy": 0.7333,
       "high_confidence_bets": 0
     },
     {
       "date": "2026-05-02",
       "profit": 0,
-      "balance": 12600.0,
-      "return_pct": 0.26,
+      "balance": 10000.0,
+      "return_pct": 0.0,
       "season_accuracy": 0.8667,
       "high_confidence_bets": 0
     },
     {
       "date": "2026-05-03",
-      "profit": 90.91,
-      "balance": 12690.91,
-      "return_pct": 0.2691,
+      "profit": 0,
+      "balance": 10000.0,
+      "return_pct": 0.0,
       "season_accuracy": 0.6,
-      "high_confidence_bets": 1
+      "high_confidence_bets": 0
     },
     {
       "date": "2026-05-04",
       "profit": 0,
-      "balance": 12690.91,
-      "return_pct": 0.2691,
+      "balance": 10000.0,
+      "return_pct": 0.0,
       "season_accuracy": 0.75,
       "high_confidence_bets": 0
     },
     {
       "date": "2026-05-05",
       "profit": 0,
-      "balance": 12690.91,
-      "return_pct": 0.2691,
+      "balance": 10000.0,
+      "return_pct": 0.0,
       "season_accuracy": 0.6154,
       "high_confidence_bets": 0
     },
     {
       "date": "2026-05-06",
       "profit": 0,
-      "balance": 12690.91,
-      "return_pct": 0.2691,
+      "balance": 10000.0,
+      "return_pct": 0.0,
       "season_accuracy": 0.6667,
       "high_confidence_bets": 0
     },
     {
       "date": "2026-05-07",
-      "profit": 90.91,
-      "balance": 12781.82,
-      "return_pct": 0.2782,
+      "profit": 0,
+      "balance": 10000.0,
+      "return_pct": 0.0,
       "season_accuracy": 0.6,
-      "high_confidence_bets": 1
+      "high_confidence_bets": 0
     },
     {
       "date": "2026-05-08",
-      "profit": 90.91,
-      "balance": 12872.73,
-      "return_pct": 0.2873,
+      "profit": 0,
+      "balance": 10000.0,
+      "return_pct": 0.0,
       "season_accuracy": 0.6,
-      "high_confidence_bets": 1
+      "high_confidence_bets": 0
     },
     {
       "date": "2026-05-09",
       "profit": 0,
-      "balance": 12872.73,
-      "return_pct": 0.2873,
+      "balance": 10000.0,
+      "return_pct": 0.0,
       "season_accuracy": 0.5714,
       "high_confidence_bets": 0
     },
     {
       "date": "2026-05-10",
-      "profit": -9.09,
-      "balance": 12863.64,
-      "return_pct": 0.2864,
-      "season_accuracy": 0.3333,
-      "high_confidence_bets": 2
+      "profit": 0,
+      "balance": 10000.0,
+      "return_pct": 0.0,
+      "season_accuracy": 0.4,
+      "high_confidence_bets": 0
     },
     {
       "date": "2026-05-11",
       "profit": 0,
-      "balance": 12863.64,
-      "return_pct": 0.2864,
+      "balance": 10000.0,
+      "return_pct": 0.0,
       "season_accuracy": 0.5,
       "high_confidence_bets": 0
     },
     {
       "date": "2026-05-12",
-      "profit": -9.09,
-      "balance": 12854.55,
-      "return_pct": 0.2855,
+      "profit": 0,
+      "balance": 10000.0,
+      "return_pct": 0.0,
       "season_accuracy": 0.7333,
-      "high_confidence_bets": 2
+      "high_confidence_bets": 0
     },
     {
       "date": "2026-05-13",
-      "profit": 90.91,
-      "balance": 12945.45,
-      "return_pct": 0.2945,
+      "profit": 0,
+      "balance": 10000.0,
+      "return_pct": 0.0,
       "season_accuracy": 0.6,
-      "high_confidence_bets": 1
+      "high_confidence_bets": 0
     },
     {
       "date": "2026-05-14",
-      "profit": 181.82,
-      "balance": 13127.27,
-      "return_pct": 0.3127,
-      "season_accuracy": 0.6364,
-      "high_confidence_bets": 2
+      "profit": 0,
+      "balance": 10000.0,
+      "return_pct": 0.0,
+      "season_accuracy": 0.7273,
+      "high_confidence_bets": 0
     },
     {
       "date": "2026-05-15",
-      "profit": -100.0,
-      "balance": 13027.27,
-      "return_pct": 0.3027,
+      "profit": 0,
+      "balance": 10000.0,
+      "return_pct": 0.0,
       "season_accuracy": 0.4667,
-      "high_confidence_bets": 1
+      "high_confidence_bets": 0
     },
     {
       "date": "2026-05-16",
       "profit": 0,
-      "balance": 13027.27,
-      "return_pct": 0.3027,
+      "balance": 10000.0,
+      "return_pct": 0.0,
       "season_accuracy": 0.4,
       "high_confidence_bets": 0
     },
     {
       "date": "2026-05-17",
-      "profit": 90.91,
-      "balance": 13118.18,
-      "return_pct": 0.3118,
+      "profit": 0,
+      "balance": 10000.0,
+      "return_pct": 0.0,
       "season_accuracy": 0.7333,
-      "high_confidence_bets": 1
+      "high_confidence_bets": 0
     },
     {
       "date": "2026-05-18",
-      "profit": 90.91,
-      "balance": 13209.09,
-      "return_pct": 0.3209,
+      "profit": 0,
+      "balance": 10000.0,
+      "return_pct": 0.0,
       "season_accuracy": 0.5714,
-      "high_confidence_bets": 1
+      "high_confidence_bets": 0
     },
     {
       "date": "2026-05-19",
-      "profit": -200.0,
-      "balance": 13009.09,
-      "return_pct": 0.3009,
-      "season_accuracy": 0.6667,
-      "high_confidence_bets": 2
+      "profit": 0,
+      "balance": 10000.0,
+      "return_pct": 0.0,
+      "season_accuracy": 0.7333,
+      "high_confidence_bets": 0
     },
     {
       "date": "2026-05-20",
-      "profit": 181.82,
-      "balance": 13190.91,
-      "return_pct": 0.3191,
+      "profit": 0,
+      "balance": 10000.0,
+      "return_pct": 0.0,
       "season_accuracy": 0.7333,
-      "high_confidence_bets": 2
+      "high_confidence_bets": 0
     },
     {
       "date": "2026-05-21",
-      "profit": 90.91,
-      "balance": 13281.82,
-      "return_pct": 0.3282,
+      "profit": 0,
+      "balance": 10000.0,
+      "return_pct": 0.0,
       "season_accuracy": 0.2857,
-      "high_confidence_bets": 1
+      "high_confidence_bets": 0
     },
     {
       "date": "2026-05-22",
-      "profit": -100.0,
-      "balance": 13181.82,
-      "return_pct": 0.3182,
+      "profit": 0,
+      "balance": 10000.0,
+      "return_pct": 0.0,
       "season_accuracy": 0.5,
-      "high_confidence_bets": 1
+      "high_confidence_bets": 0
     },
     {
       "date": "2026-05-23",
-      "profit": 90.91,
-      "balance": 13272.73,
-      "return_pct": 0.3273,
+      "profit": 0,
+      "balance": 10000.0,
+      "return_pct": 0.0,
       "season_accuracy": 0.5714,
-      "high_confidence_bets": 1
+      "high_confidence_bets": 0
     },
     {
       "date": "2026-05-24",
       "profit": 0,
-      "balance": 13272.73,
-      "return_pct": 0.3273,
+      "balance": 10000.0,
+      "return_pct": 0.0,
       "season_accuracy": 0.6667,
       "high_confidence_bets": 0
     },
     {
       "date": "2026-05-25",
-      "profit": 181.82,
-      "balance": 13454.55,
-      "return_pct": 0.3455,
+      "profit": 0,
+      "balance": 10000.0,
+      "return_pct": 0.0,
       "season_accuracy": 0.3077,
-      "high_confidence_bets": 2
+      "high_confidence_bets": 0
     },
     {
       "date": "2026-05-26",
-      "profit": 81.82,
-      "balance": 13536.36,
-      "return_pct": 0.3536,
+      "profit": 0,
+      "balance": 10000.0,
+      "return_pct": 0.0,
       "season_accuracy": 0.6667,
-      "high_confidence_bets": 3
+      "high_confidence_bets": 0
     },
     {
       "date": "2026-05-27",
-      "profit": -9.09,
-      "balance": 13527.27,
-      "return_pct": 0.3527,
+      "profit": 0,
+      "balance": 10000.0,
+      "return_pct": 0.0,
       "season_accuracy": 0.6667,
-      "high_confidence_bets": 2
+      "high_confidence_bets": 0
     },
     {
       "date": "2026-05-28",
-      "profit": -9.09,
-      "balance": 13518.18,
-      "return_pct": 0.3518,
+      "profit": 0,
+      "balance": 10000.0,
+      "return_pct": 0.0,
       "season_accuracy": 0.6667,
-      "high_confidence_bets": 2
+      "high_confidence_bets": 0
     },
     {
       "date": "2026-05-29",
-      "profit": -100.0,
-      "balance": 13418.18,
-      "return_pct": 0.3418,
-      "season_accuracy": 0.5333,
-      "high_confidence_bets": 1
+      "profit": 0,
+      "balance": 10000.0,
+      "return_pct": 0.0,
+      "season_accuracy": 0.6,
+      "high_confidence_bets": 0
     },
     {
       "date": "2026-05-30",
       "profit": 0,
-      "balance": 13418.18,
-      "return_pct": 0.3418,
+      "balance": 10000.0,
+      "return_pct": 0.0,
       "season_accuracy": 0.7333,
       "high_confidence_bets": 0
     },
     {
       "date": "2026-05-31",
-      "profit": 272.73,
-      "balance": 13690.91,
-      "return_pct": 0.3691,
+      "profit": 0,
+      "balance": 10000.0,
+      "return_pct": 0.0,
       "season_accuracy": 0.8667,
-      "high_confidence_bets": 3
+      "high_confidence_bets": 0
     },
     {
       "date": "2026-06-01",
-      "profit": -9.09,
-      "balance": 13681.82,
-      "return_pct": 0.3682,
+      "profit": 0,
+      "balance": 10000.0,
+      "return_pct": 0.0,
       "season_accuracy": 0.5556,
-      "high_confidence_bets": 2
+      "high_confidence_bets": 0
     },
     {
       "date": "2026-06-02",
-      "profit": -9.09,
-      "balance": 13672.73,
-      "return_pct": 0.3673,
+      "profit": 0,
+      "balance": 10000.0,
+      "return_pct": 0.0,
       "season_accuracy": 0.4667,
-      "high_confidence_bets": 2
+      "high_confidence_bets": 0
     },
     {
       "date": "2026-06-03",
-      "profit": 90.91,
-      "balance": 13763.64,
-      "return_pct": 0.3764,
+      "profit": 0,
+      "balance": 10000.0,
+      "return_pct": 0.0,
       "season_accuracy": 0.6,
-      "high_confidence_bets": 1
+      "high_confidence_bets": 0
     },
     {
       "date": "2026-06-04",
       "profit": 0,
-      "balance": 13763.64,
-      "return_pct": 0.3764,
+      "balance": 10000.0,
+      "return_pct": 0.0,
       "season_accuracy": 0.4444,
       "high_confidence_bets": 0
     },
     {
       "date": "2026-06-05",
       "profit": 0,
-      "balance": 13763.64,
-      "return_pct": 0.3764,
+      "balance": 10000.0,
+      "return_pct": 0.0,
       "season_accuracy": 0.6667,
       "high_confidence_bets": 0
     },
     {
       "date": "2026-06-06",
-      "profit": 272.73,
-      "balance": 14036.36,
-      "return_pct": 0.4036,
+      "profit": 0,
+      "balance": 10000.0,
+      "return_pct": 0.0,
       "season_accuracy": 0.7143,
-      "high_confidence_bets": 3
+      "high_confidence_bets": 0
     },
     {
       "date": "2026-06-07",
-      "profit": 181.82,
-      "balance": 14218.18,
-      "return_pct": 0.4218,
+      "profit": 0,
+      "balance": 10000.0,
+      "return_pct": 0.0,
       "season_accuracy": 0.8667,
-      "high_confidence_bets": 2
+      "high_confidence_bets": 0
     },
     {
       "date": "2026-06-08",
-      "profit": 90.91,
-      "balance": 14309.09,
-      "return_pct": 0.4309,
+      "profit": 0,
+      "balance": 10000.0,
+      "return_pct": 0.0,
       "season_accuracy": 0.75,
-      "high_confidence_bets": 1
+      "high_confidence_bets": 0
     },
     {
       "date": "2026-06-09",
       "profit": 0,
-      "balance": 14309.09,
-      "return_pct": 0.4309,
+      "balance": 10000.0,
+      "return_pct": 0.0,
       "season_accuracy": 0.7333,
       "high_confidence_bets": 0
     },
     {
       "date": "2026-06-10",
-      "profit": 90.91,
-      "balance": 14400.0,
-      "return_pct": 0.44,
+      "profit": 0,
+      "balance": 10000.0,
+      "return_pct": 0.0,
       "season_accuracy": 0.4,
-      "high_confidence_bets": 1
+      "high_confidence_bets": 0
     },
     {
       "date": "2026-06-11",
-      "profit": 90.91,
-      "balance": 14490.91,
-      "return_pct": 0.4491,
-      "season_accuracy": 0.7143,
-      "high_confidence_bets": 1
+      "profit": 0,
+      "balance": 10000.0,
+      "return_pct": 0.0,
+      "season_accuracy": 0.5714,
+      "high_confidence_bets": 0
     },
     {
       "date": "2026-06-12",
-      "profit": 90.91,
-      "balance": 14581.82,
-      "return_pct": 0.4582,
+      "profit": 0,
+      "balance": 10000.0,
+      "return_pct": 0.0,
       "season_accuracy": 0.8,
-      "high_confidence_bets": 1
+      "high_confidence_bets": 0
     },
     {
       "date": "2026-06-13",
       "profit": 0,
-      "balance": 14581.82,
-      "return_pct": 0.4582,
+      "balance": 10000.0,
+      "return_pct": 0.0,
       "season_accuracy": 0.6667,
       "high_confidence_bets": 0
     },
     {
       "date": "2026-06-14",
       "profit": 0,
-      "balance": 14581.82,
-      "return_pct": 0.4582,
+      "balance": 10000.0,
+      "return_pct": 0.0,
       "season_accuracy": 0.5,
       "high_confidence_bets": 0
     },
     {
       "date": "2026-06-15",
-      "profit": 272.73,
-      "balance": 14854.55,
-      "return_pct": 0.4855,
+      "profit": 0,
+      "balance": 10000.0,
+      "return_pct": 0.0,
       "season_accuracy": 0.5,
-      "high_confidence_bets": 3
+      "high_confidence_bets": 0
     },
     {
       "date": "2026-06-16",
-      "profit": 90.91,
-      "balance": 14945.45,
-      "return_pct": 0.4945,
+      "profit": 0,
+      "balance": 10000.0,
+      "return_pct": 0.0,
+      "season_accuracy": 0.4667,
+      "high_confidence_bets": 0
+    },
+    {
+      "date": "2026-06-17",
+      "profit": 0,
+      "balance": 10000.0,
+      "return_pct": 0.0,
+      "season_accuracy": 0.4667,
+      "high_confidence_bets": 0
+    },
+    {
+      "date": "2026-06-18",
+      "profit": 0,
+      "balance": 10000.0,
+      "return_pct": 0.0,
+      "season_accuracy": 0.75,
+      "high_confidence_bets": 0
+    },
+    {
+      "date": "2026-06-19",
+      "profit": 0,
+      "balance": 10000.0,
+      "return_pct": 0.0,
       "season_accuracy": 0.5,
-      "high_confidence_bets": 1
+      "high_confidence_bets": 0
     }
   ],
   "daily": [
@@ -732,13 +756,13 @@
       "games": 11,
       "accuracy": 0.3636,
       "high_confidence": {
-        "bets": 4,
-        "wins": 3,
-        "losses": 1,
-        "staked": 400.0,
-        "profit": 172.73,
-        "roi": 0.4318,
-        "hit_rate": 0.75
+        "bets": 0,
+        "wins": 0,
+        "losses": 0,
+        "staked": 0.0,
+        "profit": 0,
+        "roi": 0.0,
+        "hit_rate": 0.0
       }
     },
     {
@@ -746,27 +770,27 @@
       "games": 8,
       "accuracy": 0.5,
       "high_confidence": {
-        "bets": 1,
-        "wins": 1,
+        "bets": 0,
+        "wins": 0,
         "losses": 0,
-        "staked": 100.0,
-        "profit": 90.91,
-        "roi": 0.9091,
-        "hit_rate": 1.0
+        "staked": 0.0,
+        "profit": 0,
+        "roi": 0.0,
+        "hit_rate": 0.0
       }
     },
     {
       "date": "2026-03-28",
       "games": 15,
-      "accuracy": 0.6667,
+      "accuracy": 0.7333,
       "high_confidence": {
-        "bets": 4,
-        "wins": 4,
+        "bets": 0,
+        "wins": 0,
         "losses": 0,
-        "staked": 400.0,
-        "profit": 363.64,
-        "roi": 0.9091,
-        "hit_rate": 1.0
+        "staked": 0.0,
+        "profit": 0,
+        "roi": 0.0,
+        "hit_rate": 0.0
       }
     },
     {
@@ -774,13 +798,13 @@
       "games": 12,
       "accuracy": 0.5,
       "high_confidence": {
-        "bets": 2,
-        "wins": 2,
+        "bets": 0,
+        "wins": 0,
         "losses": 0,
-        "staked": 200.0,
-        "profit": 181.82,
-        "roi": 0.9091,
-        "hit_rate": 1.0
+        "staked": 0.0,
+        "profit": 0,
+        "roi": 0.0,
+        "hit_rate": 0.0
       }
     },
     {
@@ -788,13 +812,13 @@
       "games": 15,
       "accuracy": 0.6,
       "high_confidence": {
-        "bets": 3,
-        "wins": 3,
+        "bets": 0,
+        "wins": 0,
         "losses": 0,
-        "staked": 300.0,
-        "profit": 272.73,
-        "roi": 0.9091,
-        "hit_rate": 1.0
+        "staked": 0.0,
+        "profit": 0,
+        "roi": 0.0,
+        "hit_rate": 0.0
       }
     },
     {
@@ -802,13 +826,13 @@
       "games": 14,
       "accuracy": 0.5,
       "high_confidence": {
-        "bets": 1,
-        "wins": 1,
+        "bets": 0,
+        "wins": 0,
         "losses": 0,
-        "staked": 100.0,
-        "profit": 90.91,
-        "roi": 0.9091,
-        "hit_rate": 1.0
+        "staked": 0.0,
+        "profit": 0,
+        "roi": 0.0,
+        "hit_rate": 0.0
       }
     },
     {
@@ -816,13 +840,13 @@
       "games": 15,
       "accuracy": 0.6,
       "high_confidence": {
-        "bets": 2,
-        "wins": 1,
-        "losses": 1,
-        "staked": 200.0,
-        "profit": -9.09,
-        "roi": -0.0455,
-        "hit_rate": 0.5
+        "bets": 0,
+        "wins": 0,
+        "losses": 0,
+        "staked": 0.0,
+        "profit": 0,
+        "roi": 0.0,
+        "hit_rate": 0.0
       }
     },
     {
@@ -856,7 +880,7 @@
     {
       "date": "2026-04-04",
       "games": 15,
-      "accuracy": 0.6667,
+      "accuracy": 0.6,
       "high_confidence": {
         "bets": 0,
         "wins": 0,
@@ -872,13 +896,13 @@
       "games": 16,
       "accuracy": 0.5,
       "high_confidence": {
-        "bets": 4,
-        "wins": 2,
-        "losses": 2,
-        "staked": 400.0,
-        "profit": -18.18,
-        "roi": -0.0455,
-        "hit_rate": 0.5
+        "bets": 0,
+        "wins": 0,
+        "losses": 0,
+        "staked": 0.0,
+        "profit": 0,
+        "roi": 0.0,
+        "hit_rate": 0.0
       }
     },
     {
@@ -900,13 +924,13 @@
       "games": 15,
       "accuracy": 0.6,
       "high_confidence": {
-        "bets": 1,
-        "wins": 1,
+        "bets": 0,
+        "wins": 0,
         "losses": 0,
-        "staked": 100.0,
-        "profit": 90.91,
-        "roi": 0.9091,
-        "hit_rate": 1.0
+        "staked": 0.0,
+        "profit": 0,
+        "roi": 0.0,
+        "hit_rate": 0.0
       }
     },
     {
@@ -914,13 +938,13 @@
       "games": 15,
       "accuracy": 0.6,
       "high_confidence": {
-        "bets": 1,
-        "wins": 1,
+        "bets": 0,
+        "wins": 0,
         "losses": 0,
-        "staked": 100.0,
-        "profit": 90.91,
-        "roi": 0.9091,
-        "hit_rate": 1.0
+        "staked": 0.0,
+        "profit": 0,
+        "roi": 0.0,
+        "hit_rate": 0.0
       }
     },
     {
@@ -928,13 +952,13 @@
       "games": 6,
       "accuracy": 0.5,
       "high_confidence": {
-        "bets": 1,
-        "wins": 1,
+        "bets": 0,
+        "wins": 0,
         "losses": 0,
-        "staked": 100.0,
-        "profit": 90.91,
-        "roi": 0.9091,
-        "hit_rate": 1.0
+        "staked": 0.0,
+        "profit": 0,
+        "roi": 0.0,
+        "hit_rate": 0.0
       }
     },
     {
@@ -942,27 +966,27 @@
       "games": 15,
       "accuracy": 0.4667,
       "high_confidence": {
-        "bets": 4,
-        "wins": 2,
-        "losses": 2,
-        "staked": 400.0,
-        "profit": -18.18,
-        "roi": -0.0455,
-        "hit_rate": 0.5
+        "bets": 0,
+        "wins": 0,
+        "losses": 0,
+        "staked": 0.0,
+        "profit": 0,
+        "roi": 0.0,
+        "hit_rate": 0.0
       }
     },
     {
       "date": "2026-04-11",
       "games": 15,
-      "accuracy": 0.6667,
+      "accuracy": 0.6,
       "high_confidence": {
-        "bets": 2,
-        "wins": 2,
+        "bets": 0,
+        "wins": 0,
         "losses": 0,
-        "staked": 200.0,
-        "profit": 181.82,
-        "roi": 0.9091,
-        "hit_rate": 1.0
+        "staked": 0.0,
+        "profit": 0,
+        "roi": 0.0,
+        "hit_rate": 0.0
       }
     },
     {
@@ -970,13 +994,13 @@
       "games": 15,
       "accuracy": 0.6667,
       "high_confidence": {
-        "bets": 1,
-        "wins": 1,
+        "bets": 0,
+        "wins": 0,
         "losses": 0,
-        "staked": 100.0,
-        "profit": 90.91,
-        "roi": 0.9091,
-        "hit_rate": 1.0
+        "staked": 0.0,
+        "profit": 0,
+        "roi": 0.0,
+        "hit_rate": 0.0
       }
     },
     {
@@ -984,13 +1008,13 @@
       "games": 10,
       "accuracy": 0.8,
       "high_confidence": {
-        "bets": 1,
-        "wins": 1,
+        "bets": 0,
+        "wins": 0,
         "losses": 0,
-        "staked": 100.0,
-        "profit": 90.91,
-        "roi": 0.9091,
-        "hit_rate": 1.0
+        "staked": 0.0,
+        "profit": 0,
+        "roi": 0.0,
+        "hit_rate": 0.0
       }
     },
     {
@@ -998,27 +1022,27 @@
       "games": 15,
       "accuracy": 0.6,
       "high_confidence": {
-        "bets": 3,
-        "wins": 2,
-        "losses": 1,
-        "staked": 300.0,
-        "profit": 81.82,
-        "roi": 0.2727,
-        "hit_rate": 0.6667
+        "bets": 0,
+        "wins": 0,
+        "losses": 0,
+        "staked": 0.0,
+        "profit": 0,
+        "roi": 0.0,
+        "hit_rate": 0.0
       }
     },
     {
       "date": "2026-04-15",
       "games": 15,
-      "accuracy": 0.7333,
+      "accuracy": 0.8,
       "high_confidence": {
-        "bets": 2,
-        "wins": 2,
+        "bets": 0,
+        "wins": 0,
         "losses": 0,
-        "staked": 200.0,
-        "profit": 181.82,
-        "roi": 0.9091,
-        "hit_rate": 1.0
+        "staked": 0.0,
+        "profit": 0,
+        "roi": 0.0,
+        "hit_rate": 0.0
       }
     },
     {
@@ -1040,13 +1064,13 @@
       "games": 15,
       "accuracy": 0.6667,
       "high_confidence": {
-        "bets": 3,
-        "wins": 2,
-        "losses": 1,
-        "staked": 300.0,
-        "profit": 81.82,
-        "roi": 0.2727,
-        "hit_rate": 0.6667
+        "bets": 0,
+        "wins": 0,
+        "losses": 0,
+        "staked": 0.0,
+        "profit": 0,
+        "roi": 0.0,
+        "hit_rate": 0.0
       }
     },
     {
@@ -1054,13 +1078,13 @@
       "games": 15,
       "accuracy": 0.4667,
       "high_confidence": {
-        "bets": 1,
-        "wins": 1,
+        "bets": 0,
+        "wins": 0,
         "losses": 0,
-        "staked": 100.0,
-        "profit": 90.91,
-        "roi": 0.9091,
-        "hit_rate": 1.0
+        "staked": 0.0,
+        "profit": 0,
+        "roi": 0.0,
+        "hit_rate": 0.0
       }
     },
     {
@@ -1082,13 +1106,13 @@
       "games": 10,
       "accuracy": 0.7,
       "high_confidence": {
-        "bets": 1,
-        "wins": 1,
+        "bets": 0,
+        "wins": 0,
         "losses": 0,
-        "staked": 100.0,
-        "profit": 90.91,
-        "roi": 0.9091,
-        "hit_rate": 1.0
+        "staked": 0.0,
+        "profit": 0,
+        "roi": 0.0,
+        "hit_rate": 0.0
       }
     },
     {
@@ -1096,13 +1120,13 @@
       "games": 15,
       "accuracy": 0.6,
       "high_confidence": {
-        "bets": 2,
-        "wins": 1,
-        "losses": 1,
-        "staked": 200.0,
-        "profit": -9.09,
-        "roi": -0.0455,
-        "hit_rate": 0.5
+        "bets": 0,
+        "wins": 0,
+        "losses": 0,
+        "staked": 0.0,
+        "profit": 0,
+        "roi": 0.0,
+        "hit_rate": 0.0
       }
     },
     {
@@ -1110,27 +1134,27 @@
       "games": 15,
       "accuracy": 0.6667,
       "high_confidence": {
-        "bets": 2,
-        "wins": 2,
+        "bets": 0,
+        "wins": 0,
         "losses": 0,
-        "staked": 200.0,
-        "profit": 181.82,
-        "roi": 0.9091,
-        "hit_rate": 1.0
+        "staked": 0.0,
+        "profit": 0,
+        "roi": 0.0,
+        "hit_rate": 0.0
       }
     },
     {
       "date": "2026-04-23",
       "games": 9,
-      "accuracy": 0.5556,
+      "accuracy": 0.6667,
       "high_confidence": {
-        "bets": 1,
-        "wins": 1,
+        "bets": 0,
+        "wins": 0,
         "losses": 0,
-        "staked": 100.0,
-        "profit": 90.91,
-        "roi": 0.9091,
-        "hit_rate": 1.0
+        "staked": 0.0,
+        "profit": 0,
+        "roi": 0.0,
+        "hit_rate": 0.0
       }
     },
     {
@@ -1138,13 +1162,13 @@
       "games": 14,
       "accuracy": 0.7143,
       "high_confidence": {
-        "bets": 3,
-        "wins": 2,
-        "losses": 1,
-        "staked": 300.0,
-        "profit": 81.82,
-        "roi": 0.2727,
-        "hit_rate": 0.6667
+        "bets": 0,
+        "wins": 0,
+        "losses": 0,
+        "staked": 0.0,
+        "profit": 0,
+        "roi": 0.0,
+        "hit_rate": 0.0
       }
     },
     {
@@ -1152,12 +1176,12 @@
       "games": 14,
       "accuracy": 0.5714,
       "high_confidence": {
-        "bets": 1,
+        "bets": 0,
         "wins": 0,
-        "losses": 1,
-        "staked": 100.0,
-        "profit": -100.0,
-        "roi": -1.0,
+        "losses": 0,
+        "staked": 0.0,
+        "profit": 0,
+        "roi": 0.0,
         "hit_rate": 0.0
       }
     },
@@ -1166,13 +1190,13 @@
       "games": 16,
       "accuracy": 0.6875,
       "high_confidence": {
-        "bets": 1,
-        "wins": 1,
+        "bets": 0,
+        "wins": 0,
         "losses": 0,
-        "staked": 100.0,
-        "profit": 90.91,
-        "roi": 0.9091,
-        "hit_rate": 1.0
+        "staked": 0.0,
+        "profit": 0,
+        "roi": 0.0,
+        "hit_rate": 0.0
       }
     },
     {
@@ -1180,27 +1204,27 @@
       "games": 8,
       "accuracy": 0.625,
       "high_confidence": {
-        "bets": 2,
-        "wins": 1,
-        "losses": 1,
-        "staked": 200.0,
-        "profit": -9.09,
-        "roi": -0.0455,
-        "hit_rate": 0.5
+        "bets": 0,
+        "wins": 0,
+        "losses": 0,
+        "staked": 0.0,
+        "profit": 0,
+        "roi": 0.0,
+        "hit_rate": 0.0
       }
     },
     {
       "date": "2026-04-28",
       "games": 15,
-      "accuracy": 0.5333,
+      "accuracy": 0.6,
       "high_confidence": {
-        "bets": 2,
-        "wins": 1,
-        "losses": 1,
-        "staked": 200.0,
-        "profit": -9.09,
-        "roi": -0.0455,
-        "hit_rate": 0.5
+        "bets": 0,
+        "wins": 0,
+        "losses": 0,
+        "staked": 0.0,
+        "profit": 0,
+        "roi": 0.0,
+        "hit_rate": 0.0
       }
     },
     {
@@ -1222,13 +1246,13 @@
       "games": 11,
       "accuracy": 0.2727,
       "high_confidence": {
-        "bets": 2,
-        "wins": 1,
-        "losses": 1,
-        "staked": 200.0,
-        "profit": -9.09,
-        "roi": -0.0455,
-        "hit_rate": 0.5
+        "bets": 0,
+        "wins": 0,
+        "losses": 0,
+        "staked": 0.0,
+        "profit": 0,
+        "roi": 0.0,
+        "hit_rate": 0.0
       }
     },
     {
@@ -1264,13 +1288,13 @@
       "games": 15,
       "accuracy": 0.6,
       "high_confidence": {
-        "bets": 1,
-        "wins": 1,
+        "bets": 0,
+        "wins": 0,
         "losses": 0,
-        "staked": 100.0,
-        "profit": 90.91,
-        "roi": 0.9091,
-        "hit_rate": 1.0
+        "staked": 0.0,
+        "profit": 0,
+        "roi": 0.0,
+        "hit_rate": 0.0
       }
     },
     {
@@ -1320,13 +1344,13 @@
       "games": 10,
       "accuracy": 0.6,
       "high_confidence": {
-        "bets": 1,
-        "wins": 1,
+        "bets": 0,
+        "wins": 0,
         "losses": 0,
-        "staked": 100.0,
-        "profit": 90.91,
-        "roi": 0.9091,
-        "hit_rate": 1.0
+        "staked": 0.0,
+        "profit": 0,
+        "roi": 0.0,
+        "hit_rate": 0.0
       }
     },
     {
@@ -1334,13 +1358,13 @@
       "games": 15,
       "accuracy": 0.6,
       "high_confidence": {
-        "bets": 1,
-        "wins": 1,
+        "bets": 0,
+        "wins": 0,
         "losses": 0,
-        "staked": 100.0,
-        "profit": 90.91,
-        "roi": 0.9091,
-        "hit_rate": 1.0
+        "staked": 0.0,
+        "profit": 0,
+        "roi": 0.0,
+        "hit_rate": 0.0
       }
     },
     {
@@ -1360,15 +1384,15 @@
     {
       "date": "2026-05-10",
       "games": 15,
-      "accuracy": 0.3333,
+      "accuracy": 0.4,
       "high_confidence": {
-        "bets": 2,
-        "wins": 1,
-        "losses": 1,
-        "staked": 200.0,
-        "profit": -9.09,
-        "roi": -0.0455,
-        "hit_rate": 0.5
+        "bets": 0,
+        "wins": 0,
+        "losses": 0,
+        "staked": 0.0,
+        "profit": 0,
+        "roi": 0.0,
+        "hit_rate": 0.0
       }
     },
     {
@@ -1390,13 +1414,13 @@
       "games": 15,
       "accuracy": 0.7333,
       "high_confidence": {
-        "bets": 2,
-        "wins": 1,
-        "losses": 1,
-        "staked": 200.0,
-        "profit": -9.09,
-        "roi": -0.0455,
-        "hit_rate": 0.5
+        "bets": 0,
+        "wins": 0,
+        "losses": 0,
+        "staked": 0.0,
+        "profit": 0,
+        "roi": 0.0,
+        "hit_rate": 0.0
       }
     },
     {
@@ -1404,27 +1428,27 @@
       "games": 15,
       "accuracy": 0.6,
       "high_confidence": {
-        "bets": 1,
-        "wins": 1,
+        "bets": 0,
+        "wins": 0,
         "losses": 0,
-        "staked": 100.0,
-        "profit": 90.91,
-        "roi": 0.9091,
-        "hit_rate": 1.0
+        "staked": 0.0,
+        "profit": 0,
+        "roi": 0.0,
+        "hit_rate": 0.0
       }
     },
     {
       "date": "2026-05-14",
       "games": 11,
-      "accuracy": 0.6364,
+      "accuracy": 0.7273,
       "high_confidence": {
-        "bets": 2,
-        "wins": 2,
+        "bets": 0,
+        "wins": 0,
         "losses": 0,
-        "staked": 200.0,
-        "profit": 181.82,
-        "roi": 0.9091,
-        "hit_rate": 1.0
+        "staked": 0.0,
+        "profit": 0,
+        "roi": 0.0,
+        "hit_rate": 0.0
       }
     },
     {
@@ -1432,12 +1456,12 @@
       "games": 15,
       "accuracy": 0.4667,
       "high_confidence": {
-        "bets": 1,
+        "bets": 0,
         "wins": 0,
-        "losses": 1,
-        "staked": 100.0,
-        "profit": -100.0,
-        "roi": -1.0,
+        "losses": 0,
+        "staked": 0.0,
+        "profit": 0,
+        "roi": 0.0,
         "hit_rate": 0.0
       }
     },
@@ -1460,13 +1484,13 @@
       "games": 15,
       "accuracy": 0.7333,
       "high_confidence": {
-        "bets": 1,
-        "wins": 1,
+        "bets": 0,
+        "wins": 0,
         "losses": 0,
-        "staked": 100.0,
-        "profit": 90.91,
-        "roi": 0.9091,
-        "hit_rate": 1.0
+        "staked": 0.0,
+        "profit": 0,
+        "roi": 0.0,
+        "hit_rate": 0.0
       }
     },
     {
@@ -1474,26 +1498,26 @@
       "games": 14,
       "accuracy": 0.5714,
       "high_confidence": {
-        "bets": 1,
-        "wins": 1,
+        "bets": 0,
+        "wins": 0,
         "losses": 0,
-        "staked": 100.0,
-        "profit": 90.91,
-        "roi": 0.9091,
-        "hit_rate": 1.0
+        "staked": 0.0,
+        "profit": 0,
+        "roi": 0.0,
+        "hit_rate": 0.0
       }
     },
     {
       "date": "2026-05-19",
       "games": 15,
-      "accuracy": 0.6667,
+      "accuracy": 0.7333,
       "high_confidence": {
-        "bets": 2,
+        "bets": 0,
         "wins": 0,
-        "losses": 2,
-        "staked": 200.0,
-        "profit": -200.0,
-        "roi": -1.0,
+        "losses": 0,
+        "staked": 0.0,
+        "profit": 0,
+        "roi": 0.0,
         "hit_rate": 0.0
       }
     },
@@ -1502,13 +1526,13 @@
       "games": 15,
       "accuracy": 0.7333,
       "high_confidence": {
-        "bets": 2,
-        "wins": 2,
+        "bets": 0,
+        "wins": 0,
         "losses": 0,
-        "staked": 200.0,
-        "profit": 181.82,
-        "roi": 0.9091,
-        "hit_rate": 1.0
+        "staked": 0.0,
+        "profit": 0,
+        "roi": 0.0,
+        "hit_rate": 0.0
       }
     },
     {
@@ -1516,13 +1540,13 @@
       "games": 7,
       "accuracy": 0.2857,
       "high_confidence": {
-        "bets": 1,
-        "wins": 1,
+        "bets": 0,
+        "wins": 0,
         "losses": 0,
-        "staked": 100.0,
-        "profit": 90.91,
-        "roi": 0.9091,
-        "hit_rate": 1.0
+        "staked": 0.0,
+        "profit": 0,
+        "roi": 0.0,
+        "hit_rate": 0.0
       }
     },
     {
@@ -1530,12 +1554,12 @@
       "games": 14,
       "accuracy": 0.5,
       "high_confidence": {
-        "bets": 1,
+        "bets": 0,
         "wins": 0,
-        "losses": 1,
-        "staked": 100.0,
-        "profit": -100.0,
-        "roi": -1.0,
+        "losses": 0,
+        "staked": 0.0,
+        "profit": 0,
+        "roi": 0.0,
         "hit_rate": 0.0
       }
     },
@@ -1544,13 +1568,13 @@
       "games": 14,
       "accuracy": 0.5714,
       "high_confidence": {
-        "bets": 1,
-        "wins": 1,
+        "bets": 0,
+        "wins": 0,
         "losses": 0,
-        "staked": 100.0,
-        "profit": 90.91,
-        "roi": 0.9091,
-        "hit_rate": 1.0
+        "staked": 0.0,
+        "profit": 0,
+        "roi": 0.0,
+        "hit_rate": 0.0
       }
     },
     {
@@ -1572,13 +1596,13 @@
       "games": 13,
       "accuracy": 0.3077,
       "high_confidence": {
-        "bets": 2,
-        "wins": 2,
+        "bets": 0,
+        "wins": 0,
         "losses": 0,
-        "staked": 200.0,
-        "profit": 181.82,
-        "roi": 0.9091,
-        "hit_rate": 1.0
+        "staked": 0.0,
+        "profit": 0,
+        "roi": 0.0,
+        "hit_rate": 0.0
       }
     },
     {
@@ -1586,13 +1610,13 @@
       "games": 15,
       "accuracy": 0.6667,
       "high_confidence": {
-        "bets": 3,
-        "wins": 2,
-        "losses": 1,
-        "staked": 300.0,
-        "profit": 81.82,
-        "roi": 0.2727,
-        "hit_rate": 0.6667
+        "bets": 0,
+        "wins": 0,
+        "losses": 0,
+        "staked": 0.0,
+        "profit": 0,
+        "roi": 0.0,
+        "hit_rate": 0.0
       }
     },
     {
@@ -1600,13 +1624,13 @@
       "games": 15,
       "accuracy": 0.6667,
       "high_confidence": {
-        "bets": 2,
-        "wins": 1,
-        "losses": 1,
-        "staked": 200.0,
-        "profit": -9.09,
-        "roi": -0.0455,
-        "hit_rate": 0.5
+        "bets": 0,
+        "wins": 0,
+        "losses": 0,
+        "staked": 0.0,
+        "profit": 0,
+        "roi": 0.0,
+        "hit_rate": 0.0
       }
     },
     {
@@ -1614,26 +1638,26 @@
       "games": 6,
       "accuracy": 0.6667,
       "high_confidence": {
-        "bets": 2,
-        "wins": 1,
-        "losses": 1,
-        "staked": 200.0,
-        "profit": -9.09,
-        "roi": -0.0455,
-        "hit_rate": 0.5
+        "bets": 0,
+        "wins": 0,
+        "losses": 0,
+        "staked": 0.0,
+        "profit": 0,
+        "roi": 0.0,
+        "hit_rate": 0.0
       }
     },
     {
       "date": "2026-05-29",
       "games": 15,
-      "accuracy": 0.5333,
+      "accuracy": 0.6,
       "high_confidence": {
-        "bets": 1,
+        "bets": 0,
         "wins": 0,
-        "losses": 1,
-        "staked": 100.0,
-        "profit": -100.0,
-        "roi": -1.0,
+        "losses": 0,
+        "staked": 0.0,
+        "profit": 0,
+        "roi": 0.0,
         "hit_rate": 0.0
       }
     },
@@ -1656,13 +1680,13 @@
       "games": 15,
       "accuracy": 0.8667,
       "high_confidence": {
-        "bets": 3,
-        "wins": 3,
+        "bets": 0,
+        "wins": 0,
         "losses": 0,
-        "staked": 300.0,
-        "profit": 272.73,
-        "roi": 0.9091,
-        "hit_rate": 1.0
+        "staked": 0.0,
+        "profit": 0,
+        "roi": 0.0,
+        "hit_rate": 0.0
       }
     },
     {
@@ -1670,13 +1694,13 @@
       "games": 9,
       "accuracy": 0.5556,
       "high_confidence": {
-        "bets": 2,
-        "wins": 1,
-        "losses": 1,
-        "staked": 200.0,
-        "profit": -9.09,
-        "roi": -0.0455,
-        "hit_rate": 0.5
+        "bets": 0,
+        "wins": 0,
+        "losses": 0,
+        "staked": 0.0,
+        "profit": 0,
+        "roi": 0.0,
+        "hit_rate": 0.0
       }
     },
     {
@@ -1684,13 +1708,13 @@
       "games": 15,
       "accuracy": 0.4667,
       "high_confidence": {
-        "bets": 2,
-        "wins": 1,
-        "losses": 1,
-        "staked": 200.0,
-        "profit": -9.09,
-        "roi": -0.0455,
-        "hit_rate": 0.5
+        "bets": 0,
+        "wins": 0,
+        "losses": 0,
+        "staked": 0.0,
+        "profit": 0,
+        "roi": 0.0,
+        "hit_rate": 0.0
       }
     },
     {
@@ -1698,13 +1722,13 @@
       "games": 15,
       "accuracy": 0.6,
       "high_confidence": {
-        "bets": 1,
-        "wins": 1,
+        "bets": 0,
+        "wins": 0,
         "losses": 0,
-        "staked": 100.0,
-        "profit": 90.91,
-        "roi": 0.9091,
-        "hit_rate": 1.0
+        "staked": 0.0,
+        "profit": 0,
+        "roi": 0.0,
+        "hit_rate": 0.0
       }
     },
     {
@@ -1740,13 +1764,13 @@
       "games": 14,
       "accuracy": 0.7143,
       "high_confidence": {
-        "bets": 3,
-        "wins": 3,
+        "bets": 0,
+        "wins": 0,
         "losses": 0,
-        "staked": 300.0,
-        "profit": 272.73,
-        "roi": 0.9091,
-        "hit_rate": 1.0
+        "staked": 0.0,
+        "profit": 0,
+        "roi": 0.0,
+        "hit_rate": 0.0
       }
     },
     {
@@ -1754,13 +1778,13 @@
       "games": 15,
       "accuracy": 0.8667,
       "high_confidence": {
-        "bets": 2,
-        "wins": 2,
+        "bets": 0,
+        "wins": 0,
         "losses": 0,
-        "staked": 200.0,
-        "profit": 181.82,
-        "roi": 0.9091,
-        "hit_rate": 1.0
+        "staked": 0.0,
+        "profit": 0,
+        "roi": 0.0,
+        "hit_rate": 0.0
       }
     },
     {
@@ -1768,13 +1792,13 @@
       "games": 8,
       "accuracy": 0.75,
       "high_confidence": {
-        "bets": 1,
-        "wins": 1,
+        "bets": 0,
+        "wins": 0,
         "losses": 0,
-        "staked": 100.0,
-        "profit": 90.91,
-        "roi": 0.9091,
-        "hit_rate": 1.0
+        "staked": 0.0,
+        "profit": 0,
+        "roi": 0.0,
+        "hit_rate": 0.0
       }
     },
     {
@@ -1796,27 +1820,27 @@
       "games": 15,
       "accuracy": 0.4,
       "high_confidence": {
-        "bets": 1,
-        "wins": 1,
+        "bets": 0,
+        "wins": 0,
         "losses": 0,
-        "staked": 100.0,
-        "profit": 90.91,
-        "roi": 0.9091,
-        "hit_rate": 1.0
+        "staked": 0.0,
+        "profit": 0,
+        "roi": 0.0,
+        "hit_rate": 0.0
       }
     },
     {
       "date": "2026-06-11",
       "games": 7,
-      "accuracy": 0.7143,
+      "accuracy": 0.5714,
       "high_confidence": {
-        "bets": 1,
-        "wins": 1,
+        "bets": 0,
+        "wins": 0,
         "losses": 0,
-        "staked": 100.0,
-        "profit": 90.91,
-        "roi": 0.9091,
-        "hit_rate": 1.0
+        "staked": 0.0,
+        "profit": 0,
+        "roi": 0.0,
+        "hit_rate": 0.0
       }
     },
     {
@@ -1824,13 +1848,13 @@
       "games": 15,
       "accuracy": 0.8,
       "high_confidence": {
-        "bets": 1,
-        "wins": 1,
+        "bets": 0,
+        "wins": 0,
         "losses": 0,
-        "staked": 100.0,
-        "profit": 90.91,
-        "roi": 0.9091,
-        "hit_rate": 1.0
+        "staked": 0.0,
+        "profit": 0,
+        "roi": 0.0,
+        "hit_rate": 0.0
       }
     },
     {
@@ -1866,27 +1890,69 @@
       "games": 10,
       "accuracy": 0.5,
       "high_confidence": {
-        "bets": 3,
-        "wins": 3,
+        "bets": 0,
+        "wins": 0,
         "losses": 0,
-        "staked": 300.0,
-        "profit": 272.73,
-        "roi": 0.9091,
-        "hit_rate": 1.0
+        "staked": 0.0,
+        "profit": 0,
+        "roi": 0.0,
+        "hit_rate": 0.0
       }
     },
     {
       "date": "2026-06-16",
-      "games": 10,
+      "games": 15,
+      "accuracy": 0.4667,
+      "high_confidence": {
+        "bets": 0,
+        "wins": 0,
+        "losses": 0,
+        "staked": 0.0,
+        "profit": 0,
+        "roi": 0.0,
+        "hit_rate": 0.0
+      }
+    },
+    {
+      "date": "2026-06-17",
+      "games": 15,
+      "accuracy": 0.4667,
+      "high_confidence": {
+        "bets": 0,
+        "wins": 0,
+        "losses": 0,
+        "staked": 0.0,
+        "profit": 0,
+        "roi": 0.0,
+        "hit_rate": 0.0
+      }
+    },
+    {
+      "date": "2026-06-18",
+      "games": 8,
+      "accuracy": 0.75,
+      "high_confidence": {
+        "bets": 0,
+        "wins": 0,
+        "losses": 0,
+        "staked": 0.0,
+        "profit": 0,
+        "roi": 0.0,
+        "hit_rate": 0.0
+      }
+    },
+    {
+      "date": "2026-06-19",
+      "games": 14,
       "accuracy": 0.5,
       "high_confidence": {
-        "bets": 1,
-        "wins": 1,
+        "bets": 0,
+        "wins": 0,
         "losses": 0,
-        "staked": 100.0,
-        "profit": 90.91,
-        "roi": 0.9091,
-        "hit_rate": 1.0
+        "staked": 0.0,
+        "profit": 0,
+        "roi": 0.0,
+        "hit_rate": 0.0
       }
     }
   ]

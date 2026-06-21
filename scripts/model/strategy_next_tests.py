@@ -163,6 +163,7 @@ def no_low_pool(candidates: list[dict]) -> list[dict]:
 
 MED59_MIN_PROB = 0.59
 MED60_MIN_PROB = MED59_MIN_PROB  # legacy alias
+TRG59_MIN_COMBINED = 0.38
 
 
 def pool59(candidates: list[dict]) -> list[dict]:
@@ -190,7 +191,9 @@ def top_n_by_prob(pool: list[dict], n: int) -> list[dict]:
 def day_actions_trg59_top_prob_2(candidates: list[dict]) -> list[DayAction]:
     legs = top_n_by_prob(pool59(candidates), 2)
     if len(legs) >= 2:
-        return [DayAction(legs=legs, single=None, label="p2_trg59")]
+        settled = settle_parlay(legs)
+        if float(settled.get("probability", 0)) >= TRG59_MIN_COMBINED:
+            return [DayAction(legs=legs, single=None, label="p2_trg59")]
     return day_actions_for_rule(candidates, "best_ticket")
 
 

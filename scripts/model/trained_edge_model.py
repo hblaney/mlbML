@@ -16,7 +16,7 @@ from sklearn.ensemble import GradientBoostingClassifier
 from sklearn.pipeline import Pipeline
 
 from fast_edge_model import FastPrediction, predict_fast
-from mlb_api import GameRecord, fetch_pitcher_season_era, fetch_pitcher_season_stats, load_team_abbreviations
+from mlb_api import GameRecord, fetch_pitcher_recent_era, fetch_pitcher_season_era, fetch_pitcher_season_stats, load_team_abbreviations
 from park_factors import park_for_team
 from statcast_provider import StatcastTeamCache, statcast_feature_vector
 from team_stats_provider import team_stats_as_of
@@ -285,10 +285,25 @@ def _starter_experience_features(game: GameRecord) -> list[float]:
     era_edge_away = _clip(away_pitcher["era"] - home_pitcher["era"], -4.0, 4.0)
     vet_home_vs_thin_away = home_vet * away_thin * max(0.0, era_edge_away)
     vet_away_vs_thin_home = away_vet * home_thin * max(0.0, era_edge_home)
+
+    try:
+        home_recent_era = fetch_pitcher_recent_era(game.home_pitcher_id, game.game_date) if game.home_pitcher_id else home_pitcher["era"]
+    except Exception:
+        home_recent_era = home_pitcher["era"]
+    try:
+        away_recent_era = fetch_pitcher_recent_era(game.away_pitcher_id, game.game_date) if game.away_pitcher_id else away_pitcher["era"]
+    except Exception:
+        away_recent_era = away_pitcher["era"]
+
     return [
         vet_home_vs_thin_away,
         vet_away_vs_thin_home,
         _clip(home_pitcher["innings_pitched"] - away_pitcher["innings_pitched"], -150.0, 150.0) / 150.0,
+        _clip(home_recent_era, 1.5, 9.0),
+        _clip(away_recent_era, 1.5, 9.0),
+        _clip(home_recent_era - home_pitcher["era"], -4.0, 4.0),
+        _clip(away_recent_era - away_pitcher["era"], -4.0, 4.0),
+        _clip(home_recent_era - away_recent_era, -5.0, 5.0),
     ]
 
 

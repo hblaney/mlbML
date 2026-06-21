@@ -5,7 +5,7 @@ from __future__ import annotations
 import json
 import subprocess
 import sys
-from datetime import date, timedelta
+from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 
 from backtest_parlays import STAKE, decimal_odds, season_start_for, settle_parlay
@@ -27,6 +27,7 @@ TRACKING_DISCLAIMER = (
 REPO_ROOT = Path(__file__).resolve().parents[2]
 STATE_PATH = REPO_ROOT / "data" / "live-bankroll-state.json"
 OUTPUT_PATH = REPO_ROOT / "public" / "live-bankroll.json"
+LOCKED_TICKETS_DIR = REPO_ROOT / "data" / "locked-tickets"
 
 
 def load_state() -> dict:
@@ -182,8 +183,54 @@ def find_archived_board_commit(day_iso: str) -> str | None:
 
     same_day = [match for match in matches if match[0].startswith(day_iso)]
     if same_day:
-        return sorted(same_day, key=lambda item: item[0])[0][1]
-    return sorted(matches, key=lambda item: item[0])[0][1]
+        return sorted(same_day, key=lambda item: item[0])[-1][1]
+    return sorted(matches, key=lambda item: item[0])[-1][1]
+
+
+def locked_ticket_path(day_iso: str) -> Path:
+    LOCKED_TICKETS_DIR.mkdir(parents=True, exist_ok=True)
+    return LOCKED_TICKETS_DIR / f"{day_iso}.json"
+
+
+def load_locked_ticket(day_iso: str) -> dict | None:
+    path = locked_ticket_path(day_iso)
+    if not path.exists():
+        return None
+    try:
+        return json.loads(path.read_text())
+    except json.JSONDecodeError:
+        return None
+
+
+def save_locked_ticket(day_iso: str, ticket: dict, board: dict) -> None:
+    payload = {
+        "date": day_iso,
+        "locked_at": datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z"),
+        "board_generated_at": board.get("board_generated_at"),
+        "ticket": ticket,
+    }
+    locked_ticket_path(day_iso).write_text(json.dumps(payload, indent=2))
+
+
+def maybe_lock_ticket(day_iso: str, ticket: dict | None, board: dict) -> None:
+    """Persist the ticket shown on the live board so grading matches what you bet."""
+    if not ticket or ticket.get("status") == "graded":
+        return
+    board_at = str(board.get("board_generated_at", ""))
+    existing = load_locked_ticket(day_iso)
+    if existing and board_at and board_at <= str(existing.get("board_generated_at", "")):
+        return
+    save_locked_ticket(
+        day_iso,
+        {
+            "label": ticket.get("label"),
+            "legs": ticket.get("legs", []),
+            "leg_count": ticket.get("leg_count", len(ticket.get("legs", [])) or 1),
+            "odds": ticket.get("odds"),
+            "model_probability": ticket.get("model_probability"),
+        },
+        board,
+    )
 
 
 def load_archived_board(day_iso: str) -> dict | None:
@@ -386,10 +433,10 @@ def apply_day_flat(stake_usd: float, bet: dict) -> tuple[float, bool]:
 
 
 def graded_snapshot_for_day(day_iso: str, snaps_by_day: dict[str, dict]) -> tuple[dict | None, str]:
-    """Prefer the archived board ticket (what the site showed) over walk-forward rebuild."""
+    """Prefer locked/archived board ticket (what the site showed) over walk-forward rebuild."""
     board_snapshot = fallback_snapshot_for_day(day_iso)
     if board_snapshot and snapshot_is_graded(board_snapshot):
-        return board_snapshot, "archived_board"
+        return board_snapshot, board_snapshot.get("grade_source", "archived_board")
     snapshot = snaps_by_day.get(day_iso)
     if snapshot and snapshot_is_graded(snapshot):
         return snapshot, "walk_forward_rebuild"
@@ -402,13 +449,19 @@ def fallback_snapshot_for_day(day_iso: str) -> dict | None:
         return None
     temp_path = REPO_ROOT / "data" / f"archived-board-{day_iso}.json"
     temp_path.write_text(json.dumps(board, indent=2))
-    ticket = ticket_from_archived_board(temp_path)
+
+    locked = load_locked_ticket(day_iso)
+    if locked and locked.get("ticket"):
+        ticket = locked["ticket"]
+    else:
+        ticket = ticket_from_archived_board(temp_path)
     if not ticket:
         return None
     graded = grade_archived_ticket(ticket, day_iso, board)
     if not graded:
         return None
-    return {"date": day_iso, "bets": [graded]}
+    source = "locked_ticket" if locked else "archived_board"
+    return {"date": day_iso, "bets": [graded], "grade_source": source}
 
 
 def settle_day(
@@ -638,6 +691,12 @@ def main() -> None:
     }
     save_state(state)
     OUTPUT_PATH.write_text(json.dumps(output, indent=2))
+
+    board_path = REPO_ROOT / "public" / "predictions.json"
+    if board_path.exists() and today_ticket:
+        board_payload = json.loads(board_path.read_text())
+        if board_payload.get("generated_at") == today_iso:
+            maybe_lock_ticket(today_iso, today_ticket, board_payload)
 
     print(f"System replay balance: ${state['balance']:.2f} (started ${state['starting_balance']:.2f} on {state['started_at']})")
     print(f"System ticket record: {wins}-{losses} · tickets logged: {len(state.get('tickets', []))}")

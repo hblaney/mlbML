@@ -716,7 +716,7 @@ function isStarterReadyForParlay(game: GamePrediction) {
   if (game.starterCertain === false || game.pitcherChanged === true) {
     return false;
   }
-  if (USE_PARLAY_CORRELATION_FILTER && game.seriesFade === true) {
+  if (game.seriesFade === true) {
     return false;
   }
   return true;
@@ -724,6 +724,8 @@ function isStarterReadyForParlay(game: GamePrediction) {
 
 /** When 2+ Medium+ picks reach this win%, force top-2 parlay by model win%. */
 export const TRG59_FORCE_PARLAY_MIN_PROBABILITY = 0.59;
+/** Skip force-2 when combined parlay hit rate falls below this (too volatile for live). */
+export const TRG59_MIN_COMBINED_PROBABILITY = 0.38;
 
 /** @deprecated use TRG59_FORCE_PARLAY_MIN_PROBABILITY */
 export const MED60_FORCE_PARLAY_MIN_PROBABILITY = TRG59_FORCE_PARLAY_MIN_PROBABILITY;
@@ -1400,6 +1402,7 @@ export function getTrg59ForceTwoLegParlay(board: GamePrediction[] = predictions)
     .filter(
       (candidate) =>
         isParlayEligibleConfidence(candidate.game.confidence) &&
+        isStarterReadyForParlay(candidate.game) &&
         candidate.modelProbability >= TRG59_FORCE_PARLAY_MIN_PROBABILITY
     )
     .sort((left, right) => right.modelProbability - left.modelProbability)) {
@@ -1543,7 +1546,7 @@ export function getNoLowParlay223sTicket(board: GamePrediction[] = predictions):
 /** trg59_top_prob_2: force top-2 parlay when 2+ Medium+ picks >= 59%; else best_ticket. */
 export function getTrg59TopProb2Ticket(board: GamePrediction[] = predictions): DailyTicket | null {
   const forced = getTrg59ForceTwoLegParlay(board);
-  if (forced) {
+  if (forced && forced.probability >= TRG59_MIN_COMBINED_PROBABILITY) {
     return { kind: "parlay", parlay: forced, score: forced.score, qualified: true };
   }
   return getBestTicketDailyTicket(board);
