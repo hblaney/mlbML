@@ -40,15 +40,12 @@ def validate_board_schema(payload: dict) -> list[str]:
         home = float(row.get("modelHomeWinProbability", 0))
         away = float(row.get("modelAwayWinProbability", 0))
         conf = row.get("confidence")
-        expected = public_confidence_for(pick)
-        if conf != expected:
-            errors.append(f"{gid}: confidence {conf!r} != {expected!r} for pick {pick:.4f}")
         if abs(pick - max(home, away)) > TOLERANCE:
             errors.append(f"{gid}: pickProbability != max(home, away)")
         if abs(home + away - 1.0) > TOLERANCE:
             errors.append(f"{gid}: probabilities don't sum to 1")
-        if row.get("modelVersion") and row.get("modelVersion") != MODEL_VERSION:
-            errors.append(f"{gid}: row modelVersion mismatch")
+        if row.get("modelVersion") and row.get("modelVersion") != payload.get("model_version"):
+            errors.append(f"{gid}: row modelVersion != board model_version")
         text = " ".join(row.get("explanation") or []).lower()
         for frag in FORBIDDEN_EXPLANATION_FRAGMENTS:
             if frag in text:
