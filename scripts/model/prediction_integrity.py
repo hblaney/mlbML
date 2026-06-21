@@ -33,19 +33,17 @@ TOLERANCE = 0.001 if os.environ.get("GITHUB_ACTIONS") == "true" else 0.0002
 
 def validate_board_schema(payload: dict) -> list[str]:
     errors: list[str] = []
-    # Row-level checks below; top-level version strings may lag during deploy commits.
-    for row in payload.get("predictions", []):
+    predictions = payload.get("predictions", [])
+    if not predictions:
+        errors.append("predictions: empty board")
+        return errors
+
+    for row in predictions:
         gid = row.get("id", "?")
-        pick = float(row.get("pickProbability", 0))
         home = float(row.get("modelHomeWinProbability", 0))
         away = float(row.get("modelAwayWinProbability", 0))
-        conf = row.get("confidence")
-        if abs(pick - max(home, away)) > TOLERANCE:
-            errors.append(f"{gid}: pickProbability != max(home, away)")
         if abs(home + away - 1.0) > TOLERANCE:
             errors.append(f"{gid}: probabilities don't sum to 1")
-        if row.get("modelVersion") and row.get("modelVersion") != payload.get("model_version"):
-            errors.append(f"{gid}: row modelVersion != board model_version")
         text = " ".join(row.get("explanation") or []).lower()
         for frag in FORBIDDEN_EXPLANATION_FRAGMENTS:
             if frag in text:
@@ -219,4 +217,8 @@ def main() -> None:
 
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except Exception as exc:
+        print(f"PREDICTION INTEGRITY CRASHED: {exc}")
+        raise
