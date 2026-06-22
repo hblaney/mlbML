@@ -49,6 +49,10 @@ export type GamePrediction = {
   pitcherChanged?: boolean;
   /** True when the model pick lost its last 2 games vs this opponent — parlay leg blocked. */
   seriesFade?: boolean;
+  /** ERA differential between starters — used as a High/Elite confidence gate. */
+  eraDiff?: number;
+  /** Recent form edge (pick team 10-game win% minus opponent 10-game win%) — High/Elite gate. */
+  formEdge?: number;
 };
 
 export type StreamEmbed = {

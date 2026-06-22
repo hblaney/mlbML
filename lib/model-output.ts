@@ -758,6 +758,8 @@ type PredictionOutputRow = Partial<GamePrediction> & {
   date?: string;
   awayTeam: string;
   homeTeam: string;
+  eraDiff?: number;
+  formEdge?: number;
 };
 
 type PredictionBoardFile = {
@@ -770,7 +772,7 @@ type PredictionBoardFile = {
   predictions?: PredictionOutputRow[];
 };
 
-const BOARD_MAX_AGE_MS = 2 * 60 * 60 * 1000;
+const BOARD_MAX_AGE_MS = 20 * 60 * 60 * 1000; // 20 hours — board is valid all day after 5 AM retrain
 
 function isFreshBoard(payload: PredictionBoardFile, rows: PredictionOutputRow[]) {
   const today = new Date().toISOString().slice(0, 10);
@@ -876,7 +878,9 @@ function normalizePredictionRows(rows: PredictionOutputRow[]): GamePrediction[] 
         "Refresh the page to pick up newly generated board data"
       ],
       starterCertain: row.starterCertain,
-      pitcherChanged: row.pitcherChanged
+      pitcherChanged: row.pitcherChanged,
+      eraDiff: row.eraDiff,
+      formEdge: row.formEdge,
     };
     assertConfidenceMatchesPick(normalized);
     return normalized;
