@@ -49,7 +49,14 @@ export function confidenceFromPickProbability(
 export function assertConfidenceMatchesPick(
   game: Pick<
     GamePrediction,
-    "id" | "pickProbability" | "confidence" | "modelEdge" | "starterCertain"
+    | "id"
+    | "pickProbability"
+    | "rawPickProbability"
+    | "confidence"
+    | "modelEdge"
+    | "starterCertain"
+    | "homeMoneyline"
+    | "awayMoneyline"
   >
 ): void {
   const pick = game.pickProbability ?? 0;
