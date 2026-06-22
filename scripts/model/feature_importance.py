@@ -92,7 +92,7 @@ def main() -> None:
     print(f"{'config':18s} {'feats':>5s} {'brier':>8s} {'logloss':>9s} {'auc':>7s} {'ece':>7s}")
     print(f"{'full':18s} {X.shape[1]:>5d} {base_m['brier']:>8.4f} {base_m['log_loss']:>9.4f} {base_m['auc']:>7.4f} {base_m['ece']:>7.4f}")
 
-    for keep in (60, 45, 35, 25):
+    for keep in (45, 40, 35, 30):
         keep_idx = np.sort(order[:keep])
         Xk = X[:, keep_idx]
         preds = walk_forward_predict(
