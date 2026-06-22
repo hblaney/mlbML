@@ -723,7 +723,7 @@ function isStarterReadyForParlay(game: GamePrediction) {
 }
 
 /** When 2+ Medium+ picks reach this win%, force top-2 parlay by model win%. */
-export const TRG59_FORCE_PARLAY_MIN_PROBABILITY = 0.59;
+export const TRG59_FORCE_PARLAY_MIN_PROBABILITY = 0.60;
 /** Skip force-2 when combined parlay hit rate falls below this (too volatile for live). */
 export const TRG59_MIN_COMBINED_PROBABILITY = 0.38;
 

@@ -161,7 +161,7 @@ def no_low_pool(candidates: list[dict]) -> list[dict]:
     return [c for c in candidates if c.get("confidence") in CONF_OK]
 
 
-MED59_MIN_PROB = 0.59
+MED59_MIN_PROB = 0.60
 MED60_MIN_PROB = MED59_MIN_PROB  # legacy alias
 TRG59_MIN_COMBINED = 0.38
 

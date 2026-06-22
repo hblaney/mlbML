@@ -31,6 +31,10 @@ PRIOR_SEASON_SAMPLE_WEIGHT = 0.60
 CURRENT_SEASON_SAMPLE_WEIGHT = 1.25
 # Season walk-forward best: 0.09 (61.21%). 0.10 OK alone; 0.10 + series-in-wf regressed.
 MARKET_BLEND_WEIGHT = 0.09
+# When internal edge is tiny, lean harder on no-vig market (Jun 2026 audit: 50-55% picks hit 44%).
+MARKET_BLEND_WEIGHT_COIN_FLIP = 0.30
+MARKET_BLEND_EDGE_FULL_MODEL = 0.12
+MARKET_BLEND_EDGE_COIN_FLIP = 0.04
 PUBLIC_CONFIDENCE_SHARPENING = 0.8
 PUBLIC_PROBABILITY_CAP = 0.70
 # Starter experience thresholds — learned via features, not post-hoc nudges.
@@ -335,6 +339,24 @@ def final_public_probabilities(
     home_probability = sharpen_public_probability(home_probability)
     away_probability = 1.0 - home_probability
     pick_probability = max(home_probability, away_probability)
+
+    # Low-edge model vs market disagreements: defer to market (Jun 2026 live audit).
+    if (
+        market_home is not None
+        and market_away is not None
+        and pick_probability < 0.56
+    ):
+        market_pick_home = market_home >= market_away
+        model_pick_home = home_probability >= away_probability
+        if market_pick_home != model_pick_home:
+            total = market_home + market_away
+            if total > 0:
+                home_probability = market_home / total
+                away_probability = market_away / total
+            home_probability = sharpen_public_probability(home_probability)
+            away_probability = 1.0 - home_probability
+            pick_probability = max(home_probability, away_probability)
+
     return home_probability, away_probability, pick_probability, public_confidence_for(pick_probability)
 
 
@@ -360,13 +382,28 @@ def calibrate_public_probability(home_probability: float) -> float:
     return float(np.clip(home_probability, 0.30, 0.70))
 
 
+def market_blend_weight(internal_home: float) -> float:
+    """Use heavier market weight when the model has almost no edge."""
+    edge = abs(internal_home - 0.5)
+    if edge >= MARKET_BLEND_EDGE_FULL_MODEL:
+        return MARKET_BLEND_WEIGHT
+    if edge <= MARKET_BLEND_EDGE_COIN_FLIP:
+        return MARKET_BLEND_WEIGHT_COIN_FLIP
+    span = MARKET_BLEND_EDGE_FULL_MODEL - MARKET_BLEND_EDGE_COIN_FLIP
+    t = (edge - MARKET_BLEND_EDGE_COIN_FLIP) / span
+    return MARKET_BLEND_WEIGHT_COIN_FLIP + t * (MARKET_BLEND_WEIGHT - MARKET_BLEND_WEIGHT_COIN_FLIP)
+
+
 def blend_with_market(internal_home: float, market_home: float) -> float:
     """Blend internal model probability with no-vig market consensus."""
-    return internal_home * (1.0 - MARKET_BLEND_WEIGHT) + market_home * MARKET_BLEND_WEIGHT
+    weight = market_blend_weight(internal_home)
+    return internal_home * (1.0 - weight) + market_home * weight
 
 
 def sharpen_public_probability(home_probability: float) -> float:
     """Make validated public picks more assertive without changing the side."""
+    if abs(home_probability - 0.5) < 0.05:
+        return home_probability
     if home_probability >= 0.5:
         sharpened = 0.5 + ((home_probability - 0.5) * PUBLIC_CONFIDENCE_SHARPENING)
     else:
