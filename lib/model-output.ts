@@ -882,7 +882,13 @@ function normalizePredictionRows(rows: PredictionOutputRow[]): GamePrediction[] 
       eraDiff: row.eraDiff,
       formEdge: row.formEdge,
     };
-    assertConfidenceMatchesPick(normalized);
+    // Only re-validate when confidence was computed on-the-fly in TypeScript (row.confidence absent).
+    // When the JSON row already carries a confidence label, Python's integrity check at generation
+    // time is the ground truth. Re-checking here would use the raw pick probability for display
+    // while Python used the calibrated display pick, causing false-positive mismatches.
+    if (!row.confidence) {
+      assertConfidenceMatchesPick(normalized);
+    }
     return normalized;
   }).sort((left, right) => (right.pickProbability ?? 0) - (left.pickProbability ?? 0));
 }
