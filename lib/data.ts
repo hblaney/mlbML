@@ -1580,13 +1580,17 @@ export function getHighElite76ParlayTicket(board: GamePrediction[] = predictions
     return null;
   }
 
+  // Reject moneylines beyond ±1500 — these are corrupted/stale odds data, not real MLB prices.
+  const ML_SANITY_LIMIT = 1500;
   const qualified = buildMarketMoneylineCandidates(board)
     .filter(
       (bet) =>
         (bet.game.confidence === "Elite" || bet.game.confidence === "High") &&
         isStarterReadyForParlay(bet.game) &&
         bet.game.homeMoneyline !== null &&
-        bet.game.awayMoneyline !== null
+        bet.game.awayMoneyline !== null &&
+        Math.abs(bet.game.homeMoneyline) <= ML_SANITY_LIMIT &&
+        Math.abs(bet.game.awayMoneyline) <= ML_SANITY_LIMIT
     )
     .sort((a, b) => b.modelProbability - a.modelProbability);
 

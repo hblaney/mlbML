@@ -1,19 +1,18 @@
 {
   "generated_at": "2026-06-21",
   "tracking_mode": "live_best_bets",
-  "disclaimer": "Tracks the Best Bets system ticket \u2014 bet this exact card on Robinhood. Currently $5 flat per ticket.",
-  "strategy": "trg59_top_prob_2",
+  "disclaimer": "Tracks the high_elite_76_parlay ticket \u2014 High/Elite picks with market odds only. Compound staking: 30% of balance on 2-leg parlay, 20% on single. Skip days with no qualified picks.",
+  "strategy": "high_elite_76_parlay",
   "stakes": {
-    "1": 0.35,
-    "2": 0.45,
-    "3": 0.1
+    "parlay_2leg": 0.3,
+    "single": 0.2
   },
   "prove_out": {
     "flat_stake_usd": 5.0,
     "target_tickets": 5,
     "completed_tickets": 5,
-    "active": true,
-    "mode": "flat_5"
+    "active": false,
+    "mode": "compound"
   },
   "daily_exposure_cap": 0.5,
   "started_at": "2026-06-13",
@@ -347,5 +346,5 @@
       "prove_out": true
     }
   ],
-  "tracking_note": "trg59_top_prob_2 \u00b7 archived board ticket when available \u00b7 prove-out $5 flat \u00d7 5 tickets"
+  "tracking_note": "high_elite_76_parlay \u00b7 High/Elite + market odds only \u00b7 2-leg parlay 30% or single 20% of balance \u00b7 skip if no qualified picks \u00b7 re-evaluate stake cap at $2k balance"
 }
