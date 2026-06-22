@@ -527,9 +527,36 @@ def build_model() -> Pipeline:
     )
 
 
+# Frozen feature selection. feature_row() emits 213 columns but a walk-forward
+# importance prune (scripts/model/feature_importance.py) showed ~178 of them carry
+# <0.1% importance and only add noise. Keeping the top-35 by importance improved
+# out-of-sample metrics across the board (AUC 0.626 -> 0.648, log-loss 0.664 -> 0.654,
+# ECE 0.025 -> 0.020). These indices are frozen so fit and predict mask identically.
+# Names: elo_prob, away_winpct, away_allowed10, home_era, away_era, era_away_minus_home,
+# away_ops, away_obp, away_hrpg, away_krate, home_bbrate, away_hr9, home_sp_whip,
+# home_sp_bb9, away_sp_bb9, home_sp_opsa, away_sp_ip, home_off_vs_away_pit,
+# away_off_vs_home_pit, sp_opsa_diff, pyth30_diff, home_roll10_rundiff, home_roll21_rundiff,
+# home_roll21_allowed, away_roll5_rundiff, away_roll7_net, away_roll21_rundiff,
+# away_roll30_winpct, away_roll30_allowed, mu7_away_off_edge, mu10_rundiff_diff, mu10_net,
+# mu14_home_off_edge, away_sp_recent_era, sp_recent_era_diff
+SELECTED_FEATURE_INDICES: list[int] = [
+    0, 2, 14, 15, 16, 17, 19, 21, 27, 29, 30, 43, 44, 48, 49, 52, 55, 56, 57, 59,
+    67, 110, 120, 122, 135, 143, 155, 159, 162, 177, 180, 183, 186, 203, 206,
+]
+
+
 def _clean_matrix(matrix: np.ndarray) -> np.ndarray:
     matrix = np.nan_to_num(matrix, nan=0.0, posinf=0.0, neginf=0.0)
     return np.clip(matrix, -100.0, 100.0)
+
+
+def _select_features(matrix: np.ndarray) -> np.ndarray:
+    """Mask a full 213-column matrix down to the frozen top-35 signal columns.
+
+    No-op if the matrix already has the pruned width (so callers can pass either)."""
+    if matrix.ndim != 2 or matrix.shape[1] != 213:
+        return matrix
+    return matrix[:, SELECTED_FEATURE_INDICES]
 
 
 def fit_model(
@@ -543,7 +570,7 @@ def fit_model(
     if len(set(y.tolist())) < 2:
         return None
 
-    x = _clean_matrix(np.array([example.features for example in examples], dtype=float))
+    x = _select_features(_clean_matrix(np.array([example.features for example in examples], dtype=float)))
     model = build_model()
     if sample_weights is not None:
         model.fit(x, y, model__sample_weight=np.array(sample_weights, dtype=float))
@@ -556,7 +583,7 @@ def predict_with_model(game: GameRecord, league: LeagueState, model: Pipeline | 
     if model is None:
         return predict_fast(game, league)
 
-    x = _clean_matrix(np.array([feature_row(game, league)], dtype=float))
+    x = _select_features(_clean_matrix(np.array([feature_row(game, league)], dtype=float)))
     trained_probability = float(model.predict_proba(x)[0, 1])
     form_probability = predict_fast(game, league).home_probability
     home_probability = calibrate_public_probability(
