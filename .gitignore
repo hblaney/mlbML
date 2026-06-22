@@ -22,3 +22,4 @@ public/overnight-research-report.json
 public/predictions-soriano-scenario.json
 __pycache__/
 *.pyc
+data/model/feature_matrix.npz
