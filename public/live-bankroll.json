@@ -18,27 +18,27 @@
   "daily_exposure_cap": 0.5,
   "started_at": "2026-06-13",
   "starting_balance": 25.0,
-  "balance": 34.173,
+  "balance": 29.173,
   "wallet_balance": 22.0,
-  "profit": 9.173,
-  "return_pct": 0.3669,
-  "record": "4-4",
-  "hit_rate": 0.5,
+  "profit": 4.173,
+  "return_pct": 0.1669,
+  "record": "4-5",
+  "hit_rate": 0.4444,
   "backtest_ticket_hit_rate": 0.58,
-  "last_settled_date": "2026-06-20",
+  "last_settled_date": "2026-06-21",
   "today_ticket": {
     "date": "2026-06-21",
-    "label": "PHI ML + ATL ML",
+    "label": "PHI ML + KC ML",
     "legs": [
       "PHI",
-      "ATL"
+      "KC"
     ],
     "leg_count": 2,
-    "stake_pct": 0.1463,
+    "stake_pct": 0.1714,
     "stake_amount": 5.0,
-    "status": "pending",
-    "odds": 2246,
-    "model_probability": 0.38793447,
+    "status": "graded",
+    "odds": 222,
+    "model_probability": 0.397548,
     "prove_out": true
   },
   "checkpoints": [
@@ -165,6 +165,22 @@
       ],
       "stake_amount": 5.0,
       "grade_source": "archived_board",
+      "prove_out": true
+    },
+    {
+      "date": "2026-06-21",
+      "profit": -5.0,
+      "balance": 29.173,
+      "return_pct": 0.1669,
+      "won": false,
+      "leg_count": 2,
+      "label": "PHI ML + KC ML",
+      "legs": [
+        "PHI",
+        "KC"
+      ],
+      "stake_amount": 5.0,
+      "grade_source": "locked_ticket",
       "prove_out": true
     }
   ],
@@ -308,6 +324,24 @@
       "odds": 144,
       "model_probability": 0.42801336,
       "grade_source": "archived_board",
+      "prove_out": true
+    },
+    {
+      "date": "2026-06-21",
+      "label": "PHI ML + KC ML",
+      "legs": [
+        "PHI",
+        "KC"
+      ],
+      "leg_count": 2,
+      "stake_pct": 0.1463,
+      "stake_amount": 5.0,
+      "profit": -5.0,
+      "balance_after": 29.17,
+      "won": false,
+      "odds": 222,
+      "model_probability": 0.397548,
+      "grade_source": "locked_ticket",
       "prove_out": true
     }
   ],

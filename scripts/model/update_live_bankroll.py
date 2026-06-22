@@ -216,9 +216,8 @@ def maybe_lock_ticket(day_iso: str, ticket: dict | None, board: dict) -> None:
     """Persist the ticket shown on the live board so grading matches what you bet."""
     if not ticket or ticket.get("status") == "graded":
         return
-    board_at = str(board.get("board_generated_at", ""))
-    existing = load_locked_ticket(day_iso)
-    if existing and board_at and board_at <= str(existing.get("board_generated_at", "")):
+    # First lock of the day wins — never overwrite on later board refreshes.
+    if load_locked_ticket(day_iso):
         return
     save_locked_ticket(
         day_iso,
@@ -360,6 +359,8 @@ def grade_archived_ticket(ticket: dict, day_iso: str, board: dict) -> dict | Non
             pred_by_team[pick] = row
 
     leg_rows = []
+    any_lost = False
+    all_decided = True
     for leg in ticket["legs"]:
         row = pred_by_team.get(str(leg).lower())
         if not row:
@@ -367,8 +368,11 @@ def grade_archived_ticket(ticket: dict, day_iso: str, board: dict) -> dict | Non
         pick_home = str(row.get("predictedTeam", "")).lower() == str(row.get("homeTeam", "")).lower()
         odds = row.get("homeMoneyline") if pick_home else row.get("awayMoneyline")
         status = team_leg_status_on_day(str(leg), day, abbr_map)
-        if status is None or status == "pending" or odds is None:
+        if status is None or odds is None:
             return None
+        if status == "pending":
+            all_decided = False
+            continue
         if status == "void":
             leg_rows.append(
                 {
@@ -380,15 +384,31 @@ def grade_archived_ticket(ticket: dict, day_iso: str, board: dict) -> dict | Non
                 }
             )
             continue
+        won = status == "won"
+        if not won:
+            any_lost = True
         leg_rows.append(
             {
                 "team": str(leg).upper(),
                 "odds": odds,
-                "won": status == "won",
+                "won": won,
                 "void": False,
                 "model_probability": row.get("pickProbability"),
             }
         )
+
+    if ticket["leg_count"] > 1 and any_lost:
+        return {
+            "label": ticket["label"],
+            "legs": ticket["legs"],
+            "won": False,
+            "profit": -STAKE,
+            "odds": ticket.get("odds"),
+            "model_probability": ticket.get("model_probability"),
+        }
+
+    if not all_decided:
+        return None
 
     if ticket["leg_count"] == 1:
         leg = leg_rows[0]

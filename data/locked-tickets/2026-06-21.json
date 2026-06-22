@@ -1,15 +1,16 @@
 {
   "date": "2026-06-21",
-  "locked_at": "2026-06-21T18:55:44Z",
-  "board_generated_at": "2026-06-21T18:46:54Z",
+  "locked_at": "2026-06-21T18:10:22Z",
+  "board_generated_at": "2026-06-21T18:10:22Z",
   "ticket": {
-    "label": "PHI ML + ATL ML",
+    "label": "PHI ML + KC ML",
     "legs": [
       "PHI",
-      "ATL"
+      "KC"
     ],
     "leg_count": 2,
-    "odds": 2246,
-    "model_probability": 0.38793447
-  }
+    "odds": 222,
+    "model_probability": 0.397548
+  },
+  "note": "Restored from first published board (commit c6338a3). Later refreshes incorrectly changed the live ticket."
 }
