@@ -1619,7 +1619,11 @@ export function getHighElite76ParlayTicket(board: GamePrediction[] = predictions
         bet.game.homeMoneyline !== null &&
         bet.game.awayMoneyline !== null &&
         Math.abs(bet.game.homeMoneyline) <= ML_SANITY_LIMIT &&
-        Math.abs(bet.game.awayMoneyline) <= ML_SANITY_LIMIT
+        Math.abs(bet.game.awayMoneyline) <= ML_SANITY_LIMIT &&
+        // +EV safety rail: never bet a leg the model doesn't price as beating the
+        // vig-included line. Walk-forward shows this is lossless on every 2026
+        // High/Elite pick (identical record), but it guards against a weird-odds day.
+        bet.ev > 0
     )
     .sort((a, b) => b.modelProbability - a.modelProbability);
 

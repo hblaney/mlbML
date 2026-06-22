@@ -202,13 +202,22 @@ def day_actions_med60_force2_223s(candidates: list[dict]) -> list[DayAction]:
     return day_actions_trg59_top_prob_2(candidates)
 
 
-def day_actions_high_elite_parlay(candidates: list[dict]) -> list[DayAction]:
+def day_actions_high_elite_parlay(
+    candidates: list[dict], *, min_edge: float = 0.0, require_positive_ev: bool = False
+) -> list[DayAction]:
     """Live strategy: parlay the day's High/Elite market-backed picks (up to 3 legs);
-    single ML on the one pick if only one qualifies; skip the day if none do."""
+    single ML on the one pick if only one qualifies; skip the day if none do.
+
+    With min_edge > 0, a leg only qualifies if the model's probability beats the
+    no-vig market implied probability by at least that margin (genuine value only).
+    With require_positive_ev, a leg must clear the vig-included price (ev > 0) — the
+    standard "never bet a negative-EV leg" rail."""
     pool = [
         c
         for c in model_pick_candidates(candidates)
         if c.get("confidence") in ("High", "Elite")
+        and float(c.get("edge", 0.0)) >= min_edge
+        and (not require_positive_ev or float(c.get("ev", 0.0)) > 0)
     ]
     legs = top_n_by_prob(pool, 3)
     if len(legs) >= 2:
@@ -279,6 +288,13 @@ def day_actions_for_test(candidates: list[dict], rule: str) -> list[DayAction]:
 
     if rule == "high_elite_76_parlay":
         return day_actions_high_elite_parlay(candidates)
+
+    if rule == "high_elite_evpos":
+        return day_actions_high_elite_parlay(candidates, require_positive_ev=True)
+
+    if rule.startswith("high_elite_edge"):
+        edge = float(rule.replace("high_elite_edge", "")) / 100.0
+        return day_actions_high_elite_parlay(candidates, min_edge=edge)
 
     if rule.startswith("no_low_min_edge"):
         edge = float(rule.replace("no_low_min_edge", "")) / 100.0
