@@ -60,6 +60,8 @@ def _market_probs_from_row(row: dict) -> tuple[float, float] | None:
     away_ml = row.get("awayMoneyline")
     if home_ml is None or away_ml is None:
         return None
+    if abs(int(home_ml)) > 1500 or abs(int(away_ml)) > 1500:
+        return None  # corrupted odds data — treat as no market
     hi = implied_probability(int(home_ml))
     ai = implied_probability(int(away_ml))
     total = hi + ai

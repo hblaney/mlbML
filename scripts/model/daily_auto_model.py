@@ -186,7 +186,14 @@ def walk_forward_history(
             home_abbr = team_abbr.get(game.home_team_id, str(game.home_team_id))
             away_abbr = team_abbr.get(game.away_team_id, str(game.away_team_id))
             market = odds.for_game(game.game_date.isoformat(), away_abbr, home_abbr)
-            odds_available = market.source_count > 0 and market.home_moneyline != 0 and market.away_moneyline != 0
+            _ML_LIMIT = 1500
+            odds_available = (
+                market.source_count > 0
+                and market.home_moneyline != 0
+                and market.away_moneyline != 0
+                and abs(market.home_moneyline) <= _ML_LIMIT
+                and abs(market.away_moneyline) <= _ML_LIMIT
+            )
             market_probs = (
                 no_vig_market_probabilities(market.home_moneyline, market.away_moneyline)
                 if odds_available

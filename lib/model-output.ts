@@ -810,14 +810,29 @@ function normalizePredictionRows(rows: PredictionOutputRow[]): GamePrediction[] 
     const homeTeam = normalizeTeamId(row.homeTeam);
     const homeProbability = row.modelHomeWinProbability ?? 0.5;
     const awayProbability = row.modelAwayWinProbability ?? 1 - homeProbability;
-    const pickProbability = row.pickProbability ?? Math.max(homeProbability, awayProbability);
+    // Always display the raw model probability — the calibrated value is used internally
+    // for confidence gating but inflates based on thin empirical buckets (as few as 26 samples).
+    // Raw is what the model actually believes and is the honest number to show users.
+    const pickProbability =
+      row.rawPickProbability ??
+      row.pickProbability ??
+      Math.max(homeProbability, awayProbability);
+
+    // Sanitise corrupted moneyline data before it reaches the UI or ticket logic.
+    // Real MLB moneylines stay within ±1500; anything beyond that is a stale or bad API response.
+    const ML_SANITY = 1500;
+    const homeMoneylineRaw = row.homeMoneyline ?? null;
+    const awayMoneylineRaw = row.awayMoneyline ?? null;
+    const homeMoneyline = homeMoneylineRaw !== null && Math.abs(homeMoneylineRaw) <= ML_SANITY ? homeMoneylineRaw : null;
+    const awayMoneyline = awayMoneylineRaw !== null && Math.abs(awayMoneylineRaw) <= ML_SANITY ? awayMoneylineRaw : null;
+
     const predictedTeam = row.predictedTeam ?? (homeProbability >= awayProbability ? homeTeam : awayTeam);
     const confidence =
       row.confidence ??
       confidenceFromPickProbability(pickProbability, {
         modelEdge: row.modelEdge,
         starterCertain: row.starterCertain,
-        marketAvailable: row.homeMoneyline != null && row.awayMoneyline != null,
+        marketAvailable: homeMoneyline != null && awayMoneyline != null,
         rawPick: row.rawPickProbability ?? pickProbability,
       });
 
@@ -832,8 +847,8 @@ function normalizePredictionRows(rows: PredictionOutputRow[]): GamePrediction[] 
       pickProbability,
       modelHomeWinProbability: homeProbability,
       modelAwayWinProbability: awayProbability,
-      homeMoneyline: row.homeMoneyline ?? null,
-      awayMoneyline: row.awayMoneyline ?? null,
+      homeMoneyline,
+      awayMoneyline,
       homeRunline: row.homeRunline ?? null,
       awayRunline: row.awayRunline ?? null,
       homeRunlinePrice: row.homeRunlinePrice ?? null,

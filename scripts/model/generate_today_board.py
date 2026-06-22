@@ -73,7 +73,16 @@ def main() -> None:
     for game in today_games:
         prediction = bundle.predict(game)
         market_snapshot = market_for_game(game, market)
-        odds_available = market_snapshot.source_count > 0 and market_snapshot.home_moneyline != 0 and market_snapshot.away_moneyline != 0
+        ML_SANITY_LIMIT = 1500  # real MLB lines never exceed ±1500; beyond that is corrupted API data
+        _raw_home_ml = market_snapshot.home_moneyline
+        _raw_away_ml = market_snapshot.away_moneyline
+        odds_available = (
+            market_snapshot.source_count > 0
+            and _raw_home_ml != 0
+            and _raw_away_ml != 0
+            and abs(_raw_home_ml) <= ML_SANITY_LIMIT
+            and abs(_raw_away_ml) <= ML_SANITY_LIMIT
+        )
         market_probs = None
         if odds_available:
             total = market_snapshot.home_implied_probability + market_snapshot.away_implied_probability
