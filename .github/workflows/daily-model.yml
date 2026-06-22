@@ -25,7 +25,10 @@ concurrency:
 jobs:
   retrain:
     runs-on: ubuntu-latest
-    timeout-minutes: 45
+    # 60 min headroom: the daily retrain replays the full season through byDateRange
+    # team AND point-in-time pitcher stats (leakage-safe). The 11:30/12:00 backups
+    # re-run if a run ever exceeds this.
+    timeout-minutes: 60
     env:
       TZ: America/Chicago
       PYTHONPATH: scripts/model

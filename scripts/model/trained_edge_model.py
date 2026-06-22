@@ -17,7 +17,8 @@ from sklearn.ensemble import GradientBoostingClassifier
 from sklearn.pipeline import Pipeline
 
 from fast_edge_model import FastPrediction, predict_fast
-from mlb_api import GameRecord, fetch_pitcher_recent_era, fetch_pitcher_season_era, fetch_pitcher_season_stats, load_team_abbreviations
+from mlb_api import GameRecord, fetch_pitcher_recent_era, load_team_abbreviations
+from pitcher_stats_provider import pitcher_stats_as_of
 from park_factors import park_for_team
 from statcast_provider import StatcastTeamCache, statcast_feature_vector
 from team_stats_provider import team_stats_as_of
@@ -56,16 +57,16 @@ class TrainingExample:
 
 
 def _safe_era(game: GameRecord, pitcher_id: int | None) -> float:
-    if not pitcher_id:
-        return 4.35
-    try:
-        return fetch_pitcher_season_era(pitcher_id, game.game_date.year)
-    except Exception:
-        return 4.35
+    return _safe_pitcher_stats(game, pitcher_id)["era"]
 
 
 def _safe_pitcher_stats(game: GameRecord, pitcher_id: int | None) -> dict[str, float]:
-    if not pitcher_id:
+    # Point-in-time line (current-season-to-date shrunk toward the prior season).
+    # NEVER the full final-season totals — that was lookahead leakage in the
+    # model's most important feature (starter ERA differential).
+    try:
+        return pitcher_stats_as_of(pitcher_id, game.game_date)
+    except Exception:
         return {
             "era": 4.35,
             "whip": 1.3,
@@ -80,10 +81,6 @@ def _safe_pitcher_stats(game: GameRecord, pitcher_id: int | None) -> dict[str, f
             "innings_pitched": 0.0,
             "games_started": 0.0,
         }
-    try:
-        return fetch_pitcher_season_stats(pitcher_id, game.game_date.year)
-    except Exception:
-        return _safe_pitcher_stats(game, None)
 
 
 def _clip(value: float, lower: float, upper: float) -> float:
@@ -528,20 +525,28 @@ def build_model() -> Pipeline:
 
 
 # Frozen feature selection. feature_row() emits 213 columns but a walk-forward
-# importance prune (scripts/model/feature_importance.py) showed ~178 of them carry
-# <0.1% importance and only add noise. Keeping the top-35 by importance improved
-# out-of-sample metrics across the board (AUC 0.626 -> 0.648, log-loss 0.664 -> 0.654,
-# ECE 0.025 -> 0.020). These indices are frozen so fit and predict mask identically.
-# Names: elo_prob, away_winpct, away_allowed10, home_era, away_era, era_away_minus_home,
-# away_ops, away_obp, away_hrpg, away_krate, home_bbrate, away_hr9, home_sp_whip,
-# home_sp_bb9, away_sp_bb9, home_sp_opsa, away_sp_ip, home_off_vs_away_pit,
-# away_off_vs_home_pit, sp_opsa_diff, pyth30_diff, home_roll10_rundiff, home_roll21_rundiff,
-# home_roll21_allowed, away_roll5_rundiff, away_roll7_net, away_roll21_rundiff,
-# away_roll30_winpct, away_roll30_allowed, mu7_away_off_edge, mu10_rundiff_diff, mu10_net,
-# mu14_home_off_edge, away_sp_recent_era, sp_recent_era_diff
+# importance prune (scripts/model/feature_importance.py) showed ~106 of them carry
+# <0.1% importance and only add noise. Keeping the top-35 by importance is best on
+# out-of-sample calibration (top-35 ECE 0.029 vs full 0.045) at equal AUC.
+# These indices are frozen so fit and predict mask identically.
+#
+# RE-RANKED Jun 2026 after the starting-pitcher leakage fix (pitcher_stats_provider).
+# With full-season pitcher stats removed, the model correctly leans on the
+# leakage-safe recent-form features: sp_recent_era_diff is now the #1 feature
+# (33.5% importance) and the recent-ERA *trend* columns rank #2/#3 — so the prior
+# (leaked) selection that dropped them is no longer optimal. This set adds
+# home_sp_recent_era / home_sp_era_trend / away_sp_era_trend and drops the leaked
+# era_away_minus_home and home_era.
+# Names: elo_prob, away_winpct, home_era, away_ops, away_obp, away_rpg, away_hrpg,
+# away_krate, home_bbrate, away_bbrate, away_krate, home_sp_whip(*), home_off_vs_away_pit,
+# home_sp_k9, away_sp_k9, home_sp_bb9, away_sp_bb9, home_sp_opsa, pyth_diff, pyth30_diff,
+# home_roll21_allowed, home_roll30_rundiff, away_roll5_rundiff, away_roll7_rundiff,
+# away_roll30_winpct, away_roll30_allowed, away_roll30_net, mu10_rundiff_diff,
+# mu10_net, mu30_home_off_edge, mu30_away_off_edge, home_sp_recent_era,
+# home_sp_era_trend, away_sp_era_trend, sp_recent_era_diff
 SELECTED_FEATURE_INDICES: list[int] = [
-    0, 2, 14, 15, 16, 17, 19, 21, 27, 29, 30, 43, 44, 48, 49, 52, 55, 56, 57, 59,
-    67, 110, 120, 122, 135, 143, 155, 159, 162, 177, 180, 183, 186, 203, 206,
+    0, 2, 16, 19, 21, 26, 28, 29, 30, 34, 39, 43, 46, 49, 50, 51, 52, 56, 66, 67,
+    122, 125, 135, 140, 159, 162, 163, 180, 183, 196, 197, 202, 204, 205, 206,
 ]
 
 

@@ -3,49 +3,49 @@
   "note": "Positive CLV = our picked side's price shortened by first pitch = we beat the closing line.",
   "overall": {
     "n": 982,
-    "beat_close_rate": 0.5967,
+    "beat_close_rate": 0.5988,
     "avg_clv": 0.007,
     "avg_clv_pct_points": 0.7,
-    "win_rate": 0.5743,
-    "win_rate_when_beat_close": 0.587,
-    "win_rate_when_missed_close": 0.5556
+    "win_rate": 0.5682,
+    "win_rate_when_beat_close": 0.5816,
+    "win_rate_when_missed_close": 0.5482
   },
   "by_confidence": {
     "Elite": {
-      "n": 47,
-      "beat_close_rate": 0.6809,
-      "avg_clv": 0.0135,
-      "avg_clv_pct_points": 1.35,
-      "win_rate": 0.7234,
-      "win_rate_when_beat_close": 0.6875,
-      "win_rate_when_missed_close": 0.8
+      "n": 34,
+      "beat_close_rate": 0.6176,
+      "avg_clv": 0.0139,
+      "avg_clv_pct_points": 1.39,
+      "win_rate": 0.8529,
+      "win_rate_when_beat_close": 0.8571,
+      "win_rate_when_missed_close": 0.8462
     },
     "High": {
-      "n": 254,
-      "beat_close_rate": 0.6457,
-      "avg_clv": 0.0073,
-      "avg_clv_pct_points": 0.73,
-      "win_rate": 0.6693,
-      "win_rate_when_beat_close": 0.689,
-      "win_rate_when_missed_close": 0.6333
+      "n": 235,
+      "beat_close_rate": 0.7362,
+      "avg_clv": 0.0122,
+      "avg_clv_pct_points": 1.22,
+      "win_rate": 0.6553,
+      "win_rate_when_beat_close": 0.659,
+      "win_rate_when_missed_close": 0.6452
     },
     "Medium": {
-      "n": 284,
-      "beat_close_rate": 0.588,
-      "avg_clv": 0.0074,
-      "avg_clv_pct_points": 0.74,
-      "win_rate": 0.5775,
-      "win_rate_when_beat_close": 0.5928,
-      "win_rate_when_missed_close": 0.5556
+      "n": 324,
+      "beat_close_rate": 0.5463,
+      "avg_clv": 0.0045,
+      "avg_clv_pct_points": 0.45,
+      "win_rate": 0.5772,
+      "win_rate_when_beat_close": 0.5989,
+      "win_rate_when_missed_close": 0.551
     },
     "Low": {
-      "n": 397,
-      "beat_close_rate": 0.5617,
-      "avg_clv": 0.0057,
-      "avg_clv_pct_points": 0.57,
-      "win_rate": 0.4937,
-      "win_rate_when_beat_close": 0.4933,
-      "win_rate_when_missed_close": 0.4943
+      "n": 389,
+      "beat_close_rate": 0.5578,
+      "avg_clv": 0.0053,
+      "avg_clv_pct_points": 0.53,
+      "win_rate": 0.4833,
+      "win_rate_when_beat_close": 0.4793,
+      "win_rate_when_missed_close": 0.4884
     }
   },
   "recent": [
@@ -147,15 +147,15 @@
     },
     {
       "date": "2025-08-16",
-      "pick": "ATH",
-      "confidence": "Medium",
-      "correct": 1,
-      "entry_ml": -108,
-      "close_ml": -108,
-      "entry_prob": 0.4946,
-      "close_prob": 0.4967,
-      "clv": 0.0021,
-      "beat_close": true
+      "pick": "LAA",
+      "confidence": "Low",
+      "correct": 0,
+      "entry_ml": -113,
+      "close_ml": -111,
+      "entry_prob": 0.5054,
+      "close_prob": 0.5033,
+      "clv": -0.0021,
+      "beat_close": false
     },
     {
       "date": "2025-08-16",
@@ -316,7 +316,7 @@
     {
       "date": "2025-08-13",
       "pick": "SD",
-      "confidence": "Medium",
+      "confidence": "Low",
       "correct": 1,
       "entry_ml": -156,
       "close_ml": -146,
@@ -400,7 +400,7 @@
     {
       "date": "2025-08-13",
       "pick": "STL",
-      "confidence": "Elite",
+      "confidence": "High",
       "correct": 0,
       "entry_ml": -213,
       "close_ml": -244,
@@ -412,7 +412,7 @@
     {
       "date": "2025-08-13",
       "pick": "NYY",
-      "confidence": "Low",
+      "confidence": "Medium",
       "correct": 0,
       "entry_ml": -134,
       "close_ml": -151,
@@ -460,7 +460,7 @@
     {
       "date": "2025-08-12",
       "pick": "LAD",
-      "confidence": "Elite",
+      "confidence": "Low",
       "correct": 0,
       "entry_ml": -182,
       "close_ml": -176,
@@ -472,7 +472,7 @@
     {
       "date": "2025-08-12",
       "pick": "TEX",
-      "confidence": "Low",
+      "confidence": "Medium",
       "correct": 0,
       "entry_ml": -164,
       "close_ml": -168,
@@ -484,7 +484,7 @@
     {
       "date": "2025-08-12",
       "pick": "SF",
-      "confidence": "High",
+      "confidence": "Medium",
       "correct": 0,
       "entry_ml": -146,
       "close_ml": -132,
