@@ -9,6 +9,13 @@ const execFileAsync = promisify(execFile);
 const canRunLocalGenerators = process.env.VERCEL !== "1";
 const autoRegenerateBoard = process.env.AUTO_REGENERATE_BOARD === "1";
 
+type ConfidenceBand = {
+  bets: number;
+  wins: number;
+  losses: number;
+  hit_rate: number | null;
+};
+
 export type AccuracyOutput = {
   generated_at: string;
   trained_through?: string;
@@ -23,6 +30,14 @@ export type AccuracyOutput = {
     high_confidence_accuracy: number;
     daily_accuracy: Record<string, number>;
   };
+  by_confidence?: {
+    Elite: ConfidenceBand;
+    High: ConfidenceBand;
+    Medium: ConfidenceBand;
+    Low: ConfidenceBand;
+  };
+  last_7_days?: ConfidenceBand;
+  yesterday?: ConfidenceBand;
   archive?: {
     evaluated_games: number;
     overall_accuracy: number;
@@ -267,6 +282,14 @@ export type LiveModelPerformanceOutput = {
   date_range: { start: string | null; end: string | null };
   overall: RecommendationSummary;
   high_confidence: RecommendationSummary;
+  by_confidence?: {
+    Elite: { bets: number; wins: number; losses: number; hit_rate: number | null };
+    High: { bets: number; wins: number; losses: number; hit_rate: number | null };
+    Medium: { bets: number; wins: number; losses: number; hit_rate: number | null };
+    Low: { bets: number; wins: number; losses: number; hit_rate: number | null };
+  };
+  last_7_days?: { bets: number; wins: number; losses: number; hit_rate: number | null };
+  yesterday?: { bets: number; wins: number; losses: number; hit_rate: number | null };
   cumulative: RecommendationPerformanceOutput["cumulative"];
   checkpoints: RecommendationPerformanceOutput["checkpoints"];
   daily: Array<{

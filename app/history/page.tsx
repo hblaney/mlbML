@@ -180,7 +180,7 @@ export default async function HistoryPage() {
         <>
           <section className="grid">
             <article className="panel">
-              <p className="muted">2026 Market-Backed Overall</p>
+              <p className="muted">2026 Overall</p>
               <div className="metric">{primaryAccuracy !== null ? formatPercent(primaryAccuracy) : "Pending"}</div>
               <p>
                 {primaryRecord ? `${primaryRecord} record · ` : ""}
@@ -188,7 +188,7 @@ export default async function HistoryPage() {
               </p>
             </article>
             <article className="panel">
-              <p className="muted">2026 High Confidence</p>
+              <p className="muted">High / Elite Picks</p>
               <div className={(liveHighConfidence?.hit_rate ?? seasonHighSummary.accuracy ?? 0) >= 0.6 ? "metric positive" : "metric warning"}>
                 {liveHighConfidence
                   ? formatPercent(liveHighConfidence.hit_rate)
@@ -205,9 +205,28 @@ export default async function HistoryPage() {
               </p>
             </article>
             <article className="panel">
+              <p className="muted">Last 7 Days</p>
+              {(() => {
+                const last7 = liveModelPerformance?.last_7_days ?? output.last_7_days;
+                const rate = last7?.hit_rate ?? null;
+                return (
+                  <>
+                    <div className={rate !== null && rate >= 0.55 ? "metric positive" : "metric warning"}>
+                      {rate !== null ? formatPercent(rate) : "-"}
+                    </div>
+                    <p className="muted">
+                      {last7 && last7.bets > 0
+                        ? `${last7.wins}-${last7.losses} on ${last7.bets} picks`
+                        : "No recent graded picks"}
+                    </p>
+                  </>
+                );
+              })()}
+            </article>
+            <article className="panel">
               <p className="muted">All-History Archive</p>
               <div className="metric">{archiveAccuracy !== null ? formatPercent(archiveAccuracy) : "-"}</div>
-              <p className="muted">{archiveGames.toFixed(0)} blended 2025-2026 games</p>
+              <p className="muted">{archiveGames.toFixed(0)} blended 2025–2026 games</p>
             </article>
           </section>
 
