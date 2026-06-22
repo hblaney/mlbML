@@ -22,10 +22,11 @@ concurrency:
 jobs:
   retrain:
     runs-on: ubuntu-latest
-    timeout-minutes: 90
+    timeout-minutes: 45
     env:
       TZ: America/Chicago
       PYTHONPATH: scripts/model
+
     steps:
       - name: Decide whether to run
         id: run_control
@@ -83,13 +84,14 @@ jobs:
         if: steps.run_control.outputs.should_run == 'true'
         run: npm ci
 
-      - name: Retrain model and regenerate public outputs
+      # ── CRITICAL: retrain model + generate board + update outputs ──────────
+      - name: Retrain model and generate today's board
         if: steps.run_control.outputs.should_run == 'true'
         env:
           ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
           ODDS_REGIONS: us
           ODDS_MARKETS: h2h,spreads,totals
-        run: npm run model:daily
+        run: npm run model:daily:core
 
       - name: Verify board integrity before commit
         if: steps.run_control.outputs.should_run == 'true'
@@ -110,7 +112,7 @@ jobs:
             echo "No output changes to commit."
             exit 0
           fi
-          git commit -m "Update daily MLB model outputs for $(date +%F)"
+          git commit -m "Daily model retrain + board for $(date +%F)"
           git pull --rebase origin main
           git push origin main
 
@@ -130,3 +132,23 @@ jobs:
             exit 1
           fi
           echo "Board published for ${today} with $(python3 -c "import json; print(len(json.load(open('public/predictions.json'))['predictions']))") games."
+
+      # ── OPTIONAL: heavy research / backtest scripts ─────────────────────────
+      # These never block the daily publish. Failures here are logged but ignored.
+      - name: Run analysis scripts (non-blocking)
+        if: steps.run_control.outputs.should_run == 'true'
+        continue-on-error: true
+        env:
+          ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
+        run: |
+          python3 scripts/model/import_fantasydata_odds.py          || echo "import_fantasydata_odds failed (non-fatal)"
+          python3 scripts/model/validate_predictions.py             || echo "validate_predictions failed (non-fatal)"
+          python3 scripts/model/generate_live_model_curve.py        || echo "generate_live_model_curve failed (non-fatal)"
+          python3 scripts/model/backtest_parlays.py                 || echo "backtest_parlays failed (non-fatal)"
+          python3 scripts/model/backtest_daily_recommendations.py   || echo "backtest_daily_recommendations failed (non-fatal)"
+          python3 scripts/model/backtest_best_tickets_walkforward.py || echo "backtest_best_tickets_walkforward failed (non-fatal)"
+          python3 scripts/model/backtest_strategy_optimizer.py      || echo "backtest_strategy_optimizer failed (non-fatal)"
+          python3 scripts/model/exhaustive_strategy_search.py       || echo "exhaustive_strategy_search failed (non-fatal)"
+          python3 scripts/model/strategy_research.py                || echo "strategy_research failed (non-fatal)"
+          python3 scripts/model/strategy_next_tests.py              || echo "strategy_next_tests failed (non-fatal)"
+          python3 scripts/model/optimize_stake_sizing.py            || echo "optimize_stake_sizing failed (non-fatal)"
