@@ -13,11 +13,7 @@ from strategy_research import DAILY_CAP, compound
 
 LIVE_STRATEGY = "high_elite_76_parlay"
 CHALLENGERS = [
-    "med60_force2_223s",
-    "no_low_parlay_223s",
-    "corr_nl_reject_both",
-    "best_ticket",
-    "no_low_skip_forced",
+    "best_ticket",  # max-score selector — useful reference point
 ]
 STAKE_TIERED = {1: 0.35, 2: 0.45, 3: 0.10}
 SWITCH_SIGNAL_DAYS = 14

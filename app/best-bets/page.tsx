@@ -17,12 +17,8 @@ import { formatCentralGameTime } from "@/lib/time";
 export const dynamic = "force-dynamic";
 
 const STRATEGY_LABELS: Record<string, string> = {
-  corr_nl_reject_both: "corr_nl_reject_both",
-  trg59_top_prob_2: "trg59_top_prob_2 (live plan)",
-  med60_force2_223s: "med60_force2_223s (legacy)",
-  no_low_parlay_223s: "no_low_parlay_223s (legacy)",
-  best_ticket: "best_ticket (selective)",
-  no_low_skip_forced: "no_low_skip_forced"
+  high_elite_76_parlay: "high_elite_76_parlay (live)",
+  best_ticket: "best_ticket (reference)",
 };
 
 export default async function BestBetsPage() {
@@ -97,8 +93,11 @@ export default async function BestBetsPage() {
       ? `$${value.toLocaleString(undefined, { maximumFractionDigits: 0 })}`
       : `$${value.toFixed(2)}`;
 
+  // Only show the live strategy and its best_ticket reference — hide all legacy strategies
+  const SHOWN_STRATEGIES = new Set([activeStrategy, "best_ticket"]);
   const comparisonRows = strategyGuard
     ? Object.entries(strategyGuard.comparisons)
+        .filter(([id]) => SHOWN_STRATEGIES.has(id))
         .map(([id, row]) => ({
           id,
           label: STRATEGY_LABELS[id] ?? id,
@@ -462,9 +461,8 @@ export default async function BestBetsPage() {
             </span>
           </div>
           <p className="muted">
-            All rows use the <strong>same</strong> walk-forward model and <strong>same</strong> {stakeTierLabel} compounding.
-            Older tables on this site used 30% caps and different rules — ignore those. Live plan wins on full-season $
-            100 compound ({liveStats ? formatBankroll(liveStats.end) : "—"}).
+            Both rows use the same walk-forward model and {stakeTierLabel} ratchet compounding from opening day.
+            Live plan targets High/Elite picks with market odds only; best_ticket is the max-score selector as a reference point.
           </p>
 
           {liveStats ? (
