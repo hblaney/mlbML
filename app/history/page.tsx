@@ -2,6 +2,7 @@ import Link from "next/link";
 import { LIVE_BETTING_STRATEGY } from "@/lib/data";
 import {
   loadAccuracyOutput,
+  loadClvOutput,
   loadFullPredictionHistory,
   loadLiveBankroll,
   loadLiveModelPerformance,
@@ -81,6 +82,7 @@ function ticketTypeLabel(legCount: number) {
 
 export default async function HistoryPage() {
   const output = await loadAccuracyOutput();
+  const clv = await loadClvOutput();
   const fullHistory = await loadFullPredictionHistory();
   const [strategyGuard, bettingPlan, liveBankroll] = await Promise.all([
     loadStrategyGuard(),
@@ -239,6 +241,91 @@ export default async function HistoryPage() {
               <p className="muted">{archiveGames.toFixed(0)} blended 2025–2026 games</p>
             </article>
           </section>
+
+          {clv && clv.overall.n > 0 ? (
+            <section className="panel">
+              <div className="section-heading compact">
+                <div>
+                  <p className="eyebrow">Closing Line Value</p>
+                  <h2>Are we beating the market?</h2>
+                </div>
+                <span>{clv.overall.n} picks with open + close odds</span>
+              </div>
+              <p className="lead">
+                CLV is the pro standard for proving a real edge: it measures how often our picked side&apos;s
+                price shortens (moves toward us) by first pitch. Beating the close consistently means sharp
+                money agrees with us — independent of whether any single bet won.
+              </p>
+              <section className="grid">
+                <article className="panel">
+                  <p className="muted">Beat-close rate</p>
+                  <div className={(clv.overall.beat_close_rate ?? 0) >= 0.55 ? "metric positive" : "metric warning"}>
+                    {clv.overall.beat_close_rate != null ? formatPercent(clv.overall.beat_close_rate) : "-"}
+                  </div>
+                  <p className="muted">50% = no edge · &gt;55% = real signal</p>
+                </article>
+                <article className="panel">
+                  <p className="muted">Avg CLV</p>
+                  <div className={(clv.overall.avg_clv ?? 0) > 0 ? "metric positive" : "metric warning"}>
+                    {clv.overall.avg_clv_pct_points != null
+                      ? `${clv.overall.avg_clv_pct_points > 0 ? "+" : ""}${clv.overall.avg_clv_pct_points.toFixed(2)} pp`
+                      : "-"}
+                  </div>
+                  <p className="muted">De-vigged probability points vs the close</p>
+                </article>
+                <article className="panel">
+                  <p className="muted">Win rate when we beat close</p>
+                  <div className="metric">
+                    {clv.overall.win_rate_when_beat_close != null
+                      ? formatPercent(clv.overall.win_rate_when_beat_close)
+                      : "-"}
+                  </div>
+                  <p className="muted">
+                    vs {clv.overall.win_rate_when_missed_close != null
+                      ? formatPercent(clv.overall.win_rate_when_missed_close)
+                      : "-"}{" "}
+                    when we don&apos;t — CLV predicts wins
+                  </p>
+                </article>
+              </section>
+              <table className="table">
+                <thead>
+                  <tr>
+                    <th>Confidence</th>
+                    <th>Picks</th>
+                    <th>Beat close</th>
+                    <th>Avg CLV</th>
+                    <th>Win rate</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {(["Elite", "High", "Medium", "Low"] as const).map((tier) => {
+                    const s = clv.by_confidence[tier];
+                    if (!s || !s.n) return null;
+                    return (
+                      <tr key={tier}>
+                        <td>{tier}</td>
+                        <td>{s.n}</td>
+                        <td className={(s.beat_close_rate ?? 0) >= 0.55 ? "positive" : ""}>
+                          {s.beat_close_rate != null ? formatPercent(s.beat_close_rate) : "-"}
+                        </td>
+                        <td className={(s.avg_clv ?? 0) > 0 ? "positive" : "warning"}>
+                          {s.avg_clv_pct_points != null
+                            ? `${s.avg_clv_pct_points > 0 ? "+" : ""}${s.avg_clv_pct_points.toFixed(2)} pp`
+                            : "-"}
+                        </td>
+                        <td>{s.win_rate != null ? formatPercent(s.win_rate) : "-"}</td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+              <p className="muted">
+                Entry = each game&apos;s opening line (our board is built from morning odds); close = first-pitch
+                line. Sample limited to games with both opening and closing prices on file.
+              </p>
+            </section>
+          ) : null}
 
           <section className="panel">
             <div className="section-heading compact">

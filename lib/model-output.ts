@@ -310,6 +310,43 @@ export async function loadAccuracyOutput(): Promise<AccuracyOutput | null> {
   }
 }
 
+export type ClvSummary = {
+  n: number;
+  beat_close_rate?: number;
+  avg_clv?: number;
+  avg_clv_pct_points?: number;
+  win_rate?: number | null;
+  win_rate_when_beat_close?: number | null;
+  win_rate_when_missed_close?: number | null;
+};
+
+export type ClvOutput = {
+  generated_from: string;
+  note: string;
+  overall: ClvSummary;
+  by_confidence: Record<"Elite" | "High" | "Medium" | "Low", ClvSummary>;
+  recent: Array<{
+    date: string;
+    pick: string;
+    confidence: string | null;
+    correct: number | null;
+    entry_ml: number;
+    close_ml: number;
+    clv: number;
+    beat_close: boolean;
+  }>;
+};
+
+export async function loadClvOutput(): Promise<ClvOutput | null> {
+  try {
+    const filePath = path.join(process.cwd(), "public", "clv.json");
+    const raw = await readFile(filePath, "utf8");
+    return JSON.parse(raw) as ClvOutput;
+  } catch {
+    return null;
+  }
+}
+
 export async function loadRecommendationPerformance(): Promise<RecommendationPerformanceOutput | null> {
   try {
     const filePath = path.join(process.cwd(), "public", "recommendation-performance.json");
