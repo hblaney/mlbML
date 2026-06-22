@@ -186,8 +186,8 @@ def main() -> None:
                 "confidence": live_confidence,
                 "marketAgrees": result.market_agrees,
                 "modelEdge": round(result.model_edge, 4),
-                "eraDiff": round(era_diff, 2),
-                "formEdge": round(form_edge, 3),
+                "eraDiff": round(era_diff, 6),
+                "formEdge": round(form_edge, 6),
                 "modelVersion": MODEL_VERSION,
                 "explanation": notes,
             }

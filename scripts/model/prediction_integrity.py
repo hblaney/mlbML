@@ -98,13 +98,14 @@ def recompute_and_verify_board(payload: dict | None = None) -> list[str]:
 
         pred = bundle.predict(game)
         market = _market_probs_from_row(row)
-        # Use stored era_diff / form_edge so integrity check matches board generator exactly
+        # Use all stored parameters so integrity check matches board generator exactly
         result = final_public_probabilities(
             pred,
             market_home=market[0] if market else None,
             market_away=market[1] if market else None,
             era_diff=float(row.get("eraDiff", 0.0)),
             form_edge=float(row.get("formEdge", 0.0)),
+            starter_certain=bool(row.get("starterCertain", True)),
         )
         hp, ap, pick, conf = (
             result.home_probability,

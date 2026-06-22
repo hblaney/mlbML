@@ -141,6 +141,7 @@ jobs:
         env:
           ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
         run: |
+          python3 scripts/model/update_live_bankroll.py             || echo "update_live_bankroll failed (non-fatal)"
           python3 scripts/model/import_fantasydata_odds.py          || echo "import_fantasydata_odds failed (non-fatal)"
           python3 scripts/model/validate_predictions.py             || echo "validate_predictions failed (non-fatal)"
           python3 scripts/model/generate_live_model_curve.py        || echo "generate_live_model_curve failed (non-fatal)"
