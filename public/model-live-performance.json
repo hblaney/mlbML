@@ -11,9 +11,9 @@
     "end": "2026-06-21"
   },
   "overall": {
-    "bets": 1144,
-    "wins": 671,
-    "losses": 473,
+    "bets": 1158,
+    "wins": 679,
+    "losses": 479,
     "hit_rate": 0.5883
   },
   "high_confidence": {
@@ -36,29 +36,29 @@
       "hit_rate": 0.7604
     },
     "Medium": {
-      "bets": 138,
-      "wins": 81,
-      "losses": 57,
-      "hit_rate": 0.587
+      "bets": 141,
+      "wins": 82,
+      "losses": 59,
+      "hit_rate": 0.5816
     },
     "Low": {
-      "bets": 767,
-      "wins": 407,
-      "losses": 360,
-      "hit_rate": 0.5306
+      "bets": 778,
+      "wins": 414,
+      "losses": 364,
+      "hit_rate": 0.5321
     }
   },
   "last_7_days": {
-    "bets": 76,
-    "wins": 44,
-    "losses": 32,
-    "hit_rate": 0.5789
+    "bets": 90,
+    "wins": 52,
+    "losses": 38,
+    "hit_rate": 0.5778
   },
   "yesterday": {
-    "bets": 0,
-    "wins": 0,
-    "losses": 0,
-    "hit_rate": null
+    "bets": 14,
+    "wins": 8,
+    "losses": 6,
+    "hit_rate": 0.5714
   },
   "cumulative": [],
   "checkpoints": [],

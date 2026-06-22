@@ -115,7 +115,13 @@ def load_or_fetch_games(start: date, end: date) -> list[GameRecord]:
     CACHE_DIR.mkdir(parents=True, exist_ok=True)
     cache_path = CACHE_DIR / f"games_v2_{start.isoformat()}_{end.isoformat()}.json"
 
-    if cache_path.exists():
+    # Recent dates may have been cached before their games went final (e.g. a midday
+    # run on the end date itself stores zero final games for that day, then the stale
+    # cache is reused forever). Only trust the cache when the whole range is at least
+    # 2 days old; otherwise always refetch so newly-final scores are picked up.
+    cache_is_fresh_enough = end < date.today() - timedelta(days=1)
+
+    if cache_path.exists() and cache_is_fresh_enough:
         raw = json.loads(cache_path.read_text())
         return [
             GameRecord(
@@ -136,28 +142,32 @@ def load_or_fetch_games(start: date, end: date) -> list[GameRecord]:
         ]
 
     games = fetch_games(start, end)
-    cache_path.write_text(
-        json.dumps(
-            [
-                {
-                    "game_pk": game.game_pk,
-                    "game_date": game.game_date.isoformat(),
-                    "game_datetime_iso": game.game_datetime_iso,
-                    "home_team_id": game.home_team_id,
-                    "away_team_id": game.away_team_id,
-                    "home_score": game.home_score,
-                    "away_score": game.away_score,
-                    "home_pitcher_id": game.home_pitcher_id,
-                    "away_pitcher_id": game.away_pitcher_id,
-                    "home_pitcher_name": game.home_pitcher_name,
-                    "away_pitcher_name": game.away_pitcher_name,
-                    "is_final": game.is_final,
-                }
-                for game in games
-            ],
-            indent=2,
+    # Only persist the cache for ranges old enough that every game is guaranteed final.
+    # Writing a partial recent range would let it be trusted once it ages past the read
+    # guard, re-introducing the missing-recent-day bug.
+    if cache_is_fresh_enough:
+        cache_path.write_text(
+            json.dumps(
+                [
+                    {
+                        "game_pk": game.game_pk,
+                        "game_date": game.game_date.isoformat(),
+                        "game_datetime_iso": game.game_datetime_iso,
+                        "home_team_id": game.home_team_id,
+                        "away_team_id": game.away_team_id,
+                        "home_score": game.home_score,
+                        "away_score": game.away_score,
+                        "home_pitcher_id": game.home_pitcher_id,
+                        "away_pitcher_id": game.away_pitcher_id,
+                        "home_pitcher_name": game.home_pitcher_name,
+                        "away_pitcher_name": game.away_pitcher_name,
+                        "is_final": game.is_final,
+                    }
+                    for game in games
+                ],
+                indent=2,
+            )
         )
-    )
     return games
 
 
