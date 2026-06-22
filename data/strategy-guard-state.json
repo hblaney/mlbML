@@ -1,5 +1,5 @@
 {
-  "leader_streak_days": 5,
+  "leader_streak_days": 6,
   "leader_strategy": "best_ticket",
   "signals": [
     {
@@ -111,6 +111,13 @@
       "leader_14d": "best_ticket",
       "season_leader": "best_ticket",
       "leader_streak_days": 5,
+      "switch_recommended": false
+    },
+    {
+      "date": "2026-06-22",
+      "leader_14d": "best_ticket",
+      "season_leader": "best_ticket",
+      "leader_streak_days": 6,
       "switch_recommended": false
     }
   ]

@@ -452,7 +452,7 @@ export default async function BestBetsPage() {
             <span>Updated {bettingPlan.generated_at}</span>
           </div>
           <p className="lead">
-            High/Elite picks with confirmed market odds only · up to 3 qualifying picks build a parlay (High ≈ 62%+ true win prob, Elite ≈ 67%+)
+            High/Elite picks with confirmed market odds <strong>and ≥1% edge over the line</strong> · up to 3 qualifying picks build a parlay (High ≈ 62%+ true win prob, Elite ≈ 67%+)
             · 1 qualifying pick → single ML · 0 → skip the day · ratchet staking scales the stake down as the bankroll grows.
           </p>
           <ol className="muted">

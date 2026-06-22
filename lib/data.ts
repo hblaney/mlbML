@@ -265,6 +265,12 @@ export function getTeam(teamId: string) {
 
 const MIN_MONEYLINE_PROBABILITY = 0.68;
 const MIN_MONEYLINE_EDGE = 0.08;
+// Live-strategy value gate: a High/Elite leg must beat the market's implied price by
+// at least this margin (edge = model win prob − book implied prob). On the honest
+// (leakage-fixed) model, a 2026 walk-forward shows this lifts the live strategy from
+// 33-25 / 59% flat ROI to 35-22 / 74% flat ROI — it drops thin-edge legs and turns
+// some losing tickets into winners. See experiment_pitcher_leakage / experiment_edge_gate.
+const HIGH_ELITE_MIN_EDGE = 0.01;
 const MAX_MONEYLINE_ABS_ODDS = 180;
 const BEST_AVAILABLE_MONEYLINE_COUNT = 5;
 const BEST_AVAILABLE_MIN_EDGE = 0.04;
@@ -1621,9 +1627,11 @@ export function getHighElite76ParlayTicket(board: GamePrediction[] = predictions
         Math.abs(bet.game.homeMoneyline) <= ML_SANITY_LIMIT &&
         Math.abs(bet.game.awayMoneyline) <= ML_SANITY_LIMIT &&
         // +EV safety rail: never bet a leg the model doesn't price as beating the
-        // vig-included line. Walk-forward shows this is lossless on every 2026
-        // High/Elite pick (identical record), but it guards against a weird-odds day.
-        bet.ev > 0
+        // vig-included line.
+        bet.ev > 0 &&
+        // Value gate: only bet legs with genuine edge over the market line. Validated
+        // on the honest model's 2026 walk-forward (see HIGH_ELITE_MIN_EDGE).
+        bet.edge >= HIGH_ELITE_MIN_EDGE
     )
     .sort((a, b) => b.modelProbability - a.modelProbability);
 

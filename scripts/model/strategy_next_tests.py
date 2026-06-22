@@ -287,7 +287,11 @@ def day_actions_for_test(candidates: list[dict], rule: str) -> list[DayAction]:
         return day_actions_for_rule(candidates, rule)
 
     if rule == "high_elite_76_parlay":
-        return day_actions_high_elite_parlay(candidates)
+        # Live strategy now includes the validated value gate: a leg must beat the
+        # market implied price by >= 1% edge (honest-model 2026 walk-forward:
+        # 35-22 / 74% flat ROI vs 33-25 / 59% ungated). Mirrors HIGH_ELITE_MIN_EDGE
+        # in lib/data.ts so the website ticket and this guard track the same rule.
+        return day_actions_high_elite_parlay(candidates, min_edge=0.01)
 
     if rule == "high_elite_evpos":
         return day_actions_high_elite_parlay(candidates, require_positive_ev=True)

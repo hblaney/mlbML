@@ -2,8 +2,9 @@
   "generated_at": "2026-06-22",
   "strategy": "high_elite_76_parlay",
   "strategy_rules": [
-    "Probabilities shown are the model's TRUE calibrated win probability — no display inflation",
+    "Probabilities shown are the model's TRUE calibrated win probability — no display inflation (pitcher stats are point-in-time, no lookahead)",
     "Only High (≈62%+ true win prob) and Elite (≈67%+) picks with confirmed market odds (|ML| ≤ 1500) qualify",
+    "Value gate: a leg must also beat the market's implied price by ≥1% edge (model win prob − book implied) — only genuine value, no thin-edge legs",
     "Up to 3 qualifying picks → parlay (3-leg / 2-leg, sorted by win probability)",
     "1 qualifying pick → single ML bet on the best pick",
     "0 qualifying picks → skip, no bet today",
@@ -25,5 +26,5 @@
     "start": "2026-03-20",
     "end": "2026-06-21"
   },
-  "retuned_from": "middle-ground sweep Jun 22 — ratchet staking on 62% min raw, $29,204 profit at 65.3% max drawdown"
+  "retuned_from": "Jun 22 — pitcher-leakage fix (honest model) + value gate; honest 2026 walk-forward $17→~$4.3k at 35-22 / 74% flat ROI (ungated baseline 33-25 / 59%)"
 }
