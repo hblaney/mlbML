@@ -24,6 +24,7 @@ from trained_edge_model import (
     REFIT_EVERY,
     WARMUP_GAMES,
     TrainingExample,
+    _safe_pitcher_stats,
     feature_row,
     final_public_probabilities,
     fit_model,
@@ -31,9 +32,9 @@ from trained_edge_model import (
 )
 
 MODEL_PATH = Path(__file__).resolve().parents[2] / "data" / "model" / "daily_edge.pkl"
-MODEL_VERSION = "daily-auto-v2.9.1-model-edge-confidence"
+MODEL_VERSION = "daily-auto-v2.10.2-era-form-gates"
 # Bump when the public probability pipeline changes (must match predictions.json).
-PIPELINE_VERSION = "unified-public-v1"
+PIPELINE_VERSION = "unified-public-v2-calibrated"
 
 
 @dataclass
@@ -191,10 +192,19 @@ def walk_forward_history(
                 if odds_available
                 else None
             )
+            home_pit = _safe_pitcher_stats(game, game.home_pitcher_id)
+            away_pit = _safe_pitcher_stats(game, game.away_pitcher_id)
+            era_diff = abs(home_pit["era"] - away_pit["era"])
+            _pred_home_tmp = prediction.home_probability >= prediction.away_probability
+            _pick_team = league.team(game.home_team_id if _pred_home_tmp else game.away_team_id)
+            _opp_team  = league.team(game.away_team_id if _pred_home_tmp else game.home_team_id)
+            form_edge = _pick_team.win_pct(10) - _opp_team.win_pct(10)
             result = final_public_probabilities(
                 prediction,
                 market_home=market_probs[0] if market_probs else None,
                 market_away=market_probs[1] if market_probs else None,
+                era_diff=era_diff,
+                form_edge=form_edge,
             )
             home_probability = result.home_probability
             away_probability = result.away_probability
@@ -215,6 +225,7 @@ def walk_forward_history(
                     "internalPickProbability": round(prediction.pick_probability, 4),
                     "probability": round(home_probability, 4),
                     "pickProbability": round(pick_probability, 4),
+                    "rawPickProbability": round(result.raw_pick_probability, 4),
                     "confidence": confidence,
                     "marketBacked": odds_available,
                     "predicted": predicted_winner,

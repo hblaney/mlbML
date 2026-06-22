@@ -22,11 +22,12 @@ from park_factors import park_for_team
 from statcast_provider import StatcastTeamCache, statcast_feature_vector
 from team_stats_provider import team_stats_as_of
 from team_tracker import LeagueState
+from probability_calibration import apply_display_calibration, confidence_from_display
 from weather import cached_historical_weather_or_default, fetch_weather
 
 
 WARMUP_GAMES = 180
-REFIT_EVERY = 60
+REFIT_EVERY = 30
 TRAINED_MODEL_WEIGHT = 1.00
 PRIOR_SEASON_SAMPLE_WEIGHT = 0.60
 CURRENT_SEASON_SAMPLE_WEIGHT = 1.25
@@ -320,28 +321,32 @@ def public_confidence_for(
     market_agrees: bool | None = None,
     model_edge: float = 0.0,
     starter_certain: bool = True,
+    market_available: bool = True,
+    raw_pick: float = 0.0,
+    era_diff: float = 0.0,
+    form_edge: float = 0.0,
 ) -> str:
-    """Accountable confidence from model edge + calibrated probability — not market agreement.
+    """Accountable confidence on 60–90% display scale (walk-forward calibrated).
 
-    Walk-forward 2026: 60-65% bucket hits 68.4%; 65-70% hits 69.5%.
-    High/Elite mean the model has real separation; market is input to the blend, not a label gate.
+    Era diff and form edge are the two strongest predictors of whether a High/Elite
+    pick actually wins (season walk-forward: wins avg era_diff=3.5 vs losses=2.4).
     """
-    if not starter_certain:
-        return "Medium" if pick_probability >= 0.55 else "Low"
-
-    if pick_probability >= 0.65 and model_edge >= 0.12:
-        return "Elite"
-    if pick_probability >= 0.62 and model_edge >= 0.10:
-        return "High"
-    if pick_probability >= 0.55:
-        return "Medium"
-    return "Low"
+    return confidence_from_display(
+        pick_probability,
+        model_edge=model_edge,
+        starter_certain=starter_certain,
+        market_available=market_available,
+        raw_pick=raw_pick,
+        era_diff=era_diff,
+        form_edge=form_edge,
+    )
 
 
 class PublicPickResult(NamedTuple):
     home_probability: float
     away_probability: float
     pick_probability: float
+    raw_pick_probability: float
     confidence: str
     market_agrees: bool | None
     model_edge: float
@@ -353,6 +358,8 @@ def final_public_probabilities(
     market_home: float | None = None,
     market_away: float | None = None,
     starter_certain: bool = True,
+    era_diff: float = 0.0,
+    form_edge: float = 0.0,
 ) -> PublicPickResult:
     """One pipeline for live board + walk-forward: GBM → market blend → calibration → confidence."""
     internal_home = prediction.home_probability
@@ -405,16 +412,28 @@ def final_public_probabilities(
             pick_probability = max(home_probability, away_probability)
             market_agrees = True
 
+    raw_pick_probability = pick_probability
+    market_available = market_home is not None and market_away is not None
+    home_probability, away_probability, pick_probability = apply_display_calibration(
+        home_probability,
+        away_probability,
+        market_available=market_available,
+    )
     confidence = public_confidence_for(
         pick_probability,
         market_agrees=market_agrees,
         model_edge=model_edge,
         starter_certain=starter_certain,
+        market_available=market_available,
+        raw_pick=raw_pick_probability,
+        era_diff=era_diff,
+        form_edge=form_edge,
     )
     return PublicPickResult(
         home_probability,
         away_probability,
         pick_probability,
+        raw_pick_probability,
         confidence,
         market_agrees,
         model_edge,
@@ -482,7 +501,7 @@ def build_model() -> Pipeline:
                 GradientBoostingClassifier(
                     n_estimators=140,
                     learning_rate=0.035,
-                    max_depth=1,
+                    max_depth=2,
                     subsample=0.90,
                     random_state=42,
                 ),

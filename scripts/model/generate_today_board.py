@@ -9,7 +9,7 @@ from pathlib import Path
 from daily_auto_model import MODEL_VERSION, PIPELINE_VERSION, ensure_trained_through
 from mlb_api import fetch_upcoming_games, load_team_abbreviations
 from odds_provider import fetch_moneyline_market, market_for_game
-from trained_edge_model import final_public_probabilities
+from trained_edge_model import _safe_pitcher_stats, final_public_probabilities
 
 PUBLIC_PATH = Path(__file__).resolve().parents[2] / "public" / "predictions.json"
 
@@ -91,11 +91,23 @@ def main() -> None:
         starter_certain = _starter_certain(game)
         pitcher_changed = _pitcher_changed(previous_pitchers, game_id, away_pitcher, home_pitcher)
 
+        # ERA differential and recent form — confirmed gates for High/Elite
+        home_pit = _safe_pitcher_stats(game, game.home_pitcher_id)
+        away_pit = _safe_pitcher_stats(game, game.away_pitcher_id)
+        era_diff = abs(home_pit["era"] - away_pit["era"])
+        # Temporarily predict direction to compute form_edge; recomputed after result
+        _pred_home_tmp = prediction.home_probability >= prediction.away_probability
+        _pick_team = bundle.league.team(game.home_team_id if _pred_home_tmp else game.away_team_id)
+        _opp_team  = bundle.league.team(game.away_team_id if _pred_home_tmp else game.home_team_id)
+        form_edge = _pick_team.win_pct(10) - _opp_team.win_pct(10)
+
         result = final_public_probabilities(
             prediction,
             market_home=market_probs[0] if market_probs else None,
             market_away=market_probs[1] if market_probs else None,
             starter_certain=starter_certain,
+            era_diff=era_diff,
+            form_edge=form_edge,
         )
         home_probability = result.home_probability
         away_probability = result.away_probability
@@ -104,8 +116,9 @@ def main() -> None:
         predicted_home = home_probability >= away_probability
         notes = list(prediction.notes)
         notes.append(
-            "Unified model output: GBM + Elo/form/stats (incl. starter & series features), "
-            "Accountable confidence: High/Elite from model edge + probability (market blend is calibration, not a label gate)"
+            "Unified model output: GBM + Elo/form/stats (incl. starter & series features). "
+            "Pick % is walk-forward calibrated to a 60–90% accountable scale; "
+            "High/Elite require model edge, not market agreement."
         )
 
         predicted_team = home_abbr if predicted_home else away_abbr
@@ -147,6 +160,7 @@ def main() -> None:
                 "seriesFade": series_fade,
                 "predictedTeam": predicted_team,
                 "pickProbability": round(pick_probability, 4),
+                "rawPickProbability": round(result.raw_pick_probability, 4),
                 "modelHomeWinProbability": round(home_probability, 4),
                 "modelAwayWinProbability": round(away_probability, 4),
                 "homeMoneyline": market_snapshot.home_moneyline if odds_available else None,
@@ -163,6 +177,8 @@ def main() -> None:
                 "confidence": live_confidence,
                 "marketAgrees": result.market_agrees,
                 "modelEdge": round(result.model_edge, 4),
+                "eraDiff": round(era_diff, 2),
+                "formEdge": round(form_edge, 3),
                 "modelVersion": MODEL_VERSION,
                 "explanation": notes,
             }

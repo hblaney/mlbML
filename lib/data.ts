@@ -23,6 +23,7 @@ export type GamePrediction = {
   homePitcher: string;
   predictedTeam?: string;
   pickProbability?: number;
+  rawPickProbability?: number;
   modelHomeWinProbability: number;
   modelAwayWinProbability: number;
   homeMoneyline: number | null;
@@ -258,13 +259,13 @@ export function getTeam(teamId: string) {
   return team;
 }
 
-const MIN_MONEYLINE_PROBABILITY = 0.62;
+const MIN_MONEYLINE_PROBABILITY = 0.68;
 const MIN_MONEYLINE_EDGE = 0.08;
 const MAX_MONEYLINE_ABS_ODDS = 180;
 const BEST_AVAILABLE_MONEYLINE_COUNT = 5;
 const BEST_AVAILABLE_MIN_EDGE = 0.04;
 const BEST_AVAILABLE_MAX_ABS_ODDS = 220;
-const MODEL_ONLY_MIN_PROBABILITY = 0.55;
+const MODEL_ONLY_MIN_PROBABILITY = 0.60;
 const MARKET_BASELINE_ODDS = -110;
 const DEFAULT_MARKET_TOTAL = 8.5;
 const DEFAULT_JUICE_ODDS = -110;
@@ -683,19 +684,19 @@ export function getAdvancedBets(board: GamePrediction[] = predictions): Advanced
   ];
 }
 
-const SAFE_PARLAY_MIN_LEG_PROBABILITY = 0.65;
+const SAFE_PARLAY_MIN_LEG_PROBABILITY = 0.76;
 const SAFE_PARLAY_MIN_LEG_EDGE = 0.05;
 const SAFE_PARLAY_MIN_BOOK_PROBABILITY = 0.50;
 /** Live site parlays: stricter legs than backtest pool — no forced pairings. */
 const LIVE_PARLAY_MIN_LEG_EDGE = 0.06;
 const LIVE_PARLAY_MIN_BOOK_PROBABILITY = 0.50;
-const LIVE_PARLAY_HIGH_ELITE_MIN_PROBABILITY = 0.62;
+const LIVE_PARLAY_HIGH_ELITE_MIN_PROBABILITY = 0.76;
 const LIVE_PARLAY_MEDIUM_MIN_PROBABILITY = 0.68;
 const LIVE_PARLAY_MIN_COMBINED_PROBABILITY_2 = 0.38;
 const LIVE_PARLAY_MIN_COMBINED_PROBABILITY_3 = 0.28;
 const LIVE_PARLAY_MIN_HIGH_ELITE_LEGS_2 = 1;
 const LIVE_PARLAY_MIN_HIGH_ELITE_LEGS_3 = 2;
-const ANCHOR_PARLAY_MIN_CONFIDENCE_PROBABILITY = 0.645;
+const ANCHOR_PARLAY_MIN_CONFIDENCE_PROBABILITY = 0.76;
 const ANCHOR_PARLAY_MIN_BOOK_PROBABILITY = 0.50;
 const ANCHOR_PARLAY_MIN_LEG_EV = -2;
 const PREMIUM_PARLAY_MIN_COMBINED_PROBABILITY = 0.30;
@@ -727,7 +728,7 @@ function isStarterReadyForParlay(game: GamePrediction) {
 }
 
 /** When 2+ Medium+ picks reach this win%, force top-2 parlay by model win%. */
-export const TRG59_FORCE_PARLAY_MIN_PROBABILITY = 0.60;
+export const TRG59_FORCE_PARLAY_MIN_PROBABILITY = 0.68;
 /** Skip force-2 when combined parlay hit rate falls below this (too volatile for live). */
 export const TRG59_MIN_COMBINED_PROBABILITY = 0.38;
 

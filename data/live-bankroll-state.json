@@ -311,5 +311,6 @@
       "prove_out": true
     }
   ],
-  "wallet_balance": 22.0
+  "wallet_balance": 22.0,
+  "wallet_record": "3-5",
 }

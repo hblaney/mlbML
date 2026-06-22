@@ -817,6 +817,8 @@ function normalizePredictionRows(rows: PredictionOutputRow[]): GamePrediction[] 
       confidenceFromPickProbability(pickProbability, {
         modelEdge: row.modelEdge,
         starterCertain: row.starterCertain,
+        marketAvailable: row.homeMoneyline != null && row.awayMoneyline != null,
+        rawPick: row.rawPickProbability ?? pickProbability,
       });
 
     const normalized: GamePrediction = {

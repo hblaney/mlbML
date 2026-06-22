@@ -1,16 +1,20 @@
-// Accountable confidence — must match trained_edge_model.public_confidence_for.
+// Accountable confidence on 60–90% display scale — must match probability_calibration.py.
 
 import type { GamePrediction } from "./data";
 
-export const CONFIDENCE_MEDIUM_MIN = 0.55;
-export const CONFIDENCE_HIGH_MIN = 0.62;
-export const CONFIDENCE_ELITE_MIN = 0.65;
-export const CONFIDENCE_HIGH_EDGE_MIN = 0.10;
-export const CONFIDENCE_ELITE_EDGE_MIN = 0.12;
+export const DISPLAY_PROBABILITY_FLOOR = 0.6;
+export const DISPLAY_PROBABILITY_CEILING = 0.9;
+export const CONFIDENCE_MEDIUM_MIN = 0.68;
+export const CONFIDENCE_HIGH_MIN = 0.76;
+export const CONFIDENCE_ELITE_MIN = 0.85;
+export const CONFIDENCE_HIGH_EDGE_MIN = 0.08;
+export const CONFIDENCE_ELITE_EDGE_MIN = 0.1;
 
 export type ConfidenceContext = {
   modelEdge?: number;
   starterCertain?: boolean;
+  marketAvailable?: boolean;
+  rawPick?: number;
 };
 
 export function confidenceFromPickProbability(
@@ -19,15 +23,21 @@ export function confidenceFromPickProbability(
 ): GamePrediction["confidence"] {
   const modelEdge = context.modelEdge ?? 0;
   const starterCertain = context.starterCertain ?? true;
+  const marketAvailable = context.marketAvailable ?? true;
+  const rawPick = context.rawPick ?? probability;
 
   if (!starterCertain) {
     return probability >= CONFIDENCE_MEDIUM_MIN ? "Medium" : "Low";
   }
 
-  if (probability >= CONFIDENCE_ELITE_MIN && modelEdge >= CONFIDENCE_ELITE_EDGE_MIN) {
+  if (!marketAvailable) {
+    return probability >= CONFIDENCE_MEDIUM_MIN ? "Medium" : "Low";
+  }
+
+  if (probability >= CONFIDENCE_ELITE_MIN && modelEdge >= CONFIDENCE_ELITE_EDGE_MIN && rawPick >= 0.67) {
     return "Elite";
   }
-  if (probability >= CONFIDENCE_HIGH_MIN && modelEdge >= CONFIDENCE_HIGH_EDGE_MIN) {
+  if (probability >= CONFIDENCE_HIGH_MIN && modelEdge >= CONFIDENCE_HIGH_EDGE_MIN && rawPick >= 0.62) {
     return "High";
   }
   if (probability >= CONFIDENCE_MEDIUM_MIN) {
@@ -46,6 +56,8 @@ export function assertConfidenceMatchesPick(
   const expected = confidenceFromPickProbability(pick, {
     modelEdge: game.modelEdge,
     starterCertain: game.starterCertain,
+    marketAvailable: game.homeMoneyline != null && game.awayMoneyline != null,
+    rawPick: game.rawPickProbability ?? pick,
   });
   if (game.confidence !== expected) {
     throw new Error(

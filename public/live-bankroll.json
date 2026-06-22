@@ -20,6 +20,8 @@
   "starting_balance": 25.0,
   "balance": 29.173,
   "wallet_balance": 22.0,
+  "wallet_record": "3-5",
+  "wallet_note": "Robinhood actual record. System replay uses first locked ticket per day.",
   "profit": 4.173,
   "return_pct": 0.1669,
   "record": "4-5",
