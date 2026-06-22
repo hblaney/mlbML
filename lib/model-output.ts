@@ -820,12 +820,12 @@ function normalizePredictionRows(rows: PredictionOutputRow[]): GamePrediction[] 
     const homeTeam = normalizeTeamId(row.homeTeam);
     const homeProbability = row.modelHomeWinProbability ?? 0.5;
     const awayProbability = row.modelAwayWinProbability ?? 1 - homeProbability;
-    // Always display the raw model probability — the calibrated value is used internally
-    // for confidence gating but inflates based on thin empirical buckets (as few as 26 samples).
-    // Raw is what the model actually believes and is the honest number to show users.
+    // Display the calibrated pick probability — this is what the confidence label is computed from,
+    // so the displayed % and the High/Elite label are consistent to the user.
+    // rawPickProbability is kept in the object for internal gate checks (e.g. rawPick >= 0.62).
     const pickProbability =
-      row.rawPickProbability ??
       row.pickProbability ??
+      row.rawPickProbability ??
       Math.max(homeProbability, awayProbability);
 
     // Sanitise corrupted moneyline data before it reaches the UI or ticket logic.
