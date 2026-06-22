@@ -252,6 +252,23 @@ def feature_row(game: GameRecord, league: LeagueState, *, include_statcast: bool
         _clip(away.streak(), -10.0, 10.0),
         _clip(home.streak() - away.streak(), -15.0, 15.0),
         _clip(home.rest_days(game.game_date) - away.rest_days(game.game_date), -7.0, 7.0),
+        # Pythagorean win expectancy — more stable than raw W-L
+        _clip(home.pythagorean_win_pct(), 0.25, 0.75),
+        _clip(away.pythagorean_win_pct(), 0.25, 0.75),
+        _clip(home.pythagorean_win_pct() - away.pythagorean_win_pct(), -0.30, 0.30),
+        _clip(home.pythagorean_win_pct(30) - away.pythagorean_win_pct(30), -0.30, 0.30),
+        # Home/away splits — team performance at this venue type
+        _clip(home.home_win_pct(), 0.20, 0.80),
+        _clip(away.away_win_pct(), 0.20, 0.80),
+        _clip(home.home_win_pct() - away.away_win_pct(), -0.40, 0.40),
+        # Exponentially weighted recent scoring
+        _clip(home.avg_runs_scored_recent(7) - away.avg_runs_scored_recent(7), -4.0, 4.0),
+        _clip(home.avg_runs_scored_recent(5) - away.avg_runs_allowed(5), -4.0, 4.0),
+        _clip(away.avg_runs_scored_recent(5) - home.avg_runs_allowed(5), -4.0, 4.0),
+        # 5-game win pct delta (tighter window for hot/cold streaks)
+        _clip(home.win_pct(5) - away.win_pct(5), -1.0, 1.0),
+        # season run differential vs opponent (context-free)
+        _clip(home.run_differential() - away.run_differential(), -3.0, 3.0),
         _clip(park.park_factor_runs, 0.85, 1.25),
         _clip(park.park_factor_hr, 0.75, 1.25),
         _clip(park.altitude_ft, 0.0, 5500.0),

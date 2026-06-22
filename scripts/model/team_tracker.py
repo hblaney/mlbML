@@ -27,6 +27,7 @@ class PlayedGame:
     runs_scored: int
     runs_allowed: int
     won: bool
+    was_home: bool = True
 
 
 @dataclass
@@ -88,13 +89,50 @@ class TeamTracker:
                 break
         return streak
 
-    def record_game(self, game_date: date, runs_scored: int, runs_allowed: int) -> None:
+    def pythagorean_win_pct(self, window: int | None = None, exponent: float = 1.83) -> float:
+        """Expected win % based on run differential (more stable than actual W-L)."""
+        sample = self.games[-window:] if window else self.games
+        if not sample:
+            return 0.5
+        rs = sum(g.runs_scored for g in sample)
+        ra = sum(g.runs_allowed for g in sample)
+        if rs + ra == 0:
+            return 0.5
+        rs_e = rs ** exponent
+        ra_e = ra ** exponent
+        return rs_e / (rs_e + ra_e)
+
+    def home_win_pct(self, window: int | None = None) -> float:
+        sample = self.games[-window:] if window else self.games
+        home_games = [g for g in sample if g.was_home]
+        if not home_games:
+            return 0.5
+        return sum(1 for g in home_games if g.won) / len(home_games)
+
+    def away_win_pct(self, window: int | None = None) -> float:
+        sample = self.games[-window:] if window else self.games
+        away_games = [g for g in sample if not g.was_home]
+        if not away_games:
+            return 0.5
+        return sum(1 for g in away_games if g.won) / len(away_games)
+
+    def avg_runs_scored_recent(self, window: int, decay: float = 0.92) -> float:
+        """Exponentially weighted recent scoring — heavier weight on last N games."""
+        sample = self.games[-window:]
+        if not sample:
+            return 4.5
+        weights = [decay ** (len(sample) - 1 - i) for i in range(len(sample))]
+        total_w = sum(weights)
+        return sum(g.runs_scored * w for g, w in zip(sample, weights)) / total_w
+
+    def record_game(self, game_date: date, runs_scored: int, runs_allowed: int, was_home: bool = True) -> None:
         self.games.append(
             PlayedGame(
                 game_date=game_date,
                 runs_scored=runs_scored,
                 runs_allowed=runs_allowed,
                 won=runs_scored > runs_allowed,
+                was_home=was_home,
             )
         )
 
@@ -201,8 +239,8 @@ class LeagueState:
         away = self.team(away_id)
         home_won = home_score > away_score
         home.elo, away.elo = update_elo(home.elo, away.elo, home_won)
-        home.record_game(game_date, home_score, away_score)
-        away.record_game(game_date, away_score, home_score)
+        home.record_game(game_date, home_score, away_score, was_home=True)
+        away.record_game(game_date, away_score, home_score, was_home=False)
         self.head_to_head.append(
             HeadToHeadGame(
                 game_date=game_date,
