@@ -1626,18 +1626,23 @@ export function getHighElite76ParlayTicket(board: GamePrediction[] = predictions
     return null;
   }
 
-  // Deduplicate by game id
+  // Deduplicate by game id — collect up to 3 High/Elite legs
   const seen = new Set<string>();
   const legs: BestBet[] = [];
   for (const bet of qualified) {
     if (seen.has(bet.game.id)) continue;
     seen.add(bet.game.id);
     legs.push(bet);
-    if (legs.length === 2) break;
+    if (legs.length === 3) break;
   }
 
-  // Need 2 picks at 76%+ for parlay; else single the best pick
+  // 3 picks at 76%+ → 3-leg parlay; 2 picks → 2-leg parlay; 1 pick → single
   const top76 = legs.filter((b) => b.modelProbability >= 0.76);
+  if (top76.length >= 3) {
+    const parlay = buildParlayCandidate(top76.slice(0, 3));
+    parlay.strategy = "high_elite_76_parlay";
+    return { kind: "parlay", parlay, score: parlay.score, qualified: true };
+  }
   if (top76.length >= 2) {
     const parlay = buildParlayCandidate(top76.slice(0, 2));
     parlay.strategy = "high_elite_76_parlay";
