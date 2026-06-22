@@ -130,8 +130,8 @@ def main() -> None:
         notes = list(prediction.notes)
         notes.append(
             "Unified model output: GBM + Elo/form/stats (incl. starter & series features). "
-            "Pick % is walk-forward calibrated to a 60–90% accountable scale; "
-            "High/Elite require model edge, not market agreement."
+            "Pick % is the model's true calibrated win probability (no display inflation); "
+            "High/Elite require model edge plus a starter/form gate, not market agreement."
         )
 
         predicted_team = home_abbr if predicted_home else away_abbr

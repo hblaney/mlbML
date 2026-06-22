@@ -688,24 +688,25 @@ export function getAdvancedBets(board: GamePrediction[] = predictions): Advanced
   ];
 }
 
-const SAFE_PARLAY_MIN_LEG_PROBABILITY = 0.76;
+// Leg-probability floors are on the TRUE calibrated scale (High >= 0.62, Medium >= 0.57).
+const SAFE_PARLAY_MIN_LEG_PROBABILITY = 0.62;
 const SAFE_PARLAY_MIN_LEG_EDGE = 0.05;
 const SAFE_PARLAY_MIN_BOOK_PROBABILITY = 0.50;
 /** Live site parlays: stricter legs than backtest pool — no forced pairings. */
 const LIVE_PARLAY_MIN_LEG_EDGE = 0.06;
 const LIVE_PARLAY_MIN_BOOK_PROBABILITY = 0.50;
-const LIVE_PARLAY_HIGH_ELITE_MIN_PROBABILITY = 0.76;
-const LIVE_PARLAY_MEDIUM_MIN_PROBABILITY = 0.68;
-const LIVE_PARLAY_MIN_COMBINED_PROBABILITY_2 = 0.38;
-const LIVE_PARLAY_MIN_COMBINED_PROBABILITY_3 = 0.28;
+const LIVE_PARLAY_HIGH_ELITE_MIN_PROBABILITY = 0.62;
+const LIVE_PARLAY_MEDIUM_MIN_PROBABILITY = 0.57;
+const LIVE_PARLAY_MIN_COMBINED_PROBABILITY_2 = 0.34;
+const LIVE_PARLAY_MIN_COMBINED_PROBABILITY_3 = 0.20;
 const LIVE_PARLAY_MIN_HIGH_ELITE_LEGS_2 = 1;
 const LIVE_PARLAY_MIN_HIGH_ELITE_LEGS_3 = 2;
-const ANCHOR_PARLAY_MIN_CONFIDENCE_PROBABILITY = 0.76;
+const ANCHOR_PARLAY_MIN_CONFIDENCE_PROBABILITY = 0.62;
 const ANCHOR_PARLAY_MIN_BOOK_PROBABILITY = 0.50;
 const ANCHOR_PARLAY_MIN_LEG_EV = -2;
-const PREMIUM_PARLAY_MIN_COMBINED_PROBABILITY = 0.30;
+const PREMIUM_PARLAY_MIN_COMBINED_PROBABILITY = 0.20;
 const PREMIUM_PARLAY_MIN_HIGH_ELITE_LEGS = 2;
-const PREMIUM_4LEG_MIN_COMBINED_PROBABILITY = 0.15;
+const PREMIUM_4LEG_MIN_COMBINED_PROBABILITY = 0.10;
 const PREMIUM_4LEG_MIN_HIGH_ELITE_LEGS = 2;
 const SAFE_PARLAY_MAX_LEGS = 2;
 const DAILY_PARLAY_LEG_COUNTS = [2] as const;
@@ -735,14 +736,14 @@ function isStarterReadyForParlay(game: GamePrediction) {
 }
 
 /** When 2+ Medium+ picks reach this win%, force top-2 parlay by model win%. */
-export const TRG59_FORCE_PARLAY_MIN_PROBABILITY = 0.68;
+export const TRG59_FORCE_PARLAY_MIN_PROBABILITY = 0.57;
 /** Skip force-2 when combined parlay hit rate falls below this (too volatile for live). */
-export const TRG59_MIN_COMBINED_PROBABILITY = 0.38;
+export const TRG59_MIN_COMBINED_PROBABILITY = 0.34;
 
 /** @deprecated use TRG59_FORCE_PARLAY_MIN_PROBABILITY */
 export const MED60_FORCE_PARLAY_MIN_PROBABILITY = TRG59_FORCE_PARLAY_MIN_PROBABILITY;
 
-/** Live plan: high_elite_76_parlay — 2-leg parlay when 2 High/Elite picks at 76%+; single best High/Elite otherwise; skip if none. */
+/** Live plan: high_elite_76_parlay — parlay the day's High/Elite picks (up to 3 legs); single best High/Elite if only one; skip if none. */
 export const LIVE_BETTING_STRATEGY = "high_elite_76_parlay";
 const USE_PARLAY_CORRELATION_FILTER = false;
 const PARLAY_CORRELATION_WINDOW_MINUTES = 60;
@@ -1596,15 +1597,12 @@ export function getMed60ForceTwo223sTicket(board: GamePrediction[] = predictions
 /**
  * high_elite_76_parlay — walk-forward optimized strategy (2026 season analysis).
  *
- * Rules:
+ * Rules (probabilities are the model's TRUE calibrated win probability, no inflation):
  * 1. Only High and Elite picks with confirmed market odds qualify.
- * 2. If 2+ picks at 76%+ display probability exist → 2-leg parlay (top 2 by display prob).
+ *    High ≈ genuinely wins 62%+, Elite ≈ 67%+ (gated by starter ERA edge / team form).
+ * 2. 3 qualifying picks → 3-leg parlay; 2 → 2-leg parlay (sorted by win prob).
  * 3. If only 1 qualifying pick → single ML bet on that pick.
  * 4. If no High/Elite picks with market odds → no bet today (skip).
- *
- * Walk-forward season results vs current (trg59):
- *   hit rate 62.8% vs 61.2% | ROI +64.3% vs +68.7% | far fewer losing Medium legs
- *   Elite EV +18%, High EV +25% vs market — genuine positive expectation
  */
 export function getHighElite76ParlayTicket(board: GamePrediction[] = predictions): DailyTicket | null {
   if (!boardHasMarketOdds(board)) {
@@ -1639,15 +1637,15 @@ export function getHighElite76ParlayTicket(board: GamePrediction[] = predictions
     if (legs.length === 3) break;
   }
 
-  // 3 picks at 76%+ → 3-leg parlay; 2 picks → 2-leg parlay; 1 pick → single
-  const top76 = legs.filter((b) => b.modelProbability >= 0.76);
-  if (top76.length >= 3) {
-    const parlay = buildParlayCandidate(top76.slice(0, 3));
+  // Legs are already gated to High/Elite + market odds, so they all qualify:
+  // 3 High/Elite picks → 3-leg parlay; 2 → 2-leg parlay; 1 → single.
+  if (legs.length >= 3) {
+    const parlay = buildParlayCandidate(legs.slice(0, 3));
     parlay.strategy = "high_elite_76_parlay";
     return { kind: "parlay", parlay, score: parlay.score, qualified: true };
   }
-  if (top76.length >= 2) {
-    const parlay = buildParlayCandidate(top76.slice(0, 2));
+  if (legs.length >= 2) {
+    const parlay = buildParlayCandidate(legs.slice(0, 2));
     parlay.strategy = "high_elite_76_parlay";
     return { kind: "parlay", parlay, score: parlay.score, qualified: true };
   }

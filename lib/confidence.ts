@@ -1,12 +1,14 @@
-// Accountable confidence on 60–90% display scale — must match probability_calibration.py.
+// Honest confidence on the TRUE probability scale — must match probability_calibration.py.
+// The displayed % IS the model's calibrated win probability (no inflation), so these
+// thresholds are the real win-rate floors for each tier.
 
 import type { GamePrediction } from "./data";
 
-export const DISPLAY_PROBABILITY_FLOOR = 0.6;
-export const DISPLAY_PROBABILITY_CEILING = 0.9;
-export const CONFIDENCE_MEDIUM_MIN = 0.68;
-export const CONFIDENCE_HIGH_MIN = 0.76;
-export const CONFIDENCE_ELITE_MIN = 0.85;
+export const CONFIDENCE_MEDIUM_MIN = 0.57;
+export const CONFIDENCE_HIGH_MIN = 0.62;
+export const CONFIDENCE_ELITE_MIN = 0.67;
+// Unconfirmed starter or no market price can't earn above Medium.
+export const CONFIDENCE_UNCERTAIN_MEDIUM_MIN = 0.6;
 export const CONFIDENCE_HIGH_EDGE_MIN = 0.08;
 export const CONFIDENCE_ELITE_EDGE_MIN = 0.1;
 
@@ -39,11 +41,11 @@ export function confidenceFromPickProbability(
   const formEdge = context.formEdge ?? 0;
 
   if (!starterCertain) {
-    return probability >= CONFIDENCE_MEDIUM_MIN ? "Medium" : "Low";
+    return probability >= CONFIDENCE_UNCERTAIN_MEDIUM_MIN ? "Medium" : "Low";
   }
 
   if (!marketAvailable) {
-    return probability >= CONFIDENCE_MEDIUM_MIN ? "Medium" : "Low";
+    return probability >= CONFIDENCE_UNCERTAIN_MEDIUM_MIN ? "Medium" : "Low";
   }
 
   const eliteEraOk = eraDiff >= ELITE_ERA_DIFF_MIN;

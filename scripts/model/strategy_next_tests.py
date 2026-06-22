@@ -202,6 +202,24 @@ def day_actions_med60_force2_223s(candidates: list[dict]) -> list[DayAction]:
     return day_actions_trg59_top_prob_2(candidates)
 
 
+def day_actions_high_elite_parlay(candidates: list[dict]) -> list[DayAction]:
+    """Live strategy: parlay the day's High/Elite market-backed picks (up to 3 legs);
+    single ML on the one pick if only one qualifies; skip the day if none do."""
+    pool = [
+        c
+        for c in model_pick_candidates(candidates)
+        if c.get("confidence") in ("High", "Elite")
+    ]
+    legs = top_n_by_prob(pool, 3)
+    if len(legs) >= 2:
+        return [DayAction(legs=legs, single=None, label=f"p{len(legs)}_he")]
+    if len(legs) == 1:
+        single, _ = pick_best_moneyline(pool)
+        if single:
+            return [DayAction(legs=None, single=single, label="single")]
+    return []
+
+
 def live_parlay_pool(candidates: list[dict]) -> list[dict]:
     return [
         c
@@ -258,6 +276,9 @@ def day_actions_for_test(candidates: list[dict], rule: str) -> list[DayAction]:
 
     if rule == "best_ticket":
         return day_actions_for_rule(candidates, rule)
+
+    if rule == "high_elite_76_parlay":
+        return day_actions_high_elite_parlay(candidates)
 
     if rule.startswith("no_low_min_edge"):
         edge = float(rule.replace("no_low_min_edge", "")) / 100.0

@@ -845,15 +845,11 @@ function normalizePredictionRows(rows: PredictionOutputRow[]): GamePrediction[] 
     const homeTeam = normalizeTeamId(row.homeTeam);
     const homeProbability = row.modelHomeWinProbability ?? 0.5;
     const awayProbability = row.modelAwayWinProbability ?? 1 - homeProbability;
-    // Use calibrated probability when starters are confirmed — it's what the confidence label,
-    // the best-bets ticket, and EV are all computed from, so every page shows the same number.
-    // Only fall back to raw when a starter is genuinely TBD (starterCertain === false), since
-    // calibration was trained on known-starter games. A pitcherChanged flag does NOT mean
-    // unknown — the board already re-predicted with the current starter — so it stays calibrated.
-    const starterConfirmed = row.starterCertain !== false;
-    const pickProbability = starterConfirmed
-      ? (row.pickProbability ?? row.rawPickProbability ?? Math.max(homeProbability, awayProbability))
-      : (row.rawPickProbability ?? row.pickProbability ?? Math.max(homeProbability, awayProbability));
+    // The displayed % is the model's TRUE calibrated win probability (no inflation layer),
+    // so pickProbability == rawPickProbability and the same number drives the label, the
+    // ticket, and EV on every page. Fall back to raw / model max only if a field is missing.
+    const pickProbability =
+      row.pickProbability ?? row.rawPickProbability ?? Math.max(homeProbability, awayProbability);
 
     // Sanitise corrupted moneyline data before it reaches the UI or ticket logic.
     // Real MLB moneylines stay within ±1500; anything beyond that is a stale or bad API response.

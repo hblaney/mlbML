@@ -39,7 +39,7 @@
     "stake_amount": 5.0,
     "status": "pending",
     "odds": 665,
-    "model_probability": 0.563146,
+    "model_probability": 0.2872,
     "prove_out": false
   },
   "checkpoints": [],
