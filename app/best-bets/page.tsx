@@ -4,6 +4,7 @@ import {
   getBestBets,
   getBestDailyTicket,
   getOptimizedStakePctForTicket,
+  getRatchetStakePct,
   OPTIMIZED_STAKE_BY_LEG_COUNT,
   LIVE_BETTING_STRATEGY
 } from "@/lib/data";
@@ -41,14 +42,38 @@ export default async function BestBetsPage() {
   const usingModelOnlyPicks = bets.some((bet) => bet.modelOnly) || advancedBets.some((bet) => bet.modelOnly);
   const bestTicket = getBestDailyTicket(board);
   const stakeByLeg = bettingPlan?.stake_by_leg_count;
-  const stakeSingle = stakeByLeg?.["1"] ?? OPTIMIZED_STAKE_BY_LEG_COUNT[1];
-  const stakeParlay2 = stakeByLeg?.["2"] ?? OPTIMIZED_STAKE_BY_LEG_COUNT[2];
-  const stakeParlay3 = stakeByLeg?.["3"] ?? OPTIMIZED_STAKE_BY_LEG_COUNT[3];
-  const stakeTierLabel = `${formatPercent(stakeSingle)} single / ${formatPercent(stakeParlay2)} two-leg / ${formatPercent(stakeParlay3)} three-leg`;
-  const ticketStakePct = getOptimizedStakePctForTicket(bestTicket, stakeByLeg);
+  const ratchetTiers = bettingPlan?.ratchet_tiers;
   const activeStrategy = bettingPlan?.strategy ?? LIVE_BETTING_STRATEGY;
   const liveStats = strategyGuard?.comparisons[activeStrategy]?.season_to_date;
   const bankroll = liveBankroll?.wallet_balance ?? liveBankroll?.balance ?? 23.28;
+  // If ratchet tiers are defined, use ratchet-aware stake percentages; else fall back to fixed leg-count stakes
+  const stakeSingle = ratchetTiers
+    ? getRatchetStakePct(bankroll, 1, ratchetTiers)
+    : (stakeByLeg?.["1"] ?? OPTIMIZED_STAKE_BY_LEG_COUNT[1]);
+  const stakeParlay2 = ratchetTiers
+    ? getRatchetStakePct(bankroll, 2, ratchetTiers)
+    : (stakeByLeg?.["2"] ?? OPTIMIZED_STAKE_BY_LEG_COUNT[2]);
+  const stakeParlay3 = ratchetTiers
+    ? getRatchetStakePct(bankroll, 3, ratchetTiers)
+    : (stakeByLeg?.["3"] ?? OPTIMIZED_STAKE_BY_LEG_COUNT[3]);
+  const ticketLegCount = bestTicket
+    ? (bestTicket.kind === "single" ? 1 : bestTicket.parlay.legCount)
+    : 2;
+  const ticketStakePct = ratchetTiers
+    ? getRatchetStakePct(bankroll, ticketLegCount, ratchetTiers)
+    : getOptimizedStakePctForTicket(bestTicket, stakeByLeg);
+  const ratchetLabel = ratchetTiers
+    ? (() => {
+        const tier = [...ratchetTiers].reverse().find(t => bankroll >= t.min_balance) ?? ratchetTiers[0];
+        const nextTier = ratchetTiers.find(t => t.min_balance > bankroll);
+        return nextTier
+          ? `Ratchet tier: ${formatPercent(tier.parlay_pct)} parlay / ${formatPercent(tier.single_pct)} single (steps down at $${nextTier.min_balance})`
+          : `Ratchet tier: ${formatPercent(tier.parlay_pct)} parlay / ${formatPercent(tier.single_pct)} single (max protection tier)`;
+      })()
+    : null;
+  const stakeTierLabel = ratchetTiers
+    ? `${formatPercent(stakeSingle)} single / ${formatPercent(stakeParlay2)} parlay`
+    : `${formatPercent(stakeSingle)} single / ${formatPercent(stakeParlay2)} two-leg / ${formatPercent(stakeParlay3)} three-leg`;
   const startedAt = liveBankroll?.started_at;
   const boardGeneratedAt = boardMeta.board_generated_at;
   const modelTrainedThrough = boardMeta.trained_through;
@@ -107,6 +132,9 @@ export default async function BestBetsPage() {
           One bet per day from <strong>{activeStrategy}</strong>: stake a percentage of your bankroll ({stakeTierLabel} of
           wallet by ticket type), all legs same calendar day.
         </p>
+        {ratchetLabel && (
+          <p className="muted">{ratchetLabel}</p>
+        )}
         <p className="muted">
           Your bankroll: <strong>{formatBankroll(bankroll)}</strong>
           {startedAt ? ` · live tracking since ${startedAt}` : ""}
@@ -375,21 +403,54 @@ export default async function BestBetsPage() {
             <tbody>
               <tr>
                 <td>Single</td>
-                <td>{formatPercent(bettingPlan.stake_by_leg_count["1"] ?? OPTIMIZED_STAKE_BY_LEG_COUNT[1])}</td>
+                <td>{formatPercent(stakeSingle)}</td>
                 <td>${(bankroll * stakeSingle).toFixed(2)}</td>
               </tr>
               <tr>
                 <td>2-leg parlay</td>
-                <td>{formatPercent(bettingPlan.stake_by_leg_count["2"] ?? OPTIMIZED_STAKE_BY_LEG_COUNT[2])}</td>
+                <td>{formatPercent(stakeParlay2)}</td>
                 <td>${(bankroll * stakeParlay2).toFixed(2)}</td>
               </tr>
               <tr>
                 <td>3-leg parlay</td>
-                <td>{formatPercent(bettingPlan.stake_by_leg_count["3"] ?? OPTIMIZED_STAKE_BY_LEG_COUNT[3])}</td>
+                <td>{formatPercent(stakeParlay3)}</td>
                 <td>${(bankroll * stakeParlay3).toFixed(2)}</td>
               </tr>
             </tbody>
           </table>
+
+          {ratchetTiers && (
+            <>
+              <p className="eyebrow" style={{ marginTop: "1.25rem" }}>Ratchet staking schedule</p>
+              <table className="table">
+                <thead>
+                  <tr>
+                    <th>Bankroll range</th>
+                    <th>Parlay stake</th>
+                    <th>Single stake</th>
+                    <th>Mode</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {ratchetTiers.map((tier, i) => {
+                    const isActive = bankroll >= tier.min_balance && (tier.max_balance === null || bankroll <= tier.max_balance);
+                    return (
+                      <tr key={i} style={isActive ? { fontWeight: 600 } : undefined}>
+                        <td>
+                          ${tier.min_balance.toLocaleString()}
+                          {tier.max_balance !== null ? ` – $${tier.max_balance.toLocaleString()}` : "+"}
+                          {isActive ? " ◀ current" : ""}
+                        </td>
+                        <td>{formatPercent(tier.parlay_pct)}</td>
+                        <td>{formatPercent(tier.single_pct)}</td>
+                        <td>{i === 0 ? "Max growth" : i === 1 ? "Moderate" : "Conservative"}</td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </>
+          )}
 
           <div className="section-heading compact" style={{ marginTop: "1.5rem" }}>
             <div>

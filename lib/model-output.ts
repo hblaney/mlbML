@@ -445,12 +445,20 @@ export async function loadOosStrategyValidation() {
   }
 }
 
+export type RatchetTier = {
+  min_balance: number;
+  max_balance: number | null;
+  parlay_pct: number;
+  single_pct: number;
+};
+
 export type BettingPlan = {
   generated_at: string;
   strategy: string;
   strategy_rules: string[];
   stake_by_leg_count: Record<string, number>;
   stake_optimizer_suggestion?: Record<string, number>;
+  ratchet_tiers?: RatchetTier[];
   flat_stake_fallback: number;
   daily_exposure_cap: number;
   backtest_period: { start: string; end: string };

@@ -899,6 +899,30 @@ export function getOptimizedStakePctForTicket(
   return OPTIMIZED_STAKE_BY_LEG_COUNT[ticket.parlay.legCount] ?? OPTIMIZED_GROWTH_STAKE_PCT;
 }
 
+/**
+ * Ratchet staking: scale down stake % as bankroll grows to protect gains.
+ *
+ * Tiers (backtested Jun 22, $25→$29,204 at 65.3% max drawdown):
+ *   $0–$199:    30% parlay / 20% single  — maximum growth
+ *   $200–$999:  20% parlay / 15% single  — moderate, protect early gains
+ *   $1,000+:    15% parlay / 10% single  — conservative, lock in profits
+ */
+export function getRatchetStakePct(
+  balance: number,
+  legCount: number,
+  ratchetTiers?: Array<{ min_balance: number; max_balance: number | null; parlay_pct: number; single_pct: number }>
+): number {
+  const tiers = ratchetTiers ?? [
+    { min_balance: 0,    max_balance: 199,  parlay_pct: 0.30, single_pct: 0.20 },
+    { min_balance: 200,  max_balance: 999,  parlay_pct: 0.20, single_pct: 0.15 },
+    { min_balance: 1000, max_balance: null, parlay_pct: 0.15, single_pct: 0.10 },
+  ];
+  const tier = [...tiers]
+    .reverse()
+    .find(t => balance >= t.min_balance) ?? tiers[0];
+  return legCount === 1 ? tier.single_pct : tier.parlay_pct;
+}
+
 export type DailyTicket =
   | {
       kind: "single";

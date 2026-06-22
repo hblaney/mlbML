@@ -1,12 +1,14 @@
 {
-  "generated_at": "2026-06-21",
+  "generated_at": "2026-06-22",
   "tracking_mode": "live_best_bets",
-  "disclaimer": "Tracks the high_elite_76_parlay ticket \u2014 High/Elite picks with market odds only. Compound staking: 30% of balance on 2-leg parlay, 20% on single. Skip days with no qualified picks.",
+  "disclaimer": "Tracks the high_elite_76_parlay ticket — High/Elite picks with market odds only. Ratchet staking: 30%/20% below $200, 20%/15% at $200–$999, 15%/10% at $1k+. Skip days with no qualified picks.",
   "strategy": "high_elite_76_parlay",
-  "stakes": {
-    "parlay_2leg": 0.3,
-    "single": 0.2
-  },
+  "staking": "ratchet",
+  "ratchet_tiers": [
+    { "min_balance": 0,    "max_balance": 199,  "parlay_pct": 0.30, "single_pct": 0.20 },
+    { "min_balance": 200,  "max_balance": 999,  "parlay_pct": 0.20, "single_pct": 0.15 },
+    { "min_balance": 1000, "max_balance": null,  "parlay_pct": 0.15, "single_pct": 0.10 }
+  ],
   "prove_out": {
     "flat_stake_usd": 5.0,
     "target_tickets": 5,
@@ -346,5 +348,5 @@
       "prove_out": true
     }
   ],
-  "tracking_note": "high_elite_76_parlay \u00b7 High/Elite + market odds only \u00b7 2-leg parlay 30% or single 20% of balance \u00b7 skip if no qualified picks \u00b7 re-evaluate stake cap at $2k balance"
+  "tracking_note": "high_elite_76_parlay · High/Elite + market odds only · ratchet staking: 30%/20% <$200, 20%/15% $200-$999, 15%/10% $1k+ · skip if no qualified picks · backtested $25→$29,204 at 65.3% max drawdown"
 }

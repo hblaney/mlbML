@@ -1,28 +1,28 @@
 {
-  "generated_at": "2026-06-21",
-  "strategy": "corr_nl_reject_both",
+  "generated_at": "2026-06-22",
+  "strategy": "high_elite_76_parlay",
   "strategy_rules": [
-    "Always-2 parlay from Medium+ legs only (filtered edge/anchor, else best uncorrelated top-2 positive-EV)",
-    "Reject parlay legs in the same division or starting within 60 minutes",
-    "Premium filtered 3-leg (Medium+ pool, uncorrelated) when it scores higher than always-2",
-    "Qualified single moneyline (any confidence) when it scores highest",
-    "One bet per day \u2014 highest score wins; ride losing streaks unless bankroll cannot place minimum bet"
+    "Only High and Elite picks with confirmed market odds (|ML| ≤ 1500) qualify",
+    "2+ qualifying picks → 3-leg max parlay sorted by raw pick probability",
+    "1 qualifying pick → single ML bet on best pick",
+    "0 qualifying picks → skip, no bet today",
+    "Ratchet staking: stake % automatically scales down as bankroll grows to protect gains"
   ],
   "stake_by_leg_count": {
-    "1": 0.3,
-    "2": 0.45,
-    "3": 0.2
+    "1": 0.2,
+    "2": 0.3,
+    "3": 0.3
   },
-  "stake_optimizer_suggestion": {
-    "1": 0.3,
-    "2": 0.45,
-    "3": 0.2
-  },
-  "flat_stake_fallback": 0.3,
+  "ratchet_tiers": [
+    { "min_balance": 0,    "max_balance": 199,  "parlay_pct": 0.30, "single_pct": 0.20 },
+    { "min_balance": 200,  "max_balance": 999,  "parlay_pct": 0.20, "single_pct": 0.15 },
+    { "min_balance": 1000, "max_balance": null,  "parlay_pct": 0.15, "single_pct": 0.10 }
+  ],
+  "flat_stake_fallback": 0.2,
   "daily_exposure_cap": 0.5,
   "backtest_period": {
     "start": "2026-03-20",
-    "end": "2026-06-16"
+    "end": "2026-06-21"
   },
-  "retuned_from": "optimize_stake_sizing.py walk-forward on current season"
+  "retuned_from": "middle-ground sweep Jun 22 — ratchet staking on 62% min raw, $29,204 profit at 65.3% max drawdown"
 }
