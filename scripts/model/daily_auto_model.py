@@ -55,7 +55,7 @@ class DailyModelBundle:
             notes=[
                 f"Retrained through {self.trained_through.isoformat()}",
                 "Shallow gradient boosting trained on prior season (decayed) plus current season (boosted)",
-                "Blends trained output with Elo/form at 85/15; light market anchor when odds are available",
+                "Elo, recent form, starter, park, and weather are all inputs to the GBM; light market anchor when odds are available",
                 "Retrains automatically when yesterday's final scores are new",
             ],
         )

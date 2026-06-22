@@ -100,12 +100,16 @@ def main() -> None:
         starter_certain = _starter_certain(game)
         pitcher_changed = _pitcher_changed(previous_pitchers, game_id, away_pitcher, home_pitcher)
 
-        # ERA differential and recent form — confirmed gates for High/Elite
+        # ERA differential and recent form — confirmed gates for High/Elite.
+        # Both are DIRECTIONAL: positive means the picked team has the edge.
         home_pit = _safe_pitcher_stats(game, game.home_pitcher_id)
         away_pit = _safe_pitcher_stats(game, game.away_pitcher_id)
-        era_diff = abs(home_pit["era"] - away_pit["era"])
-        # Temporarily predict direction to compute form_edge; recomputed after result
+        # Predict direction to compute directional edges; recomputed after result
         _pred_home_tmp = prediction.home_probability >= prediction.away_probability
+        _pick_pit = home_pit if _pred_home_tmp else away_pit
+        _opp_pit = away_pit if _pred_home_tmp else home_pit
+        # ERA edge: opponent ERA minus picked-team ERA (positive = picked starter is better/lower ERA)
+        era_diff = _opp_pit["era"] - _pick_pit["era"]
         _pick_team = bundle.league.team(game.home_team_id if _pred_home_tmp else game.away_team_id)
         _opp_team  = bundle.league.team(game.away_team_id if _pred_home_tmp else game.home_team_id)
         form_edge = _pick_team.win_pct(10) - _opp_team.win_pct(10)
