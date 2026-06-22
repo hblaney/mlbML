@@ -2,14 +2,17 @@ name: Daily Model Retrain
 
 on:
   schedule:
-    # ~5 AM Central (10:00 UTC during CDT).
-    - cron: "0 10 * * *"
-    # ~7 AM Central backup if the board is still stale.
-    - cron: "0 12 * * *"
-    # ~9 AM Central second backup.
-    - cron: "0 14 * * *"
-    # ~11 AM Central third backup.
+    # PRIMARY: 11:00 AM Central (16:00 UTC during CDT — the MLB season is entirely CDT).
+    # No MLB game starts before ~12 PM CT, so an 11 AM full retrain + board with
+    # confirmed probable pitchers is the freshest publish before first pitch.
     - cron: "0 16 * * *"
+    # Backup if the 11 AM run is delayed or fails (GitHub schedulers can lag).
+    - cron: "30 16 * * *"   # 11:30 AM CT
+    - cron: "0 17 * * *"    # 12:00 PM CT
+    # Early safety net so yesterday's results/accuracy still refresh in the morning
+    # even if the 11 AM run has trouble (board lines are then kept current hourly by
+    # the Refresh Live Board workflow).
+    - cron: "0 12 * * *"    # 7:00 AM CT
   workflow_dispatch:
 
 permissions:
@@ -32,27 +35,58 @@ jobs:
         id: run_control
         env:
           GITHUB_REPOSITORY: ${{ github.repository }}
+          EVENT_NAME: ${{ github.event_name }}
+          SCHEDULE: ${{ github.event.schedule }}
         run: |
           today=$(date +%F)
 
-          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+          # Manual runs always execute the full pipeline.
+          if [ "$EVENT_NAME" = "workflow_dispatch" ]; then
             echo "Manual run requested for ${today}."
             echo "should_run=true" >> "$GITHUB_OUTPUT"
             exit 0
           fi
 
-          generated=$(
+          # The 11:00 AM CT primary ALWAYS runs the full pipeline (retrain + board with
+          # confirmed pitchers + health + consistency + CLV), even if the morning board
+          # was already published by the hourly Refresh Live Board workflow.
+          if [ "$SCHEDULE" = "0 16 * * *" ]; then
+            echo "11 AM CT primary run — always executing full pipeline."
+            echo "should_run=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          # Has today's FULL pipeline already completed? model-health.json is only
+          # written by model:daily:core, so its date is the marker for a full run.
+          health_date=$(
+            curl -fsSL "https://raw.githubusercontent.com/${GITHUB_REPOSITORY}/main/public/model-health.json" \
+              | python3 -c "import sys, json; print(json.load(sys.stdin).get('generated_at', '')[:10])" \
+              || echo ""
+          )
+          board_date=$(
             curl -fsSL "https://raw.githubusercontent.com/${GITHUB_REPOSITORY}/main/public/predictions.json" \
               | python3 -c "import sys, json; print(json.load(sys.stdin).get('generated_at', ''))" \
               || echo ""
           )
 
-          if [ "$generated" = "$today" ]; then
-            echo "Board already fresh for ${today}; skipping scheduled run."
-            echo "should_run=false" >> "$GITHUB_OUTPUT"
+          if [ "$SCHEDULE" = "0 12 * * *" ]; then
+            # 7 AM CT early net: refresh yesterday's results/accuracy if the board is stale.
+            if [ "$board_date" = "$today" ]; then
+              echo "Board already fresh for ${today}; early net skipping."
+              echo "should_run=false" >> "$GITHUB_OUTPUT"
+            else
+              echo "Board stale (${board_date:-missing}); early net running."
+              echo "should_run=true" >> "$GITHUB_OUTPUT"
+            fi
           else
-            echo "Board stale (${generated:-missing} vs ${today}); running daily update."
-            echo "should_run=true" >> "$GITHUB_OUTPUT"
+            # 11:30 / 12:00 PM CT backups: only run if the 11 AM full pipeline did not complete.
+            if [ "$health_date" = "$today" ]; then
+              echo "Full pipeline already completed today (${health_date}); backup skipping."
+              echo "should_run=false" >> "$GITHUB_OUTPUT"
+            else
+              echo "Full pipeline not yet completed today (health=${health_date:-missing}); backup running."
+              echo "should_run=true" >> "$GITHUB_OUTPUT"
+            fi
           fi
 
       - name: Checkout

@@ -8,7 +8,7 @@ import {
   OPTIMIZED_STAKE_BY_LEG_COUNT,
   LIVE_BETTING_STRATEGY
 } from "@/lib/data";
-import { loadPredictionBoard, loadBettingPlan, loadLiveBankroll, loadStrategyGuard, loadBestTicketWalkforward, loadPredictionBoardMetadata, loadAccuracyOutput } from "@/lib/model-output";
+import { loadPredictionBoard, loadBettingPlan, loadLiveBankroll, loadStrategyGuard, loadBestTicketWalkforward, loadPredictionBoardMetadata, loadAccuracyOutput, loadModelHealth } from "@/lib/model-output";
 import { confidenceFromPickProbability } from "@/lib/confidence";
 import { formatOdds, formatPercent } from "@/lib/odds";
 import { formatStandingRecord, loadLiveStandings } from "@/lib/standings";
@@ -26,12 +26,13 @@ export default async function BestBetsPage() {
   const boardMeta = await loadPredictionBoardMetadata();
   const standings = await loadLiveStandings();
   const standingsByTeamId = new Map(standings.map((standing) => [standing.teamId, standing]));
-  const [bettingPlan, strategyGuard, liveBankroll, ticketWalkforward, accuracyOutput] = await Promise.all([
+  const [bettingPlan, strategyGuard, liveBankroll, ticketWalkforward, accuracyOutput, modelHealth] = await Promise.all([
     loadBettingPlan(),
     loadStrategyGuard(),
     loadLiveBankroll(),
     loadBestTicketWalkforward(),
-    loadAccuracyOutput()
+    loadAccuracyOutput(),
+    loadModelHealth()
   ]);
   const bets = getBestBets(board);
   const advancedBets = getAdvancedBets(board);
@@ -79,6 +80,33 @@ export default async function BestBetsPage() {
     ? Math.max(0, Math.round((Date.now() - new Date(boardGeneratedAt).getTime()) / 60_000))
     : null;
   const unstableStarterGames = board.filter((game) => game.pitcherChanged || game.starterCertain === false).length;
+
+  // ── Live system status (so a stale board is obvious before you bet) ──────────
+  const centralToday = new Intl.DateTimeFormat("en-CA", { timeZone: "America/Chicago" }).format(new Date());
+  const boardIsToday = boardMeta.generated_at === centralToday;
+  const STALE_AGE_MIN = 180; // 3h without a refresh during the day = something is off
+  const freshness: "fresh" | "aging" | "stale" = !boardIsToday
+    ? "stale"
+    : boardAgeMinutes != null && boardAgeMinutes > STALE_AGE_MIN
+      ? "aging"
+      : "fresh";
+  const boardUpdatedLabel = boardGeneratedAt
+    ? new Intl.DateTimeFormat("en-US", {
+        timeZone: "America/Chicago",
+        month: "short",
+        day: "numeric",
+        hour: "numeric",
+        minute: "2-digit",
+      }).format(new Date(boardGeneratedAt))
+    : null;
+  const boardAgeLabel =
+    boardAgeMinutes == null
+      ? null
+      : boardAgeMinutes < 60
+        ? `${boardAgeMinutes} min ago`
+        : `${Math.floor(boardAgeMinutes / 60)}h ${boardAgeMinutes % 60}m ago`;
+  const healthStatus = modelHealth?.overall_status ?? null;
+  const statusOk = freshness === "fresh" && (healthStatus === "healthy" || healthStatus == null);
 
   const accuracyStale =
     accuracyOutput?.trained_through &&
@@ -129,6 +157,49 @@ export default async function BestBetsPage() {
 
   return (
     <main className="shell stack">
+      <section
+        className="panel"
+        style={{
+          borderLeft: `4px solid ${statusOk ? "#16a34a" : freshness === "stale" ? "#dc2626" : "#d97706"}`,
+        }}
+      >
+        <div className="section-heading compact">
+          <div>
+            <p className="eyebrow">System status</p>
+            <h2 style={{ margin: 0 }}>
+              {statusOk
+                ? "Live · board is current"
+                : freshness === "stale"
+                  ? "Board is not today's slate"
+                  : "Board may be stale"}
+            </h2>
+          </div>
+          <span className={statusOk ? "positive" : "warning"}>
+            {statusOk ? "FRESH" : freshness === "stale" ? "STALE" : "CHECK"}
+          </span>
+        </div>
+        <p className="muted">
+          {boardUpdatedLabel
+            ? <>Board updated <strong>{boardUpdatedLabel} CT</strong>{boardAgeLabel ? ` (${boardAgeLabel})` : ""}.</>
+            : "Board update time unavailable."}
+          {" "}
+          {freshness === "stale" ? (
+            <>The published board is from <strong>{boardMeta.generated_at ?? "an earlier day"}</strong>, not today
+              ({centralToday}). The automated 11&nbsp;AM CT job rebuilds it daily — if this persists, the run may have
+              failed. Don&apos;t place today&apos;s ticket from this board yet.</>
+          ) : freshness === "aging" ? (
+            <>It hasn&apos;t refreshed in over {Math.floor((boardAgeMinutes ?? 0) / 60)}h, so moneylines may have moved.
+              The hourly refresh should update it shortly.</>
+          ) : (
+            <>Auto-refreshes daily at 11&nbsp;AM CT plus hourly through the day — no manual run needed.</>
+          )}
+          {healthStatus ? (
+            <>
+              {" "}Model self-check: <strong className={healthStatus === "healthy" ? "positive" : "warning"}>{healthStatus}</strong>.
+            </>
+          ) : null}
+        </p>
+      </section>
       <section className="panel strong">
         <p className="eyebrow">Daily ticket</p>
         <h1>Best Bets</h1>
