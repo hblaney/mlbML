@@ -66,8 +66,9 @@ export default async function HomePage() {
             <p className="muted">{health?.last7Days.games ? `${health.last7Days.record} record` : "Recent slate"}</p>
           </article>
           <article>
-            <p className="muted">EV plays</p>
+            <p className="muted">Top edge plays</p>
             <div className="metric">{bestBets.length}</div>
+            <p className="muted">Reference list — not the daily ticket</p>
           </article>
           <article>
             <p className="muted">Games</p>

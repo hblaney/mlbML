@@ -3,8 +3,8 @@
   "strategy": "high_elite_76_parlay",
   "strategy_rules": [
     "Only High and Elite picks with confirmed market odds (|ML| ≤ 1500) qualify",
-    "2+ qualifying picks → 3-leg max parlay sorted by raw pick probability",
-    "1 qualifying pick → single ML bet on best pick",
+    "3 qualifying picks at 76%+ → 3-leg parlay; 2 → 2-leg parlay (sorted by model win probability)",
+    "1 qualifying pick → single ML bet on the best pick",
     "0 qualifying picks → skip, no bet today",
     "Ratchet staking: stake % automatically scales down as bankroll grows to protect gains"
   ],

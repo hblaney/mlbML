@@ -583,7 +583,9 @@ export type LiveBankroll = {
   tracking_mode?: string;
   disclaimer?: string;
   strategy: string;
+  staking?: string;
   stakes: Record<string, number>;
+  ratchet_tiers?: RatchetTier[];
   prove_out?: {
     flat_stake_usd: number;
     target_tickets: number;

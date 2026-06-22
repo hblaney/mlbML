@@ -111,11 +111,21 @@ export default async function HistoryPage() {
   }, {});
 
   const activeStrategy = bettingPlan?.strategy ?? strategyGuard?.live_strategy ?? LIVE_BETTING_STRATEGY;
-  const stakeMap = liveBankroll?.stakes ?? strategyGuard?.stakes ?? bettingPlan?.stake_by_leg_count;
-  const stakeTierLabel = stakeMap
-    ? `${formatPercent(stakeMap["1"] ?? 0.35)} / ${formatPercent(stakeMap["2"] ?? 0.45)} / ${formatPercent(stakeMap["3"] ?? 0.1)}`
-    : "35% / 45% / 10%";
-  const liveCompound = strategyGuard?.live_compound;
+  // Ratchet staking is canonical — describe the tiers rather than the old fixed 35/45/10 leg stakes.
+  const ratchetTiers = liveBankroll?.ratchet_tiers ?? bettingPlan?.ratchet_tiers;
+  const stakeTierLabel = ratchetTiers && ratchetTiers.length > 0
+    ? ratchetTiers
+        .map((t) =>
+          `${formatPercent(t.parlay_pct)}/${formatPercent(t.single_pct)} ${
+            t.max_balance === null ? `$${t.min_balance}+` : `<$${t.max_balance + 1}`
+          }`
+        )
+        .join(" · ")
+    : "ratchet staking";
+  // Only use the guard's compound sim when it actually reflects the live strategy — otherwise
+  // it shows stale trg59 numbers (e.g. $106M) that have nothing to do with the current plan.
+  const liveCompound =
+    strategyGuard?.live_compound?.strategy === activeStrategy ? strategyGuard.live_compound : undefined;
   const compoundFrom10 = liveCompound?.from_10;
   const compoundCheckpoints = compoundFrom10?.checkpoints ?? [];
   const liveCheckpointsByDate = new Map(compoundCheckpoints.map((checkpoint) => [checkpoint.date, checkpoint]));
@@ -356,7 +366,7 @@ export default async function HistoryPage() {
         </section>
       ) : null}
 
-      {compoundFrom10 && strategyGuard ? (
+      {compoundFrom10 && strategyGuard && liveCompound?.strategy === activeStrategy ? (
         <section className="panel">
           <div className="section-heading compact">
             <div>
@@ -405,7 +415,7 @@ export default async function HistoryPage() {
                     <tr key={legCount}>
                       <td>{ticketTypeLabel(legCount)}</td>
                       <td>{ticketMix[legCount]}</td>
-                      <td>{formatPercent(strategyGuard.stakes[String(legCount)] ?? 0)}</td>
+                      <td>{formatPercent(liveCompound?.stakes?.[String(legCount)] ?? 0)}</td>
                     </tr>
                   ))}
               </tbody>

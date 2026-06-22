@@ -22,8 +22,8 @@ export function Nav() {
       <div className="topline">
         <div className="shell topline-inner">
           <span>MLB market board</span>
-          <span>Daily model refresh</span>
-          <span>Real odds only</span>
+          <span>Daily model refresh at 5 AM</span>
+          <span>High/Elite ratchet plan</span>
         </div>
       </div>
       <nav className="nav shell">

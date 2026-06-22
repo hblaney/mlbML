@@ -9,7 +9,7 @@ import {
   LIVE_BETTING_STRATEGY
 } from "@/lib/data";
 import { loadPredictionBoard, loadBettingPlan, loadLiveBankroll, loadStrategyGuard, loadBestTicketWalkforward, loadPredictionBoardMetadata, loadAccuracyOutput } from "@/lib/model-output";
-import { assertConfidenceMatchesPick, confidenceFromPickProbability } from "@/lib/confidence";
+import { confidenceFromPickProbability } from "@/lib/confidence";
 import { formatOdds, formatPercent } from "@/lib/odds";
 import { formatStandingRecord, loadLiveStandings } from "@/lib/standings";
 import { formatCentralGameTime } from "@/lib/time";
@@ -41,7 +41,7 @@ export default async function BestBetsPage() {
   const ratchetTiers = bettingPlan?.ratchet_tiers;
   const activeStrategy = bettingPlan?.strategy ?? LIVE_BETTING_STRATEGY;
   const liveStats = strategyGuard?.comparisons[activeStrategy]?.season_to_date;
-  const bankroll = liveBankroll?.wallet_balance ?? liveBankroll?.balance ?? 23.28;
+  const bankroll = liveBankroll?.wallet_balance ?? liveBankroll?.balance ?? 22.0;
   // If ratchet tiers are defined, use ratchet-aware stake percentages; else fall back to fixed leg-count stakes
   const stakeSingle = ratchetTiers
     ? getRatchetStakePct(bankroll, 1, ratchetTiers)
@@ -86,14 +86,19 @@ export default async function BestBetsPage() {
     accuracyOutput.trained_through < modelTrainedThrough;
   const seasonPickAccuracy = accuracyOutput?.current_season?.market_backed_accuracy ?? null;
   const highConfAccuracy = accuracyOutput?.current_season?.high_confidence_accuracy ?? null;
-  const proveOutActive = liveBankroll?.prove_out?.active ?? true;
+  // Ratchet staking is the live mode; prove-out only when explicitly flagged active in the JSON.
+  const proveOutActive =
+    liveBankroll?.staking !== "ratchet" && (liveBankroll?.prove_out?.active ?? false);
   const proveOutStake = liveBankroll?.prove_out?.flat_stake_usd ?? 5;
   const formatBankroll = (value: number) =>
     value >= 100
       ? `$${value.toLocaleString(undefined, { maximumFractionDigits: 0 })}`
       : `$${value.toFixed(2)}`;
 
-  // Only show the live strategy and its best_ticket reference — hide all legacy strategies
+  // Only show the live strategy and its best_ticket reference — hide all legacy strategies.
+  // liveInGuard gates the comparison table: only render once the guard JSON actually tracks
+  // the live strategy (otherwise it would show stale trg59/med60 backtest numbers).
+  const liveInGuard = Boolean(strategyGuard?.comparisons[activeStrategy]);
   const SHOWN_STRATEGIES = new Set([activeStrategy, "best_ticket"]);
   const comparisonRows = strategyGuard
     ? Object.entries(strategyGuard.comparisons)
@@ -245,12 +250,6 @@ export default async function BestBetsPage() {
             )}{" "}
             Model predicted winner only — one bet per day.
           </p>
-          {bestTicket.kind === "parlay" && bestTicket.parlay.strategy === "forced_top_2" ? (
-            <p className="muted">
-              No strict 65%+ parlay pair today — using top-2 positive-EV legs. Backtest shows always betting beats
-              sitting out on thin slates.
-            </p>
-          ) : null}
           {bestTicket.kind === "single" ? (
             <div className="grid two">
               <article>
@@ -382,8 +381,8 @@ export default async function BestBetsPage() {
             <span>Updated {bettingPlan.generated_at}</span>
           </div>
           <p className="lead">
-            Medium+ legs only on parlays · reject same-division and same-time pairs · one ticket/day · highest score
-            wins among legal 2-leg, 3-leg, or single.
+            High/Elite picks with confirmed market odds only · 2+ qualifying picks build a 3-leg max parlay (76%+ legs)
+            · 1 qualifying pick → single ML · 0 → skip the day · ratchet staking scales the stake down as the bankroll grows.
           </p>
           <ol className="muted">
             {bettingPlan.strategy_rules.map((rule) => (
@@ -457,62 +456,55 @@ export default async function BestBetsPage() {
               <h2>Season sim (if you started opening day)</h2>
             </div>
             <span>
-              {strategyGuard.period.season_start} → {strategyGuard.period.end}
+              {bettingPlan.backtest_period.start} → {bettingPlan.backtest_period.end}
             </span>
           </div>
+          <div className="grid">
+            <article>
+              <p className="muted">$25 → end (ratchet, full season)</p>
+              <div className="metric positive">$29,204</div>
+              <p className="muted">62% min raw pick · High/Elite only</p>
+            </article>
+            <article>
+              <p className="muted">Max drawdown</p>
+              <div className="metric">65.3%</div>
+              <p className="muted">Worst peak-to-trough on the season sim</p>
+            </article>
+          </div>
           <p className="muted">
-            Both rows use the same walk-forward model and {stakeTierLabel} ratchet compounding from opening day.
-            Live plan targets High/Elite picks with market odds only; best_ticket is the max-score selector as a reference point.
+            Walk-forward sim of the live plan with ratchet staking. This is a backtest, not your live tracker —
+            real results depend on how many qualified High/Elite picks each day produces.
           </p>
 
-          {liveStats ? (
-            <div className="grid">
-              <article>
-                <p className="muted">Season sim from $10 (Mar 20 start)</p>
-                <div className="metric positive">{formatBankroll(liveStats.end / 10)}</div>
-                <p className="muted">
-                  {liveStats.record} · not your live tracker
-                </p>
-              </article>
-              <article>
-                <p className="muted">$100 bankroll (season sim)</p>
-                <div className="metric positive">{formatBankroll(liveStats.end)}</div>
-                <p className="muted">Best among tested rules at same stakes</p>
-              </article>
-            </div>
+          {liveInGuard ? (
+            <>
+              <table className="table">
+                <thead>
+                  <tr>
+                    <th>Strategy</th>
+                    <th>Record</th>
+                    <th>$10 → end</th>
+                    <th>$100 → end</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {comparisonRows.map((row) => (
+                    <tr key={row.id}>
+                      <td>{row.isLive ? `★ ${row.label}` : row.label}</td>
+                      <td>{row.record}</td>
+                      <td className={row.isLive ? "positive" : ""}>{formatBankroll(row.end10)}</td>
+                      <td className={row.isLive ? "positive" : ""}>{formatBankroll(row.end100)}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+              <p className="muted">{strategyGuard.guard.message}</p>
+            </>
           ) : null}
-
-          <table className="table">
-            <thead>
-              <tr>
-                <th>Strategy</th>
-                <th>Record</th>
-                <th>$10 → end</th>
-                <th>$100 → end</th>
-                <th>Last 14d ($10) — short window</th>
-              </tr>
-            </thead>
-            <tbody>
-              {comparisonRows.map((row) => (
-                <tr key={row.id}>
-                  <td>{row.isLive ? `★ ${row.label}` : row.label}</td>
-                  <td>{row.record}</td>
-                  <td className={row.isLive ? "positive" : ""}>{formatBankroll(row.end10)}</td>
-                  <td className={row.isLive ? "positive" : ""}>{formatBankroll(row.end100)}</td>
-                  <td>{formatBankroll(row.end14d10)}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-          <p className="muted">{strategyGuard.guard.message}</p>
-          <p className="muted">
-            Sort the table by <strong>$100 → end</strong> for the decision that matters. The 14-day column is noisy —
-            we only consider switching after another rule beats the live plan for 14 straight daily runs.
-          </p>
         </section>
       ) : null}
 
-      {ticketWalkforward ? (
+      {ticketWalkforward && ticketWalkforward.strategy === activeStrategy ? (
         <section className="panel">
           <div className="section-heading compact">
             <div>

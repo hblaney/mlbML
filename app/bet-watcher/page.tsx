@@ -1,7 +1,7 @@
 import { BetWatcherClient } from "@/app/bet-watcher/BetWatcherClient";
-import { getBestDailyTicket } from "@/lib/data";
+import { getBestDailyTicket, getRatchetStakePct } from "@/lib/data";
 import { BetLeg } from "@/lib/bet-watcher";
-import { loadLiveBankroll, loadPredictionBoard } from "@/lib/model-output";
+import { loadBettingPlan, loadLiveBankroll, loadPredictionBoard } from "@/lib/model-output";
 
 export const dynamic = "force-dynamic";
 
@@ -32,10 +32,18 @@ function legsFromTicket(ticket: ReturnType<typeof getBestDailyTicket>): BetLeg[]
 }
 
 export default async function BetWatcherPage() {
-  const [board, liveBankroll] = await Promise.all([loadPredictionBoard(), loadLiveBankroll()]);
+  const [board, liveBankroll, bettingPlan] = await Promise.all([
+    loadPredictionBoard(),
+    loadLiveBankroll(),
+    loadBettingPlan()
+  ]);
   const bestTicket = getBestDailyTicket(board);
   const todayLegs = legsFromTicket(bestTicket);
-  const proveOutStake = liveBankroll?.prove_out?.flat_stake_usd ?? 5;
+  // Default stake = ratchet % of current bankroll for this ticket's leg count.
+  const bankroll = liveBankroll?.wallet_balance ?? liveBankroll?.balance ?? 22.0;
+  const legCount = bestTicket ? (bestTicket.kind === "single" ? 1 : bestTicket.parlay.legCount) : 2;
+  const ratchetTiers = liveBankroll?.ratchet_tiers ?? bettingPlan?.ratchet_tiers;
+  const ratchetStake = bankroll * getRatchetStakePct(bankroll, legCount, ratchetTiers);
   const todaySnapshot = liveBankroll?.today_ticket;
   const ticketAmericanOdds =
     todaySnapshot?.odds ??
@@ -60,7 +68,7 @@ export default async function BetWatcherPage() {
         board={board}
         todayTicket={{
           legs: todayLegs,
-          stake: todaySnapshot?.stake_amount ?? proveOutStake,
+          stake: todaySnapshot?.stake_amount ?? ratchetStake,
           americanOdds: ticketAmericanOdds,
           label: todaySnapshot?.label ?? "Today's card"
         }}
