@@ -31,7 +31,7 @@ from trained_edge_model import (
 )
 
 MODEL_PATH = Path(__file__).resolve().parents[2] / "data" / "model" / "daily_edge.pkl"
-MODEL_VERSION = "daily-auto-v2.9.0-accountable-confidence"
+MODEL_VERSION = "daily-auto-v2.9.1-model-edge-confidence"
 # Bump when the public probability pipeline changes (must match predictions.json).
 PIPELINE_VERSION = "unified-public-v1"
 

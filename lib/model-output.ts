@@ -815,7 +815,6 @@ function normalizePredictionRows(rows: PredictionOutputRow[]): GamePrediction[] 
     const confidence =
       row.confidence ??
       confidenceFromPickProbability(pickProbability, {
-        marketAgrees: row.marketAgrees,
         modelEdge: row.modelEdge,
         starterCertain: row.starterCertain,
       });

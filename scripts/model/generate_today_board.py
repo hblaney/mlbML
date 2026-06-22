@@ -105,7 +105,7 @@ def main() -> None:
         notes = list(prediction.notes)
         notes.append(
             "Unified model output: GBM + Elo/form/stats (incl. starter & series features), "
-            "Accountable confidence: High/Elite require model edge + market agreement (walk-forward calibrated)"
+            "Accountable confidence: High/Elite from model edge + probability (market blend is calibration, not a label gate)"
         )
 
         predicted_team = home_abbr if predicted_home else away_abbr

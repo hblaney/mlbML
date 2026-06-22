@@ -321,20 +321,17 @@ def public_confidence_for(
     model_edge: float = 0.0,
     starter_certain: bool = True,
 ) -> str:
-    """Accountable confidence — High/Elite require real model edge + market agreement.
+    """Accountable confidence from model edge + calibrated probability — not market agreement.
 
     Walk-forward 2026: 60-65% bucket hits 68.4%; 65-70% hits 69.5%.
-    Labels are earned, not threshold-gamed.
+    High/Elite mean the model has real separation; market is input to the blend, not a label gate.
     """
     if not starter_certain:
         return "Medium" if pick_probability >= 0.55 else "Low"
 
-    if market_agrees is None:
-        return "Medium" if pick_probability >= 0.55 else "Low"
-
-    if pick_probability >= 0.63 and market_agrees and model_edge >= 0.10:
+    if pick_probability >= 0.65 and model_edge >= 0.12:
         return "Elite"
-    if pick_probability >= 0.60 and market_agrees and model_edge >= 0.08:
+    if pick_probability >= 0.62 and model_edge >= 0.10:
         return "High"
     if pick_probability >= 0.55:
         return "Medium"
