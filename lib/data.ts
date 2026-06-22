@@ -722,7 +722,10 @@ function isParlayEligibleConfidence(confidence: GamePrediction["confidence"]) {
 }
 
 function isStarterReadyForParlay(game: GamePrediction) {
-  if (game.starterCertain === false || game.pitcherChanged === true) {
+  // Exclude only when a starter is unconfirmed (TBD). A pitcherChanged flag just means a
+  // probable starter differs from the previous board — the current board has already
+  // re-predicted with the now-known starters, so the pick is not stale and stays eligible.
+  if (game.starterCertain === false) {
     return false;
   }
   if (game.seriesFade === true) {
