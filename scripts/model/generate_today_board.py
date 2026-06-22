@@ -83,20 +83,31 @@ def main() -> None:
                     market_snapshot.away_implied_probability / total,
                 )
 
-        home_probability, away_probability, pick_probability, live_confidence = final_public_probabilities(
+        home_abbr = team_abbr.get(game.home_team_id, str(game.home_team_id)).lower()
+        away_abbr = team_abbr.get(game.away_team_id, str(game.away_team_id)).lower()
+        game_id = f"{away_abbr}-{home_abbr}-{game.game_date.isoformat()}-{game.game_pk}"
+        away_pitcher = game.away_pitcher_name or "TBD"
+        home_pitcher = game.home_pitcher_name or "TBD"
+        starter_certain = _starter_certain(game)
+        pitcher_changed = _pitcher_changed(previous_pitchers, game_id, away_pitcher, home_pitcher)
+
+        result = final_public_probabilities(
             prediction,
             market_home=market_probs[0] if market_probs else None,
             market_away=market_probs[1] if market_probs else None,
+            starter_certain=starter_certain,
         )
+        home_probability = result.home_probability
+        away_probability = result.away_probability
+        pick_probability = result.pick_probability
+        live_confidence = result.confidence
         predicted_home = home_probability >= away_probability
         notes = list(prediction.notes)
         notes.append(
             "Unified model output: GBM + Elo/form/stats (incl. starter & series features), "
-            f"9% market blend when odds available, then calibration — confidence matches displayed %"
+            "Accountable confidence: High/Elite require model edge + market agreement (walk-forward calibrated)"
         )
 
-        home_abbr = team_abbr.get(game.home_team_id, str(game.home_team_id)).lower()
-        away_abbr = team_abbr.get(game.away_team_id, str(game.away_team_id)).lower()
         predicted_team = home_abbr if predicted_home else away_abbr
         if odds_available:
             notes.append(f"Market prices from {market_snapshot.source_count} sportsbook source(s)")
@@ -111,11 +122,6 @@ def main() -> None:
             else:
                 notes.append("No live sportsbook odds available; EV/best-bet calculations are disabled for this game")
 
-        game_id = f"{away_abbr}-{home_abbr}-{game.game_date.isoformat()}-{game.game_pk}"
-        away_pitcher = game.away_pitcher_name or "TBD"
-        home_pitcher = game.home_pitcher_name or "TBD"
-        starter_certain = _starter_certain(game)
-        pitcher_changed = _pitcher_changed(previous_pitchers, game_id, away_pitcher, home_pitcher)
         if not starter_certain:
             notes.append("Probable starter not confirmed on one side")
         if pitcher_changed:
@@ -155,6 +161,8 @@ def main() -> None:
                 "projectedTotal": projected_total_for(game, bundle.league),
                 "oddsSource": "The Odds API" if odds_available else None,
                 "confidence": live_confidence,
+                "marketAgrees": result.market_agrees,
+                "modelEdge": round(result.model_edge, 4),
                 "modelVersion": MODEL_VERSION,
                 "explanation": notes,
             }

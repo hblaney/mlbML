@@ -96,10 +96,16 @@ def recompute_and_verify_board(payload: dict | None = None) -> list[str]:
 
         pred = bundle.predict(game)
         market = _market_probs_from_row(row)
-        hp, ap, pick, conf = final_public_probabilities(
+        result = final_public_probabilities(
             pred,
             market_home=market[0] if market else None,
             market_away=market[1] if market else None,
+        )
+        hp, ap, pick, conf = (
+            result.home_probability,
+            result.away_probability,
+            result.pick_probability,
+            result.confidence,
         )
         stored_pick = float(row.get("pickProbability", 0))
         stored_home = float(row.get("modelHomeWinProbability", 0))

@@ -31,7 +31,7 @@ from trained_edge_model import (
 )
 
 MODEL_PATH = Path(__file__).resolve().parents[2] / "data" / "model" / "daily_edge.pkl"
-MODEL_VERSION = "daily-auto-v2.8.2-adaptive-market"
+MODEL_VERSION = "daily-auto-v2.9.0-accountable-confidence"
 # Bump when the public probability pipeline changes (must match predictions.json).
 PIPELINE_VERSION = "unified-public-v1"
 
@@ -191,11 +191,15 @@ def walk_forward_history(
                 if odds_available
                 else None
             )
-            home_probability, away_probability, pick_probability, confidence = final_public_probabilities(
+            result = final_public_probabilities(
                 prediction,
                 market_home=market_probs[0] if market_probs else None,
                 market_away=market_probs[1] if market_probs else None,
             )
+            home_probability = result.home_probability
+            away_probability = result.away_probability
+            pick_probability = result.pick_probability
+            confidence = result.confidence
             predicted_home = home_probability >= away_probability
             actual_winner = home_abbr if game.home_won else away_abbr
             predicted_winner = home_abbr if predicted_home else away_abbr

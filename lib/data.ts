@@ -37,6 +37,10 @@ export type GamePrediction = {
   projectedTotal?: number | null;
   oddsSource?: string | null;
   confidence: "Low" | "Medium" | "High" | "Elite";
+  /** Model agrees with no-vig market on pick side — required for High/Elite. */
+  marketAgrees?: boolean | null;
+  /** Internal model edge |p - 0.5| before public pipeline. */
+  modelEdge?: number;
   modelVersion: string;
   explanation: string[];
   /** False when a probable starter is TBD or changed since the last board refresh. */

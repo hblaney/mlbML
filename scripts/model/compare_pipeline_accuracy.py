@@ -133,12 +133,11 @@ def resolve_probabilities(
         return hp
 
     if pipeline.mode == "blend_sharpen":
-        hp, _, _, _ = final_public_probabilities(
+        return final_public_probabilities(
             prediction,
             market_home=market_home,
             market_away=market_away,
-        )
-        return hp
+        ).home_probability
 
     if pipeline.mode == "blend_sharpen_context":
         hp = prediction.home_probability
