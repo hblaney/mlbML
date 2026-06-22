@@ -3,6 +3,7 @@ import { LIVE_BETTING_STRATEGY } from "@/lib/data";
 import {
   loadAccuracyOutput,
   loadClvOutput,
+  loadModelHealth,
   loadFullPredictionHistory,
   loadLiveBankroll,
   loadLiveModelPerformance,
@@ -83,6 +84,7 @@ function ticketTypeLabel(legCount: number) {
 export default async function HistoryPage() {
   const output = await loadAccuracyOutput();
   const clv = await loadClvOutput();
+  const health = await loadModelHealth();
   const fullHistory = await loadFullPredictionHistory();
   const [strategyGuard, bettingPlan, liveBankroll] = await Promise.all([
     loadStrategyGuard(),
@@ -241,6 +243,77 @@ export default async function HistoryPage() {
               <p className="muted">{archiveGames.toFixed(0)} blended 2025–2026 games</p>
             </article>
           </section>
+
+          {health ? (
+            <section className="panel">
+              <div className="section-heading compact">
+                <div>
+                  <p className="eyebrow">Model Health</p>
+                  <h2>Is the model still calibrated?</h2>
+                </div>
+                <span
+                  className={
+                    health.overall_status === "healthy"
+                      ? "positive"
+                      : health.overall_status === "watch"
+                        ? "warning"
+                        : "warning"
+                  }
+                >
+                  {health.overall_status.toUpperCase()}
+                </span>
+              </div>
+              <p className="lead">
+                A nightly self-check grades the live probability against fixed quality gates on the trailing
+                250 picks — calibration error (ECE), discrimination (AUC), log-loss, and accuracy. If the model
+                ever drifts out of calibration it drops to <strong>watch</strong> or <strong>degraded</strong> here
+                instead of failing silently.
+              </p>
+              <table className="table">
+                <thead>
+                  <tr>
+                    <th>Window</th>
+                    <th>Picks</th>
+                    <th>Accuracy</th>
+                    <th>Log-loss</th>
+                    <th>AUC</th>
+                    <th>ECE</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {Object.entries(health.windows).map(([name, w]) => (
+                    <tr key={name}>
+                      <td>{name}</td>
+                      <td>{w.n}</td>
+                      <td>{formatPercent(w.accuracy)}</td>
+                      <td>{w.log_loss.toFixed(4)}</td>
+                      <td>{w.auc.toFixed(3)}</td>
+                      <td className={w.ece <= 0.06 ? "positive" : w.ece <= 0.1 ? "" : "warning"}>
+                        {w.ece.toFixed(4)}
+                      </td>
+                      <td className={w.status === "healthy" ? "positive" : "warning"}>{w.status}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+              <p className="muted">
+                Recalibration check:{" "}
+                {health.recalibration.verdict === "none_raw_is_calibrated"
+                  ? "raw model is well-calibrated — no correction applied (a Platt fit on a held-out split did not beat it on both log-loss and ECE)."
+                  : health.recalibration.verdict === "apply_platt"
+                    ? "a validated Platt recalibration would improve the held-out split and is recommended."
+                    : `${health.recalibration.verdict}.`}
+                {health.recent_trend.last30_accuracy != null
+                  ? ` Last-30 trend: ${formatPercent(health.recent_trend.last30_accuracy)} (season ${
+                      health.recent_trend.season_accuracy != null
+                        ? formatPercent(health.recent_trend.season_accuracy)
+                        : "-"
+                    }).`
+                  : ""}
+              </p>
+            </section>
+          ) : null}
 
           {clv && clv.overall.n > 0 ? (
             <section className="panel">

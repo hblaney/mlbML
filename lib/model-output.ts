@@ -347,6 +347,47 @@ export async function loadClvOutput(): Promise<ClvOutput | null> {
   }
 }
 
+export type HealthWindow = {
+  n: number;
+  accuracy: number;
+  brier: number;
+  log_loss: number;
+  auc: number;
+  ece: number;
+  status: "healthy" | "watch" | "degraded";
+};
+
+export type ModelHealth = {
+  generated_at: string;
+  live_probability_key: string;
+  overall_status: "healthy" | "watch" | "degraded" | "unknown";
+  recent_trend: {
+    last30_accuracy: number | null;
+    season_accuracy: number | null;
+    note: string;
+  };
+  windows: Record<string, HealthWindow>;
+  recalibration: {
+    verdict: string;
+    holdout_n?: number;
+    raw_log_loss?: number;
+    recal_log_loss?: number;
+    raw_ece?: number;
+    recal_ece?: number;
+  };
+  note: string;
+};
+
+export async function loadModelHealth(): Promise<ModelHealth | null> {
+  try {
+    const filePath = path.join(process.cwd(), "public", "model-health.json");
+    const raw = await readFile(filePath, "utf8");
+    return JSON.parse(raw) as ModelHealth;
+  } catch {
+    return null;
+  }
+}
+
 export async function loadRecommendationPerformance(): Promise<RecommendationPerformanceOutput | null> {
   try {
     const filePath = path.join(process.cwd(), "public", "recommendation-performance.json");
