@@ -1,4 +1,4 @@
-"""Track live system-ticket replay — one trg59_top_prob_2 ticket per day from archived boards."""
+"""Track live system-ticket replay — one high_elite_76_parlay ticket per day from archived boards."""
 
 from __future__ import annotations
 
@@ -13,7 +13,7 @@ from exhaustive_strategy_search import load_moneyline_by_day
 from strategy_next_tests import build_snapshots, enrich_moneyline
 from strategy_research import DAILY_CAP
 
-LIVE_STRATEGY = "trg59_top_prob_2"
+LIVE_STRATEGY = "high_elite_76_parlay"
 STAKE_TIERED = {1: 0.35, 2: 0.45, 3: 0.10}
 FLAT_PROVE_OUT_USD = 5.0
 PROVE_OUT_TICKETS = 5
@@ -705,7 +705,7 @@ def main() -> None:
         "checkpoints": state["checkpoints"],
         "tickets": state.get("tickets", []),
         "tracking_note": (
-            f"{LIVE_STRATEGY} · archived board ticket when available · "
+            f"{LIVE_STRATEGY} · High/Elite picks at 76%+ → 2-leg parlay; else single best High/Elite; skip if none · "
             f"prove-out ${FLAT_PROVE_OUT_USD:.0f} flat × {PROVE_OUT_TICKETS} tickets"
         ),
     }
