@@ -820,13 +820,14 @@ function normalizePredictionRows(rows: PredictionOutputRow[]): GamePrediction[] 
     const homeTeam = normalizeTeamId(row.homeTeam);
     const homeProbability = row.modelHomeWinProbability ?? 0.5;
     const awayProbability = row.modelAwayWinProbability ?? 1 - homeProbability;
-    // Display the calibrated pick probability — this is what the confidence label is computed from,
-    // so the displayed % and the High/Elite label are consistent to the user.
-    // rawPickProbability is kept in the object for internal gate checks (e.g. rawPick >= 0.62).
-    const pickProbability =
-      row.pickProbability ??
-      row.rawPickProbability ??
-      Math.max(homeProbability, awayProbability);
+    // Use calibrated probability when starters are confirmed — it's what the confidence label
+    // is computed from, so the % and High/Elite label stay consistent.
+    // When starters are uncertain (TBD / changed), the calibration was trained on known-starter
+    // games and doesn't apply, so fall back to raw to avoid showing e.g. "84% / Medium".
+    const starterConfirmed = row.starterCertain !== false && row.pitcherChanged !== true;
+    const pickProbability = starterConfirmed
+      ? (row.pickProbability ?? row.rawPickProbability ?? Math.max(homeProbability, awayProbability))
+      : (row.rawPickProbability ?? row.pickProbability ?? Math.max(homeProbability, awayProbability));
 
     // Sanitise corrupted moneyline data before it reaches the UI or ticket logic.
     // Real MLB moneylines stay within ±1500; anything beyond that is a stale or bad API response.
