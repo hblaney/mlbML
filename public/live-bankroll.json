@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-22",
+  "generated_at": "2026-06-23",
   "tracking_mode": "live_best_bets",
   "disclaimer": "Tracks the high_elite_76_parlay ticket — High/Elite picks with market odds only. Ratchet staking: 30%/20% below $200, 20%/15% at $200–$999, 15%/10% at $1k+. Skip days with no qualified picks.",
   "strategy": "high_elite_76_parlay",
@@ -16,33 +16,44 @@
   "daily_exposure_cap": 0.5,
   "started_at": "2026-06-22",
   "starting_balance": 17.0,
-  "balance": 17.0,
-  "wallet_balance": 17.0,
-  "wallet_record": "0-0",
-  "wallet_note": "Ratchet strategy live from Jun 22. Starting at $17 wallet balance.",
-  "profit": 0.0,
-  "return_pct": 0.0,
-  "record": "0-0",
+  "balance": 12.0,
+  "wallet_balance": 12.0,
+  "wallet_record": "0-1",
+  "wallet_note": "Jun 22: 3-leg LAA+CHC+MIA ($5) lost. Wallet $12. Bet only the locked official ticket each day.",
+  "profit": -5.0,
+  "return_pct": -0.2941,
+  "record": "0-1",
   "hit_rate": 0.0,
   "backtest_ticket_hit_rate": 0.58,
-  "last_settled_date": null,
+  "last_settled_date": "2026-06-22",
   "today_ticket": {
-    "date": "2026-06-22",
-    "label": "LAA ML + CHC ML + MIA ML",
-    "legs": [
-      "LAA",
-      "CHC",
-      "MIA"
-    ],
-    "leg_count": 3,
-    "stake_pct": 0.2941,
-    "stake_amount": 5.0,
+    "date": "2026-06-23",
+    "label": "BAL ML",
+    "legs": ["BAL"],
+    "leg_count": 1,
+    "stake_pct": 0.2,
+    "stake_amount": 2.4,
     "status": "pending",
-    "odds": 665,
-    "model_probability": 0.2872,
+    "odds": -141,
+    "model_probability": 0.6274,
     "prove_out": false
   },
   "checkpoints": [],
-  "tickets": [],
-  "tracking_note": "high_elite_76_parlay · High/Elite + market odds only · ratchet staking: 30%/20% <$200, 20%/15% $200-$999, 15%/10% $1k+ · skip if no qualified picks · backtested $25→$29,204 at 65.3% max drawdown"
+  "tickets": [
+    {
+      "date": "2026-06-22",
+      "label": "LAA ML + CHC ML + MIA ML",
+      "legs": ["LAA", "CHC", "MIA"],
+      "leg_count": 3,
+      "stake_pct": 0.2941,
+      "stake_amount": 5.0,
+      "profit": -5.0,
+      "balance_after": 12.0,
+      "won": false,
+      "odds": 665,
+      "model_probability": 0.2872,
+      "note": "User-placed 3-leg (not locked system ticket). MIA lost; parlay dead."
+    }
+  ],
+  "tracking_note": "high_elite_76_parlay · locked official ticket daily · ratchet 30%/20% <$200 · skip if no qualifying picks"
 }
