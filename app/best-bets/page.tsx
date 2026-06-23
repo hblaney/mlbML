@@ -146,11 +146,9 @@ export default async function BestBetsPage() {
       ? `$${value.toLocaleString(undefined, { maximumFractionDigits: 0 })}`
       : `$${value.toFixed(2)}`;
 
-  // Only show the live strategy and its best_ticket reference — hide all legacy strategies.
-  // liveInGuard gates the comparison table: only render once the guard JSON actually tracks
-  // the live strategy (otherwise it would show stale trg59/med60 backtest numbers).
+  // Show live plan vs legacy high_elite side-by-side for comparison.
   const liveInGuard = Boolean(strategyGuard?.comparisons[activeStrategy]);
-  const SHOWN_STRATEGIES = new Set([activeStrategy, "best_ticket"]);
+  const SHOWN_STRATEGIES = new Set([activeStrategy, "best_ticket", "high_elite_76_parlay"]);
   const comparisonRows = strategyGuard
     ? Object.entries(strategyGuard.comparisons)
         .filter(([id]) => SHOWN_STRATEGIES.has(id))
