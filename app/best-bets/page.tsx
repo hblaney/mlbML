@@ -17,8 +17,8 @@ import { formatCentralGameTime } from "@/lib/time";
 export const dynamic = "force-dynamic";
 
 const STRATEGY_LABELS: Record<string, string> = {
-  high_elite_76_parlay: "high_elite_76_parlay (live)",
-  best_ticket: "best_ticket (reference)",
+  high_elite_76_parlay: "high_elite_76_parlay (legacy)",
+  best_ticket: "best_ticket (live · growth)",
 };
 
 export default async function BestBetsPage() {
@@ -552,8 +552,8 @@ export default async function BestBetsPage() {
             <span>Updated {bettingPlan.generated_at}</span>
           </div>
           <p className="lead">
-            High/Elite picks with confirmed market odds <strong>and ≥1% edge over the line</strong> · up to 3 qualifying picks build a parlay (High ≈ 62%+ true win prob, Elite ≈ 67%+)
-            · 1 qualifying pick → single ML · 0 → skip the day · ratchet staking scales the stake down as the bankroll grows.
+            Each day the system picks the highest-scoring qualified 2/3/4-leg parlay or +EV single
+            · growth ratchet <strong>45% parlay / 30% single</strong> below $200 · locks at 11 AM CT.
           </p>
           <ol className="muted">
             {bettingPlan.strategy_rules.map((rule) => (
@@ -632,19 +632,19 @@ export default async function BestBetsPage() {
           </div>
           <div className="grid">
             <article>
-              <p className="muted">$25 → end (ratchet, full season)</p>
-              <div className="metric positive">$29,204</div>
-              <p className="muted">62% min raw pick · High/Elite only</p>
+              <p className="muted">$32 → end (growth compound, honest model)</p>
+              <div className="metric positive">~$8,700</div>
+              <p className="muted">50–31 full season · 28–13 forward proxy · best_ticket plan</p>
             </article>
             <article>
-              <p className="muted">Max drawdown</p>
-              <div className="metric">65.3%</div>
-              <p className="muted">Worst peak-to-trough on the season sim</p>
+              <p className="muted">Typical stake at $32</p>
+              <div className="metric">~$14</div>
+              <p className="muted">45% parlay / 30% single · locks at 11 AM CT</p>
             </article>
           </div>
           <p className="muted">
-            Walk-forward sim of the live plan with ratchet staking. This is a backtest, not your live tracker —
-            real results depend on how many qualified High/Elite picks each day produces.
+            Walk-forward sim on the honest model (no pitcher leakage). Backtest, not a guarantee — requires
+            betting the locked ticket every qualified day and reinvesting wins.
           </p>
 
           {liveInGuard ? (

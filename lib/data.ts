@@ -694,20 +694,20 @@ export function getAdvancedBets(board: GamePrediction[] = predictions): Advanced
   ];
 }
 
-// Leg-probability floors are on the TRUE calibrated scale (High >= 0.62, Medium >= 0.57).
-const SAFE_PARLAY_MIN_LEG_PROBABILITY = 0.62;
+// Leg-probability floors are on the TRUE calibrated scale (High >= 0.64, Medium >= 0.57).
+const SAFE_PARLAY_MIN_LEG_PROBABILITY = 0.64;
 const SAFE_PARLAY_MIN_LEG_EDGE = 0.05;
 const SAFE_PARLAY_MIN_BOOK_PROBABILITY = 0.50;
 /** Live site parlays: stricter legs than backtest pool — no forced pairings. */
 const LIVE_PARLAY_MIN_LEG_EDGE = 0.06;
 const LIVE_PARLAY_MIN_BOOK_PROBABILITY = 0.50;
-const LIVE_PARLAY_HIGH_ELITE_MIN_PROBABILITY = 0.62;
+const LIVE_PARLAY_HIGH_ELITE_MIN_PROBABILITY = 0.64;
 const LIVE_PARLAY_MEDIUM_MIN_PROBABILITY = 0.57;
 const LIVE_PARLAY_MIN_COMBINED_PROBABILITY_2 = 0.34;
 const LIVE_PARLAY_MIN_COMBINED_PROBABILITY_3 = 0.20;
 const LIVE_PARLAY_MIN_HIGH_ELITE_LEGS_2 = 1;
 const LIVE_PARLAY_MIN_HIGH_ELITE_LEGS_3 = 2;
-const ANCHOR_PARLAY_MIN_CONFIDENCE_PROBABILITY = 0.62;
+const ANCHOR_PARLAY_MIN_CONFIDENCE_PROBABILITY = 0.64;
 const ANCHOR_PARLAY_MIN_BOOK_PROBABILITY = 0.50;
 const ANCHOR_PARLAY_MIN_LEG_EV = -2;
 const PREMIUM_PARLAY_MIN_COMBINED_PROBABILITY = 0.20;
@@ -749,8 +749,8 @@ export const TRG59_MIN_COMBINED_PROBABILITY = 0.34;
 /** @deprecated use TRG59_FORCE_PARLAY_MIN_PROBABILITY */
 export const MED60_FORCE_PARLAY_MIN_PROBABILITY = TRG59_FORCE_PARLAY_MIN_PROBABILITY;
 
-/** Live plan: high_elite_76_parlay — parlay the day's High/Elite picks (up to 3 legs); single best High/Elite if only one; skip if none. */
-export const LIVE_BETTING_STRATEGY = "high_elite_76_parlay";
+/** Live plan: best_ticket — highest-scoring 2/3/4-leg parlay or +EV single each day (growth compound). */
+export const LIVE_BETTING_STRATEGY = "best_ticket";
 const USE_PARLAY_CORRELATION_FILTER = false;
 const PARLAY_CORRELATION_WINDOW_MINUTES = 60;
 
@@ -916,10 +916,10 @@ export function getOptimizedStakePctForTicket(
 /**
  * Ratchet staking: scale down stake % as bankroll grows to protect gains.
  *
- * Tiers (backtested Jun 22, $25→$29,204 at 65.3% max drawdown):
- *   $0–$199:    30% parlay / 20% single  — maximum growth
- *   $200–$999:  20% parlay / 15% single  — moderate, protect early gains
- *   $1,000+:    15% parlay / 10% single  — conservative, lock in profits
+ * Tiers (Jun 23 — growth compound plan for small bankrolls):
+ *   $0–$199:    45% parlay / 30% single  — max compound on qualified tickets
+ *   $200–$999:  35% parlay / 25% single  — protect early gains
+ *   $1,000+:    20% parlay / 15% single  — lock in profits
  */
 export function getRatchetStakePct(
   balance: number,
@@ -927,9 +927,9 @@ export function getRatchetStakePct(
   ratchetTiers?: Array<{ min_balance: number; max_balance: number | null; parlay_pct: number; single_pct: number }>
 ): number {
   const tiers = ratchetTiers ?? [
-    { min_balance: 0,    max_balance: 199,  parlay_pct: 0.30, single_pct: 0.20 },
-    { min_balance: 200,  max_balance: 999,  parlay_pct: 0.20, single_pct: 0.15 },
-    { min_balance: 1000, max_balance: null, parlay_pct: 0.15, single_pct: 0.10 },
+    { min_balance: 0,    max_balance: 199,  parlay_pct: 0.45, single_pct: 0.30 },
+    { min_balance: 200,  max_balance: 999,  parlay_pct: 0.35, single_pct: 0.25 },
+    { min_balance: 1000, max_balance: null, parlay_pct: 0.20, single_pct: 0.15 },
   ];
   const tier = [...tiers]
     .reverse()
@@ -1607,8 +1607,7 @@ export function getMed60ForceTwo223sTicket(board: GamePrediction[] = predictions
  * 1. Only High and Elite picks with confirmed market odds qualify.
  *    High ≈ genuinely wins 62%+, Elite ≈ 67%+ (gated by starter ERA edge / team form).
  * 2. 3 qualifying picks → 3-leg parlay; 2 → 2-leg parlay (sorted by win prob).
- * 3. If only 1 qualifying pick → single ML bet on that pick.
- * 4. If no High/Elite picks with market odds → no bet today (skip).
+ * 3. If only 1 qualifying pick (or none) → skip, no bet today.
  */
 export function getHighElite76ParlayTicket(board: GamePrediction[] = predictions): DailyTicket | null {
   if (!boardHasMarketOdds(board)) {
@@ -1649,7 +1648,6 @@ export function getHighElite76ParlayTicket(board: GamePrediction[] = predictions
     if (legs.length === 3) break;
   }
 
-  // Legs are already gated to High/Elite + market odds, so they all qualify:
   // 3 High/Elite picks → 3-leg parlay; 2 → 2-leg parlay; 1 → single.
   if (legs.length >= 3) {
     const parlay = buildParlayCandidate(legs.slice(0, 3));
@@ -1662,7 +1660,6 @@ export function getHighElite76ParlayTicket(board: GamePrediction[] = predictions
     return { kind: "parlay", parlay, score: parlay.score, qualified: true };
   }
 
-  // Single best High/Elite
   const best = legs[0];
   return {
     kind: "single",
@@ -1672,9 +1669,13 @@ export function getHighElite76ParlayTicket(board: GamePrediction[] = predictions
   };
 }
 
-/** Daily ticket: one system bet per day. */
+/** Daily ticket: one system bet per day — best_ticket growth plan. */
 export function getBestDailyTicket(board: GamePrediction[] = predictions): DailyTicket | null {
-  return getHighElite76ParlayTicket(board);
+  const ticket = getBestTicketDailyTicket(board);
+  if (ticket?.kind === "parlay") {
+    ticket.parlay.strategy = "best_ticket";
+  }
+  return ticket;
 }
 
 export function getDailyParlayTickets(board: GamePrediction[] = predictions) {

@@ -154,14 +154,34 @@ def build() -> dict:
     recent_acc = round(sum(int(r["correct"]) for r in recent) / len(recent), 4) if recent else None
     season_acc = graded_windows["season"]["accuracy"] if "season" in graded_windows else None
 
+    # Bettable tier: High/Elite picks are what the live strategy uses — all-picks last-30
+    # often has zero H/E and misleads (e.g. 43% when only Low/Medium games graded recently).
+    bettable = [r for r in graded if r.get("confidence") in ("High", "Elite")]
+    recent_bettable = bettable[-30:]
+    recent_bettable_acc = (
+        round(sum(int(r["correct"]) for r in recent_bettable) / len(recent_bettable), 4)
+        if recent_bettable
+        else None
+    )
+    season_bettable_acc = (
+        round(sum(int(r["correct"]) for r in bettable) / len(bettable), 4) if bettable else None
+    )
+
     return {
         "generated_at": datetime.now(timezone.utc).isoformat(),
         "live_probability_key": LIVE_KEY,
         "overall_status": primary["status"] if primary else "unknown",
         "recent_trend": {
             "last30_accuracy": recent_acc,
+            "last30_high_elite_accuracy": recent_bettable_acc,
+            "last30_high_elite_n": len(recent_bettable),
             "season_accuracy": season_acc,
-            "note": "Last-30 is shown for trend only; too small to grade calibration/AUC on.",
+            "season_high_elite_accuracy": season_bettable_acc,
+            "season_high_elite_n": len(bettable),
+            "note": (
+                "Last-30 all-picks is trend-only and includes Low/Medium games we do not bet. "
+                "Use last30_high_elite for live-strategy form."
+            ),
         },
         "gates_def": {
             "ece_healthy": ECE_HEALTHY, "ece_watch": ECE_WATCH,

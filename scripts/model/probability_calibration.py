@@ -17,11 +17,11 @@ from __future__ import annotations
 
 # Confidence thresholds on the TRUE probability scale, derived from actual
 # walk-forward win rates by raw-probability bucket:
-#   raw 0.57-0.62 -> ~57-60% won   (Medium)
-#   raw 0.62-0.67 -> ~60-69% won   (High, with starter/form gate)
+#   raw 0.57-0.64 -> ~57-64% won   (Medium)
+#   raw 0.64-0.67 -> ~67-70% won   (High, with starter/form gate) — raised from 0.62 Jun 2026
 #   raw 0.67+     -> ~69-74% won   (Elite, with stronger gate)
 MEDIUM_MIN = 0.57
-HIGH_MIN_RAW_PICK = 0.62
+HIGH_MIN_RAW_PICK = 0.64
 ELITE_MIN_RAW_PICK = 0.67
 # Picks with an unconfirmed starter or no market price can't earn High/Elite.
 UNCERTAIN_MEDIUM_MIN = 0.60

@@ -304,13 +304,17 @@ export default async function HistoryPage() {
                   : health.recalibration.verdict === "apply_platt"
                     ? "a validated Platt recalibration would improve the held-out split and is recommended."
                     : `${health.recalibration.verdict}.`}
-                {health.recent_trend.last30_accuracy != null
-                  ? ` Last-30 trend: ${formatPercent(health.recent_trend.last30_accuracy)} (season ${
-                      health.recent_trend.season_accuracy != null
-                        ? formatPercent(health.recent_trend.season_accuracy)
-                        : "-"
-                    }).`
-                  : ""}
+                {health.recent_trend.last30_high_elite_accuracy != null
+                  ? ` High/Elite last-${health.recent_trend.last30_high_elite_n}: ${formatPercent(
+                      health.recent_trend.last30_high_elite_accuracy
+                    )}${
+                      health.recent_trend.season_high_elite_accuracy != null
+                        ? ` (season H/E ${formatPercent(health.recent_trend.season_high_elite_accuracy)}, n=${health.recent_trend.season_high_elite_n})`
+                        : ""
+                    }.`
+                  : health.recent_trend.last30_accuracy != null
+                    ? ` Last-30 all picks: ${formatPercent(health.recent_trend.last30_accuracy)} (includes Low/Medium we do not bet).`
+                    : ""}
               </p>
             </section>
           ) : null}

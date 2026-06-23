@@ -1,11 +1,15 @@
 {
-  "generated_at": "2026-06-23T16:41:13.703838+00:00",
+  "generated_at": "2026-06-23T17:16:46.414196+00:00",
   "live_probability_key": "rawPickProbability",
   "overall_status": "healthy",
   "recent_trend": {
     "last30_accuracy": 0.4333,
+    "last30_high_elite_accuracy": 0.8,
+    "last30_high_elite_n": 30,
     "season_accuracy": 0.5748,
-    "note": "Last-30 is shown for trend only; too small to grade calibration/AUC on."
+    "season_high_elite_accuracy": 0.6887,
+    "season_high_elite_n": 485,
+    "note": "Last-30 all-picks is trend-only and includes Low/Medium games we do not bet. Use last30_high_elite for live-strategy form."
   },
   "gates_def": {
     "ece_healthy": 0.06,

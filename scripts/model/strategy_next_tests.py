@@ -206,12 +206,7 @@ def day_actions_high_elite_parlay(
     candidates: list[dict], *, min_edge: float = 0.0, require_positive_ev: bool = False
 ) -> list[DayAction]:
     """Live strategy: parlay the day's High/Elite market-backed picks (up to 3 legs);
-    single ML on the one pick if only one qualifies; skip the day if none do.
-
-    With min_edge > 0, a leg only qualifies if the model's probability beats the
-    no-vig market implied probability by at least that margin (genuine value only).
-    With require_positive_ev, a leg must clear the vig-included price (ev > 0) — the
-    standard "never bet a negative-EV leg" rail."""
+    single ML on the one pick if only one qualifies; skip the day if none do."""
     pool = [
         c
         for c in model_pick_candidates(candidates)

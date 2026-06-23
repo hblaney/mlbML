@@ -5,7 +5,7 @@
 import type { GamePrediction } from "./data";
 
 export const CONFIDENCE_MEDIUM_MIN = 0.57;
-export const CONFIDENCE_HIGH_MIN = 0.62;
+export const CONFIDENCE_HIGH_MIN = 0.64;
 export const CONFIDENCE_ELITE_MIN = 0.67;
 // Unconfirmed starter or no market price can't earn above Medium.
 export const CONFIDENCE_UNCERTAIN_MEDIUM_MIN = 0.6;
@@ -17,7 +17,7 @@ export const HIGH_ERA_DIFF_MIN = 1.5;
 export const HIGH_FORM_EDGE_MIN = 0.10;
 export const ELITE_ERA_DIFF_MIN = 2.5;
 export const ELITE_FORM_EDGE_MIN = 0.08;
-export const HIGH_MIN_RAW_PICK = 0.62;
+export const HIGH_MIN_RAW_PICK = 0.64;
 export const ELITE_MIN_RAW_PICK = 0.67;
 
 export type ConfidenceContext = {

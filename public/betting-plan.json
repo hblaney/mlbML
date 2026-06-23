@@ -1,31 +1,45 @@
 {
-  "generated_at": "2026-06-22",
-  "strategy": "high_elite_76_parlay",
+  "generated_at": "2026-06-23",
+  "strategy": "best_ticket",
   "strategy_rules": [
-    "Probabilities shown are the model's TRUE calibrated win probability — no display inflation (pitcher stats are point-in-time, no lookahead)",
-    "Only High (≈62%+ true win prob) and Elite (≈67%+) picks with confirmed market odds (|ML| ≤ 1500) qualify",
-    "Value gate: a leg must also beat the market's implied price by ≥1% edge (model win prob − book implied) — only genuine value, no thin-edge legs",
-    "Up to 3 qualifying picks → parlay (3-leg / 2-leg, sorted by win probability)",
-    "1 qualifying pick → single ML bet on the best pick",
-    "0 qualifying picks → skip, no bet today",
-    "Official ticket locks at the first 11 AM CT publish — it never changes later in the day even if the model retrains",
-    "Ratchet staking: stake % automatically scales down as bankroll grows to protect gains"
+    "Probabilities are the model's TRUE calibrated win probability — no display inflation (pitcher stats point-in-time)",
+    "Each day: pick the highest-scoring ticket among qualified 2/3/4-leg parlays or a +EV single",
+    "Parlay legs must pass edge/probability gates; 3-leg+ requires multiple High/Elite anchors",
+    "Singles only when they score higher than any qualified parlay that day",
+    "Official ticket locks at first 11 AM CT publish — never changes later in the day",
+    "Growth ratchet: 45% parlay / 30% single below $200, steps down as bankroll grows"
   ],
   "stake_by_leg_count": {
-    "1": 0.2,
-    "2": 0.3,
-    "3": 0.3
+    "1": 0.30,
+    "2": 0.45,
+    "3": 0.45,
+    "4": 0.45
   },
   "ratchet_tiers": [
-    { "min_balance": 0,    "max_balance": 199,  "parlay_pct": 0.30, "single_pct": 0.20 },
-    { "min_balance": 200,  "max_balance": 999,  "parlay_pct": 0.20, "single_pct": 0.15 },
-    { "min_balance": 1000, "max_balance": null,  "parlay_pct": 0.15, "single_pct": 0.10 }
+    { "min_balance": 0,    "max_balance": 199,  "parlay_pct": 0.45, "single_pct": 0.30 },
+    { "min_balance": 200,  "max_balance": 999,  "parlay_pct": 0.35, "single_pct": 0.25 },
+    { "min_balance": 1000, "max_balance": null,  "parlay_pct": 0.20, "single_pct": 0.15 }
   ],
-  "flat_stake_fallback": 0.2,
+  "flat_stake_fallback": 0.3,
   "daily_exposure_cap": 0.5,
   "backtest_period": {
     "start": "2026-03-20",
-    "end": "2026-06-21"
+    "end": "2026-06-22"
   },
-  "retuned_from": "Jun 22 — pitcher-leakage fix (honest model) + value gate; honest 2026 walk-forward $17→~$4.3k at 35-22 / 74% flat ROI (ungated baseline 33-25 / 59%)"
+  "backtest_compound": {
+    "from_32_forward": {
+      "starting_bankroll": 32,
+      "end": 8727,
+      "record": "28-13",
+      "bet_days": 41,
+      "note": "Honest model walk-forward, growth 30/45 stakes, rest-of-season proxy"
+    },
+    "from_32_full_season": {
+      "starting_bankroll": 32,
+      "end": 20791,
+      "record": "50-31",
+      "bet_days": 81
+    }
+  },
+  "retuned_from": "Jun 23 — switched live plan to best_ticket + growth stakes (45% parlay) for compound path to thousands on honest model"
 }

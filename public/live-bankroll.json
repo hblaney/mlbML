@@ -1,43 +1,32 @@
 {
   "generated_at": "2026-06-23",
   "tracking_mode": "live_best_bets",
-  "disclaimer": "Tracks the high_elite_76_parlay ticket — High/Elite picks with market odds only. Ratchet staking: 30%/20% below $200, 20%/15% at $200–$999, 15%/10% at $1k+. Skip days with no qualified picks.",
-  "strategy": "high_elite_76_parlay",
+  "disclaimer": "Tracks best_ticket — highest-scoring parlay or +EV single daily. Growth stakes: 45% parlay / 30% single below $200.",
+  "strategy": "best_ticket",
   "staking": "ratchet",
   "ratchet_tiers": [
-    { "min_balance": 0,    "max_balance": 199,  "parlay_pct": 0.30, "single_pct": 0.20 },
-    { "min_balance": 200,  "max_balance": 999,  "parlay_pct": 0.20, "single_pct": 0.15 },
-    { "min_balance": 1000, "max_balance": null,  "parlay_pct": 0.15, "single_pct": 0.10 }
+    { "min_balance": 0,    "max_balance": 199,  "parlay_pct": 0.45, "single_pct": 0.30 },
+    { "min_balance": 200,  "max_balance": 999,  "parlay_pct": 0.35, "single_pct": 0.25 },
+    { "min_balance": 1000, "max_balance": null,  "parlay_pct": 0.20, "single_pct": 0.15 }
   ],
   "prove_out": {
     "active": false,
     "mode": "compound"
   },
   "daily_exposure_cap": 0.5,
-  "started_at": "2026-06-22",
-  "starting_balance": 17.0,
-  "balance": 12.0,
-  "wallet_balance": 12.0,
-  "wallet_record": "0-1",
-  "wallet_note": "Jun 22: 3-leg LAA+CHC+MIA ($5) lost. Wallet $12. Bet only the locked official ticket each day.",
-  "profit": -5.0,
-  "return_pct": -0.2941,
-  "record": "0-1",
-  "hit_rate": 0.0,
-  "backtest_ticket_hit_rate": 0.58,
-  "last_settled_date": "2026-06-22",
-  "today_ticket": {
-    "date": "2026-06-23",
-    "label": "BAL ML",
-    "legs": ["BAL"],
-    "leg_count": 1,
-    "stake_pct": 0.2,
-    "stake_amount": 2.4,
-    "status": "pending",
-    "odds": -141,
-    "model_probability": 0.6274,
-    "prove_out": false
-  },
+  "started_at": "2026-06-23",
+  "starting_balance": 32.0,
+  "balance": 32.0,
+  "wallet_balance": 32.0,
+  "wallet_record": "0-0",
+  "wallet_note": "Fresh start: $12 + $20 depo. best_ticket growth plan — bet ONLY the locked official ticket.",
+  "profit": 0.0,
+  "return_pct": 0.0,
+  "record": "0-0",
+  "hit_rate": null,
+  "backtest_ticket_hit_rate": 0.62,
+  "last_settled_date": null,
+  "today_ticket": null,
   "checkpoints": [],
   "tickets": [
     {
@@ -52,8 +41,8 @@
       "won": false,
       "odds": 665,
       "model_probability": 0.2872,
-      "note": "User-placed 3-leg (not locked system ticket). MIA lost; parlay dead."
+      "note": "Pre-plan loss (off-script 3-leg). Not counted in 0-0 fresh start."
     }
   ],
-  "tracking_note": "high_elite_76_parlay · locked official ticket daily · ratchet 30%/20% <$200 · skip if no qualifying picks"
+  "tracking_note": "best_ticket · locked official ticket · growth 45%/30% <$200 · compound target"
 }

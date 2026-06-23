@@ -363,7 +363,11 @@ export type ModelHealth = {
   overall_status: "healthy" | "watch" | "degraded" | "unknown";
   recent_trend: {
     last30_accuracy: number | null;
+    last30_high_elite_accuracy: number | null;
+    last30_high_elite_n: number;
     season_accuracy: number | null;
+    season_high_elite_accuracy: number | null;
+    season_high_elite_n: number;
     note: string;
   };
   windows: Record<string, HealthWindow>;

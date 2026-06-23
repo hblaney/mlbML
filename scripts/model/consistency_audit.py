@@ -24,7 +24,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 PUBLIC = ROOT / "public"
-LIVE_STRATEGY = "high_elite_76_parlay"
+LIVE_STRATEGY = "best_ticket"
 PROB_TOL = 1e-6
 RECENT_DAYS = 21
 
