@@ -8,6 +8,7 @@
     "Up to 3 qualifying picks → parlay (3-leg / 2-leg, sorted by win probability)",
     "1 qualifying pick → single ML bet on the best pick",
     "0 qualifying picks → skip, no bet today",
+    "Official ticket locks at the first 11 AM CT publish — it never changes later in the day even if the model retrains",
     "Ratchet staking: stake % automatically scales down as bankroll grows to protect gains"
   ],
   "stake_by_leg_count": {

@@ -1,0 +1,12 @@
+{
+  "date": "2026-06-22",
+  "locked_at": "2026-06-22T22:30:00Z",
+  "note": "Pre-lock-system day: model was pushed multiple times after the morning board, so confidence labels changed after bets were placed. Ticket locking now runs automatically at the first 11 AM CT publish starting 2026-06-23.",
+  "source": "retroactive-placeholder",
+  "ticket": {
+    "kind": "skip",
+    "label": "No frozen official ticket (Jun 22 — pre-lock deploy)",
+    "legs": [],
+    "leg_count": 0
+  }
+}

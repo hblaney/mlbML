@@ -8,7 +8,7 @@ import {
   OPTIMIZED_STAKE_BY_LEG_COUNT,
   LIVE_BETTING_STRATEGY
 } from "@/lib/data";
-import { loadPredictionBoard, loadBettingPlan, loadLiveBankroll, loadStrategyGuard, loadBestTicketWalkforward, loadPredictionBoardMetadata, loadAccuracyOutput, loadModelHealth } from "@/lib/model-output";
+import { loadPredictionBoard, loadBettingPlan, loadLiveBankroll, loadStrategyGuard, loadBestTicketWalkforward, loadPredictionBoardMetadata, loadAccuracyOutput, loadModelHealth, loadLockedTicket } from "@/lib/model-output";
 import { confidenceFromPickProbability } from "@/lib/confidence";
 import { formatOdds, formatPercent } from "@/lib/odds";
 import { formatStandingRecord, loadLiveStandings } from "@/lib/standings";
@@ -26,13 +26,14 @@ export default async function BestBetsPage() {
   const boardMeta = await loadPredictionBoardMetadata();
   const standings = await loadLiveStandings();
   const standingsByTeamId = new Map(standings.map((standing) => [standing.teamId, standing]));
-  const [bettingPlan, strategyGuard, liveBankroll, ticketWalkforward, accuracyOutput, modelHealth] = await Promise.all([
+  const [bettingPlan, strategyGuard, liveBankroll, ticketWalkforward, accuracyOutput, modelHealth, lockedTicket] = await Promise.all([
     loadBettingPlan(),
     loadStrategyGuard(),
     loadLiveBankroll(),
     loadBestTicketWalkforward(),
     loadAccuracyOutput(),
-    loadModelHealth()
+    loadModelHealth(),
+    loadLockedTicket()
   ]);
   const bets = getBestBets(board);
   const advancedBets = getAdvancedBets(board);
@@ -53,12 +54,6 @@ export default async function BestBetsPage() {
   const stakeParlay3 = ratchetTiers
     ? getRatchetStakePct(bankroll, 3, ratchetTiers)
     : (stakeByLeg?.["3"] ?? OPTIMIZED_STAKE_BY_LEG_COUNT[3]);
-  const ticketLegCount = bestTicket
-    ? (bestTicket.kind === "single" ? 1 : bestTicket.parlay.legCount)
-    : 2;
-  const ticketStakePct = ratchetTiers
-    ? getRatchetStakePct(bankroll, ticketLegCount, ratchetTiers)
-    : getOptimizedStakePctForTicket(bestTicket, stakeByLeg);
   const ratchetLabel = ratchetTiers
     ? (() => {
         const tier = [...ratchetTiers].reverse().find(t => bankroll >= t.min_balance) ?? ratchetTiers[0];
@@ -83,6 +78,34 @@ export default async function BestBetsPage() {
 
   // ── Live system status (so a stale board is obvious before you bet) ──────────
   const centralToday = new Intl.DateTimeFormat("en-CA", { timeZone: "America/Chicago" }).format(new Date());
+  const officialLock = lockedTicket?.date === centralToday ? lockedTicket : null;
+  const officialTicket = officialLock?.ticket ?? null;
+  const lockedAtLabel = officialLock?.locked_at
+    ? new Intl.DateTimeFormat("en-US", {
+        timeZone: "America/Chicago",
+        month: "short",
+        day: "numeric",
+        hour: "numeric",
+        minute: "2-digit",
+      }).format(new Date(officialLock.locked_at))
+    : null;
+  const liveTicketLabel = bestTicket
+    ? bestTicket.kind === "single"
+      ? `${bestTicket.bet.team.abbreviation} ML`
+      : bestTicket.parlay.legs.map((leg) => `${leg.team.abbreviation} ML`).join(" + ")
+    : null;
+  const ticketMismatch =
+    officialTicket &&
+    officialTicket.kind !== "skip" &&
+    liveTicketLabel &&
+    officialTicket.label !== liveTicketLabel;
+  const displayLegCount = officialTicket?.leg_count ?? (bestTicket
+    ? (bestTicket.kind === "single" ? 1 : bestTicket.parlay.legCount)
+    : 2);
+  const ticketLegCount = displayLegCount;
+  const ticketStakePct = ratchetTiers
+    ? getRatchetStakePct(bankroll, ticketLegCount, ratchetTiers)
+    : getOptimizedStakePctForTicket(bestTicket, stakeByLeg);
   const boardIsToday = boardMeta.generated_at === centralToday;
   const STALE_AGE_MIN = 180; // 3h without a refresh during the day = something is off
   const freshness: "fresh" | "aging" | "stale" = !boardIsToday
@@ -287,7 +310,84 @@ export default async function BestBetsPage() {
         ) : null}
       </section>
 
-      {bestTicket ? (
+      {officialTicket ? (
+        <section className="panel strong">
+          <div className="section-heading compact">
+            <div>
+              <p className="eyebrow">Official ticket — locked</p>
+              <h2>
+                {officialTicket.kind === "skip"
+                  ? "No bet today"
+                  : officialTicket.kind === "single"
+                    ? "Single Moneyline"
+                    : officialTicket.leg_count === 3
+                      ? "Premium 3-Leg Parlay"
+                      : "2-Leg Parlay"}
+              </h2>
+            </div>
+            <span className="positive">LOCKED{lockedAtLabel ? ` ${lockedAtLabel} CT` : ""}</span>
+          </div>
+          <p className="muted">
+            This is the <strong>only</strong> card to bet from today. It was frozen at the first morning publish and
+            will <strong>not</strong> change when the model retrains or the board refreshes later in the day.
+            {officialLock?.model_version ? ` Model at lock: ${officialLock.model_version}.` : ""}
+          </p>
+          {ticketMismatch ? (
+            <p className="warning">
+              The live board currently shows a different ticket ({liveTicketLabel}). Ignore that — bet{" "}
+              <strong>{officialTicket.label}</strong> only (what was locked this morning).
+            </p>
+          ) : null}
+          {officialTicket.kind === "skip" ? (
+            <p className="lead">No High/Elite picks with edge qualified at lock time. Skip today.</p>
+          ) : (
+            <>
+              <p className="muted">
+                <strong>{officialTicket.label}</strong> · stake{" "}
+                <strong>{formatBankroll(bankroll * ticketStakePct)}</strong> ({formatPercent(ticketStakePct)} of{" "}
+                {formatBankroll(bankroll)})
+              </p>
+              {officialTicket.leg_details && officialTicket.leg_details.length > 0 ? (
+                <table className="table">
+                  <thead>
+                    <tr>
+                      <th>Leg</th>
+                      <th>Conf</th>
+                      <th>Odds</th>
+                      <th>Model</th>
+                      <th>Edge</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {officialTicket.leg_details.map((leg) => (
+                      <tr key={leg.team}>
+                        <td>
+                          <strong>{leg.team} ML</strong>
+                          <p className="muted">{leg.matchup}</p>
+                        </td>
+                        <td>{leg.confidence}</td>
+                        <td>{formatOdds(leg.odds)}</td>
+                        <td>{formatPercent(leg.pickProbability)}</td>
+                        <td className={leg.edge > 0 ? "positive" : "warning"}>{formatPercent(leg.edge)}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              ) : (
+                <p className="lead">{officialTicket.legs.join(" + ")}</p>
+              )}
+              {officialTicket.model_probability != null && officialTicket.odds != null ? (
+                <p className="muted">
+                  Combined {formatPercent(officialTicket.model_probability)} at{" "}
+                  {formatOdds(officialTicket.odds)}
+                </p>
+              ) : null}
+            </>
+          )}
+        </section>
+      ) : null}
+
+      {!officialTicket && bestTicket ? (
         <section className="panel strong">
           <div className="section-heading compact">
             <div>

@@ -707,6 +707,47 @@ export async function loadBettingPlan() {
   }
 }
 
+export type LockedTicketLeg = {
+  team: string;
+  matchup: string;
+  confidence: string;
+  pickProbability: number;
+  edge: number;
+  odds: number;
+  startsAt: string;
+};
+
+export type LockedDailyTicket = {
+  kind: "single" | "parlay" | "skip";
+  label: string;
+  legs: string[];
+  leg_count: number;
+  odds?: number | null;
+  model_probability?: number | null;
+  leg_details?: LockedTicketLeg[];
+};
+
+export type LockedTicketOutput = {
+  date: string;
+  locked_at: string;
+  board_generated_at?: string;
+  model_version?: string;
+  pipeline_version?: string;
+  source?: string;
+  note?: string;
+  ticket: LockedDailyTicket;
+};
+
+export async function loadLockedTicket(): Promise<LockedTicketOutput | null> {
+  try {
+    const filePath = path.join(process.cwd(), "public", "locked-ticket.json");
+    const raw = await readFile(filePath, "utf8");
+    return JSON.parse(raw) as LockedTicketOutput;
+  } catch {
+    return null;
+  }
+}
+
 export type BestTicketWalkforwardLeg = {
   team: string;
   matchup: string;

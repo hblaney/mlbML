@@ -91,12 +91,15 @@ jobs:
       - name: Consistency audit (blocks a bad push)
         run: python3 scripts/model/consistency_audit.py
 
+      - name: Lock official daily ticket (first publish wins)
+        run: python3 scripts/model/lock_daily_ticket.py
+
       - name: Commit and push refreshed board
         run: |
           set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add public/predictions.json public/live-bankroll.json public/prediction-history.json public/accuracy.json public/model-health.json data/live-bankroll-state.json data/model/daily_edge.pkl
+          git add public/predictions.json public/live-bankroll.json public/prediction-history.json public/accuracy.json public/model-health.json public/locked-ticket.json data/locked-tickets/*.json data/live-bankroll-state.json data/model/daily_edge.pkl
           if git diff --staged --quiet; then
             echo "Board unchanged since last refresh (lines/probabilities identical)."
             exit 0

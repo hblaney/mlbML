@@ -141,6 +141,34 @@ def check_live_bankroll_sanity() -> list[str]:
     return errors
 
 
+def check_locked_ticket() -> list[str]:
+    """Today's board must have a frozen official ticket once the morning publish runs."""
+    errors: list[str] = []
+    board = _load("predictions.json")
+    lock = _load("locked-ticket.json")
+    if not board:
+        return errors
+    today = board.get("generated_at")
+    if not today:
+        return errors
+    if lock and lock.get("date") == today:
+        ticket = lock.get("ticket") or {}
+        if not ticket.get("label"):
+            errors.append("locked-ticket.json missing ticket.label for today")
+        return errors
+    # No lock yet — only fail after the primary publish window (noon CT) so early
+    # morning runs don't false-alarm before the 11 AM lock.
+    from datetime import datetime
+    from zoneinfo import ZoneInfo
+
+    now_ct = datetime.now(ZoneInfo("America/Chicago"))
+    if now_ct.date().isoformat() == today and now_ct.hour >= 12:
+        errors.append(
+            f"locked-ticket.json missing for board date {today} — official daily ticket was never frozen"
+        )
+    return errors
+
+
 def main() -> None:
     predictions = _load("predictions.json")
     errors: list[str] = []
@@ -151,6 +179,7 @@ def main() -> None:
     errors += check_history_continuity()
     errors += check_strategy_labels()
     errors += check_live_bankroll_sanity()
+    errors += check_locked_ticket()
 
     health = _load("model-health.json")
     status = health.get("overall_status") if isinstance(health, dict) else "unknown"
