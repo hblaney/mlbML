@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-06-22T21:01:08.502762+00:00",
+  "generated_at": "2026-06-23T16:41:13.703838+00:00",
   "live_probability_key": "rawPickProbability",
   "overall_status": "healthy",
   "recent_trend": {
-    "last30_accuracy": 0.5333,
-    "season_accuracy": 0.5754,
+    "last30_accuracy": 0.4333,
+    "season_accuracy": 0.5748,
     "note": "Last-30 is shown for trend only; too small to grade calibration/AUC on."
   },
   "gates_def": {
@@ -18,35 +18,35 @@
     "last100": {
       "key": "rawPickProbability",
       "n": 100,
-      "accuracy": 0.6,
-      "brier": 0.2412,
-      "log_loss": 0.6753,
-      "auc": 0.5112,
-      "ece": 0.0607,
+      "accuracy": 0.56,
+      "brier": 0.2475,
+      "log_loss": 0.688,
+      "auc": 0.5081,
+      "ece": 0.0667,
       "calibration": [
         {
           "lo": 0.5,
           "hi": 0.55,
-          "n": 43,
-          "mean_pred": 0.5296,
-          "actual": 0.5814,
-          "gap": -0.0518
+          "n": 40,
+          "mean_pred": 0.5306,
+          "actual": 0.55,
+          "gap": -0.0194
         },
         {
           "lo": 0.55,
           "hi": 0.6,
-          "n": 22,
-          "mean_pred": 0.5739,
-          "actual": 0.5909,
-          "gap": -0.0171
+          "n": 26,
+          "mean_pred": 0.5748,
+          "actual": 0.5769,
+          "gap": -0.0021
         },
         {
           "lo": 0.6,
           "hi": 0.65,
-          "n": 26,
-          "mean_pred": 0.6228,
-          "actual": 0.5769,
-          "gap": 0.0459
+          "n": 25,
+          "mean_pred": 0.6224,
+          "actual": 0.48,
+          "gap": 0.1424
         },
         {
           "lo": 0.65,
@@ -76,35 +76,35 @@
     "last250": {
       "key": "rawPickProbability",
       "n": 250,
-      "accuracy": 0.576,
-      "brier": 0.2348,
-      "log_loss": 0.6618,
-      "auc": 0.6299,
-      "ece": 0.0507,
+      "accuracy": 0.572,
+      "brier": 0.2365,
+      "log_loss": 0.6652,
+      "auc": 0.6183,
+      "ece": 0.0385,
       "calibration": [
         {
           "lo": 0.5,
           "hi": 0.55,
-          "n": 100,
-          "mean_pred": 0.5273,
-          "actual": 0.47,
-          "gap": 0.0573
+          "n": 101,
+          "mean_pred": 0.5272,
+          "actual": 0.4752,
+          "gap": 0.0519
         },
         {
           "lo": 0.55,
           "hi": 0.6,
-          "n": 66,
-          "mean_pred": 0.5734,
-          "actual": 0.5606,
-          "gap": 0.0128
+          "n": 65,
+          "mean_pred": 0.5735,
+          "actual": 0.5692,
+          "gap": 0.0043
         },
         {
           "lo": 0.6,
           "hi": 0.65,
           "n": 56,
           "mean_pred": 0.623,
-          "actual": 0.6607,
-          "gap": -0.0377
+          "actual": 0.625,
+          "gap": -0.002
         },
         {
           "lo": 0.65,
@@ -141,36 +141,36 @@
     },
     "season": {
       "key": "rawPickProbability",
-      "n": 3410,
-      "accuracy": 0.5754,
-      "brier": 0.2395,
-      "log_loss": 0.6717,
-      "auc": 0.5809,
-      "ece": 0.0203,
+      "n": 3422,
+      "accuracy": 0.5748,
+      "brier": 0.2396,
+      "log_loss": 0.6719,
+      "auc": 0.5806,
+      "ece": 0.0208,
       "calibration": [
         {
           "lo": 0.5,
           "hi": 0.55,
-          "n": 1227,
+          "n": 1230,
           "mean_pred": 0.5298,
-          "actual": 0.5086,
-          "gap": 0.0213
+          "actual": 0.5081,
+          "gap": 0.0217
         },
         {
           "lo": 0.55,
           "hi": 0.6,
-          "n": 947,
+          "n": 952,
           "mean_pred": 0.5737,
-          "actual": 0.5586,
-          "gap": 0.0151
+          "actual": 0.5588,
+          "gap": 0.0149
         },
         {
           "lo": 0.6,
           "hi": 0.65,
-          "n": 617,
+          "n": 621,
           "mean_pred": 0.6244,
-          "actual": 0.5964,
-          "gap": 0.0279
+          "actual": 0.5942,
+          "gap": 0.0302
         },
         {
           "lo": 0.65,
@@ -208,13 +208,13 @@
   },
   "recalibration": {
     "verdict": "none_raw_is_calibrated",
-    "holdout_n": 1023,
-    "raw_log_loss": 0.6694,
-    "recal_log_loss": 0.6693,
-    "raw_ece": 0.0307,
-    "recal_ece": 0.0271,
-    "platt_slope": 1.0145,
-    "platt_intercept": -0.0766
+    "holdout_n": 1027,
+    "raw_log_loss": 0.6693,
+    "recal_log_loss": 0.6694,
+    "raw_ece": 0.0268,
+    "recal_ece": 0.0252,
+    "platt_slope": 1.0171,
+    "platt_intercept": -0.0821
   },
   "note": "Health is graded on the largest stable window (trailing 250 picks). Recalibration is only recommended when a Platt fit beats the raw probability on both log-loss and ECE on a held-out recent split; otherwise the raw model ships as-is."
 }

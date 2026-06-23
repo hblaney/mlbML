@@ -28,7 +28,7 @@ jobs:
     # 60 min headroom: the daily retrain replays the full season through byDateRange
     # team AND point-in-time pitcher stats (leakage-safe). The 11:30/12:00 backups
     # re-run if a run ever exceeds this.
-    timeout-minutes: 60
+    timeout-minutes: 90
     env:
       TZ: America/Chicago
       PYTHONPATH: scripts/model
@@ -112,6 +112,17 @@ jobs:
         with:
           node-version: "24"
           cache: npm
+
+      - name: Restore pitcher/team stat caches
+        if: steps.run_control.outputs.should_run == 'true'
+        uses: actions/cache@v4
+        with:
+          path: |
+            data/cache/pitcher_stats_asof
+            data/cache/team_stats
+          key: stats-cache-v2-${{ hashFiles('scripts/model/pitcher_stats_provider.py', 'scripts/model/team_stats_provider.py') }}
+          restore-keys: |
+            stats-cache-v2-
 
       - name: Install Python dependencies
         if: steps.run_control.outputs.should_run == 'true'

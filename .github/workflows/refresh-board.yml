@@ -4,6 +4,10 @@ on:
   schedule:
     # Morning catch-up when Daily Model cron is missed (~5–9 AM CT = 10–14 UTC).
     - cron: "0 10-14 * * *"
+    # 11 AM / 11:30 AM / noon CT backups — publish if Daily Model missed or failed.
+    - cron: "0 16 * * *"
+    - cron: "30 16 * * *"
+    - cron: "0 17 * * *"
     # Hourly during game day (~10 AM – 10 PM CT).
     - cron: "0 15-23 * * *"
     - cron: "0 0-4 * * *"
@@ -19,7 +23,7 @@ concurrency:
 jobs:
   refresh:
     runs-on: ubuntu-latest
-    timeout-minutes: 60
+    timeout-minutes: 90
     env:
       TZ: America/Chicago
       PYTHONPATH: scripts/model
@@ -29,6 +33,16 @@ jobs:
         with:
           ref: main
           fetch-depth: 50
+
+      - name: Restore pitcher/team stat caches
+        uses: actions/cache@v4
+        with:
+          path: |
+            data/cache/pitcher_stats_asof
+            data/cache/team_stats
+          key: stats-cache-v2-${{ hashFiles('scripts/model/pitcher_stats_provider.py', 'scripts/model/team_stats_provider.py') }}
+          restore-keys: |
+            stats-cache-v2-
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -55,44 +69,50 @@ jobs:
           ODDS_MARKETS: h2h,spreads,totals
         run: |
           set -euo pipefail
-          python3 scripts/model/generate_today_board.py 2>&1 | tee board-gen.log
-          test "${PIPESTATUS[0]}" -eq 0
+          for attempt in 1 2 3; do
+            echo "Board generation attempt ${attempt}/3..."
+            if python3 scripts/model/generate_today_board.py 2>&1 | tee "board-gen-${attempt}.log"; then
+              break
+            fi
+            if [ "${attempt}" -eq 3 ]; then
+              echo "::error::generate_today_board failed after 3 attempts"
+              tail -40 "board-gen-${attempt}.log"
+              exit 1
+            fi
+            echo "Retrying in 30s..."
+            sleep 30
+          done
           board_at=$(python3 -c "import json; print(json.load(open('public/predictions.json'))['board_generated_at'])")
-          echo "board_generated_at=${board_at}"
+          generated=$(python3 -c "import json; print(json.load(open('public/predictions.json'))['generated_at'])")
+          today=$(date +%F)
+          echo "board_generated_at=${board_at} generated_at=${generated}"
           test -n "${board_at}"
+          if [ "${generated}" != "${today}" ]; then
+            echo "::error::Expected generated_at=${today}, got ${generated}"
+            exit 1
+          fi
+
+      - name: Full publish if board was stale (history + lock + health)
+        run: |
+          set -euo pipefail
+          yesterday=$(python3 -c "from datetime import date, timedelta; print((date.today()-timedelta(days=1)).isoformat())")
+          trained=$(python3 -c "import json; print(json.load(open('public/prediction-history.json')).get('trained_through',''))" 2>/dev/null || echo "")
+          if [ -z "$trained" ] || [[ "$trained" < "$yesterday" ]]; then
+            echo "Running full publish pipeline (history stale)..."
+            npm run model:daily:core
+          else
+            echo "History current; running lock + health only."
+            python3 scripts/model/model_health.py || true
+            python3 scripts/model/lock_daily_ticket.py
+            python3 scripts/model/consistency_audit.py
+          fi
 
       - name: Update live bankroll
         continue-on-error: true
         run: python3 scripts/model/update_live_bankroll.py
 
-      - name: Sync prediction history and accuracy
-        run: |
-          set -euo pipefail
-          yesterday=$(python3 -c "from datetime import date, timedelta; print((date.today()-timedelta(days=1)).isoformat())")
-          trained=$(
-            python3 -c "import json; from pathlib import Path; p=Path('public/prediction-history.json'); print(json.loads(p.read_text()).get('trained_through','') if p.exists() else '')" \
-              || echo ""
-          )
-          if [ -z "$trained" ] || [[ "$trained" < "$yesterday" ]]; then
-            echo "History stale (${trained:-missing} < ${yesterday}); regenerating accuracy."
-            python3 scripts/model/generate_prediction_history.py --current-season-only
-            python3 scripts/model/generate_accuracy_output.py
-          else
-            echo "History current through ${trained}; skipping accuracy rebuild."
-          fi
-
-      - name: Refresh model health card
-        continue-on-error: true
-        run: python3 scripts/model/model_health.py
-
       - name: Verify board integrity
         run: python3 scripts/model/prediction_integrity.py --full --strict-recompute
-
-      - name: Consistency audit (blocks a bad push)
-        run: python3 scripts/model/consistency_audit.py
-
-      - name: Lock official daily ticket (first publish wins)
-        run: python3 scripts/model/lock_daily_ticket.py
 
       - name: Commit and push refreshed board
         run: |
