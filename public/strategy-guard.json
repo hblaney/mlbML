@@ -56,10 +56,10 @@
   "guard": {
     "season_leader": "best_ticket",
     "leader_14d": "best_ticket",
-    "leader_streak_days": 3,
+    "leader_streak_days": 4,
     "switch_signal_days_required": 14,
     "switch_recommended": false,
-    "message": "best_ticket leads rolling 14d (3/14 daily signals toward switch). Full-season leader: best_ticket."
+    "message": "best_ticket leads rolling 14d (4/14 daily signals toward switch). Full-season leader: best_ticket."
   },
   "live_compound": {
     "strategy": "parlay_first",
