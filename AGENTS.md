@@ -1,61 +1,62 @@
-# MLB Edge — autonomous agent ops
+# MLB Edge — agent ops (MANUAL MODE)
 
-You own this system. Treat the user's wallet (~$23) as real money. Do not wait to be asked.
+You own this system. Treat the user's wallet as real money.
 
-## Every session (do first, no prompt needed)
+**Automation is OFF.** All GitHub Actions workflows are `workflow_dispatch` only
+(disabled 2026-06-24). Nothing retrains, refreshes, commits, or deploys on its own.
+**You update the site by hand and push.** Do not re-enable schedules unless the user asks.
 
-1. **Read state**: `public/live-bankroll.json`, `public/predictions.json`, `public/betting-plan.json`
-2. **Grade & refresh**: `python3 scripts/model/update_live_bankroll.py --wallet <current_wallet>`
-3. **Report today's system ticket**: `trg59_top_prob_2`, model-pick-only, stakes 35/45/10
-4. **Flag**: stale board (>2h), TBD/changed starters, missing odds, site vs local drift
-5. **Fix blockers** before new features (broken deploy, wrong ticket logic, SSL/odds)
+## How to update the site (do this when asked to "update the site")
 
-## Daily schedule (GitHub Actions — verify they ran)
+Run from the `mlb-edge/` directory:
 
-| Time (CT) | Workflow | Purpose |
-|-----------|----------|---------|
-| ~5 AM | `daily-model.yml` | Retrain, full `model:daily`, commit outputs |
-| Hourly 10 AM–10 PM CT | `refresh-board.yml` | Starters/odds refresh → commit → Vercel redeploy |
-| After daily model | `refresh-board.yml` | Same refresh when morning retrain finishes |
+```bash
+# 1. Regenerate today's board + all public outputs (board, history, accuracy,
+#    CLV, health, strategy guard, consistency, and the locked daily ticket)
+npm run model:daily:core
 
-**Refreshing Chrome does not fetch MLB live.** Updates only appear after GitHub Actions commits `predictions.json` and Vercel redeploys (~2 min).
+# 2. Verify the board is internally consistent (fails loudly if confidence/picks drift)
+python3 scripts/model/prediction_integrity.py --full --strict-recompute
 
-## Betting rules (canonical — never drift)
+# 3. (optional) Grade yesterday's bet + update the live bankroll
+python3 scripts/model/update_live_bankroll.py --wallet <current_wallet>
 
-- **Strategy**: `trg59_top_prob_2` (legacy: `med60_force2_223s`, `no_low_parlay_223s`)
-- **Sides**: model predicted winner only (never +EV fade)
-- **Stakes**: 35% single · 45% two-leg · 10% three-leg of **wallet_balance**
-- **One ticket per day** — user does not add picks
+# 4. Commit + push — pushing to main is what deploys the site (Vercel auto-builds)
+git add public/*.json data/locked-tickets/*.json data/live-bankroll-state.json
+git commit -m "Update board for $(date +%F)"
+git push origin main
+```
 
-## Model improvement loop (ongoing)
+- **Just the board, nothing else:** `npm run model:refresh-board`
+- The live site only changes after you `git push origin main`. Refreshing Chrome does nothing on its own; Vercel redeploys ~2 min after the push.
+- Production URL: `https://mlb-edge-woad.vercel.app`
 
-Priority order:
+## Betting strategy (canonical — keep `lib/data.ts` and `public/betting-plan.json` in sync)
 
-1. **Live accuracy** — compare walk-forward vs settled tickets weekly
-2. **Parlay quality** — Medium+ legs ≥68% model prob; block series-fade (lost last 2 vs opponent)
-3. **Calibration** — High/Medium/Low hit rates vs claimed confidence
-4. **Features** — head-to-head series (v2.2-h2h); ablate before shipping
-5. **Strategy research (proactive — do not wait for user)**:
-   - Run `python3 scripts/model/explore_all_strategies.py` at least weekly and after any ticket complaint
-   - Read `public/strategy-explorer.json` — compare live plan vs top compound / hit rate / balanced at **shipped stakes**
-   - Surface challengers that beat live on **both** hit rate and compound (or clearly dominate one with user tradeoff)
-   - Test any leg count (2–4), med60 thresholds (58–65%), stake presets (flat + tiered)
-   - **Do not** dismiss with "we already have the best" without running the explorer first
-   - Ship strategy changes only after OOS review + user approval; document in `betting-plan.json`
+- **Strategy: `quality_single`** — bet the single highest-ranked pick of the day,
+  and **only fire when that pick is High or Elite confidence**. If the top pick is
+  Medium/Low, it's a **no-bet day** (capital preservation).
+- **Side:** always the model's predicted winner (never the +EV fade).
+- **One bet per day.** The user does not add their own picks.
+- Why singles, not parlays: on the walk-forward with real closing odds + $10 compound,
+  the prior 2-leg parlay was a 52.9% coin-flip (37–33) that drew the bankroll down to
+  $0.81 — the cause of the live losing streak. The High/Elite single hit 76.0% (38–12),
+  grew $10→$91, and never dipped below the start.
 
-Overnight loop: `scripts/model/run_overnight.sh` — research rotation every 15 min. **`explore_all_strategies.py` every 4th cycle.** Results: `public/strategy-explorer.json`, `data/overnight-research.jsonl`.
+## Open improvement for the next model (the user wants bigger upside)
 
-Report **both** compound backtest and flat $5 ROI. Flag when live rank drops in explorer.
+Singles compound slowly ($10→$90/season is "nothing" to the user). The user wants
+**parlays back** for real money. The honest path: parlay ONLY genuinely strong legs
+(two Elite/High picks on days both exist). Not enough Elite-pair samples were available
+to validate it yet. Before shipping any parlay mode:
+1. Backtest 2-leg parlays built from **Elite/High legs only** on the walk-forward with
+   real odds + compound bankroll (reuse `scripts/model/backtest_parlay2_compound.py`
+   patterns; filter legs to `confidence in {Elite, High}`).
+2. Require it to beat `quality_single` on **both** hit rate and ending bankroll, with a
+   tolerable drawdown, before switching the live strategy.
+3. Document the change in `public/betting-plan.json` and get user approval.
 
-## When to ask the user (only these)
+## When to ask the user
 
-- Push/deploy to production (main → Vercel)
-- Strategy or stake rule changes
-- API keys, billing (Odds API credits)
-- Wallet balance update if unknown
-
-Do **not** ask: whether to run today's ticket, whether to trust the model, whether to grade yesterday.
-
-## Site
-
-Production: `https://mlb-edge-woad.vercel.app` (not `mlb-edge.vercel.app`)
+- Push/deploy to production, strategy or stake changes, API keys/billing, unknown wallet.
+- Do **not** ask whether to run today's ticket or grade yesterday — just do it.
