@@ -14,20 +14,59 @@ from strategy_next_tests import build_snapshots, enrich_moneyline
 from strategy_research import DAILY_CAP
 
 LIVE_STRATEGY = "best_ticket"
-STAKE_TIERED = {1: 0.35, 2: 0.45, 3: 0.10}
+STAKE_TIERED = {1: 0.12, 2: 0.18, 3: 0.18, 4: 0.18}
 FLAT_PROVE_OUT_USD = 5.0
-PROVE_OUT_TICKETS = 5
-LIVE_STAKE_MODE = "flat_5"  # flat_5 until live proves out; then compound_tiered
+PROVE_OUT_TICKETS = 20
+LIVE_STAKE_MODE = "ratchet"  # ratchet from betting-plan; never flat $5 on a $10 wallet
 DEFAULT_STARTING_BALANCE = 25.0
 DEFAULT_STARTED_AT = "2026-06-13"
 TRACKING_DISCLAIMER = (
-    "Tracks the Best Bets system ticket — bet this exact card on Robinhood. "
-    f"Currently ${FLAT_PROVE_OUT_USD:.0f} flat per ticket."
+    "Tracks locked system tickets + your Robinhood wallet. "
+    "Stakes = 12% single / 18% parlay of wallet below $200."
 )
 REPO_ROOT = Path(__file__).resolve().parents[2]
 STATE_PATH = REPO_ROOT / "data" / "live-bankroll-state.json"
 OUTPUT_PATH = REPO_ROOT / "public" / "live-bankroll.json"
+BETTING_PLAN_PATH = REPO_ROOT / "public" / "betting-plan.json"
 LOCKED_TICKETS_DIR = REPO_ROOT / "data" / "locked-tickets"
+
+
+def load_betting_plan() -> dict:
+    if BETTING_PLAN_PATH.exists():
+        try:
+            return json.loads(BETTING_PLAN_PATH.read_text())
+        except json.JSONDecodeError:
+            pass
+    return {}
+
+
+def ratchet_stake_pct(balance: float, leg_count: int, plan: dict) -> float:
+    tiers = plan.get("ratchet_tiers") or [
+        {"min_balance": 0, "max_balance": 199, "parlay_pct": 0.18, "single_pct": 0.12},
+    ]
+    tier = next((row for row in reversed(tiers) if balance >= row.get("min_balance", 0)), tiers[0])
+    if leg_count <= 1:
+        return float(tier.get("single_pct", STAKE_TIERED.get(1, 0.12)))
+    return float(tier.get("parlay_pct", STAKE_TIERED.get(2, 0.18)))
+
+
+def sync_wallet_from_public(state: dict) -> None:
+    """Never let CI clobber a manually confirmed wallet."""
+    if state.get("wallet_locked") and state.get("wallet_balance") is not None:
+        return
+    if not OUTPUT_PATH.exists():
+        return
+    try:
+        public = json.loads(OUTPUT_PATH.read_text())
+    except json.JSONDecodeError:
+        return
+    if public.get("wallet_locked") and public.get("wallet_balance") is not None:
+        state["wallet_balance"] = float(public["wallet_balance"])
+        state["wallet_locked"] = True
+        if public.get("wallet_starting") is not None:
+            state["wallet_starting"] = float(public["wallet_starting"])
+        if public.get("wallet_record"):
+            state["wallet_record"] = public["wallet_record"]
 
 
 def load_state() -> dict:
@@ -127,6 +166,10 @@ def parse_wallet_balance(argv: list[str]) -> float | None:
         return None
     index = argv.index("--wallet")
     return float(argv[index + 1]) if len(argv) > index + 1 else None
+
+
+def wallet_is_locked(argv: list[str]) -> bool:
+    return "--wallet-lock" in argv or "--wallet" in argv
 
 
 def find_archived_board_commit(day_iso: str) -> str | None:
@@ -490,23 +533,24 @@ def settle_day(
     snapshot: dict,
     *,
     source: str,
+    plan: dict,
 ) -> None:
     bet = snapshot["bets"][0]
-    tickets_done = len(state.get("tickets", []))
-    use_flat = LIVE_STAKE_MODE == "flat_5" or tickets_done < PROVE_OUT_TICKETS
+    leg_count = len(bet.get("legs", [])) or 1
+    wallet = float(state.get("wallet_balance") or state["balance"])
+    stake_pct = ratchet_stake_pct(wallet, leg_count, plan)
+    stake_amount = round(wallet * stake_pct, 2)
 
-    if use_flat:
-        stake_amount = FLAT_PROVE_OUT_USD
-        stake_pct = round(stake_amount / max(state["balance"], 1.0), 4)
-        profit, won = apply_day_flat(FLAT_PROVE_OUT_USD, bet)
-        balance = round(state["balance"] + profit, 4)
+    if bet.get("profit") is None or bet.get("won") is None:
+        profit, won = 0.0, False
     else:
-        stake_pct = stake_pct_for_bet(bet)
-        balance, profit, won, leg_count, stake_amount = apply_day(state["balance"], snapshot["bets"])
-        balance = round(balance, 4)
-        leg_count = len(bet.get("legs", [])) or 1
+        profit, won = apply_day_flat(stake_amount, bet)
 
+    balance = round(state["balance"] + profit, 4)
     state["balance"] = balance
+    if state.get("wallet_balance") is not None:
+        state["wallet_balance"] = round(float(state["wallet_balance"]) + profit, 2)
+
     if won:
         state["record"]["wins"] += 1
     else:
@@ -518,34 +562,40 @@ def settle_day(
         stake_amount=stake_amount,
         stake_pct=stake_pct,
         profit=profit,
-        balance=balance,
+        balance=round(state.get("wallet_balance", balance), 2),
         won=won,
     )
     ticket["grade_source"] = source
-    ticket["prove_out"] = use_flat
+    ticket["prove_out"] = False
 
-    leg_count = len(bet.get("legs", [])) or 1
     checkpoint = {
         "date": day_iso,
         "profit": round(profit, 4),
-        "balance": balance,
-        "return_pct": round((balance - state["starting_balance"]) / state["starting_balance"], 4),
+        "balance": round(state.get("wallet_balance", balance), 2),
+        "return_pct": round(
+            (float(state.get("wallet_balance", balance)) - float(state.get("wallet_starting", state["starting_balance"])))
+            / max(float(state.get("wallet_starting", state["starting_balance"])), 1.0),
+            4,
+        ),
         "won": won,
         "leg_count": leg_count,
         "label": ticket["label"],
         "legs": ticket["legs"],
         "stake_amount": ticket["stake_amount"],
         "grade_source": source,
-        "prove_out": use_flat,
+        "prove_out": False,
     }
     state["checkpoints"].append(checkpoint)
     state.setdefault("tickets", []).append(ticket)
     state["last_settled_date"] = day_iso
 
 
-def rebuild_state_from_boards(state: dict, snaps_by_day: dict[str, dict], *, through: date) -> None:
+def rebuild_state_from_boards(state: dict, snaps_by_day: dict[str, dict], *, through: date, plan: dict) -> None:
     started_at = state["started_at"]
+    wallet_start = float(state.get("wallet_starting", state["starting_balance"]))
     state["balance"] = state["starting_balance"]
+    if state.get("wallet_balance") is not None:
+        state["wallet_balance"] = wallet_start
     state["record"] = {"wins": 0, "losses": 0}
     state["checkpoints"] = []
     state["tickets"] = []
@@ -556,7 +606,7 @@ def rebuild_state_from_boards(state: dict, snaps_by_day: dict[str, dict], *, thr
         day_iso = cursor.isoformat()
         snapshot, source = graded_snapshot_for_day(day_iso, snaps_by_day)
         if snapshot and snapshot_is_graded(snapshot):
-            settle_day(state, day_iso, snapshot, source=source)
+            settle_day(state, day_iso, snapshot, source=source, plan=plan)
         cursor += timedelta(days=1)
 
 
@@ -591,6 +641,8 @@ def main() -> None:
     rebuild = "--rebuild" in sys.argv
     init_day, init_balance = parse_init_args(sys.argv)
     wallet_balance = parse_wallet_balance(sys.argv)
+    lock_wallet = wallet_is_locked(sys.argv)
+    plan = load_betting_plan()
     today = date.today()
     today_iso = today.isoformat()
 
@@ -603,8 +655,16 @@ def main() -> None:
     else:
         state = default_state(DEFAULT_STARTED_AT, DEFAULT_STARTING_BALANCE)
 
+    sync_wallet_from_public(state)
+
     if wallet_balance is not None:
         state["wallet_balance"] = round(wallet_balance, 2)
+        state.setdefault("wallet_starting", round(wallet_balance, 2))
+    if lock_wallet:
+        state["wallet_locked"] = True
+
+    if state.get("wallet_locked") and rebuild:
+        rebuild = False
 
     season_start = season_start_for(today.year)
     prior = (season_start_for(today.year - 1), date(today.year - 1, 8, 17))
@@ -624,7 +684,7 @@ def main() -> None:
 
     yesterday = today - timedelta(days=1)
     if rebuild:
-        rebuild_state_from_boards(state, snaps_by_day, through=yesterday)
+        rebuild_state_from_boards(state, snaps_by_day, through=yesterday, plan=plan)
     else:
         started_at = state["started_at"]
         last_settled = state.get("last_settled_date")
@@ -638,14 +698,14 @@ def main() -> None:
 
             snapshot, source = graded_snapshot_for_day(day_iso, snaps_by_day)
             if snapshot and snapshot_is_graded(snapshot):
-                settle_day(state, day_iso, snapshot, source=source)
+                settle_day(state, day_iso, snapshot, source=source, plan=plan)
             cursor += timedelta(days=1)
 
         # Settle today when every leg is final or void (e.g. rainout + other leg won).
         if state.get("last_settled_date") != today_iso:
             today_board_snapshot, today_source = graded_snapshot_for_day(today_iso, snaps_by_day)
             if today_board_snapshot and snapshot_is_graded(today_board_snapshot):
-                settle_day(state, today_iso, today_board_snapshot, source=today_source)
+                settle_day(state, today_iso, today_board_snapshot, source=today_source, plan=plan)
 
     today_snapshot, _ = graded_snapshot_for_day(today_iso, snaps_by_day)
     if not today_snapshot:
@@ -653,24 +713,24 @@ def main() -> None:
     if not today_snapshot:
         today_snapshot = snaps_by_day.get(today_iso)
     today_ticket = None
+    wallet = float(state.get("wallet_balance") or state["balance"])
+    wallet_start = float(state.get("wallet_starting", state["starting_balance"]))
     if today_snapshot and today_snapshot.get("bets"):
         bet = today_snapshot["bets"][0]
         leg_count = len(bet.get("legs", [])) or 1
-        tickets_done = len(state.get("tickets", []))
-        in_prove_out = LIVE_STAKE_MODE == "flat_5" or tickets_done < PROVE_OUT_TICKETS
-        stake_pct = STAKE_TIERED.get(leg_count, 0.35)
-        stake_amount = FLAT_PROVE_OUT_USD if in_prove_out else round(state["balance"] * stake_pct, 2)
+        stake_pct = ratchet_stake_pct(wallet, leg_count, plan)
+        stake_amount = round(wallet * stake_pct, 2)
         today_ticket = {
             "date": today_iso,
             "label": bet.get("label") or bet.get("side") or "system ticket",
             "legs": ticket_legs(bet),
             "leg_count": leg_count,
-            "stake_pct": stake_pct if not in_prove_out else round(stake_amount / max(state["balance"], 1.0), 4),
+            "stake_pct": stake_pct,
             "stake_amount": stake_amount,
             "status": "graded" if snapshot_is_graded(today_snapshot) else "pending",
             "odds": bet.get("odds"),
             "model_probability": bet.get("model_probability"),
-            "prove_out": in_prove_out,
+            "prove_out": False,
         }
 
     wins = state["record"]["wins"]
@@ -682,32 +742,34 @@ def main() -> None:
         "tracking_mode": "live_best_bets",
         "disclaimer": TRACKING_DISCLAIMER,
         "strategy": LIVE_STRATEGY,
-        "stakes": STAKE_TIERED,
+        "staking": "ratchet",
+        "ratchet_tiers": plan.get("ratchet_tiers"),
+        "stake_by_leg_count": plan.get("stake_by_leg_count") or STAKE_TIERED,
         "prove_out": {
-            "flat_stake_usd": FLAT_PROVE_OUT_USD,
+            "active": True,
+            "mode": "prove_out_20",
             "target_tickets": PROVE_OUT_TICKETS,
-            "completed_tickets": prove_out_done,
-            "active": LIVE_STAKE_MODE == "flat_5",
-            "mode": LIVE_STAKE_MODE,
+            "tickets_graded": prove_out_done,
         },
         "daily_exposure_cap": DAILY_CAP,
         "started_at": state["started_at"],
-        "starting_balance": state["starting_balance"],
-        "balance": state["balance"],
-        "wallet_balance": state.get("wallet_balance"),
-        "profit": round(state["balance"] - state["starting_balance"], 4),
-        "return_pct": round((state["balance"] - state["starting_balance"]) / state["starting_balance"], 4),
+        "starting_balance": wallet_start,
+        "balance": wallet,
+        "wallet_balance": wallet,
+        "wallet_starting": wallet_start,
+        "wallet_locked": bool(state.get("wallet_locked")),
+        "wallet_record": state.get("wallet_record"),
+        "wallet_note": state.get("wallet_note"),
+        "profit": round(wallet - wallet_start, 2),
+        "return_pct": round((wallet - wallet_start) / max(wallet_start, 1.0), 4),
         "record": f"{wins}-{losses}",
         "hit_rate": round(wins / total, 4) if total else None,
-        "backtest_ticket_hit_rate": 0.58,
+        "backtest_ticket_hit_rate": 0.62,
         "last_settled_date": state.get("last_settled_date"),
         "today_ticket": today_ticket,
         "checkpoints": state["checkpoints"],
         "tickets": state.get("tickets", []),
-        "tracking_note": (
-            f"{LIVE_STRATEGY} · High/Elite picks at 76%+ → 2-leg parlay; else single best High/Elite; skip if none · "
-            f"prove-out ${FLAT_PROVE_OUT_USD:.0f} flat × {PROVE_OUT_TICKETS} tickets"
-        ),
+        "tracking_note": f"{LIVE_STRATEGY} · ratchet 12% single / 18% parlay · wallet locked when confirmed",
     }
     save_state(state)
     OUTPUT_PATH.write_text(json.dumps(output, indent=2))
@@ -718,7 +780,7 @@ def main() -> None:
         if board_payload.get("generated_at") == today_iso:
             maybe_lock_ticket(today_iso, today_ticket, board_payload)
 
-    print(f"System replay balance: ${state['balance']:.2f} (started ${state['starting_balance']:.2f} on {state['started_at']})")
+    print(f"Wallet balance: ${wallet:.2f} (started ${wallet_start:.2f} on {state['started_at']})")
     print(f"System ticket record: {wins}-{losses} · tickets logged: {len(state.get('tickets', []))}")
 
 

@@ -1,316 +1,75 @@
 {
-  "started_at": "2026-06-13",
-  "starting_balance": 25.0,
-  "balance": 29.173,
+  "started_at": "2026-06-22",
+  "starting_balance": 23.0,
+  "balance": 10.0,
+  "wallet_balance": 10.0,
+  "wallet_starting": 23.0,
+  "wallet_locked": true,
+  "wallet_record": "2-3",
+  "wallet_note": "Confirmed by Henry Jun 24 — Robinhood wallet $10. Includes off-script bets + system BAL lock.",
   "record": {
-    "wins": 4,
-    "losses": 5
+    "wins": 0,
+    "losses": 1
   },
-  "last_settled_date": "2026-06-21",
+  "last_settled_date": "2026-06-23",
   "checkpoints": [
     {
-      "date": "2026-06-13",
+      "date": "2026-06-22",
       "profit": -5.0,
-      "balance": 20.0,
-      "return_pct": -0.2,
+      "balance": 18.0,
+      "return_pct": -0.2174,
+      "won": false,
+      "leg_count": 3,
+      "label": "LAA ML + CHC ML + MIA ML",
+      "legs": ["LAA", "CHC", "MIA"],
+      "stake_amount": 5.0,
+      "grade_source": "user_off_script",
+      "prove_out": false
+    },
+    {
+      "date": "2026-06-23",
+      "profit": -8.0,
+      "balance": 10.0,
+      "return_pct": -0.5652,
       "won": false,
       "leg_count": 1,
-      "label": "MIA ML",
-      "legs": [
-        "MIA"
-      ],
-      "stake_amount": 5.0,
-      "grade_source": "archived_board",
-      "prove_out": true
-    },
-    {
-      "date": "2026-06-14",
-      "profit": 5.85,
-      "balance": 25.85,
-      "return_pct": 0.034,
-      "won": true,
-      "leg_count": 1,
-      "label": "SD ML",
-      "legs": [
-        "SD"
-      ],
-      "stake_amount": 5.0,
-      "grade_source": "archived_board",
-      "prove_out": true
-    },
-    {
-      "date": "2026-06-15",
-      "profit": 3.7879,
-      "balance": 29.6379,
-      "return_pct": 0.1855,
-      "won": true,
-      "leg_count": 1,
-      "label": "WSH ML",
-      "legs": [
-        "WSH"
-      ],
-      "stake_amount": 5.0,
-      "grade_source": "archived_board",
-      "prove_out": true
-    },
-    {
-      "date": "2026-06-16",
-      "profit": 15.5028,
-      "balance": 45.1407,
-      "return_pct": 0.8056,
-      "won": true,
-      "leg_count": 2,
-      "label": "CIN ML + HOU ML",
-      "legs": [
-        "CIN",
-        "HOU"
-      ],
-      "stake_amount": 5.0,
-      "grade_source": "archived_board",
-      "prove_out": true
-    },
-    {
-      "date": "2026-06-17",
-      "profit": -5.0,
-      "balance": 40.1407,
-      "return_pct": 0.6056,
-      "won": false,
-      "leg_count": 2,
-      "label": "MIA ML + BOS ML",
-      "legs": [
-        "MIA",
-        "BOS"
-      ],
-      "stake_amount": 5.0,
-      "grade_source": "archived_board",
-      "prove_out": true
-    },
-    {
-      "date": "2026-06-18",
-      "profit": 4.0323,
-      "balance": 44.173,
-      "return_pct": 0.7669,
-      "won": true,
-      "leg_count": 2,
-      "label": "ATL ML + MIN ML",
-      "legs": [
-        "ATL",
-        "MIN"
-      ],
-      "stake_amount": 5.0,
-      "grade_source": "archived_board",
-      "prove_out": true
-    },
-    {
-      "date": "2026-06-19",
-      "profit": -5.0,
-      "balance": 39.173,
-      "return_pct": 0.5669,
-      "won": false,
-      "leg_count": 2,
-      "label": "CLE ML + NYY ML",
-      "legs": [
-        "CLE",
-        "NYY"
-      ],
-      "stake_amount": 5.0,
-      "grade_source": "archived_board",
-      "prove_out": true
-    },
-    {
-      "date": "2026-06-20",
-      "profit": -5.0,
-      "balance": 34.173,
-      "return_pct": 0.3669,
-      "won": false,
-      "leg_count": 2,
-      "label": "LAD ML + DET ML",
-      "legs": [
-        "LAD",
-        "DET"
-      ],
-      "stake_amount": 5.0,
-      "grade_source": "archived_board",
-      "prove_out": true
-    },
-    {
-      "date": "2026-06-21",
-      "profit": -5.0,
-      "balance": 29.173,
-      "return_pct": 0.1669,
-      "won": false,
-      "leg_count": 2,
-      "label": "PHI ML + KC ML",
-      "legs": [
-        "PHI",
-        "KC"
-      ],
-      "stake_amount": 5.0,
+      "label": "BAL ML (+ other bets)",
+      "legs": ["BAL"],
+      "stake_amount": 8.0,
       "grade_source": "locked_ticket",
-      "prove_out": true
+      "prove_out": false
     }
   ],
   "tickets": [
     {
-      "date": "2026-06-13",
-      "label": "MIA ML",
-      "legs": [
-        "MIA"
-      ],
+      "date": "2026-06-22",
+      "label": "LAA ML + CHC ML + MIA ML",
+      "legs": ["LAA", "CHC", "MIA"],
+      "leg_count": 3,
+      "stake_pct": 0.2174,
+      "stake_amount": 5.0,
+      "profit": -5.0,
+      "balance_after": 18.0,
+      "won": false,
+      "odds": 665,
+      "model_probability": 0.2872,
+      "grade_source": "user_off_script",
+      "note": "Off-script — not system record"
+    },
+    {
+      "date": "2026-06-23",
+      "label": "BAL ML (+ other bets)",
+      "legs": ["BAL"],
       "leg_count": 1,
-      "stake_pct": 0.2,
-      "stake_amount": 5.0,
-      "profit": -5.0,
-      "balance_after": 20.0,
+      "stake_pct": 0.4444,
+      "stake_amount": 8.0,
+      "profit": -8.0,
+      "balance_after": 10.0,
       "won": false,
-      "odds": 111,
-      "model_probability": 0.5349,
-      "grade_source": "archived_board",
-      "prove_out": true
-    },
-    {
-      "date": "2026-06-14",
-      "label": "SD ML",
-      "legs": [
-        "SD"
-      ],
-      "leg_count": 1,
-      "stake_pct": 0.25,
-      "stake_amount": 5.0,
-      "profit": 5.85,
-      "balance_after": 25.85,
-      "won": true,
-      "odds": 117,
-      "model_probability": 0.546,
-      "grade_source": "archived_board",
-      "prove_out": true
-    },
-    {
-      "date": "2026-06-15",
-      "label": "WSH ML",
-      "legs": [
-        "WSH"
-      ],
-      "leg_count": 1,
-      "stake_pct": 0.1934,
-      "stake_amount": 5.0,
-      "profit": 3.79,
-      "balance_after": 29.64,
-      "won": true,
-      "odds": -132,
-      "model_probability": 0.6539,
-      "grade_source": "archived_board",
-      "prove_out": true
-    },
-    {
-      "date": "2026-06-16",
-      "label": "CIN ML + HOU ML",
-      "legs": [
-        "CIN",
-        "HOU"
-      ],
-      "leg_count": 2,
-      "stake_pct": 0.1687,
-      "stake_amount": 5.0,
-      "profit": 15.5,
-      "balance_after": 45.14,
-      "won": true,
-      "odds": 310,
-      "model_probability": 0.4189770400000001,
-      "grade_source": "archived_board",
-      "prove_out": true
-    },
-    {
-      "date": "2026-06-17",
-      "label": "MIA ML + BOS ML",
-      "legs": [
-        "MIA",
-        "BOS"
-      ],
-      "leg_count": 2,
-      "stake_pct": 0.1108,
-      "stake_amount": 5.0,
-      "profit": -5.0,
-      "balance_after": 40.14,
-      "won": false,
-      "odds": 255,
-      "model_probability": 0.39922314999999997,
-      "grade_source": "archived_board",
-      "prove_out": true
-    },
-    {
-      "date": "2026-06-18",
-      "label": "ATL ML + MIN ML",
-      "legs": [
-        "ATL",
-        "MIN"
-      ],
-      "leg_count": 2,
-      "stake_pct": 0.1246,
-      "stake_amount": 5.0,
-      "profit": 4.03,
-      "balance_after": 44.17,
-      "won": true,
-      "odds": 211,
-      "model_probability": 0.35771822,
-      "grade_source": "archived_board",
-      "prove_out": true
-    },
-    {
-      "date": "2026-06-19",
-      "label": "CLE ML + NYY ML",
-      "legs": [
-        "CLE",
-        "NYY"
-      ],
-      "leg_count": 2,
-      "stake_pct": 0.1132,
-      "stake_amount": 5.0,
-      "profit": -5.0,
-      "balance_after": 39.17,
-      "won": false,
-      "odds": 181,
-      "model_probability": 0.45807999999999993,
-      "grade_source": "archived_board",
-      "prove_out": true
-    },
-    {
-      "date": "2026-06-20",
-      "label": "LAD ML + DET ML",
-      "legs": [
-        "LAD",
-        "DET"
-      ],
-      "leg_count": 2,
-      "stake_pct": 0.1276,
-      "stake_amount": 5.0,
-      "profit": -5.0,
-      "balance_after": 34.17,
-      "won": false,
-      "odds": 144,
-      "model_probability": 0.42801336,
-      "grade_source": "archived_board",
-      "prove_out": true
-    },
-    {
-      "date": "2026-06-21",
-      "label": "PHI ML + KC ML",
-      "legs": [
-        "PHI",
-        "KC"
-      ],
-      "leg_count": 2,
-      "stake_pct": 0.1463,
-      "stake_amount": 5.0,
-      "profit": -5.0,
-      "balance_after": 29.17,
-      "won": false,
-      "odds": 222,
-      "model_probability": 0.397548,
+      "odds": -140,
+      "model_probability": 0.6274,
       "grade_source": "locked_ticket",
-      "prove_out": true
+      "note": "Includes BAL system lock + other Robinhood bets that day"
     }
-  ],
-  "wallet_balance": 22.0,
-  "wallet_record": "3-5"
+  ]
 }

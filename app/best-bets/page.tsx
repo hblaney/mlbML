@@ -45,7 +45,7 @@ export default async function BestBetsPage() {
   const ratchetTiers = bettingPlan?.ratchet_tiers;
   const activeStrategy = bettingPlan?.strategy ?? LIVE_BETTING_STRATEGY;
   const liveStats = strategyGuard?.comparisons[activeStrategy]?.season_to_date;
-  const bankroll = liveBankroll?.wallet_balance ?? liveBankroll?.balance ?? 22.0;
+  const bankroll = liveBankroll?.wallet_balance ?? liveBankroll?.balance ?? 10.0;
   // If ratchet tiers are defined, use ratchet-aware stake percentages; else fall back to fixed leg-count stakes
   const stakeSingle = ratchetTiers
     ? getRatchetStakePct(bankroll, 1, ratchetTiers)
@@ -561,7 +561,7 @@ export default async function BestBetsPage() {
           </div>
           <p className="lead">
             Each day the system picks the highest-scoring qualified 2/3/4-leg parlay or +EV single
-            · prove-out sizing <strong>18% parlay / 12% single</strong> below $200 (~$6 / ~$4 at $32) for the first 20 locked tickets.
+            · prove-out sizing <strong>18% parlay / 12% single</strong> below $200 (~$1.20 single / ~$1.80 parlay at $10).
           </p>
           <ol className="muted">
             {bettingPlan.strategy_rules.map((rule) => (

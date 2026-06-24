@@ -40,7 +40,7 @@ export default async function BetWatcherPage() {
   const bestTicket = getBestDailyTicket(board);
   const todayLegs = legsFromTicket(bestTicket);
   // Default stake = ratchet % of current bankroll for this ticket's leg count.
-  const bankroll = liveBankroll?.wallet_balance ?? liveBankroll?.balance ?? 22.0;
+  const bankroll = liveBankroll?.wallet_balance ?? liveBankroll?.balance ?? 10.0;
   const legCount = bestTicket ? (bestTicket.kind === "single" ? 1 : bestTicket.parlay.legCount) : 2;
   const ratchetTiers = liveBankroll?.ratchet_tiers ?? bettingPlan?.ratchet_tiers;
   const ratchetStake = bankroll * getRatchetStakePct(bankroll, legCount, ratchetTiers);

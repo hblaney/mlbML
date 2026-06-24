@@ -1,14 +1,20 @@
 {
-  "generated_at": "2026-06-23",
+  "generated_at": "2026-06-24",
   "tracking_mode": "live_best_bets",
-  "disclaimer": "20-ticket prove-out: best_ticket locked daily · edge-first singles · 18% parlay / 12% single below $200.",
+  "disclaimer": "Tracks locked system tickets + your Robinhood wallet. Stakes = 12% single / 18% parlay of wallet below $200.",
   "strategy": "best_ticket",
   "staking": "ratchet",
   "ratchet_tiers": [
-    { "min_balance": 0,    "max_balance": 199,  "parlay_pct": 0.18, "single_pct": 0.12 },
-    { "min_balance": 200,  "max_balance": 999,  "parlay_pct": 0.25, "single_pct": 0.18 },
-    { "min_balance": 1000, "max_balance": null,  "parlay_pct": 0.15, "single_pct": 0.10 }
+    { "min_balance": 0, "max_balance": 199, "parlay_pct": 0.18, "single_pct": 0.12 },
+    { "min_balance": 200, "max_balance": 999, "parlay_pct": 0.25, "single_pct": 0.18 },
+    { "min_balance": 1000, "max_balance": null, "parlay_pct": 0.15, "single_pct": 0.10 }
   ],
+  "stake_by_leg_count": {
+    "1": 0.12,
+    "2": 0.18,
+    "3": 0.18,
+    "4": 0.18
+  },
   "prove_out": {
     "active": true,
     "mode": "prove_out_20",
@@ -16,49 +22,80 @@
     "tickets_graded": 1
   },
   "daily_exposure_cap": 0.5,
-  "started_at": "2026-06-23",
+  "started_at": "2026-06-22",
   "starting_balance": 23.0,
-  "balance": 17.0,
-  "wallet_balance": 17.0,
+  "balance": 10.0,
+  "wallet_balance": 10.0,
+  "wallet_starting": 23.0,
+  "wallet_locked": true,
   "wallet_record": "2-3",
-  "wallet_note": "Actual wallet after 5-day cold stretch. System locked BAL Jun 23 (L); user CHC + PrizePicks props outperformed.",
-  "profit": -6.0,
-  "return_pct": -0.2609,
+  "wallet_note": "Confirmed by Henry Jun 24 — Robinhood wallet $10. CI cannot overwrite this without --wallet flag.",
+  "profit": -13.0,
+  "return_pct": -0.5652,
   "record": "0-1",
   "hit_rate": 0.0,
   "backtest_ticket_hit_rate": 0.62,
-  "last_settled_date": null,
+  "last_settled_date": "2026-06-23",
   "today_ticket": null,
-  "checkpoints": [],
-  "tickets": [
+  "checkpoints": [
+    {
+      "date": "2026-06-22",
+      "profit": -5.0,
+      "balance": 18.0,
+      "return_pct": -0.2174,
+      "won": false,
+      "leg_count": 3,
+      "label": "LAA ML + CHC ML + MIA ML",
+      "legs": ["LAA", "CHC", "MIA"],
+      "stake_amount": 5.0,
+      "grade_source": "user_off_script",
+      "prove_out": false
+    },
     {
       "date": "2026-06-23",
-      "label": "BAL ML",
-      "legs": ["BAL"],
-      "leg_count": 1,
-      "stake_pct": 0.12,
-      "stake_amount": 2.76,
-      "profit": -2.76,
-      "balance_after": 17.0,
+      "profit": -8.0,
+      "balance": 10.0,
+      "return_pct": -0.5652,
       "won": false,
-      "odds": -140,
-      "model_probability": 0.6273,
-      "note": "Old lock (prob-first, market-agrees High). Fixed: edge-first + value-High gate."
-    },
+      "leg_count": 1,
+      "label": "BAL ML (+ other bets)",
+      "legs": ["BAL"],
+      "stake_amount": 8.0,
+      "grade_source": "locked_ticket",
+      "prove_out": false
+    }
+  ],
+  "tickets": [
     {
       "date": "2026-06-22",
       "label": "LAA ML + CHC ML + MIA ML",
       "legs": ["LAA", "CHC", "MIA"],
       "leg_count": 3,
-      "stake_pct": 0.2941,
+      "stake_pct": 0.2174,
       "stake_amount": 5.0,
       "profit": -5.0,
-      "balance_after": 12.0,
+      "balance_after": 18.0,
       "won": false,
       "odds": 665,
       "model_probability": 0.2872,
-      "note": "Pre-plan loss (off-script 3-leg). Not counted in system 0-1."
+      "grade_source": "user_off_script",
+      "note": "Off-script — not system record"
+    },
+    {
+      "date": "2026-06-23",
+      "label": "BAL ML (+ other bets)",
+      "legs": ["BAL"],
+      "leg_count": 1,
+      "stake_pct": 0.4444,
+      "stake_amount": 8.0,
+      "profit": -8.0,
+      "balance_after": 10.0,
+      "won": false,
+      "odds": -140,
+      "model_probability": 0.6274,
+      "grade_source": "locked_ticket",
+      "note": "Includes BAL system lock + other Robinhood bets that day"
     }
   ],
-  "tracking_note": "best_ticket · edge-first v2 · prove-out 18%/12% · locked ticket only"
+  "tracking_note": "best_ticket · ratchet 12% single / 18% parlay · wallet locked at $10"
 }
