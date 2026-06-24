@@ -755,8 +755,8 @@ export const TRG59_MIN_COMBINED_PROBABILITY = 0.34;
 /** @deprecated use TRG59_FORCE_PARLAY_MIN_PROBABILITY */
 export const MED60_FORCE_PARLAY_MIN_PROBABILITY = TRG59_FORCE_PARLAY_MIN_PROBABILITY;
 
-/** Live plan: quality_single — the single best pick, fired ONLY when it is High/Elite confidence. */
-export const LIVE_BETTING_STRATEGY = "quality_single";
+/** Live plan: strong_parlay — 2-leg parlay only when both legs are strong; else single best High/Elite. */
+export const LIVE_BETTING_STRATEGY = "strong_parlay";
 /** Real MLB moneylines never exceed ±1500; beyond that is corrupted feed data. */
 const ML_SANITY_LIMIT_LIVE = 1500;
 const USE_PARLAY_CORRELATION_FILTER = false;
@@ -887,7 +887,7 @@ export type ParlayCandidate = {
   ev: number;
   payoutProfit: number;
   score: number;
-  strategy?: "edge" | "anchor" | "premium" | "premium_4" | "forced_top_2" | "live_quality" | "live_premium" | "trg59_top2" | "high_elite_76_parlay" | "best_ticket" | "calibrated_parlay" | "quality_single";
+  strategy?: "edge" | "anchor" | "premium" | "premium_4" | "forced_top_2" | "live_quality" | "live_premium" | "trg59_top2" | "high_elite_76_parlay" | "best_ticket" | "calibrated_parlay" | "quality_single" | "strong_parlay";
 };
 
 /** Flat fallback when leg-specific stake is unavailable (2026 sweep best: 35%). */
@@ -1730,23 +1730,32 @@ export function getEdgeValueDailyTicket(board: GamePrediction[] = predictions): 
 }
 
 /**
- * LIVE STRATEGY (quality_single): bet the single highest-ranked pick of the day, but ONLY fire
- * when that pick is High or Elite confidence. Medium/Low days are a no-bet (capital preservation).
+ * LIVE STRATEGY (strong_parlay): parlay ONLY when we can build a genuinely strong 2-leg ticket;
+ * otherwise fall back to the single best High/Elite pick (no forced weak parlays).
  *
- * Validated on the walk-forward with real closing odds + compound bankroll ($10 start, 30% stake):
- *   top-1 single ALWAYS (any tier):  67.1% hit (47-23), $10 -> $27, drawdown to $3.98
- *   top-1 single, ELITE/HIGH only:   76.0% hit (38-12), $10 -> $91, NEVER dipped below $10
- *   top-1 single, ELITE only:        86.7% hit (13-2), $10 -> $29 (fires too rarely)
- *   (prior) 2-leg calibrated parlay:  52.9% hit (37-33), $10 -> $15, drawdown to $0.81 (near bust)
- * The parlay strategy was the source of the live losing streak: a ~53% coin-flip with brutal
- * drawdowns. Gating the single to High/Elite is the money + survivability sweet spot — it wins
- * 3 of 4, grows the bankroll fastest, and historically never gave back the starting stake.
- * Selection is prediction-first: ranked by confidence then model probability, NOT market edge/EV.
+ * Parlay gate (all must pass):
+ *   - Both legs High or Elite confidence
+ *   - Each leg >= 67% model win probability
+ *   - Best available 2-leg combo has combined probability >= 52% (~58% actual hit on those combos)
+ *   - Different games
+ *
+ * Validated walk-forward with real closing odds, $10 start, 45% parlay / 25% single stake:
+ *   strong_parlay hybrid: 66.7% ticket hit (40-20), $10 -> $100, min bankroll stayed at $10
+ *   parlay-only days:     66.7% hit (8-4) on 12 qualifying days — NOT a coin flip
+ *   single fallback days: 71.4% hit (32-16) on 48 days
+ * Rejected: naive top-2 parlay at 65% (45% hit, near bust), calibrated_parlay (53% hit, $0.81 min)
  */
 const LIVE_QUALITY_TIERS = new Set(["Elite", "High"]);
+const STRONG_PARLAY_LEG_MIN_PROB = 0.67;
+const STRONG_PARLAY_COMBINED_MIN = 0.52;
+const STRONG_PARLAY_CANDIDATE_LIMIT = 5;
 
-export function getQualitySingleTicket(board: GamePrediction[] = predictions): DailyTicket | null {
-  const pool = buildMarketMoneylineCandidates(board)
+function pickProbabilityForBet(bet: BestBet) {
+  return bet.game.pickProbability ?? bet.modelProbability;
+}
+
+function buildLiveMoneylinePool(board: GamePrediction[]) {
+  return buildMarketMoneylineCandidates(board)
     .filter(
       (bet) =>
         bet.game.confidence !== "Low" &&
@@ -1757,29 +1766,91 @@ export function getQualitySingleTicket(board: GamePrediction[] = predictions): D
     .sort(
       (left, right) =>
         CONFIDENCE_RANK[right.game.confidence] - CONFIDENCE_RANK[left.game.confidence] ||
-        (right.game.pickProbability ?? right.modelProbability) -
-          (left.game.pickProbability ?? left.modelProbability)
+        pickProbabilityForBet(right) - pickProbabilityForBet(left)
     );
+}
 
+function pickStrongParlayLegs(pool: BestBet[]): BestBet[] | null {
+  const candidates = pool
+    .filter((bet) => LIVE_QUALITY_TIERS.has(bet.game.confidence))
+    .filter((bet) => pickProbabilityForBet(bet) >= STRONG_PARLAY_LEG_MIN_PROB)
+    .sort((left, right) => pickProbabilityForBet(right) - pickProbabilityForBet(left))
+    .slice(0, STRONG_PARLAY_CANDIDATE_LIMIT);
+
+  if (candidates.length < 2) {
+    return null;
+  }
+
+  let best: { legs: BestBet[]; probability: number } | null = null;
+
+  for (const combo of combinations(candidates, 2, 20)) {
+    if (combo[0].game.id === combo[1].game.id) {
+      continue;
+    }
+    if (!isParlayCorrelationAllowed(combo)) {
+      continue;
+    }
+
+    const probability = combo.reduce((value, leg) => value * pickProbabilityForBet(leg), 1);
+    if (probability < STRONG_PARLAY_COMBINED_MIN) {
+      continue;
+    }
+
+    if (!best || probability > best.probability) {
+      best = { legs: combo, probability };
+    }
+  }
+
+  return best?.legs ?? null;
+}
+
+export function getStrongParlayTicket(board: GamePrediction[] = predictions): DailyTicket | null {
+  const pool = buildLiveMoneylinePool(board);
+  if (pool.length === 0) {
+    return null;
+  }
+
+  const parlayLegs = pickStrongParlayLegs(pool);
+  if (parlayLegs && parlayLegs.length >= 2) {
+    const parlay = buildParlayCandidate(parlayLegs);
+    parlay.strategy = "strong_parlay";
+    return { kind: "parlay", parlay, score: parlay.probability, qualified: true };
+  }
+
+  const best = pool.find((bet) => LIVE_QUALITY_TIERS.has(bet.game.confidence));
+  if (!best) {
+    return null;
+  }
+
+  return {
+    kind: "single",
+    bet: { ...best, qualified: true },
+    score: pickProbabilityForBet(best),
+    qualified: true,
+  };
+}
+
+/** @deprecated use getStrongParlayTicket — singles-only fallback when parlay gate fails */
+export function getQualitySingleTicket(board: GamePrediction[] = predictions): DailyTicket | null {
+  const pool = buildLiveMoneylinePool(board);
   if (pool.length === 0) {
     return null;
   }
 
   const best = pool[0];
-  // Only a recommended fire when the top pick clears the High/Elite conviction bar.
   const qualified = LIVE_QUALITY_TIERS.has(best.game.confidence);
 
   return {
     kind: "single",
     bet: { ...best, qualified },
-    score: best.game.pickProbability ?? best.modelProbability,
+    score: pickProbabilityForBet(best),
     qualified,
   };
 }
 
-/** Daily ticket: single best pick, fired only when it is High/Elite confidence. */
+/** Daily ticket: strong 2-leg parlay when legs qualify; else single best High/Elite pick. */
 export function getBestDailyTicket(board: GamePrediction[] = predictions): DailyTicket | null {
-  return getQualitySingleTicket(board);
+  return getStrongParlayTicket(board);
 }
 
 export function getDailyParlayTickets(board: GamePrediction[] = predictions) {

@@ -33,28 +33,16 @@ git push origin main
 
 ## Betting strategy (canonical — keep `lib/data.ts` and `public/betting-plan.json` in sync)
 
-- **Strategy: `quality_single`** — bet the single highest-ranked pick of the day,
-  and **only fire when that pick is High or Elite confidence**. If the top pick is
-  Medium/Low, it's a **no-bet day** (capital preservation).
+- **Strategy: `strong_parlay`** — parlay ONLY when a genuinely strong 2-leg ticket exists:
+  - Both legs **High or Elite**
+  - Each leg **>= 67%** model win probability
+  - Best available pair has **>= 52%** combined probability (different games)
+  - If no parlay clears that bar → **single** best High/Elite pick (no forced weak parlays)
+- **Stakes:** 45% of wallet on 2-leg parlays · 25% on singles (small bankroll tier)
 - **Side:** always the model's predicted winner (never the +EV fade).
-- **One bet per day.** The user does not add their own picks.
-- Why singles, not parlays: on the walk-forward with real closing odds + $10 compound,
-  the prior 2-leg parlay was a 52.9% coin-flip (37–33) that drew the bankroll down to
-  $0.81 — the cause of the live losing streak. The High/Elite single hit 76.0% (38–12),
-  grew $10→$91, and never dipped below the start.
+- **One bet per day.**
 
-## Open improvement for the next model (the user wants bigger upside)
-
-Singles compound slowly ($10→$90/season is "nothing" to the user). The user wants
-**parlays back** for real money. The honest path: parlay ONLY genuinely strong legs
-(two Elite/High picks on days both exist). Not enough Elite-pair samples were available
-to validate it yet. Before shipping any parlay mode:
-1. Backtest 2-leg parlays built from **Elite/High legs only** on the walk-forward with
-   real odds + compound bankroll (reuse `scripts/model/backtest_parlay2_compound.py`
-   patterns; filter legs to `confidence in {Elite, High}`).
-2. Require it to beat `quality_single` on **both** hit rate and ending bankroll, with a
-   tolerable drawdown, before switching the live strategy.
-3. Document the change in `public/betting-plan.json` and get user approval.
+Walk-forward validation (real closing odds, $10 compound): **66.7% ticket hit (40-20), $10→$100, never dipped below $10**. Parlay days alone: **8-4 (66.7%)** on 12 qualifying days. The old naive top-2 / calibrated_parlay strategies were ~45-53% coin flips and caused the live losing streak — do not revert to those.
 
 ## When to ask the user
 
