@@ -1,19 +1,14 @@
 {
   "generated_at": "2026-06-24",
   "tracking_mode": "live_best_bets",
-  "disclaimer": "Tracks locked system tickets + your Robinhood wallet. Stakes = 12% single / 18% parlay of wallet below $200.",
-  "strategy": "best_ticket",
-  "staking": "ratchet",
-  "ratchet_tiers": [
-    { "min_balance": 0, "max_balance": 199, "parlay_pct": 0.18, "single_pct": 0.12 },
-    { "min_balance": 200, "max_balance": 999, "parlay_pct": 0.25, "single_pct": 0.18 },
-    { "min_balance": 1000, "max_balance": null, "parlay_pct": 0.15, "single_pct": 0.10 }
-  ],
+  "disclaimer": "Tracks locked system tickets + your Robinhood wallet. Stakes = 35% elite single / 45% two-leg / 10% three-leg (parlay_first).",
+  "strategy": "parlay_first",
+  "staking": "tiered",
   "stake_by_leg_count": {
-    "1": 0.12,
-    "2": 0.18,
-    "3": 0.18,
-    "4": 0.18
+    "1": 0.35,
+    "2": 0.45,
+    "3": 0.1,
+    "4": 0.1
   },
   "prove_out": {
     "active": true,

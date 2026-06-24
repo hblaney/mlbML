@@ -1,27 +1,7 @@
 {
-  "leader_streak_days": 0,
+  "leader_streak_days": 3,
   "leader_strategy": "best_ticket",
   "signals": [
-    {
-      "date": "2026-06-16",
-      "leader": "no_low_parlay_223s",
-      "leader_streak_days": 1,
-      "switch_recommended": false
-    },
-    {
-      "date": "2026-06-17",
-      "leader_14d": "best_ticket",
-      "season_leader": "corr_nl_reject_both",
-      "leader_streak_days": 1,
-      "switch_recommended": false
-    },
-    {
-      "date": "2026-06-17",
-      "leader_14d": "best_ticket",
-      "season_leader": "corr_nl_reject_both",
-      "leader_streak_days": 2,
-      "switch_recommended": false
-    },
     {
       "date": "2026-06-17",
       "leader_14d": "best_ticket",
@@ -132,6 +112,111 @@
       "leader_14d": "best_ticket",
       "season_leader": "best_ticket",
       "leader_streak_days": 0,
+      "switch_recommended": false
+    },
+    {
+      "date": "2026-06-24",
+      "leader_14d": "best_ticket",
+      "season_leader": "best_ticket",
+      "leader_streak_days": 0,
+      "switch_recommended": false
+    },
+    {
+      "date": "2026-06-24",
+      "leader_14d": "best_ticket",
+      "season_leader": "best_ticket",
+      "leader_streak_days": 0,
+      "switch_recommended": false
+    },
+    {
+      "date": "2026-06-24",
+      "leader_14d": "best_ticket",
+      "season_leader": "best_ticket",
+      "leader_streak_days": 0,
+      "switch_recommended": false
+    },
+    {
+      "date": "2026-06-24",
+      "leader_14d": "best_ticket",
+      "season_leader": "best_ticket",
+      "leader_streak_days": 0,
+      "switch_recommended": false
+    },
+    {
+      "date": "2026-06-24",
+      "leader_14d": "best_ticket",
+      "season_leader": "best_ticket",
+      "leader_streak_days": 0,
+      "switch_recommended": false
+    },
+    {
+      "date": "2026-06-24",
+      "leader_14d": "best_ticket",
+      "season_leader": "best_ticket",
+      "leader_streak_days": 0,
+      "switch_recommended": false
+    },
+    {
+      "date": "2026-06-24",
+      "leader_14d": "best_ticket",
+      "season_leader": "best_ticket",
+      "leader_streak_days": 0,
+      "switch_recommended": false
+    },
+    {
+      "date": "2026-06-24",
+      "leader_14d": "best_ticket",
+      "season_leader": "best_ticket",
+      "leader_streak_days": 0,
+      "switch_recommended": false
+    },
+    {
+      "date": "2026-06-24",
+      "leader_14d": "best_ticket",
+      "season_leader": "best_ticket",
+      "leader_streak_days": 0,
+      "switch_recommended": false
+    },
+    {
+      "date": "2026-06-24",
+      "leader_14d": "best_ticket",
+      "season_leader": "best_ticket",
+      "leader_streak_days": 0,
+      "switch_recommended": false
+    },
+    {
+      "date": "2026-06-24",
+      "leader_14d": "best_ticket",
+      "season_leader": "best_ticket",
+      "leader_streak_days": 0,
+      "switch_recommended": false
+    },
+    {
+      "date": "2026-06-24",
+      "leader_14d": "best_ticket",
+      "season_leader": "best_ticket",
+      "leader_streak_days": 0,
+      "switch_recommended": false
+    },
+    {
+      "date": "2026-06-24",
+      "leader_14d": "best_ticket",
+      "season_leader": "best_ticket",
+      "leader_streak_days": 1,
+      "switch_recommended": false
+    },
+    {
+      "date": "2026-06-24",
+      "leader_14d": "best_ticket",
+      "season_leader": "best_ticket",
+      "leader_streak_days": 2,
+      "switch_recommended": false
+    },
+    {
+      "date": "2026-06-24",
+      "leader_14d": "best_ticket",
+      "season_leader": "best_ticket",
+      "leader_streak_days": 3,
       "switch_recommended": false
     }
   ]

@@ -33,14 +33,14 @@ git push origin main
 
 ## Betting strategy (canonical — keep `lib/data.ts` and `public/betting-plan.json` in sync)
 
-- **Strategy: `power_parlay`** — parlay when a strong 2-leg ticket exists:
-  - Both legs **High or Elite**
-  - Each leg **>= 66%** model win probability
-  - Best pair (not blind top-2) has **>= 52%** combined probability
-  - If no parlay clears → **single** best High/Elite (never force weak parlays)
-- **Stakes:** **50%** of wallet on 2-leg parlays · **20%** on singles (small bankroll tier)
+- **Strategy: `parlay_first`** — parlay-heavy with quality gates:
+  - Parlay legs: **≥ 65%** model prob · **≥ 8% edge** · **≥ 1 High/Elite leg**
+  - No parlay → single only if **High/Elite ≥ 67%** and +EV; else **skip**
+  - Model **High** tier requires **form edge ≥ 2%** (81.5% H/E walk-forward)
+- **Stakes:** **45%** two-leg · **35%** elite single · **10%** three/four-leg
+- **Honest KPIs:** `public/live-strategy-metrics.json` — flat ROI + ticket hit rate (not compound fantasy)
 
-Walk-forward validation (real closing odds, $10 compound): **67% ticket hit (40-20), $10→$182**, never below $10. **Parlay days: 9-4 (69%)** on 13 qualifying days. Do not revert to naive top-2 / calibrated_parlay (~53% coin flips).
+Walk-forward (Mar–Jun 2026, real closing odds): **81% ticket hit (13-3)**, **95% flat ROI**, **83% parlay hit** on 6 parlay days. Regenerate with `npm run model:daily:core`.
 
 ## When to ask the user
 

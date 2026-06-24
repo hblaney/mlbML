@@ -1,0 +1,42 @@
+{
+  "generated_at": "2026-06-24",
+  "strategy": "parlay_first",
+  "period": {
+    "start": "2026-03-20",
+    "end": "2026-06-24"
+  },
+  "stakes": {
+    "1": 0.35,
+    "2": 0.45,
+    "3": 0.1
+  },
+  "headline": {
+    "bet_days": 16,
+    "parlay_days": 6,
+    "single_days": 10,
+    "parlay_share": 0.375,
+    "ticket_hit_rate": 0.8125,
+    "parlay_hit_rate": 0.8333,
+    "single_hit_rate": 0.8,
+    "record": "13-3"
+  },
+  "flat_per_100_staked": {
+    "roi": 0.9527,
+    "profit_units": 1524.29,
+    "hit_rate": 0.8125
+  },
+  "compound_reference": {
+    "from_10": {
+      "end": 277.8726,
+      "min_bankroll": 8.0691,
+      "record": "13-3"
+    },
+    "from_100": {
+      "end": 2778.7259,
+      "min_bankroll": 80.6907,
+      "record": "13-3"
+    },
+    "note": "Compound paths assume full re-stake; use flat ROI for realistic edge sizing."
+  },
+  "note": "Primary KPIs: ticket hit rate and flat ROI per $100 staked at fixed unit size. Parlay share shows how often the strategy compounds vs elite-single fallback."
+}

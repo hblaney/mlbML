@@ -701,6 +701,29 @@ export async function loadLiveBankroll() {
   }
 }
 
+export async function loadLiveStrategyMetrics() {
+  try {
+    const filePath = path.join(process.cwd(), "public", "live-strategy-metrics.json");
+    const raw = await readFile(filePath, "utf8");
+    return JSON.parse(raw) as {
+      generated_at: string;
+      strategy: string;
+      headline: {
+        bet_days: number;
+        parlay_days: number;
+        single_days: number;
+        ticket_hit_rate: number;
+        parlay_hit_rate: number | null;
+        single_hit_rate: number | null;
+        record: string;
+      };
+      flat_per_100_staked: { roi: number; profit_units: number; hit_rate: number };
+    };
+  } catch {
+    return null;
+  }
+}
+
 export async function loadBettingPlan() {
   try {
     const filePath = path.join(process.cwd(), "public", "betting-plan.json");

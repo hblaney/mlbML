@@ -700,14 +700,14 @@ export function getAdvancedBets(board: GamePrediction[] = predictions): Advanced
   ];
 }
 
-// Leg-probability floors are on the TRUE calibrated scale (High >= 0.64, Medium >= 0.57).
-const SAFE_PARLAY_MIN_LEG_PROBABILITY = 0.64;
+// Leg-probability floors are on the TRUE calibrated scale (High >= 0.65, Medium >= 0.57).
+const SAFE_PARLAY_MIN_LEG_PROBABILITY = 0.65;
 const SAFE_PARLAY_MIN_LEG_EDGE = 0.05;
 const SAFE_PARLAY_MIN_BOOK_PROBABILITY = 0.50;
 /** Live site parlays: stricter legs than backtest pool — no forced pairings. */
 const LIVE_PARLAY_MIN_LEG_EDGE = 0.06;
 const LIVE_PARLAY_MIN_BOOK_PROBABILITY = 0.50;
-const LIVE_PARLAY_HIGH_ELITE_MIN_PROBABILITY = 0.64;
+const LIVE_PARLAY_HIGH_ELITE_MIN_PROBABILITY = 0.65;
 const LIVE_PARLAY_MEDIUM_MIN_PROBABILITY = 0.57;
 const LIVE_PARLAY_MIN_COMBINED_PROBABILITY_2 = 0.34;
 const LIVE_PARLAY_MIN_COMBINED_PROBABILITY_3 = 0.20;
@@ -755,8 +755,15 @@ export const TRG59_MIN_COMBINED_PROBABILITY = 0.34;
 /** @deprecated use TRG59_FORCE_PARLAY_MIN_PROBABILITY */
 export const MED60_FORCE_PARLAY_MIN_PROBABILITY = TRG59_FORCE_PARLAY_MIN_PROBABILITY;
 
-/** Live plan: power_parlay — best 2-leg parlay when legs qualify; else single. 50% parlay / 20% single stakes. */
-export const LIVE_BETTING_STRATEGY = "power_parlay";
+/** Live plan: parlay_first — parlay whenever a filtered 2/3/4-leg clears; elite single only as fallback. */
+export const LIVE_BETTING_STRATEGY = "parlay_first";
+
+/** Fallback single bar when no parlay qualifies. */
+export const PARLAY_FIRST_ELITE_SINGLE_MIN = 0.67;
+/** Parlay legs must beat market by at least 8% edge (2026 walk-forward: 87.5% parlay hit). */
+export const PARLAY_FIRST_MIN_LEG_EDGE = 0.08;
+/** At least one High/Elite leg on every parlay ticket. */
+export const PARLAY_FIRST_MIN_HE_LEGS = 1;
 /** Real MLB moneylines never exceed ±1500; beyond that is corrupted feed data. */
 const ML_SANITY_LIMIT_LIVE = 1500;
 const USE_PARLAY_CORRELATION_FILTER = false;
@@ -1023,6 +1030,73 @@ function passesLiveParlayLegFilter(bet: BestBet) {
       ? LIVE_PARLAY_HIGH_ELITE_MIN_PROBABILITY
       : LIVE_PARLAY_MEDIUM_MIN_PROBABILITY;
   return bet.modelProbability >= minProbability;
+}
+
+function getParlayFirstLegCandidates(board: GamePrediction[] = predictions) {
+  if (!boardHasMarketOdds(board)) {
+    return [];
+  }
+
+  return buildMarketMoneylineCandidates(board)
+    .filter(
+      (bet) =>
+        isParlayEligibleConfidence(bet.game.confidence) &&
+        isStarterReadyForParlay(bet.game) &&
+        bet.modelProbability >= SAFE_PARLAY_MIN_LEG_PROBABILITY &&
+        bet.edge >= PARLAY_FIRST_MIN_LEG_EDGE &&
+        bet.bookProbability >= SAFE_PARLAY_MIN_BOOK_PROBABILITY &&
+        bet.ev > 0
+    )
+    .sort(
+      (left, right) =>
+        CONFIDENCE_RANK[right.game.confidence] - CONFIDENCE_RANK[left.game.confidence] ||
+        right.modelProbability - left.modelProbability ||
+        right.ev * right.modelProbability - left.ev * left.modelProbability
+    )
+    .slice(0, 8);
+}
+
+function getParlayFirstTicketForLegCount(board: GamePrediction[], legCount: 2 | 3 | 4) {
+  const singles = getParlayFirstLegCandidates(board).slice(0, legCount === 2 ? 8 : 6);
+  if (singles.length < legCount) {
+    return null;
+  }
+
+  let best: ParlayCandidate | null = null;
+
+  for (const legs of combinations(singles, legCount)) {
+    const uniqueGames = new Set(legs.map((leg) => leg.game.id));
+    if (uniqueGames.size !== legs.length) {
+      continue;
+    }
+    if (!isParlayCorrelationAllowed(legs)) {
+      continue;
+    }
+    if (countHighEliteLegs(legs) < PARLAY_FIRST_MIN_HE_LEGS) {
+      continue;
+    }
+
+    const candidate = buildParlayCandidate(legs);
+    if (candidate.ev <= 0) {
+      continue;
+    }
+    const minCombined =
+      legCount === 2
+        ? LIVE_PARLAY_MIN_COMBINED_PROBABILITY_2
+        : legCount === 3
+          ? LIVE_PARLAY_MIN_COMBINED_PROBABILITY_3
+          : PREMIUM_4LEG_MIN_COMBINED_PROBABILITY;
+    if (candidate.probability < minCombined) {
+      continue;
+    }
+
+    candidate.strategy = "parlay_first";
+    if (!best || candidate.score > best.score) {
+      best = candidate;
+    }
+  }
+
+  return best;
 }
 
 function getLiveParlayLegCandidates(board: GamePrediction[] = predictions) {
@@ -1596,6 +1670,54 @@ export function getMaxScoreDailyTicket(board: GamePrediction[] = predictions): D
   return best;
 }
 
+/**
+ * parlay_first — parlay-heavy, realistic hit-rate strategy (2026 walk-forward):
+ *   1. Best filtered 2/3/4-leg parlay (legs >= 8% edge, >= 1 High/Elite leg)
+ *   2. Else +EV single only if High/Elite and >= 67%
+ *   3. Else no bet
+ */
+export function getParlayFirstDailyTicket(board: GamePrediction[] = predictions): DailyTicket | null {
+  const parlayOptions: DailyTicket[] = [];
+
+  for (const legCount of [2, 3, 4] as const) {
+    const parlay = getParlayFirstTicketForLegCount(board, legCount);
+    if (parlay) {
+      parlayOptions.push({ kind: "parlay", parlay, score: parlay.score, qualified: true });
+    }
+  }
+
+  if (parlayOptions.length > 0) {
+    return parlayOptions.sort((left, right) => right.score - left.score)[0];
+  }
+
+  const elitePool = buildMarketMoneylineCandidates(board).filter(
+    (bet) =>
+      (bet.game.confidence === "High" || bet.game.confidence === "Elite") &&
+      (bet.game.pickProbability ?? bet.modelProbability) >= PARLAY_FIRST_ELITE_SINGLE_MIN &&
+      bet.game.starterCertain !== false &&
+      bet.game.seriesFade !== true &&
+      bet.ev > 0
+  );
+
+  if (elitePool.length === 0) {
+    return null;
+  }
+
+  const best = elitePool.sort(
+    (left, right) =>
+      (right.game.pickProbability ?? right.modelProbability) -
+        (left.game.pickProbability ?? left.modelProbability) ||
+      right.ev - left.ev
+  )[0];
+
+  return {
+    kind: "single",
+    bet: { ...best, qualified: true },
+    score: best.game.pickProbability ?? best.modelProbability,
+    qualified: true
+  };
+}
+
 /** Top edge pick on the board — lock priority and headline display. */
 export function getTopEdgePick(board: GamePrediction[] = predictions): BestBet | null {
   return getTopMoneylineTicket(board);
@@ -1854,9 +1976,9 @@ export function getQualitySingleTicket(board: GamePrediction[] = predictions): D
   };
 }
 
-/** Daily ticket: power 2-leg parlay when legs qualify; else single best High/Elite pick. */
+/** Daily ticket: parlay_first — parlay when possible; elite single fallback only. */
 export function getBestDailyTicket(board: GamePrediction[] = predictions): DailyTicket | null {
-  return getPowerParlayTicket(board);
+  return getParlayFirstDailyTicket(board);
 }
 
 export function getDailyParlayTickets(board: GamePrediction[] = predictions) {

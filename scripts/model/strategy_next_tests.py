@@ -202,6 +202,39 @@ def day_actions_med60_force2_223s(candidates: list[dict]) -> list[DayAction]:
     return day_actions_trg59_top_prob_2(candidates)
 
 
+def day_actions_parlay_first(candidates: list[dict]) -> list[DayAction]:
+    """Parlay-first: legs >= 8% edge + >=1 H/E leg; else High/Elite single >= 67%."""
+    pool = model_pick_candidates(candidates)
+    filtered = [
+        c
+        for c in pool
+        if c.get("confidence") != "Low"
+        and float(c.get("model_probability", 0)) >= 0.65
+        and float(c.get("edge", 0)) >= 0.08
+    ]
+    opts: list[tuple[float, dict]] = []
+    for n in (2, 3, 4):
+        ticket, ok = pick_best_parlay(filtered, n)
+        if not ticket or not ok:
+            continue
+        he = sum(1 for leg in ticket["legs"] if leg.get("confidence") in ("High", "Elite"))
+        if he >= 1:
+            opts.append((ticket["score"], ticket))
+    if opts:
+        _, ticket = max(opts, key=lambda item: item[0])
+        return [DayAction(legs=ticket["legs"], single=None, label="parlay_first")]
+    elite = [
+        c
+        for c in pool
+        if c.get("confidence") in ("High", "Elite")
+        and float(c.get("model_probability", 0)) >= 0.67
+    ]
+    single, _ = pick_best_moneyline(elite)
+    if single and float(single.get("ev", 0)) > 0:
+        return [DayAction(legs=None, single=single, label="elite_single")]
+    return []
+
+
 def day_actions_high_elite_parlay(
     candidates: list[dict], *, min_edge: float = 0.0, require_positive_ev: bool = False
 ) -> list[DayAction]:
@@ -283,6 +316,9 @@ def day_actions_for_test(candidates: list[dict], rule: str) -> list[DayAction]:
 
     if rule == "edge_value_ticket":
         return day_actions_for_rule(candidates, rule)
+
+    if rule == "parlay_first":
+        return day_actions_parlay_first(candidates)
 
     if rule == "high_elite_76_parlay":
         # Live strategy now includes the validated value gate: a leg must beat the

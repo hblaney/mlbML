@@ -11,9 +11,10 @@ from exhaustive_strategy_search import STAKE, flat_stats_for_snapshots, load_mon
 from strategy_next_tests import build_snapshots, enrich_moneyline
 from strategy_research import DAILY_CAP, compound
 
-LIVE_STRATEGY = "best_ticket"
+LIVE_STRATEGY = "parlay_first"
 CHALLENGERS = [
-    "best_ticket",  # max-score selector — useful reference point
+    "parlay_first",
+    "best_ticket",
 ]
 STAKE_TIERED = {1: 0.35, 2: 0.45, 3: 0.10}
 SWITCH_SIGNAL_DAYS = 14

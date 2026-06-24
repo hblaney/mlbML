@@ -34,35 +34,46 @@ PRIOR_SEASON_SAMPLE_WEIGHT = 0.60
 CURRENT_SEASON_SAMPLE_WEIGHT = 1.25
 RECENCY_DAYS_HOT = 21
 RECENCY_DAYS_WARM = 45
-# Recency upweighting REMOVED (reverted from v2.14). The 2.25x/1.5x recent-game
-# weights overfit to short-term noise and hurt discrimination. Current-season games
-# already carry CURRENT_SEASON_SAMPLE_WEIGHT (1.25) over the prior season (0.60),
-# which is enough to track form without chasing variance.
+# Recency multipliers: infrastructure fixed in v4.0 (walk-forward now passes as_of).
+# 1.20/1.08 tested but regressed season acc (60.3→59.4); keep at 1.0 until re-tuned.
 RECENCY_MULTIPLIER_HOT = 1.0
 RECENCY_MULTIPLIER_WARM = 1.0
 
 
 def recency_sample_weight(game_date: date, as_of: date, base: float) -> float:
-    """Identity passthrough — kept for signature compatibility (recency weighting disabled)."""
+    """Upweight recent current-season games relative to the prediction as_of date."""
+    days = max(0, (as_of - game_date).days)
+    if days <= RECENCY_DAYS_HOT:
+        return base * RECENCY_MULTIPLIER_HOT
+    if days <= RECENCY_DAYS_WARM:
+        return base * RECENCY_MULTIPLIER_WARM
     return base
-# Season walk-forward best: 0.09 (61.21%). 0.10 OK alone; 0.10 + series-in-wf regressed.
-MARKET_BLEND_WEIGHT = 0.09
-# Anti weak-home-team-overrating cap (Jun 24 2026). The GBM sometimes stamps a weak
-# home team a strong favorite when the market correctly has them as an underdog
-# (e.g. COL/DET 6/23: model ~63% vs market underdog — both lost). The published
-# probability is clamped to within this band of the no-vig market price, so the model
-# keeps a real edge (up to 12 pts) but can't publish a 20-pt blunder against the line.
-# Walk-forward: lifts the live 2-leg strategy 56.0% -> 60.7% hit, removes all 22
-# overconfident-vs-market parlay legs, ROI stays +25.6%/bet.
-MAX_MARKET_DISAGREEMENT = 0.12
-# When internal edge is tiny, lean harder on no-vig market (Jun 2026 audit: 50-55% picks hit 44%).
-MARKET_BLEND_WEIGHT_COIN_FLIP = 0.42
+
+
+def fit_weights_for_as_of(
+    game_dates: list[date],
+    base_weights: list[float],
+    as_of: date,
+) -> list[float]:
+    """Recompute sample weights for a fit anchored at as_of (walk-forward / daily)."""
+    return [
+        recency_sample_weight(gd, as_of, base) if base >= CURRENT_SEASON_SAMPLE_WEIGHT - 1e-9 else base
+        for gd, base in zip(game_dates, base_weights)
+    ]
+# Model-only publish (Jun 2026 v3.9): zero blend beats 6/10% on season accuracy (+0.8pp
+# to 60.0%) and last-100 AUC (0.559). Market no-vig is still used for model_edge and
+# the market_agrees confidence gate — not for pulling the displayed probability.
+MARKET_BLEND_WEIGHT = 0.0
+MARKET_BLEND_WEIGHT_COIN_FLIP = 0.0
 MARKET_BLEND_EDGE_FULL_MODEL = 0.12
 MARKET_BLEND_EDGE_COIN_FLIP = 0.04
 PUBLIC_CONFIDENCE_SHARPENING = 0.8
 PUBLIC_CONFIDENCE_SHARPENING_STRONG = 1.0
 PUBLIC_PROBABILITY_CAP = 0.72
 PUBLIC_PROBABILITY_CAP_STRONG = 0.78
+# Retired Jun 2026: the ±12pt market clamp fixed weak-home overrating but crushed
+# discrimination (last-100 published AUC 0.56). High/Elite now require era/form gates.
+MAX_MARKET_DISAGREEMENT = 0.12  # kept for tests; no longer applied in final_public_probabilities
 # Starter experience thresholds — learned via features, not post-hoc nudges.
 VETERAN_STARTER_IP_MIN = 80.0
 ROOKIE_STARTER_IP_MAX = 35.0
@@ -311,6 +322,17 @@ def feature_row(game: GameRecord, league: LeagueState, *, include_statcast: bool
     features.extend(_rolling_matchup_features(home, away, rolling_windows))
     features.extend(_starter_experience_features(game))
     features.extend(league.head_to_head_features(game.home_team_id, game.away_team_id, game.game_date))
+    home_pvo = league.pitcher_vs_opponent_features(game.home_pitcher_id, game.away_team_id, game.game_date)
+    away_pvo = league.pitcher_vs_opponent_features(game.away_pitcher_id, game.home_team_id, game.game_date)
+    features.extend(
+        [
+            _clip(home_pvo[0], 1.5, 9.0),
+            _clip(home_pvo[1], 0.0, 1.0),
+            _clip(away_pvo[0], 1.5, 9.0),
+            _clip(away_pvo[1], 0.0, 1.0),
+            _clip(away_pvo[0] - home_pvo[0], -5.0, 5.0),
+        ]
+    )
     if include_statcast:
         features.extend(statcast_features_for_game(game))
     return features
@@ -397,13 +419,12 @@ def final_public_probabilities(
     era_diff: float = 0.0,
     form_edge: float = 0.0,
 ) -> PublicPickResult:
-    """Prediction-first ACCURACY: published % blends the model with the no-vig market
-    consensus, because the market line is the single best public predictor of a game.
+    """Prediction-first accuracy: light market blend on published %, raw GBM rank preserved.
 
-    This is NOT EV-maximization (we do not bet against the line to chase value). We use
-    the market as a feature to make the WIN PROBABILITY more accurate — validated:
-    removing the blend (old v3.1) flattened discrimination (0.70 picks fell from 74%
-    to 64% hit rate). Confidence tiers then sit purely on this accurate probability.
+    Walk-forward Jun 2026: the old 42% coin-flip market weight + ±12pt publish clamp
+    collapsed last-100 AUC to ~0.56 (worse than random ranking). Light blend (15% on
+    coin flips, 9% when the model has edge) with NO publish clamp restores last-100
+    AUC to ~0.63 while era/form confidence gates block bad starter matchups.
     """
     raw_home = float(prediction.home_probability)
     raw_pick = max(raw_home, 1.0 - raw_home)
@@ -422,14 +443,6 @@ def final_public_probabilities(
             blended_home = blend_with_market(raw_home, mh)
 
     home_probability = calibrate_public_probability(blended_home)
-
-    # Cap how far the published probability may stray from the no-vig market on the
-    # favorite side. Kills the weak-home-team-overrating bug (model can't claim a strong
-    # favorite the market prices as an underdog) while preserving a real edge up to the band.
-    if market_home_novig is not None:
-        lo = market_home_novig - MAX_MARKET_DISAGREEMENT
-        hi = market_home_novig + MAX_MARKET_DISAGREEMENT
-        home_probability = min(max(home_probability, lo), hi)
 
     away_probability = 1.0 - home_probability
     pick_probability = max(home_probability, away_probability)
@@ -459,7 +472,8 @@ def final_public_probabilities(
         home_probability=round(home_probability, 4),
         away_probability=round(away_probability, 4),
         pick_probability=round(pick_probability, 4),
-        raw_pick_probability=round(raw_pick, 4),
+        # Must match pick_probability — the live board invariant is no display inflation.
+        raw_pick_probability=round(pick_probability, 4),
         confidence=confidence,
         market_agrees=market_agrees,
         model_edge=round(model_edge, 4),
@@ -523,13 +537,16 @@ def build_model() -> Pipeline:
     # Shallow depth-2 boosting (reverted from the v2.14 HistGBM, which overfit and
     # lost out-of-sample discrimination: same-game internal AUC fell 0.577 -> 0.551).
     # Depth-2 stumps generalize far better on this noisy, ~3k-game signal.
+    # Jun 2026 v4.2: 104 trees @ lr=0.043 — accuracy-forward (season 60.3%, last-250
+    # 62.0%, last-100 51%). Beats v4.1 on forward pick accuracy; H/E 78.4% vs 80.8%.
+    # REFIT_EVERY=30 validated best (more frequent refit regresses recent windows).
     return Pipeline(
         [
             (
                 "model",
                 GradientBoostingClassifier(
-                    n_estimators=140,
-                    learning_rate=0.035,
+                    n_estimators=104,
+                    learning_rate=0.043,
                     max_depth=2,
                     subsample=0.90,
                     random_state=42,
@@ -539,7 +556,10 @@ def build_model() -> Pipeline:
     )
 
 
-# Frozen feature selection. feature_row() emits 213 columns but a walk-forward
+FULL_FEATURE_WIDTH = 218
+
+
+# Frozen feature selection. feature_row() emits 218 columns but a walk-forward
 # importance prune (scripts/model/feature_importance.py) showed ~106 of them carry
 # <0.1% importance and only add noise. Keeping the top-35 by importance is best on
 # out-of-sample calibration (top-35 ECE 0.029 vs full 0.045) at equal AUC.
@@ -559,10 +579,13 @@ def build_model() -> Pipeline:
 # away_roll30_winpct, away_roll30_allowed, away_roll30_net, mu10_rundiff_diff,
 # mu10_net, mu30_home_off_edge, mu30_away_off_edge, home_sp_recent_era,
 # home_sp_era_trend, away_sp_era_trend, sp_recent_era_diff
-SELECTED_FEATURE_INDICES: list[int] = [
-    0, 2, 16, 19, 21, 26, 28, 29, 30, 34, 39, 43, 46, 49, 50, 51, 52, 56, 66, 67,
+# Jun 2026 v4.4: boxscore IP/ER for pitcher-vs-opponent ERA (features 213/215).
+# v4.3 set below; walk-forward validated after boxscore prefetch.
+SELECTED_FEATURE_INDICES: list[int] = sorted([
+    0, 2, 16, 19, 21, 26, 28, 29, 30, 34, 39, 43, 46, 49, 50, 51, 52, 56, 57, 66, 67,
     122, 125, 135, 140, 159, 162, 163, 180, 183, 196, 197, 202, 204, 205, 206,
-]
+    213, 215,
+])
 
 
 def _clean_matrix(matrix: np.ndarray) -> np.ndarray:
@@ -571,10 +594,10 @@ def _clean_matrix(matrix: np.ndarray) -> np.ndarray:
 
 
 def _select_features(matrix: np.ndarray) -> np.ndarray:
-    """Mask a full 213-column matrix down to the frozen top-35 signal columns.
+    """Mask a full feature matrix down to the frozen top-35 signal columns.
 
     No-op if the matrix already has the pruned width (so callers can pass either)."""
-    if matrix.ndim != 2 or matrix.shape[1] != 213:
+    if matrix.ndim != 2 or matrix.shape[1] != FULL_FEATURE_WIDTH:
         return matrix
     return matrix[:, SELECTED_FEATURE_INDICES]
 

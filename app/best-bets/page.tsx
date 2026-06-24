@@ -18,8 +18,10 @@ import { formatCentralGameTime } from "@/lib/time";
 export const dynamic = "force-dynamic";
 
 const STRATEGY_LABELS: Record<string, string> = {
+  parlay_first: "parlay_first (live · parlay-heavy)",
+  best_ticket: "best_ticket (legacy · max-score incl. singles)",
+  power_parlay: "power_parlay (legacy · selective H/E only)",
   high_elite_76_parlay: "high_elite_76_parlay (legacy)",
-  best_ticket: "best_ticket (live · daily)",
 };
 
 export default async function BestBetsPage() {

@@ -22,6 +22,14 @@ class HeadToHeadGame:
 
 
 @dataclass
+class PitcherVsOpponentStart:
+    game_date: date
+    opponent_id: int
+    runs_allowed: int
+    team_won: bool
+
+
+@dataclass
 class PlayedGame:
     game_date: date
     runs_scored: int
@@ -141,6 +149,7 @@ class LeagueState:
     def __init__(self) -> None:
         self.teams: dict[int, TeamTracker] = {}
         self.head_to_head: list[HeadToHeadGame] = []
+        self.pitcher_starts: dict[int, list[PitcherVsOpponentStart]] = {}
 
     def team(self, team_id: int) -> TeamTracker:
         if team_id not in self.teams:
@@ -222,6 +231,49 @@ class LeagueState:
             return False
         return not self.team_won_in_h2h(pick_id, recent[-1]) and not self.team_won_in_h2h(pick_id, recent[-2])
 
+    def _record_pitcher_start(
+        self,
+        pitcher_id: int,
+        opponent_id: int,
+        game_date: date,
+        runs_allowed: int,
+        team_won: bool,
+    ) -> None:
+        self.pitcher_starts.setdefault(pitcher_id, []).append(
+            PitcherVsOpponentStart(
+                game_date=game_date,
+                opponent_id=opponent_id,
+                runs_allowed=runs_allowed,
+                team_won=team_won,
+            )
+        )
+
+    def pitcher_vs_opponent_features(
+        self,
+        pitcher_id: int | None,
+        opponent_id: int,
+        as_of: date,
+        *,
+        max_starts: int = 5,
+    ) -> list[float]:
+        """Leakage-safe starter history vs this opponent (runs/start ERA proxy + win rate)."""
+        if not pitcher_id:
+            return [4.35, 0.5, 0.0]
+
+        starts = [
+            row
+            for row in self.pitcher_starts.get(pitcher_id, [])
+            if row.opponent_id == opponent_id and row.game_date < as_of
+        ][-max_starts:]
+        if not starts:
+            return [4.35, 0.5, 0.0]
+
+        avg_runs = sum(row.runs_allowed for row in starts) / len(starts)
+        era_proxy = max(1.5, min(9.0, (avg_runs / 5.2) * 9.0))
+        win_pct = sum(1 for row in starts if row.team_won) / len(starts)
+        sample = min(1.0, len(starts) / 3.0)
+        return [era_proxy, win_pct, sample]
+
     def predict_home_win_probability(self, home_id: int, away_id: int) -> float:
         home = self.team(home_id)
         away = self.team(away_id)
@@ -234,6 +286,9 @@ class LeagueState:
         away_id: int,
         home_score: int,
         away_score: int,
+        *,
+        home_pitcher_id: int | None = None,
+        away_pitcher_id: int | None = None,
     ) -> None:
         home = self.team(home_id)
         away = self.team(away_id)
@@ -250,3 +305,7 @@ class LeagueState:
                 away_score=away_score,
             )
         )
+        if home_pitcher_id is not None:
+            self._record_pitcher_start(home_pitcher_id, away_id, game_date, away_score, home_won)
+        if away_pitcher_id is not None:
+            self._record_pitcher_start(away_pitcher_id, home_id, game_date, home_score, not home_won)

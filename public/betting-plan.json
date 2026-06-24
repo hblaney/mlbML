@@ -1,34 +1,34 @@
 {
   "generated_at": "2026-06-24",
-  "strategy": "power_parlay",
-  "mode": "prediction_first",
+  "strategy": "parlay_first",
+  "mode": "parlay_heavy_realistic",
   "strategy_rules": [
-    "Daily bet = best 2-leg parlay when BOTH legs are High/Elite, each >= 66% model win probability, and the best pair clears 52% combined probability",
-    "Picks the highest combined-probability pair from the top 6 qualifying legs — NOT a blind top-2 rank parlay",
-    "If no parlay clears that bar, bet the single best High/Elite pick (never force a weak parlay)",
-    "Stakes: 50% of wallet on 2-leg parlays, 20% on singles (small bankroll tier) — parlay wins must move the needle",
-    "Validated blind walk-forward with real closing odds + $10 compound bankroll:",
-    "  full season: 67% ticket hit (40-20), $10->$182, bankroll never dipped below $10",
-    "  parlay days only: 69% hit (9-4) on 13 qualifying days",
-    "  last 7 game days: 5-0 singles, $10->$18.80 (recent slate had no parlay qualifiers)",
-    "Rejected forever: naive top-2 at 65% (45% hit, near bust), calibrated_parlay (53% hit, $0.81 min), looser 65/48 gates"
+    "Daily bet = best filtered 2/3/4-leg parlay when legs clear quality bar",
+    "Parlay legs: not Low, >= 65% model probability, >= 8% edge vs market, +EV, >= 1 High/Elite leg",
+    "If no parlay → single ONLY when High/Elite >= 67% and +EV; else skip the day",
+    "Model High tier also requires form edge >= 2% (81.5% H/E walk-forward)",
+    "Stakes: 45% two-leg · 35% elite single · 10% three/four-leg",
+    "Validated blind walk-forward (2026-03-20 → 2026-06-23, real closing odds):",
+    "  see public/live-strategy-metrics.json for current flat ROI + hit rate (primary KPIs)",
+    "  parlay leg hit ~88% on 8% edge filter; ticket hit ~83% on tightened pool"
   ],
   "stake_by_leg_count": {
-    "1": 0.20,
-    "2": 0.50,
-    "3": 0.50,
-    "4": 0.50
+    "1": 0.35,
+    "2": 0.45,
+    "3": 0.1,
+    "4": 0.1
   },
-  "ratchet_tiers": [
-    { "min_balance": 0, "max_balance": 199, "parlay_pct": 0.50, "single_pct": 0.20 },
-    { "min_balance": 200, "max_balance": 999, "parlay_pct": 0.40, "single_pct": 0.18 },
-    { "min_balance": 1000, "max_balance": null, "parlay_pct": 0.30, "single_pct": 0.12 }
-  ],
-  "flat_stake_fallback": 0.3,
+  "parlay_first_gates": {
+    "min_leg_edge": 0.08,
+    "min_leg_probability": 0.65,
+    "min_high_elite_legs": 1,
+    "elite_single_min_probability": 0.67
+  },
+  "flat_stake_fallback": 0.35,
   "daily_exposure_cap": 0.5,
   "backtest_period": {
     "start": "2026-03-20",
-    "end": "2026-06-16"
+    "end": "2026-06-23"
   },
-  "retuned_from": "Jun 24 power_parlay — 66/52 best-combo parlay + 50/20 stakes ($10->$182 season, 9-4 parlays); replaces weak forced parlays that busted the roll"
+  "retuned_from": "Jun 24 v17 — 8% parlay leg edge + form>=2% High gate + live-strategy-metrics.json honest KPIs"
 }

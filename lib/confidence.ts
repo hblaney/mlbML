@@ -3,12 +3,12 @@
 import type { GamePrediction } from "./data";
 
 export const CONFIDENCE_MEDIUM_MIN = 0.58;
-export const CONFIDENCE_HIGH_MIN = 0.64;
+export const CONFIDENCE_HIGH_MIN = 0.65;
 export const CONFIDENCE_ELITE_MIN = 0.7;
 export const CONFIDENCE_UNCERTAIN_MEDIUM_MIN = 0.6;
-export const CONFIDENCE_HIGH_MIN_ERA_DIFF = 1.0;
+export const CONFIDENCE_HIGH_MIN_ERA_DIFF = 0.8;
 export const CONFIDENCE_ELITE_MIN_ERA_DIFF = 2.5;
-export const CONFIDENCE_HIGH_MIN_FORM_EDGE = 0.0;
+export const CONFIDENCE_HIGH_MIN_FORM_EDGE = 0.02;
 export const CONFIDENCE_ELITE_MIN_FORM_EDGE = 0.0;
 
 export type ConfidenceContext = {
@@ -40,6 +40,9 @@ export function confidenceFromPickProbability(
     eraDiff >= CONFIDENCE_ELITE_MIN_ERA_DIFF &&
     formEdge >= CONFIDENCE_ELITE_MIN_FORM_EDGE
   ) {
+    if (context.marketAgrees === false) {
+      return probability >= CONFIDENCE_MEDIUM_MIN ? "Medium" : "Low";
+    }
     return "Elite";
   }
   if (
@@ -47,6 +50,9 @@ export function confidenceFromPickProbability(
     eraDiff >= CONFIDENCE_HIGH_MIN_ERA_DIFF &&
     formEdge >= CONFIDENCE_HIGH_MIN_FORM_EDGE
   ) {
+    if (context.marketAgrees === false) {
+      return probability >= CONFIDENCE_MEDIUM_MIN ? "Medium" : "Low";
+    }
     return "High";
   }
   if (probability >= CONFIDENCE_MEDIUM_MIN) {

@@ -53,6 +53,8 @@ def feature_names() -> list[str]:
              "sp_recent_era_diff"]
     base += ["h2h_games", "h2h_home_winpct", "h2h_run_diff", "h2h_home_won_last",
              "h2h_home_lost_last_two", "h2h_none_flag"]
+    base += ["home_sp_vs_away_era", "home_sp_vs_away_winpct", "away_sp_vs_home_era",
+             "away_sp_vs_home_winpct", "sp_vs_opp_era_diff"]
     return base
 
 

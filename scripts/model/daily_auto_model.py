@@ -28,13 +28,14 @@ from trained_edge_model import (
     feature_row,
     final_public_probabilities,
     fit_model,
+    fit_weights_for_as_of,
     predict_with_model,
     recency_sample_weight,
 )
 
 MODEL_PATH = Path(__file__).resolve().parents[2] / "data" / "model" / "daily_edge.pkl"
-MODEL_VERSION = "daily-auto-v3.3-accuracy-restore"
-PIPELINE_VERSION = "unified-public-v6-blended-prob-tiers"
+MODEL_VERSION = "daily-auto-v4.3-matchup-signal"
+PIPELINE_VERSION = "unified-public-v17-form02-parlay8"
 
 
 @dataclass
@@ -55,7 +56,7 @@ class DailyModelBundle:
             notes=[
                 f"Retrained through {self.trained_through.isoformat()}",
                 "Shallow gradient boosting trained on prior season (decayed) plus current season (boosted)",
-                "Elo, recent form, starter, park, and weather are all inputs to the GBM; market odds are training features only — published pick % is pure model output",
+                "Elo, recent form, starter, park, and weather are GBM inputs; published pick % is pure model output (no market blend). High/Elite also require market agreement and starter ERA edge.",
                 "Retrains automatically when yesterday's final scores are new",
             ],
         )
@@ -81,6 +82,8 @@ def _ingest_game(
         game.away_team_id,
         game.home_score,
         game.away_score,
+        home_pitcher_id=game.home_pitcher_id,
+        away_pitcher_id=game.away_pitcher_id,
     )
 
 
@@ -90,23 +93,39 @@ def train_on_games(
 ) -> DailyModelBundle:
     league = LeagueState()
     examples: list[TrainingExample] = []
-    weights: list[float] = []
+    example_dates: list[date] = []
+    base_weights: list[float] = []
 
     trained_through = games[-1].game_date if games else date.today() - timedelta(days=1)
     for game in prior_games or []:
-        _ingest_game(game, league, examples, weights, PRIOR_SEASON_SAMPLE_WEIGHT)
-
-    for game in games:
-        _ingest_game(
-            game,
-            league,
-            examples,
-            weights,
-            CURRENT_SEASON_SAMPLE_WEIGHT,
-            as_of=trained_through,
+        examples.append(TrainingExample(features=feature_row(game, league), label=1 if game.home_won else 0))
+        example_dates.append(game.game_date)
+        base_weights.append(PRIOR_SEASON_SAMPLE_WEIGHT)
+        league.apply_result(
+            game.game_date,
+            game.home_team_id,
+            game.away_team_id,
+            game.home_score,
+            game.away_score,
+            home_pitcher_id=game.home_pitcher_id,
+            away_pitcher_id=game.away_pitcher_id,
         )
 
-    model = fit_model(examples, weights)
+    for game in games:
+        examples.append(TrainingExample(features=feature_row(game, league), label=1 if game.home_won else 0))
+        example_dates.append(game.game_date)
+        base_weights.append(CURRENT_SEASON_SAMPLE_WEIGHT)
+        league.apply_result(
+            game.game_date,
+            game.home_team_id,
+            game.away_team_id,
+            game.home_score,
+            game.away_score,
+            home_pitcher_id=game.home_pitcher_id,
+            away_pitcher_id=game.away_pitcher_id,
+        )
+
+    model = fit_model(examples, fit_weights_for_as_of(example_dates, base_weights, trained_through))
     if model is None:
         raise RuntimeError("Not enough games to train the daily model.")
 
@@ -178,20 +197,32 @@ def walk_forward_history(
 ) -> list[dict]:
     league = LeagueState()
     examples: list[TrainingExample] = []
-    weights: list[float] = []
+    example_dates: list[date] = []
+    base_weights: list[float] = []
     model: Pipeline | None = None
     last_fit_index = -REFIT_EVERY
     rows: list[dict] = []
     odds = HistoricalOddsStore()
 
     for game in prior_games or []:
-        _ingest_game(game, league, examples, weights, PRIOR_SEASON_SAMPLE_WEIGHT)
+        examples.append(TrainingExample(features=feature_row(game, league), label=1 if game.home_won else 0))
+        example_dates.append(game.game_date)
+        base_weights.append(PRIOR_SEASON_SAMPLE_WEIGHT)
+        league.apply_result(
+            game.game_date,
+            game.home_team_id,
+            game.away_team_id,
+            game.home_score,
+            game.away_score,
+            home_pitcher_id=game.home_pitcher_id,
+            away_pitcher_id=game.away_pitcher_id,
+        )
 
     for index, game in enumerate(games):
         features = feature_row(game, league)
 
         if len(examples) >= WARMUP_GAMES and (model is None or index - last_fit_index >= REFIT_EVERY):
-            model = fit_model(examples, weights)
+            model = fit_model(examples, fit_weights_for_as_of(example_dates, base_weights, game.game_date))
             last_fit_index = index
 
         if len(examples) >= WARMUP_GAMES and model is not None:
@@ -249,6 +280,10 @@ def walk_forward_history(
                     "pickProbability": round(pick_probability, 4),
                     "rawPickProbability": round(result.raw_pick_probability, 4),
                     "confidence": confidence,
+                    "eraDiff": round(era_diff, 6),
+                    "formEdge": round(form_edge, 6),
+                    "marketAgrees": result.market_agrees,
+                    "modelEdge": result.model_edge,
                     "marketBacked": odds_available,
                     "predicted": predicted_winner,
                     "actual": actual_winner,
@@ -258,13 +293,16 @@ def walk_forward_history(
             )
 
         examples.append(TrainingExample(features=features, label=1 if game.home_won else 0))
-        weights.append(recency_sample_weight(game.game_date, game.game_date, CURRENT_SEASON_SAMPLE_WEIGHT))
+        example_dates.append(game.game_date)
+        base_weights.append(CURRENT_SEASON_SAMPLE_WEIGHT)
         league.apply_result(
             game.game_date,
             game.home_team_id,
             game.away_team_id,
             game.home_score,
             game.away_score,
+            home_pitcher_id=game.home_pitcher_id,
+            away_pitcher_id=game.away_pitcher_id,
         )
 
     return rows

@@ -69,7 +69,8 @@ def build_matrix(rebuild: bool = False) -> dict:
         labels.append(1 if game.home_won else 0)
         weights.append(weight)
         is_current.append(cur_flag)
-        league.apply_result(game.game_date, game.home_team_id, game.away_team_id, game.home_score, game.away_score)
+        league.apply_result(game.game_date, game.home_team_id, game.away_team_id, game.home_score, game.away_score,
+                            home_pitcher_id=game.home_pitcher_id, away_pitcher_id=game.away_pitcher_id)
         if (i + 1) % 250 == 0:
             print(f"  {i + 1}/{len(stream)}")
 

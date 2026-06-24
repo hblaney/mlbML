@@ -26,10 +26,10 @@
       "note": "Team SLG proxy until lineup module ships"
     },
     {
-      "gameId": "sea-pit-2026-06-24-823367",
-      "matchup": "SEA @ PIT",
-      "player": "PIT top hitter TB proxy",
-      "team": "PIT",
+      "gameId": "phi-wsh-2026-06-24-822719",
+      "matchup": "PHI @ WSH",
+      "player": "WSH top hitter TB proxy",
+      "team": "WSH",
       "prop": "total_bases",
       "line": 1.0,
       "projection": 1.5,
@@ -37,10 +37,10 @@
       "note": "Team SLG proxy until lineup module ships"
     },
     {
-      "gameId": "phi-wsh-2026-06-24-822719",
-      "matchup": "PHI @ WSH",
-      "player": "WSH top hitter TB proxy",
-      "team": "WSH",
+      "gameId": "sea-pit-2026-06-24-823367",
+      "matchup": "SEA @ PIT",
+      "player": "PIT top hitter TB proxy",
+      "team": "PIT",
       "prop": "total_bases",
       "line": 1.0,
       "projection": 1.5,
@@ -114,10 +114,10 @@
       "note": "Team SLG proxy until lineup module ships"
     },
     {
-      "gameId": "mil-cin-2026-06-24-824500",
-      "matchup": "MIL @ CIN",
-      "player": "MIL top hitter TB proxy",
-      "team": "MIL",
+      "gameId": "az-stl-2026-06-24-823041",
+      "matchup": "AZ @ STL",
+      "player": "AZ top hitter TB proxy",
+      "team": "AZ",
       "prop": "total_bases",
       "line": 1.0,
       "projection": 1.4,
@@ -136,10 +136,21 @@
       "note": "Team SLG proxy until lineup module ships"
     },
     {
-      "gameId": "az-stl-2026-06-24-823041",
-      "matchup": "AZ @ STL",
-      "player": "AZ top hitter TB proxy",
-      "team": "AZ",
+      "gameId": "chc-nym-2026-06-24-823613",
+      "matchup": "CHC @ NYM",
+      "player": "CHC top hitter TB proxy",
+      "team": "CHC",
+      "prop": "total_bases",
+      "line": 1.0,
+      "projection": 1.4,
+      "lean": "Over",
+      "note": "Team SLG proxy until lineup module ships"
+    },
+    {
+      "gameId": "mil-cin-2026-06-24-824500",
+      "matchup": "MIL @ CIN",
+      "player": "CIN top hitter TB proxy",
+      "team": "CIN",
       "prop": "total_bases",
       "line": 1.0,
       "projection": 1.4,
@@ -189,6 +200,17 @@
       "projection": 6.3,
       "lean": "Pass",
       "k9": 10.33
+    },
+    {
+      "gameId": "chc-nym-2026-06-24-823613",
+      "matchup": "CHC @ NYM",
+      "player": "Nolan McLean",
+      "team": "NYM",
+      "prop": "strikeouts",
+      "line": 6.5,
+      "projection": 6.3,
+      "lean": "Pass",
+      "k9": 10.55
     },
     {
       "gameId": "tex-mia-2026-06-24-823850",
@@ -453,6 +475,17 @@
       "projection": 3.4,
       "lean": "Pass",
       "k9": 5.42
+    },
+    {
+      "gameId": "chc-nym-2026-06-24-823613",
+      "matchup": "CHC @ NYM",
+      "player": "Javier Assad",
+      "team": "CHC",
+      "prop": "strikeouts",
+      "line": 3.5,
+      "projection": 3.3,
+      "lean": "Pass",
+      "k9": 5.34
     },
     {
       "gameId": "lad-min-2026-06-24-823691",

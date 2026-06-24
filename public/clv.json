@@ -3,56 +3,56 @@
   "note": "Positive CLV = our picked side's price shortened by first pitch = we beat the closing line.",
   "overall": {
     "n": 982,
-    "beat_close_rate": 0.5988,
-    "avg_clv": 0.007,
-    "avg_clv_pct_points": 0.7,
-    "win_rate": 0.5682,
-    "win_rate_when_beat_close": 0.5816,
-    "win_rate_when_missed_close": 0.5482
+    "beat_close_rate": 0.5743,
+    "avg_clv": 0.0059,
+    "avg_clv_pct_points": 0.59,
+    "win_rate": 0.5764,
+    "win_rate_when_beat_close": 0.5922,
+    "win_rate_when_missed_close": 0.555
   },
   "by_confidence": {
     "Elite": {
-      "n": 34,
-      "beat_close_rate": 0.6176,
-      "avg_clv": 0.0139,
-      "avg_clv_pct_points": 1.39,
-      "win_rate": 0.8529,
-      "win_rate_when_beat_close": 0.8571,
-      "win_rate_when_missed_close": 0.8462
+      "n": 21,
+      "beat_close_rate": 0.619,
+      "avg_clv": 0.0124,
+      "avg_clv_pct_points": 1.24,
+      "win_rate": 0.9524,
+      "win_rate_when_beat_close": 1.0,
+      "win_rate_when_missed_close": 0.875
     },
     "High": {
-      "n": 235,
-      "beat_close_rate": 0.7362,
-      "avg_clv": 0.0122,
-      "avg_clv_pct_points": 1.22,
-      "win_rate": 0.6553,
-      "win_rate_when_beat_close": 0.659,
-      "win_rate_when_missed_close": 0.6452
+      "n": 79,
+      "beat_close_rate": 0.7722,
+      "avg_clv": 0.0149,
+      "avg_clv_pct_points": 1.49,
+      "win_rate": 0.7089,
+      "win_rate_when_beat_close": 0.7049,
+      "win_rate_when_missed_close": 0.7222
     },
     "Medium": {
-      "n": 324,
-      "beat_close_rate": 0.5463,
-      "avg_clv": 0.0045,
-      "avg_clv_pct_points": 0.45,
-      "win_rate": 0.5772,
-      "win_rate_when_beat_close": 0.5989,
-      "win_rate_when_missed_close": 0.551
+      "n": 483,
+      "beat_close_rate": 0.5839,
+      "avg_clv": 0.0054,
+      "avg_clv_pct_points": 0.54,
+      "win_rate": 0.6066,
+      "win_rate_when_beat_close": 0.6312,
+      "win_rate_when_missed_close": 0.5721
     },
     "Low": {
-      "n": 389,
-      "beat_close_rate": 0.5578,
-      "avg_clv": 0.0053,
-      "avg_clv_pct_points": 0.53,
-      "win_rate": 0.4833,
-      "win_rate_when_beat_close": 0.4793,
-      "win_rate_when_missed_close": 0.4884
+      "n": 399,
+      "beat_close_rate": 0.5213,
+      "avg_clv": 0.0044,
+      "avg_clv_pct_points": 0.44,
+      "win_rate": 0.4937,
+      "win_rate_when_beat_close": 0.4808,
+      "win_rate_when_missed_close": 0.5079
     }
   },
   "recent": [
     {
       "date": "2025-08-17",
       "pick": "ATH",
-      "confidence": "Medium",
+      "confidence": "Low",
       "correct": 0,
       "entry_ml": -116,
       "close_ml": -125,
@@ -75,15 +75,15 @@
     },
     {
       "date": "2025-08-16",
-      "pick": "SF",
+      "pick": "TB",
       "confidence": "Low",
-      "correct": 0,
-      "entry_ml": -136,
-      "close_ml": -113,
-      "entry_prob": 0.5522,
-      "close_prob": 0.5076,
-      "clv": -0.0446,
-      "beat_close": false
+      "correct": 1,
+      "entry_ml": 114,
+      "close_ml": -106,
+      "entry_prob": 0.4478,
+      "close_prob": 0.4924,
+      "clv": 0.0446,
+      "beat_close": true
     },
     {
       "date": "2025-08-16",
@@ -112,7 +112,7 @@
     {
       "date": "2025-08-16",
       "pick": "AZ",
-      "confidence": "High",
+      "confidence": "Medium",
       "correct": 0,
       "entry_ml": -190,
       "close_ml": -200,
@@ -123,15 +123,15 @@
     },
     {
       "date": "2025-08-16",
-      "pick": "MIN",
+      "pick": "DET",
       "confidence": "Low",
-      "correct": 0,
-      "entry_ml": 108,
-      "close_ml": 110,
-      "entry_prob": 0.4596,
-      "close_prob": 0.4564,
-      "clv": -0.0032,
-      "beat_close": false
+      "correct": 1,
+      "entry_ml": -130,
+      "close_ml": -131,
+      "entry_prob": 0.5404,
+      "close_prob": 0.5436,
+      "clv": 0.0032,
+      "beat_close": true
     },
     {
       "date": "2025-08-16",
@@ -147,15 +147,15 @@
     },
     {
       "date": "2025-08-16",
-      "pick": "LAA",
+      "pick": "ATH",
       "confidence": "Low",
-      "correct": 0,
-      "entry_ml": -113,
-      "close_ml": -111,
-      "entry_prob": 0.5054,
-      "close_prob": 0.5033,
-      "clv": -0.0021,
-      "beat_close": false
+      "correct": 1,
+      "entry_ml": -108,
+      "close_ml": -108,
+      "entry_prob": 0.4946,
+      "close_prob": 0.4967,
+      "clv": 0.0021,
+      "beat_close": true
     },
     {
       "date": "2025-08-16",
@@ -183,15 +183,15 @@
     },
     {
       "date": "2025-08-16",
-      "pick": "HOU",
+      "pick": "BAL",
       "confidence": "Low",
-      "correct": 1,
-      "entry_ml": -142,
-      "close_ml": -139,
-      "entry_prob": 0.5601,
-      "close_prob": 0.5579,
-      "clv": -0.0022,
-      "beat_close": false
+      "correct": 0,
+      "entry_ml": 117,
+      "close_ml": 117,
+      "entry_prob": 0.4399,
+      "close_prob": 0.4421,
+      "clv": 0.0022,
+      "beat_close": true
     },
     {
       "date": "2025-08-16",
@@ -231,15 +231,15 @@
     },
     {
       "date": "2025-08-15",
-      "pick": "NYM",
+      "pick": "SEA",
       "confidence": "Low",
-      "correct": 0,
-      "entry_ml": -123,
-      "close_ml": -134,
-      "entry_prob": 0.527,
-      "close_prob": 0.5483,
-      "clv": 0.0213,
-      "beat_close": true
+      "correct": 1,
+      "entry_ml": 102,
+      "close_ml": 112,
+      "entry_prob": 0.473,
+      "close_prob": 0.4517,
+      "clv": -0.0213,
+      "beat_close": false
     },
     {
       "date": "2025-08-15",
@@ -280,7 +280,7 @@
     {
       "date": "2025-08-14",
       "pick": "NYM",
-      "confidence": "High",
+      "confidence": "Medium",
       "correct": 0,
       "entry_ml": -196,
       "close_ml": -187,
@@ -291,15 +291,15 @@
     },
     {
       "date": "2025-08-14",
-      "pick": "SEA",
+      "pick": "BAL",
       "confidence": "Low",
-      "correct": 0,
-      "entry_ml": -127,
-      "close_ml": -130,
-      "entry_prob": 0.5354,
-      "close_prob": 0.5416,
-      "clv": 0.0061,
-      "beat_close": true
+      "correct": 1,
+      "entry_ml": 106,
+      "close_ml": 109,
+      "entry_prob": 0.4646,
+      "close_prob": 0.4584,
+      "clv": -0.0061,
+      "beat_close": false
     },
     {
       "date": "2025-08-13",
@@ -340,7 +340,7 @@
     {
       "date": "2025-08-13",
       "pick": "HOU",
-      "confidence": "High",
+      "confidence": "Medium",
       "correct": 1,
       "entry_ml": -174,
       "close_ml": -155,
@@ -376,7 +376,7 @@
     {
       "date": "2025-08-13",
       "pick": "NYM",
-      "confidence": "High",
+      "confidence": "Medium",
       "correct": 0,
       "entry_ml": -199,
       "close_ml": -209,
@@ -423,15 +423,15 @@
     },
     {
       "date": "2025-08-13",
-      "pick": "SEA",
-      "confidence": "Low",
-      "correct": 0,
-      "entry_ml": -144,
-      "close_ml": -140,
-      "entry_prob": 0.5638,
-      "close_prob": 0.5575,
-      "clv": -0.0063,
-      "beat_close": false
+      "pick": "BAL",
+      "confidence": "Medium",
+      "correct": 1,
+      "entry_ml": 119,
+      "close_ml": 116,
+      "entry_prob": 0.4362,
+      "close_prob": 0.4425,
+      "clv": 0.0063,
+      "beat_close": true
     },
     {
       "date": "2025-08-13",
@@ -496,7 +496,7 @@
     {
       "date": "2025-08-12",
       "pick": "TOR",
-      "confidence": "Medium",
+      "confidence": "Low",
       "correct": 1,
       "entry_ml": -130,
       "close_ml": -126,
@@ -508,7 +508,7 @@
     {
       "date": "2025-08-12",
       "pick": "BOS",
-      "confidence": "Medium",
+      "confidence": "Low",
       "correct": 1,
       "entry_ml": -175,
       "close_ml": -310,
