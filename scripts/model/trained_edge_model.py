@@ -34,17 +34,16 @@ PRIOR_SEASON_SAMPLE_WEIGHT = 0.60
 CURRENT_SEASON_SAMPLE_WEIGHT = 1.25
 RECENCY_DAYS_HOT = 21
 RECENCY_DAYS_WARM = 45
-RECENCY_MULTIPLIER_HOT = 2.25
-RECENCY_MULTIPLIER_WARM = 1.5
+# Recency upweighting REMOVED (reverted from v2.14). The 2.25x/1.5x recent-game
+# weights overfit to short-term noise and hurt discrimination. Current-season games
+# already carry CURRENT_SEASON_SAMPLE_WEIGHT (1.25) over the prior season (0.60),
+# which is enough to track form without chasing variance.
+RECENCY_MULTIPLIER_HOT = 1.0
+RECENCY_MULTIPLIER_WARM = 1.0
 
 
 def recency_sample_weight(game_date: date, as_of: date, base: float) -> float:
-    """Up-weight recent games so the model tracks current-season form, not March baseball."""
-    days = max(0, (as_of - game_date).days)
-    if days <= RECENCY_DAYS_HOT:
-        return base * RECENCY_MULTIPLIER_HOT
-    if days <= RECENCY_DAYS_WARM:
-        return base * RECENCY_MULTIPLIER_WARM
+    """Identity passthrough — kept for signature compatibility (recency weighting disabled)."""
     return base
 # Season walk-forward best: 0.09 (61.21%). 0.10 OK alone; 0.10 + series-in-wf regressed.
 MARKET_BLEND_WEIGHT = 0.09
@@ -390,86 +389,61 @@ def final_public_probabilities(
     era_diff: float = 0.0,
     form_edge: float = 0.0,
 ) -> PublicPickResult:
-    """One pipeline for live board + walk-forward: GBM → market blend → calibration → confidence."""
-    internal_home = prediction.home_probability
+    """Prediction-first ACCURACY: published % blends the model with the no-vig market
+    consensus, because the market line is the single best public predictor of a game.
 
-    home_probability = internal_home
-    away_probability = prediction.away_probability
-    if market_home is not None and market_away is not None:
-        home_probability = blend_with_market(home_probability, market_home)
-        away_probability = blend_with_market(away_probability, market_away)
-        total = home_probability + away_probability
-        if total > 0:
-            home_probability /= total
-            away_probability /= total
+    This is NOT EV-maximization (we do not bet against the line to chase value). We use
+    the market as a feature to make the WIN PROBABILITY more accurate — validated:
+    removing the blend (old v3.1) flattened discrimination (0.70 picks fell from 74%
+    to 64% hit rate). Confidence tiers then sit purely on this accurate probability.
+    """
+    raw_home = float(prediction.home_probability)
+    raw_pick = max(raw_home, 1.0 - raw_home)
 
     market_agrees: bool | None = None
+    model_edge = 0.0
+    blended_home = raw_home
     if market_home is not None and market_away is not None:
-        market_pick_home = market_home >= market_away
-        model_pick_home = home_probability >= away_probability
-        market_agrees = market_pick_home == model_pick_home
+        total = market_home + market_away
+        if total > 0:
+            mh = market_home / total
+            ma = market_away / total
+            # Blend model toward no-vig market consensus for a more accurate probability.
+            blended_home = blend_with_market(raw_home, mh)
 
-    # Value picks (market disagrees) keep separation; agreed favorites stay soft.
-    pick_is_home = home_probability >= away_probability
-    if market_home is not None and market_away is not None:
-        book_pick = market_home if pick_is_home else market_away
-        pre_sharpen_edge = max(home_probability, away_probability) - book_pick
-    else:
-        pre_sharpen_edge = abs(home_probability - 0.5)
-    strong = bool(market_agrees is False and pre_sharpen_edge >= 0.10)
-    home_probability = sharpen_public_probability(home_probability, strong=strong)
+    home_probability = calibrate_public_probability(blended_home)
     away_probability = 1.0 - home_probability
     pick_probability = max(home_probability, away_probability)
 
-    if (
-        market_home is not None
-        and market_away is not None
-        and pick_probability < 0.56
-    ):
-        market_pick_home = market_home >= market_away
-        model_pick_home = home_probability >= away_probability
-        if market_pick_home != model_pick_home:
-            total = market_home + market_away
-            if total > 0:
-                home_probability = market_home / total
-                away_probability = market_away / total
-            home_probability = sharpen_public_probability(home_probability, strong=False)
-            away_probability = 1.0 - home_probability
-            pick_probability = max(home_probability, away_probability)
-            market_agrees = False
+    if market_home is not None and market_away is not None:
+        total = market_home + market_away
+        if total > 0:
+            mh = market_home / total
+            ma = market_away / total
+            pick_is_home = home_probability >= away_probability
+            book = mh if pick_is_home else ma
+            model_edge = pick_probability - book
+            market_agrees = (mh >= ma) == pick_is_home
 
-    raw_pick_probability = pick_probability
     market_available = market_home is not None and market_away is not None
-    home_probability, away_probability, pick_probability = apply_display_calibration(
-        home_probability,
-        away_probability,
-        market_available=market_available,
-    )
-    pick_is_home = home_probability >= away_probability
-    if market_available:
-        book_pick = market_home if pick_is_home else market_away
-        model_edge = pick_probability - book_pick
-    else:
-        model_edge = pick_probability - 0.5
-
     confidence = public_confidence_for(
         pick_probability,
         market_agrees=market_agrees,
         model_edge=model_edge,
         starter_certain=starter_certain,
         market_available=market_available,
-        raw_pick=raw_pick_probability,
+        raw_pick=raw_pick,
         era_diff=era_diff,
         form_edge=form_edge,
     )
     return PublicPickResult(
-        home_probability,
-        away_probability,
-        pick_probability,
-        raw_pick_probability,
-        confidence,
-        market_agrees,
-        model_edge,
+        home_probability=round(home_probability, 4),
+        away_probability=round(away_probability, 4),
+        pick_probability=round(pick_probability, 4),
+        raw_pick_probability=round(raw_pick, 4),
+        confidence=confidence,
+        market_agrees=market_agrees,
+        model_edge=round(model_edge, 4),
     )
 
 
@@ -527,6 +501,9 @@ def sharpen_public_probability(home_probability: float, *, strong: bool = False)
 
 
 def build_model() -> Pipeline:
+    # Shallow depth-2 boosting (reverted from the v2.14 HistGBM, which overfit and
+    # lost out-of-sample discrimination: same-game internal AUC fell 0.577 -> 0.551).
+    # Depth-2 stumps generalize far better on this noisy, ~3k-game signal.
     return Pipeline(
         [
             (

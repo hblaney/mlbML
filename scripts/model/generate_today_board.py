@@ -109,10 +109,10 @@ def main() -> None:
         _pick_pit = home_pit if _pred_home_tmp else away_pit
         _opp_pit = away_pit if _pred_home_tmp else home_pit
         # ERA edge: opponent ERA minus picked-team ERA (positive = picked starter is better/lower ERA)
-        era_diff = _opp_pit["era"] - _pick_pit["era"]
+        era_diff = round(_opp_pit["era"] - _pick_pit["era"], 6)
         _pick_team = bundle.league.team(game.home_team_id if _pred_home_tmp else game.away_team_id)
         _opp_team  = bundle.league.team(game.away_team_id if _pred_home_tmp else game.home_team_id)
-        form_edge = _pick_team.win_pct(10) - _opp_team.win_pct(10)
+        form_edge = round(_pick_team.win_pct(10) - _opp_team.win_pct(10), 6)
 
         result = final_public_probabilities(
             prediction,
@@ -190,8 +190,8 @@ def main() -> None:
                 "confidence": live_confidence,
                 "marketAgrees": result.market_agrees,
                 "modelEdge": round(result.model_edge, 4),
-                "eraDiff": round(era_diff, 6),
-                "formEdge": round(form_edge, 6),
+                "eraDiff": era_diff,
+                "formEdge": form_edge,
                 "modelVersion": MODEL_VERSION,
                 "explanation": notes,
             }
@@ -206,7 +206,7 @@ def main() -> None:
         seen_ids.add(game_id)
         deduped_board.append(row)
     board = deduped_board
-    board.sort(key=lambda row: (row.get("modelEdge") or 0, row.get("pickProbability") or 0), reverse=True)
+    board.sort(key=lambda row: row.get("pickProbability") or 0, reverse=True)
     payload = {
         "generated_at": today.isoformat(),
         "board_generated_at": board_generated_at,

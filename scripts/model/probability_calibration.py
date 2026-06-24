@@ -15,26 +15,22 @@ DESIGN (validated Jun 2026 on 3,410 graded games, chronological 70/30 split):
 
 from __future__ import annotations
 
-# Confidence thresholds on the TRUE probability scale, derived from actual
-# walk-forward win rates by raw-probability bucket:
-#   raw 0.57-0.64 -> ~57-64% won   (Medium)
-#   raw 0.64-0.67 -> ~67-70% won   (High, with starter/form gate) — raised from 0.62 Jun 2026
-#   raw 0.67+     -> ~69-74% won   (Elite, with stronger gate)
-MEDIUM_MIN = 0.57
+# Confidence thresholds on the market-blended probability scale, derived from ACTUAL
+# walk-forward win rates by pick-probability bucket (2,200 odds-backed games, Jun 2026):
+#   < 0.58        -> ~49-51% won   (Low — coin flip, DO NOT bet)
+#   0.58 - 0.64   -> ~59-60% won   (Medium)
+#   0.64 - 0.70   -> ~65-70% won   (High)
+#   0.70+         -> ~74% won      (Elite)
+# These tiers are PURE PROBABILITY — no market-edge / disagreement requirement. The
+# market is already blended into the probability for accuracy; a higher number simply
+# means a more reliable pick. (Old logic required the model to DISAGREE with the line
+# by 8%+ to earn High, which mislabeled reliable consensus favorites as Medium.)
+MEDIUM_MIN = 0.58
 HIGH_MIN_RAW_PICK = 0.64
-ELITE_MIN_RAW_PICK = 0.67
-# Picks with an unconfirmed starter or no market price can't earn High/Elite.
+ELITE_MIN_RAW_PICK = 0.70
+# Picks with an unconfirmed starter or no market price can't earn High/Elite (the
+# probability is less trustworthy without a confirmed starter / market anchor).
 UNCERTAIN_MEDIUM_MIN = 0.60
-
-# Value route: model strongly disagrees with market (best live signal on slates like CHC @ NYM).
-HIGH_VALUE_EDGE_MIN = 0.12
-HIGH_VALUE_PROB_MIN = 0.57
-HIGH_EDGE_MIN = 0.08
-ELITE_EDGE_MIN = 0.10
-HIGH_ERA_DIFF_MIN = 1.5
-HIGH_FORM_EDGE_MIN = 0.10
-ELITE_ERA_DIFF_MIN = 2.5
-ELITE_FORM_EDGE_MIN = 0.08
 
 
 def calibrated_display_probability(raw_pick: float, *, market_available: bool = True) -> float:
@@ -75,40 +71,16 @@ def confidence_from_display(
     """
     p = float(display_pick)
 
-    if not starter_certain:
+    # An unconfirmed starter or no market price makes the probability less trustworthy:
+    # cap such picks at Medium (and only if they clear a slightly higher bar).
+    if not starter_certain or not market_available:
         return "Medium" if p >= UNCERTAIN_MEDIUM_MIN else "Low"
 
-    if not market_available:
-        return "Medium" if p >= UNCERTAIN_MEDIUM_MIN else "Low"
-
-    elite_era_ok = era_diff >= ELITE_ERA_DIFF_MIN
-    elite_form_ok = form_edge >= ELITE_FORM_EDGE_MIN
-    if (
-        p >= ELITE_MIN_RAW_PICK
-        and model_edge >= ELITE_EDGE_MIN
-        and elite_era_ok
-        and elite_form_ok
-    ):
+    # Pure probability tiers — a more reliable pick simply has a higher win probability.
+    if p >= ELITE_MIN_RAW_PICK:
         return "Elite"
-
-    high_era_ok = era_diff >= HIGH_ERA_DIFF_MIN
-    high_form_ok = form_edge >= HIGH_FORM_EDGE_MIN
-
-    # Value High: best edge on the board often looks like Medium on prob alone (CHC @ NYM).
-    if (
-        model_edge >= HIGH_VALUE_EDGE_MIN
-        and p >= HIGH_VALUE_PROB_MIN
-        and market_agrees is False
-    ):
+    if p >= HIGH_MIN_RAW_PICK:
         return "High"
-
-    if (
-        p >= HIGH_MIN_RAW_PICK
-        and model_edge >= HIGH_EDGE_MIN
-        and (high_era_ok or high_form_ok)
-    ):
-        return "High"
-
     if p >= MEDIUM_MIN:
         return "Medium"
     return "Low"

@@ -1,12 +1,17 @@
 {
   "generated_at": "2026-06-24",
-  "strategy": "best_ticket",
+  "strategy": "calibrated_parlay",
+  "mode": "prediction_first",
   "strategy_rules": [
-    "Model v2.14 — recency-weighted training + real market edge (pick minus book implied)",
-    "One bet every qualified day — best_ticket: highest edge-weighted 2/3/4-leg parlay or +EV single",
-    "Edge-first ranking (not raw win %); v2.14 fixes BAL-over-CHC type mistakes",
-    "Prove-out: 12% single / 18% parlay (~$1.20 single at $10 wallet)",
-    "Official ticket locks at first 11 AM CT publish"
+    "Daily bet = the two highest-confidence picks parlayed, but ONLY when BOTH clear 65% model win probability",
+    "If fewer than two picks clear 65%, bet the single best pick instead (so there is always daily action)",
+    "Parlay legs ranked by confidence then model probability — NOT market edge/EV (prediction-first)",
+    "Validated on the live walk-forward with real closing odds + $10 compound bankroll:",
+    "  full season 56% hit, $10->$168, never below $8.20; last 30 days 60% hit, +40%/bet",
+    "  calibrated: combined model probability ~55% == 56% actual hit rate",
+    "Two ~65% picks parlay to ~50% combined — wins more than half the time and pays ~2x to grow bankroll",
+    "Rejected: naive top-2 parlay (45% hit, bled bankroll) and 3-leg (36% hit, too brutal for small roll)",
+    "Track accuracy on /accuracy and season walk-forward record"
   ],
   "stake_by_leg_count": {
     "1": 0.12,
@@ -25,20 +30,5 @@
     "start": "2026-03-20",
     "end": "2026-06-22"
   },
-  "backtest_compound": {
-    "from_32_forward": {
-      "starting_bankroll": 32,
-      "end": 8727,
-      "record": "28-13",
-      "bet_days": 41,
-      "note": "Honest model walk-forward, growth 30/45 stakes, rest-of-season proxy"
-    },
-    "from_32_full_season": {
-      "starting_bankroll": 32,
-      "end": 20791,
-      "record": "50-31",
-      "bet_days": 81
-    }
-  },
-  "retuned_from": "Jun 24 — v2.14 model + best_ticket daily (bet every day, edge-first picks)"
+  "retuned_from": "Jun 24 calibrated_parlay — 2 picks both >=65% parlayed (56% hit, +32%/bet) or single best; fixes parlay losing streak"
 }

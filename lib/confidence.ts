@@ -1,26 +1,13 @@
-// Honest confidence on the TRUE probability scale — must match probability_calibration.py.
-// The displayed % IS the model's calibrated win probability (no inflation), so these
-// thresholds are the real win-rate floors for each tier.
+// Prediction-first confidence — pure probability tiers on the market-blended pick
+// probability (matches probability_calibration.py). No market-edge requirement:
+// a more reliable pick simply has a higher win probability.
 
 import type { GamePrediction } from "./data";
 
-export const CONFIDENCE_MEDIUM_MIN = 0.57;
+export const CONFIDENCE_MEDIUM_MIN = 0.58;
 export const CONFIDENCE_HIGH_MIN = 0.64;
-export const CONFIDENCE_ELITE_MIN = 0.67;
-// Unconfirmed starter or no market price can't earn above Medium.
+export const CONFIDENCE_ELITE_MIN = 0.7;
 export const CONFIDENCE_UNCERTAIN_MEDIUM_MIN = 0.6;
-export const CONFIDENCE_HIGH_EDGE_MIN = 0.08;
-export const CONFIDENCE_ELITE_EDGE_MIN = 0.1;
-export const HIGH_VALUE_EDGE_MIN = 0.12;
-export const HIGH_VALUE_PROB_MIN = 0.57;
-
-// ERA diff / form edge thresholds — must match probability_calibration.py
-export const HIGH_ERA_DIFF_MIN = 1.5;
-export const HIGH_FORM_EDGE_MIN = 0.10;
-export const ELITE_ERA_DIFF_MIN = 2.5;
-export const ELITE_FORM_EDGE_MIN = 0.08;
-export const HIGH_MIN_RAW_PICK = 0.64;
-export const ELITE_MIN_RAW_PICK = 0.67;
 
 export type ConfidenceContext = {
   modelEdge?: number;
@@ -36,54 +23,20 @@ export function confidenceFromPickProbability(
   probability: number,
   context: ConfidenceContext = {}
 ): GamePrediction["confidence"] {
-  const modelEdge = context.modelEdge ?? 0;
   const starterCertain = context.starterCertain ?? true;
   const marketAvailable = context.marketAvailable ?? true;
-  const marketAgrees = context.marketAgrees;
-  const rawPick = context.rawPick ?? probability;
-  const eraDiff = context.eraDiff ?? 0;
-  const formEdge = context.formEdge ?? 0;
 
-  if (!starterCertain) {
+  // Unconfirmed starter or no market price makes the probability less trustworthy.
+  if (!starterCertain || !marketAvailable) {
     return probability >= CONFIDENCE_UNCERTAIN_MEDIUM_MIN ? "Medium" : "Low";
   }
 
-  if (!marketAvailable) {
-    return probability >= CONFIDENCE_UNCERTAIN_MEDIUM_MIN ? "Medium" : "Low";
-  }
-
-  const eliteEraOk = eraDiff >= ELITE_ERA_DIFF_MIN;
-  const eliteFormOk = formEdge >= ELITE_FORM_EDGE_MIN;
-  if (
-    probability >= CONFIDENCE_ELITE_MIN &&
-    modelEdge >= CONFIDENCE_ELITE_EDGE_MIN &&
-    rawPick >= ELITE_MIN_RAW_PICK &&
-    eliteEraOk &&
-    eliteFormOk
-  ) {
+  if (probability >= CONFIDENCE_ELITE_MIN) {
     return "Elite";
   }
-
-  const highEraOk = eraDiff >= HIGH_ERA_DIFF_MIN;
-  const highFormOk = formEdge >= HIGH_FORM_EDGE_MIN;
-
-  if (
-    modelEdge >= HIGH_VALUE_EDGE_MIN &&
-    probability >= HIGH_VALUE_PROB_MIN &&
-    marketAgrees === false
-  ) {
+  if (probability >= CONFIDENCE_HIGH_MIN) {
     return "High";
   }
-
-  if (
-    probability >= CONFIDENCE_HIGH_MIN &&
-    modelEdge >= CONFIDENCE_HIGH_EDGE_MIN &&
-    rawPick >= HIGH_MIN_RAW_PICK &&
-    (highEraOk || highFormOk)
-  ) {
-    return "High";
-  }
-
   if (probability >= CONFIDENCE_MEDIUM_MIN) {
     return "Medium";
   }

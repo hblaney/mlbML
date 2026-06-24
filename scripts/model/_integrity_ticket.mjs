@@ -11,7 +11,7 @@ if (ticket.kind === "single") {
   console.log(
     JSON.stringify({
       kind: "single",
-      legs: [ticket.bet.team.abbreviation],
+      legs: [ticket.bet.game.predictedTeam],
       confidences: [ticket.bet.game.confidence],
       pick_probabilities: [ticket.bet.game.pickProbability ?? ticket.bet.modelProbability],
     })
@@ -20,7 +20,7 @@ if (ticket.kind === "single") {
   console.log(
     JSON.stringify({
       kind: "parlay",
-      legs: ticket.parlay.legs.map((leg) => leg.team.abbreviation),
+      legs: ticket.parlay.legs.map((leg) => leg.game.predictedTeam),
       confidences: ticket.parlay.legs.map((leg) => leg.game.confidence),
       pick_probabilities: ticket.parlay.legs.map(
         (leg) => leg.game.pickProbability ?? leg.modelProbability

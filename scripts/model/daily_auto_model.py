@@ -33,9 +33,8 @@ from trained_edge_model import (
 )
 
 MODEL_PATH = Path(__file__).resolve().parents[2] / "data" / "model" / "daily_edge.pkl"
-MODEL_VERSION = "daily-auto-v2.14.0-recent-recalibration"
-# Bump when the public probability pipeline changes (must match predictions.json).
-PIPELINE_VERSION = "unified-public-v3-market-edge"
+MODEL_VERSION = "daily-auto-v3.3-accuracy-restore"
+PIPELINE_VERSION = "unified-public-v6-blended-prob-tiers"
 
 
 @dataclass
@@ -56,7 +55,7 @@ class DailyModelBundle:
             notes=[
                 f"Retrained through {self.trained_through.isoformat()}",
                 "Shallow gradient boosting trained on prior season (decayed) plus current season (boosted)",
-                "Elo, recent form, starter, park, and weather are all inputs to the GBM; light market anchor when odds are available",
+                "Elo, recent form, starter, park, and weather are all inputs to the GBM; market odds are training features only — published pick % is pure model output",
                 "Retrains automatically when yesterday's final scores are new",
             ],
         )

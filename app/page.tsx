@@ -30,16 +30,16 @@ export default async function HomePage() {
     <main className="shell stack">
       <section className="panel strong">
         <p className="eyebrow">Daily MLB model</p>
-        <h1>Today&apos;s MLB board, priced against the market.</h1>
+        <h1>Today&apos;s MLB predictions.</h1>
         <p className="lead">
-          Probabilities, real odds, live records, and model edges in one clean slate.
+          Model win probabilities first — who we think wins and how often. Odds and edge are reference only.
         </p>
         <div className="hero-actions">
-          <Link href="/best-bets" className="button">
-            View best bets
-          </Link>
-          <Link href="/history" className="button ghost">
+          <Link href="/accuracy" className="button">
             Model accuracy
+          </Link>
+          <Link href="/best-bets" className="button ghost">
+            Betting (optional)
           </Link>
         </div>
       </section>
@@ -66,9 +66,9 @@ export default async function HomePage() {
             <p className="muted">{health?.last7Days.games ? `${health.last7Days.record} record` : "Recent slate"}</p>
           </article>
           <article>
-            <p className="muted">Top edge plays</p>
+            <p className="muted">Top model picks</p>
             <div className="metric">{bestBets.length}</div>
-            <p className="muted">Reference list — not the daily ticket</p>
+            <p className="muted">Highest win probability today</p>
           </article>
           <article>
             <p className="muted">Games</p>

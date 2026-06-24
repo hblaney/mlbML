@@ -3,7 +3,7 @@ import {
   getAdvancedBets,
   getBestBets,
   getBestDailyTicket,
-  getTopEdgePick,
+  getSortedPredictions,
   getOptimizedStakePctForTicket,
   getRatchetStakePct,
   OPTIMIZED_STAKE_BY_LEG_COUNT,
@@ -40,7 +40,7 @@ export default async function BestBetsPage() {
   const advancedBets = getAdvancedBets(board);
   const usingModelOnlyPicks = bets.some((bet) => bet.modelOnly) || advancedBets.some((bet) => bet.modelOnly);
   const bestTicket = getBestDailyTicket(board);
-  const topEdgePick = getTopEdgePick(board);
+  const topPredictions = getSortedPredictions(board).slice(0, 5);
   const stakeByLeg = bettingPlan?.stake_by_leg_count;
   const ratchetTiers = bettingPlan?.ratchet_tiers;
   const activeStrategy = bettingPlan?.strategy ?? LIVE_BETTING_STRATEGY;
@@ -230,12 +230,10 @@ export default async function BestBetsPage() {
           One bet per day from <strong>{activeStrategy}</strong>: edge-first ranking (not raw win %), stake a percentage of
           your bankroll ({stakeTierLabel} of wallet by ticket type), all legs same calendar day.
         </p>
-        {topEdgePick ? (
+        {topPredictions.length > 0 ? (
           <p className="muted">
-            Top edge pick: <strong>{topEdgePick.team.abbreviation} ML</strong> · {formatPercent(topEdgePick.edge)} edge ·{" "}
-            {formatPercent(topEdgePick.modelProbability)} model
-            {topEdgePick.game.marketAgrees === false ? " · market disagrees (value High when odds live)" : ""}
-            {topEdgePick.game.marketAgrees === true ? " · market agrees (downgraded vs disagree plays)" : ""}
+            Top picks by model win %:{" "}
+            {topPredictions.map((game) => game.predictedTeam?.toUpperCase()).join(", ")}
           </p>
         ) : null}
         {ratchetLabel && (
