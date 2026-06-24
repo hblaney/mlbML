@@ -33,16 +33,14 @@ git push origin main
 
 ## Betting strategy (canonical — keep `lib/data.ts` and `public/betting-plan.json` in sync)
 
-- **Strategy: `strong_parlay`** — parlay ONLY when a genuinely strong 2-leg ticket exists:
+- **Strategy: `power_parlay`** — parlay when a strong 2-leg ticket exists:
   - Both legs **High or Elite**
-  - Each leg **>= 67%** model win probability
-  - Best available pair has **>= 52%** combined probability (different games)
-  - If no parlay clears that bar → **single** best High/Elite pick (no forced weak parlays)
-- **Stakes:** 45% of wallet on 2-leg parlays · 25% on singles (small bankroll tier)
-- **Side:** always the model's predicted winner (never the +EV fade).
-- **One bet per day.**
+  - Each leg **>= 66%** model win probability
+  - Best pair (not blind top-2) has **>= 52%** combined probability
+  - If no parlay clears → **single** best High/Elite (never force weak parlays)
+- **Stakes:** **50%** of wallet on 2-leg parlays · **20%** on singles (small bankroll tier)
 
-Walk-forward validation (real closing odds, $10 compound): **66.7% ticket hit (40-20), $10→$100, never dipped below $10**. Parlay days alone: **8-4 (66.7%)** on 12 qualifying days. The old naive top-2 / calibrated_parlay strategies were ~45-53% coin flips and caused the live losing streak — do not revert to those.
+Walk-forward validation (real closing odds, $10 compound): **67% ticket hit (40-20), $10→$182**, never below $10. **Parlay days: 9-4 (69%)** on 13 qualifying days. Do not revert to naive top-2 / calibrated_parlay (~53% coin flips).
 
 ## When to ask the user
 

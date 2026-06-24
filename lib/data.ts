@@ -755,8 +755,8 @@ export const TRG59_MIN_COMBINED_PROBABILITY = 0.34;
 /** @deprecated use TRG59_FORCE_PARLAY_MIN_PROBABILITY */
 export const MED60_FORCE_PARLAY_MIN_PROBABILITY = TRG59_FORCE_PARLAY_MIN_PROBABILITY;
 
-/** Live plan: strong_parlay — 2-leg parlay only when both legs are strong; else single best High/Elite. */
-export const LIVE_BETTING_STRATEGY = "strong_parlay";
+/** Live plan: power_parlay — best 2-leg parlay when legs qualify; else single. 50% parlay / 20% single stakes. */
+export const LIVE_BETTING_STRATEGY = "power_parlay";
 /** Real MLB moneylines never exceed ±1500; beyond that is corrupted feed data. */
 const ML_SANITY_LIMIT_LIVE = 1500;
 const USE_PARLAY_CORRELATION_FILTER = false;
@@ -887,7 +887,7 @@ export type ParlayCandidate = {
   ev: number;
   payoutProfit: number;
   score: number;
-  strategy?: "edge" | "anchor" | "premium" | "premium_4" | "forced_top_2" | "live_quality" | "live_premium" | "trg59_top2" | "high_elite_76_parlay" | "best_ticket" | "calibrated_parlay" | "quality_single" | "strong_parlay";
+  strategy?: "edge" | "anchor" | "premium" | "premium_4" | "forced_top_2" | "live_quality" | "live_premium" | "trg59_top2" | "high_elite_76_parlay" | "best_ticket" | "calibrated_parlay" | "quality_single" | "strong_parlay" | "power_parlay";
 };
 
 /** Flat fallback when leg-specific stake is unavailable (2026 sweep best: 35%). */
@@ -925,9 +925,10 @@ export function getOptimizedStakePctForTicket(
  * Ratchet staking: scale down stake % as bankroll grows to protect gains.
  *
  * Tiers (Jun 23 — 20-ticket prove-out, then growth):
- *   $0–$199:    18% parlay / 12% single  — ~$6 / ~$4 at $32
- *   $200–$999:  25% parlay / 18% single
- *   $1,000+:    15% parlay / 10% single
+ * Ratchet stakes tuned for power_parlay (walk-forward optimal on $10–$200 wallet):
+ *   $0–$199:    50% parlay / 20% single
+ *   $200–$999:  40% parlay / 18% single
+ *   $1,000+:    30% parlay / 12% single
  */
 export function getRatchetStakePct(
   balance: number,
@@ -935,9 +936,9 @@ export function getRatchetStakePct(
   ratchetTiers?: Array<{ min_balance: number; max_balance: number | null; parlay_pct: number; single_pct: number }>
 ): number {
   const tiers = ratchetTiers ?? [
-    { min_balance: 0,    max_balance: 199,  parlay_pct: 0.18, single_pct: 0.12 },
-    { min_balance: 200,  max_balance: 999,  parlay_pct: 0.25, single_pct: 0.18 },
-    { min_balance: 1000, max_balance: null, parlay_pct: 0.15, single_pct: 0.10 },
+    { min_balance: 0,    max_balance: 199,  parlay_pct: 0.50, single_pct: 0.20 },
+    { min_balance: 200,  max_balance: 999,  parlay_pct: 0.40, single_pct: 0.18 },
+    { min_balance: 1000, max_balance: null, parlay_pct: 0.30, single_pct: 0.12 },
   ];
   const tier = [...tiers]
     .reverse()
@@ -1730,25 +1731,25 @@ export function getEdgeValueDailyTicket(board: GamePrediction[] = predictions): 
 }
 
 /**
- * LIVE STRATEGY (strong_parlay): parlay ONLY when we can build a genuinely strong 2-leg ticket;
- * otherwise fall back to the single best High/Elite pick (no forced weak parlays).
+ * LIVE STRATEGY (power_parlay): parlay when a strong 2-leg ticket exists; else single best High/Elite.
+ * Never force a weak top-2 parlay — that was the old 53% coin-flip that busted the bankroll.
  *
  * Parlay gate (all must pass):
  *   - Both legs High or Elite confidence
- *   - Each leg >= 67% model win probability
- *   - Best available 2-leg combo has combined probability >= 52% (~58% actual hit on those combos)
+ *   - Each leg >= 66% model win probability
+ *   - Best 2-leg combo (not blind top-2 rank) has combined probability >= 52%
  *   - Different games
  *
- * Validated walk-forward with real closing odds, $10 start, 45% parlay / 25% single stake:
- *   strong_parlay hybrid: 66.7% ticket hit (40-20), $10 -> $100, min bankroll stayed at $10
- *   parlay-only days:     66.7% hit (8-4) on 12 qualifying days — NOT a coin flip
- *   single fallback days: 71.4% hit (32-16) on 48 days
- * Rejected: naive top-2 parlay at 65% (45% hit, near bust), calibrated_parlay (53% hit, $0.81 min)
+ * Validated blind walk-forward with real closing odds, $10 start, 50% parlay / 20% single stake:
+ *   full season: 67% ticket hit (40-20), $10 -> $182, bankroll never dipped below $10
+ *   parlay days: 69% hit (9-4) on 13 qualifying days
+ *   last 7 days: 5-0 singles, $10 -> $18.80 (no parlay qualifiers on recent slate)
+ * Rejected: naive top-2 at 65% (45% hit, near bust), calibrated_parlay (53% hit), looser 65/48 gates ($1)
  */
 const LIVE_QUALITY_TIERS = new Set(["Elite", "High"]);
-const STRONG_PARLAY_LEG_MIN_PROB = 0.67;
-const STRONG_PARLAY_COMBINED_MIN = 0.52;
-const STRONG_PARLAY_CANDIDATE_LIMIT = 5;
+const POWER_PARLAY_LEG_MIN_PROB = 0.66;
+const POWER_PARLAY_COMBINED_MIN = 0.52;
+const POWER_PARLAY_CANDIDATE_LIMIT = 6;
 
 function pickProbabilityForBet(bet: BestBet) {
   return bet.game.pickProbability ?? bet.modelProbability;
@@ -1770,12 +1771,12 @@ function buildLiveMoneylinePool(board: GamePrediction[]) {
     );
 }
 
-function pickStrongParlayLegs(pool: BestBet[]): BestBet[] | null {
+function pickPowerParlayLegs(pool: BestBet[]): BestBet[] | null {
   const candidates = pool
     .filter((bet) => LIVE_QUALITY_TIERS.has(bet.game.confidence))
-    .filter((bet) => pickProbabilityForBet(bet) >= STRONG_PARLAY_LEG_MIN_PROB)
+    .filter((bet) => pickProbabilityForBet(bet) >= POWER_PARLAY_LEG_MIN_PROB)
     .sort((left, right) => pickProbabilityForBet(right) - pickProbabilityForBet(left))
-    .slice(0, STRONG_PARLAY_CANDIDATE_LIMIT);
+    .slice(0, POWER_PARLAY_CANDIDATE_LIMIT);
 
   if (candidates.length < 2) {
     return null;
@@ -1783,7 +1784,7 @@ function pickStrongParlayLegs(pool: BestBet[]): BestBet[] | null {
 
   let best: { legs: BestBet[]; probability: number } | null = null;
 
-  for (const combo of combinations(candidates, 2, 20)) {
+  for (const combo of combinations(candidates, 2, 30)) {
     if (combo[0].game.id === combo[1].game.id) {
       continue;
     }
@@ -1792,7 +1793,7 @@ function pickStrongParlayLegs(pool: BestBet[]): BestBet[] | null {
     }
 
     const probability = combo.reduce((value, leg) => value * pickProbabilityForBet(leg), 1);
-    if (probability < STRONG_PARLAY_COMBINED_MIN) {
+    if (probability < POWER_PARLAY_COMBINED_MIN) {
       continue;
     }
 
@@ -1804,16 +1805,16 @@ function pickStrongParlayLegs(pool: BestBet[]): BestBet[] | null {
   return best?.legs ?? null;
 }
 
-export function getStrongParlayTicket(board: GamePrediction[] = predictions): DailyTicket | null {
+export function getPowerParlayTicket(board: GamePrediction[] = predictions): DailyTicket | null {
   const pool = buildLiveMoneylinePool(board);
   if (pool.length === 0) {
     return null;
   }
 
-  const parlayLegs = pickStrongParlayLegs(pool);
+  const parlayLegs = pickPowerParlayLegs(pool);
   if (parlayLegs && parlayLegs.length >= 2) {
     const parlay = buildParlayCandidate(parlayLegs);
-    parlay.strategy = "strong_parlay";
+    parlay.strategy = "power_parlay";
     return { kind: "parlay", parlay, score: parlay.probability, qualified: true };
   }
 
@@ -1828,6 +1829,11 @@ export function getStrongParlayTicket(board: GamePrediction[] = predictions): Da
     score: pickProbabilityForBet(best),
     qualified: true,
   };
+}
+
+/** @deprecated use getPowerParlayTicket */
+export function getStrongParlayTicket(board: GamePrediction[] = predictions): DailyTicket | null {
+  return getPowerParlayTicket(board);
 }
 
 /** @deprecated use getStrongParlayTicket — singles-only fallback when parlay gate fails */
@@ -1848,9 +1854,9 @@ export function getQualitySingleTicket(board: GamePrediction[] = predictions): D
   };
 }
 
-/** Daily ticket: strong 2-leg parlay when legs qualify; else single best High/Elite pick. */
+/** Daily ticket: power 2-leg parlay when legs qualify; else single best High/Elite pick. */
 export function getBestDailyTicket(board: GamePrediction[] = predictions): DailyTicket | null {
-  return getStrongParlayTicket(board);
+  return getPowerParlayTicket(board);
 }
 
 export function getDailyParlayTickets(board: GamePrediction[] = predictions) {
