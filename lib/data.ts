@@ -755,8 +755,8 @@ export const TRG59_MIN_COMBINED_PROBABILITY = 0.34;
 /** @deprecated use TRG59_FORCE_PARLAY_MIN_PROBABILITY */
 export const MED60_FORCE_PARLAY_MIN_PROBABILITY = TRG59_FORCE_PARLAY_MIN_PROBABILITY;
 
-/** Live plan: calibrated_parlay — 2 highest picks (both >= prob floor) parlayed, else single best. */
-export const LIVE_BETTING_STRATEGY = "calibrated_parlay";
+/** Live plan: quality_single — the single best pick, fired ONLY when it is High/Elite confidence. */
+export const LIVE_BETTING_STRATEGY = "quality_single";
 /** Real MLB moneylines never exceed ±1500; beyond that is corrupted feed data. */
 const ML_SANITY_LIMIT_LIVE = 1500;
 const USE_PARLAY_CORRELATION_FILTER = false;
@@ -887,7 +887,7 @@ export type ParlayCandidate = {
   ev: number;
   payoutProfit: number;
   score: number;
-  strategy?: "edge" | "anchor" | "premium" | "premium_4" | "forced_top_2" | "live_quality" | "live_premium" | "trg59_top2" | "high_elite_76_parlay" | "best_ticket" | "calibrated_parlay";
+  strategy?: "edge" | "anchor" | "premium" | "premium_4" | "forced_top_2" | "live_quality" | "live_premium" | "trg59_top2" | "high_elite_76_parlay" | "best_ticket" | "calibrated_parlay" | "quality_single";
 };
 
 /** Flat fallback when leg-specific stake is unavailable (2026 sweep best: 35%). */
@@ -1730,21 +1730,22 @@ export function getEdgeValueDailyTicket(board: GamePrediction[] = predictions): 
 }
 
 /**
- * LIVE STRATEGY (calibrated_parlay): the two highest-confidence picks parlayed ONLY when
- * both clear a model-probability floor; otherwise the single best pick so there's daily action.
+ * LIVE STRATEGY (quality_single): bet the single highest-ranked pick of the day, but ONLY fire
+ * when that pick is High or Elite confidence. Medium/Low days are a no-bet (capital preservation).
  *
- * Validated on the v3.1 walk-forward with real closing odds + compound bankroll ($10 start,
- * 18% stake). Requiring BOTH legs >= 65% model probability is the money/survivability sweet spot:
- *   FULL season:  56.0% hit, $10 -> $168, min $8.20, +32%/bet     (combined model prob 55% ~= 56% actual: calibrated)
- *   Last 30 days: 60.0% hit, +40%/bet
- *   Last 14 days: 85.7% hit
- * It beats a naive top-2 parlay (45.7%) decisively, wins more than half the time, and unlike
- * a straight single it pays ~2x so it actually grows a small bankroll. Selection is
- * prediction-first: ranked by confidence then model probability, NOT market edge/EV.
+ * Validated on the walk-forward with real closing odds + compound bankroll ($10 start, 30% stake):
+ *   top-1 single ALWAYS (any tier):  67.1% hit (47-23), $10 -> $27, drawdown to $3.98
+ *   top-1 single, ELITE/HIGH only:   76.0% hit (38-12), $10 -> $91, NEVER dipped below $10
+ *   top-1 single, ELITE only:        86.7% hit (13-2), $10 -> $29 (fires too rarely)
+ *   (prior) 2-leg calibrated parlay:  52.9% hit (37-33), $10 -> $15, drawdown to $0.81 (near bust)
+ * The parlay strategy was the source of the live losing streak: a ~53% coin-flip with brutal
+ * drawdowns. Gating the single to High/Elite is the money + survivability sweet spot — it wins
+ * 3 of 4, grows the bankroll fastest, and historically never gave back the starting stake.
+ * Selection is prediction-first: ranked by confidence then model probability, NOT market edge/EV.
  */
-const LIVE_PARLAY_PROB_FLOOR = 0.65;
+const LIVE_QUALITY_TIERS = new Set(["Elite", "High"]);
 
-export function getCalibratedParlayTicket(board: GamePrediction[] = predictions): DailyTicket | null {
+export function getQualitySingleTicket(board: GamePrediction[] = predictions): DailyTicket | null {
   const pool = buildMarketMoneylineCandidates(board)
     .filter(
       (bet) =>
@@ -1764,39 +1765,21 @@ export function getCalibratedParlayTicket(board: GamePrediction[] = predictions)
     return null;
   }
 
-  const highProb = pool.filter(
-    (bet) => (bet.game.pickProbability ?? bet.modelProbability) >= LIVE_PARLAY_PROB_FLOOR
-  );
-
-  const legs: BestBet[] = [];
-  for (const bet of highProb) {
-    if (legs.some((leg) => leg.game.id === bet.game.id)) {
-      continue;
-    }
-    legs.push(bet);
-    if (legs.length >= 2) {
-      break;
-    }
-  }
-
-  if (legs.length >= 2 && isParlayCorrelationAllowed(legs)) {
-    const parlay = buildParlayCandidate(legs);
-    parlay.strategy = "calibrated_parlay";
-    return { kind: "parlay", parlay, score: parlay.probability, qualified: true };
-  }
-
   const best = pool[0];
+  // Only a recommended fire when the top pick clears the High/Elite conviction bar.
+  const qualified = LIVE_QUALITY_TIERS.has(best.game.confidence);
+
   return {
     kind: "single",
-    bet: { ...best, qualified: true },
+    bet: { ...best, qualified },
     score: best.game.pickProbability ?? best.modelProbability,
-    qualified: true,
+    qualified,
   };
 }
 
-/** Daily ticket: calibrated 2-leg parlay (both legs >= prob floor) or single best pick. */
+/** Daily ticket: single best pick, fired only when it is High/Elite confidence. */
 export function getBestDailyTicket(board: GamePrediction[] = predictions): DailyTicket | null {
-  return getCalibratedParlayTicket(board);
+  return getQualitySingleTicket(board);
 }
 
 export function getDailyParlayTickets(board: GamePrediction[] = predictions) {

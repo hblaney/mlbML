@@ -1,16 +1,16 @@
 {
   "generated_at": "2026-06-24",
-  "strategy": "calibrated_parlay",
+  "strategy": "quality_single",
   "mode": "prediction_first",
   "strategy_rules": [
-    "Daily bet = the two highest-confidence picks parlayed, but ONLY when BOTH clear 65% model win probability",
-    "If fewer than two picks clear 65%, bet the single best pick instead (so there is always daily action)",
-    "Parlay legs ranked by confidence then model probability — NOT market edge/EV (prediction-first)",
-    "Validated on the live walk-forward with real closing odds + $10 compound bankroll:",
-    "  full season 56% hit, $10->$168, never below $8.20; last 30 days 60% hit, +40%/bet",
-    "  calibrated: combined model probability ~55% == 56% actual hit rate",
-    "Two ~65% picks parlay to ~50% combined — wins more than half the time and pays ~2x to grow bankroll",
-    "Rejected: naive top-2 parlay (45% hit, bled bankroll) and 3-leg (36% hit, too brutal for small roll)",
+    "Daily bet = the single highest-ranked pick, fired ONLY when it is High or Elite confidence",
+    "If the top pick is only Medium/Low confidence, NO bet that day (capital preservation)",
+    "Pick ranked by confidence then model probability — NOT market edge/EV (prediction-first)",
+    "Validated on the walk-forward with real closing odds + $10 compound bankroll (30% stake):",
+    "  top-1 single Elite/High only: 76.0% hit (38-12), $10->$91, NEVER dipped below the $10 start",
+    "  top-1 single any tier: 67.1% hit (47-23), $10->$27; Elite-only: 86.7% (13-2) but too rare",
+    "Rejected: the prior 2-leg calibrated parlay was a 52.9% coin-flip (37-33) that drew down to $0.81 — the cause of the live losing streak",
+    "Singles at 76% win 3 of 4 and grow the bankroll faster and far safer than parlays",
     "Track accuracy on /accuracy and season walk-forward record"
   ],
   "stake_by_leg_count": {
@@ -30,5 +30,5 @@
     "start": "2026-03-20",
     "end": "2026-06-22"
   },
-  "retuned_from": "Jun 24 calibrated_parlay — 2 picks both >=65% parlayed (56% hit, +32%/bet) or single best; fixes parlay losing streak"
+  "retuned_from": "Jun 24 quality_single — single best pick, fired only when High/Elite (76% hit, $10->$91, no drawdown below start); replaces calibrated_parlay (52.9% hit, near-bust) that caused the live losing streak"
 }
