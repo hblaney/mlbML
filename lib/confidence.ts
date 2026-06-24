@@ -1,6 +1,4 @@
-// Prediction-first confidence — pure probability tiers on the market-blended pick
-// probability (matches probability_calibration.py). No market-edge requirement:
-// a more reliable pick simply has a higher win probability.
+// Prediction-first confidence — probability tier + starter/form gates (matches probability_calibration.py).
 
 import type { GamePrediction } from "./data";
 
@@ -8,6 +6,10 @@ export const CONFIDENCE_MEDIUM_MIN = 0.58;
 export const CONFIDENCE_HIGH_MIN = 0.64;
 export const CONFIDENCE_ELITE_MIN = 0.7;
 export const CONFIDENCE_UNCERTAIN_MEDIUM_MIN = 0.6;
+export const CONFIDENCE_HIGH_MIN_ERA_DIFF = 1.0;
+export const CONFIDENCE_ELITE_MIN_ERA_DIFF = 2.5;
+export const CONFIDENCE_HIGH_MIN_FORM_EDGE = 0.0;
+export const CONFIDENCE_ELITE_MIN_FORM_EDGE = 0.0;
 
 export type ConfidenceContext = {
   modelEdge?: number;
@@ -25,16 +27,26 @@ export function confidenceFromPickProbability(
 ): GamePrediction["confidence"] {
   const starterCertain = context.starterCertain ?? true;
   const marketAvailable = context.marketAvailable ?? true;
+  const eraDiff = Math.round((context.eraDiff ?? 0) * 1e6) / 1e6;
+  const formEdge = Math.round((context.formEdge ?? 0) * 1e6) / 1e6;
 
   // Unconfirmed starter or no market price makes the probability less trustworthy.
   if (!starterCertain || !marketAvailable) {
     return probability >= CONFIDENCE_UNCERTAIN_MEDIUM_MIN ? "Medium" : "Low";
   }
 
-  if (probability >= CONFIDENCE_ELITE_MIN) {
+  if (
+    probability >= CONFIDENCE_ELITE_MIN &&
+    eraDiff >= CONFIDENCE_ELITE_MIN_ERA_DIFF &&
+    formEdge >= CONFIDENCE_ELITE_MIN_FORM_EDGE
+  ) {
     return "Elite";
   }
-  if (probability >= CONFIDENCE_HIGH_MIN) {
+  if (
+    probability >= CONFIDENCE_HIGH_MIN &&
+    eraDiff >= CONFIDENCE_HIGH_MIN_ERA_DIFF &&
+    formEdge >= CONFIDENCE_HIGH_MIN_FORM_EDGE
+  ) {
     return "High";
   }
   if (probability >= CONFIDENCE_MEDIUM_MIN) {

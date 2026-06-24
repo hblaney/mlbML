@@ -21,13 +21,16 @@ from __future__ import annotations
 #   0.58 - 0.64   -> ~59-60% won   (Medium)
 #   0.64 - 0.70   -> ~65-70% won   (High)
 #   0.70+         -> ~74% won      (Elite)
-# These tiers are PURE PROBABILITY — no market-edge / disagreement requirement. The
-# market is already blended into the probability for accuracy; a higher number simply
-# means a more reliable pick. (Old logic required the model to DISAGREE with the line
-# by 8%+ to earn High, which mislabeled reliable consensus favorites as Medium.)
+# Probability sets the ceiling; High/Elite also require starter ERA edge + non-negative form.
 MEDIUM_MIN = 0.58
 HIGH_MIN_RAW_PICK = 0.64
 ELITE_MIN_RAW_PICK = 0.70
+# High/Elite also require a real starter + form edge (walk-forward 2026: H/E without era gate
+# hits 66%; with era>=1.0 (High) and era>=2.5 (Elite) hits 73%. Losses avg era_diff 0.2 vs wins 1.2).
+HIGH_MIN_ERA_DIFF = 1.0
+ELITE_MIN_ERA_DIFF = 2.5
+HIGH_MIN_FORM_EDGE = 0.0
+ELITE_MIN_FORM_EDGE = 0.0
 # Picks with an unconfirmed starter or no market price can't earn High/Elite (the
 # probability is less trustworthy without a confirmed starter / market anchor).
 UNCERTAIN_MEDIUM_MIN = 0.60
@@ -70,16 +73,19 @@ def confidence_from_display(
     unconfirmed starter caps the pick at Medium (we can't confirm direction/quality).
     """
     p = float(display_pick)
+    era_diff = round(float(era_diff), 6)
+    form_edge = round(float(form_edge), 6)
 
     # An unconfirmed starter or no market price makes the probability less trustworthy:
     # cap such picks at Medium (and only if they clear a slightly higher bar).
     if not starter_certain or not market_available:
         return "Medium" if p >= UNCERTAIN_MEDIUM_MIN else "Low"
 
-    # Pure probability tiers — a more reliable pick simply has a higher win probability.
-    if p >= ELITE_MIN_RAW_PICK:
+    # Probability + pitcher/form gates. Stops 65% picks with a bad starter matchup
+    # (negative era edge) from showing as High — the main source of "obvious" losses.
+    if p >= ELITE_MIN_RAW_PICK and era_diff >= ELITE_MIN_ERA_DIFF and form_edge >= ELITE_MIN_FORM_EDGE:
         return "Elite"
-    if p >= HIGH_MIN_RAW_PICK:
+    if p >= HIGH_MIN_RAW_PICK and era_diff >= HIGH_MIN_ERA_DIFF and form_edge >= HIGH_MIN_FORM_EDGE:
         return "High"
     if p >= MEDIUM_MIN:
         return "Medium"
