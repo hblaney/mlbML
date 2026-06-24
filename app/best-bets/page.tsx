@@ -3,6 +3,7 @@ import {
   getAdvancedBets,
   getBestBets,
   getBestDailyTicket,
+  getTopEdgePick,
   getOptimizedStakePctForTicket,
   getRatchetStakePct,
   OPTIMIZED_STAKE_BY_LEG_COUNT,
@@ -39,6 +40,7 @@ export default async function BestBetsPage() {
   const advancedBets = getAdvancedBets(board);
   const usingModelOnlyPicks = bets.some((bet) => bet.modelOnly) || advancedBets.some((bet) => bet.modelOnly);
   const bestTicket = getBestDailyTicket(board);
+  const topEdgePick = getTopEdgePick(board);
   const stakeByLeg = bettingPlan?.stake_by_leg_count;
   const ratchetTiers = bettingPlan?.ratchet_tiers;
   const activeStrategy = bettingPlan?.strategy ?? LIVE_BETTING_STRATEGY;
@@ -225,9 +227,17 @@ export default async function BestBetsPage() {
         <p className="eyebrow">Daily ticket</p>
         <h1>Best Bets</h1>
         <p className="lead">
-          One bet per day from <strong>{activeStrategy}</strong>: stake a percentage of your bankroll ({stakeTierLabel} of
-          wallet by ticket type), all legs same calendar day.
+          One bet per day from <strong>{activeStrategy}</strong>: edge-first ranking (not raw win %), stake a percentage of
+          your bankroll ({stakeTierLabel} of wallet by ticket type), all legs same calendar day.
         </p>
+        {topEdgePick ? (
+          <p className="muted">
+            Top edge pick: <strong>{topEdgePick.team.abbreviation} ML</strong> · {formatPercent(topEdgePick.edge)} edge ·{" "}
+            {formatPercent(topEdgePick.modelProbability)} model
+            {topEdgePick.game.marketAgrees === false ? " · market disagrees (value High when odds live)" : ""}
+            {topEdgePick.game.marketAgrees === true ? " · market agrees (downgraded vs disagree plays)" : ""}
+          </p>
+        ) : null}
         {ratchetLabel && (
           <p className="muted">{ratchetLabel}</p>
         )}
@@ -551,7 +561,7 @@ export default async function BestBetsPage() {
           </div>
           <p className="lead">
             Each day the system picks the highest-scoring qualified 2/3/4-leg parlay or +EV single
-            · growth ratchet <strong>45% parlay / 30% single</strong> below $200 · locks at 11 AM CT.
+            · prove-out sizing <strong>18% parlay / 12% single</strong> below $200 (~$6 / ~$4 at $32) for the first 20 locked tickets.
           </p>
           <ol className="muted">
             {bettingPlan.strategy_rules.map((rule) => (
@@ -635,9 +645,9 @@ export default async function BestBetsPage() {
               <p className="muted">50–31 full season · 28–13 forward proxy · best_ticket plan</p>
             </article>
             <article>
-              <p className="muted">Typical stake at $32</p>
-              <div className="metric">~$14</div>
-              <p className="muted">45% parlay / 30% single · locks at 11 AM CT</p>
+              <p className="muted">Typical stake at $32 (prove-out)</p>
+              <div className="metric">~$6</div>
+              <p className="muted">18% parlay / 12% single · first 20 locked tickets</p>
             </article>
           </div>
           <p className="muted">

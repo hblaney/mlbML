@@ -27,8 +27,8 @@ from odds_provider import implied_probability
 OUTPUT_PATH = Path(__file__).resolve().parents[2] / "public" / "recommendation-performance.json"
 STARTING_BANKROLL = 10_000.0
 
-QUALIFIED_MIN_EDGE = 0.08
-QUALIFIED_MIN_PROBABILITY = 0.62
+QUALIFIED_MIN_EDGE = 0.10
+QUALIFIED_MIN_PROBABILITY = 0.57
 QUALIFIED_MAX_ABS_ODDS = 180
 FALLBACK_MIN_EDGE = 0.04
 FALLBACK_MAX_ABS_ODDS = 220
@@ -117,7 +117,10 @@ def pick_best_moneyline(candidates: list[dict]) -> tuple[dict | None, bool]:
         )
     ]
     if qualified:
-        qualified.sort(key=lambda item: (item["ev"], item["edge"], item["model_probability"]), reverse=True)
+        qualified.sort(
+            key=lambda item: (item["edge"], item["ev"], item["model_probability"]),
+            reverse=True,
+        )
         return qualified[0], True
 
     return None, False

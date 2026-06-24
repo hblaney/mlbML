@@ -1,34 +1,50 @@
 {
   "generated_at": "2026-06-23",
   "tracking_mode": "live_best_bets",
-  "disclaimer": "Tracks best_ticket — highest-scoring parlay or +EV single daily. Growth stakes: 45% parlay / 30% single below $200.",
+  "disclaimer": "20-ticket prove-out: best_ticket locked daily · edge-first singles · 18% parlay / 12% single below $200.",
   "strategy": "best_ticket",
   "staking": "ratchet",
   "ratchet_tiers": [
-    { "min_balance": 0,    "max_balance": 199,  "parlay_pct": 0.45, "single_pct": 0.30 },
-    { "min_balance": 200,  "max_balance": 999,  "parlay_pct": 0.35, "single_pct": 0.25 },
-    { "min_balance": 1000, "max_balance": null,  "parlay_pct": 0.20, "single_pct": 0.15 }
+    { "min_balance": 0,    "max_balance": 199,  "parlay_pct": 0.18, "single_pct": 0.12 },
+    { "min_balance": 200,  "max_balance": 999,  "parlay_pct": 0.25, "single_pct": 0.18 },
+    { "min_balance": 1000, "max_balance": null,  "parlay_pct": 0.15, "single_pct": 0.10 }
   ],
   "prove_out": {
-    "active": false,
-    "mode": "compound"
+    "active": true,
+    "mode": "prove_out_20",
+    "target_tickets": 20,
+    "tickets_graded": 1
   },
   "daily_exposure_cap": 0.5,
   "started_at": "2026-06-23",
-  "starting_balance": 32.0,
-  "balance": 32.0,
-  "wallet_balance": 32.0,
-  "wallet_record": "0-0",
-  "wallet_note": "Fresh start: $12 + $20 depo. best_ticket growth plan — bet ONLY the locked official ticket.",
-  "profit": 0.0,
-  "return_pct": 0.0,
-  "record": "0-0",
-  "hit_rate": null,
+  "starting_balance": 23.0,
+  "balance": 17.0,
+  "wallet_balance": 17.0,
+  "wallet_record": "2-3",
+  "wallet_note": "Actual wallet after 5-day cold stretch. System locked BAL Jun 23 (L); user CHC + PrizePicks props outperformed.",
+  "profit": -6.0,
+  "return_pct": -0.2609,
+  "record": "0-1",
+  "hit_rate": 0.0,
   "backtest_ticket_hit_rate": 0.62,
   "last_settled_date": null,
   "today_ticket": null,
   "checkpoints": [],
   "tickets": [
+    {
+      "date": "2026-06-23",
+      "label": "BAL ML",
+      "legs": ["BAL"],
+      "leg_count": 1,
+      "stake_pct": 0.12,
+      "stake_amount": 2.76,
+      "profit": -2.76,
+      "balance_after": 17.0,
+      "won": false,
+      "odds": -140,
+      "model_probability": 0.6273,
+      "note": "Old lock (prob-first, market-agrees High). Fixed: edge-first + value-High gate."
+    },
     {
       "date": "2026-06-22",
       "label": "LAA ML + CHC ML + MIA ML",
@@ -41,8 +57,8 @@
       "won": false,
       "odds": 665,
       "model_probability": 0.2872,
-      "note": "Pre-plan loss (off-script 3-leg). Not counted in 0-0 fresh start."
+      "note": "Pre-plan loss (off-script 3-leg). Not counted in system 0-1."
     }
   ],
-  "tracking_note": "best_ticket · locked official ticket · growth 45%/30% <$200 · compound target"
+  "tracking_note": "best_ticket · edge-first v2 · prove-out 18%/12% · locked ticket only"
 }

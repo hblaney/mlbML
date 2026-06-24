@@ -3,22 +3,22 @@
   "strategy": "best_ticket",
   "strategy_rules": [
     "Probabilities are the model's TRUE calibrated win probability — no display inflation (pitcher stats point-in-time)",
-    "Each day: pick the highest-scoring ticket among qualified 2/3/4-leg parlays or a +EV single",
-    "Parlay legs must pass edge/probability gates; 3-leg+ requires multiple High/Elite anchors",
-    "Singles only when they score higher than any qualified parlay that day",
+    "Edge-first: singles and parlay legs rank by model edge (not raw win %). Value High = edge ≥12% + market disagrees.",
+    "Minimum 10% edge for official singles; skip thin singles unless a qualified parlay scores higher",
+    "Each day: highest edge-weighted score among qualified 2/3/4-leg parlays or +EV single",
     "Official ticket locks at first 11 AM CT publish — never changes later in the day",
-    "Growth ratchet: 45% parlay / 30% single below $200, steps down as bankroll grows"
+    "Prove-out: 18% parlay / 12% single below $200 (~$3–4/bet at $17 wallet)"
   ],
   "stake_by_leg_count": {
-    "1": 0.30,
-    "2": 0.45,
-    "3": 0.45,
-    "4": 0.45
+    "1": 0.12,
+    "2": 0.18,
+    "3": 0.18,
+    "4": 0.18
   },
   "ratchet_tiers": [
-    { "min_balance": 0,    "max_balance": 199,  "parlay_pct": 0.45, "single_pct": 0.30 },
-    { "min_balance": 200,  "max_balance": 999,  "parlay_pct": 0.35, "single_pct": 0.25 },
-    { "min_balance": 1000, "max_balance": null,  "parlay_pct": 0.20, "single_pct": 0.15 }
+    { "min_balance": 0,    "max_balance": 199,  "parlay_pct": 0.18, "single_pct": 0.12 },
+    { "min_balance": 200,  "max_balance": 999,  "parlay_pct": 0.25, "single_pct": 0.18 },
+    { "min_balance": 1000, "max_balance": null,  "parlay_pct": 0.15, "single_pct": 0.10 }
   ],
   "flat_stake_fallback": 0.3,
   "daily_exposure_cap": 0.5,
@@ -41,5 +41,5 @@
       "bet_days": 81
     }
   },
-  "retuned_from": "Jun 23 — switched live plan to best_ticket + growth stakes (45% parlay) for compound path to thousands on honest model"
+  "retuned_from": "Jun 24 — edge-first v2: 57% min prob (was 68%), 10% min edge singles, value-High = edge ≥12% + market disagrees. Board sorted by edge."
 }

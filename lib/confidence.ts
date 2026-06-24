@@ -11,6 +11,8 @@ export const CONFIDENCE_ELITE_MIN = 0.67;
 export const CONFIDENCE_UNCERTAIN_MEDIUM_MIN = 0.6;
 export const CONFIDENCE_HIGH_EDGE_MIN = 0.08;
 export const CONFIDENCE_ELITE_EDGE_MIN = 0.1;
+export const HIGH_VALUE_EDGE_MIN = 0.12;
+export const HIGH_VALUE_PROB_MIN = 0.57;
 
 // ERA diff / form edge thresholds — must match probability_calibration.py
 export const HIGH_ERA_DIFF_MIN = 1.5;
@@ -24,6 +26,7 @@ export type ConfidenceContext = {
   modelEdge?: number;
   starterCertain?: boolean;
   marketAvailable?: boolean;
+  marketAgrees?: boolean | null;
   rawPick?: number;
   eraDiff?: number;
   formEdge?: number;
@@ -36,6 +39,7 @@ export function confidenceFromPickProbability(
   const modelEdge = context.modelEdge ?? 0;
   const starterCertain = context.starterCertain ?? true;
   const marketAvailable = context.marketAvailable ?? true;
+  const marketAgrees = context.marketAgrees;
   const rawPick = context.rawPick ?? probability;
   const eraDiff = context.eraDiff ?? 0;
   const formEdge = context.formEdge ?? 0;
@@ -62,6 +66,15 @@ export function confidenceFromPickProbability(
 
   const highEraOk = eraDiff >= HIGH_ERA_DIFF_MIN;
   const highFormOk = formEdge >= HIGH_FORM_EDGE_MIN;
+
+  if (
+    modelEdge >= HIGH_VALUE_EDGE_MIN &&
+    probability >= HIGH_VALUE_PROB_MIN &&
+    marketAgrees === false
+  ) {
+    return "High";
+  }
+
   if (
     probability >= CONFIDENCE_HIGH_MIN &&
     modelEdge >= CONFIDENCE_HIGH_EDGE_MIN &&
@@ -85,6 +98,7 @@ export function assertConfidenceMatchesPick(
     | "rawPickProbability"
     | "confidence"
     | "modelEdge"
+    | "marketAgrees"
     | "starterCertain"
     | "homeMoneyline"
     | "awayMoneyline"
@@ -97,6 +111,7 @@ export function assertConfidenceMatchesPick(
     modelEdge: game.modelEdge,
     starterCertain: game.starterCertain,
     marketAvailable: game.homeMoneyline != null && game.awayMoneyline != null,
+    marketAgrees: game.marketAgrees,
     rawPick: game.rawPickProbability ?? pick,
     eraDiff: game.eraDiff ?? 0,
     formEdge: game.formEdge ?? 0,

@@ -206,7 +206,7 @@ def main() -> None:
         seen_ids.add(game_id)
         deduped_board.append(row)
     board = deduped_board
-    board.sort(key=lambda row: row["pickProbability"], reverse=True)
+    board.sort(key=lambda row: (row.get("modelEdge") or 0, row.get("pickProbability") or 0), reverse=True)
     payload = {
         "generated_at": today.isoformat(),
         "board_generated_at": board_generated_at,
@@ -224,6 +224,10 @@ def main() -> None:
     board_errors = run_all(recompute=True, ticket=True, accuracy=True)
     if board_errors:
         raise RuntimeError("Prediction integrity failed after board generation:\n" + "\n".join(board_errors))
+
+    from generate_prop_leans import main as generate_prop_leans_main
+
+    generate_prop_leans_main()
 
     print(f"generated_predictions={len(board)}")
     print(f"trained_through={bundle.trained_through.isoformat()}")

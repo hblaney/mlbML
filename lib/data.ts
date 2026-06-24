@@ -263,14 +263,11 @@ export function getTeam(teamId: string) {
   return team;
 }
 
-const MIN_MONEYLINE_PROBABILITY = 0.68;
-const MIN_MONEYLINE_EDGE = 0.08;
-// Live-strategy value gate: a High/Elite leg must beat the market's implied price by
-// at least this margin (edge = model win prob − book implied prob). On the honest
-// (leakage-fixed) model, a 2026 walk-forward shows this lifts the live strategy from
-// 33-25 / 59% flat ROI to 35-22 / 74% flat ROI — it drops thin-edge legs and turns
-// some losing tickets into winners. See experiment_pitcher_leakage / experiment_edge_gate.
-const HIGH_ELITE_MIN_EDGE = 0.01;
+const MIN_MONEYLINE_PROBABILITY = 0.57;
+const MIN_MONEYLINE_EDGE = 0.10;
+const LIVE_DAILY_MIN_EDGE = 0.10;
+// Live-strategy value gate — thin edges burned the last week (BAL agree-market vs CHC disagree).
+const HIGH_ELITE_MIN_EDGE = 0.08;
 const MAX_MONEYLINE_ABS_ODDS = 180;
 const BEST_AVAILABLE_MONEYLINE_COUNT = 5;
 const BEST_AVAILABLE_MIN_EDGE = 0.04;
@@ -916,10 +913,10 @@ export function getOptimizedStakePctForTicket(
 /**
  * Ratchet staking: scale down stake % as bankroll grows to protect gains.
  *
- * Tiers (Jun 23 — growth compound plan for small bankrolls):
- *   $0–$199:    45% parlay / 30% single  — max compound on qualified tickets
- *   $200–$999:  35% parlay / 25% single  — protect early gains
- *   $1,000+:    20% parlay / 15% single  — lock in profits
+ * Tiers (Jun 23 — 20-ticket prove-out, then growth):
+ *   $0–$199:    18% parlay / 12% single  — ~$6 / ~$4 at $32
+ *   $200–$999:  25% parlay / 18% single
+ *   $1,000+:    15% parlay / 10% single
  */
 export function getRatchetStakePct(
   balance: number,
@@ -927,9 +924,9 @@ export function getRatchetStakePct(
   ratchetTiers?: Array<{ min_balance: number; max_balance: number | null; parlay_pct: number; single_pct: number }>
 ): number {
   const tiers = ratchetTiers ?? [
-    { min_balance: 0,    max_balance: 199,  parlay_pct: 0.45, single_pct: 0.30 },
-    { min_balance: 200,  max_balance: 999,  parlay_pct: 0.35, single_pct: 0.25 },
-    { min_balance: 1000, max_balance: null, parlay_pct: 0.20, single_pct: 0.15 },
+    { min_balance: 0,    max_balance: 199,  parlay_pct: 0.18, single_pct: 0.12 },
+    { min_balance: 200,  max_balance: 999,  parlay_pct: 0.25, single_pct: 0.18 },
+    { min_balance: 1000, max_balance: null, parlay_pct: 0.15, single_pct: 0.10 },
   ];
   const tier = [...tiers]
     .reverse()
@@ -1127,22 +1124,26 @@ function getAnchorParlayLegCandidates(board: GamePrediction[] = predictions) {
 }
 
 function getTopMoneylineTicket(board: GamePrediction[] = predictions) {
-  const qualified = buildMarketMoneylineBets(board).sort(
-    (left, right) => (right.ev * right.modelProbability) - (left.ev * left.modelProbability)
-  );
+  const qualified = buildMarketMoneylineBets(board);
   if (qualified.length > 0) {
     return qualified[0];
   }
 
   const available = buildBestAvailableMarketMoneylineBets(board)
-    .filter((bet) => bet.ev > 0)
-    .sort((left, right) => (right.ev * right.modelProbability) - (left.ev * left.modelProbability));
+    .filter((bet) => bet.ev > 0 && bet.edge >= LIVE_DAILY_MIN_EDGE)
+    .sort(
+      (left, right) =>
+        right.edge - left.edge ||
+        right.ev - left.ev ||
+        right.modelProbability - left.modelProbability
+    );
 
   return available[0] ?? null;
 }
 
 function ticketScoreForSingle(bet: BestBet) {
-  return bet.ev * bet.modelProbability;
+  // Edge-first: CHC @ 15% edge beats BAL @ 13% even when raw prob is lower.
+  return bet.edge * 10 + bet.modelProbability;
 }
 
 function bestAnchorParlay(board: GamePrediction[] = predictions, stake = 100) {
@@ -1578,10 +1579,20 @@ export function getMaxScoreDailyTicket(board: GamePrediction[] = predictions): D
     return null;
   }
 
-  return options.sort((left, right) => right.score - left.score)[0];
+  const best = options.sort((left, right) => right.score - left.score)[0];
+  if (best.kind === "single" && best.bet.edge < LIVE_DAILY_MIN_EDGE) {
+    const parlayOnly = options
+      .filter((option) => option.kind === "parlay")
+      .sort((left, right) => right.score - left.score)[0];
+    return parlayOnly ?? null;
+  }
+  return best;
 }
 
-/** no_low_parlay_223s: always-2, premium 3-leg, or single — highest score wins one bet. */
+/** Top edge pick on the board — lock priority and headline display. */
+export function getTopEdgePick(board: GamePrediction[] = predictions): BestBet | null {
+  return getTopMoneylineTicket(board);
+}
 export function getNoLowParlay223sTicket(board: GamePrediction[] = predictions): DailyTicket | null {
   return getTwoOrThreeOrSingleTicket(board);
 }
@@ -1632,7 +1643,7 @@ export function getHighElite76ParlayTicket(board: GamePrediction[] = predictions
         // on the honest model's 2026 walk-forward (see HIGH_ELITE_MIN_EDGE).
         bet.edge >= HIGH_ELITE_MIN_EDGE
     )
-    .sort((a, b) => b.modelProbability - a.modelProbability);
+    .sort((a, b) => b.edge - a.edge || b.modelProbability - a.modelProbability);
 
   if (qualified.length === 0) {
     return null;
@@ -1669,7 +1680,7 @@ export function getHighElite76ParlayTicket(board: GamePrediction[] = predictions
   };
 }
 
-/** Daily ticket: one system bet per day — best_ticket growth plan. */
+/** Daily ticket: one system bet per day — best_ticket, edge-first. */
 export function getBestDailyTicket(board: GamePrediction[] = predictions): DailyTicket | null {
   const ticket = getBestTicketDailyTicket(board);
   if (ticket?.kind === "parlay") {

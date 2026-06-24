@@ -350,6 +350,7 @@ def public_confidence_for(
         model_edge=model_edge,
         starter_certain=starter_certain,
         market_available=market_available,
+        market_agrees=market_agrees,
         raw_pick=raw_pick,
         era_diff=era_diff,
         form_edge=form_edge,

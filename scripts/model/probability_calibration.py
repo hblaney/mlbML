@@ -26,7 +26,9 @@ ELITE_MIN_RAW_PICK = 0.67
 # Picks with an unconfirmed starter or no market price can't earn High/Elite.
 UNCERTAIN_MEDIUM_MIN = 0.60
 
-# Secondary gates (same as before — these empirically separate H/E wins from losses).
+# Value route: model strongly disagrees with market (best live signal on slates like CHC @ NYM).
+HIGH_VALUE_EDGE_MIN = 0.12
+HIGH_VALUE_PROB_MIN = 0.57
 HIGH_EDGE_MIN = 0.08
 ELITE_EDGE_MIN = 0.10
 HIGH_ERA_DIFF_MIN = 1.5
@@ -61,6 +63,7 @@ def confidence_from_display(
     model_edge: float = 0.0,
     starter_certain: bool = True,
     market_available: bool = True,
+    market_agrees: bool | None = None,
     raw_pick: float = 0.0,
     era_diff: float = 0.0,
     form_edge: float = 0.0,
@@ -90,6 +93,15 @@ def confidence_from_display(
 
     high_era_ok = era_diff >= HIGH_ERA_DIFF_MIN
     high_form_ok = form_edge >= HIGH_FORM_EDGE_MIN
+
+    # Value High: best edge on the board often looks like Medium on prob alone (CHC @ NYM).
+    if (
+        model_edge >= HIGH_VALUE_EDGE_MIN
+        and p >= HIGH_VALUE_PROB_MIN
+        and market_agrees is False
+    ):
+        return "High"
+
     if (
         p >= HIGH_MIN_RAW_PICK
         and model_edge >= HIGH_EDGE_MIN
