@@ -19,7 +19,8 @@ export const dynamic = "force-dynamic";
 
 const STRATEGY_LABELS: Record<string, string> = {
   high_elite_76_parlay: "high_elite_76_parlay (legacy)",
-  best_ticket: "best_ticket (live · growth)",
+  edge_value_ticket: "edge_value_ticket (live · skip unless value)",
+  best_ticket: "best_ticket (legacy growth)",
 };
 
 export default async function BestBetsPage() {
@@ -150,7 +151,7 @@ export default async function BestBetsPage() {
 
   // Show live plan vs legacy high_elite side-by-side for comparison.
   const liveInGuard = Boolean(strategyGuard?.comparisons[activeStrategy]);
-  const SHOWN_STRATEGIES = new Set([activeStrategy, "best_ticket", "high_elite_76_parlay"]);
+  const SHOWN_STRATEGIES = new Set([activeStrategy, "edge_value_ticket", "best_ticket", "high_elite_76_parlay"]);
   const comparisonRows = strategyGuard
     ? Object.entries(strategyGuard.comparisons)
         .filter(([id]) => SHOWN_STRATEGIES.has(id))

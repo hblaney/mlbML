@@ -49,6 +49,32 @@ def pick_always_n(candidates: list[dict], leg_count: int) -> dict | None:
     return pick_filtered(candidates, leg_count) or pick_forced_top_legs(candidates, leg_count)
 
 
+def ticket_score_single(candidate: dict) -> float:
+    return candidate.get("edge", 0.0) * 10.0 + candidate.get("model_probability", 0.0)
+
+
+def day_actions_edge_value_ticket(candidates: list[dict]) -> list[DayAction]:
+    """Skip unless a value single (edge≥12%, market disagrees) or strong 2-leg parlay."""
+    pool = [c for c in candidates if c.get("edge", 0.0) >= 0.10 and c.get("model_probability", 0.0) >= 0.57]
+    pool.sort(key=lambda item: (item.get("edge", 0.0), item.get("ev", 0.0)), reverse=True)
+    if not pool:
+        return []
+
+    best = pool[0]
+    book = best.get("book_probability")
+    model_p = best.get("model_probability", 0.0)
+    market_disagrees = book is not None and abs(model_p - book) >= 0.03 and best.get("edge", 0.0) >= 0.12
+    if market_disagrees and best.get("ev", 0.0) > 0:
+        return [DayAction(legs=None, single=best, label="value_single")]
+
+    legs = [c for c in pool if c.get("edge", 0.0) >= 0.08][:2]
+    if len(legs) >= 2:
+        ticket = pick_best_parlay(legs, 2)[0]
+        if ticket and ticket.get("score", 0) > 0:
+            return [DayAction(legs=ticket["legs"], single=None, label="value_parlay_2")]
+    return []
+
+
 def day_actions_for_rule(candidates: list[dict], rule: str, threshold: float | None = None) -> list[DayAction]:
     """Return 0..N actions for one day (multi-bet rules can return 2)."""
     single = pick_best_moneyline(candidates)[0]
@@ -113,7 +139,7 @@ def day_actions_for_rule(candidates: list[dict], rule: str, threshold: float | N
     if rule == "best_ticket":
         options: list[tuple[float, dict, str]] = []
         if single:
-            options.append((single["ev"] * single["model_probability"], single, "single"))
+            options.append((ticket_score_single(single), single, "single"))
         for n, tag in ((2, "p2"), (3, "p3"), (4, "p4")):
             t = pick_filtered(candidates, n)
             if t:
@@ -124,6 +150,9 @@ def day_actions_for_rule(candidates: list[dict], rule: str, threshold: float | N
         if ticket.get("legs"):
             return [parlay_action(ticket, tag)]  # type: ignore
         return [single_action()]  # type: ignore
+
+    if rule == "edge_value_ticket":
+        return day_actions_edge_value_ticket(candidates)
 
     if rule == "max_any_combo":
         opts = []

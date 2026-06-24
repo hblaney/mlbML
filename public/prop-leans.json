@@ -15,10 +15,10 @@
       "note": "Team SLG proxy until lineup module ships"
     },
     {
-      "gameId": "hou-tor-2026-06-23-822799",
-      "matchup": "HOU @ TOR",
-      "player": "HOU top hitter TB proxy",
-      "team": "HOU",
+      "gameId": "phi-wsh-2026-06-23-822718",
+      "matchup": "PHI @ WSH",
+      "player": "WSH top hitter TB proxy",
+      "team": "WSH",
       "prop": "total_bases",
       "line": 1.0,
       "projection": 1.5,
@@ -59,17 +59,6 @@
       "note": "Team SLG proxy until lineup module ships"
     },
     {
-      "gameId": "chc-nym-2026-06-23-823614",
-      "matchup": "CHC @ NYM",
-      "player": "CHC top hitter TB proxy",
-      "team": "CHC",
-      "prop": "total_bases",
-      "line": 1.0,
-      "projection": 1.4,
-      "lean": "Over",
-      "note": "Team SLG proxy until lineup module ships"
-    },
-    {
       "gameId": "bal-laa-2026-06-23-824017",
       "matchup": "BAL @ LAA",
       "player": "BAL top hitter TB proxy",
@@ -81,10 +70,10 @@
       "note": "Team SLG proxy until lineup module ships"
     },
     {
-      "gameId": "nyy-det-2026-06-23-824262",
-      "matchup": "NYY @ DET",
-      "player": "DET top hitter TB proxy",
-      "team": "DET",
+      "gameId": "chc-nym-2026-06-23-823614",
+      "matchup": "CHC @ NYM",
+      "player": "CHC top hitter TB proxy",
+      "team": "CHC",
       "prop": "total_bases",
       "line": 1.0,
       "projection": 1.4,
@@ -103,10 +92,10 @@
       "note": "Team SLG proxy until lineup module ships"
     },
     {
-      "gameId": "phi-wsh-2026-06-23-822718",
-      "matchup": "PHI @ WSH",
-      "player": "PHI top hitter TB proxy",
-      "team": "PHI",
+      "gameId": "nyy-det-2026-06-23-824262",
+      "matchup": "NYY @ DET",
+      "player": "DET top hitter TB proxy",
+      "team": "DET",
       "prop": "total_bases",
       "line": 1.0,
       "projection": 1.4,
@@ -129,6 +118,17 @@
       "matchup": "MIL @ CIN",
       "player": "MIL top hitter TB proxy",
       "team": "MIL",
+      "prop": "total_bases",
+      "line": 1.0,
+      "projection": 1.4,
+      "lean": "Over",
+      "note": "Team SLG proxy until lineup module ships"
+    },
+    {
+      "gameId": "hou-tor-2026-06-23-822799",
+      "matchup": "HOU @ TOR",
+      "player": "TOR top hitter TB proxy",
+      "team": "TOR",
       "prop": "total_bases",
       "line": 1.0,
       "projection": 1.4,
@@ -334,17 +334,6 @@
       "k9": 8.19
     },
     {
-      "gameId": "hou-tor-2026-06-23-822799",
-      "matchup": "HOU @ TOR",
-      "player": "Shane Bieber",
-      "team": "TOR",
-      "prop": "strikeouts",
-      "line": 5.0,
-      "projection": 5.0,
-      "lean": "Pass",
-      "k9": 8.26
-    },
-    {
       "gameId": "phi-wsh-2026-06-23-822718",
       "matchup": "PHI @ WSH",
       "player": "PJ Poulin",
@@ -354,6 +343,17 @@
       "projection": 5.0,
       "lean": "Pass",
       "k9": 8.15
+    },
+    {
+      "gameId": "hou-tor-2026-06-23-822799",
+      "matchup": "HOU @ TOR",
+      "player": "Shane Bieber",
+      "team": "TOR",
+      "prop": "strikeouts",
+      "line": 5.0,
+      "projection": 5.0,
+      "lean": "Pass",
+      "k9": 8.26
     },
     {
       "gameId": "hou-tor-2026-06-23-822799",

@@ -32,10 +32,24 @@ REFIT_EVERY = 30
 TRAINED_MODEL_WEIGHT = 1.00
 PRIOR_SEASON_SAMPLE_WEIGHT = 0.60
 CURRENT_SEASON_SAMPLE_WEIGHT = 1.25
+RECENCY_DAYS_HOT = 21
+RECENCY_DAYS_WARM = 45
+RECENCY_MULTIPLIER_HOT = 2.25
+RECENCY_MULTIPLIER_WARM = 1.5
+
+
+def recency_sample_weight(game_date: date, as_of: date, base: float) -> float:
+    """Up-weight recent games so the model tracks current-season form, not March baseball."""
+    days = max(0, (as_of - game_date).days)
+    if days <= RECENCY_DAYS_HOT:
+        return base * RECENCY_MULTIPLIER_HOT
+    if days <= RECENCY_DAYS_WARM:
+        return base * RECENCY_MULTIPLIER_WARM
+    return base
 # Season walk-forward best: 0.09 (61.21%). 0.10 OK alone; 0.10 + series-in-wf regressed.
 MARKET_BLEND_WEIGHT = 0.09
 # When internal edge is tiny, lean harder on no-vig market (Jun 2026 audit: 50-55% picks hit 44%).
-MARKET_BLEND_WEIGHT_COIN_FLIP = 0.30
+MARKET_BLEND_WEIGHT_COIN_FLIP = 0.42
 MARKET_BLEND_EDGE_FULL_MODEL = 0.12
 MARKET_BLEND_EDGE_COIN_FLIP = 0.04
 PUBLIC_CONFIDENCE_SHARPENING = 0.8
@@ -378,7 +392,6 @@ def final_public_probabilities(
 ) -> PublicPickResult:
     """One pipeline for live board + walk-forward: GBM → market blend → calibration → confidence."""
     internal_home = prediction.home_probability
-    model_edge = abs(internal_home - 0.5)
 
     home_probability = internal_home
     away_probability = prediction.away_probability
@@ -395,17 +408,15 @@ def final_public_probabilities(
         market_pick_home = market_home >= market_away
         model_pick_home = home_probability >= away_probability
         market_agrees = market_pick_home == model_pick_home
-        if market_agrees and model_edge >= 0.10:
-            if model_pick_home:
-                home_probability = max(home_probability, market_home)
-            else:
-                home_probability = min(home_probability, market_home)
-            total = home_probability + away_probability
-            if total > 0:
-                home_probability /= total
-                away_probability = 1.0 - home_probability
 
-    strong = bool(market_agrees and model_edge >= 0.08)
+    # Value picks (market disagrees) keep separation; agreed favorites stay soft.
+    pick_is_home = home_probability >= away_probability
+    if market_home is not None and market_away is not None:
+        book_pick = market_home if pick_is_home else market_away
+        pre_sharpen_edge = max(home_probability, away_probability) - book_pick
+    else:
+        pre_sharpen_edge = abs(home_probability - 0.5)
+    strong = bool(market_agrees is False and pre_sharpen_edge >= 0.10)
     home_probability = sharpen_public_probability(home_probability, strong=strong)
     away_probability = 1.0 - home_probability
     pick_probability = max(home_probability, away_probability)
@@ -425,7 +436,7 @@ def final_public_probabilities(
             home_probability = sharpen_public_probability(home_probability, strong=False)
             away_probability = 1.0 - home_probability
             pick_probability = max(home_probability, away_probability)
-            market_agrees = True
+            market_agrees = False
 
     raw_pick_probability = pick_probability
     market_available = market_home is not None and market_away is not None
@@ -434,6 +445,13 @@ def final_public_probabilities(
         away_probability,
         market_available=market_available,
     )
+    pick_is_home = home_probability >= away_probability
+    if market_available:
+        book_pick = market_home if pick_is_home else market_away
+        model_edge = pick_probability - book_pick
+    else:
+        model_edge = pick_probability - 0.5
+
     confidence = public_confidence_for(
         pick_probability,
         market_agrees=market_agrees,

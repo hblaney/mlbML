@@ -1,0 +1,92 @@
+{
+  "generated_at": "2026-06-23",
+  "model_version": "daily-auto-v2.14.0-recent-recalibration",
+  "holdout_start": "2026-06-02",
+  "holdout_end": "2026-06-22",
+  "holdout_game_accuracy": 0.573,
+  "strategies": [
+    {
+      "strategy": "edge_value_ticket",
+      "holdout": {
+        "bet_days": 12,
+        "record": "8-4",
+        "hit_rate": 0.6667,
+        "flat": {
+          "flat_profit": 568.66,
+          "flat_roi": 0.4739,
+          "hit_rate": 0.6667
+        }
+      },
+      "season": {
+        "record": "44-33",
+        "bet_days": 77,
+        "flat_roi": 0.2431
+      },
+      "compound_from_10": 47.47
+    },
+    {
+      "strategy": "best_ticket",
+      "holdout": {
+        "bet_days": 11,
+        "record": "7-4",
+        "hit_rate": 0.6364,
+        "flat": {
+          "flat_profit": 650.82,
+          "flat_roi": 0.5917,
+          "hit_rate": 0.6364
+        }
+      },
+      "season": {
+        "record": "43-33",
+        "bet_days": 76,
+        "flat_roi": 0.625
+      },
+      "compound_from_10": 1976.26
+    },
+    {
+      "strategy": "high_elite_edge1",
+      "holdout": {
+        "bet_days": 11,
+        "record": "6-5",
+        "hit_rate": 0.5455,
+        "flat": {
+          "flat_profit": 978.6,
+          "flat_roi": 0.8896,
+          "hit_rate": 0.5455
+        }
+      },
+      "season": {
+        "record": "28-42",
+        "bet_days": 70,
+        "flat_roi": 0.762
+      },
+      "compound_from_10": 511.13
+    },
+    {
+      "strategy": "high_elite_76_parlay",
+      "holdout": {
+        "bet_days": 11,
+        "record": "6-5",
+        "hit_rate": 0.5455,
+        "flat": {
+          "flat_profit": 978.6,
+          "flat_roi": 0.8896,
+          "hit_rate": 0.5455
+        }
+      },
+      "season": {
+        "record": "28-42",
+        "bet_days": 70,
+        "flat_roi": 0.762
+      },
+      "compound_from_10": 511.13
+    }
+  ],
+  "live_strategy": "edge_value_ticket",
+  "changes": [
+    "v2.14: recency-weighted training (2.25x last 21d)",
+    "v3 pipeline: real market edge (pick - book), no market-agree boost",
+    "coin-flip market blend 30% -> 42%",
+    "betting: edge-first scoring + edge_value_ticket skip gate"
+  ]
+}

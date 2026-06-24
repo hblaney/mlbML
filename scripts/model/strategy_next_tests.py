@@ -281,6 +281,9 @@ def day_actions_for_test(candidates: list[dict], rule: str) -> list[DayAction]:
     if rule == "best_ticket":
         return day_actions_for_rule(candidates, rule)
 
+    if rule == "edge_value_ticket":
+        return day_actions_for_rule(candidates, rule)
+
     if rule == "high_elite_76_parlay":
         # Live strategy now includes the validated value gate: a leg must beat the
         # market implied price by >= 1% edge (honest-model 2026 walk-forward:

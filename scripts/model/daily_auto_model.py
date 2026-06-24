@@ -29,12 +29,13 @@ from trained_edge_model import (
     final_public_probabilities,
     fit_model,
     predict_with_model,
+    recency_sample_weight,
 )
 
 MODEL_PATH = Path(__file__).resolve().parents[2] / "data" / "model" / "daily_edge.pkl"
-MODEL_VERSION = "daily-auto-v2.13.0-pitcher-leakage-fix"
+MODEL_VERSION = "daily-auto-v2.14.0-recent-recalibration"
 # Bump when the public probability pipeline changes (must match predictions.json).
-PIPELINE_VERSION = "unified-public-v2-calibrated"
+PIPELINE_VERSION = "unified-public-v3-market-edge"
 
 
 @dataclass
@@ -67,9 +68,14 @@ def _ingest_game(
     examples: list[TrainingExample],
     weights: list[float],
     weight: float,
+    *,
+    as_of: date | None = None,
 ) -> None:
     examples.append(TrainingExample(features=feature_row(game, league), label=1 if game.home_won else 0))
-    weights.append(weight)
+    if as_of is not None and weight == CURRENT_SEASON_SAMPLE_WEIGHT:
+        weights.append(recency_sample_weight(game.game_date, as_of, weight))
+    else:
+        weights.append(weight)
     league.apply_result(
         game.game_date,
         game.home_team_id,
@@ -87,11 +93,19 @@ def train_on_games(
     examples: list[TrainingExample] = []
     weights: list[float] = []
 
+    trained_through = games[-1].game_date if games else date.today() - timedelta(days=1)
     for game in prior_games or []:
         _ingest_game(game, league, examples, weights, PRIOR_SEASON_SAMPLE_WEIGHT)
 
     for game in games:
-        _ingest_game(game, league, examples, weights, CURRENT_SEASON_SAMPLE_WEIGHT)
+        _ingest_game(
+            game,
+            league,
+            examples,
+            weights,
+            CURRENT_SEASON_SAMPLE_WEIGHT,
+            as_of=trained_through,
+        )
 
     model = fit_model(examples, weights)
     if model is None:
@@ -201,10 +215,12 @@ def walk_forward_history(
             )
             home_pit = _safe_pitcher_stats(game, game.home_pitcher_id)
             away_pit = _safe_pitcher_stats(game, game.away_pitcher_id)
-            era_diff = abs(home_pit["era"] - away_pit["era"])
             _pred_home_tmp = prediction.home_probability >= prediction.away_probability
+            _pick_pit = home_pit if _pred_home_tmp else away_pit
+            _opp_pit = away_pit if _pred_home_tmp else home_pit
+            era_diff = _opp_pit["era"] - _pick_pit["era"]
             _pick_team = league.team(game.home_team_id if _pred_home_tmp else game.away_team_id)
-            _opp_team  = league.team(game.away_team_id if _pred_home_tmp else game.home_team_id)
+            _opp_team = league.team(game.away_team_id if _pred_home_tmp else game.home_team_id)
             form_edge = _pick_team.win_pct(10) - _opp_team.win_pct(10)
             result = final_public_probabilities(
                 prediction,
@@ -243,7 +259,7 @@ def walk_forward_history(
             )
 
         examples.append(TrainingExample(features=features, label=1 if game.home_won else 0))
-        weights.append(CURRENT_SEASON_SAMPLE_WEIGHT)
+        weights.append(recency_sample_weight(game.game_date, game.game_date, CURRENT_SEASON_SAMPLE_WEIGHT))
         league.apply_result(
             game.game_date,
             game.home_team_id,

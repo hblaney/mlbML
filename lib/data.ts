@@ -266,6 +266,7 @@ export function getTeam(teamId: string) {
 const MIN_MONEYLINE_PROBABILITY = 0.57;
 const MIN_MONEYLINE_EDGE = 0.10;
 const LIVE_DAILY_MIN_EDGE = 0.10;
+const LIVE_VALUE_SINGLE_MIN_EDGE = 0.12;
 // Live-strategy value gate — thin edges burned the last week (BAL agree-market vs CHC disagree).
 const HIGH_ELITE_MIN_EDGE = 0.08;
 const MAX_MONEYLINE_ABS_ODDS = 180;
@@ -747,7 +748,7 @@ export const TRG59_MIN_COMBINED_PROBABILITY = 0.34;
 export const MED60_FORCE_PARLAY_MIN_PROBABILITY = TRG59_FORCE_PARLAY_MIN_PROBABILITY;
 
 /** Live plan: best_ticket — highest-scoring 2/3/4-leg parlay or +EV single each day (growth compound). */
-export const LIVE_BETTING_STRATEGY = "best_ticket";
+export const LIVE_BETTING_STRATEGY = "edge_value_ticket";
 const USE_PARLAY_CORRELATION_FILTER = false;
 const PARLAY_CORRELATION_WINDOW_MINUTES = 60;
 
@@ -1680,11 +1681,57 @@ export function getHighElite76ParlayTicket(board: GamePrediction[] = predictions
   };
 }
 
-/** Daily ticket: one system bet per day — best_ticket, edge-first. */
+/** Skip unless value single (edge≥12%, market disagrees) or 2-leg edge parlay. */
+export function getEdgeValueDailyTicket(board: GamePrediction[] = predictions): DailyTicket | null {
+  if (!boardHasMarketOdds(board)) {
+    return null;
+  }
+
+  const pool = buildMarketMoneylineCandidates(board)
+    .filter(
+      (bet) =>
+        bet.modelProbability >= MIN_MONEYLINE_PROBABILITY &&
+        bet.edge >= LIVE_DAILY_MIN_EDGE &&
+        bet.ev > 0 &&
+        Math.abs(bet.odds) <= MAX_MONEYLINE_ABS_ODDS &&
+        isStarterReadyForParlay(bet.game)
+    )
+    .sort((a, b) => b.edge - a.edge || b.ev - a.ev);
+
+  if (pool.length === 0) {
+    return null;
+  }
+
+  const best = pool[0];
+  if (best.game.marketAgrees === false && best.edge >= LIVE_VALUE_SINGLE_MIN_EDGE) {
+    return {
+      kind: "single",
+      bet: best,
+      score: ticketScoreForSingle(best),
+      qualified: true,
+    };
+  }
+
+  const legs = pool.filter((bet) => bet.edge >= 0.08).slice(0, 2);
+  if (legs.length >= 2 && isParlayCorrelationAllowed(legs)) {
+    const parlay = buildParlayCandidate(legs);
+    if (parlay.ev > 0) {
+      parlay.strategy = "edge_value_ticket";
+      return { kind: "parlay", parlay, score: parlay.score, qualified: true };
+    }
+  }
+
+  return null;
+}
+
+/** Daily ticket: one system bet per day — live strategy from retrain holdout. */
 export function getBestDailyTicket(board: GamePrediction[] = predictions): DailyTicket | null {
-  const ticket = getBestTicketDailyTicket(board);
+  const ticket =
+    LIVE_BETTING_STRATEGY === "edge_value_ticket"
+      ? getEdgeValueDailyTicket(board)
+      : getBestTicketDailyTicket(board);
   if (ticket?.kind === "parlay") {
-    ticket.parlay.strategy = "best_ticket";
+    ticket.parlay.strategy = LIVE_BETTING_STRATEGY;
   }
   return ticket;
 }
