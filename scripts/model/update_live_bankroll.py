@@ -13,7 +13,7 @@ from exhaustive_strategy_search import load_moneyline_by_day
 from strategy_next_tests import build_snapshots, enrich_moneyline
 from strategy_research import DAILY_CAP
 
-LIVE_STRATEGY = "edge_value_ticket"
+LIVE_STRATEGY = "best_ticket"
 STAKE_TIERED = {1: 0.12, 2: 0.18, 3: 0.18, 4: 0.18}
 FLAT_PROVE_OUT_USD = 5.0
 PROVE_OUT_TICKETS = 20

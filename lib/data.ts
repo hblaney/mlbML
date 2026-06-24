@@ -748,7 +748,7 @@ export const TRG59_MIN_COMBINED_PROBABILITY = 0.34;
 export const MED60_FORCE_PARLAY_MIN_PROBABILITY = TRG59_FORCE_PARLAY_MIN_PROBABILITY;
 
 /** Live plan: best_ticket — highest-scoring 2/3/4-leg parlay or +EV single each day (growth compound). */
-export const LIVE_BETTING_STRATEGY = "edge_value_ticket";
+export const LIVE_BETTING_STRATEGY = "best_ticket";
 const USE_PARLAY_CORRELATION_FILTER = false;
 const PARLAY_CORRELATION_WINDOW_MINUTES = 60;
 
@@ -1131,7 +1131,7 @@ function getTopMoneylineTicket(board: GamePrediction[] = predictions) {
   }
 
   const available = buildBestAvailableMarketMoneylineBets(board)
-    .filter((bet) => bet.ev > 0 && bet.edge >= LIVE_DAILY_MIN_EDGE)
+    .filter((bet) => bet.ev > 0)
     .sort(
       (left, right) =>
         right.edge - left.edge ||
@@ -1581,12 +1581,6 @@ export function getMaxScoreDailyTicket(board: GamePrediction[] = predictions): D
   }
 
   const best = options.sort((left, right) => right.score - left.score)[0];
-  if (best.kind === "single" && best.bet.edge < LIVE_DAILY_MIN_EDGE) {
-    const parlayOnly = options
-      .filter((option) => option.kind === "parlay")
-      .sort((left, right) => right.score - left.score)[0];
-    return parlayOnly ?? null;
-  }
   return best;
 }
 

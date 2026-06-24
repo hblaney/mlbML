@@ -19,8 +19,7 @@ export const dynamic = "force-dynamic";
 
 const STRATEGY_LABELS: Record<string, string> = {
   high_elite_76_parlay: "high_elite_76_parlay (legacy)",
-  edge_value_ticket: "edge_value_ticket (live · skip unless value)",
-  best_ticket: "best_ticket (legacy growth)",
+  best_ticket: "best_ticket (live · daily)",
 };
 
 export default async function BestBetsPage() {
