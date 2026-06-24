@@ -1,16 +1,9 @@
 name: Refresh Live Board
 
+# DISABLED 2026-06-24 at user request: this workflow was auto-committing/pushing a
+# regenerated board to main on an hourly schedule, overwriting manual changes.
+# Manual-only now — re-add the schedule block to re-enable automatic refreshes.
 on:
-  schedule:
-    # Morning catch-up when Daily Model cron is missed (~5–9 AM CT = 10–14 UTC).
-    - cron: "0 10-14 * * *"
-    # 11 AM / 11:30 AM / noon CT backups — publish if Daily Model missed or failed.
-    - cron: "0 16 * * *"
-    - cron: "30 16 * * *"
-    - cron: "0 17 * * *"
-    # Hourly during game day (~10 AM – 10 PM CT).
-    - cron: "0 15-23 * * *"
-    - cron: "0 0-4 * * *"
   workflow_dispatch:
 
 permissions:

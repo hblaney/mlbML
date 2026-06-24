@@ -1,8 +1,9 @@
 name: Weekly Model Experiments
 
+# DISABLED 2026-06-24 at user request: this ran a script that no longer exists
+# (tmp_accuracy_sweep_2026.py), so it failed every week while still committing to the
+# repo. Manual-only now — re-add the schedule block to re-enable.
 on:
-  schedule:
-    - cron: "0 15 * * 0"
   workflow_dispatch:
 
 permissions:

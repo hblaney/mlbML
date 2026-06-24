@@ -1,24 +1,9 @@
 name: Prediction Integrity
 
+# DISABLED 2026-06-24 at user request (turn off all automation). This was a passive
+# CI validator (it never edits the repo), but it's manual-only now so nothing runs
+# automatically. Re-add the push/pull_request triggers to re-enable.
 on:
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/prediction-integrity.yml"
-      - "scripts/model/**"
-      - "lib/data.ts"
-      - "lib/model-output.ts"
-      - "lib/confidence.ts"
-      - "public/predictions.json"
-      - "public/accuracy.json"
-      - "package.json"
-  pull_request:
-    paths:
-      - "scripts/model/**"
-      - "lib/data.ts"
-      - "lib/model-output.ts"
-      - "lib/confidence.ts"
-      - "public/predictions.json"
   workflow_dispatch:
 
 jobs:

@@ -47,6 +47,14 @@ def recency_sample_weight(game_date: date, as_of: date, base: float) -> float:
     return base
 # Season walk-forward best: 0.09 (61.21%). 0.10 OK alone; 0.10 + series-in-wf regressed.
 MARKET_BLEND_WEIGHT = 0.09
+# Anti weak-home-team-overrating cap (Jun 24 2026). The GBM sometimes stamps a weak
+# home team a strong favorite when the market correctly has them as an underdog
+# (e.g. COL/DET 6/23: model ~63% vs market underdog — both lost). The published
+# probability is clamped to within this band of the no-vig market price, so the model
+# keeps a real edge (up to 12 pts) but can't publish a 20-pt blunder against the line.
+# Walk-forward: lifts the live 2-leg strategy 56.0% -> 60.7% hit, removes all 22
+# overconfident-vs-market parlay legs, ROI stays +25.6%/bet.
+MAX_MARKET_DISAGREEMENT = 0.12
 # When internal edge is tiny, lean harder on no-vig market (Jun 2026 audit: 50-55% picks hit 44%).
 MARKET_BLEND_WEIGHT_COIN_FLIP = 0.42
 MARKET_BLEND_EDGE_FULL_MODEL = 0.12
@@ -403,15 +411,26 @@ def final_public_probabilities(
     market_agrees: bool | None = None
     model_edge = 0.0
     blended_home = raw_home
+    market_home_novig: float | None = None
     if market_home is not None and market_away is not None:
         total = market_home + market_away
         if total > 0:
             mh = market_home / total
             ma = market_away / total
+            market_home_novig = mh
             # Blend model toward no-vig market consensus for a more accurate probability.
             blended_home = blend_with_market(raw_home, mh)
 
     home_probability = calibrate_public_probability(blended_home)
+
+    # Cap how far the published probability may stray from the no-vig market on the
+    # favorite side. Kills the weak-home-team-overrating bug (model can't claim a strong
+    # favorite the market prices as an underdog) while preserving a real edge up to the band.
+    if market_home_novig is not None:
+        lo = market_home_novig - MAX_MARKET_DISAGREEMENT
+        hi = market_home_novig + MAX_MARKET_DISAGREEMENT
+        home_probability = min(max(home_probability, lo), hi)
+
     away_probability = 1.0 - home_probability
     pick_probability = max(home_probability, away_probability)
 

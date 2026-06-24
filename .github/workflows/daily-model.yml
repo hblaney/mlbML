@@ -1,18 +1,9 @@
 name: Daily Model Retrain
 
+# DISABLED 2026-06-24 at user request: this workflow retrained the model and
+# auto-committed/pushed a new board to main 4x/day, and ran heavy research scripts.
+# Manual-only now — re-add the schedule block to re-enable automatic retrains.
 on:
-  schedule:
-    # PRIMARY: 11:00 AM Central (16:00 UTC during CDT — the MLB season is entirely CDT).
-    # No MLB game starts before ~12 PM CT, so an 11 AM full retrain + board with
-    # confirmed probable pitchers is the freshest publish before first pitch.
-    - cron: "0 16 * * *"
-    # Backup if the 11 AM run is delayed or fails (GitHub schedulers can lag).
-    - cron: "30 16 * * *"   # 11:30 AM CT
-    - cron: "0 17 * * *"    # 12:00 PM CT
-    # Early safety net so yesterday's results/accuracy still refresh in the morning
-    # even if the 11 AM run has trouble (board lines are then kept current hourly by
-    # the Refresh Live Board workflow).
-    - cron: "0 12 * * *"    # 7:00 AM CT
   workflow_dispatch:
 
 permissions:
