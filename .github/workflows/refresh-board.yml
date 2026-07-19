@@ -1,10 +1,13 @@
 name: Refresh Live Board
 
-# DISABLED 2026-06-24 at user request: this workflow was auto-committing/pushing a
-# regenerated board to main on an hourly schedule, overwriting manual changes.
-# Manual-only now — re-add the schedule block to re-enable automatic refreshes.
+# RE-ENABLED 2026-07-19 at user request: keeps the live board (odds, probabilities,
+# confidence) fresh through the day so the website stays current. The first lock of
+# the day still wins — refreshes never overwrite the locked daily ticket.
 on:
   workflow_dispatch:
+  schedule:
+    - cron: "0 13-23 * * *"  # hourly 8 AM–6 PM CT — keep live odds/board fresh during game hours
+    - cron: "0 0-3 * * *"    # hourly 7–10 PM CT — cover night games
 
 permissions:
   contents: write

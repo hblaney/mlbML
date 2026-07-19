@@ -34,8 +34,8 @@ from trained_edge_model import (
 )
 
 MODEL_PATH = Path(__file__).resolve().parents[2] / "data" / "model" / "daily_edge.pkl"
-MODEL_VERSION = "daily-auto-v4.3-matchup-signal"
-PIPELINE_VERSION = "unified-public-v17-form02-parlay8"
+MODEL_VERSION = "daily-auto-v5.1-honest-parlay"
+PIPELINE_VERSION = "unified-public-v19-honest-market-agree-parlay"
 
 
 @dataclass
@@ -56,8 +56,9 @@ class DailyModelBundle:
             notes=[
                 f"Retrained through {self.trained_through.isoformat()}",
                 "Shallow gradient boosting trained on prior season (decayed) plus current season (boosted)",
-                "Elo, recent form, starter, park, and weather are GBM inputs; published pick % is pure model output (no market blend). High/Elite also require market agreement and starter ERA edge.",
-                "Retrains automatically when yesterday's final scores are new",
+                "Elo, recent form, starter, park, and weather are GBM inputs; published pick % is market-residual (P = market + α×(model−market)) when odds exist.",
+                "Retrains from scratch whenever yesterday's finals are new (daily). Recent games are heavily upweighted.",
+                "Published % = market + small residual; anti-market α is near-zero; edge is capped. Live ticket = market-agree small-edge parlays.",
             ],
         )
 

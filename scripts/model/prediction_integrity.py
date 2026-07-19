@@ -33,10 +33,28 @@ def _code_model_versions() -> tuple[str, str]:
     return MODEL_VERSION, PIPELINE_VERSION
 
 
+def _is_mlb_off_day(board_date: str | None) -> bool:
+    """True when MLB has no scheduled regular-season games for the board date."""
+    if not board_date:
+        return False
+    try:
+        from datetime import date as date_cls
+
+        from mlb_api import fetch_upcoming_games
+
+        day = date_cls.fromisoformat(board_date[:10])
+        return len(fetch_upcoming_games(day, day)) == 0
+    except Exception:
+        return False
+
+
 def validate_board_schema(payload: dict) -> list[str]:
     errors: list[str] = []
     predictions = payload.get("predictions", [])
     if not predictions:
+        # All-Star break / rainouts / off days are valid — empty board is intentional.
+        if _is_mlb_off_day(payload.get("generated_at")):
+            return errors
         errors.append("predictions: empty board")
         return errors
 
@@ -167,7 +185,7 @@ def verify_best_bets_ticket(payload: dict | None = None) -> list[str]:
         if not row:
             errors.append(f"best_bets_ticket: leg {leg} not on board")
             continue
-        if row.get("confidence") == "Low":
+        if ticket.get("kind") != "multi_single" and row.get("confidence") == "Low":
             errors.append(f"best_bets_ticket: Low-confidence leg {leg} on ticket")
         if conf != row.get("confidence"):
             errors.append(f"best_bets_ticket: ticket confidence {conf!r} != board {row.get('confidence')!r} for {leg}")
@@ -194,9 +212,10 @@ def run_all(*, recompute: bool = True, ticket: bool = True, accuracy: bool = Tru
     payload = json.loads(PUBLIC_PATH.read_text())
     errors: list[str] = []
     errors.extend(validate_board_schema(payload))
-    if recompute:
+    off_day = not payload.get("predictions") and _is_mlb_off_day(payload.get("generated_at"))
+    if recompute and not off_day:
         errors.extend(recompute_and_verify_board(payload))
-    if ticket:
+    if ticket and not off_day:
         errors.extend(verify_best_bets_ticket(payload))
     if accuracy:
         errors.extend(verify_accuracy_sync(payload))

@@ -1,15 +1,50 @@
 {
-  "date": "2026-06-24",
-  "locked_at": "2026-06-24T15:07:14Z",
-  "board_generated_at": "2026-06-24T15:00:40Z",
-  "model_version": "daily-auto-v4.3-matchup-signal",
-  "pipeline_version": "unified-public-v17-form02-parlay8",
+  "date": "2026-07-19",
+  "locked_at": "2026-07-19T22:14:38Z",
+  "board_generated_at": "2026-07-19T21:42:20Z",
+  "model_version": "daily-auto-v5.1-honest-parlay",
+  "pipeline_version": "unified-public-v19-honest-market-agree-parlay",
   "source": "lock_daily_ticket.py",
   "note": "Official daily ticket \u2014 frozen at first publish. Later board refreshes do not change this.",
   "ticket": {
-    "kind": "skip",
-    "label": "No bet today",
-    "legs": [],
-    "leg_count": 0
+    "kind": "parlay",
+    "label": "LAA ML + SEA ML + LAD ML",
+    "legs": [
+      "LAA",
+      "SEA",
+      "LAD"
+    ],
+    "leg_count": 3,
+    "odds": 318,
+    "model_probability": 0.19530584164,
+    "leg_details": [
+      {
+        "team": "LAA",
+        "matchup": "DET @ LAA",
+        "confidence": "Medium",
+        "pickProbability": 0.5989,
+        "edge": -0.05863424657534244,
+        "odds": -192,
+        "startsAt": "2026-07-19T20:07:00Z"
+      },
+      {
+        "team": "SEA",
+        "matchup": "SF @ SEA",
+        "confidence": "Medium",
+        "pickProbability": 0.578,
+        "edge": -0.07234965034965035,
+        "odds": -186,
+        "startsAt": "2026-07-19T20:10:00Z"
+      },
+      {
+        "team": "LAD",
+        "matchup": "LAD @ NYY",
+        "confidence": "Low",
+        "pickProbability": 0.5642,
+        "edge": 0.004728634361233497,
+        "odds": -127,
+        "startsAt": "2026-07-19T23:20:00Z"
+      }
+    ]
   }
 }

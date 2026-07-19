@@ -1,17 +1,134 @@
 {
   "started_at": "2026-06-22",
   "starting_balance": 23.0,
-  "balance": 10.0,
-  "wallet_balance": 10.0,
+  "balance": 7.0984,
+  "wallet_balance": 7.09,
   "wallet_starting": 23.0,
   "wallet_locked": true,
   "wallet_record": "2-3",
-  "wallet_note": "Confirmed by Henry Jun 24 — Robinhood wallet $10. Includes off-script bets + system BAL lock.",
+  "wallet_note": "Confirmed by Henry Jun 24 \u2014 Robinhood wallet $10. Includes off-script bets + system BAL lock.",
   "record": {
-    "wins": 0,
-    "losses": 1
+    "wins": 1,
+    "losses": 5
   },
-  "last_settled_date": "2026-06-23",
+  "last_settled_date": "2026-07-19",
+  "tickets": [
+    {
+      "date": "2026-06-22",
+      "label": "LAA ML + CHC ML + MIA ML",
+      "legs": [
+        "LAA",
+        "CHC",
+        "MIA"
+      ],
+      "leg_count": 3,
+      "stake_pct": 0.2174,
+      "stake_amount": 5.0,
+      "profit": -5.0,
+      "balance_after": 18.0,
+      "won": false,
+      "odds": 665,
+      "model_probability": 0.2872,
+      "grade_source": "user_off_script",
+      "note": "Off-script \u2014 not system record"
+    },
+    {
+      "date": "2026-06-23",
+      "label": "BAL ML (+ other bets)",
+      "legs": [
+        "BAL"
+      ],
+      "leg_count": 1,
+      "stake_pct": 0.4444,
+      "stake_amount": 8.0,
+      "profit": -8.0,
+      "balance_after": 10.0,
+      "won": false,
+      "odds": -140,
+      "model_probability": 0.6274,
+      "grade_source": "locked_ticket",
+      "note": "Includes BAL system lock + other Robinhood bets that day"
+    },
+    {
+      "date": "2026-06-24",
+      "label": "BOS ML + TOR ML + CHC ML",
+      "legs": [
+        "BOS",
+        "TOR",
+        "CHC"
+      ],
+      "leg_count": 3,
+      "stake_pct": 0.18,
+      "stake_amount": 1.8,
+      "profit": -1.8,
+      "balance_after": 8.2,
+      "won": false,
+      "odds": 423,
+      "model_probability": 0.198,
+      "grade_source": "locked_ticket",
+      "prove_out": false
+    },
+    {
+      "date": "2026-06-26",
+      "kind": "multi_single",
+      "label": "SD ML + ARI ML + CLE ML",
+      "legs": [
+        "SD",
+        "ARI",
+        "CLE"
+      ],
+      "leg_count": 3,
+      "stake_pct": 0.5,
+      "stake_amount": 4.1,
+      "profit": -0.51,
+      "balance_after": 7.69,
+      "won": false,
+      "odds": null,
+      "model_probability": null,
+      "grade_source": "locked_ticket",
+      "prove_out": false
+    },
+    {
+      "date": "2026-06-29",
+      "kind": "multi_single",
+      "label": "DET ML + ARI ML + ATH ML",
+      "legs": [
+        "DET",
+        "ARI",
+        "ATH"
+      ],
+      "leg_count": 3,
+      "stake_pct": 0.5,
+      "stake_amount": 3.85,
+      "profit": 1.09,
+      "balance_after": 8.78,
+      "won": true,
+      "odds": null,
+      "model_probability": null,
+      "grade_source": "locked_ticket",
+      "prove_out": false
+    },
+    {
+      "date": "2026-07-06",
+      "kind": "multi_single",
+      "label": "SD ML + TOR ML + WSH ML",
+      "legs": [
+        "SD",
+        "TOR",
+        "WSH"
+      ],
+      "leg_count": 3,
+      "stake_pct": 0.5,
+      "stake_amount": 4.39,
+      "profit": -1.69,
+      "balance_after": 7.09,
+      "won": false,
+      "odds": null,
+      "model_probability": null,
+      "grade_source": "locked_ticket",
+      "prove_out": false
+    }
+  ],
   "checkpoints": [
     {
       "date": "2026-06-22",
@@ -21,7 +138,11 @@
       "won": false,
       "leg_count": 3,
       "label": "LAA ML + CHC ML + MIA ML",
-      "legs": ["LAA", "CHC", "MIA"],
+      "legs": [
+        "LAA",
+        "CHC",
+        "MIA"
+      ],
       "stake_amount": 5.0,
       "grade_source": "user_off_script",
       "prove_out": false
@@ -34,42 +155,80 @@
       "won": false,
       "leg_count": 1,
       "label": "BAL ML (+ other bets)",
-      "legs": ["BAL"],
+      "legs": [
+        "BAL"
+      ],
       "stake_amount": 8.0,
       "grade_source": "locked_ticket",
       "prove_out": false
-    }
-  ],
-  "tickets": [
-    {
-      "date": "2026-06-22",
-      "label": "LAA ML + CHC ML + MIA ML",
-      "legs": ["LAA", "CHC", "MIA"],
-      "leg_count": 3,
-      "stake_pct": 0.2174,
-      "stake_amount": 5.0,
-      "profit": -5.0,
-      "balance_after": 18.0,
-      "won": false,
-      "odds": 665,
-      "model_probability": 0.2872,
-      "grade_source": "user_off_script",
-      "note": "Off-script — not system record"
     },
     {
-      "date": "2026-06-23",
-      "label": "BAL ML (+ other bets)",
-      "legs": ["BAL"],
-      "leg_count": 1,
-      "stake_pct": 0.4444,
-      "stake_amount": 8.0,
-      "profit": -8.0,
-      "balance_after": 10.0,
+      "date": "2026-06-24",
+      "profit": -1.8,
+      "balance": 8.2,
+      "return_pct": -0.6435,
       "won": false,
-      "odds": -140,
-      "model_probability": 0.6274,
+      "leg_count": 3,
+      "label": "BOS ML + TOR ML + CHC ML",
+      "legs": [
+        "BOS",
+        "TOR",
+        "CHC"
+      ],
+      "stake_amount": 1.8,
       "grade_source": "locked_ticket",
-      "note": "Includes BAL system lock + other Robinhood bets that day"
+      "prove_out": false
+    },
+    {
+      "date": "2026-06-26",
+      "profit": -0.5057,
+      "balance": 7.69,
+      "return_pct": -0.6657,
+      "won": false,
+      "leg_count": 3,
+      "label": "SD ML + ARI ML + CLE ML",
+      "legs": [
+        "SD",
+        "ARI",
+        "CLE"
+      ],
+      "stake_amount": 4.1,
+      "grade_source": "locked_ticket",
+      "prove_out": false
+    },
+    {
+      "date": "2026-06-29",
+      "profit": 1.0907,
+      "balance": 8.78,
+      "return_pct": -0.6183,
+      "won": true,
+      "leg_count": 3,
+      "label": "DET ML + ARI ML + ATH ML",
+      "legs": [
+        "DET",
+        "ARI",
+        "ATH"
+      ],
+      "stake_amount": 3.85,
+      "grade_source": "locked_ticket",
+      "prove_out": false
+    },
+    {
+      "date": "2026-07-06",
+      "profit": -1.6866,
+      "balance": 7.09,
+      "return_pct": -0.6917,
+      "won": false,
+      "leg_count": 3,
+      "label": "SD ML + TOR ML + WSH ML",
+      "legs": [
+        "SD",
+        "TOR",
+        "WSH"
+      ],
+      "stake_amount": 4.39,
+      "grade_source": "locked_ticket",
+      "prove_out": false
     }
   ]
 }

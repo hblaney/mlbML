@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-06-24",
-  "live_strategy": "parlay_first",
+  "generated_at": "2026-07-19",
+  "live_strategy": "market_agree_parlay",
   "period": {
     "season_start": "2026-03-20",
-    "end": "2026-06-16",
-    "rolling_14d_start": "2026-06-10"
+    "end": "2026-07-12",
+    "rolling_14d_start": "2026-07-05"
   },
   "stakes": {
     "1": 0.35,
@@ -12,57 +12,87 @@
     "3": 0.1
   },
   "comparisons": {
-    "parlay_first": {
+    "market_agree_parlay": {
       "season_to_date": {
-        "days": 16,
-        "flat_roi": 0.9527,
-        "flat_profit": 1524.29,
-        "end": 2778.7259,
-        "record": "13-3"
+        "days": 98,
+        "flat_roi": 0.1284,
+        "flat_profit": 1257.97,
+        "end": 9.1446,
+        "record": "42-56"
       },
       "rolling_14d": {
-        "days": 2,
-        "flat_roi": 0.7844,
-        "flat_profit": 156.89,
-        "end": 162.4486,
-        "record": "2-0"
+        "days": 5,
+        "flat_roi": 0.0265,
+        "flat_profit": 13.25,
+        "end": 113.8311,
+        "record": "3-2"
+      }
+    },
+    "daily_best_single": {
+      "season_to_date": {
+        "days": 15,
+        "flat_roi": 0.4289,
+        "flat_profit": 643.36,
+        "end": 706.5126,
+        "record": "14-1"
+      },
+      "rolling_14d": {
+        "days": 0,
+        "flat_roi": 0.0,
+        "end": 100.0,
+        "record": "0-0"
+      }
+    },
+    "parlay_first": {
+      "season_to_date": {
+        "days": 0,
+        "flat_roi": 0.0,
+        "end": 100.0,
+        "record": "0-0"
+      },
+      "rolling_14d": {
+        "days": 0,
+        "flat_roi": 0.0,
+        "end": 100.0,
+        "record": "0-0"
       }
     },
     "best_ticket": {
       "season_to_date": {
-        "days": 80,
-        "flat_roi": 0.7724,
-        "flat_profit": 6179.57,
-        "end": 11943013.7701,
-        "record": "54-26"
+        "days": 1,
+        "flat_roi": 1.3841,
+        "flat_profit": 138.41,
+        "end": 162.2845,
+        "record": "1-0"
       },
       "rolling_14d": {
-        "days": 7,
-        "flat_roi": 1.2889,
-        "flat_profit": 902.23,
-        "end": 1608.4941,
-        "record": "7-0"
+        "days": 0,
+        "flat_roi": 0.0,
+        "end": 100.0,
+        "record": "0-0"
       }
     }
   },
   "ranked_by_season_compound": [
+    "daily_best_single",
     "best_ticket",
     "parlay_first"
   ],
   "ranked_by_rolling_14d_compound": [
+    "daily_best_single",
     "best_ticket",
     "parlay_first"
   ],
   "guard": {
-    "season_leader": "best_ticket",
-    "leader_14d": "best_ticket",
-    "leader_streak_days": 4,
+    "season_leader": "daily_best_single",
+    "leader_14d": "daily_best_single",
+    "leader_streak_days": 2,
     "switch_signal_days_required": 14,
     "switch_recommended": false,
-    "message": "best_ticket leads rolling 14d (4/14 daily signals toward switch). Full-season leader: best_ticket."
+    "message": "daily_best_single leads rolling 14d (2/14 daily signals toward switch). Full-season leader: daily_best_single."
   },
   "live_compound": {
-    "strategy": "parlay_first",
+    "strategy": "market_agree_parlay",
     "stakes": {
       "1": 0.35,
       "2": 0.45,
@@ -71,281 +101,1593 @@
     "daily_exposure_cap": 0.5,
     "from_10": {
       "starting_bankroll": 10.0,
-      "end": 277.8726,
-      "profit": 267.8726,
-      "min_bankroll": 8.0691,
-      "record": "13-3",
-      "days": 16,
-      "flat_roi": 0.9527,
-      "flat_profit": 1524.29,
+      "end": 0.9145,
+      "profit": -9.0855,
+      "min_bankroll": 0.7896,
+      "record": "42-56",
+      "days": 98,
+      "flat_roi": 0.1284,
+      "flat_profit": 1257.97,
       "checkpoints": [
         {
+          "date": "2026-03-26",
+          "profit": -1.0,
+          "balance": 9.0,
+          "return_pct": -0.1,
+          "won": false,
+          "leg_count": 3
+        },
+        {
           "date": "2026-03-27",
-          "profit": 2.4139,
-          "balance": 12.4139,
-          "return_pct": 0.2414,
+          "profit": -0.9,
+          "balance": 8.1,
+          "return_pct": -0.19,
+          "won": false,
+          "leg_count": 3
+        },
+        {
+          "date": "2026-03-28",
+          "profit": -0.81,
+          "balance": 7.29,
+          "return_pct": -0.271,
+          "won": false,
+          "leg_count": 3
+        },
+        {
+          "date": "2026-03-29",
+          "profit": 2.0997,
+          "balance": 9.3897,
+          "return_pct": -0.061,
+          "won": true,
+          "leg_count": 3
+        },
+        {
+          "date": "2026-03-30",
+          "profit": -0.939,
+          "balance": 8.4508,
+          "return_pct": -0.1549,
+          "won": false,
+          "leg_count": 3
+        },
+        {
+          "date": "2026-03-31",
+          "profit": 2.0539,
+          "balance": 10.5046,
+          "return_pct": 0.0505,
           "won": true,
           "leg_count": 1
         },
         {
-          "date": "2026-03-30",
-          "profit": -4.3449,
-          "balance": 8.0691,
-          "return_pct": -0.1931,
+          "date": "2026-04-01",
+          "profit": 2.5012,
+          "balance": 13.0058,
+          "return_pct": 0.3006,
+          "won": true,
+          "leg_count": 1
+        },
+        {
+          "date": "2026-04-03",
+          "profit": 11.2681,
+          "balance": 24.2739,
+          "return_pct": 1.4274,
+          "won": true,
+          "leg_count": 2
+        },
+        {
+          "date": "2026-04-04",
+          "profit": -8.4959,
+          "balance": 15.778,
+          "return_pct": 0.5778,
           "won": false,
           "leg_count": 1
         },
         {
-          "date": "2026-03-31",
-          "profit": 1.9611,
-          "balance": 10.0302,
-          "return_pct": 0.003,
+          "date": "2026-04-05",
+          "profit": -7.1001,
+          "balance": 8.6779,
+          "return_pct": -0.1322,
+          "won": false,
+          "leg_count": 2
+        },
+        {
+          "date": "2026-04-06",
+          "profit": 2.3915,
+          "balance": 11.0695,
+          "return_pct": 0.1069,
           "won": true,
           "leg_count": 1
         },
         {
-          "date": "2026-04-06",
-          "profit": 3.0005,
-          "balance": 13.0306,
-          "return_pct": 0.3031,
+          "date": "2026-04-07",
+          "profit": -1.1069,
+          "balance": 9.9625,
+          "return_pct": -0.0037,
+          "won": false,
+          "leg_count": 3
+        },
+        {
+          "date": "2026-04-08",
+          "profit": -4.4831,
+          "balance": 5.4794,
+          "return_pct": -0.4521,
+          "won": false,
+          "leg_count": 2
+        },
+        {
+          "date": "2026-04-10",
+          "profit": 2.2224,
+          "balance": 7.7018,
+          "return_pct": -0.2298,
+          "won": true,
+          "leg_count": 3
+        },
+        {
+          "date": "2026-04-11",
+          "profit": 7.046,
+          "balance": 14.7477,
+          "return_pct": 0.4748,
+          "won": true,
+          "leg_count": 2
+        },
+        {
+          "date": "2026-04-12",
+          "profit": -6.6365,
+          "balance": 8.1113,
+          "return_pct": -0.1889,
+          "won": false,
+          "leg_count": 2
+        },
+        {
+          "date": "2026-04-13",
+          "profit": 2.3747,
+          "balance": 10.486,
+          "return_pct": 0.0486,
+          "won": true,
+          "leg_count": 3
+        },
+        {
+          "date": "2026-04-14",
+          "profit": 3.317,
+          "balance": 13.803,
+          "return_pct": 0.3803,
+          "won": true,
+          "leg_count": 3
+        },
+        {
+          "date": "2026-04-15",
+          "profit": 2.516,
+          "balance": 16.319,
+          "return_pct": 0.6319,
+          "won": true,
+          "leg_count": 1
+        },
+        {
+          "date": "2026-04-16",
+          "profit": 4.2946,
+          "balance": 20.6136,
+          "return_pct": 1.0614,
           "won": true,
           "leg_count": 1
         },
         {
           "date": "2026-04-17",
-          "profit": 11.062,
-          "balance": 24.0927,
-          "return_pct": 1.4093,
-          "won": true,
-          "leg_count": 2
+          "profit": -2.0614,
+          "balance": 18.5523,
+          "return_pct": 0.8552,
+          "won": false,
+          "leg_count": 3
         },
         {
           "date": "2026-04-18",
-          "profit": 20.2393,
-          "balance": 44.332,
-          "return_pct": 3.4332,
+          "profit": 15.585,
+          "balance": 34.1373,
+          "return_pct": 2.4137,
           "won": true,
           "leg_count": 2
         },
         {
-          "date": "2026-04-21",
-          "profit": 10.2081,
-          "balance": 54.5401,
-          "return_pct": 4.454,
+          "date": "2026-04-19",
+          "profit": 8.5954,
+          "balance": 42.7327,
+          "return_pct": 3.2733,
           "won": true,
           "leg_count": 1
         },
         {
+          "date": "2026-04-20",
+          "profit": 10.8375,
+          "balance": 53.5702,
+          "return_pct": 4.357,
+          "won": true,
+          "leg_count": 1
+        },
+        {
+          "date": "2026-04-21",
+          "profit": -5.357,
+          "balance": 48.2132,
+          "return_pct": 3.8213,
+          "won": false,
+          "leg_count": 3
+        },
+        {
+          "date": "2026-04-22",
+          "profit": 14.4832,
+          "balance": 62.6964,
+          "return_pct": 5.2696,
+          "won": true,
+          "leg_count": 3
+        },
+        {
           "date": "2026-04-23",
-          "profit": -24.5431,
-          "balance": 29.9971,
-          "return_pct": 1.9997,
+          "profit": -6.2696,
+          "balance": 56.4268,
+          "return_pct": 4.6427,
+          "won": false,
+          "leg_count": 3
+        },
+        {
+          "date": "2026-04-24",
+          "profit": 20.1314,
+          "balance": 76.5581,
+          "return_pct": 6.6558,
+          "won": true,
+          "leg_count": 3
+        },
+        {
+          "date": "2026-04-25",
+          "profit": -7.6558,
+          "balance": 68.9023,
+          "return_pct": 5.8902,
+          "won": false,
+          "leg_count": 3
+        },
+        {
+          "date": "2026-04-26",
+          "profit": -31.006,
+          "balance": 37.8963,
+          "return_pct": 2.7896,
+          "won": false,
+          "leg_count": 2
+        },
+        {
+          "date": "2026-04-27",
+          "profit": -3.7896,
+          "balance": 34.1067,
+          "return_pct": 2.4107,
+          "won": false,
+          "leg_count": 3
+        },
+        {
+          "date": "2026-04-28",
+          "profit": -15.348,
+          "balance": 18.7587,
+          "return_pct": 0.8759,
+          "won": false,
+          "leg_count": 2
+        },
+        {
+          "date": "2026-04-30",
+          "profit": -1.8759,
+          "balance": 16.8828,
+          "return_pct": 0.6883,
+          "won": false,
+          "leg_count": 3
+        },
+        {
+          "date": "2026-05-01",
+          "profit": 3.1767,
+          "balance": 20.0595,
+          "return_pct": 1.0059,
+          "won": true,
+          "leg_count": 1
+        },
+        {
+          "date": "2026-05-02",
+          "profit": 18.3351,
+          "balance": 38.3946,
+          "return_pct": 2.8395,
+          "won": true,
+          "leg_count": 2
+        },
+        {
+          "date": "2026-05-03",
+          "profit": 36.7546,
+          "balance": 75.1492,
+          "return_pct": 6.5149,
+          "won": true,
+          "leg_count": 2
+        },
+        {
+          "date": "2026-05-04",
+          "profit": -33.8171,
+          "balance": 41.3321,
+          "return_pct": 3.1332,
+          "won": false,
+          "leg_count": 2
+        },
+        {
+          "date": "2026-05-05",
+          "profit": -4.1332,
+          "balance": 37.1988,
+          "return_pct": 2.7199,
+          "won": false,
+          "leg_count": 3
+        },
+        {
+          "date": "2026-05-06",
+          "profit": 26.6727,
+          "balance": 63.8715,
+          "return_pct": 5.3872,
+          "won": true,
+          "leg_count": 2
+        },
+        {
+          "date": "2026-05-07",
+          "profit": -28.7422,
+          "balance": 35.1293,
+          "return_pct": 2.5129,
           "won": false,
           "leg_count": 2
         },
         {
           "date": "2026-05-08",
-          "profit": 7.1425,
-          "balance": 37.1395,
-          "return_pct": 2.714,
+          "profit": 8.3645,
+          "balance": 43.4938,
+          "return_pct": 3.3494,
           "won": true,
           "leg_count": 1
         },
         {
-          "date": "2026-05-14",
-          "profit": 38.3224,
-          "balance": 75.4619,
-          "return_pct": 6.5462,
+          "date": "2026-05-09",
+          "profit": 8.4106,
+          "balance": 51.9044,
+          "return_pct": 4.1904,
           "won": true,
-          "leg_count": 2
+          "leg_count": 1
+        },
+        {
+          "date": "2026-05-10",
+          "profit": -5.1904,
+          "balance": 46.714,
+          "return_pct": 3.6714,
+          "won": false,
+          "leg_count": 3
+        },
+        {
+          "date": "2026-05-13",
+          "profit": -4.6714,
+          "balance": 42.0426,
+          "return_pct": 3.2043,
+          "won": false,
+          "leg_count": 3
+        },
+        {
+          "date": "2026-05-14",
+          "profit": 10.218,
+          "balance": 52.2606,
+          "return_pct": 4.2261,
+          "won": true,
+          "leg_count": 1
+        },
+        {
+          "date": "2026-05-15",
+          "profit": -5.2261,
+          "balance": 47.0346,
+          "return_pct": 3.7035,
+          "won": false,
+          "leg_count": 3
+        },
+        {
+          "date": "2026-05-16",
+          "profit": -4.7035,
+          "balance": 42.3311,
+          "return_pct": 3.2331,
+          "won": false,
+          "leg_count": 3
         },
         {
           "date": "2026-05-17",
-          "profit": 31.6638,
-          "balance": 107.1257,
-          "return_pct": 9.7126,
+          "profit": 14.8362,
+          "balance": 57.1673,
+          "return_pct": 4.7167,
           "won": true,
           "leg_count": 3
         },
         {
-          "date": "2026-05-26",
-          "profit": 102.169,
-          "balance": 209.2948,
-          "return_pct": 19.9295,
+          "date": "2026-05-18",
+          "profit": 45.1093,
+          "balance": 102.2766,
+          "return_pct": 9.2277,
           "won": true,
           "leg_count": 2
         },
         {
-          "date": "2026-05-27",
-          "profit": -73.2532,
-          "balance": 136.0416,
-          "return_pct": 12.6042,
+          "date": "2026-05-19",
+          "profit": -10.2277,
+          "balance": 92.049,
+          "return_pct": 8.2049,
+          "won": false,
+          "leg_count": 3
+        },
+        {
+          "date": "2026-05-20",
+          "profit": -41.422,
+          "balance": 50.6269,
+          "return_pct": 4.0627,
+          "won": false,
+          "leg_count": 2
+        },
+        {
+          "date": "2026-05-21",
+          "profit": -17.7194,
+          "balance": 32.9075,
+          "return_pct": 2.2908,
           "won": false,
           "leg_count": 1
         },
         {
-          "date": "2026-05-28",
-          "profit": 35.011,
-          "balance": 171.0526,
-          "return_pct": 16.1053,
+          "date": "2026-05-22",
+          "profit": -14.8084,
+          "balance": 18.0991,
+          "return_pct": 0.8099,
+          "won": false,
+          "leg_count": 2
+        },
+        {
+          "date": "2026-05-23",
+          "profit": -1.8099,
+          "balance": 16.2892,
+          "return_pct": 0.6289,
+          "won": false,
+          "leg_count": 3
+        },
+        {
+          "date": "2026-05-24",
+          "profit": -1.6289,
+          "balance": 14.6603,
+          "return_pct": 0.466,
+          "won": false,
+          "leg_count": 3
+        },
+        {
+          "date": "2026-05-25",
+          "profit": 4.2403,
+          "balance": 18.9006,
+          "return_pct": 0.8901,
           "won": true,
           "leg_count": 1
+        },
+        {
+          "date": "2026-05-26",
+          "profit": -1.8901,
+          "balance": 17.0106,
+          "return_pct": 0.7011,
+          "won": false,
+          "leg_count": 3
+        },
+        {
+          "date": "2026-05-27",
+          "profit": -1.7011,
+          "balance": 15.3095,
+          "return_pct": 0.531,
+          "won": false,
+          "leg_count": 3
+        },
+        {
+          "date": "2026-05-28",
+          "profit": 3.94,
+          "balance": 19.2495,
+          "return_pct": 0.9249,
+          "won": true,
+          "leg_count": 1
+        },
+        {
+          "date": "2026-05-29",
+          "profit": -8.6623,
+          "balance": 10.5872,
+          "return_pct": 0.0587,
+          "won": false,
+          "leg_count": 2
+        },
+        {
+          "date": "2026-05-30",
+          "profit": 10.1583,
+          "balance": 20.7456,
+          "return_pct": 1.0746,
+          "won": true,
+          "leg_count": 2
+        },
+        {
+          "date": "2026-05-31",
+          "profit": 18.0567,
+          "balance": 38.8023,
+          "return_pct": 2.8802,
+          "won": true,
+          "leg_count": 2
+        },
+        {
+          "date": "2026-06-01",
+          "profit": -13.5808,
+          "balance": 25.2215,
+          "return_pct": 1.5221,
+          "won": false,
+          "leg_count": 1
+        },
+        {
+          "date": "2026-06-03",
+          "profit": -11.3497,
+          "balance": 13.8718,
+          "return_pct": 0.3872,
+          "won": false,
+          "leg_count": 2
+        },
+        {
+          "date": "2026-06-04",
+          "profit": -4.8551,
+          "balance": 9.0167,
+          "return_pct": -0.0983,
+          "won": false,
+          "leg_count": 1
+        },
+        {
+          "date": "2026-06-05",
+          "profit": 2.1324,
+          "balance": 11.1491,
+          "return_pct": 0.1149,
+          "won": true,
+          "leg_count": 1
+        },
+        {
+          "date": "2026-06-06",
+          "profit": -1.1149,
+          "balance": 10.0342,
+          "return_pct": 0.0034,
+          "won": false,
+          "leg_count": 3
+        },
+        {
+          "date": "2026-06-07",
+          "profit": 2.2659,
+          "balance": 12.3001,
+          "return_pct": 0.23,
+          "won": true,
+          "leg_count": 1
+        },
+        {
+          "date": "2026-06-08",
+          "profit": 5.2539,
+          "balance": 17.5539,
+          "return_pct": 0.7554,
+          "won": true,
+          "leg_count": 3
+        },
+        {
+          "date": "2026-06-09",
+          "profit": 4.2964,
+          "balance": 21.8504,
+          "return_pct": 1.185,
+          "won": true,
+          "leg_count": 1
+        },
+        {
+          "date": "2026-06-10",
+          "profit": -2.185,
+          "balance": 19.6653,
+          "return_pct": 0.9665,
+          "won": false,
+          "leg_count": 3
         },
         {
           "date": "2026-06-11",
-          "profit": 46.41,
-          "balance": 217.4626,
-          "return_pct": 20.7463,
+          "profit": 18.9439,
+          "balance": 38.6092,
+          "return_pct": 2.8609,
+          "won": true,
+          "leg_count": 2
+        },
+        {
+          "date": "2026-06-12",
+          "profit": 16.007,
+          "balance": 54.6162,
+          "return_pct": 4.4616,
+          "won": true,
+          "leg_count": 3
+        },
+        {
+          "date": "2026-06-14",
+          "profit": 55.0679,
+          "balance": 109.6841,
+          "return_pct": 9.9684,
+          "won": true,
+          "leg_count": 2
+        },
+        {
+          "date": "2026-06-15",
+          "profit": -49.3579,
+          "balance": 60.3263,
+          "return_pct": 5.0326,
+          "won": false,
+          "leg_count": 2
+        },
+        {
+          "date": "2026-06-16",
+          "profit": -6.0326,
+          "balance": 54.2936,
+          "return_pct": 4.4294,
+          "won": false,
+          "leg_count": 3
+        },
+        {
+          "date": "2026-06-17",
+          "profit": -5.4294,
+          "balance": 48.8643,
+          "return_pct": 3.8864,
+          "won": false,
+          "leg_count": 3
+        },
+        {
+          "date": "2026-06-18",
+          "profit": -4.8864,
+          "balance": 43.9779,
+          "return_pct": 3.3978,
+          "won": false,
+          "leg_count": 3
+        },
+        {
+          "date": "2026-06-19",
+          "profit": -19.79,
+          "balance": 24.1878,
+          "return_pct": 1.4188,
+          "won": false,
+          "leg_count": 2
+        },
+        {
+          "date": "2026-06-20",
+          "profit": -2.4188,
+          "balance": 21.769,
+          "return_pct": 1.1769,
+          "won": false,
+          "leg_count": 3
+        },
+        {
+          "date": "2026-06-21",
+          "profit": -2.1769,
+          "balance": 19.5921,
+          "return_pct": 0.9592,
+          "won": false,
+          "leg_count": 3
+        },
+        {
+          "date": "2026-06-22",
+          "profit": -8.8165,
+          "balance": 10.7757,
+          "return_pct": 0.0776,
+          "won": false,
+          "leg_count": 2
+        },
+        {
+          "date": "2026-06-23",
+          "profit": -3.7715,
+          "balance": 7.0042,
+          "return_pct": -0.2996,
+          "won": false,
+          "leg_count": 1
+        },
+        {
+          "date": "2026-06-24",
+          "profit": -2.4515,
+          "balance": 4.5527,
+          "return_pct": -0.5447,
+          "won": false,
+          "leg_count": 1
+        },
+        {
+          "date": "2026-06-25",
+          "profit": -1.5935,
+          "balance": 2.9593,
+          "return_pct": -0.7041,
+          "won": false,
+          "leg_count": 1
+        },
+        {
+          "date": "2026-06-27",
+          "profit": -0.2959,
+          "balance": 2.6633,
+          "return_pct": -0.7337,
+          "won": false,
+          "leg_count": 3
+        },
+        {
+          "date": "2026-06-28",
+          "profit": -0.9322,
+          "balance": 1.7312,
+          "return_pct": -0.8269,
+          "won": false,
+          "leg_count": 1
+        },
+        {
+          "date": "2026-06-29",
+          "profit": 0.4488,
+          "balance": 2.18,
+          "return_pct": -0.782,
           "won": true,
           "leg_count": 1
         },
         {
-          "date": "2026-06-15",
-          "profit": 60.41,
-          "balance": 277.8726,
-          "return_pct": 26.7873,
+          "date": "2026-06-30",
+          "profit": 0.5569,
+          "balance": 2.7369,
+          "return_pct": -0.7263,
           "won": true,
           "leg_count": 1
+        },
+        {
+          "date": "2026-07-01",
+          "profit": -0.9579,
+          "balance": 1.779,
+          "return_pct": -0.8221,
+          "won": false,
+          "leg_count": 1
+        },
+        {
+          "date": "2026-07-02",
+          "profit": -0.8005,
+          "balance": 0.9784,
+          "return_pct": -0.9022,
+          "won": false,
+          "leg_count": 2
+        },
+        {
+          "date": "2026-07-03",
+          "profit": 0.2575,
+          "balance": 1.2359,
+          "return_pct": -0.8764,
+          "won": true,
+          "leg_count": 1
+        },
+        {
+          "date": "2026-07-04",
+          "profit": -0.4326,
+          "balance": 0.8033,
+          "return_pct": -0.9197,
+          "won": false,
+          "leg_count": 1
+        },
+        {
+          "date": "2026-07-05",
+          "profit": 0.1725,
+          "balance": 0.9758,
+          "return_pct": -0.9024,
+          "won": true,
+          "leg_count": 1
+        },
+        {
+          "date": "2026-07-08",
+          "profit": 0.2388,
+          "balance": 1.2147,
+          "return_pct": -0.8785,
+          "won": true,
+          "leg_count": 1
+        },
+        {
+          "date": "2026-07-09",
+          "profit": -0.4251,
+          "balance": 0.7896,
+          "return_pct": -0.921,
+          "won": false,
+          "leg_count": 1
+        },
+        {
+          "date": "2026-07-11",
+          "profit": 0.2265,
+          "balance": 1.0161,
+          "return_pct": -0.8984,
+          "won": true,
+          "leg_count": 1
+        },
+        {
+          "date": "2026-07-12",
+          "profit": -0.1016,
+          "balance": 0.9145,
+          "return_pct": -0.9086,
+          "won": false,
+          "leg_count": 3
         }
       ]
     },
     "from_100": {
       "starting_bankroll": 100.0,
-      "end": 2778.7259,
-      "profit": 2678.7259,
-      "min_bankroll": 80.6907,
-      "record": "13-3",
-      "days": 16,
-      "flat_roi": 0.9527,
-      "flat_profit": 1524.29,
+      "end": 9.1446,
+      "profit": -90.8554,
+      "min_bankroll": 7.8955,
+      "record": "42-56",
+      "days": 98,
+      "flat_roi": 0.1284,
+      "flat_profit": 1257.97,
       "checkpoints": [
         {
+          "date": "2026-03-26",
+          "profit": -10.0,
+          "balance": 90.0,
+          "return_pct": -0.1,
+          "won": false,
+          "leg_count": 3
+        },
+        {
           "date": "2026-03-27",
-          "profit": 24.1395,
-          "balance": 124.1395,
-          "return_pct": 0.2414,
+          "profit": -9.0,
+          "balance": 81.0,
+          "return_pct": -0.19,
+          "won": false,
+          "leg_count": 3
+        },
+        {
+          "date": "2026-03-28",
+          "profit": -8.1,
+          "balance": 72.9,
+          "return_pct": -0.271,
+          "won": false,
+          "leg_count": 3
+        },
+        {
+          "date": "2026-03-29",
+          "profit": 20.9974,
+          "balance": 93.8974,
+          "return_pct": -0.061,
+          "won": true,
+          "leg_count": 3
+        },
+        {
+          "date": "2026-03-30",
+          "profit": -9.3897,
+          "balance": 84.5076,
+          "return_pct": -0.1549,
+          "won": false,
+          "leg_count": 3
+        },
+        {
+          "date": "2026-03-31",
+          "profit": 20.5387,
+          "balance": 105.0464,
+          "return_pct": 0.0505,
           "won": true,
           "leg_count": 1
         },
         {
-          "date": "2026-03-30",
-          "profit": -43.4488,
-          "balance": 80.6907,
-          "return_pct": -0.1931,
+          "date": "2026-04-01",
+          "profit": 25.0121,
+          "balance": 130.0585,
+          "return_pct": 0.3006,
+          "won": true,
+          "leg_count": 1
+        },
+        {
+          "date": "2026-04-03",
+          "profit": 112.6807,
+          "balance": 242.7392,
+          "return_pct": 1.4274,
+          "won": true,
+          "leg_count": 2
+        },
+        {
+          "date": "2026-04-04",
+          "profit": -84.9587,
+          "balance": 157.7804,
+          "return_pct": 0.5778,
           "won": false,
           "leg_count": 1
         },
         {
-          "date": "2026-03-31",
-          "profit": 19.6111,
-          "balance": 100.3017,
-          "return_pct": 0.003,
+          "date": "2026-04-05",
+          "profit": -71.0012,
+          "balance": 86.7792,
+          "return_pct": -0.1322,
+          "won": false,
+          "leg_count": 2
+        },
+        {
+          "date": "2026-04-06",
+          "profit": 23.9155,
+          "balance": 110.6947,
+          "return_pct": 0.1069,
           "won": true,
           "leg_count": 1
         },
         {
-          "date": "2026-04-06",
-          "profit": 30.0048,
-          "balance": 130.3065,
-          "return_pct": 0.3031,
+          "date": "2026-04-07",
+          "profit": -11.0695,
+          "balance": 99.6253,
+          "return_pct": -0.0037,
+          "won": false,
+          "leg_count": 3
+        },
+        {
+          "date": "2026-04-08",
+          "profit": -44.8314,
+          "balance": 54.7939,
+          "return_pct": -0.4521,
+          "won": false,
+          "leg_count": 2
+        },
+        {
+          "date": "2026-04-10",
+          "profit": 22.2239,
+          "balance": 77.0178,
+          "return_pct": -0.2298,
+          "won": true,
+          "leg_count": 3
+        },
+        {
+          "date": "2026-04-11",
+          "profit": 70.4597,
+          "balance": 147.4774,
+          "return_pct": 0.4748,
+          "won": true,
+          "leg_count": 2
+        },
+        {
+          "date": "2026-04-12",
+          "profit": -66.3648,
+          "balance": 81.1126,
+          "return_pct": -0.1889,
+          "won": false,
+          "leg_count": 2
+        },
+        {
+          "date": "2026-04-13",
+          "profit": 23.7473,
+          "balance": 104.8599,
+          "return_pct": 0.0486,
+          "won": true,
+          "leg_count": 3
+        },
+        {
+          "date": "2026-04-14",
+          "profit": 33.1703,
+          "balance": 138.0303,
+          "return_pct": 0.3803,
+          "won": true,
+          "leg_count": 3
+        },
+        {
+          "date": "2026-04-15",
+          "profit": 25.1602,
+          "balance": 163.1904,
+          "return_pct": 0.6319,
+          "won": true,
+          "leg_count": 1
+        },
+        {
+          "date": "2026-04-16",
+          "profit": 42.946,
+          "balance": 206.1364,
+          "return_pct": 1.0614,
           "won": true,
           "leg_count": 1
         },
         {
           "date": "2026-04-17",
-          "profit": 110.6204,
-          "balance": 240.9269,
-          "return_pct": 1.4093,
-          "won": true,
-          "leg_count": 2
+          "profit": -20.6136,
+          "balance": 185.5228,
+          "return_pct": 0.8552,
+          "won": false,
+          "leg_count": 3
         },
         {
           "date": "2026-04-18",
-          "profit": 202.3931,
-          "balance": 443.32,
-          "return_pct": 3.4332,
+          "profit": 155.8503,
+          "balance": 341.3731,
+          "return_pct": 2.4137,
           "won": true,
           "leg_count": 2
         },
         {
-          "date": "2026-04-21",
-          "profit": 102.0811,
-          "balance": 545.4011,
-          "return_pct": 4.454,
+          "date": "2026-04-19",
+          "profit": 85.9543,
+          "balance": 427.3274,
+          "return_pct": 3.2733,
           "won": true,
           "leg_count": 1
         },
         {
+          "date": "2026-04-20",
+          "profit": 108.3745,
+          "balance": 535.7019,
+          "return_pct": 4.357,
+          "won": true,
+          "leg_count": 1
+        },
+        {
+          "date": "2026-04-21",
+          "profit": -53.5702,
+          "balance": 482.1317,
+          "return_pct": 3.8213,
+          "won": false,
+          "leg_count": 3
+        },
+        {
+          "date": "2026-04-22",
+          "profit": 144.8324,
+          "balance": 626.9641,
+          "return_pct": 5.2696,
+          "won": true,
+          "leg_count": 3
+        },
+        {
           "date": "2026-04-23",
-          "profit": -245.4305,
-          "balance": 299.9706,
-          "return_pct": 1.9997,
+          "profit": -62.6964,
+          "balance": 564.2677,
+          "return_pct": 4.6427,
+          "won": false,
+          "leg_count": 3
+        },
+        {
+          "date": "2026-04-24",
+          "profit": 201.3138,
+          "balance": 765.5814,
+          "return_pct": 6.6558,
+          "won": true,
+          "leg_count": 3
+        },
+        {
+          "date": "2026-04-25",
+          "profit": -76.5581,
+          "balance": 689.0233,
+          "return_pct": 5.8902,
+          "won": false,
+          "leg_count": 3
+        },
+        {
+          "date": "2026-04-26",
+          "profit": -310.0605,
+          "balance": 378.9628,
+          "return_pct": 2.7896,
+          "won": false,
+          "leg_count": 2
+        },
+        {
+          "date": "2026-04-27",
+          "profit": -37.8963,
+          "balance": 341.0665,
+          "return_pct": 2.4107,
+          "won": false,
+          "leg_count": 3
+        },
+        {
+          "date": "2026-04-28",
+          "profit": -153.4799,
+          "balance": 187.5866,
+          "return_pct": 0.8759,
+          "won": false,
+          "leg_count": 2
+        },
+        {
+          "date": "2026-04-30",
+          "profit": -18.7587,
+          "balance": 168.8279,
+          "return_pct": 0.6883,
+          "won": false,
+          "leg_count": 3
+        },
+        {
+          "date": "2026-05-01",
+          "profit": 31.7667,
+          "balance": 200.5946,
+          "return_pct": 1.0059,
+          "won": true,
+          "leg_count": 1
+        },
+        {
+          "date": "2026-05-02",
+          "profit": 183.3515,
+          "balance": 383.9461,
+          "return_pct": 2.8395,
+          "won": true,
+          "leg_count": 2
+        },
+        {
+          "date": "2026-05-03",
+          "profit": 367.5458,
+          "balance": 751.4919,
+          "return_pct": 6.5149,
+          "won": true,
+          "leg_count": 2
+        },
+        {
+          "date": "2026-05-04",
+          "profit": -338.1714,
+          "balance": 413.3205,
+          "return_pct": 3.1332,
+          "won": false,
+          "leg_count": 2
+        },
+        {
+          "date": "2026-05-05",
+          "profit": -41.3321,
+          "balance": 371.9885,
+          "return_pct": 2.7199,
+          "won": false,
+          "leg_count": 3
+        },
+        {
+          "date": "2026-05-06",
+          "profit": 266.7269,
+          "balance": 638.7154,
+          "return_pct": 5.3872,
+          "won": true,
+          "leg_count": 2
+        },
+        {
+          "date": "2026-05-07",
+          "profit": -287.4219,
+          "balance": 351.2935,
+          "return_pct": 2.5129,
           "won": false,
           "leg_count": 2
         },
         {
           "date": "2026-05-08",
-          "profit": 71.4245,
-          "balance": 371.3951,
-          "return_pct": 2.714,
+          "profit": 83.6447,
+          "balance": 434.9382,
+          "return_pct": 3.3494,
           "won": true,
           "leg_count": 1
         },
         {
-          "date": "2026-05-14",
-          "profit": 383.2241,
-          "balance": 754.6192,
-          "return_pct": 6.5462,
+          "date": "2026-05-09",
+          "profit": 84.1062,
+          "balance": 519.0444,
+          "return_pct": 4.1904,
           "won": true,
-          "leg_count": 2
+          "leg_count": 1
+        },
+        {
+          "date": "2026-05-10",
+          "profit": -51.9044,
+          "balance": 467.1399,
+          "return_pct": 3.6714,
+          "won": false,
+          "leg_count": 3
+        },
+        {
+          "date": "2026-05-13",
+          "profit": -46.714,
+          "balance": 420.4259,
+          "return_pct": 3.2043,
+          "won": false,
+          "leg_count": 3
+        },
+        {
+          "date": "2026-05-14",
+          "profit": 102.1803,
+          "balance": 522.6063,
+          "return_pct": 4.2261,
+          "won": true,
+          "leg_count": 1
+        },
+        {
+          "date": "2026-05-15",
+          "profit": -52.2606,
+          "balance": 470.3456,
+          "return_pct": 3.7035,
+          "won": false,
+          "leg_count": 3
+        },
+        {
+          "date": "2026-05-16",
+          "profit": -47.0346,
+          "balance": 423.3111,
+          "return_pct": 3.2331,
+          "won": false,
+          "leg_count": 3
         },
         {
           "date": "2026-05-17",
-          "profit": 316.6382,
-          "balance": 1071.2574,
-          "return_pct": 9.7126,
+          "profit": 148.3621,
+          "balance": 571.6731,
+          "return_pct": 4.7167,
           "won": true,
           "leg_count": 3
         },
         {
-          "date": "2026-05-26",
-          "profit": 1021.6903,
-          "balance": 2092.9477,
-          "return_pct": 19.9295,
+          "date": "2026-05-18",
+          "profit": 451.093,
+          "balance": 1022.7661,
+          "return_pct": 9.2277,
           "won": true,
           "leg_count": 2
         },
         {
-          "date": "2026-05-27",
-          "profit": -732.5317,
-          "balance": 1360.416,
-          "return_pct": 12.6042,
+          "date": "2026-05-19",
+          "profit": -102.2766,
+          "balance": 920.4895,
+          "return_pct": 8.2049,
+          "won": false,
+          "leg_count": 3
+        },
+        {
+          "date": "2026-05-20",
+          "profit": -414.2203,
+          "balance": 506.2692,
+          "return_pct": 4.0627,
+          "won": false,
+          "leg_count": 2
+        },
+        {
+          "date": "2026-05-21",
+          "profit": -177.1942,
+          "balance": 329.075,
+          "return_pct": 2.2908,
           "won": false,
           "leg_count": 1
         },
         {
-          "date": "2026-05-28",
-          "profit": 350.1099,
-          "balance": 1710.5259,
-          "return_pct": 16.1053,
+          "date": "2026-05-22",
+          "profit": -148.0838,
+          "balance": 180.9913,
+          "return_pct": 0.8099,
+          "won": false,
+          "leg_count": 2
+        },
+        {
+          "date": "2026-05-23",
+          "profit": -18.0991,
+          "balance": 162.8921,
+          "return_pct": 0.6289,
+          "won": false,
+          "leg_count": 3
+        },
+        {
+          "date": "2026-05-24",
+          "profit": -16.2892,
+          "balance": 146.6029,
+          "return_pct": 0.466,
+          "won": false,
+          "leg_count": 3
+        },
+        {
+          "date": "2026-05-25",
+          "profit": 42.4034,
+          "balance": 189.0063,
+          "return_pct": 0.8901,
           "won": true,
           "leg_count": 1
+        },
+        {
+          "date": "2026-05-26",
+          "profit": -18.9006,
+          "balance": 170.1057,
+          "return_pct": 0.7011,
+          "won": false,
+          "leg_count": 3
+        },
+        {
+          "date": "2026-05-27",
+          "profit": -17.0106,
+          "balance": 153.0951,
+          "return_pct": 0.531,
+          "won": false,
+          "leg_count": 3
+        },
+        {
+          "date": "2026-05-28",
+          "profit": 39.3998,
+          "balance": 192.4949,
+          "return_pct": 0.9249,
+          "won": true,
+          "leg_count": 1
+        },
+        {
+          "date": "2026-05-29",
+          "profit": -86.6227,
+          "balance": 105.8722,
+          "return_pct": 0.0587,
+          "won": false,
+          "leg_count": 2
+        },
+        {
+          "date": "2026-05-30",
+          "profit": 101.5833,
+          "balance": 207.4555,
+          "return_pct": 1.0746,
+          "won": true,
+          "leg_count": 2
+        },
+        {
+          "date": "2026-05-31",
+          "profit": 180.5672,
+          "balance": 388.0228,
+          "return_pct": 2.8802,
+          "won": true,
+          "leg_count": 2
+        },
+        {
+          "date": "2026-06-01",
+          "profit": -135.808,
+          "balance": 252.2148,
+          "return_pct": 1.5221,
+          "won": false,
+          "leg_count": 1
+        },
+        {
+          "date": "2026-06-03",
+          "profit": -113.4967,
+          "balance": 138.7181,
+          "return_pct": 0.3872,
+          "won": false,
+          "leg_count": 2
+        },
+        {
+          "date": "2026-06-04",
+          "profit": -48.5513,
+          "balance": 90.1668,
+          "return_pct": -0.0983,
+          "won": false,
+          "leg_count": 1
+        },
+        {
+          "date": "2026-06-05",
+          "profit": 21.324,
+          "balance": 111.4908,
+          "return_pct": 0.1149,
+          "won": true,
+          "leg_count": 1
+        },
+        {
+          "date": "2026-06-06",
+          "profit": -11.1491,
+          "balance": 100.3417,
+          "return_pct": 0.0034,
+          "won": false,
+          "leg_count": 3
+        },
+        {
+          "date": "2026-06-07",
+          "profit": 22.6592,
+          "balance": 123.0009,
+          "return_pct": 0.23,
+          "won": true,
+          "leg_count": 1
+        },
+        {
+          "date": "2026-06-08",
+          "profit": 52.5386,
+          "balance": 175.5395,
+          "return_pct": 0.7554,
+          "won": true,
+          "leg_count": 3
+        },
+        {
+          "date": "2026-06-09",
+          "profit": 42.9642,
+          "balance": 218.5036,
+          "return_pct": 1.185,
+          "won": true,
+          "leg_count": 1
+        },
+        {
+          "date": "2026-06-10",
+          "profit": -21.8504,
+          "balance": 196.6533,
+          "return_pct": 0.9665,
+          "won": false,
+          "leg_count": 3
         },
         {
           "date": "2026-06-11",
-          "profit": 464.0999,
-          "balance": 2174.6257,
-          "return_pct": 20.7463,
+          "profit": 189.439,
+          "balance": 386.0923,
+          "return_pct": 2.8609,
+          "won": true,
+          "leg_count": 2
+        },
+        {
+          "date": "2026-06-12",
+          "profit": 160.07,
+          "balance": 546.1623,
+          "return_pct": 4.4616,
+          "won": true,
+          "leg_count": 3
+        },
+        {
+          "date": "2026-06-14",
+          "profit": 550.6791,
+          "balance": 1096.8414,
+          "return_pct": 9.9684,
+          "won": true,
+          "leg_count": 2
+        },
+        {
+          "date": "2026-06-15",
+          "profit": -493.5786,
+          "balance": 603.2628,
+          "return_pct": 5.0326,
+          "won": false,
+          "leg_count": 2
+        },
+        {
+          "date": "2026-06-16",
+          "profit": -60.3263,
+          "balance": 542.9365,
+          "return_pct": 4.4294,
+          "won": false,
+          "leg_count": 3
+        },
+        {
+          "date": "2026-06-17",
+          "profit": -54.2936,
+          "balance": 488.6428,
+          "return_pct": 3.8864,
+          "won": false,
+          "leg_count": 3
+        },
+        {
+          "date": "2026-06-18",
+          "profit": -48.8643,
+          "balance": 439.7786,
+          "return_pct": 3.3978,
+          "won": false,
+          "leg_count": 3
+        },
+        {
+          "date": "2026-06-19",
+          "profit": -197.9004,
+          "balance": 241.8782,
+          "return_pct": 1.4188,
+          "won": false,
+          "leg_count": 2
+        },
+        {
+          "date": "2026-06-20",
+          "profit": -24.1878,
+          "balance": 217.6904,
+          "return_pct": 1.1769,
+          "won": false,
+          "leg_count": 3
+        },
+        {
+          "date": "2026-06-21",
+          "profit": -21.769,
+          "balance": 195.9213,
+          "return_pct": 0.9592,
+          "won": false,
+          "leg_count": 3
+        },
+        {
+          "date": "2026-06-22",
+          "profit": -88.1646,
+          "balance": 107.7567,
+          "return_pct": 0.0776,
+          "won": false,
+          "leg_count": 2
+        },
+        {
+          "date": "2026-06-23",
+          "profit": -37.7149,
+          "balance": 70.0419,
+          "return_pct": -0.2996,
+          "won": false,
+          "leg_count": 1
+        },
+        {
+          "date": "2026-06-24",
+          "profit": -24.5147,
+          "balance": 45.5272,
+          "return_pct": -0.5447,
+          "won": false,
+          "leg_count": 1
+        },
+        {
+          "date": "2026-06-25",
+          "profit": -15.9345,
+          "balance": 29.5927,
+          "return_pct": -0.7041,
+          "won": false,
+          "leg_count": 1
+        },
+        {
+          "date": "2026-06-27",
+          "profit": -2.9593,
+          "balance": 26.6334,
+          "return_pct": -0.7337,
+          "won": false,
+          "leg_count": 3
+        },
+        {
+          "date": "2026-06-28",
+          "profit": -9.3217,
+          "balance": 17.3117,
+          "return_pct": -0.8269,
+          "won": false,
+          "leg_count": 1
+        },
+        {
+          "date": "2026-06-29",
+          "profit": 4.488,
+          "balance": 21.7997,
+          "return_pct": -0.782,
           "won": true,
           "leg_count": 1
         },
         {
-          "date": "2026-06-15",
-          "profit": 604.1002,
-          "balance": 2778.7259,
-          "return_pct": 26.7873,
+          "date": "2026-06-30",
+          "profit": 5.5691,
+          "balance": 27.3688,
+          "return_pct": -0.7263,
           "won": true,
           "leg_count": 1
+        },
+        {
+          "date": "2026-07-01",
+          "profit": -9.5791,
+          "balance": 17.7897,
+          "return_pct": -0.8221,
+          "won": false,
+          "leg_count": 1
+        },
+        {
+          "date": "2026-07-02",
+          "profit": -8.0054,
+          "balance": 9.7843,
+          "return_pct": -0.9022,
+          "won": false,
+          "leg_count": 2
+        },
+        {
+          "date": "2026-07-03",
+          "profit": 2.5749,
+          "balance": 12.3592,
+          "return_pct": -0.8764,
+          "won": true,
+          "leg_count": 1
+        },
+        {
+          "date": "2026-07-04",
+          "profit": -4.3257,
+          "balance": 8.0335,
+          "return_pct": -0.9197,
+          "won": false,
+          "leg_count": 1
+        },
+        {
+          "date": "2026-07-05",
+          "profit": 1.725,
+          "balance": 9.7585,
+          "return_pct": -0.9024,
+          "won": true,
+          "leg_count": 1
+        },
+        {
+          "date": "2026-07-08",
+          "profit": 2.3884,
+          "balance": 12.1469,
+          "return_pct": -0.8785,
+          "won": true,
+          "leg_count": 1
+        },
+        {
+          "date": "2026-07-09",
+          "profit": -4.2514,
+          "balance": 7.8955,
+          "return_pct": -0.921,
+          "won": false,
+          "leg_count": 1
+        },
+        {
+          "date": "2026-07-11",
+          "profit": 2.2652,
+          "balance": 10.1607,
+          "return_pct": -0.8984,
+          "won": true,
+          "leg_count": 1
+        },
+        {
+          "date": "2026-07-12",
+          "profit": -1.0161,
+          "balance": 9.1446,
+          "return_pct": -0.9086,
+          "won": false,
+          "leg_count": 3
         }
       ]
     }

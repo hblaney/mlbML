@@ -28,16 +28,16 @@ from weather import cached_historical_weather_or_default, fetch_weather
 
 
 WARMUP_GAMES = 180
-REFIT_EVERY = 30
+# ~one MLB slate — adapt to recent baseball, not a month-old fit.
+REFIT_EVERY = 10
 TRAINED_MODEL_WEIGHT = 1.00
-PRIOR_SEASON_SAMPLE_WEIGHT = 0.60
-CURRENT_SEASON_SAMPLE_WEIGHT = 1.25
-RECENCY_DAYS_HOT = 21
-RECENCY_DAYS_WARM = 45
-# Recency multipliers: infrastructure fixed in v4.0 (walk-forward now passes as_of).
-# 1.20/1.08 tested but regressed season acc (60.3→59.4); keep at 1.0 until re-tuned.
-RECENCY_MULTIPLIER_HOT = 1.0
-RECENCY_MULTIPLIER_WARM = 1.0
+PRIOR_SEASON_SAMPLE_WEIGHT = 0.45
+CURRENT_SEASON_SAMPLE_WEIGHT = 1.60
+RECENCY_DAYS_HOT = 14
+RECENCY_DAYS_WARM = 35
+# Upweight the last two weeks hard — last-100 collapse was the live failure.
+RECENCY_MULTIPLIER_HOT = 1.85
+RECENCY_MULTIPLIER_WARM = 1.30
 
 
 def recency_sample_weight(game_date: date, as_of: date, base: float) -> float:
@@ -419,51 +419,43 @@ def final_public_probabilities(
     era_diff: float = 0.0,
     form_edge: float = 0.0,
 ) -> PublicPickResult:
-    """Prediction-first accuracy: light market blend on published %, raw GBM rank preserved.
+    """Publish GBM win% via market residual when odds exist; raw model otherwise.
 
-    Walk-forward Jun 2026: the old 42% coin-flip market weight + ±12pt publish clamp
-    collapsed last-100 AUC to ~0.56 (worse than random ranking). Light blend (15% on
-    coin flips, 9% when the model has edge) with NO publish clamp restores last-100
-    AUC to ~0.63 while era/form confidence gates block bad starter matchups.
+    V5: P(home) = market + α × (model − market). Markets are the strongest MLB prior;
+    the residual keeps the feature model when it disagrees with real edge. Missing odds
+    fall back to the raw GBM + era/form confidence gates (no invented prices).
     """
+    from v3_market_residual import publish_v3
+
     raw_home = float(prediction.home_probability)
     raw_pick = max(raw_home, 1.0 - raw_home)
 
-    market_agrees: bool | None = None
-    model_edge = 0.0
-    blended_home = raw_home
-    market_home_novig: float | None = None
     if market_home is not None and market_away is not None:
-        total = market_home + market_away
-        if total > 0:
-            mh = market_home / total
-            ma = market_away / total
-            market_home_novig = mh
-            # Blend model toward no-vig market consensus for a more accurate probability.
-            blended_home = blend_with_market(raw_home, mh)
+        v3 = publish_v3(
+            raw_home,
+            market_home=market_home,
+            market_away=market_away,
+            starter_certain=starter_certain,
+        )
+        return PublicPickResult(
+            home_probability=v3.home_probability,
+            away_probability=v3.away_probability,
+            pick_probability=v3.pick_probability,
+            raw_pick_probability=v3.raw_pick_probability,
+            confidence=v3.confidence,
+            market_agrees=v3.market_agrees,
+            model_edge=v3.model_edge,
+        )
 
-    home_probability = calibrate_public_probability(blended_home)
-
+    home_probability = calibrate_public_probability(raw_home)
     away_probability = 1.0 - home_probability
     pick_probability = max(home_probability, away_probability)
-
-    if market_home is not None and market_away is not None:
-        total = market_home + market_away
-        if total > 0:
-            mh = market_home / total
-            ma = market_away / total
-            pick_is_home = home_probability >= away_probability
-            book = mh if pick_is_home else ma
-            model_edge = pick_probability - book
-            market_agrees = (mh >= ma) == pick_is_home
-
-    market_available = market_home is not None and market_away is not None
     confidence = public_confidence_for(
         pick_probability,
-        market_agrees=market_agrees,
-        model_edge=model_edge,
+        market_agrees=None,
+        model_edge=0.0,
         starter_certain=starter_certain,
-        market_available=market_available,
+        market_available=False,
         raw_pick=raw_pick,
         era_diff=era_diff,
         form_edge=form_edge,
@@ -472,11 +464,10 @@ def final_public_probabilities(
         home_probability=round(home_probability, 4),
         away_probability=round(away_probability, 4),
         pick_probability=round(pick_probability, 4),
-        # Must match pick_probability — the live board invariant is no display inflation.
         raw_pick_probability=round(pick_probability, 4),
         confidence=confidence,
-        market_agrees=market_agrees,
-        model_edge=round(model_edge, 4),
+        market_agrees=None,
+        model_edge=0.0,
     )
 
 

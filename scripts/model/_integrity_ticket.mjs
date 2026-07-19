@@ -16,6 +16,17 @@ if (ticket.kind === "single") {
       pick_probabilities: [ticket.bet.game.pickProbability ?? ticket.bet.modelProbability],
     })
   );
+} else if (ticket.kind === "multi_single") {
+  console.log(
+    JSON.stringify({
+      kind: "multi_single",
+      legs: ticket.bets.map((bet) => bet.game.predictedTeam),
+      confidences: ticket.bets.map((bet) => bet.game.confidence),
+      pick_probabilities: ticket.bets.map(
+        (bet) => bet.game.pickProbability ?? bet.modelProbability
+      ),
+    })
+  );
 } else {
   console.log(
     JSON.stringify({

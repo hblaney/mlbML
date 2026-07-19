@@ -27,6 +27,9 @@ function legsFromTicket(ticket: ReturnType<typeof getBestDailyTicket>): BetLeg[]
   if (ticket.kind === "single") {
     return [legFromTicketBet(ticket.bet)];
   }
+  if (ticket.kind === "multi_single") {
+    return ticket.bets.map((bet) => legFromTicketBet(bet));
+  }
 
   return ticket.parlay.legs.map((bet) => legFromTicketBet(bet));
 }
@@ -41,9 +44,15 @@ export default async function BetWatcherPage() {
   const todayLegs = legsFromTicket(bestTicket);
   // Default stake = ratchet % of current bankroll for this ticket's leg count.
   const bankroll = liveBankroll?.wallet_balance ?? liveBankroll?.balance ?? 10.0;
-  const legCount = bestTicket ? (bestTicket.kind === "single" ? 1 : bestTicket.parlay.legCount) : 2;
+  const legCount = bestTicket
+    ? bestTicket.kind === "single"
+      ? 1
+      : bestTicket.kind === "multi_single"
+        ? bestTicket.bets.length
+        : bestTicket.parlay.legCount
+    : 2;
   const ratchetTiers = liveBankroll?.ratchet_tiers ?? bettingPlan?.ratchet_tiers;
-  const ratchetStake = bankroll * getRatchetStakePct(bankroll, legCount, ratchetTiers);
+  const ratchetStake = bankroll * (bestTicket?.kind === "multi_single" ? 0.5 : getRatchetStakePct(bankroll, legCount, ratchetTiers));
   const todaySnapshot = liveBankroll?.today_ticket;
   const ticketAmericanOdds =
     todaySnapshot?.odds ??

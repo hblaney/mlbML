@@ -11,29 +11,33 @@ from exhaustive_strategy_search import flat_stats_for_snapshots, load_moneyline_
 from strategy_next_tests import build_snapshots, enrich_moneyline
 from strategy_research import compound
 
-LIVE_STRATEGY = "parlay_first"
+LIVE_STRATEGY = "market_agree_parlay"
 STAKE_TIERED = {1: 0.35, 2: 0.45, 3: 0.10}
 OUTPUT = Path(__file__).resolve().parents[2] / "public" / "live-strategy-metrics.json"
 
 
 def _ticket_breakdown(snaps: list[dict]) -> dict:
     singles = parlays = single_w = par_w = 0
+    bet_days = 0
     for snap in snaps:
-        bet = snap["bets"][0]
-        legs = bet.get("legs") or []
-        if legs:
-            parlays += 1
-            if bet["won"]:
-                par_w += 1
-        else:
-            singles += 1
-            if bet["won"]:
-                single_w += 1
+        if snap.get("bets"):
+            bet_days += 1
+        for bet in snap["bets"]:
+            legs = bet.get("legs") or []
+            if legs:
+                parlays += 1
+                if bet["won"]:
+                    par_w += 1
+            else:
+                singles += 1
+                if bet["won"]:
+                    single_w += 1
     total = singles + parlays
     return {
-        "bet_days": total,
+        "bet_days": bet_days,
+        "total_bets": total,
         "parlay_days": parlays,
-        "single_days": singles,
+        "single_days": bet_days if singles else 0,
         "parlay_share": round(parlays / total, 4) if total else 0.0,
         "ticket_hit_rate": round((single_w + par_w) / total, 4) if total else 0.0,
         "parlay_hit_rate": round(par_w / parlays, 4) if parlays else None,

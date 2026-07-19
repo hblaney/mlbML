@@ -1,9 +1,9 @@
 {
-  "generated_at": "2026-06-24",
-  "strategy": "parlay_first",
+  "generated_at": "2026-07-19",
+  "strategy": "market_agree_parlay",
   "period": {
     "start": "2026-03-20",
-    "end": "2026-06-24"
+    "end": "2026-07-19"
   },
   "stakes": {
     "1": 0.35,
@@ -11,30 +11,31 @@
     "3": 0.1
   },
   "headline": {
-    "bet_days": 16,
-    "parlay_days": 6,
-    "single_days": 10,
-    "parlay_share": 0.375,
-    "ticket_hit_rate": 0.8125,
-    "parlay_hit_rate": 0.8333,
-    "single_hit_rate": 0.8,
-    "record": "13-3"
+    "bet_days": 98,
+    "total_bets": 98,
+    "parlay_days": 65,
+    "single_days": 98,
+    "parlay_share": 0.6633,
+    "ticket_hit_rate": 0.4286,
+    "parlay_hit_rate": 0.3077,
+    "single_hit_rate": 0.6667,
+    "record": "42-56"
   },
   "flat_per_100_staked": {
-    "roi": 0.9527,
-    "profit_units": 1524.29,
-    "hit_rate": 0.8125
+    "roi": 0.1284,
+    "profit_units": 1257.97,
+    "hit_rate": 0.4286
   },
   "compound_reference": {
     "from_10": {
-      "end": 277.8726,
-      "min_bankroll": 8.0691,
-      "record": "13-3"
+      "end": 0.9145,
+      "min_bankroll": 0.7896,
+      "record": "42-56"
     },
     "from_100": {
-      "end": 2778.7259,
-      "min_bankroll": 80.6907,
-      "record": "13-3"
+      "end": 9.1446,
+      "min_bankroll": 7.8955,
+      "record": "42-56"
     },
     "note": "Compound paths assume full re-stake; use flat ROI for realistic edge sizing."
   },

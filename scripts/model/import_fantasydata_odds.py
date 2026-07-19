@@ -8,11 +8,18 @@ final scores and moneyline prices, then leaves existing rows untouched.
 from __future__ import annotations
 
 import json
+import ssl
 from datetime import datetime
 from pathlib import Path
 from urllib.request import Request, urlopen
 
+import certifi
 from bs4 import BeautifulSoup
+
+
+def _urlopen(request: Request, *, timeout: int = 30):
+    context = ssl.create_default_context(cafile=certifi.where())
+    return urlopen(request, timeout=timeout, context=context)
 
 ROOT = Path(__file__).resolve().parents[2]
 OUTPUT_PATH = ROOT / "data" / "historical_odds.jsonl"
@@ -136,7 +143,7 @@ def existing_keys() -> set[tuple[str, str, str]]:
 
 def fetch_rows_for_url(url: str) -> list[dict]:
     request = Request(url, headers={"User-Agent": "Mozilla/5.0"})
-    with urlopen(request, timeout=30) as response:
+    with _urlopen(request, timeout=30) as response:
         html = response.read().decode("utf-8", errors="replace")
 
     soup = BeautifulSoup(html, "html.parser")

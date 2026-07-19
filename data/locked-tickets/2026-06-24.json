@@ -4,12 +4,47 @@
   "board_generated_at": "2026-06-24T15:00:40Z",
   "model_version": "daily-auto-v4.3-matchup-signal",
   "pipeline_version": "unified-public-v17-form02-parlay8",
-  "source": "lock_daily_ticket.py",
-  "note": "Official daily ticket \u2014 frozen at first publish. Later board refreshes do not change this.",
+  "source": "user_confirmed_positions",
+  "note": "Henry's actual bet — BOS + TOR + CHC 3-leg. Do not overwrite with system-generated tickets.",
   "ticket": {
-    "kind": "skip",
-    "label": "No bet today",
-    "legs": [],
-    "leg_count": 0
+    "kind": "parlay",
+    "label": "BOS ML + TOR ML + CHC ML",
+    "legs": [
+      "BOS",
+      "TOR",
+      "CHC"
+    ],
+    "leg_count": 3,
+    "odds": 423,
+    "model_probability": 0.198,
+    "leg_details": [
+      {
+        "team": "BOS",
+        "matchup": "BOS @ COL",
+        "confidence": "Medium",
+        "pickProbability": 0.6243,
+        "edge": 0.0156,
+        "odds": -172,
+        "startsAt": "2026-06-24T19:10:00Z"
+      },
+      {
+        "team": "TOR",
+        "matchup": "HOU @ TOR",
+        "confidence": "Medium",
+        "pickProbability": 0.6224,
+        "edge": 0.0585,
+        "odds": -141,
+        "startsAt": "2026-06-24T23:07:00Z"
+      },
+      {
+        "team": "CHC",
+        "matchup": "CHC @ NYM",
+        "confidence": "Low",
+        "pickProbability": 0.5104,
+        "edge": 0.0127,
+        "odds": -107,
+        "startsAt": "2026-06-24T17:10:00Z"
+      }
+    ]
   }
 }

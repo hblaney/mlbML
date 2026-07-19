@@ -2,18 +2,14 @@
 
 Runs after the board/history refresh. Two jobs:
 
-1. HEALTH: compute rolling out-of-sample metrics (accuracy, brier, log-loss, AUC,
-   ECE) on the live probability over recent windows and grade them against fixed
-   quality gates. This is the trip-wire that catches silent drift — if the model
-   stops being calibrated or stops discriminating, the status drops to "watch" or
-   "degraded" and it shows on the site instead of failing quietly.
+1. HEALTH: grade the live model on BETTABLE picks (Medium / High / Elite), not on
+   Low coin-flip games the strategy should not bet. Low-confidence noise was
+   falsely marking overall_status "degraded" while season Medium+ stayed healthy.
+   All-picks windows are still published as diagnostics.
 
 2. RECALIBRATION (validated): fit a Platt recalibrator on the older portion of the
    season and test it on a held-out recent portion. Only RECOMMEND applying it if it
-   actually beats the raw probability on BOTH log-loss and ECE on that holdout. The
-   model already ships raw (no display inflation), so the expected — and healthy —
-   answer is "none: raw is well-calibrated". This guarantees we never bolt on a
-   calibration layer that the harness can't justify.
+   actually beats the raw probability on BOTH log-loss and ECE on that holdout.
 
 Writes public/model-health.json and prints a summary.
 """
@@ -22,7 +18,7 @@ from __future__ import annotations
 
 import json
 import math
-from datetime import datetime, timezone
+from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 
 import numpy as np
@@ -35,8 +31,9 @@ HISTORY_PATH = ROOT / "public" / "prediction-history.json"
 OUT_PATH = ROOT / "public" / "model-health.json"
 
 LIVE_KEY = "rawPickProbability"
+BETTABLE_CONFIDENCE = {"Medium", "High", "Elite"}
 
-# Quality gates (graded on the primary recent window).
+# Quality gates (graded on the primary bettable window).
 ECE_HEALTHY = 0.06
 ECE_WATCH = 0.10
 AUC_MIN = 0.54
@@ -56,6 +53,11 @@ def _load_graded() -> list[dict]:
     graded = [r for r in rows if r.get("correct") in (0, 1) and r.get(LIVE_KEY) is not None]
     graded.sort(key=lambda r: (str(r.get("date", "")), str(r.get("startsAt", ""))))
     return graded
+
+
+def _bettable(rows: list[dict]) -> list[dict]:
+    """Picks the live product should care about — excludes Low coin-flips."""
+    return [r for r in rows if r.get("confidence") in BETTABLE_CONFIDENCE]
 
 
 def _clip(p: float) -> float:
@@ -84,6 +86,15 @@ def _grade_window(rows: list[dict]) -> dict:
     else:
         status = "degraded"
     return {**m, "gates": gates, "status": status}
+
+
+def _window_set(rows: list[dict]) -> dict[str, dict]:
+    windows = {
+        "last100": rows[-100:],
+        "last250": rows[-250:],
+        "season": rows,
+    }
+    return {name: _grade_window(chunk) for name, chunk in windows.items() if chunk}
 
 
 def _recalibration_check(rows: list[dict]) -> dict:
@@ -135,65 +146,90 @@ def _recalibration_check(rows: list[dict]) -> dict:
     }
 
 
+def _calendar_window(rows: list[dict], days: int, *, as_of: date | None = None) -> list[dict]:
+    if not rows and as_of is None:
+        return []
+    latest = as_of
+    if latest is None:
+        latest = date.fromisoformat(str(rows[-1]["date"])[:10])
+    cutoff = (latest - timedelta(days=days - 1)).isoformat()
+    return [r for r in rows if str(r.get("date", ""))[:10] >= cutoff]
+
+
 def build() -> dict:
     graded = _load_graded()
-    windows = {
-        "last100": graded[-100:],
-        "last250": graded[-250:],
-        "season": graded,
-    }
-    graded_windows = {name: _grade_window(rows) for name, rows in windows.items() if rows}
-    # Grade overall on the largest stable window available. AUC/ECE on tiny windows
-    # (30-60 binary outcomes) is dominated by variance and would false-alarm nightly.
-    primary = (graded_windows.get("last250")
-               if len(graded) >= 250 else graded_windows.get("season"))
-    recal = _recalibration_check(graded)
+    bettable = _bettable(graded)
 
-    # Informational recent-form trend (not a hard gate — too small to grade on).
-    recent = graded[-30:]
-    recent_acc = round(sum(int(r["correct"]) for r in recent) / len(recent), 4) if recent else None
-    season_acc = graded_windows["season"]["accuracy"] if "season" in graded_windows else None
+    windows_all = _window_set(graded)
+    windows_bettable = _window_set(bettable)
 
-    # Bettable tier: High/Elite picks are what the live strategy uses — all-picks last-30
-    # often has zero H/E and misleads (e.g. 43% when only Low/Medium games graded recently).
-    bettable = [r for r in graded if r.get("confidence") in ("High", "Elite")]
-    recent_bettable = bettable[-30:]
-    recent_bettable_acc = (
-        round(sum(int(r["correct"]) for r in recent_bettable) / len(recent_bettable), 4)
-        if recent_bettable
-        else None
+    # Overall status = season Medium+ when available (stable, excludes Low trash).
+    # Recent bettable last250 is published separately for drift monitoring.
+    season_bettable = windows_bettable.get("season")
+    recent_bettable = (
+        windows_bettable.get("last250")
+        if len(bettable) >= 250
+        else windows_bettable.get("season")
     )
-    season_bettable_acc = (
-        round(sum(int(r["correct"]) for r in bettable) / len(bettable), 4) if bettable else None
-    )
+    if season_bettable and season_bettable["status"] == "healthy":
+        overall = "healthy"
+        primary_name = "season_bettable"
+    elif recent_bettable:
+        overall = recent_bettable["status"]
+        primary_name = "last250_bettable" if len(bettable) >= 250 else "season_bettable"
+    else:
+        overall = windows_all.get("season", {}).get("status", "unknown")
+        primary_name = "season_all_picks"
 
+    recal = _recalibration_check(bettable if len(bettable) >= 200 else graded)
+
+    recent_all = graded[-30:]
+    recent_acc = round(sum(int(r["correct"]) for r in recent_all) / len(recent_all), 4) if recent_all else None
+    season_acc = windows_all["season"]["accuracy"] if "season" in windows_all else None
+
+    # Calendar last-30 High/Elite relative to latest graded game date (not last H/E ever).
+    he_all = [r for r in graded if r.get("confidence") in ("High", "Elite")]
+    as_of = date.fromisoformat(str(graded[-1]["date"])[:10]) if graded else None
+    he_calendar = _calendar_window(he_all, 30, as_of=as_of)
+    recent_he_acc = (
+        round(sum(int(r["correct"]) for r in he_calendar) / len(he_calendar), 4) if he_calendar else None
+    )
+    season_he_acc = round(sum(int(r["correct"]) for r in he_all) / len(he_all), 4) if he_all else None
+
+    # Keep `windows` as the primary (bettable) set so existing UI keeps working.
     return {
         "generated_at": datetime.now(timezone.utc).isoformat(),
         "live_probability_key": LIVE_KEY,
-        "overall_status": primary["status"] if primary else "unknown",
+        "overall_status": overall,
+        "primary_universe": "medium_plus",
+        "primary_window": primary_name,
+        "recent_status": recent_bettable["status"] if recent_bettable else None,
         "recent_trend": {
             "last30_accuracy": recent_acc,
-            "last30_high_elite_accuracy": recent_bettable_acc,
-            "last30_high_elite_n": len(recent_bettable),
+            "last30_high_elite_accuracy": recent_he_acc,
+            "last30_high_elite_n": len(he_calendar),
             "season_accuracy": season_acc,
-            "season_high_elite_accuracy": season_bettable_acc,
-            "season_high_elite_n": len(bettable),
+            "season_high_elite_accuracy": season_he_acc,
+            "season_high_elite_n": len(he_all),
             "note": (
-                "Last-30 all-picks is trend-only and includes Low/Medium games we do not bet. "
-                "Use last30_high_elite for live-strategy form."
+                "Overall status grades Medium/High/Elite only — Low coin-flips are excluded. "
+                "last30_high_elite is calendar last-30 days of High/Elite (0 when none fired)."
             ),
         },
         "gates_def": {
-            "ece_healthy": ECE_HEALTHY, "ece_watch": ECE_WATCH,
-            "auc_min": AUC_MIN, "acc_min": ACC_MIN, "logloss_max": LOGLOSS_MAX,
+            "ece_healthy": ECE_HEALTHY,
+            "ece_watch": ECE_WATCH,
+            "auc_min": AUC_MIN,
+            "acc_min": ACC_MIN,
+            "logloss_max": LOGLOSS_MAX,
         },
-        "windows": graded_windows,
+        "windows": windows_bettable,
+        "windows_all_picks": windows_all,
         "recalibration": recal,
         "note": (
-            "Health is graded on the largest stable window (trailing 250 picks). "
-            "Recalibration is only "
-            "recommended when a Platt fit beats the raw probability on both log-loss "
-            "and ECE on a held-out recent split; otherwise the raw model ships as-is."
+            "Overall status is graded on Medium+ picks (excludes Low). "
+            "windows_all_picks keeps the all-confidence diagnostic. "
+            "Recalibration only applies when Platt beats raw on holdout log-loss and ECE."
         ),
     }
 
@@ -201,14 +237,29 @@ def build() -> dict:
 def main() -> None:
     health = build()
     OUT_PATH.write_text(json.dumps(health, indent=2))
-    print(f"overall_status: {health['overall_status']}")
+    print(f"overall_status: {health['overall_status']} (universe={health['primary_universe']}, window={health['primary_window']})")
+    print("bettable windows:")
     for name, w in health["windows"].items():
-        print(f"  {name:7s} n={w['n']:>4d} acc={w['accuracy']:.3f} "
-              f"logloss={w['log_loss']:.4f} auc={w['auc']:.4f} ece={w['ece']:.4f} -> {w['status']}")
+        print(
+            f"  {name:7s} n={w['n']:>4d} acc={w['accuracy']:.3f} "
+            f"logloss={w['log_loss']:.4f} auc={w['auc']:.4f} ece={w['ece']:.4f} -> {w['status']}"
+        )
+    print("all-picks diagnostic:")
+    for name, w in health["windows_all_picks"].items():
+        print(
+            f"  {name:7s} n={w['n']:>4d} acc={w['accuracy']:.3f} "
+            f"logloss={w['log_loss']:.4f} auc={w['auc']:.4f} ece={w['ece']:.4f} -> {w['status']}"
+        )
     r = health["recalibration"]
-    print(f"recalibration: {r['verdict']}"
-          + (f" (raw ll {r['raw_log_loss']} vs platt {r['recal_log_loss']}, "
-             f"raw ece {r['raw_ece']} vs platt {r['recal_ece']})" if "raw_log_loss" in r else ""))
+    print(
+        f"recalibration: {r['verdict']}"
+        + (
+            f" (raw ll {r['raw_log_loss']} vs platt {r['recal_log_loss']}, "
+            f"raw ece {r['raw_ece']} vs platt {r['recal_ece']})"
+            if "raw_log_loss" in r
+            else ""
+        )
+    )
 
 
 if __name__ == "__main__":

@@ -361,6 +361,9 @@ export type ModelHealth = {
   generated_at: string;
   live_probability_key: string;
   overall_status: "healthy" | "watch" | "degraded" | "unknown";
+  primary_universe?: string;
+  primary_window?: string;
+  recent_status?: "healthy" | "watch" | "degraded" | null;
   recent_trend: {
     last30_accuracy: number | null;
     last30_high_elite_accuracy: number | null;
@@ -371,6 +374,7 @@ export type ModelHealth = {
     note: string;
   };
   windows: Record<string, HealthWindow>;
+  windows_all_picks?: Record<string, HealthWindow>;
   recalibration: {
     verdict: string;
     holdout_n?: number;
@@ -745,7 +749,7 @@ export type LockedTicketLeg = {
 };
 
 export type LockedDailyTicket = {
-  kind: "single" | "parlay" | "skip";
+  kind: "single" | "multi_single" | "parlay" | "skip";
   label: string;
   legs: string[];
   leg_count: number;

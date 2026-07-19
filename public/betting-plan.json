@@ -1,34 +1,47 @@
 {
-  "generated_at": "2026-06-24",
-  "strategy": "parlay_first",
-  "mode": "parlay_heavy_realistic",
+  "generated_at": "2026-07-13",
+  "strategy": "market_agree_parlay",
+  "mode": "market_agree_small_edge_parlay",
+  "achieved_ticket_hit_rate": 0.4286,
+  "model_version": "daily-auto-v5.1-honest-parlay",
+  "pipeline_version": "unified-public-v19-honest-market-agree-parlay",
   "strategy_rules": [
-    "Daily bet = best filtered 2/3/4-leg parlay when legs clear quality bar",
-    "Parlay legs: not Low, >= 65% model probability, >= 8% edge vs market, +EV, >= 1 High/Elite leg",
-    "If no parlay → single ONLY when High/Elite >= 67% and +EV; else skip the day",
-    "Model High tier also requires form edge >= 2% (81.5% H/E walk-forward)",
-    "Stakes: 45% two-leg · 35% elite single · 10% three/four-leg",
-    "Validated blind walk-forward (2026-03-20 → 2026-06-23, real closing odds):",
-    "  see public/live-strategy-metrics.json for current flat ROI + hit rate (primary KPIs)",
-    "  parlay leg hit ~88% on 8% edge filter; ticket hit ~83% on tightened pool"
+    "Official bet = market-agree SMALL-edge parlays (2\u20133 legs). Multiply small edges \u2014 do not hunt anti-market dogs.",
+    "Leg gates: market agrees, Medium+, edge 1.5\u20135.5%, pick \u226555%, confirmed starter, +EV.",
+    "Published probabilities are market-residual with capped edge; anti-market \u03b1 is near zero.",
+    "Model retrains daily through yesterday with heavy recent-game sample weights.",
+    "Do not hand-build tickets off the research board \u2014 the locked ticket is the only official slip.",
+    "Walk-forward ticket (market_agree_parlay): 42-56 (42.9% hit)",
+    "Model season pick accuracy: 57.2%",
+    "Last-100 form: 60.0% acc, AUC 0.43"
   ],
   "stake_by_leg_count": {
-    "1": 0.35,
-    "2": 0.45,
-    "3": 0.1,
-    "4": 0.1
+    "1": 0.12,
+    "2": 0.18,
+    "3": 0.18
   },
-  "parlay_first_gates": {
-    "min_leg_edge": 0.08,
-    "min_leg_probability": 0.65,
-    "min_high_elite_legs": 1,
-    "elite_single_min_probability": 0.67
+  "market_agree_parlay_gates": {
+    "min_edge": 0.015,
+    "max_edge": 0.055,
+    "min_probability": 0.55,
+    "require_market_agrees": true,
+    "exclude_low_confidence": true,
+    "prefer_legs": [
+      3,
+      2
+    ],
+    "allow_single_fallback": true
   },
-  "flat_stake_fallback": 0.35,
-  "daily_exposure_cap": 0.5,
+  "walk_forward": {
+    "record": "42-56",
+    "ticket_hit_rate": 0.4286,
+    "parlay_hit_rate": 0.3077,
+    "flat_roi_per_100": 0.1284,
+    "bet_days": 98
+  },
   "backtest_period": {
     "start": "2026-03-20",
-    "end": "2026-06-23"
+    "end": "2026-07-13"
   },
-  "retuned_from": "Jun 24 v17 — 8% parlay leg edge + form>=2% High gate + live-strategy-metrics.json honest KPIs"
+  "retuned_from": "Honest publish + market-agree parlays (2026-07-13)"
 }

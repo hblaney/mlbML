@@ -13,7 +13,7 @@ from exhaustive_strategy_search import load_moneyline_by_day
 from strategy_next_tests import build_snapshots, enrich_moneyline
 from strategy_research import DAILY_CAP
 
-LIVE_STRATEGY = "parlay_first"
+LIVE_STRATEGY = "market_agree_parlay"
 STAKE_TIERED = {1: 0.12, 2: 0.18, 3: 0.18, 4: 0.18}
 FLAT_PROVE_OUT_USD = 5.0
 PROVE_OUT_TICKETS = 20
@@ -22,7 +22,7 @@ DEFAULT_STARTING_BALANCE = 25.0
 DEFAULT_STARTED_AT = "2026-06-13"
 TRACKING_DISCLAIMER = (
     "Tracks locked system tickets + your Robinhood wallet. "
-    "Stakes = 12% single / 18% parlay of wallet below $200."
+    "Stakes = live daily exposure for market_agree_parlay (small market-agree edges, parlays when 2–3 legs)."
 )
 REPO_ROOT = Path(__file__).resolve().parents[2]
 STATE_PATH = REPO_ROOT / "data" / "live-bankroll-state.json"
@@ -48,6 +48,13 @@ def ratchet_stake_pct(balance: float, leg_count: int, plan: dict) -> float:
     if leg_count <= 1:
         return float(tier.get("single_pct", STAKE_TIERED.get(1, 0.12)))
     return float(tier.get("parlay_pct", STAKE_TIERED.get(2, 0.18)))
+
+
+def stake_pct_for_ticket(wallet: float, bet: dict, plan: dict) -> float:
+    if bet.get("kind") == "multi_single":
+        return float(plan.get("daily_exposure_cap", DAILY_CAP))
+    leg_count = len(bet.get("legs", [])) or 1
+    return ratchet_stake_pct(wallet, leg_count, plan)
 
 
 def sync_wallet_from_public(state: dict) -> None:
@@ -139,6 +146,7 @@ def serialize_ticket(day_iso: str, bet: dict, *, stake_amount: float, stake_pct:
     leg_count = len(bet.get("legs", [])) or 1
     return {
         "date": day_iso,
+        "kind": bet.get("kind"),
         "label": bet.get("label") or bet.get("side") or "system ticket",
         "legs": ticket_legs(bet),
         "leg_count": leg_count,
@@ -300,6 +308,9 @@ def ticket_from_archived_board(board_path: Path) -> dict | None:
         "if (ticket.kind === 'single') {\n"
         "  const bet = ticket.bet;\n"
         "  console.log(JSON.stringify({ kind: 'single', label: `${bet.team.abbreviation} ML`, legs: [bet.team.abbreviation], leg_count: 1, odds: bet.odds, model_probability: bet.modelProbability }));\n"
+        "} else if (ticket.kind === 'multi_single') {\n"
+        "  const bets = ticket.bets;\n"
+        "  console.log(JSON.stringify({ kind: 'multi_single', label: bets.map((bet) => `${bet.team.abbreviation} ML`).join(' + '), legs: bets.map((bet) => bet.team.abbreviation), leg_count: bets.length, odds: null, model_probability: null }));\n"
         "} else {\n"
         "  const legs = ticket.parlay.legs;\n"
         "  console.log(JSON.stringify({ kind: 'parlay', label: legs.map((leg) => `${leg.team.abbreviation} ML`).join(' + '), legs: legs.map((leg) => leg.team.abbreviation), leg_count: legs.length, odds: ticket.parlay.americanOdds, model_probability: ticket.parlay.probability }));\n"
@@ -338,36 +349,56 @@ def team_won_on_day(team_abbr: str, day: date, games, team_abbr_map: dict[int, s
         return team == winner
 
 
+TEAM_STATUS_ALIASES = {
+    "ari": ["ari", "az"],
+    "az": ["az", "ari"],
+    "chw": ["chw", "cws"],
+    "cws": ["cws", "chw"],
+    "oak": ["oak", "ath"],
+    "ath": ["ath", "oak"],
+    "wsh": ["wsh", "was"],
+    "was": ["was", "wsh"],
+}
+
+
 def team_leg_status_on_day(team_abbr: str, day: date, team_abbr_map: dict[int, str]) -> str | None:
-    """Return won | lost | void | pending for a team's game on a date."""
+    """Return won | lost | void | pending for a team's game on a date.
+
+    Checks ``day`` and ``day+1`` because West-Coast night starts often land on the
+    next UTC calendar date in StatsAPI while the lock date is local/slate-based.
+    """
     import ssl
     from urllib.request import urlopen
     import certifi
 
     team = team_abbr.lower()
-    url = f"https://statsapi.mlb.com/api/v1/schedule?sportId=1&date={day.isoformat()}&hydrate=team"
+    aliases = set(TEAM_STATUS_ALIASES.get(team, [team]))
     ctx = ssl.create_default_context(cafile=certifi.where())
-    with urlopen(url, timeout=30, context=ctx) as response:
-        payload = json.loads(response.read())
 
-    for day_block in payload.get("dates", []):
-        for game in day_block.get("games", []):
-            home = game["teams"]["home"]["team"]["abbreviation"].lower()
-            away = game["teams"]["away"]["team"]["abbreviation"].lower()
-            if team not in {home, away}:
-                continue
-            status = str(game.get("status", {}).get("detailedState", "")).lower()
-            if "postpon" in status or "cancel" in status:
-                return "void"
-            abstract = game.get("status", {}).get("abstractGameState")
-            if abstract != "Final":
-                return "pending"
-            hs = game["teams"]["home"].get("score")
-            aw = game["teams"]["away"].get("score")
-            if hs is None or aw is None:
-                return "pending"
-            winner = home if hs > aw else away
-            return "won" if team == winner else "lost"
+    for offset in (0, 1):
+        check_day = day + timedelta(days=offset)
+        url = f"https://statsapi.mlb.com/api/v1/schedule?sportId=1&date={check_day.isoformat()}&hydrate=team"
+        with urlopen(url, timeout=30, context=ctx) as response:
+            payload = json.loads(response.read())
+
+        for day_block in payload.get("dates", []):
+            for game in day_block.get("games", []):
+                home = game["teams"]["home"]["team"]["abbreviation"].lower()
+                away = game["teams"]["away"]["team"]["abbreviation"].lower()
+                if not aliases.intersection({home, away}):
+                    continue
+                status = str(game.get("status", {}).get("detailedState", "")).lower()
+                if "postpon" in status or "cancel" in status:
+                    return "void"
+                abstract = game.get("status", {}).get("abstractGameState")
+                if abstract != "Final":
+                    return "pending"
+                hs = game["teams"]["home"].get("score")
+                aw = game["teams"]["away"].get("score")
+                if hs is None or aw is None:
+                    return "pending"
+                winner = home if hs > aw else away
+                return "won" if winner in aliases else "lost"
     return None
 
 
@@ -440,8 +471,35 @@ def grade_archived_ticket(ticket: dict, day_iso: str, board: dict) -> dict | Non
             }
         )
 
+    if ticket.get("kind") == "multi_single":
+        if not all_decided:
+            return None
+        stake_per_leg = STAKE / max(len(leg_rows), 1)
+        profit = 0.0
+        wins = 0
+        for leg in leg_rows:
+            if leg.get("void"):
+                continue
+            if leg["won"]:
+                wins += 1
+                profit += stake_per_leg * (decimal_odds(int(leg["odds"])) - 1)
+            else:
+                profit -= stake_per_leg
+        return {
+            "kind": "multi_single",
+            "label": ticket["label"],
+            "legs": ticket["legs"],
+            "won": profit > 0,
+            "profit": profit,
+            "odds": ticket.get("odds"),
+            "model_probability": ticket.get("model_probability"),
+            "leg_wins": wins,
+            "leg_count": len(leg_rows),
+        }
+
     if ticket["leg_count"] > 1 and any_lost:
         return {
+            "kind": ticket.get("kind", "parlay"),
             "label": ticket["label"],
             "legs": ticket["legs"],
             "won": False,
@@ -457,6 +515,7 @@ def grade_archived_ticket(ticket: dict, day_iso: str, board: dict) -> dict | Non
         leg = leg_rows[0]
         if leg.get("void"):
             return {
+            "kind": ticket.get("kind", "single"),
                 "label": ticket["label"],
                 "legs": ticket["legs"],
                 "won": True,
@@ -467,6 +526,7 @@ def grade_archived_ticket(ticket: dict, day_iso: str, board: dict) -> dict | Non
             }
         profit = STAKE * (decimal_odds(int(leg["odds"])) - 1) if leg["won"] else -STAKE
         return {
+            "kind": ticket.get("kind", "single"),
             "label": ticket["label"],
             "legs": ticket["legs"],
             "won": leg["won"],
@@ -477,6 +537,7 @@ def grade_archived_ticket(ticket: dict, day_iso: str, board: dict) -> dict | Non
 
     settled = settle_parlay_with_voids(leg_rows)
     return {
+        "kind": ticket.get("kind", "parlay"),
         "label": ticket["label"],
         "legs": ticket["legs"],
         "won": settled["won"],
@@ -495,36 +556,163 @@ def apply_day_flat(stake_usd: float, bet: dict) -> tuple[float, bool]:
     return profit, bool(bet.get("won"))
 
 
-def graded_snapshot_for_day(day_iso: str, snaps_by_day: dict[str, dict]) -> tuple[dict | None, str]:
+def graded_snapshot_for_day(
+    day_iso: str,
+    snaps_by_day: dict[str, dict],
+    *,
+    allow_walk_forward: bool = True,
+) -> tuple[dict | None, str]:
     """Prefer locked/archived board ticket (what the site showed) over walk-forward rebuild."""
     board_snapshot = fallback_snapshot_for_day(day_iso)
     if board_snapshot and snapshot_is_graded(board_snapshot):
         return board_snapshot, board_snapshot.get("grade_source", "archived_board")
+    if not allow_walk_forward:
+        return None, "missing"
     snapshot = snaps_by_day.get(day_iso)
     if snapshot and snapshot_is_graded(snapshot):
         return snapshot, "walk_forward_rebuild"
     return None, "missing"
 
 
+def grade_locked_ticket_from_details(ticket: dict, day_iso: str) -> dict | None:
+    """Grade a locked ticket using leg_details odds when no archived board exists."""
+    from mlb_api import load_team_abbreviations
+
+    details = ticket.get("leg_details") or []
+    legs = ticket.get("legs") or []
+    if not legs:
+        if ticket.get("kind") == "skip":
+            return {
+                "kind": "skip",
+                "label": ticket.get("label") or "No bet today",
+                "legs": [],
+                "won": True,
+                "profit": 0.0,
+                "odds": None,
+                "model_probability": None,
+            }
+        return None
+
+    day = date.fromisoformat(day_iso)
+    abbr_map = load_team_abbreviations()
+    detail_by_team = {
+        str(d.get("team", "")).upper(): d for d in details if isinstance(d, dict) and d.get("team")
+    }
+
+    leg_rows = []
+    all_decided = True
+    for leg in legs:
+        team = str(leg).upper()
+        detail = detail_by_team.get(team, {})
+        odds = detail.get("odds")
+        status = team_leg_status_on_day(team, day, abbr_map)
+        if status is None or odds is None:
+            return None
+        if status == "pending":
+            all_decided = False
+            continue
+        if status == "void":
+            leg_rows.append({"team": team, "odds": odds, "won": True, "void": True})
+            continue
+        leg_rows.append({"team": team, "odds": odds, "won": status == "won", "void": False})
+
+    if not all_decided:
+        return None
+
+    kind = ticket.get("kind")
+    if kind == "multi_single" or (kind is None and len(legs) > 1 and ticket.get("odds") is None):
+        stake_per_leg = STAKE / max(len(leg_rows), 1)
+        profit = 0.0
+        wins = 0
+        for leg in leg_rows:
+            if leg.get("void"):
+                continue
+            if leg["won"]:
+                wins += 1
+                profit += stake_per_leg * (decimal_odds(int(leg["odds"])) - 1)
+            else:
+                profit -= stake_per_leg
+        return {
+            "kind": "multi_single",
+            "label": ticket.get("label") or " + ".join(f"{t} ML" for t in legs),
+            "legs": legs,
+            "won": profit > 0,
+            "profit": profit,
+            "odds": ticket.get("odds"),
+            "model_probability": ticket.get("model_probability"),
+            "leg_wins": wins,
+            "leg_count": len(leg_rows),
+        }
+
+    if len(legs) > 1:
+        if any(not leg["won"] and not leg.get("void") for leg in leg_rows):
+            return {
+                "kind": kind or "parlay",
+                "label": ticket.get("label"),
+                "legs": legs,
+                "won": False,
+                "profit": -STAKE,
+                "odds": ticket.get("odds"),
+                "model_probability": ticket.get("model_probability"),
+            }
+        settled = settle_parlay_with_voids(leg_rows)
+        return {
+            "kind": kind or "parlay",
+            "label": ticket.get("label"),
+            "legs": legs,
+            "won": settled["won"],
+            "profit": settled["profit"],
+            "odds": settled.get("odds") or ticket.get("odds"),
+            "model_probability": ticket.get("model_probability"),
+        }
+
+    leg = leg_rows[0]
+    if leg.get("void"):
+        profit = 0.0
+        won = True
+    elif leg["won"]:
+        profit = STAKE * (decimal_odds(int(leg["odds"])) - 1)
+        won = True
+    else:
+        profit = -STAKE
+        won = False
+    return {
+        "kind": kind or "single",
+        "label": ticket.get("label"),
+        "legs": legs,
+        "won": won,
+        "profit": profit,
+        "odds": leg.get("odds"),
+        "model_probability": ticket.get("model_probability"),
+    }
+
+
 def fallback_snapshot_for_day(day_iso: str) -> dict | None:
+    locked = load_locked_ticket(day_iso)
     board = load_archived_board(day_iso)
+
+    if locked and locked.get("ticket"):
+        ticket = locked["ticket"]
+        graded = None
+        if board:
+            graded = grade_archived_ticket(ticket, day_iso, board)
+        if graded is None:
+            graded = grade_locked_ticket_from_details(ticket, day_iso)
+        if graded is None:
+            return None
+        return {"date": day_iso, "bets": [graded], "grade_source": "locked_ticket"}
+
     if not board:
         return None
     temp_path = REPO_ROOT / "data" / f"archived-board-{day_iso}.json"
     temp_path.write_text(json.dumps(board, indent=2))
-
-    locked = load_locked_ticket(day_iso)
-    if locked and locked.get("ticket"):
-        ticket = locked["ticket"]
-    else:
-        ticket = ticket_from_archived_board(temp_path)
+    ticket = ticket_from_archived_board(temp_path)
     if not ticket:
         return None
     graded = grade_archived_ticket(ticket, day_iso, board)
     if not graded:
         return None
-    source = "locked_ticket" if locked else "archived_board"
-    return {"date": day_iso, "bets": [graded], "grade_source": source}
+    return {"date": day_iso, "bets": [graded], "grade_source": "archived_board"}
 
 
 def settle_day(
@@ -536,9 +724,15 @@ def settle_day(
     plan: dict,
 ) -> None:
     bet = snapshot["bets"][0]
-    leg_count = len(bet.get("legs", [])) or 1
+    legs = bet.get("legs") or []
+    # Skip / no-bet days advance the cursor only — no wallet or record change.
+    if bet.get("kind") == "skip" or not legs:
+        state["last_settled_date"] = day_iso
+        return
+
+    leg_count = len(legs)
     wallet = float(state.get("wallet_balance") or state["balance"])
-    stake_pct = ratchet_stake_pct(wallet, leg_count, plan)
+    stake_pct = stake_pct_for_ticket(wallet, bet, plan)
     stake_amount = round(wallet * stake_pct, 2)
 
     if bet.get("profit") is None or bet.get("won") is None:
@@ -625,6 +819,7 @@ def pending_snapshot_from_live_board(today_iso: str) -> dict | None:
         "date": today_iso,
         "bets": [
             {
+                "kind": ticket.get("kind"),
                 "label": ticket["label"],
                 "legs": ticket["legs"],
                 "won": None,
@@ -683,8 +878,28 @@ def main() -> None:
     snaps_by_day = {snap["date"]: snap for snap in build_snapshots(ml, LIVE_STRATEGY)}
 
     yesterday = today - timedelta(days=1)
+    allow_walk_forward = not bool(state.get("wallet_locked"))
     if rebuild:
-        rebuild_state_from_boards(state, snaps_by_day, through=yesterday, plan=plan)
+        if state.get("wallet_locked"):
+            # Locked wallets only settle official locked/archived tickets — never sim rebuild.
+            rebuild_state_from_boards(state, snaps_by_day, through=yesterday, plan=plan)
+            # Rebuild above still uses graded_snapshot_for_day — re-run locked-only.
+            state["balance"] = state["starting_balance"]
+            if state.get("wallet_balance") is not None:
+                state["wallet_balance"] = float(state.get("wallet_starting", state["starting_balance"]))
+            state["record"] = {"wins": 0, "losses": 0}
+            state["checkpoints"] = []
+            state["tickets"] = []
+            state["last_settled_date"] = None
+            cursor = date.fromisoformat(state["started_at"])
+            while cursor <= yesterday:
+                day_iso = cursor.isoformat()
+                snapshot, source = graded_snapshot_for_day(day_iso, snaps_by_day, allow_walk_forward=False)
+                if snapshot and snapshot_is_graded(snapshot):
+                    settle_day(state, day_iso, snapshot, source=source, plan=plan)
+                cursor += timedelta(days=1)
+        else:
+            rebuild_state_from_boards(state, snaps_by_day, through=yesterday, plan=plan)
     else:
         started_at = state["started_at"]
         last_settled = state.get("last_settled_date")
@@ -696,14 +911,18 @@ def main() -> None:
                 cursor += timedelta(days=1)
                 continue
 
-            snapshot, source = graded_snapshot_for_day(day_iso, snaps_by_day)
+            snapshot, source = graded_snapshot_for_day(
+                day_iso, snaps_by_day, allow_walk_forward=allow_walk_forward
+            )
             if snapshot and snapshot_is_graded(snapshot):
                 settle_day(state, day_iso, snapshot, source=source, plan=plan)
             cursor += timedelta(days=1)
 
         # Settle today when every leg is final or void (e.g. rainout + other leg won).
         if state.get("last_settled_date") != today_iso:
-            today_board_snapshot, today_source = graded_snapshot_for_day(today_iso, snaps_by_day)
+            today_board_snapshot, today_source = graded_snapshot_for_day(
+                today_iso, snaps_by_day, allow_walk_forward=allow_walk_forward
+            )
             if today_board_snapshot and snapshot_is_graded(today_board_snapshot):
                 settle_day(state, today_iso, today_board_snapshot, source=today_source, plan=plan)
 
@@ -717,13 +936,16 @@ def main() -> None:
     wallet_start = float(state.get("wallet_starting", state["starting_balance"]))
     if today_snapshot and today_snapshot.get("bets"):
         bet = today_snapshot["bets"][0]
-        leg_count = len(bet.get("legs", [])) or 1
-        stake_pct = ratchet_stake_pct(wallet, leg_count, plan)
-        stake_amount = round(wallet * stake_pct, 2)
+        legs = ticket_legs(bet)
+        leg_count = len(legs)
+        if bet.get("kind") == "skip" or (not legs and bet.get("label", "").lower().startswith("no bet")):
+            leg_count = 0
+        stake_pct = 0.0 if leg_count == 0 else stake_pct_for_ticket(wallet, bet, plan)
+        stake_amount = 0.0 if leg_count == 0 else round(wallet * stake_pct, 2)
         today_ticket = {
             "date": today_iso,
             "label": bet.get("label") or bet.get("side") or "system ticket",
-            "legs": ticket_legs(bet),
+            "legs": legs,
             "leg_count": leg_count,
             "stake_pct": stake_pct,
             "stake_amount": stake_amount,
@@ -769,7 +991,7 @@ def main() -> None:
         "today_ticket": today_ticket,
         "checkpoints": state["checkpoints"],
         "tickets": state.get("tickets", []),
-        "tracking_note": f"{LIVE_STRATEGY} · ratchet 12% single / 18% parlay · wallet locked when confirmed",
+        "tracking_note": f"{LIVE_STRATEGY} · market-agree small-edge parlays (2–3 legs) or single fallback · wallet locked when confirmed",
     }
     save_state(state)
     OUTPUT_PATH.write_text(json.dumps(output, indent=2))

@@ -24,7 +24,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 PUBLIC = ROOT / "public"
-LIVE_STRATEGY = "parlay_first"
+LIVE_STRATEGY = "market_agree_parlay"
 PROB_TOL = 1e-6
 RECENT_DAYS = 21
 
@@ -40,16 +40,24 @@ def _load(name: str) -> dict | list | None:
 
 
 def check_honest_calibration(predictions: dict) -> list[str]:
+    """Published pick % may differ from raw GBM when market-residual publish is active.
+
+    Inflation (cosmetic stretch without market) is still forbidden: when there is no
+    moneyline on the row, pick must equal raw.
+    """
     errors: list[str] = []
     for row in predictions.get("predictions", []):
         raw = row.get("rawPickProbability")
         pick = row.get("pickProbability")
         if raw is None or pick is None:
             continue
+        has_market = row.get("homeMoneyline") is not None and row.get("awayMoneyline") is not None
+        if has_market:
+            continue
         if abs(float(raw) - float(pick)) > PROB_TOL:
             errors.append(
                 f"{row.get('id', '?')}: pickProbability {pick} != rawPickProbability {raw} "
-                "(display inflation regression)"
+                "(no-market display inflation regression)"
             )
     return errors
 
@@ -94,10 +102,11 @@ def check_strategy_labels() -> list[str]:
         errors.append(f"live-bankroll strategy {bankroll.get('strategy')!r} != {LIVE_STRATEGY!r}")
     plan = _load("betting-plan.json")
     if plan:
+        if plan.get("strategy") != LIVE_STRATEGY:
+            errors.append(f"betting-plan strategy {plan.get('strategy')!r} != {LIVE_STRATEGY!r}")
         blob = json.dumps(plan).lower()
-        # The plan should reference the live system somewhere (ratchet + high/elite).
-        if "ratchet" not in blob and "high" not in blob:
-            errors.append("betting-plan.json does not reference the live ratchet/High-Elite strategy")
+        if "market_agree_parlay" not in blob and LIVE_STRATEGY not in blob:
+            errors.append("betting-plan.json does not reference the live market_agree_parlay strategy")
     return errors
 
 
@@ -108,14 +117,20 @@ def check_live_bankroll_sanity() -> list[str]:
         return errors
     ticket = bankroll.get("today_ticket") or {}
     legs = ticket.get("legs")
-    if legs is not None:
-        if ticket.get("leg_count") != len(legs):
-            errors.append(f"today_ticket leg_count {ticket.get('leg_count')} != len(legs) {len(legs)}")
+    expected_legs = len(legs) if legs is not None else None
+    if expected_legs is not None and ticket.get("leg_count") != expected_legs:
+        errors.append(f"today_ticket leg_count {ticket.get('leg_count')} != len(legs) {expected_legs}")
 
     wallet = bankroll.get("wallet_balance")
     stake = ticket.get("stake_amount")
     cap = bankroll.get("daily_exposure_cap")
-    if wallet and stake and cap and stake > wallet * cap + 1e-6:
+    if (
+        wallet
+        and stake
+        and cap
+        and expected_legs
+        and stake > wallet * cap + 1e-6
+    ):
         errors.append(
             f"today_ticket stake_amount {stake} exceeds exposure cap ({cap:.0%} of {wallet})"
         )
@@ -128,7 +143,9 @@ def check_live_bankroll_sanity() -> list[str]:
             lo = tier.get("min_balance", 0)
             hi = tier.get("max_balance")
             if wallet >= lo and (hi is None or wallet <= hi):
-                expected = tier.get("parlay_pct") if is_parlay else tier.get("single_pct")
+                expected = cap if ticket.get("kind") == "multi_single" else (
+                    tier.get("parlay_pct") if is_parlay else tier.get("single_pct")
+                )
                 # stake_pct in the ticket is the realized fraction (stake/wallet); allow drift
                 # because the placed bet was rounded to a real dollar amount.
                 realized = ticket.get("stake_pct")

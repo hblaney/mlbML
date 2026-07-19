@@ -18,7 +18,11 @@ import { formatCentralGameTime } from "@/lib/time";
 export const dynamic = "force-dynamic";
 
 const STRATEGY_LABELS: Record<string, string> = {
-  parlay_first: "parlay_first (live · parlay-heavy)",
+  market_agree_parlay: "market_agree_parlay (live · small edges × parlays)",
+  daily_top3_prob: "daily_top3_prob (legacy · 3 singles by win probability)",
+  daily_top3_evscore: "daily_top3_evscore (legacy · EV×prob ranking)",
+  daily_best_single: "daily_best_single (selective quality single)",
+  parlay_first: "parlay_first (legacy · parlay-heavy)",
   best_ticket: "best_ticket (legacy · max-score incl. singles)",
   power_parlay: "power_parlay (legacy · selective H/E only)",
   high_elite_76_parlay: "high_elite_76_parlay (legacy)",
@@ -96,6 +100,8 @@ export default async function BestBetsPage() {
   const liveTicketLabel = bestTicket
     ? bestTicket.kind === "single"
       ? `${bestTicket.bet.team.abbreviation} ML`
+      : bestTicket.kind === "multi_single"
+        ? bestTicket.bets.map((bet) => `${bet.team.abbreviation} ML`).join(" + ")
       : bestTicket.parlay.legs.map((leg) => `${leg.team.abbreviation} ML`).join(" + ")
     : null;
   const ticketMismatch =
@@ -104,12 +110,15 @@ export default async function BestBetsPage() {
     liveTicketLabel &&
     officialTicket.label !== liveTicketLabel;
   const displayLegCount = officialTicket?.leg_count ?? (bestTicket
-    ? (bestTicket.kind === "single" ? 1 : bestTicket.parlay.legCount)
+    ? (bestTicket.kind === "single" ? 1 : bestTicket.kind === "multi_single" ? bestTicket.bets.length : bestTicket.parlay.legCount)
     : 2);
   const ticketLegCount = displayLegCount;
   const ticketStakePct = ratchetTiers
-    ? getRatchetStakePct(bankroll, ticketLegCount, ratchetTiers)
+    ? bestTicket?.kind === "multi_single" || officialTicket?.kind === "multi_single"
+      ? 0.5
+      : getRatchetStakePct(bankroll, ticketLegCount, ratchetTiers)
     : getOptimizedStakePctForTicket(bestTicket, stakeByLeg);
+  const perSingleStakePct = displayLegCount > 1 ? ticketStakePct / displayLegCount : ticketStakePct;
   const boardIsToday = boardMeta.generated_at === centralToday;
   const STALE_AGE_MIN = 180; // 3h without a refresh during the day = something is off
   const freshness: "fresh" | "aging" | "stale" = !boardIsToday
@@ -328,6 +337,8 @@ export default async function BestBetsPage() {
                   ? "No bet today"
                   : officialTicket.kind === "single"
                     ? "Single Moneyline"
+                    : officialTicket.kind === "multi_single"
+                      ? "3 Moneyline Singles"
                     : officialTicket.leg_count === 3
                       ? "Premium 3-Leg Parlay"
                       : "2-Leg Parlay"}
@@ -353,7 +364,11 @@ export default async function BestBetsPage() {
               <p className="muted">
                 <strong>{officialTicket.label}</strong> · stake{" "}
                 <strong>{formatBankroll(bankroll * ticketStakePct)}</strong> ({formatPercent(ticketStakePct)} of{" "}
-                {formatBankroll(bankroll)})
+                {formatBankroll(bankroll)}
+                {officialTicket.kind === "multi_single"
+                  ? `, split ${formatBankroll(bankroll * perSingleStakePct)} each`
+                  : ""}
+                )
               </p>
               {officialTicket.leg_details && officialTicket.leg_details.length > 0 ? (
                 <table className="table">
@@ -403,6 +418,8 @@ export default async function BestBetsPage() {
               <h2>
                 {bestTicket.kind === "single"
                   ? "Single Moneyline"
+                  : bestTicket.kind === "multi_single"
+                    ? "3 Moneyline Singles"
                   : bestTicket.kind === "parlay" && bestTicket.parlay.legCount === 3
                     ? "Premium 3-Leg Parlay"
                     : "2-Leg Parlay"}
@@ -424,10 +441,14 @@ export default async function BestBetsPage() {
                   {formatPercent(stakeSingle)} single / {formatPercent(stakeParlay2)} two-leg /{" "}
                   {formatPercent(stakeParlay3)} three-leg
                 </strong>{" "}
-                of wallet ({formatBankroll(bankroll * ticketStakePct)} on this ticket).
+                of wallet ({formatBankroll(bankroll * ticketStakePct)} total
+                {bestTicket.kind === "multi_single"
+                  ? `, ${formatBankroll(bankroll * perSingleStakePct)} each`
+                  : " on this ticket"}
+                ).
               </>
             )}{" "}
-            Model predicted winner only — one bet per day.
+            Model predicted winners only.
           </p>
           {bestTicket.kind === "single" ? (
             <div className="grid two">
@@ -447,6 +468,33 @@ export default async function BestBetsPage() {
                   Model {formatPercent(bestTicket.bet.modelProbability)} · Edge {formatPercent(bestTicket.bet.edge)}
                 </p>
               </article>
+            </div>
+          ) : bestTicket.kind === "multi_single" ? (
+            <div className="stack">
+              <table className="table">
+                <thead>
+                  <tr>
+                    <th>Pick</th>
+                    <th>Odds</th>
+                    <th>Model</th>
+                    <th>Edge</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {bestTicket.bets.map((bet) => (
+                    <tr key={bet.id}>
+                      <td>
+                        <strong>{bet.team.abbreviation} ML</strong>
+                        <p className="muted">{bet.matchup}</p>
+                      </td>
+                      <td>{formatOdds(bet.odds)}</td>
+                      <td>{formatPercent(bet.modelProbability)}</td>
+                      <td className={bet.edge > 0 ? "positive" : "warning"}>{formatPercent(bet.edge)}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+              <p className="muted">Three separate singles, not a parlay. Stake each one separately.</p>
             </div>
           ) : (
             <div className="stack">

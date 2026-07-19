@@ -130,8 +130,8 @@ def main() -> None:
         notes = list(prediction.notes)
         notes.append(
             "Unified model output: GBM + Elo/form/stats (incl. starter & series features). "
-            "Pick % is the model's true calibrated win probability (no display inflation); "
-            "High/Elite require model edge plus a starter/form gate, not market agreement."
+            "Pick % is market-residual when live odds exist (P = market + α×(model−market)); "
+            "raw GBM is used only when odds are missing."
         )
 
         predicted_team = home_abbr if predicted_home else away_abbr
@@ -221,17 +221,29 @@ def main() -> None:
 
     from prediction_integrity import run_all
 
-    board_errors = run_all(recompute=True, ticket=True, accuracy=True)
+    # Off days (All-Star break, etc.) publish an empty board + skip ticket/recompute checks.
+    board_errors = run_all(recompute=True, ticket=bool(board), accuracy=True)
     if board_errors:
         raise RuntimeError("Prediction integrity failed after board generation:\n" + "\n".join(board_errors))
 
-    from generate_prop_leans import main as generate_prop_leans_main
+    if board:
+        from generate_prop_leans import main as generate_prop_leans_main
+        from prop_bet import build_all_starters, save_cards
 
-    generate_prop_leans_main()
+        generate_prop_leans_main()
+        cards = build_all_starters(today)
+        save_cards(cards, today)
+        from generate_prizepicks_slip import main as generate_prizepicks_slip_main
+        generate_prizepicks_slip_main()
+        print(f"prop_bet_cards_ok count={len(cards)}")
+    else:
+        print("prop_leans_skip off_day_empty_board")
 
     print(f"generated_predictions={len(board)}")
     print(f"trained_through={bundle.trained_through.isoformat()}")
     print(f"retrained_this_run={retrained}")
+    if not board:
+        print("off_day=True — no MLB regular-season games; board empty, pipeline continues")
 
 
 if __name__ == "__main__":

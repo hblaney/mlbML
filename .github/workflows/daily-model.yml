@@ -1,10 +1,15 @@
 name: Daily Model Retrain
 
-# DISABLED 2026-06-24 at user request: this workflow retrained the model and
-# auto-committed/pushed a new board to main 4x/day, and ran heavy research scripts.
-# Manual-only now — re-add the schedule block to re-enable automatic retrains.
+# RE-ENABLED 2026-07-19 at user request: daily retrain + full board publish so the
+# site updates itself every morning. The run_control step below picks the behavior
+# per schedule (7 AM CT early net, 11 AM CT primary full pipeline, 11:30/12:00 backups).
 on:
   workflow_dispatch:
+  schedule:
+    - cron: "0 12 * * *"   # 7:00 AM CT — early net: refresh yesterday's results if stale
+    - cron: "0 16 * * *"   # 11:00 AM CT — primary: always retrain + publish full board + lock
+    - cron: "30 16 * * *"  # 11:30 AM CT — backup if primary did not complete
+    - cron: "0 17 * * *"   # 12:00 PM CT — backup if primary did not complete
 
 permissions:
   contents: write
