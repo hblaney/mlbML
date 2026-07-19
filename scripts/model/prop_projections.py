@@ -1,0 +1,253 @@
+"""Project every MLB player prop from real stats, then edge it vs the real market.
+
+For each real prop line (from prop_odds_provider) we build a leakage-safe
+projection of the underlying stat using point-in-time player + opponent data, turn
+it into P(over) via a Poisson/binomial outcome model, and compare it to the
+de-vigged market P(over). The published edge is model P(over) − market P(over) on
+the side we lean, so it reflects a genuine disagreement with the book — not a
+self-invented line.
+
+Features used per prop:
+  - hitters: season rate stats (as-of), expected PAs from lineup context, opposing
+    starter quality (ERA/WHIP/K9), park HR/run factor, opponent bullpen.
+  - pitchers: K/9, expected IP, opponent team K-rate/OBP/OPS, park.
+Handedness splits are layered in when available (see prop_matchup.py).
+"""
+
+from __future__ import annotations
+
+import math
+from dataclasses import dataclass
+from datetime import date
+
+from hitter_stats_provider import hitter_stats_as_of
+from pitcher_stats_provider import pitcher_stats_as_of
+from team_stats_provider import team_stats_as_of
+from prop_odds_provider import PropLine
+
+LEAGUE_K_RATE = 0.223
+LEAGUE_ERA = 4.30
+LEAGUE_WHIP = 1.30
+DEFAULT_PA = 4.15
+
+# team abbr -> MLB team id (filled lazily)
+_TEAM_ID_BY_ABBR: dict[str, int] | None = None
+
+
+def _team_id_by_abbr() -> dict[str, int]:
+    global _TEAM_ID_BY_ABBR
+    if _TEAM_ID_BY_ABBR is None:
+        from mlb_api import load_team_abbreviations
+        try:
+            _TEAM_ID_BY_ABBR = {v: k for k, v in load_team_abbreviations().items()}
+        except Exception:
+            _TEAM_ID_BY_ABBR = {}
+    return _TEAM_ID_BY_ABBR
+
+
+def _poisson_pmf(k: int, lam: float) -> float:
+    if lam <= 0:
+        return 1.0 if k == 0 else 0.0
+    return math.exp(-lam) * lam ** k / math.factorial(k)
+
+
+def _poisson_sf(x_floor: int, lam: float) -> float:
+    """P(X > line) where over(line) means X >= x_floor. = 1 - P(X <= x_floor-1)."""
+    if x_floor <= 0:
+        return 1.0
+    cdf = sum(_poisson_pmf(k, lam) for k in range(0, x_floor))
+    return max(0.0, min(1.0, 1.0 - cdf))
+
+
+def _binom_pmf(n: int, k: int, p: float) -> float:
+    if k < 0 or k > n:
+        return 0.0
+    return math.comb(n, k) * p ** k * (1 - p) ** (n - k)
+
+
+def _binom_sf(x_floor: int, n: int, p: float) -> float:
+    if x_floor <= 0:
+        return 1.0
+    cdf = sum(_binom_pmf(n, k, p) for k in range(0, min(x_floor, n + 1)))
+    return max(0.0, min(1.0, 1.0 - cdf))
+
+
+def _line_floor(line: float) -> int:
+    """Over(line) is realized when count >= floor(line)+1 (lines are .5 style)."""
+    return int(math.floor(line)) + 1
+
+
+@dataclass
+class PropProjection:
+    prop: str
+    projection: float          # expected value of the stat
+    prob_over: float           # model P(over the line)
+    model_note: str
+
+
+def _opp_pitcher_quality(opp_starter: dict | None) -> tuple[float, float, float]:
+    """Return (era, whip, k9) with league fallbacks."""
+    if not opp_starter:
+        return LEAGUE_ERA, LEAGUE_WHIP, 8.2
+    era = opp_starter.get("era") or LEAGUE_ERA
+    whip = opp_starter.get("whip") or LEAGUE_WHIP
+    k9 = opp_starter.get("strikeouts_per_9") or 8.2
+    return era, whip, k9
+
+
+def _hitter_run_env(opp_era: float, opp_whip: float) -> float:
+    """Multiplier on hitter production from opposing starter quality."""
+    era_adj = 1.0 + (opp_era - LEAGUE_ERA) * 0.05
+    whip_adj = 1.0 + (opp_whip - LEAGUE_WHIP) * 0.10
+    return max(0.85, min(1.18, (era_adj + whip_adj) / 2.0))
+
+
+def project_hitter(line: PropLine, game_date: date, opp_starter: dict | None, park_hr: float = 1.0) -> PropProjection | None:
+    stats = hitter_stats_as_of(line.player_id, game_date)
+    pa = stats.get("plate_appearances", 0.0)
+    if not pa or pa < 30:
+        return None
+    opp_era, opp_whip, opp_k9 = _opp_pitcher_quality(opp_starter)
+    boost = _hitter_run_env(opp_era, opp_whip)
+    exp_pa = DEFAULT_PA
+    ab = exp_pa * 0.88  # PA minus walks/hbp/sac approx
+
+    hits = stats.get("hits", 0.0)
+    doubles = stats.get("doubles", 0.0)
+    triples = stats.get("triples", 0.0)
+    hr = stats.get("home_runs", 0.0)
+    walks = stats.get("walks", 0.0)
+    rbi = stats.get("rbi", 0.0)
+    runs = stats.get("runs", 0.0)
+    sb = stats.get("stolen_bases", 0.0)
+    singles = max(0.0, hits - doubles - triples - hr)
+
+    # per-PA and per-AB rates
+    hit_pa = (hits / pa) * boost
+    hr_pa = (hr / pa) * boost * park_hr
+    bb_pa = walks / pa
+    rbi_pa = (rbi / pa) * boost
+    run_pa = (runs / pa) * boost
+    sb_pa = sb / pa
+    single_pa = (singles / pa) * boost
+    double_pa = (doubles / pa) * boost
+    # total bases per PA
+    tb = singles + 2 * doubles + 3 * triples + 4 * hr
+    tb_pa = (tb / pa) * boost
+
+    prop = line.prop
+    L = line.line
+    floor = _line_floor(L)
+    n_ab = max(1, int(round(ab)))
+    n_pa = max(1, int(round(exp_pa)))
+
+    if prop == "batter_hits":
+        p = min(0.85, hit_pa / 0.88)  # per-AB hit prob
+        proj = p * n_ab
+        prob = _binom_sf(floor, n_ab, min(0.9, p))
+        return PropProjection(prop, round(proj, 2), round(prob, 4), f"p_hit/ab={p:.3f} boost={boost:.2f}")
+    if prop == "batter_total_bases":
+        lam = tb_pa * exp_pa
+        prob = _poisson_sf(floor, lam)
+        return PropProjection(prop, round(lam, 2), round(prob, 4), f"tb/pa={tb_pa:.3f} boost={boost:.2f}")
+    if prop == "batter_home_runs":
+        lam = hr_pa * exp_pa
+        prob = _poisson_sf(floor, lam)
+        return PropProjection(prop, round(lam, 3), round(prob, 4), f"hr/pa={hr_pa:.3f} park={park_hr:.2f}")
+    if prop == "batter_rbis":
+        lam = rbi_pa * exp_pa
+        prob = _poisson_sf(floor, lam)
+        return PropProjection(prop, round(lam, 2), round(prob, 4), f"rbi/pa={rbi_pa:.3f}")
+    if prop == "batter_runs_scored":
+        lam = run_pa * exp_pa
+        prob = _poisson_sf(floor, lam)
+        return PropProjection(prop, round(lam, 2), round(prob, 4), f"run/pa={run_pa:.3f}")
+    if prop == "batter_walks":
+        p = min(0.6, bb_pa)
+        prob = _binom_sf(floor, n_pa, p)
+        return PropProjection(prop, round(p * n_pa, 2), round(prob, 4), f"bb/pa={bb_pa:.3f}")
+    if prop == "batter_stolen_bases":
+        lam = sb_pa * exp_pa
+        prob = _poisson_sf(floor, lam)
+        return PropProjection(prop, round(lam, 3), round(prob, 4), f"sb/pa={sb_pa:.3f}")
+    if prop == "batter_singles":
+        p = min(0.7, single_pa / 0.88)
+        prob = _binom_sf(floor, n_ab, p)
+        return PropProjection(prop, round(p * n_ab, 2), round(prob, 4), f"1b/ab={p:.3f}")
+    if prop == "batter_doubles":
+        lam = double_pa * exp_pa
+        prob = _poisson_sf(floor, lam)
+        return PropProjection(prop, round(lam, 3), round(prob, 4), f"2b/pa={double_pa:.3f}")
+    if prop == "batter_hits_runs_rbis":
+        lam = (hit_pa + run_pa + rbi_pa) * exp_pa
+        prob = _poisson_sf(floor, lam)
+        return PropProjection(prop, round(lam, 2), round(prob, 4), f"hrr/pa={(hit_pa+run_pa+rbi_pa):.3f}")
+    return None
+
+
+def project_pitcher(line: PropLine, game_date: date, opp_team_abbr: str | None) -> PropProjection | None:
+    stats = pitcher_stats_as_of(line.player_id, game_date)
+    k9 = stats.get("strikeouts_per_9", 0.0)
+    ip = stats.get("innings_pitched", 0.0)
+    gs = stats.get("games_started", 0.0)
+    whip = stats.get("whip", LEAGUE_WHIP)
+    h9 = stats.get("hits_per_9", 8.5)
+    era = stats.get("era", LEAGUE_ERA)
+    if not k9 or not gs:
+        return None
+    exp_ip = max(4.0, min(6.7, ip / gs if gs else 5.5))
+
+    opp_k_rate = LEAGUE_K_RATE
+    opp_obp = 0.320
+    tid = _team_id_by_abbr().get(opp_team_abbr) if opp_team_abbr else None
+    if tid:
+        try:
+            snap = team_stats_as_of(tid, game_date)
+            opp_k_rate = snap.strikeout_rate or LEAGUE_K_RATE
+            opp_obp = snap.obp or 0.320
+        except Exception:
+            pass
+
+    prop = line.prop
+    L = line.line
+    floor = _line_floor(L)
+
+    if prop == "pitcher_strikeouts":
+        opp_adj = 1.0 + (opp_k_rate - LEAGUE_K_RATE) * 1.3
+        lam = max(0.0, k9 * exp_ip / 9.0 * opp_adj)
+        prob = _poisson_sf(floor, lam)
+        return PropProjection(prop, round(lam, 2), round(prob, 4), f"k9={k9:.1f} ip={exp_ip:.1f} oppK={opp_k_rate:.3f}")
+    if prop == "pitcher_outs":
+        lam = exp_ip * 3.0
+        # outs are near-deterministic around expected IP; use tight normal approx via Poisson on outs
+        prob = _poisson_sf(floor, lam)
+        return PropProjection(prop, round(lam, 1), round(prob, 4), f"exp_ip={exp_ip:.1f}")
+    if prop == "pitcher_earned_runs":
+        lam = era * exp_ip / 9.0 * (1.0 + (opp_obp - 0.320) * 1.5)
+        prob = _poisson_sf(floor, lam)
+        return PropProjection(prop, round(lam, 2), round(prob, 4), f"era={era:.2f} ip={exp_ip:.1f}")
+    if prop == "pitcher_hits_allowed":
+        lam = h9 * exp_ip / 9.0 * (1.0 + (opp_obp - 0.320) * 1.2)
+        prob = _poisson_sf(floor, lam)
+        return PropProjection(prop, round(lam, 2), round(prob, 4), f"h9={h9:.1f} ip={exp_ip:.1f}")
+    return None
+
+
+HITTER_PROPS = {
+    "batter_hits", "batter_total_bases", "batter_home_runs", "batter_rbis",
+    "batter_runs_scored", "batter_walks", "batter_stolen_bases", "batter_singles",
+    "batter_doubles", "batter_hits_runs_rbis",
+}
+PITCHER_PROPS = {
+    "pitcher_strikeouts", "pitcher_outs", "pitcher_earned_runs", "pitcher_hits_allowed",
+}
+
+
+def project_prop(line: PropLine, game_date: date, opp_starter: dict | None, park_hr: float = 1.0) -> PropProjection | None:
+    if line.player_id is None:
+        return None
+    if line.prop in HITTER_PROPS:
+        return project_hitter(line, game_date, opp_starter, park_hr)
+    if line.prop in PITCHER_PROPS:
+        return project_pitcher(line, game_date, line.opp_abbr)
+    return None

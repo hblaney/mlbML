@@ -1,0 +1,127 @@
+{
+  "generated_at": "2026-07-13",
+  "model_version": "daily-auto-v5.0-market-residual",
+  "period": {
+    "start": "2026-03-20",
+    "end": "2026-07-12"
+  },
+  "raw_model": {
+    "season_acc": 0.5827,
+    "last250_acc": 0.484,
+    "last100_acc": 0.44,
+    "season_n": 1445,
+    "last100_n": 100,
+    "last100_medplus_acc": 0.5294,
+    "last100_medplus_n": 51,
+    "mb_last100_acc": 0.44
+  },
+  "v3_publish": {
+    "season_acc": 0.5765,
+    "last250_acc": 0.52,
+    "last100_acc": 0.51,
+    "season_n": 1445,
+    "last100_n": 100,
+    "last100_medplus_acc": 0.5938,
+    "last100_medplus_n": 32,
+    "mb_last100_acc": 0.51
+  },
+  "last100_lift": 0.07,
+  "ship_gate_pass": true,
+  "counterfactual_lock_days": [
+    {
+      "date": "2026-06-23",
+      "prob_top3": {
+        "legs": [
+          "BAL",
+          "CHC",
+          "TB"
+        ],
+        "record": "1-2"
+      },
+      "ev_top3": {
+        "legs": [
+          "WSH",
+          "COL",
+          "HOU"
+        ],
+        "record": "1-2"
+      }
+    },
+    {
+      "date": "2026-06-24",
+      "prob_top3": {
+        "legs": [
+          "WSH",
+          "BOS",
+          "LAA"
+        ],
+        "record": "1-2"
+      },
+      "ev_top3": {
+        "legs": [
+          "WSH",
+          "LAA",
+          "ATH"
+        ],
+        "record": "1-2"
+      }
+    },
+    {
+      "date": "2026-06-26",
+      "prob_top3": {
+        "legs": [
+          "MIL",
+          "PHI",
+          "MIN"
+        ],
+        "record": "3-0"
+      },
+      "ev_top3": {
+        "legs": [
+          "SD",
+          "NYY",
+          "AZ"
+        ],
+        "record": "1-2"
+      }
+    },
+    {
+      "date": "2026-06-29",
+      "prob_top3": {
+        "legs": [
+          "SEA",
+          "AZ",
+          "BOS"
+        ],
+        "record": "3-0"
+      },
+      "ev_top3": {
+        "legs": [
+          "COL",
+          "DET",
+          "AZ"
+        ],
+        "record": "2-1"
+      }
+    },
+    {
+      "date": "2026-07-06",
+      "prob_top3": {
+        "legs": [
+          "LAD",
+          "PHI",
+          "SD"
+        ],
+        "record": "1-2"
+      },
+      "ev_top3": {
+        "legs": [
+          "TB",
+          "WSH",
+          "TOR"
+        ],
+        "record": "1-2"
+      }
+    }
+  ]
+}

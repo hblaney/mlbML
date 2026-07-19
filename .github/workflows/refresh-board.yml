@@ -115,7 +115,7 @@ jobs:
           set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add public/predictions.json public/live-bankroll.json public/prediction-history.json public/accuracy.json public/model-health.json public/locked-ticket.json data/locked-tickets/*.json data/live-bankroll-state.json data/model/daily_edge.pkl
+          git add public/predictions.json public/live-bankroll.json public/prediction-history.json public/accuracy.json public/model-health.json public/locked-ticket.json public/prop-predictions.json public/prop-track-record.json data/locked-tickets/*.json data/prop-predictions/*.json data/live-bankroll-state.json data/model/daily_edge.pkl
           if git diff --staged --quiet; then
             echo "Board unchanged since last refresh (lines/probabilities identical)."
             exit 0

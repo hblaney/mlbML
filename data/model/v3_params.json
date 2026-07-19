@@ -1,0 +1,10 @@
+{
+  "alpha": 0.3923,
+  "tuned_on": "1445_market_games_honest",
+  "holdout_brier": 0.24441,
+  "holdout_n": 1445,
+  "architecture": "market_residual_v3_honest",
+  "disagree_alpha": 0.06,
+  "max_edge_agree": 0.05,
+  "pick_prob_cap": 0.66
+}

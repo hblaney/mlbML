@@ -149,6 +149,7 @@ jobs:
           git add \
             public/*.json \
             data/locked-tickets/*.json \
+            data/prop-predictions/*.json \
             data/live-bankroll-state.json \
             data/historical_odds.jsonl \
             data/model/*.pkl \

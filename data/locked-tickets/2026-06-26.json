@@ -1,0 +1,50 @@
+{
+  "date": "2026-06-26",
+  "locked_at": "2026-06-26T19:03:49Z",
+  "board_generated_at": "2026-06-26T19:00:16Z",
+  "model_version": "daily-auto-v4.3-matchup-signal",
+  "pipeline_version": "unified-public-v17-form02-parlay8",
+  "source": "lock_daily_ticket.py",
+  "note": "Official daily ticket \u2014 frozen at first publish. Later board refreshes do not change this.",
+  "ticket": {
+    "kind": "multi_single",
+    "label": "SD ML + ARI ML + CLE ML",
+    "legs": [
+      "SD",
+      "ARI",
+      "CLE"
+    ],
+    "leg_count": 3,
+    "odds": null,
+    "model_probability": null,
+    "leg_details": [
+      {
+        "team": "SD",
+        "matchup": "LAD @ SD",
+        "confidence": "Medium",
+        "pickProbability": 0.6155,
+        "edge": 0.2352718631178708,
+        "odds": 163,
+        "startsAt": "2026-06-27T01:45:00Z"
+      },
+      {
+        "team": "ARI",
+        "matchup": "ARI @ TB",
+        "confidence": "Medium",
+        "pickProbability": 0.594,
+        "edge": 0.18749593495934957,
+        "odds": 146,
+        "startsAt": "2026-06-26T23:10:00Z"
+      },
+      {
+        "team": "CLE",
+        "matchup": "SEA @ CLE",
+        "confidence": "Medium",
+        "pickProbability": 0.6289,
+        "edge": 0.18837136563876655,
+        "odds": 127,
+        "startsAt": "2026-06-26T23:10:00Z"
+      }
+    ]
+  }
+}

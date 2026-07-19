@@ -1,0 +1,15 @@
+{
+  "date": "2026-07-13",
+  "locked_at": "2026-07-13T14:42:44Z",
+  "board_generated_at": "2026-07-13T14:38:49Z",
+  "model_version": "daily-auto-v5.1-honest-parlay",
+  "pipeline_version": "unified-public-v19-honest-market-agree-parlay",
+  "source": "lock_daily_ticket.py",
+  "note": "Official daily ticket \u2014 frozen at first publish. Later board refreshes do not change this.",
+  "ticket": {
+    "kind": "skip",
+    "label": "No bet today",
+    "legs": [],
+    "leg_count": 0
+  }
+}

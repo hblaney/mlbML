@@ -1,0 +1,50 @@
+{
+  "date": "2026-07-06",
+  "locked_at": "2026-07-06T14:32:40Z",
+  "board_generated_at": "2026-07-06T14:28:35Z",
+  "model_version": "daily-auto-v4.3-matchup-signal",
+  "pipeline_version": "unified-public-v17-form02-parlay8",
+  "source": "lock_daily_ticket.py",
+  "note": "Official daily ticket \u2014 frozen at first publish. Later board refreshes do not change this.",
+  "ticket": {
+    "kind": "multi_single",
+    "label": "SD ML + TOR ML + WSH ML",
+    "legs": [
+      "SD",
+      "TOR",
+      "WSH"
+    ],
+    "leg_count": 3,
+    "odds": null,
+    "model_probability": null,
+    "leg_details": [
+      {
+        "team": "SD",
+        "matchup": "ARI @ SD",
+        "confidence": "Medium",
+        "pickProbability": 0.5833,
+        "edge": 0.03375045045045044,
+        "odds": -122,
+        "startsAt": "2026-07-07T01:40:00Z"
+      },
+      {
+        "team": "TOR",
+        "matchup": "TOR @ SF",
+        "confidence": "Low",
+        "pickProbability": 0.557,
+        "edge": 0.030933649289099585,
+        "odds": -111,
+        "startsAt": "2026-07-07T01:45:00Z"
+      },
+      {
+        "team": "WSH",
+        "matchup": "HOU @ WSH",
+        "confidence": "Low",
+        "pickProbability": 0.5716,
+        "edge": 0.030315596330275252,
+        "odds": -118,
+        "startsAt": "2026-07-06T22:45:00Z"
+      }
+    ]
+  }
+}

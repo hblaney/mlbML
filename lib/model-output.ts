@@ -779,6 +779,83 @@ export async function loadLockedTicket(): Promise<LockedTicketOutput | null> {
   }
 }
 
+export type PropPrediction = {
+  game_id: string | null;
+  matchup: string;
+  commence_time: string;
+  player: string;
+  player_id: number;
+  team: string | null;
+  opp: string | null;
+  prop: string;
+  prop_label: string;
+  line: number;
+  side: "Over" | "Under";
+  pick: string;
+  projection: number;
+  model_prob: number;
+  market_prob: number;
+  edge: number;
+  price: number;
+  ev: number;
+  confidence: "Elite" | "High" | "Medium" | "Low";
+  book_count: number;
+  note: string;
+};
+
+export type PropParlay = {
+  type?: string;
+  n_legs: number;
+  combined_prob?: number;
+  legs: PropPrediction[];
+};
+
+export type PropPredictionsOutput = {
+  generated_at: string;
+  board_generated_at?: string;
+  source?: string;
+  count: number;
+  min_edge?: number;
+  parlay: PropParlay;
+  predictions: PropPrediction[];
+};
+
+export async function loadPropPredictions(): Promise<PropPredictionsOutput | null> {
+  try {
+    const filePath = path.join(process.cwd(), "public", "prop-predictions.json");
+    const raw = await readFile(filePath, "utf8");
+    return JSON.parse(raw) as PropPredictionsOutput;
+  } catch {
+    return null;
+  }
+}
+
+export type PropTrackRecord = {
+  generated_at?: string;
+  overall?: {
+    graded: number;
+    wins: number;
+    losses: number;
+    pushes: number;
+    hit_rate: number;
+    roi: number;
+  };
+  by_confidence?: Record<string, { graded: number; wins: number; hit_rate: number }>;
+  by_prop?: Record<string, { graded: number; wins: number; hit_rate: number }>;
+  parlay?: { graded: number; wins: number; hit_rate: number; roi: number };
+  recent?: Array<Record<string, unknown>>;
+};
+
+export async function loadPropTrackRecord(): Promise<PropTrackRecord | null> {
+  try {
+    const filePath = path.join(process.cwd(), "public", "prop-track-record.json");
+    const raw = await readFile(filePath, "utf8");
+    return JSON.parse(raw) as PropTrackRecord;
+  } catch {
+    return null;
+  }
+}
+
 export type BestTicketWalkforwardLeg = {
   team: string;
   matchup: string;

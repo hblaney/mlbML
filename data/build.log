@@ -1,0 +1,49 @@
+
+> mlb-edge@0.1.0 build
+> next build
+
+▲ Next.js 16.2.7 (Turbopack)
+- Environments: .env
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 1184ms
+  Running TypeScript ...
+  Finished TypeScript in 1701ms ...
+  Collecting page data using 9 workers ...
+⚠ Using edge runtime on a page currently disables static generation for that page
+  Generating static pages using 9 workers (0/38) ...
+  Generating static pages using 9 workers (9/38) 
+  Generating static pages using 9 workers (18/38) 
+  Generating static pages using 9 workers (28/38) 
+✓ Generating static pages using 9 workers (38/38) in 2.1s
+  Finalizing page optimization ...
+
+Route (app)
+┌ ƒ /
+├ ○ /_not-found
+├ ○ /accuracy
+├ ƒ /api/bet-watcher/live
+├ ƒ /api/bet-watcher/stream
+├ ƒ /api/player-search
+├ ƒ /api/stream/embed/[slug]
+├ ƒ /api/stream/hls
+├ ƒ /api/stream/manifest/[slug]
+├ ƒ /api/stream/upstream/[...path]
+├ ƒ /best-bets
+├ ƒ /bet-watcher
+├ ○ /dashboard
+├ ƒ /favorites
+├ ƒ /history
+├ ○ /login
+├ ƒ /paper-trading
+├ ƒ /props
+├ ○ /reset-password
+├ ƒ /stats
+├ ƒ /watch
+├ ƒ /watch/[teamId]
+└ ○ /watch/network
+
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+

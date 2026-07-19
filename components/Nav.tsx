@@ -6,6 +6,7 @@ import { useFavorites } from "@/components/FavoritesProvider";
 const links = [
   { href: "/", label: "Home" },
   { href: "/best-bets", label: "Best Bets" },
+  { href: "/props", label: "Props" },
   { href: "/stats", label: "Stats" },
   { href: "/history", label: "Accuracy" },
   { href: "/paper-trading", label: "Paper Bets" },

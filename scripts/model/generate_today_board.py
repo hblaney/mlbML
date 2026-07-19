@@ -236,6 +236,14 @@ def main() -> None:
         from generate_prizepicks_slip import main as generate_prizepicks_slip_main
         generate_prizepicks_slip_main()
         print(f"prop_bet_cards_ok count={len(cards)}")
+
+        # Real-market prop predictor: de-vigged sportsbook lines vs projections.
+        # Non-fatal — a props API hiccup must never block the game board.
+        try:
+            from generate_prop_predictions import main as generate_prop_predictions_main
+            generate_prop_predictions_main()
+        except Exception as error:  # noqa: BLE001
+            print(f"prop_predictions_skip error={error}")
     else:
         print("prop_leans_skip off_day_empty_board")
 

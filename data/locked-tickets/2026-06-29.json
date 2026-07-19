@@ -1,0 +1,50 @@
+{
+  "date": "2026-06-29",
+  "locked_at": "2026-06-29T16:37:38Z",
+  "board_generated_at": "2026-06-29T16:34:08Z",
+  "model_version": "daily-auto-v4.3-matchup-signal",
+  "pipeline_version": "unified-public-v17-form02-parlay8",
+  "source": "lock_daily_ticket.py",
+  "note": "Official daily ticket \u2014 frozen at first publish. Later board refreshes do not change this.",
+  "ticket": {
+    "kind": "multi_single",
+    "label": "DET ML + ARI ML + ATH ML",
+    "legs": [
+      "DET",
+      "ARI",
+      "ATH"
+    ],
+    "leg_count": 3,
+    "odds": null,
+    "model_probability": null,
+    "leg_details": [
+      {
+        "team": "DET",
+        "matchup": "DET @ NYY",
+        "confidence": "Low",
+        "pickProbability": 0.5755,
+        "edge": 0.10380188679245284,
+        "odds": 112,
+        "startsAt": "2026-06-29T23:05:00Z"
+      },
+      {
+        "team": "ARI",
+        "matchup": "SF @ ARI",
+        "confidence": "Medium",
+        "pickProbability": 0.6727,
+        "edge": 0.09464092827004211,
+        "odds": -137,
+        "startsAt": "2026-06-30T01:40:00Z"
+      },
+      {
+        "team": "ATH",
+        "matchup": "LAD @ ATH",
+        "confidence": "Low",
+        "pickProbability": 0.5451,
+        "edge": 0.03529607843137261,
+        "odds": -104,
+        "startsAt": "2026-06-30T01:40:00Z"
+      }
+    ]
+  }
+}
