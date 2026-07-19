@@ -26,3 +26,6 @@ data/model/feature_matrix.npz
 
 # TypeScript incremental build cache
 tsconfig.tsbuildinfo
+
+# transient pipeline logs
+data/*.log
