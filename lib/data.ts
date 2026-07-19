@@ -765,6 +765,17 @@ export const MARKET_AGREE_MIN_PROB = 0.55;
 export const MARKET_AGREE_MIN_COMBINED_2 = 0.30;
 export const MARKET_AGREE_MIN_COMBINED_3 = 0.18;
 
+/**
+ * Favorite-first parlay guards (Jul 2026): the model was fighting the market and
+ * stacking longshot legs (+400 to +665 parlays) that lost. Only take sides the
+ * market prices as favorites/pick'ems, prefer the ones the book most believes in,
+ * and cap the combined price so the ticket is a cashable favorite parlay — not a
+ * lottery ticket.
+ */
+export const MARKET_AGREE_FAVORITE_ODDS_CAP = 105; // reject legs longer than +105 (no dogs)
+export const MARKET_AGREE_MIN_LEG_BOOK_PROB = 0.55; // leg should be a real market favorite
+export const MARKET_AGREE_MAX_PARLAY_DECIMAL = 4.0; // ~+300 combined; drop to 2 legs if longer
+
 /** Fallback single bar when no parlay qualifies. */
 export const PARLAY_FIRST_ELITE_SINGLE_MIN = 0.67;
 /** Parlay legs must beat market by at least 8% edge (2026 walk-forward: 87.5% parlay hit). */
@@ -2039,13 +2050,14 @@ function evScoreForBet(bet: BestBet) {
 }
 
 /**
- * market_agree_parlay — bet-ready direction (Jul 2026, revised):
- *   - Publishes a parlay EVERY slate (no skip days) built from the strongest legs.
- *   - Legs are chosen by quality tier so the best bets come first: ideal
- *     market-agree small-edge favorites → market-agree favorites → any confident
- *     favorite → any non-Low pick → anything (last resort so it never skips).
- *   - Prefers a 3-leg parlay; falls back to 2 legs; only a single when the slate
- *     has one game.
+ * market_agree_parlay — favorite-first, bet-ready direction (Jul 2026, revised):
+ *   - Publishes a parlay EVERY slate (no skip days).
+ *   - Only takes sides the MARKET prices as favorites/pick'ems (never longshot
+ *     dogs) so legs are actually likely to win. Legs are ranked by how strongly
+ *     the book favors them (plus model agreement), so the parlay is built from the
+ *     most probable winners, not anti-market lottery legs.
+ *   - Caps the combined price: prefers a 3-leg favorite parlay but drops to 2 legs
+ *     if 3 legs would push the ticket past ~+260, so it stays cashable.
  */
 export function getMarketAgreeParlayTicket(board: GamePrediction[] = predictions): DailyTicket | null {
   if (!boardHasMarketOdds(board)) {
@@ -2062,25 +2074,22 @@ export function getMarketAgreeParlayTicket(board: GamePrediction[] = predictions
     return null;
   }
 
-  // Quality tiers, best (0) first. Each leg is scored by the highest-quality tier
-  // it satisfies so the daily parlay always leans on the strongest picks, then
-  // relaxes only as far as needed to reach 2-3 legs.
+  // Legs must never be Low confidence (coin flips) — the integrity guard rejects
+  // Low legs on a parlay, and they're exactly the picks that don't hit. Quality
+  // tiers, best (0) first: prefer market favorites the model also agrees with,
+  // relaxing only as far as needed to field 2-3 non-Low legs. `bookProbability`
+  // is the book's implied win chance.
+  const isFavorite = (bet: BestBet) => bet.odds <= MARKET_AGREE_FAVORITE_ODDS_CAP;
+  const eligible = universe.filter((bet) => bet.game.confidence !== "Low");
   const tierPredicates: Array<(bet: BestBet) => boolean> = [
     (bet) =>
+      isFavorite(bet) &&
       bet.game.marketAgrees === true &&
-      bet.game.seriesFade !== true &&
-      bet.game.confidence !== "Low" &&
-      bet.modelProbability >= MARKET_AGREE_MIN_PROB &&
-      bet.edge >= MARKET_AGREE_MIN_EDGE &&
-      bet.edge <= MARKET_AGREE_MAX_EDGE &&
-      bet.ev > 0,
-    (bet) =>
-      bet.game.marketAgrees === true &&
-      bet.game.confidence !== "Low" &&
-      bet.modelProbability >= 0.53,
-    (bet) => bet.game.confidence !== "Low" && bet.modelProbability >= 0.52,
-    (bet) => bet.game.confidence !== "Low",
-    () => true,
+      bet.bookProbability >= MARKET_AGREE_MIN_LEG_BOOK_PROB,
+    (bet) => isFavorite(bet) && bet.bookProbability >= MARKET_AGREE_MIN_LEG_BOOK_PROB,
+    (bet) => isFavorite(bet) && bet.bookProbability >= 0.5,
+    (bet) => isFavorite(bet),
+    () => true, // non-Low but not a book favorite — last resort to still field legs
   ];
 
   const tierOf = (bet: BestBet) => {
@@ -2092,47 +2101,48 @@ export function getMarketAgreeParlayTicket(board: GamePrediction[] = predictions
     return tierPredicates.length;
   };
 
-  const ranked = universe
+  // Rank: best tier first, then heaviest market favorite (most likely to win),
+  // then the model's own confidence as a tiebreak.
+  const ranked = (eligible.length > 0 ? eligible : universe)
     .map((bet) => ({ bet, tier: tierOf(bet) }))
     .sort(
       (left, right) =>
         left.tier - right.tier ||
-        right.bet.modelProbability - left.bet.modelProbability ||
-        right.bet.edge - left.bet.edge
+        right.bet.bookProbability - left.bet.bookProbability ||
+        right.bet.modelProbability - left.bet.modelProbability
     )
     .map((entry) => entry.bet);
 
-  // Greedily take up to 3 legs from distinct games that respect correlation rules.
-  const chosen: BestBet[] = [];
-  for (const bet of ranked) {
-    if (chosen.length >= 3) {
-      break;
-    }
-    if (chosen.some((leg) => leg.game.id === bet.game.id)) {
-      continue;
-    }
-    if (!isParlayCorrelationAllowed([...chosen, bet])) {
-      continue;
-    }
-    chosen.push(bet);
-  }
-
-  // If correlation constraints starved us below two legs, fill from the next-best
-  // distinct-game picks so we still publish a parlay.
-  if (chosen.length < 2) {
+  const pickLegs = (max: number, requireCorrelation: boolean): BestBet[] => {
+    const legs: BestBet[] = [];
     for (const bet of ranked) {
-      if (chosen.length >= 2) {
+      if (legs.length >= max) {
         break;
       }
-      if (chosen.some((leg) => leg.game.id === bet.game.id)) {
+      if (legs.some((leg) => leg.game.id === bet.game.id)) {
         continue;
       }
-      chosen.push(bet);
+      if (requireCorrelation && !isParlayCorrelationAllowed([...legs, bet])) {
+        continue;
+      }
+      legs.push(bet);
     }
+    return legs;
+  };
+
+  let chosen = pickLegs(3, true);
+  if (chosen.length < 2) {
+    chosen = pickLegs(2, false);
   }
 
   if (chosen.length >= 2) {
-    const parlay = buildParlayCandidate(chosen);
+    let parlay = buildParlayCandidate(chosen);
+    // Keep the ticket cashable: if 3 legs make it a longshot, fall back to the
+    // two strongest favorites instead.
+    if (chosen.length === 3 && parlay.decimalOdds > MARKET_AGREE_MAX_PARLAY_DECIMAL) {
+      const twoLeg = buildParlayCandidate(chosen.slice(0, 2));
+      parlay = twoLeg;
+    }
     parlay.strategy = "market_agree_parlay";
     return { kind: "parlay", parlay, score: parlay.score, qualified: true };
   }

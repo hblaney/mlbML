@@ -12,15 +12,15 @@
   },
   "overall": {
     "bets": 1475,
-    "wins": 826,
-    "losses": 649,
-    "hit_rate": 0.5612
+    "wins": 829,
+    "losses": 646,
+    "hit_rate": 0.5633
   },
   "high_confidence": {
-    "bets": 40,
-    "wins": 27,
-    "losses": 13,
-    "hit_rate": 0.675
+    "bets": 11,
+    "wins": 9,
+    "losses": 2,
+    "hit_rate": 0.8182
   },
   "by_confidence": {
     "Elite": {
@@ -30,22 +30,22 @@
       "hit_rate": null
     },
     "High": {
-      "bets": 40,
-      "wins": 27,
-      "losses": 13,
-      "hit_rate": 0.675
+      "bets": 11,
+      "wins": 9,
+      "losses": 2,
+      "hit_rate": 0.8182
     },
     "Medium": {
-      "bets": 579,
-      "wins": 346,
-      "losses": 233,
-      "hit_rate": 0.5976
+      "bets": 577,
+      "wins": 338,
+      "losses": 239,
+      "hit_rate": 0.5858
     },
     "Low": {
-      "bets": 856,
-      "wins": 453,
-      "losses": 403,
-      "hit_rate": 0.5292
+      "bets": 887,
+      "wins": 482,
+      "losses": 405,
+      "hit_rate": 0.5434
     }
   },
   "last_7_days": {
