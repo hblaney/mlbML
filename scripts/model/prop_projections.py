@@ -36,10 +36,17 @@ from handedness_provider import (
 
 LEAGUE_K_RATE = 0.223
 LEAGUE_HITTER_K_PA = 0.225
+LEAGUE_HR_PA = 0.034  # ~1 HR / 30 PA — MLB average
+LEAGUE_TB_PA = 0.40
 LEAGUE_ERA = 4.30
 LEAGUE_WHIP = 1.30
 LEAGUE_K9 = 8.2
 DEFAULT_PA = 4.15
+# Small-sample power heaters (e.g. 12 HR in 70 PA) must shrink hard or they
+# project 1+ HR/game after park/quality multipliers stack.
+RATE_PRIOR_PA = 150.0
+MAX_HR_PA = 0.075  # ~Judge-peak ceiling before matchup multipliers
+MAX_TB_PA = 0.70
 
 # team abbr -> MLB team id (filled lazily)
 _TEAM_ID_BY_ABBR: dict[str, int] | None = None
@@ -129,6 +136,14 @@ def _hitter_contact_matchup(opp_k9: float, hitter_k_pa: float) -> float:
     return max(0.78, min(1.12, 0.55 * k9_tilt + 0.45 * swing_tilt))
 
 
+def _shrink_rate(rate: float, sample_pa: float, league: float, *, prior_pa: float = RATE_PRIOR_PA) -> float:
+    """Bayesian shrink of a per-PA rate toward league average by sample size."""
+    if sample_pa <= 0:
+        return league
+    w = sample_pa / (sample_pa + prior_pa)
+    return w * rate + (1.0 - w) * league
+
+
 def project_hitter(
     line: PropLine,
     game_date: date,
@@ -188,7 +203,8 @@ def project_hitter(
     # when several favorable factors compound.
     off_mult = max(0.70, min(1.35, boost * run_mult * q_hit * contact))
     # Home-run multiplier uses HR-specific park/weather and barrel quality.
-    hr_mult = max(0.55, min(1.85, boost * hr_env_mult * q_hr * (0.85 + 0.15 * contact)))
+    # Keep the stack tight — old 1.85 ceiling turned tiny heaters into 1+ HR/game.
+    hr_mult = max(0.55, min(1.40, boost * hr_env_mult * q_hr * (0.85 + 0.15 * contact)))
 
     exp_pa = exp_pa if exp_pa and exp_pa > 0 else DEFAULT_PA
     ab = exp_pa * 0.88  # PA minus walks/hbp/sac approx
@@ -206,16 +222,25 @@ def project_hitter(
     tb = singles + 2 * doubles + 3 * triples + 4 * hr
     tb_pa = tb / pa
 
+    # Shrink power rates toward league — 12 HR in ~70 PA must not become λ=1.2.
+    hr_pa = _shrink_rate(hr_pa, pa, LEAGUE_HR_PA)
+    tb_pa = _shrink_rate(tb_pa, pa, LEAGUE_TB_PA)
+
     recent = hitter_recent_rates(line.player_id, game_date, lookback_days=14)
     form_w = 0.0
     if recent:
         # Cap form at ~40% so short heaters don't dominate season rates.
         form_w = min(0.40, 0.15 + 0.30 * min(1.0, recent["plate_appearances"] / 45.0))
         hit_pa = (1.0 - form_w) * hit_pa + form_w * recent["hit_pa"]
-        tb_pa = (1.0 - form_w) * tb_pa + form_w * recent["tb_pa"]
-        hr_pa = (1.0 - form_w) * hr_pa + form_w * recent["hr_pa"]
+        recent_tb = _shrink_rate(recent["tb_pa"], recent["plate_appearances"], LEAGUE_TB_PA)
+        recent_hr = _shrink_rate(recent["hr_pa"], recent["plate_appearances"], LEAGUE_HR_PA)
+        tb_pa = (1.0 - form_w) * tb_pa + form_w * recent_tb
+        hr_pa = (1.0 - form_w) * hr_pa + form_w * recent_hr
         if "k_pa" in recent:
             hitter_k_pa = (1.0 - form_w) * hitter_k_pa + form_w * recent["k_pa"]
+
+    hr_pa = min(MAX_HR_PA, hr_pa)
+    tb_pa = min(MAX_TB_PA, tb_pa)
 
     hit_pa *= off_mult
     hr_pa *= hr_mult
@@ -224,6 +249,8 @@ def project_hitter(
     single_pa *= off_mult
     double_pa *= off_mult
     tb_pa *= off_mult
+    # Final HR rate ceiling after multipliers (~0.55 HR / game at 4.2 PA).
+    hr_pa = min(hr_pa, 0.55 / max(exp_pa, 1.0))
 
     prop = line.prop
     L = line.line
