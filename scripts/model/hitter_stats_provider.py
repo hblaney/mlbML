@@ -150,3 +150,105 @@ def hitter_stats_as_of(hitter_id: int | None, game_date: date) -> dict[str, floa
         result = _blend(current, prior)
     _MEM_CACHE[mem_key] = result
     return result
+
+
+_RECENT_CACHE: dict[tuple[int, str, int], dict[str, float]] = {}
+_LAST_N_TB_CACHE: dict[tuple[int, str, int], list[float]] = {}
+
+
+def hitter_recent_rates(
+    hitter_id: int | None,
+    game_date: date,
+    *,
+    lookback_days: int = 14,
+) -> dict[str, float]:
+    """Per-PA rates over the last ``lookback_days`` ending yesterday (no leakage)."""
+    if not hitter_id:
+        return {}
+    mem_key = (hitter_id, game_date.isoformat(), lookback_days)
+    if mem_key in _RECENT_CACHE:
+        return _RECENT_CACHE[mem_key]
+
+    end = game_date - timedelta(days=1)
+    start = end - timedelta(days=lookback_days - 1)
+    if end < _season_start(game_date.year):
+        _RECENT_CACHE[mem_key] = {}
+        return {}
+    start = max(start, _season_start(game_date.year))
+    parsed = _parse_line(_fetch_range(hitter_id, game_date.year, start, end))
+    pa = parsed.get("plate_appearances", 0.0)
+    if pa < 8:
+        _RECENT_CACHE[mem_key] = {}
+        return {}
+    hits = parsed.get("hits", 0.0)
+    doubles = parsed.get("doubles", 0.0)
+    triples = parsed.get("triples", 0.0)
+    hr = parsed.get("home_runs", 0.0)
+    singles = max(0.0, hits - doubles - triples - hr)
+    tb = singles + 2 * doubles + 3 * triples + 4 * hr
+    out = {
+        "plate_appearances": pa,
+        "hit_pa": hits / pa,
+        "tb_pa": tb / pa,
+        "hr_pa": hr / pa,
+        "avg_tb_per_game": tb / max(1.0, pa / 4.2),
+    }
+    _RECENT_CACHE[mem_key] = out
+    return out
+
+
+def hitter_last_n_total_bases(
+    hitter_id: int | None,
+    game_date: date,
+    n: int = 3,
+) -> list[float]:
+    """Total bases in each of the last n games strictly before ``game_date``."""
+    if not hitter_id or n <= 0:
+        return []
+    mem_key = (hitter_id, game_date.isoformat(), n)
+    if mem_key in _LAST_N_TB_CACHE:
+        return _LAST_N_TB_CACHE[mem_key]
+
+    season = game_date.year
+    params = urlencode(
+        {
+            "stats": "gameLog",
+            "group": "hitting",
+            "season": season,
+        }
+    )
+    url = f"{API_BASE}/people/{hitter_id}/stats?{params}"
+    context = ssl.create_default_context(cafile=certifi.where())
+    try:
+        with urlopen(url, timeout=30, context=context) as response:
+            payload = json.load(response)
+    except Exception:
+        _LAST_N_TB_CACHE[mem_key] = []
+        return []
+
+    splits = (payload.get("stats") or [{}])[0].get("splits") or []
+    tbs: list[float] = []
+    for split in splits:
+        raw_day = split.get("date")
+        if not raw_day:
+            continue
+        try:
+            day = date.fromisoformat(str(raw_day)[:10])
+        except ValueError:
+            continue
+        if day >= game_date:
+            continue
+        st = split.get("stat") or {}
+        if st.get("totalBases") is not None:
+            tbs.append(_to_float(st.get("totalBases")))
+        else:
+            hits = _to_float(st.get("hits"))
+            doubles = _to_float(st.get("doubles"))
+            triples = _to_float(st.get("triples"))
+            hr = _to_float(st.get("homeRuns"))
+            singles = max(0.0, hits - doubles - triples - hr)
+            tbs.append(singles + 2 * doubles + 3 * triples + 4 * hr)
+
+    out = tbs[-n:] if len(tbs) >= n else tbs
+    _LAST_N_TB_CACHE[mem_key] = out
+    return out

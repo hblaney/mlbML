@@ -41,6 +41,7 @@ from player_statcast_provider import hitter_quality
 from handedness_provider import pitcher_throws, batter_bat_side
 from prop_calibration import calibrate
 from prizepicks_provider import fetch_prizepicks_lines
+from hitter_stats_provider import hitter_last_n_total_bases
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 OUT_PATH = REPO_ROOT / "public" / "prop-predictions.json"
@@ -202,6 +203,27 @@ def _is_unplayable_on_prizepicks(p: dict) -> bool:
     return False
 
 
+def _hot_streak_blocks_under(p: dict) -> bool:
+    """Don't recommend TB/hits Under when the batter just cleared the line 3x."""
+    if p.get("side") != "Under":
+        return False
+    if p.get("prop") not in ("batter_total_bases", "batter_hits"):
+        return False
+    pid = p.get("player_id")
+    if not pid:
+        return False
+    try:
+        last3 = hitter_last_n_total_bases(int(pid), date.today(), n=3)
+        line = float(p.get("line") or 0)
+    except Exception:
+        return False
+    if len(last3) < 3:
+        return False
+    # Hits Under: treat TB proxy as weak; require each game TB > line for hits too
+    # (a 3-hit night is TB>=3). For hits line 0.5/1.5, clearing TB>line is enough.
+    return all(tb > line for tb in last3)
+
+
 def _sanitize_leg(p: dict) -> dict:
     """Hard guards so bad labels/sides can't ship even if a caller regresses."""
     row = dict(p)
@@ -237,7 +259,7 @@ def _pick_diverse(pool: list[dict], n: int, *, max_per_prop: int) -> list[dict]:
             continue
         if prop_counts.get(p["prop"], 0) >= max_per_prop:
             continue
-        if _is_unplayable_on_prizepicks(p) or _is_freebie_leg(p):
+        if _is_unplayable_on_prizepicks(p) or _is_freebie_leg(p) or _hot_streak_blocks_under(p):
             continue
         row = _sanitize_leg(p)
         if row.get("coin_flip") or row.get("unplayable"):
@@ -853,7 +875,11 @@ def build_top_bets(predictions: list[dict], n: int = 5) -> list[dict]:
         p for p in (
             _accuracy_lane(predictions, 0.50, prefer_lines=False) + _k_over_lane(predictions)
         )
-        if not _is_unplayable_on_prizepicks(p) and not _is_freebie_leg(p)
+        if (
+            not _is_unplayable_on_prizepicks(p)
+            and not _is_freebie_leg(p)
+            and not _hot_streak_blocks_under(p)
+        )
     ]
     dedup: dict[tuple[str, str, float, str], dict] = {}
     for p in pool:

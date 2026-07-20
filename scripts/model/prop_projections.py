@@ -20,7 +20,11 @@ import math
 from dataclasses import dataclass
 from datetime import date
 
-from hitter_stats_provider import hitter_stats_as_of
+from hitter_stats_provider import (
+    hitter_stats_as_of,
+    hitter_recent_rates,
+    hitter_last_n_total_bases,
+)
 from pitcher_stats_provider import pitcher_stats_as_of
 from team_stats_provider import team_stats_as_of
 from prop_odds_provider import PropLine
@@ -177,18 +181,35 @@ def project_hitter(
     sb = stats.get("stolen_bases", 0.0)
     singles = max(0.0, hits - doubles - triples - hr)
 
-    # per-PA and per-AB rates
-    hit_pa = (hits / pa) * off_mult
-    hr_pa = (hr / pa) * hr_mult
+    # per-PA and per-AB rates (season), then blend recent form so a 3/4/5 TB
+    # heater isn't projected as a 1.46 Under 1.5.
+    hit_pa = hits / pa
+    hr_pa = hr / pa
     bb_pa = walks / pa
-    rbi_pa = (rbi / pa) * off_mult
-    run_pa = (runs / pa) * off_mult
+    rbi_pa = rbi / pa
+    run_pa = runs / pa
     sb_pa = sb / pa
-    single_pa = (singles / pa) * off_mult
-    double_pa = (doubles / pa) * off_mult
-    # total bases per PA
+    single_pa = singles / pa
+    double_pa = doubles / pa
     tb = singles + 2 * doubles + 3 * triples + 4 * hr
-    tb_pa = (tb / pa) * off_mult
+    tb_pa = tb / pa
+
+    recent = hitter_recent_rates(line.player_id, game_date, lookback_days=14)
+    form_w = 0.0
+    if recent:
+        # ~45% weight on last ~2 weeks when sample is decent.
+        form_w = min(0.50, 0.20 + 0.30 * min(1.0, recent["plate_appearances"] / 40.0))
+        hit_pa = (1.0 - form_w) * hit_pa + form_w * recent["hit_pa"]
+        tb_pa = (1.0 - form_w) * tb_pa + form_w * recent["tb_pa"]
+        hr_pa = (1.0 - form_w) * hr_pa + form_w * recent["hr_pa"]
+
+    hit_pa *= off_mult
+    hr_pa *= hr_mult
+    rbi_pa *= off_mult
+    run_pa *= off_mult
+    single_pa *= off_mult
+    double_pa *= off_mult
+    tb_pa *= off_mult
 
     prop = line.prop
     L = line.line
@@ -196,7 +217,8 @@ def project_hitter(
     n_ab = max(1, int(round(ab)))
     n_pa = max(1, int(round(exp_pa)))
     plt = f" vs{opp_hand} plt={platoon:.2f}" if opp_hand else ""
-    ctx = f" pa={exp_pa:.1f} off={off_mult:.2f} q={q_hit:.2f}"
+    form = f" formW={form_w:.2f}" if form_w else ""
+    ctx = f" pa={exp_pa:.1f} off={off_mult:.2f} q={q_hit:.2f}{form}"
 
     if prop == "batter_hits":
         p = min(0.85, hit_pa / 0.88)  # per-AB hit prob
@@ -205,8 +227,15 @@ def project_hitter(
         return PropProjection(prop, round(proj, 2), round(prob, 4), f"p_hit/ab={p:.3f}{ctx}{plt}")
     if prop == "batter_total_bases":
         lam = tb_pa * exp_pa
+        # Hot-streak veto: last 3 games all cleared the line → don't invent Under.
+        last3 = hitter_last_n_total_bases(line.player_id, game_date, n=3)
+        if last3 and len(last3) >= 3 and all(tb_i > L for tb_i in last3):
+            lam = max(lam, sum(last3) / len(last3) * 0.85)
         prob = _poisson_sf(floor, lam)
-        return PropProjection(prop, round(lam, 2), round(prob, 4), f"tb/pa={tb_pa:.3f}{ctx}{plt}")
+        note = f"tb/pa={tb_pa:.3f}{ctx}{plt}"
+        if last3:
+            note += f" L3TB={','.join(str(int(x)) for x in last3)}"
+        return PropProjection(prop, round(lam, 2), round(prob, 4), note)
     if prop == "batter_home_runs":
         lam = hr_pa * exp_pa
         prob = _poisson_sf(floor, lam)
