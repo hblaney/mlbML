@@ -795,14 +795,15 @@ export type PropPrediction = {
   projection: number;
   model_prob: number;
   model_prob_raw?: number;
-  market_prob: number;
+  market_prob: number | null;
   edge: number;
-  price: number;
-  ev: number;
+  price: number | null;
+  ev: number | null;
   confidence: "Elite" | "High" | "Medium" | "Low";
   book_count: number;
   note: string;
   line_source?: string;
+  market_is_pickem?: boolean;
   pp_odds_type?: "standard" | "goblin" | "demon" | string | null;
   coin_flip?: boolean;
   unplayable?: boolean;
@@ -822,6 +823,7 @@ export type PropPredictionsOutput = {
   generated_at: string;
   board_generated_at?: string;
   source?: string;
+  line_source?: string;
   count: number;
   min_edge?: number;
   top_bets?: PropPrediction[];

@@ -22,8 +22,17 @@ function signedPct(value: number): string {
   return `${value >= 0 ? "+" : ""}${(value * 100).toFixed(1)}%`;
 }
 
-function americanOdds(value: number): string {
+function americanOdds(value: number | null | undefined): string {
+  if (value === undefined || value === null) return "—";
   return value > 0 ? `+${value}` : `${value}`;
+}
+
+function isPickem(leg: PropPrediction): boolean {
+  return Boolean(leg.market_is_pickem || leg.line_source === "prizepicks" || leg.market_prob == null);
+}
+
+function marketCell(leg: PropPrediction): string {
+  return isPickem(leg) ? "Pick'em" : pct(leg.market_prob);
 }
 
 function LegRow({ leg }: { leg: PropPrediction }) {
@@ -41,7 +50,7 @@ function LegRow({ leg }: { leg: PropPrediction }) {
       </td>
       <td>{leg.projection}</td>
       <td>{pct(leg.model_prob)}</td>
-      <td className="muted">{pct(leg.market_prob)}</td>
+      <td className="muted">{marketCell(leg)}</td>
       <td className={leg.edge > 0 ? "positive" : "muted"}>{signedPct(leg.edge)}</td>
       <td>
         <span className={`badge ${CONF_CLASS[leg.confidence] ?? "muted"}`}>{leg.confidence}</span>
@@ -96,9 +105,18 @@ export default async function PropsPage() {
         <p className="eyebrow">PrizePicks Props · {data.generated_at}</p>
         <h1>Player Prop Predictor</h1>
         <p className="lead">
-          Real sportsbook prop lines (de-vigged across {`FanDuel, DraftKings, BetMGM, BetRivers, BetOnline`}) vs
-          leakage-safe projections. We only lean where our model genuinely disagrees with the market.
-          <strong> {actionableEdges.length}</strong> actionable edges today, ranked best-to-bet.
+          {data.line_source === "prizepicks" || data.predictions.some((p) => p.line_source === "prizepicks") ? (
+            <>
+              Live <strong>PrizePicks</strong> lines (pick&apos;em — no sportsbook juice). Model % is hit
+              probability; edge is vs a 50/50 prior, not FanDuel/DK odds.
+            </>
+          ) : (
+            <>
+              De-vigged sportsbook prop lines vs leakage-safe projections. We only lean where the model
+              disagrees with the books.
+            </>
+          )}{" "}
+          <strong>{actionableEdges.length}</strong> actionable edges today, ranked best-to-bet.
         </p>
       </section>
 
@@ -122,8 +140,7 @@ export default async function PropsPage() {
                 <th>Pick</th>
                 <th>Model</th>
                 <th>Market</th>
-                <th>Edge</th>
-                <th>Price</th>
+                <th>vs Pick&apos;em</th>
                 <th>Conf</th>
               </tr>
             </thead>
@@ -153,9 +170,8 @@ export default async function PropsPage() {
                     )}
                   </td>
                   <td>{pct(b.model_prob)}</td>
-                  <td className="muted">{pct(b.market_prob)}</td>
+                  <td className="muted">{marketCell(b)}</td>
                   <td className={b.edge > 0 ? "positive" : "muted"}>{signedPct(b.edge)}</td>
-                  <td className="muted">{americanOdds(b.price)}</td>
                   <td>
                     <span className={`badge ${CONF_CLASS[b.confidence] ?? "muted"}`}>{b.confidence}</span>
                   </td>
@@ -195,7 +211,7 @@ export default async function PropsPage() {
                   <th>Proj</th>
                   <th>Model</th>
                   <th>Market</th>
-                  <th>Edge</th>
+                  <th>vs Pick&apos;em</th>
                   <th>Conf</th>
                 </tr>
               </thead>
@@ -269,8 +285,7 @@ export default async function PropsPage() {
               <th>Proj</th>
               <th>Model</th>
               <th>Market</th>
-              <th>Edge</th>
-              <th>Price</th>
+              <th>vs Pick&apos;em</th>
               <th>Conf</th>
             </tr>
           </thead>
@@ -290,9 +305,8 @@ export default async function PropsPage() {
                 </td>
                 <td>{p.projection}</td>
                 <td>{pct(p.model_prob)}</td>
-                <td className="muted">{pct(p.market_prob)}</td>
+                <td className="muted">{marketCell(p)}</td>
                 <td className={p.edge > 0 ? "positive" : "muted"}>{signedPct(p.edge)}</td>
-                <td className="muted">{americanOdds(p.price)}</td>
                 <td>
                   <span className={`badge ${CONF_CLASS[p.confidence] ?? "muted"}`}>{p.confidence}</span>
                 </td>

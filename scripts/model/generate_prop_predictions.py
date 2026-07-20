@@ -501,19 +501,17 @@ def build_predictions_from_prizepicks(game_date: date) -> list[dict]:
             if APPLY_CALIBRATION_ON_PRIZEPICKS
             else raw_over
         )
-        market_over = 0.5
-        if p_over >= market_over:
+        # PrizePicks is pick'em — there is no -110 sportsbook market. Edge is vs 50/50.
+        pickem = 0.5
+        if p_over >= pickem:
             side = "Over"
             model_p = p_over
-            market_p = market_over
         else:
             side = "Under"
             model_p = 1.0 - p_over
-            market_p = 1.0 - market_over
         if _is_unbettable_prop_line(pp.prop, float(pp.line), side=side):
             continue
-        price = -110
-        edge = model_p - market_p
+        edge = model_p - pickem
         if edge < MIN_EDGE:
             continue
         # Unders need the mean below the line; otherwise it's a dressed-up coin flip.
@@ -535,15 +533,16 @@ def build_predictions_from_prizepicks(game_date: date) -> list[dict]:
                 "projection": proj.projection,
                 "model_prob": round(model_p, 4),
                 "model_prob_raw": round(raw_over if side == "Over" else 1.0 - raw_over, 4),
-                "market_prob": round(market_p, 4),
+                "market_prob": None,  # pick'em — not a de-vigged book price
                 "edge": round(edge, 4),
-                "price": price,
-                "ev": round(model_p * (_decimal(price) - 1.0) - (1.0 - model_p), 4),
+                "price": None,
+                "ev": None,
                 "confidence": _confidence(
                     edge, 3, side=side, model_prob=model_p, prop=pp.prop,
                 ),
-                "book_count": 3,
+                "book_count": 0,  # not a multi-book consensus — pick'em
                 "line_source": "prizepicks",
+                "market_is_pickem": True,
                 "pp_odds_type": pp.odds_type,
                 "note": proj.model_note,
             }
@@ -1157,8 +1156,10 @@ def main() -> None:
         print(f"  TOP {b['player']:20s} {b['prop_label']:14s} {b['pick']:10s} "
               f"model={b['model_prob']:.2f} edge={b['edge']:+.3f} conf={b['confidence']}")
     for l in parlay.get("legs", []):
+        mkt = l.get("market_prob")
+        mkt_s = "pickem" if mkt is None or l.get("market_is_pickem") else f"{mkt:.2f}"
         print(f"  {l['player']:22s} {l['prop_label']:14s} {l['pick']:10s} "
-              f"model={l['model_prob']:.2f} mkt={l['market_prob']:.2f} edge={l['edge']:+.3f} conf={l['confidence']}")
+              f"model={l['model_prob']:.2f} mkt={mkt_s} edge={l['edge']:+.3f} conf={l['confidence']}")
 
 
 if __name__ == "__main__":
