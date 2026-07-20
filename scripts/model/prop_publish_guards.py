@@ -32,6 +32,10 @@ MAX_PROJ = {
 # Probabilities this extreme are almost always freebie / collapsed calibration.
 MAX_MODEL_PROB = 0.965
 
+# Never publish these — not because the model is wrong, but because they are
+# not real bets (SB Under 0.5 ≈ "yes humans rarely steal").
+UNBETTABLE_PROPS = {"batter_stolen_bases", "batter_runs_scored"}
+
 
 def _finite(x: Any) -> bool:
     try:
@@ -44,8 +48,17 @@ def _finite(x: Any) -> bool:
 def violation_reason(row: dict) -> str | None:
     """Return a short reason if this row must not be published, else None."""
     prop = str(row.get("prop") or "")
+    side = str(row.get("side") or "")
     if not prop:
         return "missing_prop"
+    try:
+        line = float(row.get("line") or 0)
+    except (TypeError, ValueError):
+        line = 0.0
+    if prop in UNBETTABLE_PROPS:
+        return f"unbettable_prop:{prop}"
+    if prop == "batter_home_runs" and line <= 0.5 and side == "Under":
+        return "unbettable_hr_under"
     if not _finite(row.get("projection")):
         return "bad_projection"
     if not _finite(row.get("model_prob")):
@@ -64,8 +77,8 @@ def violation_reason(row: dict) -> str | None:
     # HR Over 0.5 with mean already >0.7 is the Valdez failure mode.
     if (
         prop == "batter_home_runs"
-        and str(row.get("side") or "") == "Over"
-        and float(row.get("line") or 0) <= 0.5
+        and side == "Over"
+        and line <= 0.5
         and proj >= 0.70
     ):
         return f"absurd_hr_over:{proj:.3f}"

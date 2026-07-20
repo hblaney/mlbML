@@ -5,6 +5,18 @@ from __future__ import annotations
 from prop_publish_guards import assert_payload_sane, scrub_predictions, violation_reason
 
 
+def test_sb_under_unbettable():
+    row = {
+        "player": "Slow Guy",
+        "prop": "batter_stolen_bases",
+        "side": "Under",
+        "line": 0.5,
+        "projection": 0.01,
+        "model_prob": 0.98,
+    }
+    assert violation_reason(row) == "unbettable_prop:batter_stolen_bases"
+
+
 def test_valdez_hr_rejected():
     row = {
         "player": "Esmerlyn Valdez",
@@ -73,6 +85,7 @@ def test_assert_payload_sane_fails_closed():
 
 
 if __name__ == "__main__":
+    test_sb_under_unbettable()
     test_valdez_hr_rejected()
     test_sane_hr_allowed()
     test_scrub_drops_absurd_keeps_sane()

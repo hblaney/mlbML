@@ -209,19 +209,39 @@ def _confidence(
 
 
 def _is_freebie_leg(p: dict) -> bool:
-    """Ban lines that are structurally fake / free (not real edges)."""
+    """Ban lines that are not real bets — obvious Unders / unplayable juice.
+
+    SB/HR Under 0.5 will print ~95%+ forever. Nobody can (or should) bet them;
+    they must never appear on the board or in scrub logs.
+    """
     prop = p.get("prop") or ""
+    side = (p.get("side") or "").strip()
     try:
         line = float(p.get("line") or 0)
     except Exception:
         return False
-    if prop in ("batter_home_runs", "batter_stolen_bases") and line <= 0.5:
+    # Obvious "they won't steal / won't HR" Unders — not a market edge.
+    if prop in ("batter_home_runs", "batter_stolen_bases") and line <= 0.5 and side == "Under":
         return True
     if prop == "batter_runs_scored":
         return True
     # Model collapsing to ~1.0 is the old calibration failure mode.
     if float(p.get("model_prob") or 0) >= 0.97:
         return True
+    return False
+
+
+def _is_unbettable_prop_line(prop: str, line: float, side: str | None = None) -> bool:
+    """Drop before projecting — save work and keep junk off the board entirely."""
+    if prop == "batter_runs_scored":
+        return True
+    if prop in ("batter_home_runs", "batter_stolen_bases") and float(line) <= 0.5:
+        # Unders are freebies; skip both sides of 0.5 SB (Over 0.5 SB is also
+        # usually juice). Keep Over 0.5 HR — that can be a real prop.
+        if prop == "batter_stolen_bases":
+            return True
+        if side == "Under":
+            return True
     return False
 
 
@@ -364,6 +384,9 @@ def build_predictions_from_prizepicks(game_date: date) -> list[dict]:
         return starter_cache[pid]
 
     for pp in pp_lines:
+        # SB 0.5 / Runs / etc. — not bettable edges; never project or list them.
+        if _is_unbettable_prop_line(pp.prop, float(pp.line)):
+            continue
         key = _norm_name(pp.player)
         resolved = roster.get(key)
         if not resolved:
@@ -463,6 +486,8 @@ def build_predictions_from_prizepicks(game_date: date) -> list[dict]:
             side = "Under"
             model_p = 1.0 - p_over
             market_p = 1.0 - market_over
+        if _is_unbettable_prop_line(pp.prop, float(pp.line), side=side):
+            continue
         price = -110
         edge = model_p - market_p
         if edge < MIN_EDGE:
@@ -470,10 +495,7 @@ def build_predictions_from_prizepicks(game_date: date) -> list[dict]:
         # Unders need the mean below the line; otherwise it's a dressed-up coin flip.
         if side == "Under" and float(proj.projection) >= float(pp.line):
             continue
-        ev = model_p * (_decimal(price) - 1.0) - (1.0 - model_p)
-
-        predictions.append(
-            {
+        cand = {
                 "game_id": pp.game_id,
                 "matchup": f"{game_meta['away_abbr']} @ {game_meta['home_abbr']}",
                 "commence_time": pp.start_time,
@@ -492,7 +514,7 @@ def build_predictions_from_prizepicks(game_date: date) -> list[dict]:
                 "market_prob": round(market_p, 4),
                 "edge": round(edge, 4),
                 "price": price,
-                "ev": round(ev, 4),
+                "ev": round(model_p * (_decimal(price) - 1.0) - (1.0 - model_p), 4),
                 "confidence": _confidence(
                     edge, 3, side=side, model_prob=model_p, prop=pp.prop,
                 ),
@@ -501,7 +523,9 @@ def build_predictions_from_prizepicks(game_date: date) -> list[dict]:
                 "pp_odds_type": pp.odds_type,
                 "note": proj.model_note,
             }
-        )
+        if _is_freebie_leg(cand):
+            continue
+        predictions.append(cand)
 
     # Safety net: sportsbook K lines for any starter PP omitted entirely.
     predictions.extend(
@@ -810,7 +834,13 @@ def build_predictions(game_date: date) -> list[dict]:
             edge = MAX_PROP_EDGE
         if edge < MIN_EDGE:
             continue
+        if _is_unbettable_prop_line(line.prop, float(line.line), side=side):
+            continue
         ev = model_p * (_decimal(price) - 1.0) - (1.0 - model_p)
+        if _is_freebie_leg({
+            "prop": line.prop, "side": side, "line": line.line, "model_prob": model_p,
+        }):
+            continue
 
         predictions.append(
             {
@@ -983,11 +1013,21 @@ def main() -> None:
         source = "the-odds-api"
         predictions = build_predictions(game_date)
 
-    # Fail-closed: drop absurd projections BEFORE Top 5 / public write.
+    # Fail-closed: drop absurd / unbettable rows BEFORE Top 5 / public write.
     predictions, rejected = scrub_predictions(predictions)
     if rejected:
-        print(f"prop_publish_scrub dropped={len(rejected)}")
-        for row in rejected[:15]:
+        # Don't spam SB-Under freebies — those should have been filtered upstream.
+        interesting = [
+            r for r in rejected
+            if r.get("prop") not in ("batter_stolen_bases", "batter_runs_scored")
+            and not (
+                r.get("prop") == "batter_home_runs"
+                and r.get("side") == "Under"
+                and float(r.get("line") or 0) <= 0.5
+            )
+        ]
+        print(f"prop_publish_scrub dropped={len(rejected)} model_bugs={len(interesting)}")
+        for row in interesting[:15]:
             print(
                 f"  reject {row.get('player')} {row.get('side')} {row.get('line')} "
                 f"{row.get('prop')} proj={row.get('projection')} "
