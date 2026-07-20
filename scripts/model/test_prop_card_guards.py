@@ -5,6 +5,7 @@ from __future__ import annotations
 from generate_prop_predictions import (
     TOP_BET_MIN_CONF,
     _confidence,
+    _is_unplayable_on_prizepicks,
     _k_over_lane,
     _sanitize_leg,
     build_parlay,
@@ -26,6 +27,8 @@ def _leg(player: str, prop: str, line: float, model_prob: float, projection: flo
         "book_count": 3,
         "market_prob": 0.5,
         "confidence": "Elite",  # stale bad tag — sanitizer must kill this
+        "line_source": "prizepicks",
+        "pp_odds_type": "standard",  # Under only playable on standard
     }
 
 
@@ -136,6 +139,51 @@ def test_weaker_k_over_does_not_beat_better_unders():
     assert all(t["player"] != "Jacob Misiorowski" for t in top)
 
 
+def test_demon_goblin_under_unplayable():
+    demon_under = {
+        "player": "Mitch Bratt",
+        "prop": "pitcher_strikeouts",
+        "prop_label": "K",
+        "line": 3.5,
+        "side": "Under",
+        "pick": "Under 3.5",
+        "model_prob": 0.90,
+        "edge": 0.40,
+        "projection": 2.0,
+        "book_count": 3,
+        "market_prob": 0.5,
+        "line_source": "prizepicks",
+        "pp_odds_type": "demon",
+    }
+    assert _is_unplayable_on_prizepicks(demon_under) is True
+    goblin_over = {
+        **demon_under,
+        "player": "Dylan Cease",
+        "side": "Over",
+        "pick": "Over 5.5",
+        "line": 5.5,
+        "pp_odds_type": "goblin",
+        "projection": 8.0,
+        "model_prob": 0.81,
+    }
+    assert _is_unplayable_on_prizepicks(goblin_over) is False
+    std_under = {**demon_under, "pp_odds_type": "standard", "player": "Std"}
+    assert _is_unplayable_on_prizepicks(std_under) is False
+    top = build_top_bets(
+        [
+            demon_under,
+            goblin_over,
+            _leg("U1", "batter_total_bases", 1.5, 0.76, 0.9),
+            _leg("U2", "batter_total_bases", 1.5, 0.73, 1.0),
+            _leg("U3", "batter_hits", 1.5, 0.72, 1.0),
+            _leg("U4", "batter_hits", 1.5, 0.70, 1.0),
+        ],
+        n=5,
+    )
+    assert all(t["player"] != "Mitch Bratt" for t in top)
+    assert any(t["player"] == "Dylan Cease" for t in top)
+
+
 def test_third_best_k_makes_top_five():
     """#3 by model_prob must ship even if props 1-3 are all strikeouts."""
     preds = [
@@ -174,4 +222,5 @@ if __name__ == "__main__":
     test_rejects_under_when_projection_at_or_above_line()
     test_k_over_eligible_but_not_front_loaded()
     test_weaker_k_over_does_not_beat_better_unders()
+    test_demon_goblin_under_unplayable()
     print("prop_card_guards_ok")

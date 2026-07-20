@@ -194,6 +194,14 @@ def _is_freebie_leg(p: dict) -> bool:
     return False
 
 
+def _is_unplayable_on_prizepicks(p: dict) -> bool:
+    """Demons/Goblins are More-only on PrizePicks — Under/Less cannot be selected."""
+    odds = (p.get("pp_odds_type") or "").lower()
+    if odds in ("demon", "goblin") and p.get("side") == "Under":
+        return True
+    return False
+
+
 def _sanitize_leg(p: dict) -> dict:
     """Hard guards so bad labels/sides can't ship even if a caller regresses."""
     row = dict(p)
@@ -214,8 +222,9 @@ def _sanitize_leg(p: dict) -> dict:
             row["confidence"] = "Low"
     except Exception:
         pass
-    if _is_freebie_leg(row):
+    if _is_freebie_leg(row) or _is_unplayable_on_prizepicks(row):
         row["coin_flip"] = True
+        row["unplayable"] = _is_unplayable_on_prizepicks(row)
         row["confidence"] = "Low"
     return row
 
@@ -228,8 +237,10 @@ def _pick_diverse(pool: list[dict], n: int, *, max_per_prop: int) -> list[dict]:
             continue
         if prop_counts.get(p["prop"], 0) >= max_per_prop:
             continue
+        if _is_unplayable_on_prizepicks(p) or _is_freebie_leg(p):
+            continue
         row = _sanitize_leg(p)
-        if row.get("coin_flip"):
+        if row.get("coin_flip") or row.get("unplayable"):
             continue
         best[p["player"]] = row
         prop_counts[p["prop"]] = prop_counts.get(p["prop"], 0) + 1
@@ -838,7 +849,12 @@ def build_top_bets(predictions: list[dict], n: int = 5) -> list[dict]:
       - freebies / coin-flips excluded
       - K Overs eligible alongside accuracy Unders
     """
-    pool = _accuracy_lane(predictions, 0.50, prefer_lines=False) + _k_over_lane(predictions)
+    pool = [
+        p for p in (
+            _accuracy_lane(predictions, 0.50, prefer_lines=False) + _k_over_lane(predictions)
+        )
+        if not _is_unplayable_on_prizepicks(p) and not _is_freebie_leg(p)
+    ]
     dedup: dict[tuple[str, str, float, str], dict] = {}
     for p in pool:
         key = (p["player"], p["prop"], float(p["line"]), p["side"])
@@ -860,6 +876,7 @@ def build_top_bets(predictions: list[dict], n: int = 5) -> list[dict]:
             and p.get("prop") in PLAYABLE_PROPS
             and float(p.get("projection") or 0) < float(p.get("line") or 0)
             and not _is_freebie_leg(p)
+            and not _is_unplayable_on_prizepicks(p)
         ]
         fallback.sort(key=lambda p: (p["model_prob"], p["edge"]), reverse=True)
         used = {l["player"] for l in legs}

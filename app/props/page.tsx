@@ -88,9 +88,9 @@ export default async function PropsPage() {
             <span className="badge positive">Highest confidence</span>
           </div>
           <p className="lead">
-            Accuracy lane: high-confidence <strong>Under</strong>s on hits / total bases / strikeouts. The daily card is
-            these same five legs as a <strong>5-pick Flex</strong> (OOS Flex cash ~93%; Power 5/5 ~71% — Flex is how we
-            clear the 80% ticket bar). Overs excluded until fixed.
+            Playable PrizePicks sides only: <strong>Less</strong> needs a standard line (demons/goblins are More-only).
+            Card mixes high-confidence standard Unders with strong pitcher K Mores. Same five legs as a{" "}
+            <strong>5-pick Flex</strong>.
           </p>
           <table className="table">
             <thead>
@@ -120,7 +120,16 @@ export default async function PropsPage() {
                   </td>
                   <td>{b.prop_label}</td>
                   <td>
-                    <strong>{b.pick}</strong>
+                    <strong>{b.side === "Over" ? "More" : "Less"} {b.line}</strong>
+                    {b.pp_odds_type && b.pp_odds_type !== "standard" ? (
+                      <div className="muted" style={{ fontSize: "0.8rem" }}>
+                        {b.pp_odds_type}
+                      </div>
+                    ) : (
+                      <div className="muted" style={{ fontSize: "0.8rem" }}>
+                        standard
+                      </div>
+                    )}
                   </td>
                   <td>{pct(b.model_prob)}</td>
                   <td className="muted">{pct(b.market_prob)}</td>

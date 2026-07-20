@@ -802,6 +802,8 @@ export type PropPrediction = {
   confidence: "Elite" | "High" | "Medium" | "Low";
   book_count: number;
   note: string;
+  line_source?: string;
+  pp_odds_type?: "standard" | "goblin" | "demon" | string | null;
 };
 
 export type PropParlay = {
