@@ -88,6 +88,12 @@ jobs:
             exit 1
           fi
 
+      - name: Prop publish guard unit tests
+        run: |
+          set -euo pipefail
+          python3 scripts/model/test_prop_publish_guards.py
+          python3 scripts/model/test_prop_card_guards.py
+
       - name: Regenerate PrizePicks prop board
         env:
           ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
@@ -103,6 +109,14 @@ jobs:
             echo "::error::Expected prop generated_at=${today}, got ${props_at}"
             exit 1
           fi
+          # Defense in depth: re-scan the file that would ship.
+          python3 - <<'PY'
+          import json, sys
+          sys.path.insert(0, "scripts/model")
+          from prop_publish_guards import assert_payload_sane
+          assert_payload_sane(json.load(open("public/prop-predictions.json")))
+          print("prop_publish_guards_file_ok")
+          PY
 
       - name: Full publish if board was stale (history + lock + health)
         run: |

@@ -128,6 +128,12 @@ jobs:
         if: steps.run_control.outputs.should_run == 'true'
         run: npm ci
 
+      - name: Prop publish guard unit tests
+        if: steps.run_control.outputs.should_run == 'true'
+        run: |
+          python3 scripts/model/test_prop_publish_guards.py
+          python3 scripts/model/test_prop_card_guards.py
+
       # ── CRITICAL: retrain model + generate board + props + update outputs ──
       - name: Retrain model and generate today's board
         if: steps.run_control.outputs.should_run == 'true'

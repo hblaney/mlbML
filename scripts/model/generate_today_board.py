@@ -237,11 +237,13 @@ def main() -> None:
         generate_prizepicks_slip_main()
         print(f"prop_bet_cards_ok count={len(cards)}")
 
-        # Real-market prop predictor: de-vigged sportsbook lines vs projections.
-        # Non-fatal — a props API hiccup must never block the game board.
+        # Real-market prop predictor. Network/API hiccups stay non-fatal for the
+        # moneyline board, but publish-guard SystemExit must fail closed.
         try:
             from generate_prop_predictions import main as generate_prop_predictions_main
             generate_prop_predictions_main()
+        except SystemExit:
+            raise
         except Exception as error:  # noqa: BLE001
             print(f"prop_predictions_skip error={error}")
     else:

@@ -42,6 +42,7 @@ from handedness_provider import pitcher_throws, batter_bat_side
 from prop_calibration import calibrate
 from prizepicks_provider import fetch_prizepicks_lines
 from hitter_stats_provider import hitter_last_n_total_bases
+from prop_publish_guards import scrub_predictions, assert_payload_sane
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 OUT_PATH = REPO_ROOT / "public" / "prop-predictions.json"
@@ -982,6 +983,17 @@ def main() -> None:
         source = "the-odds-api"
         predictions = build_predictions(game_date)
 
+    # Fail-closed: drop absurd projections BEFORE Top 5 / public write.
+    predictions, rejected = scrub_predictions(predictions)
+    if rejected:
+        print(f"prop_publish_scrub dropped={len(rejected)}")
+        for row in rejected[:15]:
+            print(
+                f"  reject {row.get('player')} {row.get('side')} {row.get('line')} "
+                f"{row.get('prop')} proj={row.get('projection')} "
+                f"p={row.get('model_prob')} ({row.get('publish_reject_reason')})"
+            )
+
     top_bets = build_top_bets(predictions) if predictions else []
     parlay = build_parlay(predictions) if predictions else {"n_legs": 0, "legs": []}
     # Keep Top 5 and parlay identical (parlay rebuilds from the same function).
@@ -1002,6 +1014,7 @@ def main() -> None:
         "source": source_label,
         "line_source": source,
         "count": len(predictions),
+        "scrubbed_rejects": len(rejected),
         "min_edge": MIN_EDGE,
         "card_quality": parlay.get("card_quality"),
         "top_bets": top_bets,
@@ -1012,6 +1025,7 @@ def main() -> None:
     for bucket in (payload["top_bets"], payload["parlay"].get("legs") or []):
         for i, leg in enumerate(bucket):
             bucket[i] = _sanitize_leg(leg)
+    assert_payload_sane(payload, context="prop-predictions.json")
     OUT_PATH.write_text(json.dumps(payload, indent=2))
 
     ARCHIVE_DIR.mkdir(parents=True, exist_ok=True)
