@@ -24,6 +24,11 @@ from hitter_stats_provider import hitter_stats_as_of
 from pitcher_stats_provider import pitcher_stats_as_of
 from team_stats_provider import team_stats_as_of
 from prop_odds_provider import PropLine
+from handedness_provider import (
+    pitcher_throws,
+    hitter_platoon_multiplier,
+    pitcher_k_platoon_multiplier,
+)
 
 LEAGUE_K_RATE = 0.223
 LEAGUE_ERA = 4.30
@@ -57,6 +62,15 @@ def _poisson_sf(x_floor: int, lam: float) -> float:
         return 1.0
     cdf = sum(_poisson_pmf(k, lam) for k in range(0, x_floor))
     return max(0.0, min(1.0, 1.0 - cdf))
+
+
+def _normal_sf(line: float, mean: float, sd: float) -> float:
+    """P(X > line) for a normal — used for outs, which cluster tightly around
+    expected innings (Poisson is far too wide for a starter's innings)."""
+    if sd <= 0:
+        return 1.0 if mean > line else 0.0
+    z = (line - mean) / sd
+    return max(0.0, min(1.0, 0.5 * math.erfc(z / math.sqrt(2.0))))
 
 
 def _binom_pmf(n: int, k: int, p: float) -> float:
@@ -102,14 +116,55 @@ def _hitter_run_env(opp_era: float, opp_whip: float) -> float:
     return max(0.85, min(1.18, (era_adj + whip_adj) / 2.0))
 
 
-def project_hitter(line: PropLine, game_date: date, opp_starter: dict | None, park_hr: float = 1.0) -> PropProjection | None:
+def project_hitter(
+    line: PropLine,
+    game_date: date,
+    opp_starter: dict | None,
+    park_hr: float = 1.0,
+    opp_pitcher_id: int | None = None,
+    *,
+    exp_pa: float | None = None,
+    run_mult: float = 1.0,
+    hr_env_mult: float = 1.0,
+    opp_bullpen: tuple[float, float] | None = None,
+    quality: object | None = None,
+) -> PropProjection | None:
     stats = hitter_stats_as_of(line.player_id, game_date)
     pa = stats.get("plate_appearances", 0.0)
     if not pa or pa < 30:
         return None
+
+    # Opposing run environment = starter blended with the bullpen the hitter will
+    # also face (~65% starter innings / 35% relief in a typical game).
     opp_era, opp_whip, opp_k9 = _opp_pitcher_quality(opp_starter)
+    if opp_bullpen:
+        pen_era, pen_whip = opp_bullpen
+        opp_era = 0.65 * opp_era + 0.35 * pen_era
+        opp_whip = 0.65 * opp_whip + 0.35 * pen_whip
     boost = _hitter_run_env(opp_era, opp_whip)
-    exp_pa = DEFAULT_PA
+
+    # Handedness platoon: tilt production by the hitter's OPS split vs the
+    # opposing starter's throwing hand (shrunk on small samples).
+    platoon = 1.0
+    opp_hand = pitcher_throws(opp_pitcher_id) if opp_pitcher_id else None
+    if opp_hand:
+        platoon = hitter_platoon_multiplier(
+            line.player_id, opp_hand, game_date, overall_ops=stats.get("ops")
+        )
+    boost *= platoon
+
+    # Statcast quality-of-contact regression (recent xwOBACON / barrels).
+    q_hit = float(getattr(quality, "hit_mult", 1.0) or 1.0)
+    q_hr = float(getattr(quality, "hr_mult", 1.0) or 1.0)
+
+    # Overall offense multiplier (park+weather runs, matchup, quality of contact).
+    # Clamp the stacked product so no single projection can run away from reality
+    # when several favorable factors compound.
+    off_mult = max(0.70, min(1.40, boost * run_mult * q_hit))
+    # Home-run multiplier uses HR-specific park/weather and barrel quality.
+    hr_mult = max(0.55, min(1.90, boost * hr_env_mult * q_hr))
+
+    exp_pa = exp_pa if exp_pa and exp_pa > 0 else DEFAULT_PA
     ab = exp_pa * 0.88  # PA minus walks/hbp/sac approx
 
     hits = stats.get("hits", 0.0)
@@ -123,37 +178,39 @@ def project_hitter(line: PropLine, game_date: date, opp_starter: dict | None, pa
     singles = max(0.0, hits - doubles - triples - hr)
 
     # per-PA and per-AB rates
-    hit_pa = (hits / pa) * boost
-    hr_pa = (hr / pa) * boost * park_hr
+    hit_pa = (hits / pa) * off_mult
+    hr_pa = (hr / pa) * hr_mult
     bb_pa = walks / pa
-    rbi_pa = (rbi / pa) * boost
-    run_pa = (runs / pa) * boost
+    rbi_pa = (rbi / pa) * off_mult
+    run_pa = (runs / pa) * off_mult
     sb_pa = sb / pa
-    single_pa = (singles / pa) * boost
-    double_pa = (doubles / pa) * boost
+    single_pa = (singles / pa) * off_mult
+    double_pa = (doubles / pa) * off_mult
     # total bases per PA
     tb = singles + 2 * doubles + 3 * triples + 4 * hr
-    tb_pa = (tb / pa) * boost
+    tb_pa = (tb / pa) * off_mult
 
     prop = line.prop
     L = line.line
     floor = _line_floor(L)
     n_ab = max(1, int(round(ab)))
     n_pa = max(1, int(round(exp_pa)))
+    plt = f" vs{opp_hand} plt={platoon:.2f}" if opp_hand else ""
+    ctx = f" pa={exp_pa:.1f} off={off_mult:.2f} q={q_hit:.2f}"
 
     if prop == "batter_hits":
         p = min(0.85, hit_pa / 0.88)  # per-AB hit prob
         proj = p * n_ab
         prob = _binom_sf(floor, n_ab, min(0.9, p))
-        return PropProjection(prop, round(proj, 2), round(prob, 4), f"p_hit/ab={p:.3f} boost={boost:.2f}")
+        return PropProjection(prop, round(proj, 2), round(prob, 4), f"p_hit/ab={p:.3f}{ctx}{plt}")
     if prop == "batter_total_bases":
         lam = tb_pa * exp_pa
         prob = _poisson_sf(floor, lam)
-        return PropProjection(prop, round(lam, 2), round(prob, 4), f"tb/pa={tb_pa:.3f} boost={boost:.2f}")
+        return PropProjection(prop, round(lam, 2), round(prob, 4), f"tb/pa={tb_pa:.3f}{ctx}{plt}")
     if prop == "batter_home_runs":
         lam = hr_pa * exp_pa
         prob = _poisson_sf(floor, lam)
-        return PropProjection(prop, round(lam, 3), round(prob, 4), f"hr/pa={hr_pa:.3f} park={park_hr:.2f}")
+        return PropProjection(prop, round(lam, 3), round(prob, 4), f"hr/pa={hr_pa:.3f} hrx={hr_mult:.2f} qhr={q_hr:.2f}{plt}")
     if prop == "batter_rbis":
         lam = rbi_pa * exp_pa
         prob = _poisson_sf(floor, lam)
@@ -185,7 +242,14 @@ def project_hitter(line: PropLine, game_date: date, opp_starter: dict | None, pa
     return None
 
 
-def project_pitcher(line: PropLine, game_date: date, opp_team_abbr: str | None) -> PropProjection | None:
+def project_pitcher(
+    line: PropLine,
+    game_date: date,
+    opp_team_abbr: str | None,
+    *,
+    pitcher_hand: str | None = None,
+    opp_bat_sides: list[str] | None = None,
+) -> PropProjection | None:
     stats = pitcher_stats_as_of(line.player_id, game_date)
     k9 = stats.get("strikeouts_per_9", 0.0)
     ip = stats.get("innings_pitched", 0.0)
@@ -208,20 +272,32 @@ def project_pitcher(line: PropLine, game_date: date, opp_team_abbr: str | None) 
         except Exception:
             pass
 
+    # Strikeout platoon: weight this pitcher's K rate vs LHB/RHB by the opposing
+    # lineup's actual left/right composition (your "Ks vs lefty/righty" ask).
+    k_platoon = 1.0
+    if opp_bat_sides:
+        k_platoon = pitcher_k_platoon_multiplier(
+            line.player_id, pitcher_hand, opp_bat_sides, game_date
+        )
+
     prop = line.prop
     L = line.line
     floor = _line_floor(L)
 
     if prop == "pitcher_strikeouts":
         opp_adj = 1.0 + (opp_k_rate - LEAGUE_K_RATE) * 1.3
-        lam = max(0.0, k9 * exp_ip / 9.0 * opp_adj)
+        lam = max(0.0, k9 * exp_ip / 9.0 * opp_adj * k_platoon)
         prob = _poisson_sf(floor, lam)
-        return PropProjection(prop, round(lam, 2), round(prob, 4), f"k9={k9:.1f} ip={exp_ip:.1f} oppK={opp_k_rate:.3f}")
+        return PropProjection(prop, round(lam, 2), round(prob, 4),
+                              f"k9={k9:.1f} ip={exp_ip:.1f} oppK={opp_k_rate:.3f} kplt={k_platoon:.2f}")
     if prop == "pitcher_outs":
-        lam = exp_ip * 3.0
-        # outs are near-deterministic around expected IP; use tight normal approx via Poisson on outs
-        prob = _poisson_sf(floor, lam)
-        return PropProjection(prop, round(lam, 1), round(prob, 4), f"exp_ip={exp_ip:.1f}")
+        mean_outs = exp_ip * 3.0
+        # Innings cluster tightly around the expected length (a healthy starter
+        # rarely varies more than ~1 inning), so use a narrow normal, not Poisson.
+        sd = 2.6
+        prob = _normal_sf(L, mean_outs, sd)
+        return PropProjection(prop, round(mean_outs, 1), round(prob, 4),
+                              f"exp_ip={exp_ip:.1f} sd={sd}")
     if prop == "pitcher_earned_runs":
         lam = era * exp_ip / 9.0 * (1.0 + (opp_obp - 0.320) * 1.5)
         prob = _poisson_sf(floor, lam)
@@ -230,6 +306,11 @@ def project_pitcher(line: PropLine, game_date: date, opp_team_abbr: str | None) 
         lam = h9 * exp_ip / 9.0 * (1.0 + (opp_obp - 0.320) * 1.2)
         prob = _poisson_sf(floor, lam)
         return PropProjection(prop, round(lam, 2), round(prob, 4), f"h9={h9:.1f} ip={exp_ip:.1f}")
+    if prop == "pitcher_walks":
+        bb9 = stats.get("walks_per_9") or stats.get("bb_per_9") or 3.2
+        lam = max(0.0, float(bb9) * exp_ip / 9.0)
+        prob = _poisson_sf(floor, lam)
+        return PropProjection(prop, round(lam, 2), round(prob, 4), f"bb9={float(bb9):.1f} ip={exp_ip:.1f}")
     return None
 
 
@@ -240,14 +321,40 @@ HITTER_PROPS = {
 }
 PITCHER_PROPS = {
     "pitcher_strikeouts", "pitcher_outs", "pitcher_earned_runs", "pitcher_hits_allowed",
+    "pitcher_walks",
 }
 
 
-def project_prop(line: PropLine, game_date: date, opp_starter: dict | None, park_hr: float = 1.0) -> PropProjection | None:
+def project_prop(
+    line: PropLine,
+    game_date: date,
+    opp_starter: dict | None,
+    park_hr: float = 1.0,
+    opp_pitcher_id: int | None = None,
+    *,
+    exp_pa: float | None = None,
+    run_mult: float = 1.0,
+    hr_env_mult: float | None = None,
+    opp_bullpen: tuple[float, float] | None = None,
+    quality: object | None = None,
+    pitcher_hand: str | None = None,
+    opp_bat_sides: list[str] | None = None,
+) -> PropProjection | None:
     if line.player_id is None:
         return None
     if line.prop in HITTER_PROPS:
-        return project_hitter(line, game_date, opp_starter, park_hr)
+        return project_hitter(
+            line, game_date, opp_starter, park_hr, opp_pitcher_id,
+            exp_pa=exp_pa,
+            run_mult=run_mult,
+            hr_env_mult=hr_env_mult if hr_env_mult is not None else park_hr,
+            opp_bullpen=opp_bullpen,
+            quality=quality,
+        )
     if line.prop in PITCHER_PROPS:
-        return project_pitcher(line, game_date, line.opp_abbr)
+        return project_pitcher(
+            line, game_date, line.opp_abbr,
+            pitcher_hand=pitcher_hand,
+            opp_bat_sides=opp_bat_sides,
+        )
     return None

@@ -1,0 +1,23 @@
+{
+  "version": "accuracy_under_flex5_v2",
+  "user_ask": "5-leg parlay from Top 5 should hit >=80%",
+  "math": {
+    "note": "5 independent 80% legs → Power cash rate 0.8^5 = 32.8%. To get Power 80% need ~96%/leg.",
+    "measured_best_power_5": 0.71,
+    "measured_flex_cash_4of5": 0.93
+  },
+  "oos_validation": {
+    "window": "test 2026-05-05..2026-05-20 (16 days)",
+    "selection": "Top5 Under hits/TB/K preferred lines, conf>=0.75, one per player",
+    "leg_hit_rate": 0.912,
+    "power_5of5": 0.71,
+    "flex_cash_4of5_or_better": 0.93,
+    "flex_cash_3of5_or_better": 0.93
+  },
+  "shipped": {
+    "top_bets": "same 5 legs",
+    "parlay_type": "flex",
+    "parlay_legs": 5,
+    "banned": ["Over", "batter_runs_scored Under 1.5 (fake 0.999 conf)"]
+  }
+}

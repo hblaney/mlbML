@@ -30,6 +30,40 @@ MLB_API_BASE = "https://statsapi.mlb.com/api/v1"
 # PrizePicks power-play payout multipliers (decimal) by leg count.
 PP_POWER_PAYOUT = {2: 3.0, 3: 5.0, 4: 10.0, 5: 20.0, 6: 37.5}
 
+# PrizePicks flex payouts: (correct_legs, n_legs) -> decimal multiplier.
+# Standard published tables (partial credit for near-misses).
+PP_FLEX_PAYOUT = {
+    (3, 3): 2.25,
+    (2, 3): 1.25,
+    (4, 4): 5.0,
+    (3, 4): 1.5,
+    (5, 5): 10.0,
+    (4, 5): 2.0,
+    (3, 5): 0.4,
+    (6, 6): 25.0,
+    (5, 6): 2.0,
+    (4, 6): 0.4,
+}
+
+
+def _parlay_profit(parlay_type: str, n: int, wins: int, pushes: int, losses: int) -> tuple[bool, float]:
+    """Return (counted_as_cash, profit) for a settled parlay unit stake."""
+    kind = (parlay_type or "power").lower()
+    if kind == "flex":
+        # Flex grades decisive legs only; pushes shrink the effective board.
+        effective_n = n - pushes
+        if effective_n < 2:
+            return False, 0.0  # void / push the ticket
+        payout = PP_FLEX_PAYOUT.get((wins, effective_n), 0.0)
+        if payout > 0:
+            return True, payout - 1.0
+        return False, -1.0
+    # Power: every non-push leg must win; pushes survive.
+    payout = PP_POWER_PAYOUT.get(n, max(2.0, 2.0 ** (n - 1)))
+    if losses == 0:
+        return True, payout - 1.0
+    return False, -1.0
+
 HITTER_PROPS = {
     "batter_hits", "batter_total_bases", "batter_home_runs", "batter_rbis",
     "batter_runs_scored", "batter_walks", "batter_stolen_bases", "batter_singles",
@@ -199,28 +233,31 @@ def grade_all() -> dict:
                 day_losses += 1
             overall["profit"] += result["profit"]
 
-        # Grade the archived daily parlay.
+        # Grade the archived daily parlay (power vs flex payout tables).
         parlay = board.get("parlay", {})
         legs = parlay.get("legs", [])
         if len(legs) >= 2:
             leg_results = [_grade_leg(l, game_date) for l in legs]
             if all(r is not None for r in leg_results):
                 graded_legs = [r for r in leg_results if r is not None]
-                # push legs are treated as won for parlay survival (line landed exactly)
-                all_won = all((r["won"] is None or r["won"]) for r in graded_legs)
-                parlay_rec["graded"] += 1
                 n = len(graded_legs)
-                payout = PP_POWER_PAYOUT.get(n, max(2.0, 2.0 ** (n - 1)))
-                if all_won:
-                    parlay_rec["wins"] += 1
-                    parlay_rec["profit"] += payout - 1.0
-                else:
-                    parlay_rec["profit"] += -1.0
+                wins = sum(1 for r in graded_legs if r["won"] is True)
+                pushes = sum(1 for r in graded_legs if r["won"] is None)
+                losses = sum(1 for r in graded_legs if r["won"] is False)
+                cashed, profit = _parlay_profit(
+                    str(parlay.get("type") or "power"), n, wins, pushes, losses
+                )
+                if profit != 0.0 or cashed:
+                    parlay_rec["graded"] += 1
+                    if cashed:
+                        parlay_rec["wins"] += 1
+                    parlay_rec["profit"] += profit
                 recent.append(
                     {
                         "date": game_date,
                         "legs": n,
-                        "won": all_won,
+                        "type": parlay.get("type") or "power",
+                        "won": cashed,
                         "record": f"{day_wins}-{day_losses}",
                     }
                 )

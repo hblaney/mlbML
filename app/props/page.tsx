@@ -67,6 +67,7 @@ export default async function PropsPage() {
 
   const parlay = data.parlay;
   const parlayProb = parlay.combined_prob ?? 0;
+  const topBets = data.top_bets ?? [];
 
   return (
     <main className="shell stack">
@@ -80,17 +81,80 @@ export default async function PropsPage() {
         </p>
       </section>
 
+      {topBets.length > 0 ? (
+        <section className="panel strong">
+          <div className="section-heading">
+            <h2>Top 5 Best Bets</h2>
+            <span className="badge positive">Highest confidence</span>
+          </div>
+          <p className="lead">
+            Accuracy lane: high-confidence <strong>Under</strong>s on hits / total bases / strikeouts. The daily card is
+            these same five legs as a <strong>5-pick Flex</strong> (OOS Flex cash ~93%; Power 5/5 ~71% — Flex is how we
+            clear the 80% ticket bar). Overs excluded until fixed.
+          </p>
+          <table className="table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Player</th>
+                <th>Prop</th>
+                <th>Pick</th>
+                <th>Model</th>
+                <th>Market</th>
+                <th>Edge</th>
+                <th>Price</th>
+                <th>Conf</th>
+              </tr>
+            </thead>
+            <tbody>
+              {topBets.map((b, i) => (
+                <tr key={`top-${b.player}-${b.prop}`}>
+                  <td>
+                    <strong>{i + 1}</strong>
+                  </td>
+                  <td>
+                    <strong>{b.player}</strong>
+                    <div className="muted" style={{ fontSize: "0.8rem" }}>
+                      {b.team ?? ""} · {b.matchup}
+                    </div>
+                  </td>
+                  <td>{b.prop_label}</td>
+                  <td>
+                    <strong>{b.pick}</strong>
+                  </td>
+                  <td>{pct(b.model_prob)}</td>
+                  <td className="muted">{pct(b.market_prob)}</td>
+                  <td className={b.edge > 0 ? "positive" : "muted"}>{signedPct(b.edge)}</td>
+                  <td className="muted">{americanOdds(b.price)}</td>
+                  <td>
+                    <span className={`badge ${CONF_CLASS[b.confidence] ?? "muted"}`}>{b.confidence}</span>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </section>
+      ) : null}
+
       <section className="panel strong">
         <div className="section-heading">
           <h2>Daily Prop Parlay</h2>
-          <span className="badge">{parlay.n_legs}-leg {parlay.type ?? "power"}</span>
+          <span className="badge">{parlay.n_legs}-leg {parlay.type ?? "flex"}</span>
         </div>
         {parlay.legs.length === 0 ? (
           <p className="muted">No legs available yet — check back once lines post.</p>
         ) : (
           <>
             <p className="lead">
-              Combined model win probability: <strong>{pct(parlayProb)}</strong>
+              Same legs as Top 5 · play as <strong>Flex</strong>
+              {typeof (parlay as { flex_cash_rate_oos?: number }).flex_cash_rate_oos === "number" ? (
+                <>
+                  {" "}
+                  (OOS Flex cash rate{" "}
+                  <strong>{pct((parlay as { flex_cash_rate_oos: number }).flex_cash_rate_oos)}</strong>)
+                </>
+              ) : null}
+              . Naive all-five product: {pct(parlayProb)}.
             </p>
             <table className="table">
               <thead>

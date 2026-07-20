@@ -1,20 +1,85 @@
 {
-  "generated_at": "2026-07-19",
+  "generated_at": "2026-07-20",
   "overall": {
-    "graded": 0,
-    "wins": 0,
-    "losses": 0,
+    "graded": 63,
+    "wins": 24,
+    "losses": 39,
     "pushes": 0,
-    "hit_rate": 0.0,
-    "roi": 0.0
+    "hit_rate": 0.381,
+    "roi": -0.277
   },
-  "by_confidence": {},
-  "by_prop": {},
+  "by_confidence": {
+    "Elite": {
+      "graded": 4,
+      "wins": 1,
+      "hit_rate": 0.25
+    },
+    "High": {
+      "graded": 41,
+      "wins": 15,
+      "hit_rate": 0.3659
+    },
+    "Medium": {
+      "graded": 18,
+      "wins": 8,
+      "hit_rate": 0.4444
+    }
+  },
+  "by_prop": {
+    "batter_doubles": {
+      "graded": 3,
+      "wins": 2,
+      "hit_rate": 0.6667
+    },
+    "batter_hits": {
+      "graded": 14,
+      "wins": 8,
+      "hit_rate": 0.5714
+    },
+    "batter_hits_runs_rbis": {
+      "graded": 15,
+      "wins": 3,
+      "hit_rate": 0.2
+    },
+    "batter_rbis": {
+      "graded": 11,
+      "wins": 2,
+      "hit_rate": 0.1818
+    },
+    "batter_runs_scored": {
+      "graded": 4,
+      "wins": 3,
+      "hit_rate": 0.75
+    },
+    "batter_singles": {
+      "graded": 7,
+      "wins": 3,
+      "hit_rate": 0.4286
+    },
+    "batter_stolen_bases": {
+      "graded": 1,
+      "wins": 1,
+      "hit_rate": 1.0
+    },
+    "batter_total_bases": {
+      "graded": 8,
+      "wins": 2,
+      "hit_rate": 0.25
+    }
+  },
   "parlay": {
-    "graded": 0,
-    "wins": 0,
-    "hit_rate": 0.0,
-    "roi": 0.0
+    "graded": 1,
+    "wins": 1,
+    "hit_rate": 1.0,
+    "roi": 2.0
   },
-  "recent": []
+  "recent": [
+    {
+      "date": "2026-07-19",
+      "legs": 2,
+      "type": "power",
+      "won": true,
+      "record": "24-39"
+    }
+  ]
 }

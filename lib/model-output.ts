@@ -794,6 +794,7 @@ export type PropPrediction = {
   pick: string;
   projection: number;
   model_prob: number;
+  model_prob_raw?: number;
   market_prob: number;
   edge: number;
   price: number;
@@ -807,6 +808,9 @@ export type PropParlay = {
   type?: string;
   n_legs: number;
   combined_prob?: number;
+  flex_cash_rate_oos?: number | null;
+  power_cash_rate_oos?: number | null;
+  policy?: string;
   legs: PropPrediction[];
 };
 
@@ -816,6 +820,7 @@ export type PropPredictionsOutput = {
   source?: string;
   count: number;
   min_edge?: number;
+  top_bets?: PropPrediction[];
   parlay: PropParlay;
   predictions: PropPrediction[];
 };

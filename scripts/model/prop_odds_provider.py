@@ -58,6 +58,36 @@ PITCHER_MARKETS = [
 ]
 ALL_MARKETS = HITTER_MARKETS + PITCHER_MARKETS
 
+# Odds API / MLB / board abbreviations don't always agree (Athletics, etc.).
+_TEAM_ABBR_ALIASES = {
+    "ATH": "OAK",
+    "OAK": "OAK",
+    "AZ": "ARI",
+    "ARI": "ARI",
+    "CWS": "CHW",
+    "CHW": "CHW",
+    "TB": "TB",
+    "TBR": "TB",
+    "SF": "SF",
+    "SFG": "SF",
+    "KC": "KC",
+    "KCR": "KC",
+    "SD": "SD",
+    "SDP": "SD",
+    "WSH": "WSH",
+    "WAS": "WSH",
+}
+
+
+def _norm_abbr(abbr: str | None) -> str:
+    if not abbr:
+        return ""
+    return _TEAM_ABBR_ALIASES.get(str(abbr).upper(), str(abbr).upper())
+
+
+def _same_team(a: str | None, b: str | None) -> bool:
+    return bool(a and b and _norm_abbr(a) == _norm_abbr(b))
+
 
 def _load_env_file() -> None:
     for env_path in (PROJECT_ROOT / ".env", PROJECT_ROOT / ".env.local"):
@@ -321,10 +351,18 @@ def fetch_prop_lines(*, force_refresh: bool = False, max_events: int | None = No
             pid_team = roster.get(_norm_name(player))
             player_id = pid_team[0] if pid_team else None
             team_abbr = pid_team[1] if pid_team else None
-            is_home = (team_abbr == home_abbr) if team_abbr else None
+            is_home = _same_team(team_abbr, home_abbr) if team_abbr else None
             opp_abbr = None
             if team_abbr:
-                opp_abbr = away_abbr if is_home else home_abbr
+                if is_home:
+                    opp_abbr = away_abbr
+                elif _same_team(team_abbr, away_abbr):
+                    opp_abbr = home_abbr
+                    is_home = False
+                else:
+                    # Unresolved alias mismatch — leave is_home None so generator
+                    # does not invent the wrong opposing pitcher.
+                    is_home = None
             lines.append(
                 PropLine(
                     event_id=event["id"],

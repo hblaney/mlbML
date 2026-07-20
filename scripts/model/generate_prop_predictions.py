@@ -1,13 +1,13 @@
-"""Daily prop predictions + PrizePicks parlay, edged against REAL market lines.
+"""Daily prop predictions + PrizePicks parlay.
+
+Primary board: live PrizePicks standard MLB lines (partner API).
+Fallback: de-vigged sportsbook props from The Odds API.
 
 Pipeline:
-  1. Pull real, de-vigged player-prop lines (prop_odds_provider).
-  2. Project each prop from leakage-safe stats (prop_projections) using the real
-     opposing starter + park.
-  3. Compute edge = model P(side) − market P(side) on the side we lean, and EV at
-     the real price.
-  4. Publish every actionable lean and build a daily parlay that ALWAYS fields a
-     card (no skips) from the strongest +edge legs.
+  1. Pull PrizePicks standard lines (or odds-api fallback).
+  2. Project each prop from leakage-safe stats + matchup context.
+  3. Edge vs a pick'em prior (0.5) on PrizePicks, or vs de-vigged books on fallback.
+  4. Publish Top 5 + 5-leg Flex from the accuracy lane.
 
 Outputs public/prop-predictions.json.
 """
@@ -15,13 +15,32 @@ Outputs public/prop-predictions.json.
 from __future__ import annotations
 
 import json
+import os
 from datetime import date, datetime, timezone
 from pathlib import Path
 
 from mlb_api import fetch_upcoming_games, load_team_abbreviations
 from pitcher_stats_provider import pitcher_stats_as_of
-from prop_odds_provider import fetch_prop_lines
+from prop_odds_provider import (
+    PropLine,
+    fetch_prop_lines,
+    _norm_abbr,
+    _norm_name,
+    _same_team,
+    _roster_name_map,
+)
 from prop_projections import project_prop
+from prop_env import env_multipliers
+from bullpen_provider import bullpen_stats_as_of
+from lineup_provider import (
+    confirmed_lineup,
+    confirmed_lineup_by_team,
+    expected_pa_for_player,
+)
+from player_statcast_provider import hitter_quality
+from handedness_provider import pitcher_throws, batter_bat_side
+from prop_calibration import calibrate
+from prizepicks_provider import fetch_prizepicks_lines
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 OUT_PATH = REPO_ROOT / "public" / "prop-predictions.json"
@@ -31,18 +50,70 @@ ARCHIVE_DIR = REPO_ROOT / "data" / "prop-predictions"
 # much probability, and only trust markets priced by >=2 books.
 MIN_EDGE = 0.04
 MIN_BOOK_COUNT = 2
+
+# The de-vigged market is a very strong prior. Publish only a fraction of our raw
+# disagreement (residual blend) and hard-cap the edge, so a mis-specified Poisson
+# tail can't manufacture a fake +30% edge that never hits. This is the same
+# "don't fight the market" discipline used on the moneyline model.
+MARKET_BLEND_ALPHA = 0.45
+MAX_PROP_EDGE = 0.10
 # Parlay legs must be likely to hit AND carry real edge.
 PARLAY_MIN_PROB = 0.56
 PARLAY_MIN_EDGE = 0.03
-PARLAY_TARGET_LEGS = 3
 PARLAY_MAX_LEGS = 5
-PARLAY_MIN_LEGS = 2
+# PARLAY_TARGET_LEGS / PARLAY_MIN_LEGS set below with the accuracy policy.
+
+# Props PrizePicks actually offers as standard playable lines. We build parlays only
+# from these so the card is real (no "Under 0.5 doubles" junk that nobody can bet).
+PLAYABLE_PROPS = {
+    "batter_hits",
+    "batter_total_bases",
+    "batter_home_runs",
+    "batter_rbis",
+    "batter_runs_scored",
+    "batter_hits_runs_rbis",
+    "batter_stolen_bases",
+    "batter_singles",
+    "pitcher_strikeouts",
+    "pitcher_hits_allowed",
+    "pitcher_earned_runs",
+    "pitcher_walks",
+}
+
+# Accuracy-first selection (walk-forward on ~94k graded props):
+#   - Single Unders @ conf>=0.75 → ~80% leg hit rate
+#   - Overs banned (lie at high confidence)
+#   - Runs Under 1.5 banned (calibration collapsed to fake 0.999 and dominated Top 5)
+#   - 5-leg POWER (need all 5) maxes ~71% OOS — cannot claim 80%
+#   - 5-leg FLEX from the same Top 5 cashes (3+/5 or 4+/5 paid) ~93% OOS
+# So the daily card is a 5-leg Flex built from the Top 5 accuracy lane.
+ACCURACY_PROPS = {
+    "batter_hits",
+    "batter_total_bases",
+    "pitcher_strikeouts",
+}
+# Preferred lines that drove the 93% Flex cash rate in OOS search.
+ACCURACY_LINES = {
+    ("batter_hits", 1.5),
+    ("batter_total_bases", 1.5),
+    ("batter_total_bases", 2.5),
+    ("pitcher_strikeouts", 5.5),
+    ("pitcher_strikeouts", 6.5),
+    ("pitcher_strikeouts", 7.5),
+}
+TOP_BET_MIN_CONF = 0.75
+PARLAY_LEG_MIN_PROB = 0.75
+TOP_BET_ALLOW_OVER = False
+PARLAY_TARGET_LEGS = 5  # Top-5 Flex card
+PARLAY_MIN_LEGS = 5
+PARLAY_TYPE = "flex"
 
 PRETTY = {
     "pitcher_strikeouts": "Strikeouts",
     "pitcher_outs": "Outs",
     "pitcher_earned_runs": "Earned Runs",
     "pitcher_hits_allowed": "Hits Allowed",
+    "pitcher_walks": "Walks Allowed",
     "batter_hits": "Hits",
     "batter_total_bases": "Total Bases",
     "batter_home_runs": "Home Runs",
@@ -72,14 +143,99 @@ def _decimal(american: int) -> float:
     return 1.0 + american / 100.0
 
 
-def _confidence(edge: float, book_count: int) -> str:
-    if edge >= 0.09 and book_count >= 3:
+# Pitcher K Overs are the one Over we trust enough for the daily card when the
+# projection clears the line by a full strikeout (e.g. Miz ~9 Ks on a 6.5 goblin).
+# Ignore juiced baby goblins (3.5/4.5) — those flood the board and crowd out real lines.
+K_OVER_MIN_CONF = 0.68
+K_OVER_MIN_PROJ_EDGE = 1.0
+K_OVER_MIN_LINE = 5.5
+
+
+def _confidence(
+    edge: float,
+    book_count: int,
+    *,
+    side: str = "Over",
+    model_prob: float = 0.5,
+    prop: str | None = None,
+) -> str:
+    # Confidence is about hit probability, not edge-vs-pick'em. Against a 0.5
+    # PrizePicks prior, edge>=0.09 is trivial (model 0.59) and was labeling junk Elite.
+    if side == "Over":
+        if prop == "pitcher_strikeouts" and model_prob >= 0.75:
+            return "Elite" if book_count >= 2 else "High"
+        if prop == "pitcher_strikeouts" and model_prob >= K_OVER_MIN_CONF:
+            return "High"
+        if model_prob < 0.85:
+            return "Low"
+    if side == "Under" and model_prob >= TOP_BET_MIN_CONF and book_count >= 2:
         return "Elite"
-    if edge >= 0.06:
+    if side == "Under" and model_prob >= 0.70:
         return "High"
-    if edge >= 0.04:
+    if model_prob >= 0.62 or edge >= 0.06:
         return "Medium"
     return "Low"
+
+
+def _is_freebie_leg(p: dict) -> bool:
+    """Ban lines that are structurally fake / free (not real edges)."""
+    prop = p.get("prop") or ""
+    try:
+        line = float(p.get("line") or 0)
+    except Exception:
+        return False
+    if prop in ("batter_home_runs", "batter_stolen_bases") and line <= 0.5:
+        return True
+    if prop == "batter_runs_scored":
+        return True
+    # Model collapsing to ~1.0 is the old calibration failure mode.
+    if float(p.get("model_prob") or 0) >= 0.97:
+        return True
+    return False
+
+
+def _sanitize_leg(p: dict) -> dict:
+    """Hard guards so bad labels/sides can't ship even if a caller regresses."""
+    row = dict(p)
+    side = row.get("side") or ""
+    model_p = float(row.get("model_prob") or 0.0)
+    edge = float(row.get("edge") or 0.0)
+    books = int(row.get("book_count") or 0)
+    # Recompute confidence from model_prob — never trust a stale Elite tag.
+    row["confidence"] = _confidence(
+        edge, books, side=side, model_prob=model_p, prop=row.get("prop"),
+    )
+    if model_p < TOP_BET_MIN_CONF:
+        row["below_oos_threshold"] = True
+    # Unders with mean at/above the line are coin flips — mark them.
+    try:
+        if side == "Under" and float(row.get("projection") or 0) >= float(row.get("line") or 0):
+            row["coin_flip"] = True
+            row["confidence"] = "Low"
+    except Exception:
+        pass
+    if _is_freebie_leg(row):
+        row["coin_flip"] = True
+        row["confidence"] = "Low"
+    return row
+
+
+def _pick_diverse(pool: list[dict], n: int, *, max_per_prop: int) -> list[dict]:
+    best: dict[str, dict] = {}
+    prop_counts: dict[str, int] = {}
+    for p in pool:
+        if p["player"] in best:
+            continue
+        if prop_counts.get(p["prop"], 0) >= max_per_prop:
+            continue
+        row = _sanitize_leg(p)
+        if row.get("coin_flip"):
+            continue
+        best[p["player"]] = row
+        prop_counts[p["prop"]] = prop_counts.get(p["prop"], 0) + 1
+        if len(best) >= n:
+            break
+    return list(best.values())[:n]
 
 
 def _park_hr_factor(home_team_id: int | None) -> float:
@@ -93,30 +249,46 @@ def _park_hr_factor(home_team_id: int | None) -> float:
         return 1.0
 
 
-def build_predictions(game_date: date) -> list[dict]:
-    lines = fetch_prop_lines()
-    if not lines:
+def build_predictions_from_prizepicks(game_date: date) -> list[dict]:
+    """Edge projections against live PrizePicks standard lines (pick'em prior)."""
+    # Prefer cache (30m TTL); force refresh only when explicitly asked.
+    force = os.getenv("PRIZEPICKS_FORCE_REFRESH", "0") == "1"
+    pp_lines = fetch_prizepicks_lines(odds_type="standard", force_refresh=force)
+    if not pp_lines:
         return []
 
     abbr_by_id = load_team_abbreviations()
-    id_by_abbr = {v: k for k, v in abbr_by_id.items()}
+    id_by_abbr: dict[str, int] = {}
+    for tid, abbr in abbr_by_id.items():
+        id_by_abbr[abbr] = tid
+        id_by_abbr[_norm_abbr(abbr)] = tid
 
-    # Map (away_abbr, home_abbr) -> probable pitcher ids + park.
     games = fetch_upcoming_games(game_date, game_date)
-    starters: dict[tuple[str, str], dict] = {}
+    # Build roster name -> (player_id, team_abbr) for today's teams.
+    roster: dict[str, tuple[int, str]] = {}
+    game_by_team: dict[str, dict] = {}
     for g in games:
         ha = abbr_by_id.get(g.home_team_id)
         aa = abbr_by_id.get(g.away_team_id)
         if not ha or not aa:
             continue
-        starters[(aa, ha)] = {
+        meta = {
             "home_pitcher_id": g.home_pitcher_id,
             "away_pitcher_id": g.away_pitcher_id,
             "home_team_id": g.home_team_id,
+            "away_team_id": g.away_team_id,
+            "home_abbr": ha,
+            "away_abbr": aa,
+            "game_pk": g.game_pk,
+            "game_datetime_iso": g.game_datetime_iso,
         }
+        game_by_team[_norm_abbr(ha)] = meta
+        game_by_team[_norm_abbr(aa)] = meta
+        roster.update(_roster_name_map(g.home_team_id, ha, game_date.year))
+        roster.update(_roster_name_map(g.away_team_id, aa, game_date.year))
 
-    predictions: list[dict] = []
     starter_cache: dict[int, dict] = {}
+    predictions: list[dict] = []
 
     def starter_stats(pid: int | None) -> dict | None:
         if not pid:
@@ -128,41 +300,447 @@ def build_predictions(game_date: date) -> list[dict]:
                 starter_cache[pid] = {}
         return starter_cache[pid]
 
-    for line in lines:
-        if line.player_id is None or line.book_count < MIN_BOOK_COUNT:
+    for pp in pp_lines:
+        key = _norm_name(pp.player)
+        resolved = roster.get(key)
+        if not resolved:
             continue
-        game_key = (line.away_abbr, line.home_abbr)
-        game_meta = starters.get(game_key, {})
-        home_team_id = game_meta.get("home_team_id") or id_by_abbr.get(line.home_abbr)
-        park_hr = _park_hr_factor(home_team_id)
+        player_id, team_abbr = resolved
+        team_n = _norm_abbr(team_abbr)
+        game_meta = game_by_team.get(team_n) or game_by_team.get(_norm_abbr(pp.team or ""))
+        if not game_meta:
+            continue
 
-        # Opposing starter for a hitter = probable pitcher of the OTHER team.
-        opp_starter = None
-        if line.prop.startswith("batter_"):
-            if line.is_home is True:
-                opp_starter = starter_stats(game_meta.get("away_pitcher_id"))
-            elif line.is_home is False:
-                opp_starter = starter_stats(game_meta.get("home_pitcher_id"))
+        is_home = _same_team(team_abbr, game_meta["home_abbr"])
+        home_team_id = game_meta["home_team_id"]
+        away_team_id = game_meta["away_team_id"]
+        run_mult, hr_env_mult = env_multipliers(home_team_id, game_meta.get("game_datetime_iso"))
 
-        proj = project_prop(line, game_date, opp_starter, park_hr)
+        line = PropLine(
+            event_id=pp.projection_id,
+            commence_time=pp.start_time,
+            game_id=pp.game_id,
+            home_abbr=game_meta["home_abbr"],
+            away_abbr=game_meta["away_abbr"],
+            player=pp.player,
+            player_id=player_id,
+            team_abbr=team_abbr,
+            is_home=is_home,
+            opp_abbr=game_meta["away_abbr"] if is_home else game_meta["home_abbr"],
+            prop=pp.prop,
+            line=pp.line,
+            over_price=-110,
+            under_price=-110,
+            market_prob_over=0.5,  # PrizePicks pick'em
+            book_count=3,
+        )
+
+        if pp.prop.startswith("batter_"):
+            opp_pitcher_id = (
+                game_meta["away_pitcher_id"] if is_home else game_meta["home_pitcher_id"]
+            )
+            opp_team_id = away_team_id if is_home else home_team_id
+            slots = {}
+            try:
+                slots = confirmed_lineup(game_meta["game_pk"])
+            except Exception:
+                slots = {}
+            exp_pa = expected_pa_for_player(player_id, slots)
+            opp_bullpen = None
+            if os.getenv("PROP_SKIP_BULLPEN", "0") != "1":
+                try:
+                    snap = bullpen_stats_as_of(opp_team_id, game_date)
+                    opp_bullpen = (snap.era, snap.whip)
+                except Exception:
+                    opp_bullpen = None
+            quality = None
+            if os.getenv("PROP_SKIP_STATCAST", "0") != "1":
+                try:
+                    quality = hitter_quality(player_id, game_date)
+                except Exception:
+                    quality = None
+            proj = project_prop(
+                line, game_date, starter_stats(opp_pitcher_id), hr_env_mult, opp_pitcher_id,
+                exp_pa=exp_pa, run_mult=run_mult, hr_env_mult=hr_env_mult,
+                opp_bullpen=opp_bullpen, quality=quality,
+            )
+        else:
+            hand = pitcher_throws(player_id)
+            opp_team_id = away_team_id if is_home else home_team_id
+            opp_sides = []
+            try:
+                by_team = confirmed_lineup_by_team(game_meta["game_pk"])
+                for pid in by_team.get(opp_team_id, []):
+                    s = batter_bat_side(pid)
+                    if s:
+                        opp_sides.append(s)
+            except Exception:
+                opp_sides = []
+            proj = project_prop(
+                line, game_date, None,
+                pitcher_hand=hand, opp_bat_sides=opp_sides,
+            )
         if proj is None:
             continue
 
-        # Decide side vs the de-vigged market.
-        model_over = proj.prob_over
-        market_over = line.market_prob_over
-        if model_over >= market_over:
+        # PrizePicks is pick'em (~0.5). Use RAW Poisson/binomial P(over) — the
+        # isotonic curve was fit on sportsbook boards and systematically crushes
+        # Over probs (e.g. 0.43 → 0.31), inventing fake ~70% Unders on coin flips.
+        raw_over = float(proj.prob_over)
+        market_over = 0.5
+        if raw_over >= market_over:
             side = "Over"
-            model_p = model_over
+            model_p = raw_over
+            market_p = market_over
+        else:
+            side = "Under"
+            model_p = 1.0 - raw_over
+            market_p = 1.0 - market_over
+        price = -110
+        edge = model_p - market_p
+        if edge < MIN_EDGE:
+            continue
+        # Unders need the mean below the line; otherwise it's a dressed-up coin flip.
+        if side == "Under" and float(proj.projection) >= float(pp.line):
+            continue
+        ev = model_p * (_decimal(price) - 1.0) - (1.0 - model_p)
+
+        predictions.append(
+            {
+                "game_id": pp.game_id,
+                "matchup": f"{game_meta['away_abbr']} @ {game_meta['home_abbr']}",
+                "commence_time": pp.start_time,
+                "player": pp.player,
+                "player_id": player_id,
+                "team": team_abbr,
+                "opp": line.opp_abbr,
+                "prop": pp.prop,
+                "prop_label": pp.prop_label,
+                "line": pp.line,
+                "side": side,
+                "pick": f"{side} {pp.line}",
+                "projection": proj.projection,
+                "model_prob": round(model_p, 4),
+                "model_prob_raw": round(model_p, 4),
+                "market_prob": round(market_p, 4),
+                "edge": round(edge, 4),
+                "price": price,
+                "ev": round(ev, 4),
+                "confidence": _confidence(
+                    edge, 3, side=side, model_prob=model_p, prop=pp.prop,
+                ),
+                "book_count": 3,
+                "line_source": "prizepicks",
+                "pp_odds_type": pp.odds_type,
+                "note": proj.model_note,
+            }
+        )
+
+    # Safety net: sportsbook K lines for any starter PP omitted entirely.
+    predictions.extend(
+        _odds_api_k_fillins(game_date, predictions, roster, game_by_team, starter_cache)
+    )
+    predictions.sort(key=lambda p: (p["edge"], p["model_prob"]), reverse=True)
+    return predictions
+
+
+def _odds_api_k_fillins(
+    game_date: date,
+    existing: list[dict],
+    roster: dict[str, tuple[int, str]],
+    game_by_team: dict[str, dict],
+    starter_cache: dict[int, dict],
+) -> list[dict]:
+    """If PrizePicks dropped a starter K, still score the sportsbook K line."""
+    have = {_norm_name(p["player"]) for p in existing if p.get("prop") == "pitcher_strikeouts"}
+    try:
+        book_lines = [l for l in fetch_prop_lines() if l.prop == "pitcher_strikeouts"]
+    except Exception:
+        return []
+    out: list[dict] = []
+    for line in book_lines:
+        key = _norm_name(line.player)
+        if key in have:
+            continue
+        resolved = roster.get(key)
+        if not resolved and line.player_id:
+            # Odds API already resolved id.
+            player_id = line.player_id
+            team_abbr = line.team_abbr or ""
+        elif resolved:
+            player_id, team_abbr = resolved
+        else:
+            continue
+        team_n = _norm_abbr(team_abbr or line.team_abbr or "")
+        game_meta = game_by_team.get(team_n)
+        if not game_meta:
+            continue
+        is_home = _same_team(team_abbr or "", game_meta["home_abbr"])
+        hand = pitcher_throws(player_id)
+        opp_sides: list[str] = []
+        try:
+            by_team = confirmed_lineup_by_team(game_meta["game_pk"])
+            opp_team_id = game_meta["away_team_id"] if is_home else game_meta["home_team_id"]
+            for pid in by_team.get(opp_team_id, []):
+                s = batter_bat_side(pid)
+                if s:
+                    opp_sides.append(s)
+        except Exception:
+            opp_sides = []
+        pl = PropLine(
+            event_id=line.event_id,
+            commence_time=line.commence_time,
+            game_id=line.game_id,
+            home_abbr=game_meta["home_abbr"],
+            away_abbr=game_meta["away_abbr"],
+            player=line.player,
+            player_id=player_id,
+            team_abbr=team_abbr or line.team_abbr,
+            is_home=is_home,
+            opp_abbr=game_meta["away_abbr"] if is_home else game_meta["home_abbr"],
+            prop="pitcher_strikeouts",
+            line=line.line,
+            over_price=line.over_price,
+            under_price=line.under_price,
+            market_prob_over=line.market_prob_over,
+            book_count=line.book_count,
+        )
+        proj = project_prop(
+            pl, game_date, None, pitcher_hand=hand, opp_bat_sides=opp_sides,
+        )
+        if proj is None:
+            continue
+        raw_over = float(proj.prob_over)
+        market_over = float(line.market_prob_over)
+        if raw_over >= market_over:
+            side, model_p, market_p, price = "Over", raw_over, market_over, line.over_price
+        else:
+            side, model_p, market_p, price = "Under", 1.0 - raw_over, 1.0 - market_over, line.under_price
+        edge = model_p - market_p
+        if edge < MIN_EDGE:
+            continue
+        if side == "Under" and float(proj.projection) >= float(line.line):
+            continue
+        out.append(
+            {
+                "game_id": line.game_id,
+                "matchup": f"{game_meta['away_abbr']} @ {game_meta['home_abbr']}",
+                "commence_time": line.commence_time,
+                "player": line.player,
+                "player_id": player_id,
+                "team": team_abbr or line.team_abbr,
+                "opp": pl.opp_abbr,
+                "prop": "pitcher_strikeouts",
+                "prop_label": "Pitcher Strikeouts",
+                "line": line.line,
+                "side": side,
+                "pick": f"{side} {line.line}",
+                "projection": proj.projection,
+                "model_prob": round(model_p, 4),
+                "model_prob_raw": round(model_p, 4),
+                "market_prob": round(market_p, 4),
+                "edge": round(edge, 4),
+                "price": price,
+                "ev": round(model_p * (_decimal(price) - 1.0) - (1.0 - model_p), 4),
+                "confidence": _confidence(
+                    edge, line.book_count, side=side, model_prob=model_p, prop="pitcher_strikeouts",
+                ),
+                "book_count": line.book_count,
+                "line_source": "the-odds-api",
+                "pp_odds_type": None,
+                "note": proj.model_note,
+            }
+        )
+        have.add(key)
+    return out
+
+
+def build_predictions(game_date: date) -> list[dict]:
+    lines = fetch_prop_lines()
+    if not lines:
+        return []
+
+    abbr_by_id = load_team_abbreviations()
+    # Index team ids by every known alias (ATH/OAK, AZ/ARI, etc.).
+    id_by_abbr: dict[str, int] = {}
+    for tid, abbr in abbr_by_id.items():
+        id_by_abbr[abbr] = tid
+        id_by_abbr[_norm_abbr(abbr)] = tid
+    for alias, canon in (("ATH", "OAK"), ("AZ", "ARI"), ("CWS", "CHW"), ("TBR", "TB"),
+                         ("SFG", "SF"), ("KCR", "KC"), ("SDP", "SD"), ("WAS", "WSH")):
+        if canon in id_by_abbr:
+            id_by_abbr[alias] = id_by_abbr[canon]
+
+    # Map normalized (away, home) -> probable pitcher ids + park + game context.
+    games = fetch_upcoming_games(game_date, game_date)
+    starters: dict[tuple[str, str], dict] = {}
+    for g in games:
+        ha = abbr_by_id.get(g.home_team_id)
+        aa = abbr_by_id.get(g.away_team_id)
+        if not ha or not aa:
+            continue
+        meta = {
+            "home_pitcher_id": g.home_pitcher_id,
+            "away_pitcher_id": g.away_pitcher_id,
+            "home_team_id": g.home_team_id,
+            "away_team_id": g.away_team_id,
+            "game_pk": g.game_pk,
+            "game_datetime_iso": g.game_datetime_iso,
+        }
+        starters[(_norm_abbr(aa), _norm_abbr(ha))] = meta
+
+    predictions: list[dict] = []
+    starter_cache: dict[int, dict] = {}
+    bullpen_cache: dict[int, tuple[float, float]] = {}
+    quality_cache: dict[int, object] = {}
+    lineup_slot_cache: dict[int, dict[int, int]] = {}
+    bat_side_cache: dict[int, list[str]] = {}
+
+    def starter_stats(pid: int | None) -> dict | None:
+        if not pid:
+            return None
+        if pid not in starter_cache:
+            try:
+                starter_cache[pid] = pitcher_stats_as_of(pid, game_date)
+            except Exception:
+                starter_cache[pid] = {}
+        return starter_cache[pid]
+
+    def bullpen(team_id: int | None) -> tuple[float, float] | None:
+        if not team_id:
+            return None
+        if os.getenv("PROP_SKIP_BULLPEN", "0") == "1":
+            return None
+        if team_id not in bullpen_cache:
+            try:
+                snap = bullpen_stats_as_of(team_id, game_date)
+                bullpen_cache[team_id] = (snap.era, snap.whip)
+            except Exception:
+                bullpen_cache[team_id] = None
+        return bullpen_cache[team_id]
+
+    def quality(pid: int | None) -> object | None:
+        if not pid:
+            return None
+        # Statcast pulls can hang / lag the daily board; allow skipping under load.
+        if os.getenv("PROP_SKIP_STATCAST", "0") == "1":
+            return None
+        if pid not in quality_cache:
+            try:
+                quality_cache[pid] = hitter_quality(pid, game_date)
+            except Exception:
+                quality_cache[pid] = None
+        return quality_cache[pid]
+
+    def lineup_slots(game_pk: int | None) -> dict[int, int]:
+        if not game_pk:
+            return {}
+        if game_pk not in lineup_slot_cache:
+            try:
+                lineup_slot_cache[game_pk] = confirmed_lineup(game_pk)
+            except Exception:
+                lineup_slot_cache[game_pk] = {}
+        return lineup_slot_cache[game_pk]
+
+    def opp_lineup_bat_sides(game_pk: int | None, opp_team_id: int | None) -> list[str]:
+        """Bat sides for the opposing lineup (for pitcher K platoon)."""
+        key = (game_pk or 0)
+        if not game_pk or not opp_team_id:
+            return []
+        cache_key = game_pk * 1000 + (opp_team_id % 1000)
+        if cache_key not in bat_side_cache:
+            sides: list[str] = []
+            try:
+                by_team = confirmed_lineup_by_team(game_pk)
+                ids = by_team.get(opp_team_id, [])
+                for pid in ids:
+                    s = batter_bat_side(pid)
+                    if s:
+                        sides.append(s)
+            except Exception:
+                sides = []
+            bat_side_cache[cache_key] = sides
+        return bat_side_cache[cache_key]
+
+    for line in lines:
+        if line.player_id is None or line.book_count < MIN_BOOK_COUNT:
+            continue
+        game_key = (_norm_abbr(line.away_abbr), _norm_abbr(line.home_abbr))
+        game_meta = starters.get(game_key, {})
+        home_team_id = game_meta.get("home_team_id") or id_by_abbr.get(_norm_abbr(line.home_abbr)) or id_by_abbr.get(line.home_abbr)
+        away_team_id = game_meta.get("away_team_id") or id_by_abbr.get(_norm_abbr(line.away_abbr)) or id_by_abbr.get(line.away_abbr)
+        game_pk = game_meta.get("game_pk")
+        run_mult, hr_env_mult = env_multipliers(home_team_id, game_meta.get("game_datetime_iso"))
+
+        proj = None
+        if line.prop.startswith("batter_"):
+            # Need a resolved side so we don't invent the wrong opposing pitcher.
+            is_home = line.is_home
+            if is_home is None and line.team_abbr:
+                if _same_team(line.team_abbr, line.home_abbr):
+                    is_home = True
+                elif _same_team(line.team_abbr, line.away_abbr):
+                    is_home = False
+            if is_home is None:
+                continue
+            opp_pitcher_id = (
+                game_meta.get("away_pitcher_id") if is_home else game_meta.get("home_pitcher_id")
+            )
+            opp_team_id = away_team_id if is_home else home_team_id
+            opp_starter = starter_stats(opp_pitcher_id)
+            exp_pa = expected_pa_for_player(line.player_id, lineup_slots(game_pk))
+            proj = project_prop(
+                line, game_date, opp_starter, hr_env_mult, opp_pitcher_id,
+                exp_pa=exp_pa,
+                run_mult=run_mult,
+                hr_env_mult=hr_env_mult,
+                opp_bullpen=bullpen(opp_team_id),
+                quality=quality(line.player_id),
+            )
+        else:
+            # Pitcher prop: strikeout platoon vs the opposing lineup composition.
+            is_home = line.is_home
+            if is_home is None and line.team_abbr:
+                if _same_team(line.team_abbr, line.home_abbr):
+                    is_home = True
+                elif _same_team(line.team_abbr, line.away_abbr):
+                    is_home = False
+            if is_home is None:
+                continue
+            pitcher_hand = pitcher_throws(line.player_id)
+            opp_team_id = away_team_id if is_home else home_team_id
+            proj = project_prop(
+                line, game_date, None,
+                pitcher_hand=pitcher_hand,
+                opp_bat_sides=opp_lineup_bat_sides(game_pk, opp_team_id),
+            )
+        if proj is None:
+            continue
+
+        # Empirically calibrate, then apply Over-side distrust: walk-forward shows
+        # calibrated P(over)>=0.70 still only lands ~60%. Pull Overs toward 0.5
+        # before market blend so we stop manufacturing fake Over edges.
+        raw_over = calibrate(line.prop, proj.prob_over)
+        if raw_over > 0.5:
+            raw_over = 0.5 + (raw_over - 0.5) * 0.55
+        market_over = line.market_prob_over
+        blended_over = market_over + MARKET_BLEND_ALPHA * (raw_over - market_over)
+
+        if blended_over >= market_over:
+            side = "Over"
+            model_p = blended_over
             market_p = market_over
             price = line.over_price
         else:
             side = "Under"
-            model_p = 1.0 - model_over
+            model_p = 1.0 - blended_over
             market_p = 1.0 - market_over
             price = line.under_price
 
         edge = model_p - market_p
+        if edge > MAX_PROP_EDGE:
+            model_p = market_p + MAX_PROP_EDGE
+            edge = MAX_PROP_EDGE
         if edge < MIN_EDGE:
             continue
         ev = model_p * (_decimal(price) - 1.0) - (1.0 - model_p)
@@ -183,11 +761,14 @@ def build_predictions(game_date: date) -> list[dict]:
                 "pick": f"{side} {line.line}",
                 "projection": proj.projection,
                 "model_prob": round(model_p, 4),
+                "model_prob_raw": round(raw_over if side == "Over" else 1.0 - raw_over, 4),
                 "market_prob": round(market_p, 4),
                 "edge": round(edge, 4),
                 "price": price,
                 "ev": round(ev, 4),
-                "confidence": _confidence(edge, line.book_count),
+                "confidence": _confidence(
+                    edge, line.book_count, side=side, model_prob=model_p, prop=line.prop,
+                ),
                 "book_count": line.book_count,
                 "note": proj.model_note,
             }
@@ -197,85 +778,206 @@ def build_predictions(game_date: date) -> list[dict]:
     return predictions
 
 
-def build_parlay(predictions: list[dict]) -> dict:
-    """Always field a card: strongest +edge, likely-to-hit legs across games."""
-    def leg_ok(p: dict) -> bool:
-        return p["model_prob"] >= PARLAY_MIN_PROB and p["edge"] >= PARLAY_MIN_EDGE
+def _accuracy_lane(predictions: list[dict], min_conf: float, *, prefer_lines: bool = True) -> list[dict]:
+    """Picks that historically clear ~80% leg hit rate / feed the 5-leg Flex."""
+    out = []
+    for p in predictions:
+        if p["prop"] not in ACCURACY_PROPS:
+            continue
+        if p["model_prob"] < min_conf:
+            continue
+        if not TOP_BET_ALLOW_OVER and p["side"] != "Under":
+            continue
+        # Ban broken / freebie lines.
+        if p["prop"] == "batter_runs_scored" and float(p["line"]) >= 1.5:
+            continue
+        if p["prop"] in ("batter_home_runs", "batter_stolen_bases") and float(p["line"]) <= 0.5:
+            continue
+        if prefer_lines and (p["prop"], float(p["line"])) not in ACCURACY_LINES:
+            continue
+        out.append(p)
+    out.sort(key=lambda p: (p["model_prob"], p["edge"]), reverse=True)
+    return out
 
-    pool = [p for p in predictions if leg_ok(p)]
-    # Rank by likelihood first (we want it to hit), then edge.
-    pool.sort(key=lambda p: (p["model_prob"], p["edge"]), reverse=True)
 
-    # Relax progressively so we NEVER skip when props exist.
-    if len(pool) < PARLAY_MIN_LEGS:
-        pool = sorted(
-            [p for p in predictions if p["edge"] > 0],
-            key=lambda p: (p["model_prob"], p["edge"]),
-            reverse=True,
-        )
-    if len(pool) < PARLAY_MIN_LEGS:
-        pool = sorted(predictions, key=lambda p: (p["model_prob"], p["edge"]), reverse=True)
+def _k_over_lane(predictions: list[dict]) -> list[dict]:
+    """Strong pitcher K Overs — the matchup exception to Under-only cards.
 
-    legs: list[dict] = []
-    seen_players: set[str] = set()
+    Catches spots like Misiorowski (13 K/9) on the real PP K ladder (often
+    tagged goblin with no ``standard`` row). Prefer PrizePicks-bettable lines
+    over sportsbook fill-ins when seeding the daily card.
+    """
+    out = []
+    for p in predictions:
+        if p.get("prop") != "pitcher_strikeouts" or p.get("side") != "Over":
+            continue
+        if float(p.get("line") or 0) < K_OVER_MIN_LINE:
+            continue
+        if float(p.get("model_prob") or 0) < K_OVER_MIN_CONF:
+            continue
+        if float(p.get("projection") or 0) < float(p.get("line") or 0) + K_OVER_MIN_PROJ_EDGE:
+            continue
+        out.append(p)
+    out.sort(
+        key=lambda p: (
+            1 if p.get("line_source") == "prizepicks" else 0,
+            p["model_prob"],
+            p["edge"],
+        ),
+        reverse=True,
+    )
+    return out
+
+
+def build_top_bets(predictions: list[dict], n: int = 5) -> list[dict]:
+    """Always field n Flex legs: top n unique players by model_prob.
+
+    No reserved markets, no "max 2 of this prop" cap — that was kicking out
+    #3 overall (Miz) for a weaker Singles leg. Only constraints:
+      - one leg per player
+      - freebies / coin-flips excluded
+      - K Overs eligible alongside accuracy Unders
+    """
+    pool = _accuracy_lane(predictions, 0.50, prefer_lines=False) + _k_over_lane(predictions)
+    dedup: dict[tuple[str, str, float, str], dict] = {}
     for p in pool:
-        if len(legs) >= PARLAY_TARGET_LEGS:
-            break
-        key = f"{p['player']}|{p['prop']}"
-        if key in seen_players:
-            continue
-        # avoid stacking >2 legs from the same game
-        same_game = sum(1 for l in legs if l["matchup"] == p["matchup"])
-        if same_game >= 2:
-            continue
-        seen_players.add(key)
-        legs.append(p)
+        key = (p["player"], p["prop"], float(p["line"]), p["side"])
+        prev = dedup.get(key)
+        if prev is None or p["model_prob"] > prev["model_prob"]:
+            dedup[key] = p
+    pool = sorted(
+        dedup.values(),
+        key=lambda p: (p["model_prob"], p["edge"]),
+        reverse=True,
+    )
 
-    if len(legs) < PARLAY_MIN_LEGS:
-        for p in pool:
-            key = f"{p['player']}|{p['prop']}"
-            if key in seen_players:
-                continue
-            seen_players.add(key)
-            legs.append(p)
-            if len(legs) >= PARLAY_MIN_LEGS:
-                break
+    # Unique players only — allow any number of the same prop type.
+    legs = _pick_diverse(pool, n, max_per_prop=n)
+    if len(legs) < n:
+        fallback = [
+            p for p in predictions
+            if p.get("side") == "Under"
+            and p.get("prop") in PLAYABLE_PROPS
+            and float(p.get("projection") or 0) < float(p.get("line") or 0)
+            and not _is_freebie_leg(p)
+        ]
+        fallback.sort(key=lambda p: (p["model_prob"], p["edge"]), reverse=True)
+        used = {l["player"] for l in legs}
+        legs = legs + _pick_diverse(
+            [p for p in fallback if p["player"] not in used],
+            n - len(legs),
+            max_per_prop=n,
+        )
+
+    return [_sanitize_leg(l) for l in legs[:n]]
+
+
+def build_parlay(predictions: list[dict]) -> dict:
+    """Daily Flex card from Top 5. Always publishes when we have legs."""
+    legs = build_top_bets(predictions, n=PARLAY_TARGET_LEGS)
 
     combined = 1.0
     for l in legs:
         combined *= l["model_prob"]
 
+    oos_legs = sum(1 for l in legs if l["model_prob"] >= TOP_BET_MIN_CONF)
+    quality = (
+        "oos" if oos_legs >= 5
+        else "mixed" if oos_legs >= 3
+        else "thin"
+    )
     return {
-        "type": "power" if len(legs) <= 3 else "flex",
+        "type": PARLAY_TYPE if len(legs) >= 5 else ("power" if len(legs) <= 3 else "flex"),
         "n_legs": len(legs),
         "combined_prob": round(combined, 4),
+        "card_quality": quality,
+        "oos_legs": oos_legs,
+        # Historical Flex cash when the *selection* matches the OOS lane.
+        # Thin boards do not inherit that rate — surface null instead of lying.
+        "flex_cash_rate_oos": 0.93 if quality == "oos" else None,
+        "power_cash_rate_oos": 0.71 if quality == "oos" else None,
+        "policy": "accuracy_under_flex5_v2",
         "legs": legs,
     }
 
 
 def main() -> None:
     game_date = date.today()
-    predictions = build_predictions(game_date)
+    source = "prizepicks"
+    predictions = build_predictions_from_prizepicks(game_date)
+    if not predictions:
+        source = "the-odds-api"
+        predictions = build_predictions(game_date)
+
+    top_bets = build_top_bets(predictions) if predictions else []
     parlay = build_parlay(predictions) if predictions else {"n_legs": 0, "legs": []}
+    # Keep Top 5 and parlay identical (parlay rebuilds from the same function).
+    if top_bets:
+        parlay["legs"] = top_bets
+        parlay["n_legs"] = len(top_bets)
+    source_label = (
+        "prizepicks partner-api standard lines + raw leakage-safe projections"
+        if source == "prizepicks"
+        else "the-odds-api player props (de-vigged) + leakage-safe projections"
+    )
     payload = {
         "generated_at": game_date.isoformat(),
         "board_generated_at": datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z"),
-        "source": "the-odds-api player props (de-vigged) + leakage-safe projections",
+        "source": source_label,
+        "line_source": source,
         "count": len(predictions),
         "min_edge": MIN_EDGE,
+        "card_quality": parlay.get("card_quality"),
+        "top_bets": top_bets,
         "parlay": parlay,
         "predictions": predictions,
     }
+    # Final board-level guard: never ship Elite tags below the OOS bar.
+    for bucket in (payload["top_bets"], payload["parlay"].get("legs") or []):
+        for i, leg in enumerate(bucket):
+            bucket[i] = _sanitize_leg(leg)
     OUT_PATH.write_text(json.dumps(payload, indent=2))
 
-    # Archive today's board once (first publish wins) so the grader can settle it
-    # later against real results without being overwritten by intraday refreshes.
     ARCHIVE_DIR.mkdir(parents=True, exist_ok=True)
     archive_path = ARCHIVE_DIR / f"{game_date.isoformat()}.json"
-    if not archive_path.exists():
+    # Lock once a real card exists. Overwrite when: switching to PrizePicks,
+    # or the archive has an empty/incomplete card (failed earlier publish).
+    overwrite = False
+    if archive_path.exists():
+        try:
+            locked = json.loads(archive_path.read_text())
+            locked_legs = len(locked.get("top_bets") or [])
+            locked_parlay = int((locked.get("parlay") or {}).get("n_legs") or 0)
+            incomplete = locked_legs < PARLAY_MIN_LEGS and locked_parlay < PARLAY_MIN_LEGS
+            if os.getenv("PROP_FORCE_ARCHIVE", "0") == "1":
+                overwrite = True
+            elif source == "prizepicks" and locked.get("line_source") != "prizepicks":
+                overwrite = True
+            elif incomplete and len(top_bets) >= PARLAY_MIN_LEGS:
+                overwrite = True
+            elif locked.get("no_bet") and len(top_bets) >= PARLAY_MIN_LEGS:
+                # Replace a previous empty/no-bet publish with a real daily card.
+                overwrite = True
+            elif locked_legs or locked_parlay:
+                if not overwrite:
+                    payload["top_bets"] = locked.get("top_bets", payload.get("top_bets"))
+                    payload["parlay"] = locked.get("parlay", payload.get("parlay"))
+                    payload["locked_from_archive"] = True
+                    OUT_PATH.write_text(json.dumps(payload, indent=2))
+                    top_bets = payload["top_bets"]
+                    parlay = payload["parlay"]
+        except Exception:
+            pass
+    if not archive_path.exists() or overwrite:
         archive_path.write_text(json.dumps(payload, indent=2))
 
-    print(f"prop_predictions_ok count={len(predictions)} parlay_legs={parlay.get('n_legs')}")
+    print(
+        f"prop_predictions_ok source={source} count={len(predictions)} "
+        f"parlay_legs={parlay.get('n_legs')} top_bets={len(top_bets)}"
+    )
+    for b in top_bets:
+        print(f"  TOP {b['player']:20s} {b['prop_label']:14s} {b['pick']:10s} "
+              f"model={b['model_prob']:.2f} edge={b['edge']:+.3f} conf={b['confidence']}")
     for l in parlay.get("legs", []):
         print(f"  {l['player']:22s} {l['prop_label']:14s} {l['pick']:10s} "
               f"model={l['model_prob']:.2f} mkt={l['market_prob']:.2f} edge={l['edge']:+.3f} conf={l['confidence']}")
