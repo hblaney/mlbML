@@ -69,6 +69,24 @@ export default async function PropsPage() {
   const parlayProb = parlay.combined_prob ?? 0;
   const topBets = data.top_bets ?? [];
 
+  // Best-to-bet-first: playable PrizePicks sides, highest model hit % first.
+  // Demon/goblin Unders and coin-flip junk sink to the bottom (or drop out).
+  const confRank: Record<string, number> = { Elite: 0, High: 1, Medium: 2, Low: 3 };
+  const actionableEdges = [...(data.predictions ?? [])]
+    .filter((p) => {
+      const odds = (p.pp_odds_type || "standard").toLowerCase();
+      if ((odds === "demon" || odds === "goblin") && p.side === "Under") return false;
+      if (p.coin_flip) return false;
+      return true;
+    })
+    .sort((a, b) => {
+      const ca = confRank[a.confidence] ?? 4;
+      const cb = confRank[b.confidence] ?? 4;
+      if (ca !== cb) return ca - cb;
+      if (b.model_prob !== a.model_prob) return b.model_prob - a.model_prob;
+      return b.edge - a.edge;
+    });
+
   return (
     <main className="shell stack">
       <section className="panel strong">
@@ -77,7 +95,7 @@ export default async function PropsPage() {
         <p className="lead">
           Real sportsbook prop lines (de-vigged across {`FanDuel, DraftKings, BetMGM, BetRivers, BetOnline`}) vs
           leakage-safe projections. We only lean where our model genuinely disagrees with the market.
-          <strong> {data.count}</strong> actionable edges today.
+          <strong> {actionableEdges.length}</strong> actionable edges today, ranked best-to-bet.
         </p>
       </section>
 
@@ -233,11 +251,15 @@ export default async function PropsPage() {
 
       <section className="panel">
         <div className="section-heading compact">
-          <h2>All Actionable Edges ({data.count})</h2>
+          <h2>All Actionable Edges ({actionableEdges.length})</h2>
         </div>
+        <p className="muted" style={{ marginTop: 0 }}>
+          Sorted by confidence, then model hit probability. Unplayable demon/goblin Unders excluded.
+        </p>
         <table className="table">
           <thead>
             <tr>
+              <th>#</th>
               <th>Player</th>
               <th>Prop</th>
               <th>Pick</th>
@@ -250,8 +272,9 @@ export default async function PropsPage() {
             </tr>
           </thead>
           <tbody>
-            {data.predictions.map((p) => (
-              <tr key={`${p.player}-${p.prop}`}>
+            {actionableEdges.map((p, i) => (
+              <tr key={`${p.player}-${p.prop}-${p.line}-${p.side}`}>
+                <td className="muted">{i + 1}</td>
                 <td>
                   <strong>{p.player}</strong>
                   <div className="muted" style={{ fontSize: "0.8rem" }}>

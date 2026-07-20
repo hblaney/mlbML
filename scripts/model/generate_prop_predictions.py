@@ -253,6 +253,18 @@ def _is_unplayable_on_prizepicks(p: dict) -> bool:
     return False
 
 
+def _actionable_rank_key(p: dict) -> tuple:
+    """Best-to-bet-first: playable, then hit prob, then edge. Unplayable sinks."""
+    junk = 1 if (_is_unplayable_on_prizepicks(p) or _is_freebie_leg(p) or p.get("coin_flip")) else 0
+    conf = {"Elite": 0, "High": 1, "Medium": 2, "Low": 3}.get(str(p.get("confidence") or ""), 4)
+    return (
+        junk,
+        conf,
+        -float(p.get("model_prob") or 0),
+        -float(p.get("edge") or 0),
+    )
+
+
 def _hot_streak_blocks_under(p: dict) -> bool:
     """Don't recommend TB/hits Under when the batter just cleared the line 3x."""
     if p.get("side") != "Under":
@@ -531,7 +543,7 @@ def build_predictions_from_prizepicks(game_date: date) -> list[dict]:
     predictions.extend(
         _odds_api_k_fillins(game_date, predictions, roster, game_by_team, starter_cache)
     )
-    predictions.sort(key=lambda p: (p["edge"], p["model_prob"]), reverse=True)
+    predictions.sort(key=_actionable_rank_key)
     return predictions
 
 
@@ -871,7 +883,7 @@ def build_predictions(game_date: date) -> list[dict]:
             }
         )
 
-    predictions.sort(key=lambda p: (p["edge"], p["model_prob"]), reverse=True)
+    predictions.sort(key=_actionable_rank_key)
     return predictions
 
 

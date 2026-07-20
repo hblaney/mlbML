@@ -804,6 +804,8 @@ export type PropPrediction = {
   note: string;
   line_source?: string;
   pp_odds_type?: "standard" | "goblin" | "demon" | string | null;
+  coin_flip?: boolean;
+  unplayable?: boolean;
 };
 
 export type PropParlay = {
