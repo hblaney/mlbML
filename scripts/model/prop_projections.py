@@ -25,7 +25,7 @@ from hitter_stats_provider import (
     hitter_recent_rates,
     hitter_last_n_total_bases,
 )
-from pitcher_stats_provider import pitcher_stats_as_of
+from pitcher_stats_provider import pitcher_stats_as_of, pitcher_recent_start_rates
 from team_stats_provider import team_stats_as_of
 from prop_odds_provider import PropLine
 from handedness_provider import (
@@ -35,8 +35,10 @@ from handedness_provider import (
 )
 
 LEAGUE_K_RATE = 0.223
+LEAGUE_HITTER_K_PA = 0.225
 LEAGUE_ERA = 4.30
 LEAGUE_WHIP = 1.30
+LEAGUE_K9 = 8.2
 DEFAULT_PA = 4.15
 
 # team abbr -> MLB team id (filled lazily)
@@ -120,6 +122,13 @@ def _hitter_run_env(opp_era: float, opp_whip: float) -> float:
     return max(0.85, min(1.18, (era_adj + whip_adj) / 2.0))
 
 
+def _hitter_contact_matchup(opp_k9: float, hitter_k_pa: float) -> float:
+    """Suppress hits/TB vs high-K arms, more so for free-swinging hitters."""
+    k9_tilt = 1.0 - (opp_k9 - LEAGUE_K9) * 0.028
+    swing_tilt = 1.0 - max(0.0, hitter_k_pa - LEAGUE_HITTER_K_PA) * (opp_k9 / LEAGUE_K9) * 0.35
+    return max(0.78, min(1.12, 0.55 * k9_tilt + 0.45 * swing_tilt))
+
+
 def project_hitter(
     line: PropLine,
     game_date: date,
@@ -161,16 +170,6 @@ def project_hitter(
     q_hit = float(getattr(quality, "hit_mult", 1.0) or 1.0)
     q_hr = float(getattr(quality, "hr_mult", 1.0) or 1.0)
 
-    # Overall offense multiplier (park+weather runs, matchup, quality of contact).
-    # Clamp the stacked product so no single projection can run away from reality
-    # when several favorable factors compound.
-    off_mult = max(0.70, min(1.40, boost * run_mult * q_hit))
-    # Home-run multiplier uses HR-specific park/weather and barrel quality.
-    hr_mult = max(0.55, min(1.90, boost * hr_env_mult * q_hr))
-
-    exp_pa = exp_pa if exp_pa and exp_pa > 0 else DEFAULT_PA
-    ab = exp_pa * 0.88  # PA minus walks/hbp/sac approx
-
     hits = stats.get("hits", 0.0)
     doubles = stats.get("doubles", 0.0)
     triples = stats.get("triples", 0.0)
@@ -179,7 +178,20 @@ def project_hitter(
     rbi = stats.get("rbi", 0.0)
     runs = stats.get("runs", 0.0)
     sb = stats.get("stolen_bases", 0.0)
+    so = stats.get("strikeouts", 0.0)
     singles = max(0.0, hits - doubles - triples - hr)
+    hitter_k_pa = (so / pa) if pa else LEAGUE_HITTER_K_PA
+    contact = _hitter_contact_matchup(float(opp_k9), hitter_k_pa)
+
+    # Overall offense multiplier (park+weather runs, matchup, quality of contact).
+    # Clamp the stacked product so no single projection can run away from reality
+    # when several favorable factors compound.
+    off_mult = max(0.70, min(1.35, boost * run_mult * q_hit * contact))
+    # Home-run multiplier uses HR-specific park/weather and barrel quality.
+    hr_mult = max(0.55, min(1.85, boost * hr_env_mult * q_hr * (0.85 + 0.15 * contact)))
+
+    exp_pa = exp_pa if exp_pa and exp_pa > 0 else DEFAULT_PA
+    ab = exp_pa * 0.88  # PA minus walks/hbp/sac approx
 
     # per-PA and per-AB rates (season), then blend recent form so a 3/4/5 TB
     # heater isn't projected as a 1.46 Under 1.5.
@@ -197,11 +209,13 @@ def project_hitter(
     recent = hitter_recent_rates(line.player_id, game_date, lookback_days=14)
     form_w = 0.0
     if recent:
-        # ~45% weight on last ~2 weeks when sample is decent.
-        form_w = min(0.50, 0.20 + 0.30 * min(1.0, recent["plate_appearances"] / 40.0))
+        # Cap form at ~40% so short heaters don't dominate season rates.
+        form_w = min(0.40, 0.15 + 0.30 * min(1.0, recent["plate_appearances"] / 45.0))
         hit_pa = (1.0 - form_w) * hit_pa + form_w * recent["hit_pa"]
         tb_pa = (1.0 - form_w) * tb_pa + form_w * recent["tb_pa"]
         hr_pa = (1.0 - form_w) * hr_pa + form_w * recent["hr_pa"]
+        if "k_pa" in recent:
+            hitter_k_pa = (1.0 - form_w) * hitter_k_pa + form_w * recent["k_pa"]
 
     hit_pa *= off_mult
     hr_pa *= hr_mult
@@ -218,7 +232,7 @@ def project_hitter(
     n_pa = max(1, int(round(exp_pa)))
     plt = f" vs{opp_hand} plt={platoon:.2f}" if opp_hand else ""
     form = f" formW={form_w:.2f}" if form_w else ""
-    ctx = f" pa={exp_pa:.1f} off={off_mult:.2f} q={q_hit:.2f}{form}"
+    ctx = f" pa={exp_pa:.1f} off={off_mult:.2f} ct={contact:.2f} q={q_hit:.2f}{form}"
 
     if prop == "batter_hits":
         p = min(0.85, hit_pa / 0.88)  # per-AB hit prob
@@ -288,7 +302,16 @@ def project_pitcher(
     era = stats.get("era", LEAGUE_ERA)
     if not k9 or not gs:
         return None
-    exp_ip = max(4.0, min(6.7, ip / gs if gs else 5.5))
+    # Season IP/GS, blended toward recent starts so workload changes show up.
+    season_ip = max(4.0, min(6.7, ip / gs if gs else 5.5))
+    recent = pitcher_recent_start_rates(line.player_id, game_date, n=5)
+    if recent.get("n_starts", 0) >= 3 and recent.get("exp_ip"):
+        w = min(0.55, 0.20 + 0.10 * recent["n_starts"])
+        exp_ip = max(4.0, min(6.8, (1.0 - w) * season_ip + w * float(recent["exp_ip"])))
+        if recent.get("k9"):
+            k9 = (1.0 - 0.35 * w) * float(k9) + (0.35 * w) * float(recent["k9"])
+    else:
+        exp_ip = season_ip
 
     opp_k_rate = LEAGUE_K_RATE
     opp_obp = 0.320
@@ -314,7 +337,7 @@ def project_pitcher(
     floor = _line_floor(L)
 
     if prop == "pitcher_strikeouts":
-        opp_adj = 1.0 + (opp_k_rate - LEAGUE_K_RATE) * 1.3
+        opp_adj = 1.0 + (opp_k_rate - LEAGUE_K_RATE) * 1.45
         lam = max(0.0, k9 * exp_ip / 9.0 * opp_adj * k_platoon)
         prob = _poisson_sf(floor, lam)
         return PropProjection(prop, round(lam, 2), round(prob, 4),

@@ -128,13 +128,14 @@ jobs:
         if: steps.run_control.outputs.should_run == 'true'
         run: npm ci
 
-      # ── CRITICAL: retrain model + generate board + update outputs ──────────
+      # ── CRITICAL: retrain model + generate board + props + update outputs ──
       - name: Retrain model and generate today's board
         if: steps.run_control.outputs.should_run == 'true'
         env:
           ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
           ODDS_REGIONS: us
           ODDS_MARKETS: h2h,spreads,totals
+          PROP_FORCE_ARCHIVE: "1"
         run: npm run model:daily:core
 
       - name: Verify board integrity before commit
@@ -178,6 +179,12 @@ jobs:
             exit 1
           fi
           echo "Board published for ${today} with $(python3 -c "import json; print(len(json.load(open('public/predictions.json'))['predictions']))") games."
+          props_at=$(python3 -c "import json; print(json.load(open('public/prop-predictions.json')).get('generated_at',''))")
+          if [ "$props_at" != "$today" ]; then
+            echo "Expected prop generated_at=${today}, got ${props_at}"
+            exit 1
+          fi
+          echo "Props published for ${today} with $(python3 -c "import json; print(len(json.load(open('public/prop-predictions.json')).get('top_bets') or []))") top bets."
 
       # ── OPTIONAL: heavy research / backtest scripts ─────────────────────────
       # These never block the daily publish. Failures here are logged but ignored.

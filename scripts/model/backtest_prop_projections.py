@@ -38,24 +38,24 @@ from prop_projections import project_hitter, project_pitcher
 from prop_odds_provider import PropLine
 from handedness_provider import pitcher_throws, batter_bat_side
 
-# Standard PrizePicks/book lines we can grade without the real line archive.
+# Full daily line universe the Top-5 selector ranks over (PP ladders + standards).
 HITTER_GRADE = [
     ("batter_hits", [0.5, 1.5]),
-    ("batter_total_bases", [1.5, 2.5]),
+    ("batter_total_bases", [0.5, 1.5, 2.5]),
     ("batter_home_runs", [0.5]),
-    ("batter_rbis", [0.5]),
-    ("batter_runs_scored", [0.5]),
-    ("batter_hits_runs_rbis", [1.5, 2.5]),
+    ("batter_rbis", [0.5, 1.5]),
+    ("batter_runs_scored", [0.5, 1.5]),
+    ("batter_hits_runs_rbis", [0.5, 1.5, 2.5]),
     ("batter_walks", [0.5]),
     ("batter_stolen_bases", [0.5]),
-    ("batter_singles", [0.5]),
+    ("batter_singles", [0.5, 1.5]),
     ("batter_doubles", [0.5]),
 ]
 PITCHER_GRADE = [
-    ("pitcher_strikeouts", [4.5, 5.5, 6.5]),
-    ("pitcher_outs", [14.5, 17.5]),
-    ("pitcher_earned_runs", [2.5]),
-    ("pitcher_hits_allowed", [5.5]),
+    ("pitcher_strikeouts", [3.5, 4.5, 5.5, 6.5, 7.5]),
+    ("pitcher_outs", [14.5, 15.5, 17.5, 18.5]),
+    ("pitcher_earned_runs", [1.5, 2.5, 3.5]),
+    ("pitcher_hits_allowed", [4.5, 5.5, 6.5]),
 ]
 
 
@@ -308,6 +308,19 @@ def main() -> None:
         payload = {f"{prop}|{line}": rows for (prop, line), rows in records.items()}
         out.write_text(json.dumps(payload))
         print(f"\ndumped raw (pred,outcome) pairs -> {out}")
+
+        # Train-only split (~first 65% of calendar days) for honest isotonic fit.
+        day_keys: dict[str, list] = defaultdict(list)
+        # records lack dates — also dump a date-keyed companion from the sim path.
+        # Keep a simple chronological half-split by list order within each key as
+        # a fallback when dates aren't attached (order follows game walk-forward).
+        train_payload: dict[str, list] = {}
+        for key, rows in payload.items():
+            cut = max(1, int(len(rows) * 0.65))
+            train_payload[key] = rows[:cut]
+        train_out = REPO_ROOT_LOCAL / "data" / "prop_backtest_records_train.json"
+        train_out.write_text(json.dumps(train_payload))
+        print(f"dumped train-split records -> {train_out}")
 
     print("\nNOTE: this validates PROJECTION calibration only. True betting ROI needs "
           "historical prop LINES/PRICES, which our current odds plan does not provide.")

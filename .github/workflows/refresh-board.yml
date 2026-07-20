@@ -88,6 +88,22 @@ jobs:
             exit 1
           fi
 
+      - name: Regenerate PrizePicks prop board
+        env:
+          ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
+          PROP_FORCE_ARCHIVE: "1"
+        run: |
+          set -euo pipefail
+          python3 scripts/model/generate_prop_predictions.py
+          python3 scripts/model/grade_prop_predictions.py || true
+          props_at=$(python3 -c "import json; print(json.load(open('public/prop-predictions.json')).get('generated_at',''))")
+          today=$(date +%F)
+          echo "prop generated_at=${props_at}"
+          if [ "${props_at}" != "${today}" ]; then
+            echo "::error::Expected prop generated_at=${today}, got ${props_at}"
+            exit 1
+          fi
+
       - name: Full publish if board was stale (history + lock + health)
         run: |
           set -euo pipefail

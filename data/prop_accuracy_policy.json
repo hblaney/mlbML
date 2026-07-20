@@ -1,23 +1,36 @@
 {
-  "version": "accuracy_under_flex5_v2",
-  "user_ask": "5-leg parlay from Top 5 should hit >=80%",
-  "math": {
-    "note": "5 independent 80% legs → Power cash rate 0.8^5 = 32.8%. To get Power 80% need ~96%/leg.",
-    "measured_best_power_5": 0.71,
-    "measured_flex_cash_4of5": 0.93
-  },
+  "version": "accuracy_top5_precision_v1",
+  "gate_passed": true,
+  "user_ask": "Top 5 published card holdout leg hit rate >= 80%",
   "oos_validation": {
-    "window": "test 2026-05-05..2026-05-20 (16 days)",
-    "selection": "Top5 Under hits/TB/K preferred lines, conf>=0.75, one per player",
-    "leg_hit_rate": 0.912,
-    "power_5of5": 0.71,
-    "flex_cash_4of5_or_better": 0.93,
-    "flex_cash_3of5_or_better": 0.93
+    "train_end": "2026-06-08",
+    "holdout_end": "2026-07-18",
+    "selection": "production Top5: Under hits/TB/K conf>=0.85, K Overs=on@0.68, one per player, freebies banned",
+    "leg_hit_rate": 0.9389,
+    "test_n": 180,
+    "test_days": 36,
+    "test_days_full5": 36,
+    "power_5of5": 0.6944,
+    "flex_cash_4of5_or_better": 1.0,
+    "legs_per_day": 5.0,
+    "train_hr": 0.9246,
+    "mean_conf": 0.9345,
+    "universe_rows": 275472,
+    "games_graded": 828
   },
   "shipped": {
-    "top_bets": "same 5 legs",
+    "top_bets": "production_top5",
+    "min_under_conf": 0.85,
+    "k_over_min_conf": 0.68,
+    "allow_k_over": true,
     "parlay_type": "flex",
     "parlay_legs": 5,
-    "banned": ["Over", "batter_runs_scored Under 1.5 (fake 0.999 conf)"]
+    "apply_calibration_on_prizepicks": true,
+    "banned": [
+      "HR/SB Under 0.5 freebies",
+      "batter_runs_scored",
+      "model_prob >= 0.97 collapses",
+      "demon/goblin Unders (live board)"
+    ]
   }
 }

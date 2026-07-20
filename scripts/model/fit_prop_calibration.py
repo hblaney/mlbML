@@ -17,6 +17,8 @@ import numpy as np
 from sklearn.isotonic import IsotonicRegression
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
+# Prefer train-only dump (honest walk-forward); fall back to full records.
+RECORDS_TRAIN = REPO_ROOT / "data" / "prop_backtest_records_train.json"
 RECORDS = REPO_ROOT / "data" / "prop_backtest_records.json"
 OUT = REPO_ROOT / "data" / "prop_calibration.json"
 
@@ -43,7 +45,9 @@ def _fit_curve(pred: np.ndarray, out: np.ndarray, min_n: int = MIN_SAMPLES) -> d
 
 
 def main() -> None:
-    raw = json.loads(RECORDS.read_text())
+    src = RECORDS_TRAIN if RECORDS_TRAIN.exists() else RECORDS
+    print(f"fitting from {src}")
+    raw = json.loads(src.read_text())
 
     # group by prop family (strip the |line suffix)
     by_prop: dict[str, list[tuple[float, int]]] = defaultdict(list)

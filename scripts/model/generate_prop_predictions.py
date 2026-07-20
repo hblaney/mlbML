@@ -108,6 +108,9 @@ TOP_BET_ALLOW_OVER = False
 PARLAY_TARGET_LEGS = 5  # Top-5 Flex card
 PARLAY_MIN_LEGS = 5
 PARLAY_TYPE = "flex"
+# When OOS gate passes, apply train-fit isotonic on PrizePicks so live matches backtest.
+APPLY_CALIBRATION_ON_PRIZEPICKS = False
+POLICY_PATH = REPO_ROOT / "data" / "prop_accuracy_policy.json"
 
 PRETTY = {
     "pitcher_strikeouts": "Strikeouts",
@@ -150,6 +153,32 @@ def _decimal(american: int) -> float:
 K_OVER_MIN_CONF = 0.68
 K_OVER_MIN_PROJ_EDGE = 1.0
 K_OVER_MIN_LINE = 5.5
+
+
+def _load_accuracy_policy() -> None:
+    """Override Top-5 thresholds from the latest OOS freeze (if present)."""
+    global TOP_BET_MIN_CONF, PARLAY_LEG_MIN_PROB, K_OVER_MIN_CONF
+    global APPLY_CALIBRATION_ON_PRIZEPICKS
+    if not POLICY_PATH.exists():
+        return
+    try:
+        policy = json.loads(POLICY_PATH.read_text())
+    except Exception:
+        return
+    shipped = policy.get("shipped") or {}
+    # Only cut over thresholds when the holdout gate passed.
+    if not policy.get("gate_passed"):
+        return
+    if shipped.get("min_under_conf") is not None:
+        TOP_BET_MIN_CONF = float(shipped["min_under_conf"])
+        PARLAY_LEG_MIN_PROB = float(shipped["min_under_conf"])
+    if shipped.get("k_over_min_conf") is not None:
+        K_OVER_MIN_CONF = float(shipped["k_over_min_conf"])
+    if shipped.get("apply_calibration_on_prizepicks"):
+        APPLY_CALIBRATION_ON_PRIZEPICKS = True
+
+
+_load_accuracy_policy()
 
 
 def _confidence(
@@ -416,18 +445,22 @@ def build_predictions_from_prizepicks(game_date: date) -> list[dict]:
         if proj is None:
             continue
 
-        # PrizePicks is pick'em (~0.5). Use RAW Poisson/binomial P(over) — the
-        # isotonic curve was fit on sportsbook boards and systematically crushes
-        # Over probs (e.g. 0.43 → 0.31), inventing fake ~70% Unders on coin flips.
+        # PrizePicks is pick'em (~0.5). Default = RAW Poisson/binomial P(over).
+        # After the OOS gate passes, apply train-fit isotonic so live matches backtest.
         raw_over = float(proj.prob_over)
+        p_over = (
+            calibrate(pp.prop, raw_over)
+            if APPLY_CALIBRATION_ON_PRIZEPICKS
+            else raw_over
+        )
         market_over = 0.5
-        if raw_over >= market_over:
+        if p_over >= market_over:
             side = "Over"
-            model_p = raw_over
+            model_p = p_over
             market_p = market_over
         else:
             side = "Under"
-            model_p = 1.0 - raw_over
+            model_p = 1.0 - p_over
             market_p = 1.0 - market_over
         price = -110
         edge = model_p - market_p
@@ -454,7 +487,7 @@ def build_predictions_from_prizepicks(game_date: date) -> list[dict]:
                 "pick": f"{side} {pp.line}",
                 "projection": proj.projection,
                 "model_prob": round(model_p, 4),
-                "model_prob_raw": round(model_p, 4),
+                "model_prob_raw": round(raw_over if side == "Over" else 1.0 - raw_over, 4),
                 "market_prob": round(market_p, 4),
                 "edge": round(edge, 4),
                 "price": price,
@@ -840,6 +873,13 @@ def _k_over_lane(predictions: list[dict]) -> list[dict]:
     tagged goblin with no ``standard`` row). Prefer PrizePicks-bettable lines
     over sportsbook fill-ins when seeding the daily card.
     """
+    if POLICY_PATH.exists():
+        try:
+            shipped = (json.loads(POLICY_PATH.read_text()).get("shipped") or {})
+            if shipped.get("allow_k_over") is False:
+                return []
+        except Exception:
+            pass
     out = []
     for p in predictions:
         if p.get("prop") != "pitcher_strikeouts" or p.get("side") != "Over":
@@ -871,9 +911,11 @@ def build_top_bets(predictions: list[dict], n: int = 5) -> list[dict]:
       - freebies / coin-flips excluded
       - K Overs eligible alongside accuracy Unders
     """
+    # Floor matches OOS-tuned TOP_BET_MIN_CONF — do not pad with sub-threshold junk.
     pool = [
         p for p in (
-            _accuracy_lane(predictions, 0.50, prefer_lines=False) + _k_over_lane(predictions)
+            _accuracy_lane(predictions, TOP_BET_MIN_CONF, prefer_lines=False)
+            + _k_over_lane(predictions)
         )
         if (
             not _is_unplayable_on_prizepicks(p)
@@ -894,24 +936,8 @@ def build_top_bets(predictions: list[dict], n: int = 5) -> list[dict]:
     )
 
     # Unique players only — allow any number of the same prop type.
+    # Prefer fewer honest legs over forcing n with coin flips.
     legs = _pick_diverse(pool, n, max_per_prop=n)
-    if len(legs) < n:
-        fallback = [
-            p for p in predictions
-            if p.get("side") == "Under"
-            and p.get("prop") in PLAYABLE_PROPS
-            and float(p.get("projection") or 0) < float(p.get("line") or 0)
-            and not _is_freebie_leg(p)
-            and not _is_unplayable_on_prizepicks(p)
-        ]
-        fallback.sort(key=lambda p: (p["model_prob"], p["edge"]), reverse=True)
-        used = {l["player"] for l in legs}
-        legs = legs + _pick_diverse(
-            [p for p in fallback if p["player"] not in used],
-            n - len(legs),
-            max_per_prop=n,
-        )
-
     return [_sanitize_leg(l) for l in legs[:n]]
 
 
@@ -939,7 +965,11 @@ def build_parlay(predictions: list[dict]) -> dict:
         # Thin boards do not inherit that rate — surface null instead of lying.
         "flex_cash_rate_oos": 0.93 if quality == "oos" else None,
         "power_cash_rate_oos": 0.71 if quality == "oos" else None,
-        "policy": "accuracy_under_flex5_v2",
+        "policy": (
+            json.loads(POLICY_PATH.read_text()).get("version", "accuracy_under_flex5_v2")
+            if POLICY_PATH.exists()
+            else "accuracy_under_flex5_v2"
+        ),
         "legs": legs,
     }
 
@@ -958,11 +988,14 @@ def main() -> None:
     if top_bets:
         parlay["legs"] = top_bets
         parlay["n_legs"] = len(top_bets)
-    source_label = (
-        "prizepicks partner-api standard lines + raw leakage-safe projections"
-        if source == "prizepicks"
-        else "the-odds-api player props (de-vigged) + leakage-safe projections"
-    )
+    if source == "prizepicks":
+        source_label = (
+            "prizepicks partner-api + calibrated leakage-safe projections (OOS-gated Top 5)"
+            if APPLY_CALIBRATION_ON_PRIZEPICKS
+            else "prizepicks partner-api standard lines + raw leakage-safe projections"
+        )
+    else:
+        source_label = "the-odds-api player props (de-vigged) + leakage-safe projections"
     payload = {
         "generated_at": game_date.isoformat(),
         "board_generated_at": datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z"),
@@ -984,22 +1017,46 @@ def main() -> None:
     ARCHIVE_DIR.mkdir(parents=True, exist_ok=True)
     archive_path = ARCHIVE_DIR / f"{game_date.isoformat()}.json"
     # Lock once a real card exists. Overwrite when: switching to PrizePicks,
-    # or the archive has an empty/incomplete card (failed earlier publish).
+    # empty/incomplete archive, force flag, or the new card is the OOS-gated
+    # precision card (never restore a pre-gate padded Top 5 over a thin honest one).
     overwrite = False
+    policy_version = (
+        json.loads(POLICY_PATH.read_text()).get("version")
+        if POLICY_PATH.exists()
+        else None
+    )
     if archive_path.exists():
         try:
             locked = json.loads(archive_path.read_text())
             locked_legs = len(locked.get("top_bets") or [])
             locked_parlay = int((locked.get("parlay") or {}).get("n_legs") or 0)
             incomplete = locked_legs < PARLAY_MIN_LEGS and locked_parlay < PARLAY_MIN_LEGS
+            locked_policy = (locked.get("parlay") or {}).get("policy")
+            locked_min = min(
+                (float(x.get("model_prob") or 0) for x in (locked.get("top_bets") or [])),
+                default=0.0,
+            )
+            new_min = min(
+                (float(x.get("model_prob") or 0) for x in top_bets),
+                default=0.0,
+            )
+            precision_upgrade = (
+                bool(policy_version)
+                and locked_policy != policy_version
+                and (
+                    len(top_bets) > 0
+                    and (new_min >= TOP_BET_MIN_CONF or len(top_bets) < locked_legs)
+                )
+            )
             if os.getenv("PROP_FORCE_ARCHIVE", "0") == "1":
                 overwrite = True
             elif source == "prizepicks" and locked.get("line_source") != "prizepicks":
                 overwrite = True
-            elif incomplete and len(top_bets) >= PARLAY_MIN_LEGS:
+            elif incomplete and len(top_bets) >= 1:
                 overwrite = True
-            elif locked.get("no_bet") and len(top_bets) >= PARLAY_MIN_LEGS:
-                # Replace a previous empty/no-bet publish with a real daily card.
+            elif locked.get("no_bet") and len(top_bets) >= 1:
+                overwrite = True
+            elif precision_upgrade:
                 overwrite = True
             elif locked_legs or locked_parlay:
                 if not overwrite:

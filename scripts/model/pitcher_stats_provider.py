@@ -20,6 +20,7 @@ from __future__ import annotations
 
 import json
 import ssl
+import time
 from datetime import date, timedelta
 from pathlib import Path
 from urllib.parse import urlencode
@@ -210,3 +211,101 @@ def pitcher_stats_as_of(pitcher_id: int | None, game_date: date) -> dict[str, fl
 
 def pitcher_era_as_of(pitcher_id: int | None, game_date: date) -> float:
     return pitcher_stats_as_of(pitcher_id, game_date)["era"]
+
+
+_RECENT_RATES_CACHE: dict[tuple[int, str, int], dict[str, float]] = {}
+_GAMELOG_MEM: dict[tuple[int, int], list[dict]] = {}
+GAMELOG_CACHE_DIR = Path(__file__).resolve().parents[2] / "data" / "cache" / "pitcher_gamelog"
+
+
+def _pitcher_start_log(pitcher_id: int, season: int) -> list[dict]:
+    """Season start log (date, ip, k9), disk-cached once per pitcher-season."""
+    mem_key = (pitcher_id, season)
+    if mem_key in _GAMELOG_MEM:
+        return _GAMELOG_MEM[mem_key]
+
+    GAMELOG_CACHE_DIR.mkdir(parents=True, exist_ok=True)
+    cache_path = GAMELOG_CACHE_DIR / f"{pitcher_id}_{season}.json"
+    # Refresh in-season logs that are older than 12h so recent starts appear.
+    if cache_path.exists():
+        age_h = (time.time() - cache_path.stat().st_mtime) / 3600.0
+        # Prior seasons are immutable; current season refreshes every 12h.
+        if season < date.today().year or age_h < 12:
+            try:
+                rows = json.loads(cache_path.read_text())
+                _GAMELOG_MEM[mem_key] = rows
+                return rows
+            except json.JSONDecodeError:
+                cache_path.unlink(missing_ok=True)
+
+    params = urlencode(
+        {
+            "stats": "gameLog",
+            "group": "pitching",
+            "season": season,
+        }
+    )
+    url = f"{API_BASE}/people/{pitcher_id}/stats?{params}"
+    context = ssl.create_default_context(cafile=certifi.where())
+    rows: list[dict] = []
+    try:
+        with urlopen(url, timeout=30, context=context) as response:
+            payload = json.load(response)
+        splits = (payload.get("stats") or [{}])[0].get("splits") or []
+        for split in splits:
+            raw_day = split.get("date")
+            if not raw_day:
+                continue
+            st = split.get("stat") or {}
+            if int(st.get("gamesStarted") or 0) != 1:
+                continue
+            ip = _ip_to_float(st.get("inningsPitched"))
+            so = _to_float(st.get("strikeOuts"), 0.0) or 0.0
+            if ip <= 0:
+                continue
+            rows.append({
+                "date": str(raw_day)[:10],
+                "ip": ip,
+                "k9": so * 9.0 / ip,
+            })
+        cache_path.write_text(json.dumps(rows))
+    except Exception:
+        rows = []
+    _GAMELOG_MEM[mem_key] = rows
+    return rows
+
+
+def pitcher_recent_start_rates(
+    pitcher_id: int | None,
+    game_date: date,
+    *,
+    n: int = 5,
+) -> dict[str, float]:
+    """Mean IP and K/9 over the last ``n`` starts strictly before ``game_date``."""
+    if not pitcher_id or n <= 0:
+        return {}
+    mem_key = (pitcher_id, game_date.isoformat(), n)
+    if mem_key in _RECENT_RATES_CACHE:
+        return dict(_RECENT_RATES_CACHE[mem_key])
+
+    starts = []
+    for row in _pitcher_start_log(pitcher_id, game_date.year):
+        try:
+            day = date.fromisoformat(row["date"])
+        except ValueError:
+            continue
+        if day >= game_date:
+            continue
+        starts.append((float(row["ip"]), float(row["k9"])))
+
+    recent = starts[-n:] if len(starts) >= n else starts
+    if not recent:
+        _RECENT_RATES_CACHE[mem_key] = {}
+        return {}
+    out = {
+        "exp_ip": sum(x[0] for x in recent) / len(recent),
+        "k9": sum(x[1] for x in recent) / len(recent),
+        "n_starts": float(len(recent)),
+    }
+    _RECENT_RATES_CACHE[mem_key] = out
+    return dict(out)

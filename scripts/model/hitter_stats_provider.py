@@ -24,6 +24,7 @@ _DEFAULTS: dict[str, float] = {
     "walks": 0.35,
     "hbp": 0.03,
     "stolen_bases": 0.05,
+    "strikeouts": 0.90,
     "plate_appearances": 4.0,
     "ops": 0.720,
 }
@@ -94,6 +95,7 @@ def _parse_line(stat: dict) -> dict[str, float]:
         "walks": _to_float(stat.get("baseOnBalls")),
         "hbp": _to_float(stat.get("hitByPitch")),
         "stolen_bases": _to_float(stat.get("stolenBases")),
+        "strikeouts": _to_float(stat.get("strikeOuts")),
         "plate_appearances": pa,
         "ops": _to_float(stat.get("ops"), 0.720),
     }
@@ -104,7 +106,7 @@ def _blend(current: dict[str, float], prior: dict[str, float]) -> dict[str, floa
     out: dict[str, float] = {}
     count_keys = (
         "hits", "doubles", "triples", "home_runs", "runs", "rbi",
-        "walks", "hbp", "stolen_bases", "plate_appearances",
+        "walks", "hbp", "stolen_bases", "strikeouts", "plate_appearances",
     )
     for key in count_keys:
         cur = current.get(key, 0.0)
@@ -186,11 +188,13 @@ def hitter_recent_rates(
     hr = parsed.get("home_runs", 0.0)
     singles = max(0.0, hits - doubles - triples - hr)
     tb = singles + 2 * doubles + 3 * triples + 4 * hr
+    so = parsed.get("strikeouts", 0.0)
     out = {
         "plate_appearances": pa,
         "hit_pa": hits / pa,
         "tb_pa": tb / pa,
         "hr_pa": hr / pa,
+        "k_pa": so / pa,
         "avg_tb_per_game": tb / max(1.0, pa / 4.2),
     }
     _RECENT_CACHE[mem_key] = out
