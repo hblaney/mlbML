@@ -40,7 +40,7 @@ export type GamePrediction = {
   confidence: "Low" | "Medium" | "High" | "Elite";
   /** Model agrees with no-vig market on pick side (informational — not required for High/Elite). */
   marketAgrees?: boolean | null;
-  /** Internal model edge |p - 0.5| before public pipeline. */
+  /** Sim pick% − market implied for the picked side (uncapped). */
   modelEdge?: number;
   modelVersion: string;
   explanation: string[];
@@ -53,6 +53,12 @@ export type GamePrediction = {
   eraDiff?: number;
   /** Recent form edge (pick team 10-game win% minus opponent 10-game win%) — High/Elite gate. */
   formEdge?: number;
+  /** pa_monte_carlo | gbm_fallback */
+  predictionSource?: string;
+  lineupSource?: string | null;
+  nSims?: number;
+  simRawHomeWinProbability?: number | null;
+  gbmHomeWinProbability?: number | null;
 };
 
 export type StreamEmbed = {
@@ -2074,22 +2080,15 @@ export function getMarketAgreeParlayTicket(board: GamePrediction[] = predictions
     return null;
   }
 
-  // Legs must never be Low confidence (coin flips) — the integrity guard rejects
-  // Low legs on a parlay, and they're exactly the picks that don't hit. Quality
-  // tiers, best (0) first: prefer market favorites the model also agrees with,
-  // relaxing only as far as needed to field 2-3 non-Low legs. `bookProbability`
-  // is the book's implied win chance.
-  const isFavorite = (bet: BestBet) => bet.odds <= MARKET_AGREE_FAVORITE_ODDS_CAP;
+  // Legs must never be Low confidence. Rank by sim strength and +EV vs market
+  // (sim − book), not by "must agree with the favorite."
   const eligible = universe.filter((bet) => bet.game.confidence !== "Low");
   const tierPredicates: Array<(bet: BestBet) => boolean> = [
-    (bet) =>
-      isFavorite(bet) &&
-      bet.game.marketAgrees === true &&
-      bet.bookProbability >= MARKET_AGREE_MIN_LEG_BOOK_PROB,
-    (bet) => isFavorite(bet) && bet.bookProbability >= MARKET_AGREE_MIN_LEG_BOOK_PROB,
-    (bet) => isFavorite(bet) && bet.bookProbability >= 0.5,
-    (bet) => isFavorite(bet),
-    () => true, // non-Low but not a book favorite — last resort to still field legs
+    (bet) => bet.modelProbability >= 0.6 && bet.edge >= 0.02,
+    (bet) => bet.modelProbability >= 0.57 && (bet.game.confidence === "Elite" || bet.game.confidence === "High"),
+    (bet) => bet.modelProbability >= 0.55,
+    (bet) => bet.edge >= 0,
+    () => true,
   ];
 
   const tierOf = (bet: BestBet) => {
@@ -2101,15 +2100,13 @@ export function getMarketAgreeParlayTicket(board: GamePrediction[] = predictions
     return tierPredicates.length;
   };
 
-  // Rank: best tier first, then heaviest market favorite (most likely to win),
-  // then the model's own confidence as a tiebreak.
   const ranked = (eligible.length > 0 ? eligible : universe)
     .map((bet) => ({ bet, tier: tierOf(bet) }))
     .sort(
       (left, right) =>
         left.tier - right.tier ||
-        right.bet.bookProbability - left.bet.bookProbability ||
-        right.bet.modelProbability - left.bet.modelProbability
+        right.bet.modelProbability - left.bet.modelProbability ||
+        right.bet.edge - left.bet.edge
     )
     .map((entry) => entry.bet);
 

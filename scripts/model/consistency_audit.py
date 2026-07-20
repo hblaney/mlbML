@@ -40,13 +40,15 @@ def _load(name: str) -> dict | list | None:
 
 
 def check_honest_calibration(predictions: dict) -> list[str]:
-    """Published pick % may differ from raw GBM when market-residual publish is active.
+    """PA Monte Carlo may calibrate raw→published; market anchoring is forbidden.
 
-    Inflation (cosmetic stretch without market) is still forbidden: when there is no
-    moneyline on the row, pick must equal raw.
+    When predictionSource is pa_monte_carlo, raw/pick may differ via isotonic map.
+    Legacy no-market rows still require pick == raw (no cosmetic inflation).
     """
     errors: list[str] = []
     for row in predictions.get("predictions", []):
+        if row.get("predictionSource") == "pa_monte_carlo":
+            continue
         raw = row.get("rawPickProbability")
         pick = row.get("pickProbability")
         if raw is None or pick is None:

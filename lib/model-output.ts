@@ -1142,6 +1142,11 @@ function normalizePredictionRows(rows: PredictionOutputRow[]): GamePrediction[] 
       pitcherChanged: row.pitcherChanged,
       eraDiff: row.eraDiff,
       formEdge: row.formEdge,
+      predictionSource: row.predictionSource,
+      lineupSource: row.lineupSource,
+      nSims: row.nSims,
+      simRawHomeWinProbability: row.simRawHomeWinProbability,
+      gbmHomeWinProbability: row.gbmHomeWinProbability,
     };
     // Only re-validate when confidence was computed on-the-fly in TypeScript (row.confidence absent).
     // When the JSON row already carries a confidence label, Python's integrity check at generation

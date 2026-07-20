@@ -60,6 +60,30 @@ def featured_hitters(team_id: int, game_date: date, *, n: int = TOP_N) -> list[t
     return scored[:n]
 
 
+def projected_lineup(team_id: int, game_date: date) -> list[int]:
+    """OPS-ranked 9-man lineup when a confirmed batting order isn't posted yet."""
+    roster = _active_roster_ids(team_id, game_date.year)
+    scored: list[tuple[int, float, float]] = []
+    for pid, _name in roster:
+        stats = hitter_stats_as_of(pid, game_date)
+        pa = float(stats.get("plate_appearances", 0.0))
+        ops = float(stats.get("ops", 0.0))
+        # Prefer real hitters; allow thin samples so we can still fill 9.
+        if pa < 5 and ops <= 0:
+            continue
+        scored.append((pid, ops, pa))
+    scored.sort(key=lambda row: (-row[1], -row[2]))
+    ids = [pid for pid, _ops, _pa in scored[:9]]
+    # Pad with remaining roster if OPS filter was too strict.
+    if len(ids) < 9:
+        for pid, _name in roster:
+            if pid not in ids:
+                ids.append(pid)
+            if len(ids) >= 9:
+                break
+    return ids[:9]
+
+
 # Expected plate appearances per lineup slot for a 9-inning game (leadoff bats most).
 # Empirically stable: ~4.6 for the top of the order down to ~3.7 for the 9-hole.
 _SLOT_PA = {

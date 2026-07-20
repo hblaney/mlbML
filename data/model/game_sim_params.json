@@ -1,0 +1,22 @@
+{
+  "calibration": "identity",
+  "architecture": "pa_monte_carlo_v1",
+  "x": [0.0, 0.5, 1.0],
+  "y": [0.0, 0.5, 1.0],
+  "n_sims_default": 8000,
+  "n_sims_tune": 800,
+  "tuned_on": "2026-07-01_2026-07-19",
+  "train_n": 146,
+  "holdout_n": 63,
+  "holdout_raw_brier": 0.24481,
+  "holdout_cal_brier": 0.24481,
+  "holdout_raw_logloss": 0.68418,
+  "holdout_cal_logloss": 0.68418,
+  "holdout_coin_brier": 0.25,
+  "holdout_raw_pick_acc": 0.6032,
+  "holdout_cal_pick_acc": 0.6032,
+  "isotonic_kept": false,
+  "mean_raw_home_prob": 0.494,
+  "home_win_rate": 0.5024,
+  "note": "Isotonic hurt holdout Brier/acc; publishing raw sim probabilities"
+}

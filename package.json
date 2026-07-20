@@ -12,6 +12,7 @@
     "lint": "next lint",
     "model:backtest": "python3 scripts/model/backtest.py",
     "model:refresh-board": "python3 scripts/model/generate_today_board.py",
+    "model:calibrate-game-sim": "python3 scripts/model/calibrate_game_sim.py",
     "model:daily:core": "python3 scripts/model/generate_today_board.py && python3 scripts/model/generate_prediction_history.py && python3 scripts/model/generate_accuracy_output.py && python3 scripts/model/clv_tracker.py && python3 scripts/model/model_health.py && python3 scripts/model/rolling_strategy_guard.py && python3 scripts/model/generate_live_strategy_metrics.py && python3 scripts/model/lock_daily_ticket.py && python3 scripts/model/generate_prop_predictions.py && python3 scripts/model/grade_prop_predictions.py && python3 scripts/model/consistency_audit.py",
     "model:props": "PROP_FORCE_ARCHIVE=1 python3 scripts/model/generate_prop_predictions.py && python3 scripts/model/grade_prop_predictions.py",
     "model:clv": "python3 scripts/model/clv_tracker.py",

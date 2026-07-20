@@ -32,7 +32,8 @@ export default async function HomePage() {
         <p className="eyebrow">Daily MLB model</p>
         <h1>Today&apos;s MLB predictions.</h1>
         <p className="lead">
-          Model win probabilities first — who we think wins and how often. Odds and edge are reference only.
+          Full-game Monte Carlo win probabilities — lineups, starters, and bullpens simulated thousands of
+          times. Sportsbook odds are shown for comparison, not as the pick.
         </p>
         <div className="hero-actions">
           <Link href="/accuracy" className="button">
@@ -58,7 +59,7 @@ export default async function HomePage() {
           <article>
             <p className="muted">2026 season accuracy</p>
             <div className="metric">{seasonAccuracy !== null ? formatPercent(seasonAccuracy) : "Pending"}</div>
-            <p className="muted">Market-backed walk-forward record</p>
+            <p className="muted">Walk-forward graded record</p>
           </article>
           <article>
             <p className="muted">Last 7 days</p>

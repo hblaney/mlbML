@@ -35,14 +35,12 @@ export function confidenceFromPickProbability(
     return probability >= CONFIDENCE_UNCERTAIN_MEDIUM_MIN ? "Medium" : "Low";
   }
 
+  // Market agreement is informational only — PA Monte Carlo can disagree with the book.
   if (
     probability >= CONFIDENCE_ELITE_MIN &&
     eraDiff >= CONFIDENCE_ELITE_MIN_ERA_DIFF &&
     formEdge >= CONFIDENCE_ELITE_MIN_FORM_EDGE
   ) {
-    if (context.marketAgrees === false) {
-      return probability >= CONFIDENCE_MEDIUM_MIN ? "Medium" : "Low";
-    }
     return "Elite";
   }
   if (
@@ -50,9 +48,6 @@ export function confidenceFromPickProbability(
     eraDiff >= CONFIDENCE_HIGH_MIN_ERA_DIFF &&
     formEdge >= CONFIDENCE_HIGH_MIN_FORM_EDGE
   ) {
-    if (context.marketAgrees === false) {
-      return probability >= CONFIDENCE_MEDIUM_MIN ? "Medium" : "Low";
-    }
     return "High";
   }
   if (probability >= CONFIDENCE_MEDIUM_MIN) {

@@ -18,7 +18,7 @@ import { formatCentralGameTime } from "@/lib/time";
 export const dynamic = "force-dynamic";
 
 const STRATEGY_LABELS: Record<string, string> = {
-  market_agree_parlay: "market_agree_parlay (live · small edges × parlays)",
+  market_agree_parlay: "sim_edge_parlay (live · Monte Carlo win% vs market)",
   daily_top3_prob: "daily_top3_prob (legacy · 3 singles by win probability)",
   daily_top3_evscore: "daily_top3_evscore (legacy · EV×prob ranking)",
   daily_best_single: "daily_best_single (selective quality single)",

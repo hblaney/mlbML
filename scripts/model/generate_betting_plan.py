@@ -34,11 +34,10 @@ def main() -> None:
     last100_auc = last100.get("auc")
 
     rules = [
-        "Official bet = market-agree SMALL-edge parlays (2–3 legs). Multiply small edges — do not hunt anti-market dogs.",
-        "Leg gates: market agrees, Medium+, edge 1.5–5.5%, pick ≥55%, confirmed starter, +EV.",
-        "Published probabilities are market-residual with capped edge; anti-market α is near zero.",
-        "Model retrains daily through yesterday with heavy recent-game sample weights.",
+        "Official board = PA Monte Carlo sim win%. Market is comparison only (edge = sim − book).",
+        "Ticket legs: prefer High/Elite sim picks with +EV vs market; anti-market dogs allowed when sim is strong.",
         "Do not hand-build tickets off the research board — the locked ticket is the only official slip.",
+        "GBM still trains daily as a diagnostic/fallback; published picks come from the game sim.",
         f"Walk-forward ticket ({LIVE_STRATEGY}): {record} ({ticket_hit:.1%} hit)" if ticket_hit else "Walk-forward hit: see live-strategy-metrics.json",
         f"Model season pick accuracy: {season_acc:.1%}" if season_acc else "Model season accuracy: see model-health.json",
         f"Last-100 form: {last100_acc:.1%} acc, AUC {last100_auc:.2f}" if last100_acc is not None and last100_auc is not None else "",

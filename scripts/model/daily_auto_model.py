@@ -34,8 +34,8 @@ from trained_edge_model import (
 )
 
 MODEL_PATH = Path(__file__).resolve().parents[2] / "data" / "model" / "daily_edge.pkl"
-MODEL_VERSION = "daily-auto-v5.1-honest-parlay"
-PIPELINE_VERSION = "unified-public-v19-honest-market-agree-parlay"
+MODEL_VERSION = "daily-auto-v6.0-pa-monte-carlo"
+PIPELINE_VERSION = "unified-public-v20-pa-monte-carlo"
 
 
 @dataclass
@@ -55,10 +55,8 @@ class DailyModelBundle:
             confidence=prediction.confidence,
             notes=[
                 f"Retrained through {self.trained_through.isoformat()}",
-                "Shallow gradient boosting trained on prior season (decayed) plus current season (boosted)",
-                "Elo, recent form, starter, park, and weather are GBM inputs; published pick % is market-residual (P = market + α×(model−market)) when odds exist.",
-                "Retrains from scratch whenever yesterday's finals are new (daily). Recent games are heavily upweighted.",
-                "Published % = market + small residual; anti-market α is near-zero; edge is capped. Live ticket = market-agree small-edge parlays.",
+                "GBM retained as diagnostic; published moneyline board uses PA Monte Carlo sim.",
+                "Elo/form/starter features still train the GBM fallback path.",
             ],
         )
 

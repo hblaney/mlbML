@@ -7,9 +7,10 @@ from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 
 from daily_auto_model import MODEL_VERSION, PIPELINE_VERSION, ensure_trained_through
+from game_sim_board import simulate_game_record
 from mlb_api import fetch_upcoming_games, load_team_abbreviations
 from odds_provider import fetch_moneyline_market, market_for_game
-from trained_edge_model import _safe_pitcher_stats, final_public_probabilities
+from trained_edge_model import _safe_pitcher_stats
 
 PUBLIC_PATH = Path(__file__).resolve().parents[2] / "public" / "predictions.json"
 
@@ -100,39 +101,60 @@ def main() -> None:
         starter_certain = _starter_certain(game)
         pitcher_changed = _pitcher_changed(previous_pitchers, game_id, away_pitcher, home_pitcher)
 
-        # ERA differential and recent form — confirmed gates for High/Elite.
-        # Both are DIRECTIONAL: positive means the picked team has the edge.
+        # ERA / form diagnostics (directional vs the eventual sim pick).
         home_pit = _safe_pitcher_stats(game, game.home_pitcher_id)
         away_pit = _safe_pitcher_stats(game, game.away_pitcher_id)
-        # Predict direction to compute directional edges; recomputed after result
-        _pred_home_tmp = prediction.home_probability >= prediction.away_probability
-        _pick_pit = home_pit if _pred_home_tmp else away_pit
-        _opp_pit = away_pit if _pred_home_tmp else home_pit
-        # ERA edge: opponent ERA minus picked-team ERA (positive = picked starter is better/lower ERA)
+
+        gbm_home = float(prediction.home_probability)
+        gbm_away = float(prediction.away_probability)
+
+        sim = simulate_game_record(game, starter_certain=starter_certain)
+        if sim.ok:
+            home_probability = sim.home_win_prob
+            away_probability = sim.away_win_prob
+            pick_probability = max(home_probability, away_probability)
+            live_confidence = sim.confidence
+            raw_pick = max(sim.raw_home_win_prob, sim.raw_away_win_prob)
+            prediction_source = "pa_monte_carlo"
+        else:
+            # Sim failed — publish raw GBM (no market hug).
+            home_probability = gbm_home
+            away_probability = gbm_away
+            pick_probability = max(home_probability, away_probability)
+            live_confidence = "Low" if pick_probability < 0.55 else "Medium"
+            raw_pick = pick_probability
+            prediction_source = "gbm_fallback"
+
+        predicted_home = home_probability >= away_probability
+        _pick_pit = home_pit if predicted_home else away_pit
+        _opp_pit = away_pit if predicted_home else home_pit
         era_diff = round(_opp_pit["era"] - _pick_pit["era"], 6)
-        _pick_team = bundle.league.team(game.home_team_id if _pred_home_tmp else game.away_team_id)
-        _opp_team  = bundle.league.team(game.away_team_id if _pred_home_tmp else game.home_team_id)
+        _pick_team = bundle.league.team(game.home_team_id if predicted_home else game.away_team_id)
+        _opp_team = bundle.league.team(game.away_team_id if predicted_home else game.home_team_id)
         form_edge = round(_pick_team.win_pct(10) - _opp_team.win_pct(10), 6)
 
-        result = final_public_probabilities(
-            prediction,
-            market_home=market_probs[0] if market_probs else None,
-            market_away=market_probs[1] if market_probs else None,
-            starter_certain=starter_certain,
-            era_diff=era_diff,
-            form_edge=form_edge,
-        )
-        home_probability = result.home_probability
-        away_probability = result.away_probability
-        pick_probability = result.pick_probability
-        live_confidence = result.confidence
-        predicted_home = home_probability >= away_probability
-        notes = list(prediction.notes)
-        notes.append(
-            "Unified model output: GBM + Elo/form/stats (incl. starter & series features). "
-            "Pick % is market-residual when live odds exist (P = market + α×(model−market)); "
-            "raw GBM is used only when odds are missing."
-        )
+        market_home = market_probs[0] if market_probs else None
+        market_away = market_probs[1] if market_probs else None
+        market_agrees = None
+        model_edge = 0.0
+        if market_home is not None and market_away is not None:
+            market_pick_home = market_home >= market_away
+            market_agrees = predicted_home == market_pick_home
+            market_for_pick = market_home if predicted_home else market_away
+            model_edge = pick_probability - market_for_pick
+
+        notes = [
+            f"Retrained through {bundle.trained_through.isoformat()}",
+            "Full-game plate-appearance Monte Carlo (lineups × starter/bullpen matchups × park).",
+            "Published win% is calibrated sim output — not market-anchored. Market shown for edge only.",
+        ]
+        if sim.ok:
+            notes.append(sim.note)
+            notes.append(
+                f"Sim runs/game: away {sim.mean_away_runs:.1f}, home {sim.mean_home_runs:.1f}"
+            )
+        else:
+            notes.append(sim.note or "Sim unavailable; fell back to raw GBM")
 
         predicted_team = home_abbr if predicted_home else away_abbr
         if odds_available:
@@ -159,6 +181,12 @@ def main() -> None:
         if series_fade:
             notes.append("Pick lost last 2 vs this opponent — excluded from parlays (series fade)")
 
+        projected_total = (
+            round(sim.mean_home_runs + sim.mean_away_runs, 2)
+            if sim.ok
+            else projected_total_for(game, bundle.league)
+        )
+
         board.append(
             {
                 "id": game_id,
@@ -173,9 +201,16 @@ def main() -> None:
                 "seriesFade": series_fade,
                 "predictedTeam": predicted_team,
                 "pickProbability": round(pick_probability, 4),
-                "rawPickProbability": round(result.raw_pick_probability, 4),
+                "rawPickProbability": round(raw_pick, 4),
                 "modelHomeWinProbability": round(home_probability, 4),
                 "modelAwayWinProbability": round(away_probability, 4),
+                "simRawHomeWinProbability": round(sim.raw_home_win_prob, 4) if sim.ok else None,
+                "simRawAwayWinProbability": round(sim.raw_away_win_prob, 4) if sim.ok else None,
+                "gbmHomeWinProbability": round(gbm_home, 4),
+                "gbmAwayWinProbability": round(gbm_away, 4),
+                "nSims": sim.n_sims if sim.ok else 0,
+                "lineupSource": sim.lineup_source if sim.ok else None,
+                "predictionSource": prediction_source,
                 "homeMoneyline": market_snapshot.home_moneyline if odds_available else None,
                 "awayMoneyline": market_snapshot.away_moneyline if odds_available else None,
                 "homeRunline": market_snapshot.home_runline if odds_available and market_snapshot.home_runline_price else None,
@@ -185,11 +220,11 @@ def main() -> None:
                 "marketTotal": market_snapshot.market_total if odds_available and market_snapshot.over_price and market_snapshot.under_price else None,
                 "overPrice": market_snapshot.over_price if odds_available and market_snapshot.over_price else None,
                 "underPrice": market_snapshot.under_price if odds_available and market_snapshot.under_price else None,
-                "projectedTotal": projected_total_for(game, bundle.league),
+                "projectedTotal": projected_total,
                 "oddsSource": "The Odds API" if odds_available else None,
                 "confidence": live_confidence,
-                "marketAgrees": result.market_agrees,
-                "modelEdge": round(result.model_edge, 4),
+                "marketAgrees": market_agrees,
+                "modelEdge": round(model_edge, 4),
                 "eraDiff": era_diff,
                 "formEdge": form_edge,
                 "modelVersion": MODEL_VERSION,
