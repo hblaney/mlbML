@@ -254,11 +254,23 @@ def _is_unplayable_on_prizepicks(p: dict) -> bool:
 
 
 def _actionable_rank_key(p: dict) -> tuple:
-    """Best-to-bet-first: playable, then hit prob, then edge. Unplayable sinks."""
+    """Best-to-bet-first: playable, then hit prob, then edge. Unplayable sinks.
+
+    Baby goblin K Overs (3.5/4.5) are juice — keep them below real 5.5+ K lines
+    and high-conf Unders even if confidence tags them Elite.
+    """
     junk = 1 if (_is_unplayable_on_prizepicks(p) or _is_freebie_leg(p) or p.get("coin_flip")) else 0
+    baby_k = 0
+    if (
+        p.get("prop") == "pitcher_strikeouts"
+        and p.get("side") == "Over"
+        and float(p.get("line") or 0) < K_OVER_MIN_LINE
+    ):
+        baby_k = 1
     conf = {"Elite": 0, "High": 1, "Medium": 2, "Low": 3}.get(str(p.get("confidence") or ""), 4)
     return (
         junk,
+        baby_k,
         conf,
         -float(p.get("model_prob") or 0),
         -float(p.get("edge") or 0),

@@ -80,6 +80,9 @@ export default async function PropsPage() {
       return true;
     })
     .sort((a, b) => {
+      const baby = (p: PropPrediction) =>
+        p.prop === "pitcher_strikeouts" && p.side === "Over" && p.line < 5.5 ? 1 : 0;
+      if (baby(a) !== baby(b)) return baby(a) - baby(b);
       const ca = confRank[a.confidence] ?? 4;
       const cb = confRank[b.confidence] ?? 4;
       if (ca !== cb) return ca - cb;
