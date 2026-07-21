@@ -89,7 +89,8 @@ def _market_probs_from_row(row: dict) -> tuple[float, float] | None:
 
 
 def recompute_and_verify_board(payload: dict | None = None) -> list[str]:
-    from game_sim_board import simulate_game_record
+    from daily_auto_model import ensure_trained_through
+    from gbm_confidence import assign_daily_confidence
     from mlb_api import fetch_upcoming_games, load_team_abbreviations
 
     errors: list[str] = []
@@ -97,10 +98,21 @@ def recompute_and_verify_board(payload: dict | None = None) -> list[str]:
         payload = json.loads(PUBLIC_PATH.read_text())
 
     today = date.today()
+    yesterday = today - timedelta(days=1)
+    bundle, _ = ensure_trained_through(yesterday)
     games = {g.game_pk: g for g in fetch_upcoming_games(today, today)}
     abbr = load_team_abbreviations()
 
-    for row in payload.get("predictions", []):
+    # Rebuild confidence card the same way as the generator (slate-level).
+    rows = list(payload.get("predictions") or [])
+    if rows and rows[0].get("predictionSource") == "raw_gbm":
+        probe = [{**r} for r in rows]
+        assign_daily_confidence(probe)
+        conf_by_id = {r["id"]: r["confidence"] for r in probe}
+    else:
+        conf_by_id = {}
+
+    for row in rows:
         gid = row.get("id", "?")
         try:
             game_pk = int(str(gid).rsplit("-", 1)[-1])
@@ -111,37 +123,27 @@ def recompute_and_verify_board(payload: dict | None = None) -> list[str]:
         if game is None:
             continue
 
-        # Skip integrity recompute for GBM fallback rows (non-sim).
-        if row.get("predictionSource") == "gbm_fallback":
+        if row.get("predictionSource") != "raw_gbm":
+            # Legacy sim boards — skip strict recompute here.
             continue
 
-        sim = simulate_game_record(
-            game,
-            starter_certain=bool(row.get("starterCertain", True)),
-            n_sims=int(row.get("nSims") or 0) or None,
-        )
-        if not sim.ok:
-            errors.append(f"{gid}: sim recompute failed ({sim.note})")
-            continue
-
-        hp = sim.home_win_prob
-        ap = sim.away_win_prob
+        pred = bundle.predict(game)
+        hp = float(pred.home_probability)
+        ap = float(pred.away_probability)
         pick = max(hp, ap)
-        conf = sim.confidence
         stored_pick = float(row.get("pickProbability", 0))
         stored_home = float(row.get("modelHomeWinProbability", 0))
-        stored_conf = row.get("confidence")
         stored_team = str(row.get("predictedTeam", "")).lower()
         expected_team = abbr.get(game.home_team_id if hp >= ap else game.away_team_id, "").lower()
+        stored_conf = row.get("confidence")
+        expected_conf = conf_by_id.get(gid)
 
-        # Sim floats can drift slightly across numpy builds — allow a looser band in CI.
-        sim_tol = max(TOLERANCE, 0.002)
-        if abs(stored_pick - pick) > sim_tol:
+        if abs(stored_pick - pick) > TOLERANCE:
             errors.append(f"{gid}: pick recompute {pick:.4f} != stored {stored_pick:.4f}")
-        if abs(stored_home - hp) > sim_tol:
+        if abs(stored_home - hp) > TOLERANCE:
             errors.append(f"{gid}: home recompute {hp:.4f} != stored {stored_home:.4f}")
-        if stored_conf != conf:
-            errors.append(f"{gid}: confidence recompute {conf!r} != stored {stored_conf!r}")
+        if expected_conf is not None and stored_conf != expected_conf:
+            errors.append(f"{gid}: confidence recompute {expected_conf!r} != stored {stored_conf!r}")
         if stored_team != expected_team:
             errors.append(f"{gid}: predictedTeam {stored_team!r} != recompute {expected_team!r}")
 

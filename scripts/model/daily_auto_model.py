@@ -34,8 +34,8 @@ from trained_edge_model import (
 )
 
 MODEL_PATH = Path(__file__).resolve().parents[2] / "data" / "model" / "daily_edge.pkl"
-MODEL_VERSION = "daily-auto-v6.0-pa-monte-carlo"
-PIPELINE_VERSION = "unified-public-v20-pa-monte-carlo"
+MODEL_VERSION = "daily-auto-v6.1-raw-gbm"
+PIPELINE_VERSION = "unified-public-v21-raw-gbm-high-card"
 
 
 @dataclass

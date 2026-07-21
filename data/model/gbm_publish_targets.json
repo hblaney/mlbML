@@ -1,0 +1,15 @@
+{
+  "architecture": "raw_gbm_publish_v1",
+  "tuned_on": "2026-05-01_2026-07-19",
+  "overall_pick_accuracy": 0.612,
+  "overall_n": 1023,
+  "high_card_policy": "top_3_per_day_min_high",
+  "high_card_oos_accuracy": 0.732,
+  "high_card_oos_n": 228,
+  "high_card_note": "Top-3 GBM picks/day ≈73%. 90% is not achievable for ≥3 MLB moneylines/day with current features.",
+  "p65_accuracy": 0.743,
+  "p65_days_with_3_plus": "4/77",
+  "target_overall": 0.60,
+  "target_high_requested": 0.90,
+  "target_high_achievable": 0.73
+}

@@ -8,6 +8,7 @@ from pathlib import Path
 
 from daily_auto_model import MODEL_VERSION, PIPELINE_VERSION, ensure_trained_through
 from game_sim_board import simulate_game_record
+from gbm_confidence import assign_daily_confidence
 from mlb_api import fetch_upcoming_games, load_team_abbreviations
 from odds_provider import fetch_moneyline_market, market_for_game
 from trained_edge_model import _safe_pitcher_stats
@@ -101,29 +102,20 @@ def main() -> None:
         starter_certain = _starter_certain(game)
         pitcher_changed = _pitcher_changed(previous_pitchers, game_id, away_pitcher, home_pitcher)
 
-        # ERA / form diagnostics (directional vs the eventual sim pick).
+        # ERA / form diagnostics (directional vs the GBM pick).
         home_pit = _safe_pitcher_stats(game, game.home_pitcher_id)
         away_pit = _safe_pitcher_stats(game, game.away_pitcher_id)
 
         gbm_home = float(prediction.home_probability)
         gbm_away = float(prediction.away_probability)
 
-        sim = simulate_game_record(game, starter_certain=starter_certain)
-        if sim.ok:
-            home_probability = sim.home_win_prob
-            away_probability = sim.away_win_prob
-            pick_probability = max(home_probability, away_probability)
-            live_confidence = sim.confidence
-            raw_pick = max(sim.raw_home_win_prob, sim.raw_away_win_prob)
-            prediction_source = "pa_monte_carlo"
-        else:
-            # Sim failed — publish raw GBM (no market hug).
-            home_probability = gbm_home
-            away_probability = gbm_away
-            pick_probability = max(home_probability, away_probability)
-            live_confidence = "Low" if pick_probability < 0.55 else "Medium"
-            raw_pick = pick_probability
-            prediction_source = "gbm_fallback"
+        # Official pick = raw GBM (OOS ~61% May–Jul). Sim stays diagnostic.
+        home_probability = gbm_home
+        away_probability = gbm_away
+        pick_probability = max(home_probability, away_probability)
+        raw_pick = pick_probability
+        prediction_source = "raw_gbm"
+        sim = simulate_game_record(game, starter_certain=starter_certain, n_sims=2000)
 
         predicted_home = home_probability >= away_probability
         _pick_pit = home_pit if predicted_home else away_pit
@@ -145,16 +137,14 @@ def main() -> None:
 
         notes = [
             f"Retrained through {bundle.trained_through.isoformat()}",
-            "Full-game plate-appearance Monte Carlo (lineups × starter/bullpen matchups × park).",
-            "Published win% is calibrated sim output — not market-anchored. Market shown for edge only.",
+            "Published pick = raw GBM win% (Elo/form/starter/park). Not market-anchored.",
+            "OOS May–Jul 2026: overall ≈61%; daily top-3 High card ≈73% (90% not achievable at ≥3/day).",
         ]
         if sim.ok:
-            notes.append(sim.note)
             notes.append(
-                f"Sim runs/game: away {sim.mean_away_runs:.1f}, home {sim.mean_home_runs:.1f}"
+                f"PA sim diagnostic: home {sim.home_win_prob:.1%} "
+                f"(runs {sim.mean_away_runs:.1f}-{sim.mean_home_runs:.1f}, {sim.lineup_source})"
             )
-        else:
-            notes.append(sim.note or "Sim unavailable; fell back to raw GBM")
 
         predicted_team = home_abbr if predicted_home else away_abbr
         if odds_available:
@@ -206,6 +196,8 @@ def main() -> None:
                 "modelAwayWinProbability": round(away_probability, 4),
                 "simRawHomeWinProbability": round(sim.raw_home_win_prob, 4) if sim.ok else None,
                 "simRawAwayWinProbability": round(sim.raw_away_win_prob, 4) if sim.ok else None,
+                "simHomeWinProbability": round(sim.home_win_prob, 4) if sim.ok else None,
+                "simAwayWinProbability": round(sim.away_win_prob, 4) if sim.ok else None,
                 "gbmHomeWinProbability": round(gbm_home, 4),
                 "gbmAwayWinProbability": round(gbm_away, 4),
                 "nSims": sim.n_sims if sim.ok else 0,
@@ -222,7 +214,7 @@ def main() -> None:
                 "underPrice": market_snapshot.under_price if odds_available and market_snapshot.under_price else None,
                 "projectedTotal": projected_total,
                 "oddsSource": "The Odds API" if odds_available else None,
-                "confidence": live_confidence,
+                "confidence": "Low",
                 "marketAgrees": market_agrees,
                 "modelEdge": round(model_edge, 4),
                 "eraDiff": era_diff,
@@ -241,6 +233,7 @@ def main() -> None:
         seen_ids.add(game_id)
         deduped_board.append(row)
     board = deduped_board
+    assign_daily_confidence(board)
     board.sort(key=lambda row: row.get("pickProbability") or 0, reverse=True)
     payload = {
         "generated_at": today.isoformat(),
