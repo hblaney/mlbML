@@ -15,7 +15,9 @@ permissions:
   contents: write
 
 concurrency:
-  group: daily-model-retrain
+  # Share with Refresh Live Board so hourly refreshes don't stack on top of the
+  # morning retrain and burn Odds API quota / cancel each other in the queue.
+  group: mlb-board-publish
   cancel-in-progress: false
 
 jobs:

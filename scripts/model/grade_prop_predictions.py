@@ -186,7 +186,10 @@ def _grade_leg(leg: dict, game_date: str) -> dict | None:
         return {"won": None, "profit": 0.0, "actual": actual}
     over_won = actual > line
     won = over_won if side == "Over" else (not over_won)
-    profit = (_decimal(int(leg.get("price", 0))) - 1.0) if won else -1.0
+    # PrizePicks pick'em legs ship price=null (key present). Treat as even money (-100).
+    raw_price = leg.get("price")
+    american = int(raw_price) if raw_price not in (None, "") else 0
+    profit = (_decimal(american) - 1.0) if won else -1.0
     return {"won": won, "profit": profit, "actual": actual}
 
 
@@ -312,4 +315,7 @@ def main() -> None:
 
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except Exception as error:  # noqa: BLE001 — grading must never block board publish
+        print(f"prop_grade_skip error={error}")

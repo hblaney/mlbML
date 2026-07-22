@@ -13,7 +13,7 @@ permissions:
   contents: write
 
 concurrency:
-  group: refresh-live-board
+  group: mlb-board-publish
   cancel-in-progress: false
 
 jobs:
@@ -118,20 +118,26 @@ jobs:
           print("prop_publish_guards_file_ok")
           PY
 
-      - name: Full publish if board was stale (history + lock + health)
+      - name: History / lock / health (never re-run full daily:core)
         run: |
           set -euo pipefail
+          # Board + props already regenerated above. Re-running model:daily:core here
+          # used to burn 60–90 minutes, exhaust Odds API quota, and cancel sibling jobs.
           yesterday=$(python3 -c "from datetime import date, timedelta; print((date.today()-timedelta(days=1)).isoformat())")
           trained=$(python3 -c "import json; print(json.load(open('public/prediction-history.json')).get('trained_through',''))" 2>/dev/null || echo "")
           if [ -z "$trained" ] || [[ "$trained" < "$yesterday" ]]; then
-            echo "Running full publish pipeline (history stale)..."
-            npm run model:daily:core
+            echo "History stale (trained_through=${trained:-missing}); refreshing history outputs..."
+            python3 scripts/model/generate_prediction_history.py
+            python3 scripts/model/generate_accuracy_output.py
+            python3 scripts/model/clv_tracker.py || true
           else
-            echo "History current; running lock + health only."
-            python3 scripts/model/model_health.py || true
-            python3 scripts/model/lock_daily_ticket.py
-            python3 scripts/model/consistency_audit.py
+            echo "History current (trained_through=${trained})."
           fi
+          python3 scripts/model/model_health.py || true
+          python3 scripts/model/rolling_strategy_guard.py || true
+          python3 scripts/model/generate_live_strategy_metrics.py || true
+          python3 scripts/model/lock_daily_ticket.py
+          python3 scripts/model/consistency_audit.py
 
       - name: Update live bankroll
         continue-on-error: true
