@@ -2,23 +2,23 @@
   "generated_at": "2026-07-22",
   "source": "prop-leans-v2",
   "note": "K uses estimated PrizePicks lines when posted line unknown. Hitter FS from top-4 OPS bats per team.",
-  "actionable_count": 137,
+  "actionable_count": 141,
   "leans": [
     {
-      "gameId": "bal-bos-2026-07-22-824735",
+      "gameId": "bal-bos-2026-07-22-824732",
       "matchup": "BAL @ BOS",
-      "player": "Jahmai Jones",
+      "player": "Willson Contreras",
       "team": "BOS",
       "prop": "hitter_fantasy_score",
-      "vs_pitcher": "Dean Kremer",
-      "fair_line": 7.5,
-      "line": 5.5,
-      "projection": 7.7,
+      "vs_pitcher": "Kyle Bradish",
+      "fair_line": 7.0,
+      "line": 5.0,
+      "projection": 7.2,
       "lean": "Over",
-      "edge": 2.21,
+      "edge": 2.25,
       "confidence": "high",
       "line_source": "prizepicks_est",
-      "ops": 1.5
+      "ops": 0.941
     },
     {
       "gameId": "sd-atl-2026-07-22-824896",
@@ -35,6 +35,22 @@
       "confidence": "high",
       "line_source": "prizepicks_est",
       "ops": 0.93
+    },
+    {
+      "gameId": "min-cle-2026-07-22-824408",
+      "matchup": "MIN @ CLE",
+      "player": "Byron Buxton",
+      "team": "MIN",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Slade Cecconi",
+      "fair_line": 8.0,
+      "line": 6.0,
+      "projection": 8.2,
+      "lean": "Over",
+      "edge": 2.16,
+      "confidence": "high",
+      "line_source": "prizepicks_est",
+      "ops": 0.902
     },
     {
       "gameId": "cws-tex-2026-07-22-822873",
@@ -101,6 +117,22 @@
       "ops": 0.966
     },
     {
+      "gameId": "bal-bos-2026-07-22-824732",
+      "matchup": "BAL @ BOS",
+      "player": "Jahmai Jones",
+      "team": "BOS",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Kyle Bradish",
+      "fair_line": 7.5,
+      "line": 5.5,
+      "projection": 7.6,
+      "lean": "Over",
+      "edge": 2.05,
+      "confidence": "high",
+      "line_source": "prizepicks_est",
+      "ops": 1.5
+    },
+    {
       "gameId": "mia-hou-2026-07-22-824166",
       "matchup": "MIA @ HOU",
       "player": "Griffin Conine",
@@ -130,22 +162,6 @@
       "confidence": "high",
       "line_source": "prizepicks_est",
       "k9": 10.93
-    },
-    {
-      "gameId": "ath-az-2026-07-22-825055",
-      "matchup": "ATH @ AZ",
-      "player": "Joshua Kuroda-Grauer",
-      "team": "ATH",
-      "prop": "hitter_fantasy_score",
-      "vs_pitcher": "Merrill Kelly",
-      "fair_line": 16.5,
-      "line": 14.5,
-      "projection": 16.4,
-      "lean": "Over",
-      "edge": 1.93,
-      "confidence": "medium",
-      "line_source": "prizepicks_est",
-      "ops": 1.018
     },
     {
       "gameId": "tb-tor-2026-07-22-822784",
@@ -415,6 +431,21 @@
       "confidence": "medium",
       "line_source": "prizepicks_est",
       "ops": 0.858
+    },
+    {
+      "gameId": "bal-bos-2026-07-22-824732",
+      "matchup": "BAL @ BOS",
+      "player": "Kyle Bradish",
+      "team": "BAL",
+      "prop": "strikeouts",
+      "fair_line": 6.0,
+      "line": 4.5,
+      "projection": 6.1,
+      "lean": "Over",
+      "edge": 1.62,
+      "confidence": "high",
+      "line_source": "prizepicks_est",
+      "k9": 10.07
     },
     {
       "gameId": "wsh-col-2026-07-22-824327",
@@ -1040,20 +1071,20 @@
       "ops": 0.807
     },
     {
-      "gameId": "bal-bos-2026-07-22-824735",
-      "matchup": "BAL @ BOS",
-      "player": "Samuel Basallo",
-      "team": "BAL",
+      "gameId": "min-cle-2026-07-22-824408",
+      "matchup": "MIN @ CLE",
+      "player": "Jos\u00e9 Ram\u00edrez",
+      "team": "CLE",
       "prop": "hitter_fantasy_score",
-      "vs_pitcher": "Jake Bennett",
-      "fair_line": 5.5,
-      "line": 4.5,
-      "projection": 5.7,
+      "vs_pitcher": "Bailey Ober",
+      "fair_line": 7.5,
+      "line": 6.5,
+      "projection": 7.7,
       "lean": "Over",
       "edge": 1.21,
       "confidence": "low",
       "line_source": "prizepicks_est",
-      "ops": 0.755
+      "ops": 0.757
     },
     {
       "gameId": "cws-tex-2026-07-22-822873",
@@ -1117,22 +1148,6 @@
       "confidence": "medium",
       "line_source": "prizepicks_est",
       "k9": 9.63
-    },
-    {
-      "gameId": "min-cle-2026-07-22-824408",
-      "matchup": "MIN @ CLE",
-      "player": "Alex Jackson",
-      "team": "MIN",
-      "prop": "hitter_fantasy_score",
-      "vs_pitcher": "Slade Cecconi",
-      "fair_line": 6.0,
-      "line": 5.0,
-      "projection": 6.2,
-      "lean": "Over",
-      "edge": 1.18,
-      "confidence": "low",
-      "line_source": "prizepicks_est",
-      "ops": 0.751
     },
     {
       "gameId": "sd-atl-2026-07-22-824896",
@@ -1263,22 +1278,6 @@
       "ops": 0.824
     },
     {
-      "gameId": "bal-bos-2026-07-22-824735",
-      "matchup": "BAL @ BOS",
-      "player": "Wilyer Abreu",
-      "team": "BOS",
-      "prop": "hitter_fantasy_score",
-      "vs_pitcher": "Dean Kremer",
-      "fair_line": 6.5,
-      "line": 5.5,
-      "projection": 6.6,
-      "lean": "Over",
-      "edge": 1.12,
-      "confidence": "low",
-      "line_source": "prizepicks_est",
-      "ops": 0.8
-    },
-    {
       "gameId": "stl-laa-2026-07-22-824004",
       "matchup": "STL @ LAA",
       "player": "Wade Meckler",
@@ -1327,6 +1326,22 @@
       "ops": 0.762
     },
     {
+      "gameId": "det-chc-2026-07-22-824650",
+      "matchup": "DET @ CHC",
+      "player": "Gleyber Torres",
+      "team": "DET",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Colin Rea",
+      "fair_line": 6.0,
+      "line": 5.0,
+      "projection": 6.1,
+      "lean": "Over",
+      "edge": 1.1,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.787
+    },
+    {
       "gameId": "sf-kc-2026-07-22-824083",
       "matchup": "SF @ KC",
       "player": "Jac Caglianone",
@@ -1343,15 +1358,15 @@
       "ops": 0.779
     },
     {
-      "gameId": "bal-bos-2026-07-22-824735",
+      "gameId": "bal-bos-2026-07-22-824732",
       "matchup": "BAL @ BOS",
-      "player": "Blaze Alexander",
+      "player": "Pete Alonso",
       "team": "BAL",
       "prop": "hitter_fantasy_score",
-      "vs_pitcher": "Jake Bennett",
-      "fair_line": 6.0,
-      "line": 5.0,
-      "projection": 6.1,
+      "vs_pitcher": "Eduardo Rivera",
+      "fair_line": 6.5,
+      "line": 5.5,
+      "projection": 6.6,
       "lean": "Over",
       "edge": 1.07,
       "confidence": "low",
@@ -1423,22 +1438,6 @@
       "ops": 0.779
     },
     {
-      "gameId": "bal-bos-2026-07-22-824735",
-      "matchup": "BAL @ BOS",
-      "player": "Adley Rutschman",
-      "team": "BAL",
-      "prop": "hitter_fantasy_score",
-      "vs_pitcher": "Jake Bennett",
-      "fair_line": 5.5,
-      "line": 4.5,
-      "projection": 5.5,
-      "lean": "Over",
-      "edge": 1.02,
-      "confidence": "low",
-      "line_source": "prizepicks_est",
-      "ops": 0.764
-    },
-    {
       "gameId": "sf-kc-2026-07-22-824083",
       "matchup": "SF @ KC",
       "player": "Rafael Devers",
@@ -1503,22 +1502,6 @@
       "ops": 0.816
     },
     {
-      "gameId": "bal-bos-2026-07-22-824735",
-      "matchup": "BAL @ BOS",
-      "player": "Ceddanne Rafaela",
-      "team": "BOS",
-      "prop": "hitter_fantasy_score",
-      "vs_pitcher": "Dean Kremer",
-      "fair_line": 6.5,
-      "line": 5.5,
-      "projection": 6.5,
-      "lean": "Over",
-      "edge": 0.99,
-      "confidence": "low",
-      "line_source": "prizepicks_est",
-      "ops": 0.759
-    },
-    {
       "gameId": "lad-phi-2026-07-22-823438",
       "matchup": "LAD @ PHI",
       "player": "Brandon Marsh",
@@ -1533,6 +1516,22 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.804
+    },
+    {
+      "gameId": "bal-bos-2026-07-22-824732",
+      "matchup": "BAL @ BOS",
+      "player": "Wilyer Abreu",
+      "team": "BOS",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Kyle Bradish",
+      "fair_line": 6.5,
+      "line": 5.5,
+      "projection": 6.5,
+      "lean": "Over",
+      "edge": 0.98,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.8
     },
     {
       "gameId": "ath-az-2026-07-22-825055",
@@ -1583,22 +1582,6 @@
       "ops": 0.772
     },
     {
-      "gameId": "sf-kc-2026-07-22-824083",
-      "matchup": "SF @ KC",
-      "player": "Bobby Witt Jr.",
-      "team": "KC",
-      "prop": "hitter_fantasy_score",
-      "vs_pitcher": "Landen Roupp",
-      "fair_line": 7.5,
-      "line": 6.5,
-      "projection": 7.5,
-      "lean": "Over",
-      "edge": 0.97,
-      "confidence": "low",
-      "line_source": "prizepicks_est",
-      "ops": 0.8
-    },
-    {
       "gameId": "nym-mil-2026-07-22-823761",
       "matchup": "NYM @ MIL",
       "player": "Francisco Alvarez",
@@ -1646,6 +1629,22 @@
       "k9": 9.01
     },
     {
+      "gameId": "sf-kc-2026-07-22-824083",
+      "matchup": "SF @ KC",
+      "player": "Lane Thomas",
+      "team": "KC",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Landen Roupp",
+      "fair_line": 6.0,
+      "line": 5.0,
+      "projection": 5.9,
+      "lean": "Over",
+      "edge": 0.94,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.75
+    },
+    {
       "gameId": "det-chc-2026-07-22-824650",
       "matchup": "DET @ CHC",
       "player": "Kevin McGonigle",
@@ -1660,6 +1659,21 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.816
+    },
+    {
+      "gameId": "bal-bos-2026-07-22-824732",
+      "matchup": "BAL @ BOS",
+      "player": "Eduardo Rivera",
+      "team": "BOS",
+      "prop": "strikeouts",
+      "fair_line": 5.5,
+      "line": 4.5,
+      "projection": 5.4,
+      "lean": "Over",
+      "edge": 0.94,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "k9": 8.68
     },
     {
       "gameId": "stl-laa-2026-07-22-824004",
@@ -1678,20 +1692,20 @@
       "ops": 0.75
     },
     {
-      "gameId": "bal-bos-2026-07-22-824735",
-      "matchup": "BAL @ BOS",
-      "player": "Pete Alonso",
-      "team": "BAL",
+      "gameId": "ath-az-2026-07-22-825055",
+      "matchup": "ATH @ AZ",
+      "player": "Jacob Wilson",
+      "team": "ATH",
       "prop": "hitter_fantasy_score",
-      "vs_pitcher": "Jake Bennett",
+      "vs_pitcher": "Merrill Kelly",
       "fair_line": 6.5,
       "line": 5.5,
       "projection": 6.4,
       "lean": "Over",
-      "edge": 0.93,
+      "edge": 0.91,
       "confidence": "low",
       "line_source": "prizepicks_est",
-      "ops": 0.807
+      "ops": 0.748
     },
     {
       "gameId": "mia-hou-2026-07-22-824166",
@@ -1743,18 +1757,18 @@
     {
       "gameId": "cin-sea-2026-07-22-823110",
       "matchup": "CIN @ SEA",
-      "player": "Cole Young",
+      "player": "Julio Rodr\u00edguez",
       "team": "SEA",
       "prop": "hitter_fantasy_score",
       "vs_pitcher": "Brady Singer",
-      "fair_line": 6.0,
-      "line": 5.0,
-      "projection": 5.9,
+      "fair_line": 7.0,
+      "line": 6.0,
+      "projection": 6.8,
       "lean": "Over",
-      "edge": 0.86,
+      "edge": 0.85,
       "confidence": "low",
       "line_source": "prizepicks_est",
-      "ops": 0.711
+      "ops": 0.747
     },
     {
       "gameId": "pit-nyy-2026-07-22-823518",
@@ -1771,6 +1785,22 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.818
+    },
+    {
+      "gameId": "bal-bos-2026-07-22-824732",
+      "matchup": "BAL @ BOS",
+      "player": "Ceddanne Rafaela",
+      "team": "BOS",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Kyle Bradish",
+      "fair_line": 6.5,
+      "line": 5.5,
+      "projection": 6.4,
+      "lean": "Over",
+      "edge": 0.85,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.759
     },
     {
       "gameId": "sf-kc-2026-07-22-824083",
@@ -1803,6 +1833,22 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.812
+    },
+    {
+      "gameId": "bal-bos-2026-07-22-824732",
+      "matchup": "BAL @ BOS",
+      "player": "Gunnar Henderson",
+      "team": "BAL",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Eduardo Rivera",
+      "fair_line": 6.0,
+      "line": 5.0,
+      "projection": 5.8,
+      "lean": "Over",
+      "edge": 0.83,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.695
     },
     {
       "gameId": "tb-tor-2026-07-22-822784",
@@ -2172,68 +2218,36 @@
       "k9": 6.98
     },
     {
-      "gameId": "tb-tor-2026-07-22-822784",
-      "matchup": "TB @ TOR",
-      "player": "Jonatan Clase",
-      "team": "TOR",
-      "prop": "hitter_fantasy_score",
-      "vs_pitcher": "Griffin Jax",
-      "fair_line": 5.0,
-      "line": 4.5,
-      "projection": 5.2,
-      "lean": "Pass",
-      "edge": 0.73,
-      "confidence": "pass",
-      "line_source": "prizepicks_est",
-      "ops": 0.905
-    },
-    {
-      "gameId": "min-cle-2026-07-22-824408",
-      "matchup": "MIN @ CLE",
-      "player": "Austin Hedges",
-      "team": "CLE",
-      "prop": "hitter_fantasy_score",
-      "vs_pitcher": "Bailey Ober",
-      "fair_line": 5.0,
-      "line": 4.5,
-      "projection": 5.1,
-      "lean": "Pass",
-      "edge": 0.62,
-      "confidence": "pass",
-      "line_source": "prizepicks_est",
-      "ops": 0.742
-    },
-    {
       "gameId": "lad-phi-2026-07-22-823438",
       "matchup": "LAD @ PHI",
-      "player": "Bryson Stott",
+      "player": "Bryan De La Cruz",
       "team": "PHI",
       "prop": "hitter_fantasy_score",
       "vs_pitcher": "Eric Lauer",
-      "fair_line": 6.5,
-      "line": 6.0,
-      "projection": 6.6,
-      "lean": "Pass",
-      "edge": 0.59,
-      "confidence": "pass",
+      "fair_line": 3.0,
+      "line": 4.5,
+      "projection": 3.0,
+      "lean": "Under",
+      "edge": 1.45,
+      "confidence": "medium",
       "line_source": "prizepicks_est",
-      "ops": 0.705
+      "ops": 0.72
     },
     {
-      "gameId": "det-chc-2026-07-22-824650",
-      "matchup": "DET @ CHC",
-      "player": "Spencer Torkelson",
-      "team": "DET",
+      "gameId": "tb-tor-2026-07-22-822784",
+      "matchup": "TB @ TOR",
+      "player": "Nathan Lukes",
+      "team": "TOR",
       "prop": "hitter_fantasy_score",
-      "vs_pitcher": "Colin Rea",
-      "fair_line": 6.0,
-      "line": 5.5,
-      "projection": 6.1,
+      "vs_pitcher": "Griffin Jax",
+      "fair_line": 5.5,
+      "line": 5.0,
+      "projection": 5.7,
       "lean": "Pass",
-      "edge": 0.58,
+      "edge": 0.66,
       "confidence": "pass",
       "line_source": "prizepicks_est",
-      "ops": 0.714
+      "ops": 0.738
     },
     {
       "gameId": "cin-sea-2026-07-22-823110",
@@ -2252,6 +2266,38 @@
       "ops": 0.742
     },
     {
+      "gameId": "bal-bos-2026-07-22-824732",
+      "matchup": "BAL @ BOS",
+      "player": "Taylor Ward",
+      "team": "BAL",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Eduardo Rivera",
+      "fair_line": 5.5,
+      "line": 5.0,
+      "projection": 5.5,
+      "lean": "Pass",
+      "edge": 0.54,
+      "confidence": "pass",
+      "line_source": "prizepicks_est",
+      "ops": 0.747
+    },
+    {
+      "gameId": "bal-bos-2026-07-22-824732",
+      "matchup": "BAL @ BOS",
+      "player": "Christian Encarnacion-Strand",
+      "team": "BAL",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Eduardo Rivera",
+      "fair_line": 5.0,
+      "line": 4.5,
+      "projection": 5.0,
+      "lean": "Pass",
+      "edge": 0.53,
+      "confidence": "pass",
+      "line_source": "prizepicks_est",
+      "ops": 1.125
+    },
+    {
       "gameId": "sd-atl-2026-07-22-824896",
       "matchup": "SD @ ATL",
       "player": "Luis Rengifo",
@@ -2266,22 +2312,6 @@
       "confidence": "pass",
       "line_source": "prizepicks_est",
       "ops": 1.071
-    },
-    {
-      "gameId": "bal-bos-2026-07-22-824735",
-      "matchup": "BAL @ BOS",
-      "player": "Connor Wong",
-      "team": "BOS",
-      "prop": "hitter_fantasy_score",
-      "vs_pitcher": "Dean Kremer",
-      "fair_line": 5.0,
-      "line": 4.5,
-      "projection": 5.0,
-      "lean": "Pass",
-      "edge": 0.48,
-      "confidence": "pass",
-      "line_source": "prizepicks_est",
-      "ops": 0.744
     },
     {
       "gameId": "tb-tor-2026-07-22-822784",
@@ -2407,12 +2437,12 @@
   ],
   "top_plays": [
     {
-      "player": "Jahmai Jones",
+      "player": "Willson Contreras",
       "prop": "hitter_fantasy_score",
       "lean": "Over",
-      "line": 5.5,
-      "projection": 7.7,
-      "edge": 2.21,
+      "line": 5.0,
+      "projection": 7.2,
+      "edge": 2.25,
       "confidence": "high",
       "matchup": "BAL @ BOS"
     },
@@ -2425,6 +2455,16 @@
       "edge": 2.21,
       "confidence": "high",
       "matchup": "SD @ ATL"
+    },
+    {
+      "player": "Byron Buxton",
+      "prop": "hitter_fantasy_score",
+      "lean": "Over",
+      "line": 6.0,
+      "projection": 8.2,
+      "edge": 2.16,
+      "confidence": "high",
+      "matchup": "MIN @ CLE"
     },
     {
       "player": "Munetaka Murakami",
@@ -2467,6 +2507,16 @@
       "matchup": "PIT @ NYY"
     },
     {
+      "player": "Jahmai Jones",
+      "prop": "hitter_fantasy_score",
+      "lean": "Over",
+      "line": 5.5,
+      "projection": 7.6,
+      "edge": 2.05,
+      "confidence": "high",
+      "matchup": "BAL @ BOS"
+    },
+    {
       "player": "Griffin Conine",
       "prop": "hitter_fantasy_score",
       "lean": "Over",
@@ -2487,16 +2537,6 @@
       "matchup": "TB @ TOR"
     },
     {
-      "player": "Joshua Kuroda-Grauer",
-      "prop": "hitter_fantasy_score",
-      "lean": "Over",
-      "line": 14.5,
-      "projection": 16.4,
-      "edge": 1.93,
-      "confidence": "medium",
-      "matchup": "ATH @ AZ"
-    },
-    {
       "player": "Shohei Ohtani",
       "prop": "hitter_fantasy_score",
       "lean": "Over",
@@ -2515,16 +2555,6 @@
       "edge": 1.87,
       "confidence": "medium",
       "matchup": "MIA @ HOU"
-    },
-    {
-      "player": "Braydon Fisher",
-      "prop": "strikeouts",
-      "lean": "Over",
-      "line": 4.0,
-      "projection": 5.9,
-      "edge": 1.87,
-      "confidence": "high",
-      "matchup": "TB @ TOR"
     }
   ]
 }

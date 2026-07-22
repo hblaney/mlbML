@@ -5,14 +5,14 @@
   "slip": {
     "legs": [
       {
-        "player": "Jahmai Jones",
+        "player": "Willson Contreras",
         "prop": "hitter_fantasy_score",
-        "line": 5.5,
+        "line": 5.0,
         "pick": "Over",
-        "projection": 7.7,
+        "projection": 7.2,
         "matchup": "BAL @ BOS",
         "confidence": "high",
-        "edge": 2.21
+        "edge": 2.25
       },
       {
         "player": "Luis Campusano",
@@ -35,17 +35,17 @@
         "edge": 1.94
       }
     ],
-    "score": 7.21,
+    "score": 7.25,
     "same_game_warning": false
   },
   "top_plays": [
     {
-      "player": "Jahmai Jones",
+      "player": "Willson Contreras",
       "prop": "hitter_fantasy_score",
       "lean": "Over",
-      "line": 5.5,
-      "projection": 7.7,
-      "edge": 2.21,
+      "line": 5.0,
+      "projection": 7.2,
+      "edge": 2.25,
       "confidence": "high",
       "matchup": "BAL @ BOS"
     },
@@ -58,6 +58,16 @@
       "edge": 2.21,
       "confidence": "high",
       "matchup": "SD @ ATL"
+    },
+    {
+      "player": "Byron Buxton",
+      "prop": "hitter_fantasy_score",
+      "lean": "Over",
+      "line": 6.0,
+      "projection": 8.2,
+      "edge": 2.16,
+      "confidence": "high",
+      "matchup": "MIN @ CLE"
     },
     {
       "player": "Munetaka Murakami",
@@ -100,6 +110,16 @@
       "matchup": "PIT @ NYY"
     },
     {
+      "player": "Jahmai Jones",
+      "prop": "hitter_fantasy_score",
+      "lean": "Over",
+      "line": 5.5,
+      "projection": 7.6,
+      "edge": 2.05,
+      "confidence": "high",
+      "matchup": "BAL @ BOS"
+    },
+    {
       "player": "Griffin Conine",
       "prop": "hitter_fantasy_score",
       "lean": "Over",
@@ -118,16 +138,6 @@
       "edge": 1.94,
       "confidence": "high",
       "matchup": "TB @ TOR"
-    },
-    {
-      "player": "Joshua Kuroda-Grauer",
-      "prop": "hitter_fantasy_score",
-      "lean": "Over",
-      "line": 14.5,
-      "projection": 16.4,
-      "edge": 1.93,
-      "confidence": "medium",
-      "matchup": "ATH @ AZ"
     },
     {
       "player": "Shohei Ohtani",
@@ -148,26 +158,16 @@
       "edge": 1.87,
       "confidence": "medium",
       "matchup": "MIA @ HOU"
-    },
-    {
-      "player": "Braydon Fisher",
-      "prop": "strikeouts",
-      "lean": "Over",
-      "line": 4.0,
-      "projection": 5.9,
-      "edge": 1.87,
-      "confidence": "high",
-      "matchup": "TB @ TOR"
     }
   ],
   "all_actionable": [
     {
-      "player": "Jahmai Jones",
+      "player": "Willson Contreras",
       "prop": "hitter_fantasy_score",
-      "line": 5.5,
+      "line": 5.0,
       "lean": "Over",
-      "projection": 7.7,
-      "edge": 2.21,
+      "projection": 7.2,
+      "edge": 2.25,
       "confidence": "high",
       "matchup": "BAL @ BOS"
     },
@@ -180,6 +180,16 @@
       "edge": 2.21,
       "confidence": "high",
       "matchup": "SD @ ATL"
+    },
+    {
+      "player": "Byron Buxton",
+      "prop": "hitter_fantasy_score",
+      "line": 6.0,
+      "lean": "Over",
+      "projection": 8.2,
+      "edge": 2.16,
+      "confidence": "high",
+      "matchup": "MIN @ CLE"
     },
     {
       "player": "Munetaka Murakami",
@@ -222,6 +232,16 @@
       "matchup": "PIT @ NYY"
     },
     {
+      "player": "Jahmai Jones",
+      "prop": "hitter_fantasy_score",
+      "line": 5.5,
+      "lean": "Over",
+      "projection": 7.6,
+      "edge": 2.05,
+      "confidence": "high",
+      "matchup": "BAL @ BOS"
+    },
+    {
       "player": "Griffin Conine",
       "prop": "hitter_fantasy_score",
       "line": 5.0,
@@ -240,16 +260,6 @@
       "edge": 1.94,
       "confidence": "high",
       "matchup": "TB @ TOR"
-    },
-    {
-      "player": "Joshua Kuroda-Grauer",
-      "prop": "hitter_fantasy_score",
-      "line": 14.5,
-      "lean": "Over",
-      "projection": 16.4,
-      "edge": 1.93,
-      "confidence": "medium",
-      "matchup": "ATH @ AZ"
     },
     {
       "player": "Braydon Fisher",
@@ -350,16 +360,6 @@
       "edge": 1.76,
       "confidence": "high",
       "matchup": "STL @ LAA"
-    },
-    {
-      "player": "Logan Henderson",
-      "prop": "strikeouts",
-      "line": 5.0,
-      "lean": "Over",
-      "projection": 6.7,
-      "edge": 1.74,
-      "confidence": "high",
-      "matchup": "NYM @ MIL"
     }
   ]
 }

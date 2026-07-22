@@ -111,9 +111,7 @@
         }
       ],
       "headline": "Over 4.5 STRIKEOUTS (high confidence)",
-      "notes": [
-        "Probable starter not fully confirmed \u2014 verify before betting."
-      ]
+      "notes": []
     },
     {
       "player": "Christian Scott",
@@ -176,6 +174,28 @@
           "confidence": "medium",
           "k9": 9.01,
           "opp_k_rate": 0.213
+        }
+      ],
+      "headline": "Over 4.5 STRIKEOUTS (medium confidence)",
+      "notes": []
+    },
+    {
+      "player": "Eduardo Rivera",
+      "team": "BOS",
+      "opponent": "BAL",
+      "matchup": "BAL @ BOS",
+      "game_date": "2026-07-22",
+      "props": [
+        {
+          "prop": "strikeouts",
+          "pick": "Over",
+          "model_line": 5.5,
+          "use_line": 4.5,
+          "projection": 5.4,
+          "edge": 0.94,
+          "confidence": "medium",
+          "k9": 8.68,
+          "opp_k_rate": 0.244
         }
       ],
       "headline": "Over 4.5 STRIKEOUTS (medium confidence)",
