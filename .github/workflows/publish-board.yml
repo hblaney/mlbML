@@ -1,0 +1,106 @@
+name: Publish Live Board
+
+# Minimal path that actually ships the site. No history rebuild, no research scripts,
+# no late strict-recompute. Success = github-actions[bot] commit with today's board.
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 16 * * *"  # 11:00 AM CT — morning publish
+    - cron: "0 20 * * *"  # 3:00 PM CT — afternoon refresh
+    - cron: "0 1 * * *"   # 8:00 PM CT — evening refresh
+
+permissions:
+  contents: write
+
+concurrency:
+  group: mlb-board-publish
+  cancel-in-progress: true
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      TZ: America/Chicago
+      PYTHONPATH: scripts/model
+      ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
+      ODDS_REGIONS: us
+      ODDS_MARKETS: h2h,spreads,totals
+      PROP_FORCE_ARCHIVE: "1"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 20
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+          cache-dependency-path: requirements.txt
+
+      - name: Restore pitcher/team stat caches
+        uses: actions/cache@v4
+        with:
+          path: |
+            data/cache/pitcher_stats_asof
+            data/cache/team_stats
+          key: stats-cache-v2-${{ hashFiles('scripts/model/pitcher_stats_provider.py', 'scripts/model/team_stats_provider.py') }}
+          restore-keys: |
+            stats-cache-v2-
+
+      - name: Install Python deps
+        run: pip install -r requirements.txt
+
+      - name: Generate moneyline board
+        run: python3 scripts/model/generate_today_board.py
+
+      - name: Generate props board
+        run: python3 scripts/model/generate_prop_predictions.py
+
+      - name: Lock daily ticket
+        run: python3 scripts/model/lock_daily_ticket.py
+
+      - name: Grade props (never block publish)
+        continue-on-error: true
+        run: python3 scripts/model/grade_prop_predictions.py
+
+      - name: Require today's timestamps
+        run: |
+          set -euo pipefail
+          today=$(date +%F)
+          ml=$(python3 -c "import json; print(json.load(open('public/predictions.json'))['generated_at'])")
+          props=$(python3 -c "import json; print(json.load(open('public/prop-predictions.json')).get('generated_at',''))")
+          n=$(python3 -c "import json; print(len(json.load(open('public/predictions.json')).get('predictions') or []))")
+          echo "ml=${ml} props=${props} games=${n}"
+          test "${ml}" = "${today}"
+          test "${props}" = "${today}"
+          test "${n}" -gt 0
+
+      - name: Commit and push
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add \
+            public/predictions.json \
+            public/prop-predictions.json \
+            public/locked-ticket.json \
+            public/prizepicks-slip.json \
+            public/prop-bet-cards.json \
+            public/prop-leans.json \
+            public/prop-track-record.json \
+            data/locked-tickets/*.json \
+            data/prop-predictions/*.json \
+            data/model/daily_edge.pkl \
+            || true
+          if git diff --staged --quiet; then
+            echo "No board file changes to commit (already current)."
+            exit 0
+          fi
+          git commit -m "Auto-publish board $(TZ=America/Chicago date '+%Y-%m-%d %I:%M %p %Z')"
+          git pull --rebase origin main
+          git push origin main
+          echo "PUBLISHED_BY_BOT=1"

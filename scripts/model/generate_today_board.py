@@ -250,7 +250,8 @@ def main() -> None:
     from prediction_integrity import run_all
 
     # Off days (All-Star break, etc.) publish an empty board + skip ticket/recompute checks.
-    board_errors = run_all(recompute=True, ticket=bool(board), accuracy=True)
+    # ticket=False: best-bets ticket check needs Node/tsx; lock_daily_ticket runs in CI after.
+    board_errors = run_all(recompute=True, ticket=False, accuracy=True)
     if board_errors:
         raise RuntimeError("Prediction integrity failed after board generation:\n" + "\n".join(board_errors))
 

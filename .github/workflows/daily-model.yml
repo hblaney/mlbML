@@ -1,103 +1,32 @@
 name: Daily Model Retrain
 
-# RE-ENABLED 2026-07-19 at user request: daily retrain + full board publish so the
-# site updates itself every morning. The run_control step below picks the behavior
-# per schedule (7 AM CT early net, 11 AM CT primary full pipeline, 11:30/12:00 backups).
+# DISABLED schedules — this fat pipeline cancelled/failed for weeks and never
+# produced github-actions[bot] publishes. Live site updates via publish-board.yml.
+# Kept for manual research / full history rebuild only.
 on:
   workflow_dispatch:
-  schedule:
-    - cron: "0 12 * * *"   # 7:00 AM CT — early net: refresh yesterday's results if stale
-    - cron: "0 16 * * *"   # 11:00 AM CT — primary: always retrain + publish full board + lock
-    - cron: "30 16 * * *"  # 11:30 AM CT — backup if primary did not complete
-    - cron: "0 17 * * *"   # 12:00 PM CT — backup if primary did not complete
 
 permissions:
   contents: write
 
 concurrency:
-  # Share with Refresh Live Board so hourly refreshes don't stack on top of the
-  # morning retrain and burn Odds API quota / cancel each other in the queue.
   group: mlb-board-publish
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   retrain:
     runs-on: ubuntu-latest
-    # 60 min headroom: the daily retrain replays the full season through byDateRange
-    # team AND point-in-time pitcher stats (leakage-safe). The 11:30/12:00 backups
-    # re-run if a run ever exceeds this.
     timeout-minutes: 90
     env:
       TZ: America/Chicago
       PYTHONPATH: scripts/model
-
     steps:
-      - name: Decide whether to run
-        id: run_control
-        env:
-          GITHUB_REPOSITORY: ${{ github.repository }}
-          EVENT_NAME: ${{ github.event_name }}
-          SCHEDULE: ${{ github.event.schedule }}
-        run: |
-          today=$(date +%F)
-
-          # Manual runs always execute the full pipeline.
-          if [ "$EVENT_NAME" = "workflow_dispatch" ]; then
-            echo "Manual run requested for ${today}."
-            echo "should_run=true" >> "$GITHUB_OUTPUT"
-            exit 0
-          fi
-
-          # The 11:00 AM CT primary ALWAYS runs the full pipeline (retrain + board with
-          # confirmed pitchers + health + consistency + CLV), even if the morning board
-          # was already published by the hourly Refresh Live Board workflow.
-          if [ "$SCHEDULE" = "0 16 * * *" ]; then
-            echo "11 AM CT primary run — always executing full pipeline."
-            echo "should_run=true" >> "$GITHUB_OUTPUT"
-            exit 0
-          fi
-
-          # Has today's FULL pipeline already completed? model-health.json is only
-          # written by model:daily:core, so its date is the marker for a full run.
-          health_date=$(
-            curl -fsSL "https://raw.githubusercontent.com/${GITHUB_REPOSITORY}/main/public/model-health.json" \
-              | python3 -c "import sys, json; print(json.load(sys.stdin).get('generated_at', '')[:10])" \
-              || echo ""
-          )
-          board_date=$(
-            curl -fsSL "https://raw.githubusercontent.com/${GITHUB_REPOSITORY}/main/public/predictions.json" \
-              | python3 -c "import sys, json; print(json.load(sys.stdin).get('generated_at', ''))" \
-              || echo ""
-          )
-
-          if [ "$SCHEDULE" = "0 12 * * *" ]; then
-            # 7 AM CT early net: refresh yesterday's results/accuracy if the board is stale.
-            if [ "$board_date" = "$today" ]; then
-              echo "Board already fresh for ${today}; early net skipping."
-              echo "should_run=false" >> "$GITHUB_OUTPUT"
-            else
-              echo "Board stale (${board_date:-missing}); early net running."
-              echo "should_run=true" >> "$GITHUB_OUTPUT"
-            fi
-          else
-            # 11:30 / 12:00 PM CT backups: only run if the 11 AM full pipeline did not complete.
-            if [ "$health_date" = "$today" ]; then
-              echo "Full pipeline already completed today (${health_date}); backup skipping."
-              echo "should_run=false" >> "$GITHUB_OUTPUT"
-            else
-              echo "Full pipeline not yet completed today (health=${health_date:-missing}); backup running."
-              echo "should_run=true" >> "$GITHUB_OUTPUT"
-            fi
-          fi
-
       - name: Checkout
-        if: steps.run_control.outputs.should_run == 'true'
         uses: actions/checkout@v4
         with:
           fetch-depth: 50
 
       - name: Set up Python
-        if: steps.run_control.outputs.should_run == 'true'
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
@@ -105,14 +34,12 @@ jobs:
           cache-dependency-path: requirements.txt
 
       - name: Set up Node
-        if: steps.run_control.outputs.should_run == 'true'
         uses: actions/setup-node@v5
         with:
           node-version: "24"
           cache: npm
 
       - name: Restore pitcher/team stat caches
-        if: steps.run_control.outputs.should_run == 'true'
         uses: actions/cache@v4
         with:
           path: |
@@ -122,23 +49,12 @@ jobs:
           restore-keys: |
             stats-cache-v2-
 
-      - name: Install Python dependencies
-        if: steps.run_control.outputs.should_run == 'true'
-        run: pip install -r requirements.txt
-
-      - name: Install Node dependencies
-        if: steps.run_control.outputs.should_run == 'true'
-        run: npm ci
-
-      - name: Prop publish guard unit tests
-        if: steps.run_control.outputs.should_run == 'true'
+      - name: Install
         run: |
-          python3 scripts/model/test_prop_publish_guards.py
-          python3 scripts/model/test_prop_card_guards.py
+          pip install -r requirements.txt
+          npm ci
 
-      # ── CRITICAL: retrain model + generate board + props + update outputs ──
-      - name: Retrain model and generate today's board
-        if: steps.run_control.outputs.should_run == 'true'
+      - name: Full daily core (manual only)
         env:
           ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
           ODDS_REGIONS: us
@@ -146,75 +62,15 @@ jobs:
           PROP_FORCE_ARCHIVE: "1"
         run: npm run model:daily:core
 
-      - name: Verify board integrity before commit
-        if: steps.run_control.outputs.should_run == 'true'
-        # Schema / ticket / accuracy only. Do NOT --strict-recompute here:
-        # generate_today_board already recomputes at write time. Re-fetching MLB
-        # lineups 30–70 minutes later (after history + props) false-fails when a
-        # probable starter flips (e.g. BAL@BOS 0.515 → 0.628) and blocks publish.
-        run: python3 scripts/model/prediction_integrity.py --full
-
-      - name: Commit updated model outputs
-        if: steps.run_control.outputs.should_run == 'true'
+      - name: Commit outputs
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add \
-            public/*.json \
-            data/locked-tickets/*.json \
-            data/prop-predictions/*.json \
-            data/live-bankroll-state.json \
-            data/historical_odds.jsonl \
-            data/model/*.pkl \
-            data/cache/*.json
+          git add public/*.json data/locked-tickets/*.json data/prop-predictions/*.json data/model/*.pkl || true
           if git diff --staged --quiet; then
-            echo "No output changes to commit."
+            echo "No changes."
             exit 0
           fi
-          git commit -m "Daily model retrain + board for $(date +%F)"
+          git commit -m "Manual full daily core $(date +%F)"
           git pull --rebase origin main
           git push origin main
-
-      - name: Verify today's board was published
-        if: steps.run_control.outputs.should_run == 'true'
-        run: |
-          today=$(date +%F)
-          generated=$(python3 -c "import json; print(json.load(open('public/predictions.json'))['generated_at'])")
-          if [ "$generated" != "$today" ]; then
-            echo "Expected generated_at=${today}, got ${generated}"
-            exit 1
-          fi
-          acc_trained=$(python3 -c "import json; print(json.load(open('public/accuracy.json')).get('trained_through',''))")
-          board_trained=$(python3 -c "import json; print(json.load(open('public/predictions.json')).get('trained_through',''))")
-          if [ -n "$acc_trained" ] && [ -n "$board_trained" ] && [[ "$board_trained" < "$acc_trained" ]]; then
-            echo "predictions trained_through=${board_trained} is behind accuracy ${acc_trained}"
-            exit 1
-          fi
-          echo "Board published for ${today} with $(python3 -c "import json; print(len(json.load(open('public/predictions.json'))['predictions']))") games."
-          props_at=$(python3 -c "import json; print(json.load(open('public/prop-predictions.json')).get('generated_at',''))")
-          if [ "$props_at" != "$today" ]; then
-            echo "Expected prop generated_at=${today}, got ${props_at}"
-            exit 1
-          fi
-          echo "Props published for ${today} with $(python3 -c "import json; print(len(json.load(open('public/prop-predictions.json')).get('top_bets') or []))") top bets."
-
-      # ── OPTIONAL: heavy research / backtest scripts ─────────────────────────
-      # These never block the daily publish. Failures here are logged but ignored.
-      - name: Run analysis scripts (non-blocking)
-        if: steps.run_control.outputs.should_run == 'true'
-        continue-on-error: true
-        env:
-          ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
-        run: |
-          python3 scripts/model/update_live_bankroll.py             || echo "update_live_bankroll failed (non-fatal)"
-          python3 scripts/model/import_fantasydata_odds.py          || echo "import_fantasydata_odds failed (non-fatal)"
-          python3 scripts/model/validate_predictions.py             || echo "validate_predictions failed (non-fatal)"
-          python3 scripts/model/generate_live_model_curve.py        || echo "generate_live_model_curve failed (non-fatal)"
-          python3 scripts/model/backtest_parlays.py                 || echo "backtest_parlays failed (non-fatal)"
-          python3 scripts/model/backtest_daily_recommendations.py   || echo "backtest_daily_recommendations failed (non-fatal)"
-          python3 scripts/model/backtest_best_tickets_walkforward.py || echo "backtest_best_tickets_walkforward failed (non-fatal)"
-          python3 scripts/model/backtest_strategy_optimizer.py      || echo "backtest_strategy_optimizer failed (non-fatal)"
-          python3 scripts/model/exhaustive_strategy_search.py       || echo "exhaustive_strategy_search failed (non-fatal)"
-          python3 scripts/model/strategy_research.py                || echo "strategy_research failed (non-fatal)"
-          python3 scripts/model/strategy_next_tests.py              || echo "strategy_next_tests failed (non-fatal)"
-          python3 scripts/model/optimize_stake_sizing.py            || echo "optimize_stake_sizing failed (non-fatal)"
