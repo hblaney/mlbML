@@ -148,7 +148,11 @@ jobs:
 
       - name: Verify board integrity before commit
         if: steps.run_control.outputs.should_run == 'true'
-        run: python3 scripts/model/prediction_integrity.py --full --strict-recompute
+        # Schema / ticket / accuracy only. Do NOT --strict-recompute here:
+        # generate_today_board already recomputes at write time. Re-fetching MLB
+        # lineups 30–70 minutes later (after history + props) false-fails when a
+        # probable starter flips (e.g. BAL@BOS 0.515 → 0.628) and blocks publish.
+        run: python3 scripts/model/prediction_integrity.py --full
 
       - name: Commit updated model outputs
         if: steps.run_control.outputs.should_run == 'true'

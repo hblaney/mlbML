@@ -144,7 +144,9 @@ jobs:
         run: python3 scripts/model/update_live_bankroll.py
 
       - name: Verify board integrity
-        run: python3 scripts/model/prediction_integrity.py --full --strict-recompute
+        # Board already strict-recomputed inside generate_today_board at write time.
+        # Late re-fetch after props/history races lineup changes and blocks publish.
+        run: python3 scripts/model/prediction_integrity.py --full
 
       - name: Commit and push refreshed board
         run: |
