@@ -63,9 +63,8 @@ jobs:
       - name: Lock daily ticket
         run: python3 scripts/model/lock_daily_ticket.py
 
-      - name: Grade props (never block publish)
-        continue-on-error: true
-        run: python3 scripts/model/grade_prop_predictions.py
+      # Intentionally no prop grading here — it can hang 20+ min on MLB gamelogs
+      # and previously blocked the commit even with continue-on-error (job timeout).
 
       - name: Require today's timestamps
         run: |
