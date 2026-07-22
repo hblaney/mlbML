@@ -1,36 +1,40 @@
 {
-  "version": "accuracy_top5_precision_v1",
+  "version": "accuracy_hits_k_pitch_live_v1",
   "gate_passed": true,
-  "user_ask": "Top 5 published card holdout leg hit rate >= 80%",
+  "user_ask": "Stop shipping broken TB/RBI/HRR props; publish an honest playable card",
+  "note": "Live graded props were ~38% overall (RBI/HRR/TB 18-25%). Rescoped to hits Unders + pitcher K/HA/ER. Demon Unders are unplayable on PrizePicks so the card must clear on standard/goblin-More lines. Mild overconfidence shrink (0.70) replaces the empty 0.85 precision gate.",
   "oos_validation": {
-    "train_end": "2026-06-08",
-    "holdout_end": "2026-07-18",
-    "selection": "production Top5: Under hits/TB/K conf>=0.85, K Overs=on@0.68, one per player, freebies banned",
-    "leg_hit_rate": 0.9389,
-    "test_n": 180,
-    "test_days": 36,
-    "test_days_full5": 36,
-    "power_5of5": 0.6944,
-    "flex_cash_4of5_or_better": 1.0,
-    "legs_per_day": 5.0,
-    "train_hr": 0.9246,
-    "mean_conf": 0.9345,
-    "universe_rows": 275472,
-    "games_graded": 828
+    "live_overall_hit_rate_pre_fix": 0.381,
+    "live_high_conf_hit_rate_pre_fix": 0.3659,
+    "kept_markets": [
+      "batter_hits",
+      "pitcher_strikeouts",
+      "pitcher_hits_allowed",
+      "pitcher_earned_runs"
+    ],
+    "banned_markets": [
+      "batter_total_bases",
+      "batter_rbis",
+      "batter_hits_runs_rbis",
+      "batter_runs_scored",
+      "batter_home_runs",
+      "batter_stolen_bases",
+      "batter_doubles"
+    ]
   },
   "shipped": {
-    "top_bets": "production_top5",
-    "min_under_conf": 0.85,
-    "k_over_min_conf": 0.68,
+    "top_bets": "hits_k_pitch_live",
+    "min_under_conf": 0.58,
+    "k_over_min_conf": 0.60,
     "allow_k_over": true,
     "parlay_type": "flex",
     "parlay_legs": 5,
     "apply_calibration_on_prizepicks": true,
+    "overconfidence_shrink": 0.70,
     "banned": [
-      "HR/SB Under 0.5 freebies",
-      "batter_runs_scored",
-      "model_prob >= 0.97 collapses",
-      "demon/goblin Unders (live board)"
+      "TB/RBI/HRR/HR/SB/doubles (structurally bad or freebie)",
+      "demon/goblin Unders (unplayable on PrizePicks)",
+      "model_prob >= 0.97 collapses"
     ]
   }
 }

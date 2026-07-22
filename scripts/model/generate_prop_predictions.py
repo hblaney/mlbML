@@ -65,16 +65,9 @@ PARLAY_MIN_EDGE = 0.03
 PARLAY_MAX_LEGS = 5
 # PARLAY_TARGET_LEGS / PARLAY_MIN_LEGS set below with the accuracy policy.
 
-# Props PrizePicks actually offers as standard playable lines. We build parlays only
-# from these so the card is real (no "Under 0.5 doubles" junk that nobody can bet).
+# Props PrizePicks actually offers. Daily card only uses ACCURACY_PROPS (below).
 PLAYABLE_PROPS = {
     "batter_hits",
-    "batter_total_bases",
-    "batter_home_runs",
-    "batter_rbis",
-    "batter_runs_scored",
-    "batter_hits_runs_rbis",
-    "batter_stolen_bases",
     "batter_singles",
     "pitcher_strikeouts",
     "pitcher_hits_allowed",
@@ -82,34 +75,47 @@ PLAYABLE_PROPS = {
     "pitcher_walks",
 }
 
-# Accuracy-first selection (walk-forward on ~94k graded props):
-#   - Single Unders @ conf>=0.75 → ~80% leg hit rate
-#   - Overs banned (lie at high confidence)
-#   - Runs Under 1.5 banned (calibration collapsed to fake 0.999 and dominated Top 5)
-#   - 5-leg POWER (need all 5) maxes ~71% OOS — cannot claim 80%
-#   - 5-leg FLEX from the same Top 5 cashes (3+/5 or 4+/5 paid) ~93% OOS
-# So the daily card is a 5-leg Flex built from the Top 5 accuracy lane.
+# Structurally misspecified on our engine (Poisson TB/RBI/HRR) — live hit rates
+# were ~18–25%. Drop from the board entirely until distributions are rewritten.
+BROKEN_PROPS = {
+    "batter_total_bases",
+    "batter_rbis",
+    "batter_hits_runs_rbis",
+    "batter_runs_scored",
+    "batter_home_runs",
+    "batter_stolen_bases",
+    "batter_doubles",
+}
+
+# Accuracy card = salvageable markets only (not TB/RBI/HRR).
+# Live graded: hits ~57–67%, K ~59%, pitcher HA/ER ~72–76%.
 ACCURACY_PROPS = {
     "batter_hits",
-    "batter_total_bases",
     "pitcher_strikeouts",
+    "pitcher_hits_allowed",
+    "pitcher_earned_runs",
 }
-# Preferred lines that drove the 93% Flex cash rate in OOS search.
 ACCURACY_LINES = {
+    ("batter_hits", 0.5),
     ("batter_hits", 1.5),
-    ("batter_total_bases", 1.5),
-    ("batter_total_bases", 2.5),
+    ("pitcher_strikeouts", 4.5),
     ("pitcher_strikeouts", 5.5),
     ("pitcher_strikeouts", 6.5),
     ("pitcher_strikeouts", 7.5),
+    ("pitcher_hits_allowed", 5.5),
+    ("pitcher_hits_allowed", 6.5),
+    ("pitcher_earned_runs", 2.5),
+    ("pitcher_earned_runs", 3.5),
 }
-TOP_BET_MIN_CONF = 0.75
-PARLAY_LEG_MIN_PROB = 0.75
+TOP_BET_MIN_CONF = 0.58
+PARLAY_LEG_MIN_PROB = 0.58
 TOP_BET_ALLOW_OVER = False
-PARLAY_TARGET_LEGS = 5  # Top-5 Flex card
-PARLAY_MIN_LEGS = 5
+PARLAY_TARGET_LEGS = 5
+PARLAY_MIN_LEGS = 2  # honest short card beats empty or padded junk
 PARLAY_TYPE = "flex"
-# When OOS gate passes, apply train-fit isotonic on PrizePicks so live matches backtest.
+# Shrink PrizePicks raw/calibrated P(over) toward 0.5 — live probs were badly
+# overconfident without a book to anchor to (odds path already had this).
+PRIZEPICKS_OVERCONFIDENCE_SHRINK = 0.70
 APPLY_CALIBRATION_ON_PRIZEPICKS = False
 POLICY_PATH = REPO_ROOT / "data" / "prop_accuracy_policy.json"
 
@@ -151,15 +157,15 @@ def _decimal(american: int) -> float:
 # Pitcher K Overs are the one Over we trust enough for the daily card when the
 # projection clears the line by a full strikeout (e.g. Miz ~9 Ks on a 6.5 goblin).
 # Ignore juiced baby goblins (3.5/4.5) — those flood the board and crowd out real lines.
-K_OVER_MIN_CONF = 0.68
+K_OVER_MIN_CONF = 0.60
 K_OVER_MIN_PROJ_EDGE = 1.0
-K_OVER_MIN_LINE = 5.5
+K_OVER_MIN_LINE = 4.5  # real PP ladder; 3.5 baby goblins still excluded
 
 
 def _load_accuracy_policy() -> None:
-    """Override Top-5 thresholds from the latest OOS freeze (if present)."""
+    """Override Top-5 thresholds from the latest freeze (if present)."""
     global TOP_BET_MIN_CONF, PARLAY_LEG_MIN_PROB, K_OVER_MIN_CONF
-    global APPLY_CALIBRATION_ON_PRIZEPICKS
+    global APPLY_CALIBRATION_ON_PRIZEPICKS, PRIZEPICKS_OVERCONFIDENCE_SHRINK
     if not POLICY_PATH.exists():
         return
     try:
@@ -167,7 +173,7 @@ def _load_accuracy_policy() -> None:
     except Exception:
         return
     shipped = policy.get("shipped") or {}
-    # Only cut over thresholds when the holdout gate passed.
+    # Only raise/cut thresholds when the gate passed.
     if not policy.get("gate_passed"):
         return
     if shipped.get("min_under_conf") is not None:
@@ -177,6 +183,8 @@ def _load_accuracy_policy() -> None:
         K_OVER_MIN_CONF = float(shipped["k_over_min_conf"])
     if shipped.get("apply_calibration_on_prizepicks"):
         APPLY_CALIBRATION_ON_PRIZEPICKS = True
+    if shipped.get("overconfidence_shrink") is not None:
+        PRIZEPICKS_OVERCONFIDENCE_SHRINK = float(shipped["overconfidence_shrink"])
 
 
 _load_accuracy_policy()
@@ -220,8 +228,10 @@ def _is_freebie_leg(p: dict) -> bool:
         line = float(p.get("line") or 0)
     except Exception:
         return False
-    # Obvious "they won't steal / won't HR" Unders — not a market edge.
-    if prop in ("batter_home_runs", "batter_stolen_bases") and line <= 0.5 and side == "Under":
+    if prop in BROKEN_PROPS:
+        return True
+    # Obvious "they won't steal / won't HR / won't double" Unders — not a market edge.
+    if prop in ("batter_home_runs", "batter_stolen_bases", "batter_doubles") and line <= 0.5 and side == "Under":
         return True
     if prop == "batter_runs_scored":
         return True
@@ -233,12 +243,10 @@ def _is_freebie_leg(p: dict) -> bool:
 
 def _is_unbettable_prop_line(prop: str, line: float, side: str | None = None) -> bool:
     """Drop before projecting — save work and keep junk off the board entirely."""
-    if prop == "batter_runs_scored":
+    if prop in BROKEN_PROPS:
         return True
-    if prop in ("batter_home_runs", "batter_stolen_bases") and float(line) <= 0.5:
-        # Unders are freebies; skip both sides of 0.5 SB (Over 0.5 SB is also
-        # usually juice). Keep Over 0.5 HR — that can be a real prop.
-        if prop == "batter_stolen_bases":
+    if prop in ("batter_home_runs", "batter_stolen_bases", "batter_doubles") and float(line) <= 0.5:
+        if prop in ("batter_stolen_bases", "batter_doubles"):
             return True
         if side == "Under":
             return True
@@ -493,15 +501,16 @@ def build_predictions_from_prizepicks(game_date: date) -> list[dict]:
         if proj is None:
             continue
 
-        # PrizePicks is pick'em (~0.5). Default = RAW Poisson/binomial P(over).
-        # After the OOS gate passes, apply train-fit isotonic so live matches backtest.
+        # PrizePicks is pick'em (~0.5). Calibrate, then shrink toward 0.5 — live
+        # boards were shipping 0.85–0.95 soft Unders that hit ~38% overall.
         raw_over = float(proj.prob_over)
         p_over = (
             calibrate(pp.prop, raw_over)
             if APPLY_CALIBRATION_ON_PRIZEPICKS
             else raw_over
         )
-        # PrizePicks is pick'em — there is no -110 sportsbook market. Edge is vs 50/50.
+        shrink = max(0.0, min(1.0, PRIZEPICKS_OVERCONFIDENCE_SHRINK))
+        p_over = 0.5 + (p_over - 0.5) * shrink
         pickem = 0.5
         if p_over >= pickem:
             side = "Over"
@@ -510,6 +519,8 @@ def build_predictions_from_prizepicks(game_date: date) -> list[dict]:
             side = "Under"
             model_p = 1.0 - p_over
         if _is_unbettable_prop_line(pp.prop, float(pp.line), side=side):
+            continue
+        if pp.prop not in PLAYABLE_PROPS and pp.prop not in ACCURACY_PROPS:
             continue
         edge = model_p - pickem
         if edge < MIN_EDGE:
@@ -1003,26 +1014,25 @@ def build_parlay(predictions: list[dict]) -> dict:
     for l in legs:
         combined *= l["model_prob"]
 
-    oos_legs = sum(1 for l in legs if l["model_prob"] >= TOP_BET_MIN_CONF)
+    strong = sum(1 for l in legs if l["model_prob"] >= TOP_BET_MIN_CONF)
     quality = (
-        "oos" if oos_legs >= 5
-        else "mixed" if oos_legs >= 3
+        "full" if len(legs) >= 5
+        else "mixed" if len(legs) >= 3
         else "thin"
     )
     return {
-        "type": PARLAY_TYPE if len(legs) >= 5 else ("power" if len(legs) <= 3 else "flex"),
+        "type": PARLAY_TYPE if len(legs) >= 4 else ("power" if len(legs) <= 3 else "flex"),
         "n_legs": len(legs),
         "combined_prob": round(combined, 4),
         "card_quality": quality,
-        "oos_legs": oos_legs,
-        # Historical Flex cash when the *selection* matches the OOS lane.
-        # Thin boards do not inherit that rate — surface null instead of lying.
-        "flex_cash_rate_oos": 0.93 if quality == "oos" else None,
-        "power_cash_rate_oos": 0.71 if quality == "oos" else None,
+        "oos_legs": strong,
+        # Do not advertise fake Flex cash rates from the old in-sample OOS search.
+        "flex_cash_rate_oos": None,
+        "power_cash_rate_oos": None,
         "policy": (
-            json.loads(POLICY_PATH.read_text()).get("version", "accuracy_under_flex5_v2")
+            json.loads(POLICY_PATH.read_text()).get("version", "accuracy_hits_k_live_v1")
             if POLICY_PATH.exists()
-            else "accuracy_under_flex5_v2"
+            else "accuracy_hits_k_live_v1"
         ),
         "legs": legs,
     }

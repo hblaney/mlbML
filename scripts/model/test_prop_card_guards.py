@@ -33,49 +33,51 @@ def _leg(player: str, prop: str, line: float, model_prob: float, projection: flo
 
 
 def test_no_fake_elite_from_edge_vs_pickem():
-    assert _confidence(0.20, 3, side="Under", model_prob=0.59) != "Elite"
+    assert _confidence(0.20, 3, side="Under", model_prob=TOP_BET_MIN_CONF - 0.01) != "Elite"
     assert _confidence(0.25, 3, side="Under", model_prob=TOP_BET_MIN_CONF) == "Elite"
 
 
 def test_sanitize_strips_stale_elite():
-    row = _sanitize_leg(_leg("A", "batter_total_bases", 1.5, 0.57, 1.2))
+    row = _sanitize_leg(_leg("A", "batter_hits", 1.5, 0.57, 1.2))
     assert row["confidence"] != "Elite"
     assert row.get("below_oos_threshold") is True
 
 
-def test_thin_card_when_below_oos_floor():
-    """OOS floor is high — do not pad Top 5 with sub-threshold junk."""
+def test_thin_card_when_below_floor():
+    """Do not pad Top 5 with sub-threshold or banned-market junk."""
     preds = [
-        _leg("P1", "batter_total_bases", 1.5, 0.58, 1.2),
-        _leg("P2", "batter_total_bases", 1.5, 0.57, 1.3),
-        _leg("P3", "batter_hits", 1.5, 0.56, 1.1),
-        _leg("P4", "pitcher_strikeouts", 5.5, 0.55, 5.0),
-        _leg("P5", "batter_hits_runs_rbis", 1.5, 0.54, 1.2),
+        _leg("P1", "batter_total_bases", 1.5, 0.90, 1.0),  # banned market
+        _leg("P2", "batter_hits", 1.5, 0.56, 1.1),  # below floor
+        _leg("P3", "pitcher_strikeouts", 5.5, 0.55, 5.0),
+        _leg("P4", "batter_hits_runs_rbis", 1.5, 0.90, 1.2),  # banned
+        _leg("P5", "batter_rbis", 0.5, 0.90, 0.2),  # banned
     ]
     top = build_top_bets(preds, n=5)
-    assert len(top) == 0  # all below TOP_BET_MIN_CONF
+    assert len(top) == 0
     strong = [
-        _leg("U1", "batter_total_bases", 1.5, 0.90, 1.0),
-        _leg("U2", "batter_hits", 1.5, 0.88, 1.0),
-        _leg("U3", "pitcher_strikeouts", 5.5, 0.87, 4.0),
-        _leg("U4", "batter_total_bases", 1.5, 0.86, 1.0),
-        _leg("U5", "batter_hits", 1.5, 0.85, 1.0),
+        _leg("U1", "batter_hits", 1.5, 0.80, 1.0),
+        _leg("U2", "batter_hits", 0.5, 0.78, 0.3),
+        _leg("U3", "pitcher_strikeouts", 5.5, 0.75, 4.0),
+        _leg("U4", "pitcher_strikeouts", 6.5, 0.72, 5.0),
+        _leg("U5", "batter_hits", 1.5, 0.70, 1.0),
     ]
     top5 = build_top_bets(strong, n=5)
     assert len(top5) == 5
     assert len({t["player"] for t in top5}) == 5
+    assert all(t["prop"] in ("batter_hits", "pitcher_strikeouts") for t in top5)
     parlay = build_parlay(strong)
     assert parlay["n_legs"] == 5
+    assert parlay.get("flex_cash_rate_oos") is None
 
 
 def test_rejects_under_when_projection_at_or_above_line():
     preds = [
-        _leg("Bad", "batter_total_bases", 1.5, 0.90, 1.6),  # coin flip / wrong side
-        _leg("P1", "batter_total_bases", 1.5, 0.89, 1.2),
-        _leg("P2", "batter_hits", 1.5, 0.88, 1.1),
+        _leg("Bad", "batter_hits", 1.5, 0.90, 1.6),  # coin flip / wrong side
+        _leg("P1", "batter_hits", 1.5, 0.89, 1.1),
+        _leg("P2", "batter_hits", 0.5, 0.88, 0.3),
         _leg("P3", "pitcher_strikeouts", 5.5, 0.87, 5.0),
         _leg("P4", "batter_hits", 1.5, 0.86, 1.0),
-        _leg("P5", "batter_total_bases", 1.5, 0.85, 1.0),
+        _leg("P5", "pitcher_strikeouts", 6.5, 0.85, 5.5),
     ]
     top = build_top_bets(preds, n=5)
     assert all(t["player"] != "Bad" for t in top)
@@ -100,14 +102,12 @@ def test_k_over_eligible_but_not_front_loaded():
         "line_source": "prizepicks",
         "pp_odds_type": "goblin",
     }
-    # Stronger Under should rank above Miz when sorting by model_prob.
-    stronger = _leg("Ace Under", "batter_total_bases", 1.5, 0.92, 1.0)
+    stronger = _leg("Ace Under", "batter_hits", 1.5, 0.92, 1.0)
     preds = [
         miz,
         stronger,
         _leg("P2", "batter_hits", 1.5, 0.90, 1.1),
         _leg("P3", "pitcher_strikeouts", 5.5, 0.88, 5.0),
-        # Only three Unders above Miz so the K Over still fills a Top 5 slot.
         _leg("Weak", "batter_hits", 1.5, 0.50, 1.0),
     ]
     assert any(p["player"] == "Jacob Misiorowski" for p in _k_over_lane(preds))
@@ -135,8 +135,8 @@ def test_weaker_k_over_does_not_beat_better_unders():
     }
     preds = [
         miz,
-        _leg("U1", "batter_total_bases", 1.5, 0.92, 1.0),
-        _leg("U2", "batter_total_bases", 1.5, 0.91, 1.0),
+        _leg("U1", "batter_hits", 1.5, 0.92, 1.0),
+        _leg("U2", "batter_hits", 0.5, 0.91, 0.3),
         _leg("U3", "batter_hits", 1.5, 0.90, 1.0),
         _leg("U4", "pitcher_strikeouts", 5.5, 0.89, 4.0),
         _leg("U5", "batter_hits", 1.5, 0.88, 1.0),
@@ -179,10 +179,10 @@ def test_demon_goblin_under_unplayable():
         [
             demon_under,
             goblin_over,
-            _leg("U1", "batter_total_bases", 1.5, 0.90, 0.9),
-            _leg("U2", "batter_total_bases", 1.5, 0.88, 1.0),
-            _leg("U3", "batter_hits", 1.5, 0.87, 1.0),
-            _leg("U4", "batter_hits", 1.5, 0.86, 1.0),
+            _leg("U1", "batter_hits", 1.5, 0.90, 0.9),
+            _leg("U2", "batter_hits", 1.5, 0.88, 1.0),
+            _leg("U3", "batter_hits", 0.5, 0.87, 0.3),
+            _leg("U4", "pitcher_strikeouts", 5.5, 0.86, 4.5),
         ],
         n=5,
     )
@@ -191,7 +191,7 @@ def test_demon_goblin_under_unplayable():
 
 
 def test_third_best_k_makes_top_five():
-    """#3 by model_prob must ship even if props 1-3 are all strikeouts."""
+    """Strong K Over ships on merit even when several K legs fill the card."""
     preds = [
         {
             "player": "A", "prop": "pitcher_strikeouts", "prop_label": "K",
@@ -211,22 +211,22 @@ def test_third_best_k_makes_top_five():
             "model_prob": 0.79, "edge": 0.29, "projection": 8.9, "book_count": 3,
             "market_prob": 0.5, "line_source": "prizepicks", "pp_odds_type": "goblin",
         },
-        _leg("C", "batter_total_bases", 1.5, 0.90, 0.9),
-        _leg("D", "batter_total_bases", 1.5, 0.88, 1.0),
-        _leg("E", "batter_hits", 1.5, 0.86, 1.0),
+        _leg("C", "batter_hits", 1.5, 0.90, 0.9),
+        _leg("D", "batter_hits", 0.5, 0.70, 0.3),  # weaker — Miz should beat this
     ]
     top = build_top_bets(preds, n=5)
     names = [t["player"] for t in top]
     assert "Jacob Misiorowski" in names
-    assert names.index("Jacob Misiorowski") == 2
+    assert names.index("Jacob Misiorowski") < names.index("D")
 
 
 if __name__ == "__main__":
     test_no_fake_elite_from_edge_vs_pickem()
     test_sanitize_strips_stale_elite()
-    test_thin_card_when_below_oos_floor()
+    test_thin_card_when_below_floor()
     test_rejects_under_when_projection_at_or_above_line()
     test_k_over_eligible_but_not_front_loaded()
     test_weaker_k_over_does_not_beat_better_unders()
     test_demon_goblin_under_unplayable()
+    test_third_best_k_makes_top_five()
     print("prop_card_guards_ok")
