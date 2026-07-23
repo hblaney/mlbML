@@ -565,8 +565,164 @@ def build_predictions_from_prizepicks(game_date: date) -> list[dict]:
     predictions.extend(
         _odds_api_k_fillins(game_date, predictions, roster, game_by_team, starter_cache)
     )
+    # Always project every slate starter's Ks (Cole @ ~9+) even when PP/odds
+    # never posted a line — otherwise aces vanish from the board.
+    predictions.extend(
+        _slate_starter_k_fillins(game_date, predictions, games, abbr_by_id, game_by_team)
+    )
     predictions.sort(key=_actionable_rank_key)
     return predictions
+
+
+def _slate_starter_k_fillins(
+    game_date: date,
+    existing: list[dict],
+    games: list,
+    abbr_by_id: dict[int, str],
+    game_by_team: dict[str, dict],
+) -> list[dict]:
+    """Model-only K ladder for every confirmed starter.
+
+    Fills gaps when PrizePicks/Odds API omit an ace (or only post a baby 3.5/4.5).
+    Tagged ``model_slate`` — bet when a real PP/book line matches; otherwise it's
+    the projection the site should have shown (e.g. Cole Over 9.5).
+    """
+    have_lines = {
+        (_norm_name(p["player"]), float(p["line"]))
+        for p in existing
+        if p.get("prop") == "pitcher_strikeouts"
+    }
+    # Half-steps an ace can realistically clear. Includes 9.5 / 10.5.
+    candidate_lines = [5.5, 6.5, 7.5, 8.5, 9.5, 10.5]
+    out: list[dict] = []
+
+    for g in games:
+        ha = abbr_by_id.get(g.home_team_id)
+        aa = abbr_by_id.get(g.away_team_id)
+        if not ha or not aa:
+            continue
+        meta = game_by_team.get(_norm_abbr(ha)) or game_by_team.get(_norm_abbr(aa))
+        if not meta:
+            continue
+        sides = (
+            (g.away_pitcher_id, g.away_pitcher_name, aa, False),
+            (g.home_pitcher_id, g.home_pitcher_name, ha, True),
+        )
+        for pid, pname, team_abbr, is_home in sides:
+            if not pid or not pname or pname.upper() == "TBD":
+                continue
+            key = _norm_name(pname)
+            hand = pitcher_throws(pid)
+            opp_sides: list[str] = []
+            try:
+                by_team = confirmed_lineup_by_team(meta["game_pk"])
+                opp_team_id = meta["away_team_id"] if is_home else meta["home_team_id"]
+                for bat_id in by_team.get(opp_team_id, []):
+                    s = batter_bat_side(bat_id)
+                    if s:
+                        opp_sides.append(s)
+            except Exception:
+                opp_sides = []
+
+            # Probe projection once at 5.5 to get expected Ks; reuse lambda via project_prop.
+            probe = PropLine(
+                event_id=f"slate-k-{g.game_pk}-{pid}",
+                commence_time=g.game_datetime_iso or "",
+                game_id=str(g.game_pk),
+                home_abbr=ha,
+                away_abbr=aa,
+                player=pname,
+                player_id=pid,
+                team_abbr=team_abbr,
+                is_home=is_home,
+                opp_abbr=aa if is_home else ha,
+                prop="pitcher_strikeouts",
+                line=5.5,
+                over_price=-110,
+                under_price=-110,
+                market_prob_over=0.5,
+                book_count=1,
+            )
+            base = project_prop(
+                probe, game_date, None, pitcher_hand=hand, opp_bat_sides=opp_sides,
+            )
+            if base is None or float(base.projection) < 4.0:
+                continue
+            proj_ks = float(base.projection)
+
+            for line_val in candidate_lines:
+                if (key, float(line_val)) in have_lines:
+                    continue
+                # Post Overs the projection can support. Allow a thin stretch
+                # (proj within 0.75 of the line) so ace ladders like 8.5/9.5 still
+                # appear with an honest (often lower) model_prob.
+                if proj_ks + 0.75 < line_val:
+                    continue
+                pl = PropLine(
+                    event_id=f"slate-k-{g.game_pk}-{pid}-{line_val}",
+                    commence_time=g.game_datetime_iso or "",
+                    game_id=str(g.game_pk),
+                    home_abbr=ha,
+                    away_abbr=aa,
+                    player=pname,
+                    player_id=pid,
+                    team_abbr=team_abbr,
+                    is_home=is_home,
+                    opp_abbr=aa if is_home else ha,
+                    prop="pitcher_strikeouts",
+                    line=float(line_val),
+                    over_price=-110,
+                    under_price=-110,
+                    market_prob_over=0.5,
+                    book_count=1,
+                )
+                proj = project_prop(
+                    pl, game_date, None, pitcher_hand=hand, opp_bat_sides=opp_sides,
+                )
+                if proj is None:
+                    continue
+                raw_over = float(proj.prob_over)
+                # Mild shrink toward pick'em (same spirit as live PP path).
+                shrink = max(0.0, min(1.0, PRIZEPICKS_OVERCONFIDENCE_SHRINK))
+                p_over = 0.5 + (raw_over - 0.5) * shrink
+                model_p = p_over
+                if model_p < 0.55:
+                    continue
+                edge = model_p - 0.5
+                out.append(
+                    {
+                        "game_id": str(g.game_pk),
+                        "matchup": f"{aa} @ {ha}",
+                        "commence_time": g.game_datetime_iso or "",
+                        "player": pname,
+                        "player_id": pid,
+                        "team": team_abbr,
+                        "opp": pl.opp_abbr,
+                        "prop": "pitcher_strikeouts",
+                        "prop_label": "Pitcher Strikeouts",
+                        "line": float(line_val),
+                        "side": "Over",
+                        "pick": f"Over {line_val}",
+                        "projection": proj.projection,
+                        "model_prob": round(model_p, 4),
+                        "model_prob_raw": round(raw_over, 4),
+                        "market_prob": 0.5,
+                        "market_is_pickem": True,
+                        "edge": round(edge, 4),
+                        "price": None,
+                        "ev": None,
+                        "confidence": _confidence(
+                            edge, 1, side="Over", model_prob=model_p, prop="pitcher_strikeouts",
+                        ),
+                        "book_count": 1,
+                        "line_source": "model_slate",
+                        "pp_odds_type": None,
+                        "bettable_on_prizepicks": False,
+                        "note": f"slate fill-in · {proj.model_note}",
+                    }
+                )
+                have_lines.add((key, float(line_val)))
+    return out
 
 
 def _odds_api_k_fillins(
@@ -1073,6 +1229,30 @@ def main() -> None:
     if top_bets:
         parlay["legs"] = top_bets
         parlay["n_legs"] = len(top_bets)
+    # Ace K board: highest projected strikeout Overs (includes model_slate fill-ins
+    # so Cole still surfaces when PrizePicks never posted the line).
+    starter_k_board = [
+        p for p in predictions
+        if p.get("prop") == "pitcher_strikeouts"
+        and p.get("side") == "Over"
+        and float(p.get("projection") or 0) >= 6.0
+        and float(p.get("line") or 0) >= 5.5
+    ]
+    starter_k_board.sort(
+        key=lambda p: (float(p.get("projection") or 0), float(p.get("model_prob") or 0)),
+        reverse=True,
+    )
+    # One row per pitcher — keep the highest line they project to clear.
+    seen_pitchers: set[str] = set()
+    ace_k_card: list[dict] = []
+    for p in starter_k_board:
+        key = _norm_name(str(p.get("player") or ""))
+        if key in seen_pitchers:
+            continue
+        seen_pitchers.add(key)
+        ace_k_card.append(_sanitize_leg(p))
+        if len(ace_k_card) >= 10:
+            break
     if source == "prizepicks":
         source_label = (
             "prizepicks partner-api + calibrated leakage-safe projections (OOS-gated Top 5)"
@@ -1092,6 +1272,7 @@ def main() -> None:
         "card_quality": parlay.get("card_quality"),
         "top_bets": top_bets,
         "parlay": parlay,
+        "ace_k_card": ace_k_card,
         "predictions": predictions,
     }
     # Final board-level guard: never ship Elite tags below the OOS bar.

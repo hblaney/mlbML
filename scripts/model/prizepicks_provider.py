@@ -28,7 +28,7 @@ CACHE_DIR = REPO_ROOT / "data" / "cache" / "prizepicks"
 CACHE_TTL = int(os.getenv("PRIZEPICKS_TTL_SECONDS", "1800"))  # 30m
 MLB_LEAGUE_ID = 2
 API_URL = "https://partner-api.prizepicks.com/projections"
-CACHE_VERSION = 5  # full goblin board + demon fallback
+CACHE_VERSION = 6  # ace K lines up to 11.5 (was capped at 8.5)
 
 STAT_TO_PROP = {
     "Hits": "batter_hits",
@@ -50,7 +50,9 @@ STAT_TO_PROP = {
 # Goblin/demon lines outside these bands are junk ladders (1.5 K freebies,
 # 12.5 K demons, etc.). Inside the band they ARE the app board.
 LINE_BANDS: dict[str, tuple[float, float]] = {
-    "pitcher_strikeouts": (3.5, 8.5),
+    # Include ace ladders (Cole 9.5 / 10.5). Old 8.5 cap dropped those names entirely
+    # when PrizePicks only posted the high goblin/demon K.
+    "pitcher_strikeouts": (3.5, 11.5),
     "pitcher_hits_allowed": (2.5, 7.5),
     "pitcher_earned_runs": (0.5, 3.5),
     "pitcher_walks": (0.5, 2.5),

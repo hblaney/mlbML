@@ -340,6 +340,14 @@ def project_pitcher(
     else:
         exp_ip = season_ip
 
+    # Ace / high-K starters usually work deeper than a short season IP/GS average
+    # (early exits + injuries drag the mean). Without this floor, Gerrit Cole-type
+    # arms project ~5.5 K and vanish from any Over 6.5+ board.
+    if float(k9) >= 9.5 and gs >= 6:
+        exp_ip = max(exp_ip, 6.3)
+    elif float(k9) >= 8.5 and gs >= 6:
+        exp_ip = max(exp_ip, 6.0)
+
     opp_k_rate = LEAGUE_K_RATE
     opp_obp = 0.320
     tid = _team_id_by_abbr().get(opp_team_abbr) if opp_team_abbr else None
