@@ -819,6 +819,28 @@ export type PropParlay = {
   legs: PropPrediction[];
 };
 
+/** Same-game 3-leg parlay priced by the PA Monte Carlo joint probability. */
+export type CorrelatedParlay = {
+  game_id: string;
+  matchup?: string | null;
+  commence_time?: string | null;
+  n_legs: number;
+  type?: string;
+  payout?: number;
+  /** Correlation-aware cash probability (shrunk marginals × sim lift). */
+  joint_prob: number;
+  /** Raw sim fraction of games where all legs hit. */
+  joint_prob_sim_raw?: number;
+  /** Naive book assumption: product of the marginals. */
+  independent_prob?: number;
+  /** joint / independent — >1 means legs win together. */
+  correlation_lift?: number;
+  ev_per_dollar?: number;
+  no_bet?: boolean;
+  engine?: string;
+  legs: PropPrediction[];
+};
+
 export type PropPredictionsOutput = {
   generated_at: string;
   board_generated_at?: string;
@@ -830,6 +852,8 @@ export type PropPredictionsOutput = {
   /** Highest projected starter K Overs (includes model fill-ins when PP omits an ace). */
   ace_k_card?: PropPrediction[];
   parlay: PropParlay;
+  /** Ranked same-game 3-leg parlays scored by the sim's joint probability. */
+  correlated_parlays?: CorrelatedParlay[];
   predictions: PropPrediction[];
 };
 

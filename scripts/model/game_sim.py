@@ -655,6 +655,60 @@ class PropSimBundle:
         n_hit = sum(1 for c in samples if c >= need)
         return n_hit / float(len(samples))
 
+    def store_for(self, prop: str) -> dict[int, tuple[int, ...]] | None:
+        return {
+            "batter_hits": self.hits,
+            "batter_total_bases": self.total_bases,
+            "pitcher_strikeouts": self.starter_strikeouts,
+            "pitcher_hits_allowed": self.starter_hits_allowed,
+        }.get(prop)
+
+    def leg_bool(
+        self, prop: str, player_id: int, line: float, side: str,
+    ) -> tuple[bool, ...] | None:
+        """Per-sim win/loss vector for one leg, aligned by sim index.
+
+        Over 1.5 needs count >= 2; Under 1.5 needs count <= 1. Same-index across
+        players in one game bundle, so ANDing vectors gives the true joint.
+        """
+        store = self.store_for(prop)
+        if store is None:
+            return None
+        samples = store.get(int(player_id))
+        if not samples:
+            return None
+        need = int(math.floor(float(line))) + 1
+        if side == "Under":
+            return tuple(c < need for c in samples)
+        return tuple(c >= need for c in samples)
+
+    def joint_prob(
+        self, legs: Sequence[tuple[str, int, float, str]],
+    ) -> tuple[float, float] | None:
+        """(correlated joint P(all hit), independent product of raw marginals).
+
+        Correlated number counts sims where every leg hits from the SAME game
+        draws — that's the correlation edge. Independent product is the naive
+        book assumption; ratio shows how much the legs help/hurt each other.
+        """
+        vecs: list[tuple[bool, ...]] = []
+        marg: list[float] = []
+        for prop, pid, line, side in legs:
+            v = self.leg_bool(prop, int(pid), float(line), side)
+            if v is None:
+                return None
+            vecs.append(v)
+            marg.append(sum(1 for b in v if b) / float(len(v)))
+        n = len(vecs[0])
+        if any(len(v) != n for v in vecs):
+            return None
+        all_hit = sum(1 for i in range(n) if all(v[i] for v in vecs))
+        joint = all_hit / float(n)
+        indep = 1.0
+        for m in marg:
+            indep *= m
+        return joint, indep
+
 
 def simulate_prop_dists(
     home: TeamSide,

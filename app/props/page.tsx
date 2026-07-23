@@ -78,6 +78,7 @@ export default async function PropsPage() {
   const parlayProb = parlay.combined_prob ?? 0;
   const topBets = data.top_bets ?? [];
   const aceKCard = data.ace_k_card ?? [];
+  const correlatedParlays = data.correlated_parlays ?? [];
 
   // Best-to-bet-first: playable PrizePicks sides, highest model hit % first.
   // Demon/goblin Unders and coin-flip junk sink to the bottom (or drop out).
@@ -180,6 +181,121 @@ export default async function PropsPage() {
               ))}
             </tbody>
           </table>
+        </section>
+      ) : null}
+
+      {aceKCard.length > 0 ? (
+        <section className="panel strong">
+          <div className="section-heading">
+            <h2>Starter K Board</h2>
+            <span className="badge">Every slate arm</span>
+          </div>
+          <p className="lead">
+            Projected strikeouts for today&apos;s starters — including aces PrizePicks never posted.
+            Bet the line when PP/books offer it; <strong>proj</strong> is the model&apos;s expected Ks.
+          </p>
+          <table className="table">
+            <thead>
+              <tr>
+                <th>Pitcher</th>
+                <th>Proj K</th>
+                <th>Lean</th>
+                <th>Model</th>
+                <th>Source</th>
+              </tr>
+            </thead>
+            <tbody>
+              {aceKCard.map((b) => (
+                <tr key={`ace-k-${b.player}-${b.line}`}>
+                  <td>
+                    <strong>{b.player}</strong>
+                    <div className="muted" style={{ fontSize: "0.8rem" }}>
+                      {b.matchup}
+                    </div>
+                  </td>
+                  <td>
+                    <strong>{b.projection}</strong>
+                  </td>
+                  <td>
+                    <strong>
+                      More {b.line}
+                    </strong>
+                  </td>
+                  <td>{pct(b.model_prob)}</td>
+                  <td className="muted">
+                    {b.line_source === "model_slate" ? "model (no PP line)" : b.line_source ?? "—"}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </section>
+      ) : null}
+
+      {correlatedParlays.length > 0 ? (
+        <section className="panel strong">
+          <div className="section-heading">
+            <h2>Correlated 3-Leg Parlays</h2>
+            <span className="badge positive">Same-game · sim joint</span>
+          </div>
+          <p className="lead">
+            Same-game 3-leg cards priced by the <strong>PA Monte Carlo joint probability</strong> — not the
+            product of independent legs. <strong>Lift</strong> above 1.00 means the legs tend to win in the
+            same simulated game (the only real edge a parlay has). <strong>Joint %</strong> is the
+            correlation-aware hit rate; EV is per $1 on a PrizePicks 3-pick Power.
+          </p>
+          {correlatedParlays.map((card, i) => (
+            <div key={`corr-${card.game_id}-${i}`} style={{ marginBottom: "1.25rem" }}>
+              <div className="section-heading compact">
+                <h3 style={{ margin: 0 }}>
+                  {card.matchup ?? card.game_id}
+                </h3>
+                <span className={`badge ${card.no_bet ? "muted" : "positive"}`}>
+                  {card.no_bet ? "No bet (−EV)" : `EV ${signedPct(card.ev_per_dollar ?? 0)}`}
+                </span>
+              </div>
+              <p className="muted" style={{ marginTop: "0.25rem" }}>
+                Joint <strong>{pct(card.joint_prob)}</strong>
+                {" · "}independent {pct(card.independent_prob ?? 0)}
+                {" · "}lift{" "}
+                <strong className={(card.correlation_lift ?? 1) >= 1 ? "positive" : "negative"}>
+                  {(card.correlation_lift ?? 1).toFixed(2)}×
+                </strong>
+                {typeof card.payout === "number" ? ` · pays ${card.payout}×` : ""}
+              </p>
+              <table className="table">
+                <thead>
+                  <tr>
+                    <th>Player</th>
+                    <th>Prop</th>
+                    <th>Pick</th>
+                    <th>Proj</th>
+                    <th>Model</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {card.legs.map((leg) => (
+                    <tr key={`corr-leg-${card.game_id}-${leg.player}-${leg.prop}`}>
+                      <td>
+                        <strong>{leg.player}</strong>
+                        <div className="muted" style={{ fontSize: "0.8rem" }}>
+                          {leg.team ?? ""}
+                        </div>
+                      </td>
+                      <td>{leg.prop_label}</td>
+                      <td>
+                        <strong>
+                          {leg.side === "Over" ? "More" : "Less"} {leg.line}
+                        </strong>
+                      </td>
+                      <td>{leg.projection}</td>
+                      <td>{pct(leg.model_prob)}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          ))}
         </section>
       ) : null}
 

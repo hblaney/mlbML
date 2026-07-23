@@ -243,6 +243,19 @@ def sim_prop_projection(
     )
 
 
+def sim_joint_prob(
+    game: GameRecord,
+    legs: list[tuple[str, int, float, str]],
+    *,
+    n_sims: int = PROP_SIM_N_DEFAULT,
+) -> tuple[float, float] | None:
+    """(correlated joint, independent product) for same-game legs from the sim."""
+    bundle = get_game_prop_sim(game, n_sims=n_sims)
+    if bundle is None:
+        return None
+    return bundle.joint_prob([(p, int(pid), float(ln), sd) for p, pid, ln, sd in legs])
+
+
 def confidence_from_sim(
     pick_prob: float,
     *,

@@ -1392,6 +1392,123 @@ def build_parlay(predictions: list[dict]) -> dict:
     }
 
 
+def build_correlated_parlays(
+    predictions: list[dict],
+    games_by_pk: dict[int, object],
+    *,
+    n_cards: int = 3,
+    legs_per_card: int = 3,
+) -> list[dict]:
+    """Same-game 3-leg parlays scored by the sim's JOINT probability.
+
+    Books price legs as if independent. The PA Monte Carlo knows when a hitter
+    going off and a teammate going off (or a starter's K night suppressing the
+    other lineup) happen in the SAME simulated game. For each game we pick the
+    3-leg combo with the highest *correlated* cash probability, then rank across
+    games. correlation_lift = joint / (product of marginals): >1 means the legs
+    win together, which is the only real edge a parlay has.
+    """
+    try:
+        from game_sim_board import sim_joint_prob
+    except Exception:
+        return []
+    from itertools import combinations
+
+    by_game: dict[int, list[dict]] = {}
+    for p in predictions:
+        if p.get("prop") not in SIM_PROPS:
+            continue
+        if not p.get("player_id") or not p.get("game_id"):
+            continue
+        if _is_freebie_leg(p) or _is_unplayable_on_prizepicks(p) or p.get("coin_flip"):
+            continue
+        if float(p.get("model_prob") or 0) < 0.5:
+            continue
+        try:
+            gk = int(p["game_id"])
+        except (TypeError, ValueError):
+            continue
+        if gk not in games_by_pk:
+            continue
+        by_game.setdefault(gk, []).append(p)
+
+    cards: list[dict] = []
+    for gk, legs in by_game.items():
+        game = games_by_pk[gk]
+        # One leg per player; cap the pool so combinations stay cheap.
+        best_per_player: dict[str, dict] = {}
+        for leg in legs:
+            key = _norm_name(str(leg.get("player") or ""))
+            prev = best_per_player.get(key)
+            if prev is None or float(leg["model_prob"]) > float(prev["model_prob"]):
+                best_per_player[key] = leg
+        pool = sorted(
+            best_per_player.values(),
+            key=lambda x: float(x["model_prob"]),
+            reverse=True,
+        )[:6]
+        if len(pool) < legs_per_card:
+            continue
+
+        best = None
+        for combo in combinations(pool, legs_per_card):
+            leg_tuples = [
+                (c["prop"], int(c["player_id"]), float(c["line"]), c["side"])
+                for c in combo
+            ]
+            jp = sim_joint_prob(game, leg_tuples)
+            if jp is None:
+                continue
+            joint_raw, indep_raw = jp
+            if joint_raw <= 0.0:
+                continue
+            lift = joint_raw / indep_raw if indep_raw > 0 else 1.0
+            # Keep the anti-overconfidence shrink on marginals, then re-apply the
+            # sim's correlation lift so we don't quote raw sim optimism.
+            shrunk_indep = 1.0
+            for c in combo:
+                shrunk_indep *= float(c["model_prob"])
+            quoted = max(0.0, min(1.0, shrunk_indep * lift))
+            payout = PP_POWER_PAYOUTS.get(legs_per_card, 5.0)
+            ev = payout * quoted - 1.0
+            if best is None or quoted > best["quoted"]:
+                best = {
+                    "combo": combo,
+                    "joint_raw": joint_raw,
+                    "indep_raw": indep_raw,
+                    "lift": lift,
+                    "quoted": quoted,
+                    "ev": ev,
+                }
+        if best is None:
+            continue
+        combo = best["combo"]
+        cards.append(
+            {
+                "game_id": str(gk),
+                "matchup": combo[0].get("matchup"),
+                "commence_time": combo[0].get("commence_time"),
+                "n_legs": legs_per_card,
+                "type": "power",
+                "payout": PP_POWER_PAYOUTS.get(legs_per_card, 5.0),
+                "joint_prob": round(best["quoted"], 4),
+                "joint_prob_sim_raw": round(best["joint_raw"], 4),
+                "independent_prob": round(best["indep_raw"], 4),
+                "correlation_lift": round(best["lift"], 3),
+                "ev_per_dollar": round(best["ev"], 4),
+                "no_bet": best["ev"] <= 0.0,
+                "engine": "PA Monte Carlo joint",
+                "legs": [_sanitize_leg(c) for c in combo],
+            }
+        )
+
+    cards.sort(
+        key=lambda c: (not c["no_bet"], c["ev_per_dollar"], c["joint_prob"]),
+        reverse=True,
+    )
+    return cards[:n_cards]
+
+
 def main() -> None:
     # CI runs in UTC — date.today() there flips to tomorrow at 7 PM Central,
     # which is how next-day games bled onto the evening card. Slate = CT date.
@@ -1424,6 +1541,16 @@ def main() -> None:
             )
 
     parlay = build_parlay(predictions) if predictions else {"n_legs": 0, "legs": [], "no_bet": True, "no_bet_reason": "no_predictions"}
+    # Correlated same-game 3-leg parlays scored by the sim's joint probability.
+    correlated_parlays: list[dict] = []
+    if predictions:
+        try:
+            games_by_pk = {
+                int(g.game_pk): g for g in fetch_upcoming_games(game_date, game_date)
+            }
+            correlated_parlays = build_correlated_parlays(predictions, games_by_pk)
+        except Exception as exc:  # noqa: BLE001
+            print(f"correlated_parlays_skip err={exc}")
     # Top bets ARE the parlay legs — the user bets the exact card, so the board
     # must never show 5 while the EV-sized play is 3.
     top_bets = list(parlay.get("legs") or [])
@@ -1472,6 +1599,7 @@ def main() -> None:
         "no_bet_reason": parlay.get("no_bet_reason"),
         "top_bets": top_bets,
         "parlay": parlay,
+        "correlated_parlays": correlated_parlays,
         "ace_k_card": ace_k_card,
         "predictions": predictions,
     }
