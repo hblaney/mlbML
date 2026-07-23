@@ -1,15 +1,19 @@
 """Plate-appearance Monte Carlo for full MLB games.
 
 Discrete PA outcomes (not pitch-by-pitch). Matchups use log5 / odds-ratio
-blending of batter rates × pitcher rates ÷ league averages. Starter hands off
-to a bullpen after a fixed batters-faced budget. Extras continue until a winner
-(cap 18 innings).
+blending of batter rates × pitcher rates ÷ league averages.
+
+Pitching changes (v2):
+  - Starter exits on TBF budget, run hook, max innings, or early deficit.
+  - Bullpen roles: long relief / middle / setup / closer, chosen by inning + score.
+  - Relievers are capped ~1 inning of work, then another arm of the same tier.
 
 Deterministic when ``seed`` is set (use game_pk for board integrity recomputes).
 """
 
 from __future__ import annotations
 
+import math
 from dataclasses import dataclass
 from typing import Sequence
 
@@ -38,8 +42,18 @@ LEAGUE = LEAGUE / LEAGUE.sum()
 OFFENSE_DAMPEN = 0.82
 
 DEFAULT_STARTER_TBF = 25
+DEFAULT_STARTER_RUN_HOOK = 5
+DEFAULT_STARTER_MAX_IP = 7
+DEFAULT_RELIEVER_TBF = 5
 DEFAULT_N_SIMS = 8000
 MAX_INNINGS = 18
+
+ROLE_STARTER = 0
+ROLE_LONG = 1
+ROLE_MIDDLE = 2
+ROLE_SETUP = 3
+ROLE_CLOSER = 4
+N_ROLES = 5
 
 
 @dataclass(frozen=True)
@@ -55,11 +69,30 @@ class BatterRates:
 
 
 @dataclass(frozen=True)
+class BullpenStaff:
+    """Role-split bullpen derived from team pen ERA/WHIP (+ fatigue)."""
+
+    long_relief: PitcherRates
+    middle: PitcherRates
+    setup: PitcherRates
+    closer: PitcherRates
+    fatigue_ip3: float = 0.0
+
+
+@dataclass(frozen=True)
 class TeamSide:
     batters: tuple[BatterRates, ...]  # length 9
     starter: PitcherRates
-    bullpen: PitcherRates
+    pen: BullpenStaff
     starter_tbf: int = DEFAULT_STARTER_TBF
+    starter_run_hook: int = DEFAULT_STARTER_RUN_HOOK
+    starter_max_ip: int = DEFAULT_STARTER_MAX_IP
+    reliever_tbf: int = DEFAULT_RELIEVER_TBF
+
+    @property
+    def bullpen(self) -> PitcherRates:
+        """Back-compat: generic pen ≈ middle relief."""
+        return self.pen.middle
 
 
 @dataclass(frozen=True)
@@ -71,6 +104,28 @@ class SimResult:
     n_sims: int
     home_wins: int
     away_wins: int
+
+
+@dataclass(frozen=True)
+class OncePropBox:
+    """Per-sim counting stats from the same PA draws as the moneyline sim."""
+
+    away_hits: tuple[int, ...]  # length 9, lineup order
+    home_hits: tuple[int, ...]
+    away_tb: tuple[int, ...]
+    home_tb: tuple[int, ...]
+    # Starter pitching: home starter faces away lineup; away starter faces home.
+    home_starter_k: int
+    away_starter_k: int
+    home_starter_ha: int
+    away_starter_ha: int
+
+
+@dataclass(frozen=True)
+class OnceResult:
+    away_runs: int
+    home_runs: int
+    props: OncePropBox
 
 
 def _clip_probs(p: np.ndarray) -> np.ndarray:
@@ -141,10 +196,14 @@ def bullpen_rates_from_era_whip(
     whip: float,
     *,
     park_hr: float = 1.0,
+    quality: float = 1.0,
 ) -> PitcherRates:
-    """Map bullpen ERA/WHIP onto per-PA rates (league K/BB skeleton)."""
-    era = max(1.5, min(9.0, float(era)))
-    whip = max(0.7, min(2.5, float(whip)))
+    """Map bullpen ERA/WHIP onto per-PA rates.
+
+    ``quality`` < 1.0 = better arm (closer/setup); > 1.0 = worse (long relief).
+    """
+    era = max(1.5, min(9.0, float(era) * float(quality)))
+    whip = max(0.7, min(2.5, float(whip) * (0.5 + 0.5 * float(quality))))
     # Scale offense allowed vs league (~4.10 ERA, 1.32 WHIP).
     run_scale = era / 4.10
     obp_scale = whip / 1.32
@@ -159,6 +218,35 @@ def bullpen_rates_from_era_whip(
     base[K] *= max(0.7, 1.15 - 0.15 * run_scale)
     base[OUT] *= max(0.55, 1.25 - 0.25 * obp_scale)
     return PitcherRates(probs=_clip_probs(base))
+
+
+def build_bullpen_staff(
+    era: float,
+    whip: float,
+    *,
+    park_hr: float = 1.0,
+    fatigue_ip3: float = 0.0,
+) -> BullpenStaff:
+    """Split team pen into roles. Fatigue makes middle/long worse, closer less so."""
+    fat = max(0.0, float(fatigue_ip3))
+    # ~3+ IP in last 3 days starts to matter; 6+ IP is a tired pen.
+    fat_scale = 1.0 + min(0.25, 0.04 * fat)
+    # Mild role splits — extreme closer/setup quality crushed late offense (~3 R/G).
+    return BullpenStaff(
+        long_relief=bullpen_rates_from_era_whip(
+            era, whip, park_hr=park_hr, quality=1.12 * fat_scale
+        ),
+        middle=bullpen_rates_from_era_whip(
+            era, whip, park_hr=park_hr, quality=1.02 * fat_scale
+        ),
+        setup=bullpen_rates_from_era_whip(
+            era, whip, park_hr=park_hr, quality=0.95 * (1.0 + 0.4 * (fat_scale - 1.0))
+        ),
+        closer=bullpen_rates_from_era_whip(
+            era, whip, park_hr=park_hr, quality=0.90 * (1.0 + 0.3 * (fat_scale - 1.0))
+        ),
+        fatigue_ip3=fat,
+    )
 
 
 def log5_matchup(batter: BatterRates, pitcher: PitcherRates) -> np.ndarray:
@@ -233,6 +321,21 @@ def _precompute_matchups(offense: TeamSide, pitcher: PitcherRates) -> np.ndarray
     return cdf
 
 
+def _precompute_staff(offense: TeamSide, defense: TeamSide) -> np.ndarray:
+    """Return (5 roles, 9 batters, 8 outcomes) CDF stack for one defense."""
+    arms = (
+        defense.starter,
+        defense.pen.long_relief,
+        defense.pen.middle,
+        defense.pen.setup,
+        defense.pen.closer,
+    )
+    out = np.empty((N_ROLES, 9, N_OUTCOMES), dtype=np.float64)
+    for role, arm in enumerate(arms):
+        out[role] = _precompute_matchups(offense, arm)
+    return out
+
+
 def _draw_outcome(cdf_row: np.ndarray, u: float) -> int:
     for i, c in enumerate(cdf_row):
         if u <= c:
@@ -240,67 +343,248 @@ def _draw_outcome(cdf_row: np.ndarray, u: float) -> int:
     return OUT
 
 
+def _starter_should_exit(
+    *,
+    tbf: int,
+    runs: int,
+    outs_recorded: int,
+    tbf_limit: int,
+    run_hook: int,
+    max_ip: int,
+    defense_lead: int,
+) -> bool:
+    ip = outs_recorded // 3
+    if tbf >= tbf_limit:
+        return True
+    if runs >= run_hook:
+        return True
+    if ip >= max_ip:
+        return True
+    # Quick hook when getting blown out after 4–5 IP.
+    if ip >= 5 and defense_lead <= -3:
+        return True
+    if ip >= 4 and runs >= 4 and defense_lead <= -2:
+        return True
+    return False
+
+
+def _pick_reliever_role(
+    *,
+    inning: int,
+    defense_lead: int,
+    starter_ip: int,
+) -> int:
+    """Choose bullpen role from game state (defense perspective)."""
+    # Save situation: 9th+ with a lead of 1–3 (classic closer).
+    if inning >= 9 and 1 <= defense_lead <= 3:
+        return ROLE_CLOSER
+    # Hold / bridge: 8th with any lead, or 9th with bigger lead.
+    if inning >= 8 and defense_lead >= 1:
+        return ROLE_SETUP
+    # Tied late / extras — high-leverage setup arm.
+    if inning >= 9 and defense_lead == 0:
+        return ROLE_SETUP
+    # Starter barely made it — long man.
+    if starter_ip <= 4:
+        return ROLE_LONG
+    return ROLE_MIDDLE
+
+
+def _credit_batter(hits: list[int], tb: list[int], slot: int, outcome: int) -> None:
+    if outcome == SINGLE:
+        hits[slot] += 1
+        tb[slot] += 1
+    elif outcome == DOUBLE:
+        hits[slot] += 1
+        tb[slot] += 2
+    elif outcome == TRIPLE:
+        hits[slot] += 1
+        tb[slot] += 3
+    elif outcome == HR:
+        hits[slot] += 1
+        tb[slot] += 4
+
+
 def simulate_game_once(
     home: TeamSide,
     away: TeamSide,
     rng: np.random.Generator,
     *,
-    away_vs_home_starter: np.ndarray,
-    away_vs_home_pen: np.ndarray,
-    home_vs_away_starter: np.ndarray,
-    home_vs_away_pen: np.ndarray,
-) -> tuple[int, int]:
-    """Return (away_runs, home_runs) for one simulated game."""
+    away_vs_home: np.ndarray,
+    home_vs_away: np.ndarray,
+) -> OnceResult:
+    """Simulate one game; return runs + per-player counting stats for props."""
     away_score = 0
     home_score = 0
     away_slot = 0
     home_slot = 0
-    home_tbf = 0  # batters faced by home pitcher (facing away lineup)
-    away_tbf = 0
+    away_hits = [0] * 9
+    home_hits = [0] * 9
+    away_tb = [0] * 9
+    home_tb = [0] * 9
+    home_starter_k = home_starter_ha = 0
+    away_starter_k = away_starter_ha = 0
+
+    # Defense pitching state for home (faces away) and away (faces home).
+    home_starter_out = False
+    away_starter_out = False
+    home_st_tbf = home_st_runs = home_st_outs = 0
+    away_st_tbf = away_st_runs = away_st_outs = 0
+    home_rel_tbf = 0
+    away_rel_tbf = 0
+    home_role = ROLE_STARTER
+    away_role = ROLE_STARTER
 
     for inning in range(1, MAX_INNINGS + 1):
-        # Top: away bats
+        # Top: away bats, home pitches
         bases = [0, 0, 0]
         outs = 0
         while outs < 3:
-            use_pen = home_tbf >= home.starter_tbf
-            cdf = away_vs_home_pen if use_pen else away_vs_home_starter
+            lead = home_score - away_score
+            if not home_starter_out:
+                if _starter_should_exit(
+                    tbf=home_st_tbf,
+                    runs=home_st_runs,
+                    outs_recorded=home_st_outs,
+                    tbf_limit=home.starter_tbf,
+                    run_hook=home.starter_run_hook,
+                    max_ip=home.starter_max_ip,
+                    defense_lead=lead,
+                ):
+                    home_starter_out = True
+                    home_rel_tbf = 0
+                    home_role = _pick_reliever_role(
+                        inning=inning,
+                        defense_lead=lead,
+                        starter_ip=home_st_outs // 3,
+                    )
+            if home_starter_out:
+                # New arm each ~reliever_tbf, re-pick role from live score.
+                if home_rel_tbf >= home.reliever_tbf:
+                    home_rel_tbf = 0
+                    home_role = _pick_reliever_role(
+                        inning=inning,
+                        defense_lead=lead,
+                        starter_ip=home_st_outs // 3,
+                    )
+                role = home_role
+            else:
+                role = ROLE_STARTER
+
             u = float(rng.random())
-            outcome = _draw_outcome(cdf[away_slot], u)
+            outcome = _draw_outcome(away_vs_home[role, away_slot], u)
+            prev_outs = outs
+            bat_slot = away_slot
             runs, outs = resolve_pa(outcome, bases, outs)
             away_score += runs
+            _credit_batter(away_hits, away_tb, bat_slot, outcome)
             away_slot = (away_slot + 1) % 9
-            home_tbf += 1
+            if role == ROLE_STARTER:
+                home_st_tbf += 1
+                home_st_runs += runs
+                home_st_outs += max(0, outs - prev_outs)
+                if outcome == K:
+                    home_starter_k += 1
+                if outcome in (SINGLE, DOUBLE, TRIPLE, HR):
+                    home_starter_ha += 1
+            else:
+                home_rel_tbf += 1
 
-        # Bottom: home bats (walk-off / don't play if home already ahead after 9+)
+        # Bottom: home bats (skip if home already ahead after 9+)
         if inning >= 9 and home_score > away_score:
             break
 
         bases = [0, 0, 0]
         outs = 0
         while outs < 3:
-            use_pen = away_tbf >= away.starter_tbf
-            cdf = home_vs_away_pen if use_pen else home_vs_away_starter
+            lead = away_score - home_score  # away defense lead
+            if not away_starter_out:
+                if _starter_should_exit(
+                    tbf=away_st_tbf,
+                    runs=away_st_runs,
+                    outs_recorded=away_st_outs,
+                    tbf_limit=away.starter_tbf,
+                    run_hook=away.starter_run_hook,
+                    max_ip=away.starter_max_ip,
+                    defense_lead=lead,
+                ):
+                    away_starter_out = True
+                    away_rel_tbf = 0
+                    away_role = _pick_reliever_role(
+                        inning=inning,
+                        defense_lead=lead,
+                        starter_ip=away_st_outs // 3,
+                    )
+            if away_starter_out:
+                if away_rel_tbf >= away.reliever_tbf:
+                    away_rel_tbf = 0
+                    away_role = _pick_reliever_role(
+                        inning=inning,
+                        defense_lead=lead,
+                        starter_ip=away_st_outs // 3,
+                    )
+                role = away_role
+            else:
+                role = ROLE_STARTER
+
             u = float(rng.random())
-            outcome = _draw_outcome(cdf[home_slot], u)
+            outcome = _draw_outcome(home_vs_away[role, home_slot], u)
+            prev_outs = outs
+            bat_slot = home_slot
             runs, outs = resolve_pa(outcome, bases, outs)
             home_score += runs
+            _credit_batter(home_hits, home_tb, bat_slot, outcome)
             home_slot = (home_slot + 1) % 9
-            away_tbf += 1
+            if role == ROLE_STARTER:
+                away_st_tbf += 1
+                away_st_runs += runs
+                away_st_outs += max(0, outs - prev_outs)
+                if outcome == K:
+                    away_starter_k += 1
+                if outcome in (SINGLE, DOUBLE, TRIPLE, HR):
+                    away_starter_ha += 1
+            else:
+                away_rel_tbf += 1
             # Walk-off
             if inning >= 9 and home_score > away_score:
-                return away_score, home_score
+                return OnceResult(
+                    away_score,
+                    home_score,
+                    OncePropBox(
+                        tuple(away_hits),
+                        tuple(home_hits),
+                        tuple(away_tb),
+                        tuple(home_tb),
+                        home_starter_k,
+                        away_starter_k,
+                        home_starter_ha,
+                        away_starter_ha,
+                    ),
+                )
 
         if inning >= 9 and home_score != away_score:
             break
 
-    # Still tied after max innings — coin flip by one more half (rare).
+    # Still tied after max innings — coin flip (rare).
     if home_score == away_score:
         if rng.random() < 0.5:
             home_score += 1
         else:
             away_score += 1
-    return away_score, home_score
+    return OnceResult(
+        away_score,
+        home_score,
+        OncePropBox(
+            tuple(away_hits),
+            tuple(home_hits),
+            tuple(away_tb),
+            tuple(home_tb),
+            home_starter_k,
+            away_starter_k,
+            home_starter_ha,
+            away_starter_ha,
+        ),
+    )
 
 
 def simulate_game(
@@ -311,25 +595,22 @@ def simulate_game(
     seed: int | None = None,
 ) -> SimResult:
     rng = np.random.default_rng(seed)
-    away_vs_home_starter = _precompute_matchups(away, home.starter)
-    away_vs_home_pen = _precompute_matchups(away, home.bullpen)
-    home_vs_away_starter = _precompute_matchups(home, away.starter)
-    home_vs_away_pen = _precompute_matchups(home, away.bullpen)
+    away_vs_home = _precompute_staff(away, home)
+    home_vs_away = _precompute_staff(home, away)
 
     home_wins = 0
     away_wins = 0
     home_runs_total = 0
     away_runs_total = 0
     for _ in range(n_sims):
-        ar, hr = simulate_game_once(
+        once = simulate_game_once(
             home,
             away,
             rng,
-            away_vs_home_starter=away_vs_home_starter,
-            away_vs_home_pen=away_vs_home_pen,
-            home_vs_away_starter=home_vs_away_starter,
-            home_vs_away_pen=home_vs_away_pen,
+            away_vs_home=away_vs_home,
+            home_vs_away=home_vs_away,
         )
+        ar, hr = once.away_runs, once.home_runs
         away_runs_total += ar
         home_runs_total += hr
         if hr > ar:
@@ -348,6 +629,106 @@ def simulate_game(
     )
 
 
+@dataclass(frozen=True)
+class PropSimBundle:
+    """Empirical distributions from PA Monte Carlo (same engine as moneyline)."""
+
+    n_sims: int
+    # player_id -> list of per-sim counts
+    hits: dict[int, tuple[int, ...]]
+    total_bases: dict[int, tuple[int, ...]]
+    starter_strikeouts: dict[int, tuple[int, ...]]
+    starter_hits_allowed: dict[int, tuple[int, ...]]
+
+    def mean(self, store: dict[int, tuple[int, ...]], player_id: int) -> float | None:
+        samples = store.get(player_id)
+        if not samples:
+            return None
+        return float(sum(samples)) / float(len(samples))
+
+    def prob_over(self, store: dict[int, tuple[int, ...]], player_id: int, line: float) -> float | None:
+        samples = store.get(player_id)
+        if not samples:
+            return None
+        # Match prop_projections._line_floor: Over 1.5 needs count >= 2.
+        need = int(math.floor(float(line))) + 1
+        n_hit = sum(1 for c in samples if c >= need)
+        return n_hit / float(len(samples))
+
+
+def simulate_prop_dists(
+    home: TeamSide,
+    away: TeamSide,
+    *,
+    away_batter_ids: Sequence[int],
+    home_batter_ids: Sequence[int],
+    away_starter_id: int | None,
+    home_starter_id: int | None,
+    n_sims: int = 2000,
+    seed: int | None = None,
+) -> PropSimBundle:
+    """Run the PA sim and accumulate per-player prop counting stats."""
+    if len(away_batter_ids) < 9 or len(home_batter_ids) < 9:
+        raise ValueError("need 9 batter ids per side")
+    rng = np.random.default_rng(seed)
+    away_vs_home = _precompute_staff(away, home)
+    home_vs_away = _precompute_staff(home, away)
+
+    away_hits_s: list[list[int]] = [[] for _ in range(9)]
+    home_hits_s: list[list[int]] = [[] for _ in range(9)]
+    away_tb_s: list[list[int]] = [[] for _ in range(9)]
+    home_tb_s: list[list[int]] = [[] for _ in range(9)]
+    home_k_s: list[int] = []
+    away_k_s: list[int] = []
+    home_ha_s: list[int] = []
+    away_ha_s: list[int] = []
+
+    for _ in range(n_sims):
+        once = simulate_game_once(
+            home,
+            away,
+            rng,
+            away_vs_home=away_vs_home,
+            home_vs_away=home_vs_away,
+        )
+        box = once.props
+        for i in range(9):
+            away_hits_s[i].append(box.away_hits[i])
+            home_hits_s[i].append(box.home_hits[i])
+            away_tb_s[i].append(box.away_tb[i])
+            home_tb_s[i].append(box.home_tb[i])
+        home_k_s.append(box.home_starter_k)
+        away_k_s.append(box.away_starter_k)
+        home_ha_s.append(box.home_starter_ha)
+        away_ha_s.append(box.away_starter_ha)
+
+    hits: dict[int, tuple[int, ...]] = {}
+    tb: dict[int, tuple[int, ...]] = {}
+    for i, pid in enumerate(away_batter_ids[:9]):
+        hits[int(pid)] = tuple(away_hits_s[i])
+        tb[int(pid)] = tuple(away_tb_s[i])
+    for i, pid in enumerate(home_batter_ids[:9]):
+        hits[int(pid)] = tuple(home_hits_s[i])
+        tb[int(pid)] = tuple(home_tb_s[i])
+
+    starter_k: dict[int, tuple[int, ...]] = {}
+    starter_ha: dict[int, tuple[int, ...]] = {}
+    if home_starter_id:
+        starter_k[int(home_starter_id)] = tuple(home_k_s)
+        starter_ha[int(home_starter_id)] = tuple(home_ha_s)
+    if away_starter_id:
+        starter_k[int(away_starter_id)] = tuple(away_k_s)
+        starter_ha[int(away_starter_id)] = tuple(away_ha_s)
+
+    return PropSimBundle(
+        n_sims=n_sims,
+        hits=hits,
+        total_bases=tb,
+        starter_strikeouts=starter_k,
+        starter_hits_allowed=starter_ha,
+    )
+
+
 def make_team_side(
     batter_stats: Sequence[dict[str, float]],
     starter_stats: dict[str, float],
@@ -356,6 +737,7 @@ def make_team_side(
     *,
     park_hr: float = 1.0,
     starter_tbf: int = DEFAULT_STARTER_TBF,
+    fatigue_ip3: float = 0.0,
 ) -> TeamSide:
     batters = tuple(batter_rates_from_stats(s) for s in batter_stats)
     while len(batters) < 9:
@@ -364,6 +746,11 @@ def make_team_side(
     return TeamSide(
         batters=batters,
         starter=pitcher_rates_from_stats(starter_stats, park_hr=park_hr),
-        bullpen=bullpen_rates_from_era_whip(bullpen_era, bullpen_whip, park_hr=park_hr),
+        pen=build_bullpen_staff(
+            bullpen_era,
+            bullpen_whip,
+            park_hr=park_hr,
+            fatigue_ip3=fatigue_ip3,
+        ),
         starter_tbf=starter_tbf,
     )

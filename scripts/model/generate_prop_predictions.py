@@ -18,6 +18,9 @@ import json
 import os
 from datetime import date, datetime, timezone
 from pathlib import Path
+from zoneinfo import ZoneInfo
+
+LOCAL_TZ = ZoneInfo("America/Chicago")
 
 from mlb_api import fetch_upcoming_games, load_team_abbreviations
 from pitcher_stats_provider import pitcher_stats_as_of
@@ -68,6 +71,7 @@ PARLAY_MAX_LEGS = 5
 # Props PrizePicks actually offers. Daily card only uses ACCURACY_PROPS (below).
 PLAYABLE_PROPS = {
     "batter_hits",
+    "batter_total_bases",
     "batter_singles",
     "pitcher_strikeouts",
     "pitcher_hits_allowed",
@@ -75,10 +79,9 @@ PLAYABLE_PROPS = {
     "pitcher_walks",
 }
 
-# Structurally misspecified on our engine (Poisson TB/RBI/HRR) — live hit rates
-# were ~18–25%. Drop from the board entirely until distributions are rewritten.
+# Still broken without runner identity in the PA sim (can't credit who scored).
+# Fantasy score is a composite we do not model. Soft HR/SB freebies stay out.
 BROKEN_PROPS = {
-    "batter_total_bases",
     "batter_rbis",
     "batter_hits_runs_rbis",
     "batter_runs_scored",
@@ -87,10 +90,18 @@ BROKEN_PROPS = {
     "batter_doubles",
 }
 
-# Accuracy card = salvageable markets only (not TB/RBI/HRR).
-# Live graded: hits ~57–67%, K ~59%, pitcher HA/ER ~72–76%.
+# PA Monte Carlo props (same engine as moneyline) — not closed-form Poisson.
+SIM_PROPS = {
+    "batter_hits",
+    "batter_total_bases",
+    "pitcher_strikeouts",
+    "pitcher_hits_allowed",
+}
+
+# Accuracy card: sim-backed counting props + pitcher ER (still analytic for now).
 ACCURACY_PROPS = {
     "batter_hits",
+    "batter_total_bases",
     "pitcher_strikeouts",
     "pitcher_hits_allowed",
     "pitcher_earned_runs",
@@ -98,6 +109,8 @@ ACCURACY_PROPS = {
 ACCURACY_LINES = {
     ("batter_hits", 0.5),
     ("batter_hits", 1.5),
+    ("batter_total_bases", 1.5),
+    ("batter_total_bases", 2.5),
     ("pitcher_strikeouts", 4.5),
     ("pitcher_strikeouts", 5.5),
     ("pitcher_strikeouts", 6.5),
@@ -160,6 +173,71 @@ def _decimal(american: int) -> float:
 K_OVER_MIN_CONF = 0.60
 K_OVER_MIN_PROJ_EDGE = 1.0
 K_OVER_MIN_LINE = 4.5  # real PP ladder; 3.5 baby goblins still excluded
+
+# PrizePicks payout multipliers (stake-normalized). Used for the honest card EV
+# and the no-bet gate: if the shipped legs' probabilities don't clear the vig,
+# the card publishes with no_bet=True instead of pretending it's a play.
+PP_FLEX_PAYOUTS: dict[int, dict[int, float]] = {
+    5: {5: 10.0, 4: 2.0, 3: 0.4},
+    4: {4: 5.0, 3: 1.5},
+    3: {3: 2.25, 2: 1.25},
+}
+PP_POWER_PAYOUTS: dict[int, float] = {2: 3.0, 3: 5.0}
+MAX_LEGS_PER_GAME = 2
+
+
+def _exact_hit_dist(probs: list[float]) -> list[float]:
+    """Poisson-binomial P(exactly m legs hit) via DP."""
+    dist = [1.0]
+    for p in probs:
+        nxt = [0.0] * (len(dist) + 1)
+        for m, q in enumerate(dist):
+            nxt[m] += q * (1.0 - p)
+            nxt[m + 1] += q * p
+        dist = nxt
+    return dist
+
+
+def _card_ev(probs: list[float]) -> tuple[float | None, str | None]:
+    """(EV per $1, card type) for the best PP structure at this leg count."""
+    k = len(probs)
+    if k < 2:
+        return None, None
+    dist = _exact_hit_dist(probs)
+    best_ev: float | None = None
+    best_type: str | None = None
+    flex = PP_FLEX_PAYOUTS.get(k)
+    if flex:
+        ev = sum(flex.get(m, 0.0) * dist[m] for m in range(k + 1)) - 1.0
+        best_ev, best_type = ev, "flex"
+    power = PP_POWER_PAYOUTS.get(k)
+    if power:
+        ev = power * dist[k] - 1.0
+        if best_ev is None or ev > best_ev:
+            best_ev, best_type = ev, "power"
+    return best_ev, best_type
+
+
+def _leg_blocked_reason(p: dict, *, now_utc: datetime, slate_date: date) -> str | None:
+    """Card legs must be games on today's slate that haven't started.
+
+    Next-day games bleeding onto the card and already-started legs both burned
+    real tickets. Unknown start times are allowed (tests / odds fallback rows).
+    """
+    raw = str(p.get("commence_time") or "").strip()
+    if not raw:
+        return None
+    try:
+        start = datetime.fromisoformat(raw.replace("Z", "+00:00"))
+        if start.tzinfo is None:
+            start = start.replace(tzinfo=timezone.utc)
+    except Exception:
+        return None
+    if start <= now_utc:
+        return "already_started"
+    if start.astimezone(LOCAL_TZ).date() != slate_date:
+        return "not_todays_slate"
+    return None
 
 
 def _load_accuracy_policy() -> None:
@@ -334,8 +412,23 @@ def _sanitize_leg(p: dict) -> dict:
 
 
 def _pick_diverse(pool: list[dict], n: int, *, max_per_prop: int) -> list[dict]:
+    """Card selection with the discipline the bankroll actually needs:
+
+    - one leg per player
+    - max MAX_LEGS_PER_GAME legs per game (a rain delay / blowout can't kill 3 legs)
+    - never pair a pitcher leg with an OPPOSING batter leg in the same game
+      (pitcher HA Under + opposing hits Over is betting against yourself)
+    - batter legs require a confirmed lineup (scratched hitters torched real cards)
+    - only games on today's slate that haven't started (next-day bleed burned tickets)
+    - only lines actually placeable (model_slate fill-ins are display-only)
+    """
+    now_utc = datetime.now(timezone.utc)
+    slate_date = datetime.now(LOCAL_TZ).date()
     best: dict[str, dict] = {}
     prop_counts: dict[str, int] = {}
+    game_counts: dict[str, int] = {}
+    pitcher_teams: dict[str, set[str]] = {}
+    batter_teams: dict[str, set[str]] = {}
     for p in pool:
         if p["player"] in best:
             continue
@@ -343,11 +436,30 @@ def _pick_diverse(pool: list[dict], n: int, *, max_per_prop: int) -> list[dict]:
             continue
         if _is_unplayable_on_prizepicks(p) or _is_freebie_leg(p) or _hot_streak_blocks_under(p):
             continue
+        if p.get("bettable_on_prizepicks") is False:
+            continue
+        is_pitcher = str(p.get("prop") or "").startswith("pitcher_")
+        if (not is_pitcher) and p.get("lineup_confirmed") is False:
+            continue
+        if _leg_blocked_reason(p, now_utc=now_utc, slate_date=slate_date):
+            continue
+        game = str(p.get("matchup") or p.get("game_id") or "")
+        team = str(p.get("team") or "")
+        if game:
+            if game_counts.get(game, 0) >= MAX_LEGS_PER_GAME:
+                continue
+            if is_pitcher and team and any(t != team for t in batter_teams.get(game, ())):
+                continue
+            if (not is_pitcher) and team and any(t != team for t in pitcher_teams.get(game, ())):
+                continue
         row = _sanitize_leg(p)
         if row.get("coin_flip") or row.get("unplayable"):
             continue
         best[p["player"]] = row
         prop_counts[p["prop"]] = prop_counts.get(p["prop"], 0) + 1
+        if game:
+            game_counts[game] = game_counts.get(game, 0) + 1
+            (pitcher_teams if is_pitcher else batter_teams).setdefault(game, set()).add(team)
         if len(best) >= n:
             break
     return list(best.values())[:n]
@@ -364,6 +476,21 @@ def _park_hr_factor(home_team_id: int | None) -> float:
         return 1.0
 
 
+def _sim_or_analytic_proj(game, player_id: int, prop: str, line: float, analytic):
+    """Prefer PA Monte Carlo P(over) for supported props; else analytic fallback."""
+    if prop not in SIM_PROPS or game is None or not player_id:
+        return analytic
+    try:
+        from game_sim_board import sim_prop_projection
+
+        sim = sim_prop_projection(game, int(player_id), prop, float(line))
+        if sim is not None:
+            return sim
+    except Exception as exc:  # noqa: BLE001
+        print(f"prop_sim_fallback prop={prop} player={player_id} err={exc}")
+    return analytic
+
+
 def build_predictions_from_prizepicks(game_date: date) -> list[dict]:
     """Edge projections against live PrizePicks standard lines (pick'em prior)."""
     # Prefer cache (30m TTL); force refresh only when explicitly asked.
@@ -372,6 +499,13 @@ def build_predictions_from_prizepicks(game_date: date) -> list[dict]:
     if not pp_lines:
         return []
 
+    try:
+        from game_sim_board import clear_prop_sim_cache
+
+        clear_prop_sim_cache()
+    except Exception:
+        pass
+
     abbr_by_id = load_team_abbreviations()
     id_by_abbr: dict[str, int] = {}
     for tid, abbr in abbr_by_id.items():
@@ -379,6 +513,7 @@ def build_predictions_from_prizepicks(game_date: date) -> list[dict]:
         id_by_abbr[_norm_abbr(abbr)] = tid
 
     games = fetch_upcoming_games(game_date, game_date)
+    games_by_pk = {int(g.game_pk): g for g in games}
     # Build roster name -> (player_id, team_abbr) for today's teams.
     roster: dict[str, tuple[int, str]] = {}
     game_by_team: dict[str, dict] = {}
@@ -463,6 +598,7 @@ def build_predictions_from_prizepicks(game_date: date) -> list[dict]:
                 slots = confirmed_lineup(game_meta["game_pk"])
             except Exception:
                 slots = {}
+            lineup_confirmed = bool(slots) and int(player_id) in slots
             exp_pa = expected_pa_for_player(player_id, slots)
             opp_bullpen = None
             if os.getenv("PROP_SKIP_BULLPEN", "0") != "1":
@@ -483,6 +619,7 @@ def build_predictions_from_prizepicks(game_date: date) -> list[dict]:
                 opp_bullpen=opp_bullpen, quality=quality,
             )
         else:
+            lineup_confirmed = True  # probable starters are the game record itself
             hand = pitcher_throws(player_id)
             opp_team_id = away_team_id if is_home else home_team_id
             opp_sides = []
@@ -501,13 +638,20 @@ def build_predictions_from_prizepicks(game_date: date) -> list[dict]:
         if proj is None:
             continue
 
-        # PrizePicks is pick'em (~0.5). Calibrate, then shrink toward 0.5 — live
-        # boards were shipping 0.85–0.95 soft Unders that hit ~38% overall.
+        # Same PA Monte Carlo as moneyline for hits / TB / starter K / HA.
+        game_obj = games_by_pk.get(int(game_meta["game_pk"])) if game_meta.get("game_pk") else None
+        proj = _sim_or_analytic_proj(
+            game_obj, int(player_id), pp.prop, float(pp.line), proj,
+        )
+
+        # PrizePicks is pick'em (~0.5). Shrink toward 0.5 for soft edges.
+        # Skip Poisson calibration when the number came from PA Monte Carlo.
         raw_over = float(proj.prob_over)
+        from_sim = "PA Monte Carlo" in (proj.model_note or "")
         p_over = (
-            calibrate(pp.prop, raw_over)
-            if APPLY_CALIBRATION_ON_PRIZEPICKS
-            else raw_over
+            raw_over
+            if from_sim or not APPLY_CALIBRATION_ON_PRIZEPICKS
+            else calibrate(pp.prop, raw_over)
         )
         shrink = max(0.0, min(1.0, PRIZEPICKS_OVERCONFIDENCE_SHRINK))
         p_over = 0.5 + (p_over - 0.5) * shrink
@@ -555,6 +699,7 @@ def build_predictions_from_prizepicks(game_date: date) -> list[dict]:
                 "line_source": "prizepicks",
                 "market_is_pickem": True,
                 "pp_odds_type": pp.odds_type,
+                "lineup_confirmed": lineup_confirmed,
                 "note": proj.model_note,
             }
         if _is_freebie_leg(cand):
@@ -563,7 +708,9 @@ def build_predictions_from_prizepicks(game_date: date) -> list[dict]:
 
     # Safety net: sportsbook K lines for any starter PP omitted entirely.
     predictions.extend(
-        _odds_api_k_fillins(game_date, predictions, roster, game_by_team, starter_cache)
+        _odds_api_k_fillins(
+            game_date, predictions, roster, game_by_team, starter_cache, games_by_pk,
+        )
     )
     # Always project every slate starter's Ks (Cole @ ~9+) even when PP/odds
     # never posted a line — otherwise aces vanish from the board.
@@ -646,6 +793,7 @@ def _slate_starter_k_fillins(
             base = project_prop(
                 probe, game_date, None, pitcher_hand=hand, opp_bat_sides=opp_sides,
             )
+            base = _sim_or_analytic_proj(g, int(pid), "pitcher_strikeouts", 5.5, base)
             if base is None or float(base.projection) < 4.0:
                 continue
             proj_ks = float(base.projection)
@@ -678,6 +826,9 @@ def _slate_starter_k_fillins(
                 )
                 proj = project_prop(
                     pl, game_date, None, pitcher_hand=hand, opp_bat_sides=opp_sides,
+                )
+                proj = _sim_or_analytic_proj(
+                    g, int(pid), "pitcher_strikeouts", float(line_val), proj,
                 )
                 if proj is None:
                     continue
@@ -718,6 +869,7 @@ def _slate_starter_k_fillins(
                         "line_source": "model_slate",
                         "pp_odds_type": None,
                         "bettable_on_prizepicks": False,
+                        "lineup_confirmed": True,
                         "note": f"slate fill-in · {proj.model_note}",
                     }
                 )
@@ -731,6 +883,7 @@ def _odds_api_k_fillins(
     roster: dict[str, tuple[int, str]],
     game_by_team: dict[str, dict],
     starter_cache: dict[int, dict],
+    games_by_pk: dict[int, object] | None = None,
 ) -> list[dict]:
     """If PrizePicks dropped a starter K, still score the sportsbook K line."""
     have = {_norm_name(p["player"]) for p in existing if p.get("prop") == "pitcher_strikeouts"}
@@ -739,6 +892,7 @@ def _odds_api_k_fillins(
     except Exception:
         return []
     out: list[dict] = []
+    games_by_pk = games_by_pk or {}
     for line in book_lines:
         key = _norm_name(line.player)
         if key in have:
@@ -789,6 +943,10 @@ def _odds_api_k_fillins(
         proj = project_prop(
             pl, game_date, None, pitcher_hand=hand, opp_bat_sides=opp_sides,
         )
+        game_obj = games_by_pk.get(int(game_meta["game_pk"])) if game_meta.get("game_pk") else None
+        proj = _sim_or_analytic_proj(
+            game_obj, int(player_id), "pitcher_strikeouts", float(line.line), proj,
+        )
         if proj is None:
             continue
         raw_over = float(proj.prob_over)
@@ -829,6 +987,7 @@ def _odds_api_k_fillins(
                 "book_count": line.book_count,
                 "line_source": "the-odds-api",
                 "pp_odds_type": None,
+                "lineup_confirmed": True,
                 "note": proj.model_note,
             }
         )
@@ -854,6 +1013,7 @@ def build_predictions(game_date: date) -> list[dict]:
 
     # Map normalized (away, home) -> probable pitcher ids + park + game context.
     games = fetch_upcoming_games(game_date, game_date)
+    games_by_pk = {int(g.game_pk): g for g in games}
     starters: dict[tuple[str, str], dict] = {}
     for g in games:
         ha = abbr_by_id.get(g.home_team_id)
@@ -969,7 +1129,9 @@ def build_predictions(game_date: date) -> list[dict]:
             )
             opp_team_id = away_team_id if is_home else home_team_id
             opp_starter = starter_stats(opp_pitcher_id)
-            exp_pa = expected_pa_for_player(line.player_id, lineup_slots(game_pk))
+            slots = lineup_slots(game_pk)
+            lineup_confirmed = bool(slots) and int(line.player_id) in slots
+            exp_pa = expected_pa_for_player(line.player_id, slots)
             proj = project_prop(
                 line, game_date, opp_starter, hr_env_mult, opp_pitcher_id,
                 exp_pa=exp_pa,
@@ -988,6 +1150,7 @@ def build_predictions(game_date: date) -> list[dict]:
                     is_home = False
             if is_home is None:
                 continue
+            lineup_confirmed = True  # probable starter
             pitcher_hand = pitcher_throws(line.player_id)
             opp_team_id = away_team_id if is_home else home_team_id
             proj = project_prop(
@@ -998,11 +1161,18 @@ def build_predictions(game_date: date) -> list[dict]:
         if proj is None:
             continue
 
-        # Empirically calibrate, then apply Over-side distrust: walk-forward shows
-        # calibrated P(over)>=0.70 still only lands ~60%. Pull Overs toward 0.5
-        # before market blend so we stop manufacturing fake Over edges.
-        raw_over = calibrate(line.prop, proj.prob_over)
-        if raw_over > 0.5:
+        game_obj = games_by_pk.get(int(game_pk)) if game_pk else None
+        proj = _sim_or_analytic_proj(
+            game_obj, int(line.player_id), line.prop, float(line.line), proj,
+        )
+        if proj is None:
+            continue
+
+        # Empirically calibrate analytic props; PA Monte Carlo already is the dist.
+        # Over-side distrust on books: walk-forward showed soft Overs.
+        from_sim = "PA Monte Carlo" in (proj.model_note or "")
+        raw_over = float(proj.prob_over) if from_sim else calibrate(line.prop, proj.prob_over)
+        if (not from_sim) and raw_over > 0.5:
             raw_over = 0.5 + (raw_over - 0.5) * 0.55
         market_over = line.market_prob_over
         blended_over = market_over + MARKET_BLEND_ALPHA * (raw_over - market_over)
@@ -1057,6 +1227,7 @@ def build_predictions(game_date: date) -> list[dict]:
                     edge, line.book_count, side=side, model_prob=model_p, prop=line.prop,
                 ),
                 "book_count": line.book_count,
+                "lineup_confirmed": lineup_confirmed,
                 "note": proj.model_note,
             }
         )
@@ -1163,12 +1334,36 @@ def build_top_bets(predictions: list[dict], n: int = 5) -> list[dict]:
 
 
 def build_parlay(predictions: list[dict]) -> dict:
-    """Daily Flex card from Top 5. Always publishes when we have legs."""
+    """Daily card with an honest EV gate.
+
+    EV uses the shrunk model probabilities against real PrizePicks payout
+    multipliers. When the best available legs don't clear the vig, the card
+    ships with no_bet=True — a skipped day is a won day vs a losing card.
+    """
     legs = build_top_bets(predictions, n=PARLAY_TARGET_LEGS)
 
+    # Size the card by EV: a clean 3-leg power beats a 5-leg flex diluted by
+    # two ~0.58 legs. Legs arrive sorted by model_prob, so test prefixes.
+    best_k, best_ev, best_type = len(legs), None, None
+    for k in range(len(legs), PARLAY_MIN_LEGS - 1, -1):
+        ev_k, type_k = _card_ev([float(l["model_prob"]) for l in legs[:k]])
+        if ev_k is not None and (best_ev is None or ev_k > best_ev):
+            best_k, best_ev, best_type = k, ev_k, type_k
+    if best_ev is not None:
+        legs = legs[:best_k]
+
+    probs = [float(l["model_prob"]) for l in legs]
     combined = 1.0
-    for l in legs:
-        combined *= l["model_prob"]
+    for p in probs:
+        combined *= p
+    ev, ev_type = best_ev, best_type
+
+    no_bet = False
+    no_bet_reason = None
+    if len(legs) < PARLAY_MIN_LEGS:
+        no_bet, no_bet_reason = True, "not_enough_qualified_legs"
+    elif ev is not None and ev <= 0.0:
+        no_bet, no_bet_reason = True, "negative_ev_at_prizepicks_payouts"
 
     strong = sum(1 for l in legs if l["model_prob"] >= TOP_BET_MIN_CONF)
     quality = (
@@ -1177,9 +1372,12 @@ def build_parlay(predictions: list[dict]) -> dict:
         else "thin"
     )
     return {
-        "type": PARLAY_TYPE if len(legs) >= 4 else ("power" if len(legs) <= 3 else "flex"),
+        "type": ev_type or (PARLAY_TYPE if len(legs) >= 4 else "power"),
         "n_legs": len(legs),
         "combined_prob": round(combined, 4),
+        "ev_per_dollar": round(ev, 4) if ev is not None else None,
+        "no_bet": no_bet,
+        "no_bet_reason": no_bet_reason,
         "card_quality": quality,
         "oos_legs": strong,
         # Do not advertise fake Flex cash rates from the old in-sample OOS search.
@@ -1195,7 +1393,9 @@ def build_parlay(predictions: list[dict]) -> dict:
 
 
 def main() -> None:
-    game_date = date.today()
+    # CI runs in UTC — date.today() there flips to tomorrow at 7 PM Central,
+    # which is how next-day games bled onto the evening card. Slate = CT date.
+    game_date = datetime.now(LOCAL_TZ).date()
     source = "prizepicks"
     predictions = build_predictions_from_prizepicks(game_date)
     if not predictions:
@@ -1223,12 +1423,10 @@ def main() -> None:
                 f"p={row.get('model_prob')} ({row.get('publish_reject_reason')})"
             )
 
-    top_bets = build_top_bets(predictions) if predictions else []
-    parlay = build_parlay(predictions) if predictions else {"n_legs": 0, "legs": []}
-    # Keep Top 5 and parlay identical (parlay rebuilds from the same function).
-    if top_bets:
-        parlay["legs"] = top_bets
-        parlay["n_legs"] = len(top_bets)
+    parlay = build_parlay(predictions) if predictions else {"n_legs": 0, "legs": [], "no_bet": True, "no_bet_reason": "no_predictions"}
+    # Top bets ARE the parlay legs — the user bets the exact card, so the board
+    # must never show 5 while the EV-sized play is 3.
+    top_bets = list(parlay.get("legs") or [])
     # Ace K board: highest projected strikeout Overs (includes model_slate fill-ins
     # so Cole still surfaces when PrizePicks never posted the line).
     starter_k_board = [
@@ -1270,6 +1468,8 @@ def main() -> None:
         "scrubbed_rejects": len(rejected),
         "min_edge": MIN_EDGE,
         "card_quality": parlay.get("card_quality"),
+        "no_bet": bool(parlay.get("no_bet")),
+        "no_bet_reason": parlay.get("no_bet_reason"),
         "top_bets": top_bets,
         "parlay": parlay,
         "ace_k_card": ace_k_card,
@@ -1341,7 +1541,9 @@ def main() -> None:
 
     print(
         f"prop_predictions_ok source={source} count={len(predictions)} "
-        f"parlay_legs={parlay.get('n_legs')} top_bets={len(top_bets)}"
+        f"parlay_legs={parlay.get('n_legs')} top_bets={len(top_bets)} "
+        f"ev={parlay.get('ev_per_dollar')} no_bet={parlay.get('no_bet')}"
+        + (f" reason={parlay.get('no_bet_reason')}" if parlay.get('no_bet') else "")
     )
     for b in top_bets:
         print(f"  TOP {b['player']:20s} {b['prop_label']:14s} {b['pick']:10s} "

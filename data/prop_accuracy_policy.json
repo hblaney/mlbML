@@ -1,19 +1,25 @@
 {
-  "version": "accuracy_hits_k_pitch_live_v1",
+  "version": "pa_sim_ev_card_v1",
   "gate_passed": true,
-  "user_ask": "Stop shipping broken TB/RBI/HRR props; publish an honest playable card",
-  "note": "Live graded props were ~38% overall (RBI/HRR/TB 18-25%). Rescoped to hits Unders + pitcher K/HA/ER. Demon Unders are unplayable on PrizePicks so the card must clear on standard/goblin-More lines. Mild overconfidence shrink (0.70) replaces the empty 0.85 precision gate.",
+  "user_ask": "Simulate props from the PA Monte Carlo AND only ship cards that can actually win money",
+  "note": "Hits, total bases, starter Ks, and starter hits allowed use game_sim PA Monte Carlo P(over). Card discipline: confirmed lineups only for batters, max 2 legs per game, no pitcher-vs-opposing-batter contradictions, only today's unstarted games, EV-sized card (5-flex vs 4-flex vs 3/2 power) against real PrizePicks payouts, no_bet when EV<=0. RBI/HRR/runs stay banned until the sim tracks runner identity.",
   "oos_validation": {
     "live_overall_hit_rate_pre_fix": 0.381,
     "live_high_conf_hit_rate_pre_fix": 0.3659,
+    "sim_backed_markets": [
+      "batter_hits",
+      "batter_total_bases",
+      "pitcher_strikeouts",
+      "pitcher_hits_allowed"
+    ],
     "kept_markets": [
       "batter_hits",
+      "batter_total_bases",
       "pitcher_strikeouts",
       "pitcher_hits_allowed",
       "pitcher_earned_runs"
     ],
     "banned_markets": [
-      "batter_total_bases",
       "batter_rbis",
       "batter_hits_runs_rbis",
       "batter_runs_scored",
@@ -23,7 +29,16 @@
     ]
   },
   "shipped": {
-    "top_bets": "hits_k_pitch_live",
+    "top_bets": "pa_sim_ev_card",
+    "engine": "PA Monte Carlo (same as moneyline)",
+    "card_discipline": [
+      "batter legs need confirmed lineup",
+      "max 2 legs per game",
+      "no pitcher leg + opposing batter leg same game",
+      "today's unstarted games only (America/Chicago slate date)",
+      "card sized by EV across 5-flex/4-flex/3-power/2-power",
+      "no_bet published when EV <= 0"
+    ],
     "min_under_conf": 0.58,
     "k_over_min_conf": 0.60,
     "allow_k_over": true,
@@ -32,7 +47,8 @@
     "apply_calibration_on_prizepicks": true,
     "overconfidence_shrink": 0.70,
     "banned": [
-      "TB/RBI/HRR/HR/SB/doubles (structurally bad or freebie)",
+      "RBI/HRR/runs (no runner identity in sim yet)",
+      "HR/SB/doubles (soft freebies)",
       "demon/goblin Unders (unplayable on PrizePicks)",
       "model_prob >= 0.97 collapses"
     ]
