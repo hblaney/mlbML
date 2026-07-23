@@ -2,12 +2,23 @@ name: Publish Live Board
 
 # Minimal path that actually ships the site. No history rebuild, no research scripts,
 # no late strict-recompute. Success = github-actions[bot] commit with today's board.
+#
+# RELIABILITY: GitHub's cron scheduler is best-effort — it delays top-of-hour jobs
+# and sometimes drops a tick entirely. So each publish window has MULTIPLE ticks,
+# and a guard job skips the run when the board was already published recently. A
+# single dropped GitHub tick can no longer mean "no board today."
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 16 * * *"  # 11:00 AM CT — morning publish
-    - cron: "0 20 * * *"  # 3:00 PM CT — afternoon refresh
-    - cron: "0 1 * * *"   # 8:00 PM CT — evening refresh
+    # Morning publish (~11 AM CT). Three ticks so a dropped/late tick self-heals.
+    - cron: "0,30 16 * * *"
+    - cron: "0 17 * * *"
+    # Afternoon refresh (~3 PM CT).
+    - cron: "0,30 20 * * *"
+    - cron: "0 21 * * *"
+    # Evening refresh (~8 PM CT).
+    - cron: "0,30 1 * * *"
+    - cron: "0 2 * * *"
 
 permissions:
   contents: write
@@ -17,7 +28,45 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  # Idempotency gate: only publish when the last board is stale (or on manual run).
+  # Catch-up ticks within the same window see a fresh board and no-op, so the
+  # locked card isn't rebuilt three times an hour.
+  guard:
+    runs-on: ubuntu-latest
+    outputs:
+      publish: ${{ steps.check.outputs.publish }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 1
+
+      - name: Decide whether to publish
+        id: check
+        run: |
+          set -euo pipefail
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "publish=true" >> "$GITHUB_OUTPUT"
+            echo "manual dispatch -> publish"
+            exit 0
+          fi
+          # Minutes since the last board was published. Publish windows are >=4h
+          # apart, so a 150m freshness window lets each window's first tick
+          # publish while later catch-up ticks (same hour) no-op.
+          age=$(python3 -c "import json; from datetime import datetime, timezone; d=json.load(open('public/prop-predictions.json')); t=datetime.fromisoformat(d['board_generated_at'].replace('Z','+00:00')); print(int((datetime.now(timezone.utc)-t).total_seconds()//60))" 2>/dev/null || echo 99999)
+          echo "last board age: ${age} min"
+          if [ "${age}" -lt 150 ]; then
+            echo "publish=false" >> "$GITHUB_OUTPUT"
+            echo "board published <150m ago -> skip (redundant catch-up tick)"
+          else
+            echo "publish=true" >> "$GITHUB_OUTPUT"
+            echo "board stale -> publish"
+          fi
+
   publish:
+    needs: guard
+    if: needs.guard.outputs.publish == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 45
     env:
