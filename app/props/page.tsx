@@ -77,6 +77,7 @@ export default async function PropsPage() {
   const parlay = data.parlay;
   const parlayProb = parlay.combined_prob ?? 0;
   const topBets = data.top_bets ?? [];
+  const aceKCard = data.ace_k_card ?? [];
 
   // Best-to-bet-first: playable PrizePicks sides, highest model hit % first.
   // Demon/goblin Unders and coin-flip junk sink to the bottom (or drop out).
