@@ -23,9 +23,13 @@ on:
 permissions:
   contents: write
 
+# cancel-in-progress MUST be false: redundant catch-up ticks bunch together
+# (GitHub delays crons), and cancelling would kill the run that's mid-publish —
+# which caused a two-day cancellation storm. Instead, the first tick runs to
+# completion and publishes; later ticks queue, then the freshness guard skips them.
 concurrency:
   group: mlb-board-publish
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   # Idempotency gate: only publish when the last board is stale (or on manual run).
