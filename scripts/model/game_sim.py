@@ -128,6 +128,10 @@ class OnceResult:
     props: OncePropBox
 
 
+# Shared sentinel so the moneyline path (track_props=False) allocates nothing.
+_EMPTY_PROP_BOX = OncePropBox((), (), (), (), 0, 0, 0, 0)
+
+
 def _clip_probs(p: np.ndarray) -> np.ndarray:
     p = np.maximum(p, 1e-6)
     return p / p.sum()
@@ -412,8 +416,14 @@ def simulate_game_once(
     *,
     away_vs_home: np.ndarray,
     home_vs_away: np.ndarray,
+    track_props: bool = True,
 ) -> OnceResult:
-    """Simulate one game; return runs + per-player counting stats for props."""
+    """Simulate one game; return runs (+ per-player prop stats when track_props).
+
+    The moneyline board only needs runs/wins, so it passes track_props=False to
+    skip per-PA batter crediting and prop bookkeeping — that overhead on every
+    sim was silently slowing the core sim by a large factor.
+    """
     away_score = 0
     home_score = 0
     away_slot = 0
@@ -477,16 +487,18 @@ def simulate_game_once(
             bat_slot = away_slot
             runs, outs = resolve_pa(outcome, bases, outs)
             away_score += runs
-            _credit_batter(away_hits, away_tb, bat_slot, outcome)
+            if track_props:
+                _credit_batter(away_hits, away_tb, bat_slot, outcome)
             away_slot = (away_slot + 1) % 9
             if role == ROLE_STARTER:
                 home_st_tbf += 1
                 home_st_runs += runs
                 home_st_outs += max(0, outs - prev_outs)
-                if outcome == K:
-                    home_starter_k += 1
-                if outcome in (SINGLE, DOUBLE, TRIPLE, HR):
-                    home_starter_ha += 1
+                if track_props:
+                    if outcome == K:
+                        home_starter_k += 1
+                    elif outcome in (SINGLE, DOUBLE, TRIPLE, HR):
+                        home_starter_ha += 1
             else:
                 home_rel_tbf += 1
 
@@ -533,16 +545,18 @@ def simulate_game_once(
             bat_slot = home_slot
             runs, outs = resolve_pa(outcome, bases, outs)
             home_score += runs
-            _credit_batter(home_hits, home_tb, bat_slot, outcome)
+            if track_props:
+                _credit_batter(home_hits, home_tb, bat_slot, outcome)
             home_slot = (home_slot + 1) % 9
             if role == ROLE_STARTER:
                 away_st_tbf += 1
                 away_st_runs += runs
                 away_st_outs += max(0, outs - prev_outs)
-                if outcome == K:
-                    away_starter_k += 1
-                if outcome in (SINGLE, DOUBLE, TRIPLE, HR):
-                    away_starter_ha += 1
+                if track_props:
+                    if outcome == K:
+                        away_starter_k += 1
+                    elif outcome in (SINGLE, DOUBLE, TRIPLE, HR):
+                        away_starter_ha += 1
             else:
                 away_rel_tbf += 1
             # Walk-off
@@ -559,7 +573,7 @@ def simulate_game_once(
                         away_starter_k,
                         home_starter_ha,
                         away_starter_ha,
-                    ),
+                    ) if track_props else _EMPTY_PROP_BOX,
                 )
 
         if inning >= 9 and home_score != away_score:
@@ -583,7 +597,7 @@ def simulate_game_once(
             away_starter_k,
             home_starter_ha,
             away_starter_ha,
-        ),
+        ) if track_props else _EMPTY_PROP_BOX,
     )
 
 
@@ -609,6 +623,7 @@ def simulate_game(
             rng,
             away_vs_home=away_vs_home,
             home_vs_away=home_vs_away,
+            track_props=False,
         )
         ar, hr = once.away_runs, once.home_runs
         away_runs_total += ar

@@ -72,7 +72,10 @@ jobs:
     needs: guard
     if: needs.guard.outputs.publish == 'true'
     runs-on: ubuntu-latest
-    timeout-minutes: 45
+    # Pipeline is data-fetch bound (MLB API + statcast). Cold-cache runs have hit
+    # ~39 min; 45 min left no margin and timed out. 90 lets a slow-but-healthy
+    # run finish and re-warm the stat cache instead of death-spiralling.
+    timeout-minutes: 90
     env:
       TZ: America/Chicago
       PYTHONPATH: scripts/model
