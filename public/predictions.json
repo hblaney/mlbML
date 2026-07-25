@@ -1,6 +1,6 @@
 {
   "generated_at": "2026-07-25",
-  "board_generated_at": "2026-07-25T16:28:57Z",
+  "board_generated_at": "2026-07-25T16:38:24Z",
   "trained_through": "2026-07-24",
   "model_version": "daily-auto-v6.1-raw-gbm",
   "pipeline_version": "unified-public-v21-raw-gbm-high-card",
@@ -53,7 +53,7 @@
         "Published pick = raw GBM win% (Elo/form/starter/park). Not market-anchored.",
         "OOS May\u2013Jul 2026: overall \u224861%; daily top-3 High card \u224873% (90% not achievable at \u22653/day).",
         "PA sim diagnostic: home 66.5% (runs 2.3-3.5, confirmed)",
-        "The Odds API quota is exhausted; moneylines will stay empty until credits reset or the plan is upgraded"
+        "Live sportsbook odds unavailable: ODDS_API_KEY is not set"
       ]
     },
     {
@@ -72,14 +72,14 @@
       "rawPickProbability": 0.6389,
       "modelHomeWinProbability": 0.6389,
       "modelAwayWinProbability": 0.3611,
-      "simRawHomeWinProbability": 0.5125,
-      "simRawAwayWinProbability": 0.4875,
-      "simHomeWinProbability": 0.5125,
-      "simAwayWinProbability": 0.4875,
+      "simRawHomeWinProbability": 0.5425,
+      "simRawAwayWinProbability": 0.4575,
+      "simHomeWinProbability": 0.5425,
+      "simAwayWinProbability": 0.4575,
       "gbmHomeWinProbability": 0.6389,
       "gbmAwayWinProbability": 0.3611,
       "nSims": 2000,
-      "lineupSource": "projected",
+      "lineupSource": "mixed",
       "predictionSource": "raw_gbm",
       "homeMoneyline": null,
       "awayMoneyline": null,
@@ -90,7 +90,7 @@
       "marketTotal": null,
       "overPrice": null,
       "underPrice": null,
-      "projectedTotal": 4.57,
+      "projectedTotal": 4.66,
       "oddsSource": null,
       "confidence": "High",
       "marketAgrees": null,
@@ -102,8 +102,8 @@
         "Retrained through 2026-07-24",
         "Published pick = raw GBM win% (Elo/form/starter/park). Not market-anchored.",
         "OOS May\u2013Jul 2026: overall \u224861%; daily top-3 High card \u224873% (90% not achievable at \u22653/day).",
-        "PA sim diagnostic: home 51.2% (runs 2.3-2.3, projected)",
-        "The Odds API quota is exhausted; moneylines will stay empty until credits reset or the plan is upgraded"
+        "PA sim diagnostic: home 54.2% (runs 2.2-2.4, mixed)",
+        "Live sportsbook odds unavailable: ODDS_API_KEY is not set"
       ]
     },
     {
@@ -153,7 +153,7 @@
         "Published pick = raw GBM win% (Elo/form/starter/park). Not market-anchored.",
         "OOS May\u2013Jul 2026: overall \u224861%; daily top-3 High card \u224873% (90% not achievable at \u22653/day).",
         "PA sim diagnostic: home 60.2% (runs 2.8-3.4, projected)",
-        "The Odds API quota is exhausted; moneylines will stay empty until credits reset or the plan is upgraded"
+        "Live sportsbook odds unavailable: ODDS_API_KEY is not set"
       ]
     },
     {
@@ -203,7 +203,7 @@
         "Published pick = raw GBM win% (Elo/form/starter/park). Not market-anchored.",
         "OOS May\u2013Jul 2026: overall \u224861%; daily top-3 High card \u224873% (90% not achievable at \u22653/day).",
         "PA sim diagnostic: home 42.2% (runs 2.8-1.9, projected)",
-        "The Odds API quota is exhausted; moneylines will stay empty until credits reset or the plan is upgraded"
+        "Live sportsbook odds unavailable: ODDS_API_KEY is not set"
       ]
     },
     {
@@ -253,7 +253,7 @@
         "Published pick = raw GBM win% (Elo/form/starter/park). Not market-anchored.",
         "OOS May\u2013Jul 2026: overall \u224861%; daily top-3 High card \u224873% (90% not achievable at \u22653/day).",
         "PA sim diagnostic: home 45.4% (runs 3.4-2.8, projected)",
-        "The Odds API quota is exhausted; moneylines will stay empty until credits reset or the plan is upgraded"
+        "Live sportsbook odds unavailable: ODDS_API_KEY is not set"
       ]
     },
     {
@@ -303,7 +303,7 @@
         "Published pick = raw GBM win% (Elo/form/starter/park). Not market-anchored.",
         "OOS May\u2013Jul 2026: overall \u224861%; daily top-3 High card \u224873% (90% not achievable at \u22653/day).",
         "PA sim diagnostic: home 52.2% (runs 2.7-2.7, projected)",
-        "The Odds API quota is exhausted; moneylines will stay empty until credits reset or the plan is upgraded"
+        "Live sportsbook odds unavailable: ODDS_API_KEY is not set"
       ]
     },
     {
@@ -353,7 +353,7 @@
         "Published pick = raw GBM win% (Elo/form/starter/park). Not market-anchored.",
         "OOS May\u2013Jul 2026: overall \u224861%; daily top-3 High card \u224873% (90% not achievable at \u22653/day).",
         "PA sim diagnostic: home 59.2% (runs 3.5-4.1, mixed)",
-        "The Odds API quota is exhausted; moneylines will stay empty until credits reset or the plan is upgraded"
+        "Live sportsbook odds unavailable: ODDS_API_KEY is not set"
       ]
     },
     {
@@ -403,7 +403,7 @@
         "Published pick = raw GBM win% (Elo/form/starter/park). Not market-anchored.",
         "OOS May\u2013Jul 2026: overall \u224861%; daily top-3 High card \u224873% (90% not achievable at \u22653/day).",
         "PA sim diagnostic: home 56.5% (runs 2.6-2.9, projected)",
-        "The Odds API quota is exhausted; moneylines will stay empty until credits reset or the plan is upgraded",
+        "Live sportsbook odds unavailable: ODDS_API_KEY is not set",
         "Probable starter not confirmed on one side"
       ]
     },
@@ -454,7 +454,7 @@
         "Published pick = raw GBM win% (Elo/form/starter/park). Not market-anchored.",
         "OOS May\u2013Jul 2026: overall \u224861%; daily top-3 High card \u224873% (90% not achievable at \u22653/day).",
         "PA sim diagnostic: home 50.5% (runs 3.1-2.9, projected)",
-        "The Odds API quota is exhausted; moneylines will stay empty until credits reset or the plan is upgraded",
+        "Live sportsbook odds unavailable: ODDS_API_KEY is not set",
         "Probable starter not confirmed on one side"
       ]
     },
@@ -474,14 +474,14 @@
       "rawPickProbability": 0.5433,
       "modelHomeWinProbability": 0.4567,
       "modelAwayWinProbability": 0.5433,
-      "simRawHomeWinProbability": 0.4465,
-      "simRawAwayWinProbability": 0.5535,
-      "simHomeWinProbability": 0.4465,
-      "simAwayWinProbability": 0.5535,
+      "simRawHomeWinProbability": 0.468,
+      "simRawAwayWinProbability": 0.532,
+      "simHomeWinProbability": 0.468,
+      "simAwayWinProbability": 0.532,
       "gbmHomeWinProbability": 0.4567,
       "gbmAwayWinProbability": 0.5433,
       "nSims": 2000,
-      "lineupSource": "mixed",
+      "lineupSource": "confirmed",
       "predictionSource": "raw_gbm",
       "homeMoneyline": null,
       "awayMoneyline": null,
@@ -492,7 +492,7 @@
       "marketTotal": null,
       "overPrice": null,
       "underPrice": null,
-      "projectedTotal": 6.78,
+      "projectedTotal": 6.68,
       "oddsSource": null,
       "confidence": "Low",
       "marketAgrees": null,
@@ -504,8 +504,8 @@
         "Retrained through 2026-07-24",
         "Published pick = raw GBM win% (Elo/form/starter/park). Not market-anchored.",
         "OOS May\u2013Jul 2026: overall \u224861%; daily top-3 High card \u224873% (90% not achievable at \u22653/day).",
-        "PA sim diagnostic: home 44.6% (runs 3.8-3.0, mixed)",
-        "The Odds API quota is exhausted; moneylines will stay empty until credits reset or the plan is upgraded"
+        "PA sim diagnostic: home 46.8% (runs 3.6-3.1, confirmed)",
+        "Live sportsbook odds unavailable: ODDS_API_KEY is not set"
       ]
     },
     {
@@ -555,7 +555,7 @@
         "Published pick = raw GBM win% (Elo/form/starter/park). Not market-anchored.",
         "OOS May\u2013Jul 2026: overall \u224861%; daily top-3 High card \u224873% (90% not achievable at \u22653/day).",
         "PA sim diagnostic: home 39.4% (runs 3.7-2.6, projected)",
-        "The Odds API quota is exhausted; moneylines will stay empty until credits reset or the plan is upgraded"
+        "Live sportsbook odds unavailable: ODDS_API_KEY is not set"
       ]
     },
     {
@@ -605,7 +605,7 @@
         "Published pick = raw GBM win% (Elo/form/starter/park). Not market-anchored.",
         "OOS May\u2013Jul 2026: overall \u224861%; daily top-3 High card \u224873% (90% not achievable at \u22653/day).",
         "PA sim diagnostic: home 56.4% (runs 4.5-5.1, projected)",
-        "The Odds API quota is exhausted; moneylines will stay empty until credits reset or the plan is upgraded"
+        "Live sportsbook odds unavailable: ODDS_API_KEY is not set"
       ]
     },
     {
@@ -655,7 +655,7 @@
         "Published pick = raw GBM win% (Elo/form/starter/park). Not market-anchored.",
         "OOS May\u2013Jul 2026: overall \u224861%; daily top-3 High card \u224873% (90% not achievable at \u22653/day).",
         "PA sim diagnostic: home 65.1% (runs 3.2-4.5, projected)",
-        "The Odds API quota is exhausted; moneylines will stay empty until credits reset or the plan is upgraded"
+        "Live sportsbook odds unavailable: ODDS_API_KEY is not set"
       ]
     },
     {
@@ -705,7 +705,7 @@
         "Published pick = raw GBM win% (Elo/form/starter/park). Not market-anchored.",
         "OOS May\u2013Jul 2026: overall \u224861%; daily top-3 High card \u224873% (90% not achievable at \u22653/day).",
         "PA sim diagnostic: home 62.5% (runs 2.4-3.2, projected)",
-        "The Odds API quota is exhausted; moneylines will stay empty until credits reset or the plan is upgraded"
+        "Live sportsbook odds unavailable: ODDS_API_KEY is not set"
       ]
     },
     {
@@ -755,7 +755,7 @@
         "Published pick = raw GBM win% (Elo/form/starter/park). Not market-anchored.",
         "OOS May\u2013Jul 2026: overall \u224861%; daily top-3 High card \u224873% (90% not achievable at \u22653/day).",
         "PA sim diagnostic: home 67.3% (runs 2.6-4.0, mixed)",
-        "The Odds API quota is exhausted; moneylines will stay empty until credits reset or the plan is upgraded"
+        "Live sportsbook odds unavailable: ODDS_API_KEY is not set"
       ]
     }
   ]
