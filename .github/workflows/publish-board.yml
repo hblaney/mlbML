@@ -97,15 +97,18 @@ jobs:
           cache: pip
           cache-dependency-path: requirements.txt
 
-      - name: Restore pitcher/team stat caches
+      # Cache the ENTIRE stat cache, not just pitcher/team. The moneyline board
+      # fetches hitter stats for ~270 batters + bullpen every run; those dirs
+      # were never persisted, so every run refetched them cold from the MLB API
+      # (the 30-40 min moneyline step). Rotating key (run_id) + restore-keys means
+      # each run restores the latest cache, adds new fetches, and saves a fresh one.
+      - name: Restore stat caches
         uses: actions/cache@v4
         with:
-          path: |
-            data/cache/pitcher_stats_asof
-            data/cache/team_stats
-          key: stats-cache-v2-${{ hashFiles('scripts/model/pitcher_stats_provider.py', 'scripts/model/team_stats_provider.py') }}
+          path: data/cache
+          key: mlb-stat-cache-${{ github.run_id }}
           restore-keys: |
-            stats-cache-v2-
+            mlb-stat-cache-
 
       - name: Install Python deps
         run: pip install -r requirements.txt
