@@ -155,9 +155,7 @@
         }
       ],
       "headline": "Over 5.0 STRIKEOUTS (high confidence)",
-      "notes": [
-        "Probable starter not fully confirmed \u2014 verify before betting."
-      ]
+      "notes": []
     },
     {
       "player": "Yoshinobu Yamamoto",
@@ -267,6 +265,28 @@
         }
       ],
       "headline": "Over 5.0 STRIKEOUTS (medium confidence)",
+      "notes": []
+    },
+    {
+      "player": "Tim Mayza",
+      "team": "PHI",
+      "opponent": "NYY",
+      "matchup": "NYY @ PHI",
+      "game_date": "2026-07-25",
+      "props": [
+        {
+          "prop": "strikeouts",
+          "pick": "Over",
+          "model_line": 5.0,
+          "use_line": 4.5,
+          "projection": 5.2,
+          "edge": 0.68,
+          "confidence": "medium",
+          "k9": 8.29,
+          "opp_k_rate": 0.242
+        }
+      ],
+      "headline": "Over 4.5 STRIKEOUTS (medium confidence)",
       "notes": []
     },
     {
@@ -468,6 +488,28 @@
       "notes": []
     },
     {
+      "player": "Mike Paredes",
+      "team": "MIN",
+      "opponent": "ATH",
+      "matchup": "ATH @ MIN",
+      "game_date": "2026-07-25",
+      "props": [
+        {
+          "prop": "strikeouts",
+          "pick": "Under",
+          "model_line": 3.0,
+          "use_line": 3.5,
+          "projection": 3.1,
+          "edge": 0.44,
+          "confidence": "low",
+          "k9": 4.98,
+          "opp_k_rate": 0.226
+        }
+      ],
+      "headline": "Under 3.5 STRIKEOUTS (low confidence)",
+      "notes": []
+    },
+    {
       "player": "Brandon Young",
       "team": "BAL",
       "opponent": "ATL",
@@ -509,9 +551,7 @@
         }
       ],
       "headline": "Over 3.5 STRIKEOUTS (low confidence)",
-      "notes": [
-        "Probable starter not fully confirmed \u2014 verify before betting."
-      ]
+      "notes": []
     },
     {
       "player": "Michael Wacha",
