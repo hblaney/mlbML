@@ -32,3 +32,4 @@ data/*.log
 
 # huge walk-forward dumps (regenerate via simulate_prop_accuracy.py)
 data/prop_sim_records.jsonl
+data/ops/
