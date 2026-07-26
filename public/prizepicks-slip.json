@@ -15,14 +15,14 @@
         "edge": 2.22
       },
       {
-        "player": "Luis Campusano",
+        "player": "Willson Contreras",
         "prop": "hitter_fantasy_score",
-        "line": 7.5,
+        "line": 5.0,
         "pick": "Over",
-        "projection": 9.7,
-        "matchup": "SD @ MIA",
+        "projection": 7.2,
+        "matchup": "TOR @ BOS",
         "confidence": "high",
-        "edge": 2.2
+        "edge": 2.21
       },
       {
         "player": "Paul Skenes",
@@ -35,7 +35,7 @@
         "edge": 1.96
       }
     ],
-    "score": 7.23,
+    "score": 7.24,
     "same_game_warning": false
   },
   "top_plays": [
@@ -48,6 +48,16 @@
       "edge": 2.22,
       "confidence": "high",
       "matchup": "HOU @ CWS"
+    },
+    {
+      "player": "Willson Contreras",
+      "prop": "hitter_fantasy_score",
+      "lean": "Over",
+      "line": 5.0,
+      "projection": 7.2,
+      "edge": 2.21,
+      "confidence": "high",
+      "matchup": "TOR @ BOS"
     },
     {
       "player": "Luis Campusano",
@@ -148,16 +158,6 @@
       "edge": 1.96,
       "confidence": "high",
       "matchup": "CHC @ PIT"
-    },
-    {
-      "player": "CJ Abrams",
-      "prop": "hitter_fantasy_score",
-      "lean": "Over",
-      "line": 6.5,
-      "projection": 8.4,
-      "edge": 1.91,
-      "confidence": "medium",
-      "matchup": "AZ @ WSH"
     }
   ],
   "all_actionable": [
@@ -170,6 +170,16 @@
       "edge": 2.22,
       "confidence": "high",
       "matchup": "HOU @ CWS"
+    },
+    {
+      "player": "Willson Contreras",
+      "prop": "hitter_fantasy_score",
+      "line": 5.0,
+      "lean": "Over",
+      "projection": 7.2,
+      "edge": 2.21,
+      "confidence": "high",
+      "matchup": "TOR @ BOS"
     },
     {
       "player": "Luis Campusano",
@@ -320,16 +330,6 @@
       "edge": 1.82,
       "confidence": "high",
       "matchup": "TOR @ BOS"
-    },
-    {
-      "player": "Joshua Kuroda-Grauer",
-      "prop": "hitter_fantasy_score",
-      "line": 14.0,
-      "lean": "Over",
-      "projection": 15.8,
-      "edge": 1.8,
-      "confidence": "medium",
-      "matchup": "ATH @ MIN"
     },
     {
       "player": "Andrew Vaughn",
