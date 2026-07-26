@@ -243,22 +243,6 @@
       "ops": 0.924
     },
     {
-      "gameId": "ath-min-2026-07-25-823679",
-      "matchup": "ATH @ MIN",
-      "player": "Joshua Kuroda-Grauer",
-      "team": "ATH",
-      "prop": "hitter_fantasy_score",
-      "vs_pitcher": "Mike Paredes",
-      "fair_line": 16.5,
-      "line": 14.5,
-      "projection": 16.3,
-      "lean": "Over",
-      "edge": 1.84,
-      "confidence": "medium",
-      "line_source": "prizepicks_est",
-      "ops": 1.018
-    },
-    {
       "gameId": "tor-bos-2026-07-25-824734",
       "matchup": "TOR @ BOS",
       "player": "Dylan Cease",
@@ -272,6 +256,22 @@
       "confidence": "high",
       "line_source": "prizepicks_est",
       "k9": 12.86
+    },
+    {
+      "gameId": "ath-min-2026-07-25-823679",
+      "matchup": "ATH @ MIN",
+      "player": "Joshua Kuroda-Grauer",
+      "team": "ATH",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Kendry Rojas",
+      "fair_line": 16.0,
+      "line": 14.0,
+      "projection": 15.8,
+      "lean": "Over",
+      "edge": 1.8,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 1.018
     },
     {
       "gameId": "col-mil-2026-07-25-823758",
@@ -542,22 +542,6 @@
       "confidence": "medium",
       "line_source": "prizepicks_est",
       "ops": 0.855
-    },
-    {
-      "gameId": "ath-min-2026-07-25-823679",
-      "matchup": "ATH @ MIN",
-      "player": "Shea Langeliers",
-      "team": "ATH",
-      "prop": "hitter_fantasy_score",
-      "vs_pitcher": "Mike Paredes",
-      "fair_line": 7.0,
-      "line": 5.5,
-      "projection": 7.1,
-      "lean": "Over",
-      "edge": 1.57,
-      "confidence": "medium",
-      "line_source": "prizepicks_est",
-      "ops": 0.829
     },
     {
       "gameId": "sd-mia-2026-07-25-823841",
@@ -864,6 +848,22 @@
       "ops": 0.835
     },
     {
+      "gameId": "ath-min-2026-07-25-823679",
+      "matchup": "ATH @ MIN",
+      "player": "Shea Langeliers",
+      "team": "ATH",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Kendry Rojas",
+      "fair_line": 7.0,
+      "line": 5.5,
+      "projection": 6.8,
+      "lean": "Over",
+      "edge": 1.34,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.829
+    },
+    {
       "gameId": "hou-cws-2026-07-25-824571",
       "matchup": "HOU @ CWS",
       "player": "Munetaka Murakami",
@@ -1074,18 +1074,18 @@
     {
       "gameId": "ath-min-2026-07-25-823679",
       "matchup": "ATH @ MIN",
-      "player": "Carlos Cortes",
+      "player": "Tyler Soderstrom",
       "team": "ATH",
       "prop": "hitter_fantasy_score",
-      "vs_pitcher": "Mike Paredes",
-      "fair_line": 6.0,
-      "line": 5.0,
-      "projection": 6.2,
+      "vs_pitcher": "Kendry Rojas",
+      "fair_line": 6.5,
+      "line": 5.5,
+      "projection": 6.7,
       "lean": "Over",
       "edge": 1.16,
       "confidence": "low",
       "line_source": "prizepicks_est",
-      "ops": 0.773
+      "ops": 0.819
     },
     {
       "gameId": "hou-cws-2026-07-25-824571",
@@ -1150,6 +1150,21 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.766
+    },
+    {
+      "gameId": "ath-min-2026-07-25-823679",
+      "matchup": "ATH @ MIN",
+      "player": "Kendry Rojas",
+      "team": "MIN",
+      "prop": "strikeouts",
+      "fair_line": 6.0,
+      "line": 5.0,
+      "projection": 6.1,
+      "lean": "Over",
+      "edge": 1.12,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "k9": 9.97
     },
     {
       "gameId": "hou-cws-2026-07-25-824571",
@@ -1453,6 +1468,22 @@
       "ops": 0.804
     },
     {
+      "gameId": "ath-min-2026-07-25-823679",
+      "matchup": "ATH @ MIN",
+      "player": "Carlos Cortes",
+      "team": "ATH",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Kendry Rojas",
+      "fair_line": 6.0,
+      "line": 5.0,
+      "projection": 6.0,
+      "lean": "Over",
+      "edge": 0.96,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.773
+    },
+    {
       "gameId": "tor-bos-2026-07-25-824734",
       "matchup": "TOR @ BOS",
       "player": "Ernie Clement",
@@ -1659,22 +1690,6 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.769
-    },
-    {
-      "gameId": "ath-min-2026-07-25-823679",
-      "matchup": "ATH @ MIN",
-      "player": "Tyler Soderstrom",
-      "team": "ATH",
-      "prop": "hitter_fantasy_score",
-      "vs_pitcher": "Mike Paredes",
-      "fair_line": 7.0,
-      "line": 6.0,
-      "projection": 6.9,
-      "lean": "Over",
-      "edge": 0.88,
-      "confidence": "low",
-      "line_source": "prizepicks_est",
-      "ops": 0.819
     },
     {
       "gameId": "kc-det-2026-07-25-824244",
@@ -2218,21 +2233,6 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "k9": 7.09
-    },
-    {
-      "gameId": "ath-min-2026-07-25-823679",
-      "matchup": "ATH @ MIN",
-      "player": "Mike Paredes",
-      "team": "MIN",
-      "prop": "strikeouts",
-      "fair_line": 3.0,
-      "line": 3.5,
-      "projection": 3.1,
-      "lean": "Under",
-      "edge": 0.44,
-      "confidence": "low",
-      "line_source": "prizepicks_est",
-      "k9": 4.98
     },
     {
       "gameId": "sea-tex-2026-07-25-822869",

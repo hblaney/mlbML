@@ -114,6 +114,28 @@
       "notes": []
     },
     {
+      "player": "Kendry Rojas",
+      "team": "MIN",
+      "opponent": "ATH",
+      "matchup": "ATH @ MIN",
+      "game_date": "2026-07-25",
+      "props": [
+        {
+          "prop": "strikeouts",
+          "pick": "Over",
+          "model_line": 6.0,
+          "use_line": 5.0,
+          "projection": 6.1,
+          "edge": 1.12,
+          "confidence": "high",
+          "k9": 9.97,
+          "opp_k_rate": 0.226
+        }
+      ],
+      "headline": "Over 5.0 STRIKEOUTS (high confidence)",
+      "notes": []
+    },
+    {
       "player": "Hunter Brown",
       "team": "HOU",
       "opponent": "CWS",
@@ -485,28 +507,6 @@
         }
       ],
       "headline": "Over 3.5 STRIKEOUTS (low confidence)",
-      "notes": []
-    },
-    {
-      "player": "Mike Paredes",
-      "team": "MIN",
-      "opponent": "ATH",
-      "matchup": "ATH @ MIN",
-      "game_date": "2026-07-25",
-      "props": [
-        {
-          "prop": "strikeouts",
-          "pick": "Under",
-          "model_line": 3.0,
-          "use_line": 3.5,
-          "projection": 3.1,
-          "edge": 0.44,
-          "confidence": "low",
-          "k9": 4.98,
-          "opp_k_rate": 0.226
-        }
-      ],
-      "headline": "Under 3.5 STRIKEOUTS (low confidence)",
       "notes": []
     },
     {
