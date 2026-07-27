@@ -975,22 +975,6 @@
       "ops": 0.755
     },
     {
-      "gameId": "tor-wsh-2026-07-27-822705",
-      "matchup": "TOR @ WSH",
-      "player": "Kazuma Okamoto",
-      "team": "TOR",
-      "prop": "hitter_fantasy_score",
-      "vs_pitcher": "Andrew Alvarez",
-      "fair_line": 7.5,
-      "line": 6.5,
-      "projection": 7.5,
-      "lean": "Over",
-      "edge": 0.98,
-      "confidence": "low",
-      "line_source": "prizepicks_est",
-      "ops": 0.747
-    },
-    {
       "gameId": "cle-cin-2026-07-27-824490",
       "matchup": "CLE @ CIN",
       "player": "Chase DeLauter",
@@ -1390,6 +1374,22 @@
       "ops": 0.812
     },
     {
+      "gameId": "tor-wsh-2026-07-27-822705",
+      "matchup": "TOR @ WSH",
+      "player": "Kazuma Okamoto",
+      "team": "TOR",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Eddy Yean",
+      "fair_line": 7.0,
+      "line": 6.0,
+      "projection": 6.8,
+      "lean": "Over",
+      "edge": 0.75,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.747
+    },
+    {
       "gameId": "cle-cin-2026-07-27-824490",
       "matchup": "CLE @ CIN",
       "player": "Travis Bazzana",
@@ -1511,21 +1511,6 @@
       "k9": 7.63
     },
     {
-      "gameId": "tor-wsh-2026-07-27-822705",
-      "matchup": "TOR @ WSH",
-      "player": "Andrew Alvarez",
-      "team": "WSH",
-      "prop": "strikeouts",
-      "fair_line": 5.0,
-      "line": 4.5,
-      "projection": 5.1,
-      "lean": "Over",
-      "edge": 0.59,
-      "confidence": "low",
-      "line_source": "prizepicks_est",
-      "k9": 8.61
-    },
-    {
       "gameId": "cle-cin-2026-07-27-824490",
       "matchup": "CLE @ CIN",
       "player": "Slade Cecconi",
@@ -1554,6 +1539,21 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "k9": 8.08
+    },
+    {
+      "gameId": "tor-wsh-2026-07-27-822705",
+      "matchup": "TOR @ WSH",
+      "player": "Eddy Yean",
+      "team": "WSH",
+      "prop": "strikeouts",
+      "fair_line": 4.0,
+      "line": 3.5,
+      "projection": 4.0,
+      "lean": "Over",
+      "edge": 0.49,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "k9": 6.75
     },
     {
       "gameId": "phi-mia-2026-07-27-823839",
@@ -1637,31 +1637,15 @@
       "player": "Ernie Clement",
       "team": "TOR",
       "prop": "hitter_fantasy_score",
-      "vs_pitcher": "Andrew Alvarez",
-      "fair_line": 5.5,
-      "line": 5.0,
-      "projection": 5.6,
-      "lean": "Pass",
-      "edge": 0.65,
-      "confidence": "pass",
-      "line_source": "prizepicks_est",
-      "ops": 0.748
-    },
-    {
-      "gameId": "tor-wsh-2026-07-27-822705",
-      "matchup": "TOR @ WSH",
-      "player": "Jonatan Clase",
-      "team": "TOR",
-      "prop": "hitter_fantasy_score",
-      "vs_pitcher": "Andrew Alvarez",
+      "vs_pitcher": "Eddy Yean",
       "fair_line": 5.0,
       "line": 4.5,
       "projection": 5.1,
       "lean": "Pass",
-      "edge": 0.62,
+      "edge": 0.6,
       "confidence": "pass",
       "line_source": "prizepicks_est",
-      "ops": 0.905
+      "ops": 0.748
     },
     {
       "gameId": "atl-nym-2026-07-27-823597",
@@ -1696,22 +1680,6 @@
       "ops": 0.731
     },
     {
-      "gameId": "tor-wsh-2026-07-27-822705",
-      "matchup": "TOR @ WSH",
-      "player": "Nathan Lukes",
-      "team": "TOR",
-      "prop": "hitter_fantasy_score",
-      "vs_pitcher": "Andrew Alvarez",
-      "fair_line": 5.5,
-      "line": 5.0,
-      "projection": 5.5,
-      "lean": "Pass",
-      "edge": 0.52,
-      "confidence": "pass",
-      "line_source": "prizepicks_est",
-      "ops": 0.735
-    },
-    {
       "gameId": "cle-cin-2026-07-27-824490",
       "matchup": "CLE @ CIN",
       "player": "Austin Hedges",
@@ -1728,6 +1696,22 @@
       "ops": 0.759
     },
     {
+      "gameId": "tor-wsh-2026-07-27-822705",
+      "matchup": "TOR @ WSH",
+      "player": "Nathan Lukes",
+      "team": "TOR",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Eddy Yean",
+      "fair_line": 5.0,
+      "line": 4.5,
+      "projection": 5.0,
+      "lean": "Pass",
+      "edge": 0.48,
+      "confidence": "pass",
+      "line_source": "prizepicks_est",
+      "ops": 0.735
+    },
+    {
       "gameId": "az-pit-2026-07-27-823353",
       "matchup": "AZ @ PIT",
       "player": "Merrill Kelly",
@@ -1741,6 +1725,22 @@
       "confidence": "pass",
       "line_source": "prizepicks_est",
       "k9": 6.15
+    },
+    {
+      "gameId": "tor-wsh-2026-07-27-822705",
+      "matchup": "TOR @ WSH",
+      "player": "Jonatan Clase",
+      "team": "TOR",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Eddy Yean",
+      "fair_line": 4.5,
+      "line": 4.5,
+      "projection": 4.6,
+      "lean": "Pass",
+      "edge": 0.12,
+      "confidence": "pass",
+      "line_source": "prizepicks_est",
+      "ops": 0.905
     }
   ],
   "top_plays": [
