@@ -120,14 +120,14 @@
       "matchup": "LAD @ NYM"
     },
     {
-      "player": "Joshua Kuroda-Grauer",
+      "player": "Willson Contreras",
       "prop": "hitter_fantasy_score",
       "lean": "Over",
-      "line": 14.5,
-      "projection": 16.4,
-      "edge": 1.92,
+      "line": 5.5,
+      "projection": 7.4,
+      "edge": 1.94,
       "confidence": "medium",
-      "matchup": "ATH @ MIN"
+      "matchup": "TOR @ BOS"
     },
     {
       "player": "Tommy Edman",
@@ -242,14 +242,14 @@
       "matchup": "LAD @ NYM"
     },
     {
-      "player": "Joshua Kuroda-Grauer",
+      "player": "Willson Contreras",
       "prop": "hitter_fantasy_score",
-      "line": 14.5,
+      "line": 5.5,
       "lean": "Over",
-      "projection": 16.4,
-      "edge": 1.92,
+      "projection": 7.4,
+      "edge": 1.94,
       "confidence": "medium",
-      "matchup": "ATH @ MIN"
+      "matchup": "TOR @ BOS"
     },
     {
       "player": "Tommy Edman",
@@ -352,11 +352,11 @@
       "matchup": "HOU @ CWS"
     },
     {
-      "player": "Trevor Larnach",
+      "player": "Byron Buxton",
       "prop": "hitter_fantasy_score",
-      "line": 5.0,
+      "line": 6.5,
       "lean": "Over",
-      "projection": 6.7,
+      "projection": 8.2,
       "edge": 1.73,
       "confidence": "medium",
       "matchup": "ATH @ MIN"
