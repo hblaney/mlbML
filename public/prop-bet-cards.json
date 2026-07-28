@@ -331,9 +331,7 @@
         }
       ],
       "headline": "Over 3.5 STRIKEOUTS (medium confidence)",
-      "notes": [
-        "Probable starter not fully confirmed \u2014 verify before betting."
-      ]
+      "notes": []
     },
     {
       "player": "Slade Cecconi",
@@ -374,6 +372,28 @@
           "confidence": "medium",
           "k9": 8.08,
           "opp_k_rate": 0.236
+        }
+      ],
+      "headline": "Over 4.5 STRIKEOUTS (medium confidence)",
+      "notes": []
+    },
+    {
+      "player": "Matthew Liberatore",
+      "team": "STL",
+      "opponent": "CHC",
+      "matchup": "CHC @ STL",
+      "game_date": "2026-07-27",
+      "props": [
+        {
+          "prop": "strikeouts",
+          "pick": "Over",
+          "model_line": 5.0,
+          "use_line": 4.5,
+          "projection": 5.0,
+          "edge": 0.5,
+          "confidence": "medium",
+          "k9": 8.24,
+          "opp_k_rate": 0.218
         }
       ],
       "headline": "Over 4.5 STRIKEOUTS (medium confidence)",

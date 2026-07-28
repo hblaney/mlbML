@@ -80,6 +80,16 @@
       "matchup": "HOU @ LAA"
     },
     {
+      "player": "Pete Crow-Armstrong",
+      "prop": "hitter_fantasy_score",
+      "lean": "Over",
+      "line": 6.5,
+      "projection": 8.5,
+      "edge": 2.0,
+      "confidence": "high",
+      "matchup": "CHC @ STL"
+    },
+    {
       "player": "Tatsuya Imai",
       "prop": "strikeouts",
       "lean": "Over",
@@ -118,16 +128,6 @@
       "edge": 1.91,
       "confidence": "medium",
       "matchup": "NYY @ CWS"
-    },
-    {
-      "player": "Joshua Kuroda-Grauer",
-      "prop": "hitter_fantasy_score",
-      "lean": "Over",
-      "line": 14.0,
-      "projection": 15.9,
-      "edge": 1.9,
-      "confidence": "medium",
-      "matchup": "BOS @ ATH"
     },
     {
       "player": "Kyle Schwarber",
@@ -202,6 +202,16 @@
       "matchup": "HOU @ LAA"
     },
     {
+      "player": "Pete Crow-Armstrong",
+      "prop": "hitter_fantasy_score",
+      "line": 6.5,
+      "lean": "Over",
+      "projection": 8.5,
+      "edge": 2.0,
+      "confidence": "high",
+      "matchup": "CHC @ STL"
+    },
+    {
       "player": "Tatsuya Imai",
       "prop": "strikeouts",
       "line": 5.0,
@@ -242,16 +252,6 @@
       "matchup": "NYY @ CWS"
     },
     {
-      "player": "Joshua Kuroda-Grauer",
-      "prop": "hitter_fantasy_score",
-      "line": 14.0,
-      "lean": "Over",
-      "projection": 15.9,
-      "edge": 1.9,
-      "confidence": "medium",
-      "matchup": "BOS @ ATH"
-    },
-    {
       "player": "Kyle Schwarber",
       "prop": "hitter_fantasy_score",
       "line": 5.5,
@@ -280,6 +280,16 @@
       "edge": 1.84,
       "confidence": "medium",
       "matchup": "NYY @ CWS"
+    },
+    {
+      "player": "Willson Contreras",
+      "prop": "hitter_fantasy_score",
+      "line": 6.0,
+      "lean": "Over",
+      "projection": 7.8,
+      "edge": 1.78,
+      "confidence": "medium",
+      "matchup": "BOS @ ATH"
     },
     {
       "player": "Jeremy Pe\u00f1a",
@@ -332,34 +342,24 @@
       "matchup": "SEA @ TEX"
     },
     {
-      "player": "Zack Wheeler",
-      "prop": "strikeouts",
-      "line": 5.0,
-      "lean": "Over",
-      "projection": 6.6,
-      "edge": 1.6,
-      "confidence": "high",
-      "matchup": "PHI @ MIA"
-    },
-    {
-      "player": "Jack Perkins",
-      "prop": "strikeouts",
-      "line": 4.5,
-      "lean": "Over",
-      "projection": 6.1,
-      "edge": 1.6,
-      "confidence": "high",
-      "matchup": "BOS @ ATH"
-    },
-    {
-      "player": "Luis Garc\u00eda Jr.",
+      "player": "Jordan Walker",
       "prop": "hitter_fantasy_score",
-      "line": 6.5,
+      "line": 6.0,
       "lean": "Over",
-      "projection": 8.1,
-      "edge": 1.59,
+      "projection": 7.6,
+      "edge": 1.63,
       "confidence": "medium",
-      "matchup": "TOR @ WSH"
+      "matchup": "CHC @ STL"
+    },
+    {
+      "player": "Seiya Suzuki",
+      "prop": "hitter_fantasy_score",
+      "line": 5.5,
+      "lean": "Over",
+      "projection": 7.1,
+      "edge": 1.6,
+      "confidence": "medium",
+      "matchup": "CHC @ STL"
     }
   ]
 }
