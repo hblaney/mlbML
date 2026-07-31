@@ -92,6 +92,28 @@
       "notes": []
     },
     {
+      "player": "Kodai Senga",
+      "team": "NYM",
+      "opponent": "MIA",
+      "matchup": "MIA @ NYM",
+      "game_date": "2026-07-31",
+      "props": [
+        {
+          "prop": "strikeouts",
+          "pick": "Over",
+          "model_line": 6.0,
+          "use_line": 4.5,
+          "projection": 5.9,
+          "edge": 1.42,
+          "confidence": "high",
+          "k9": 9.76,
+          "opp_k_rate": 0.217
+        }
+      ],
+      "headline": "Over 4.5 STRIKEOUTS (high confidence)",
+      "notes": []
+    },
+    {
       "player": "Bradgley Rodriguez",
       "team": "SD",
       "opponent": "SF",
@@ -243,28 +265,6 @@
         }
       ],
       "headline": "Over 4.0 STRIKEOUTS (medium confidence)",
-      "notes": []
-    },
-    {
-      "player": "Freddy Peralta",
-      "team": "NYM",
-      "opponent": "MIA",
-      "matchup": "MIA @ NYM",
-      "game_date": "2026-07-31",
-      "props": [
-        {
-          "prop": "strikeouts",
-          "pick": "Over",
-          "model_line": 5.5,
-          "use_line": 5.0,
-          "projection": 5.7,
-          "edge": 0.66,
-          "confidence": "medium",
-          "k9": 9.32,
-          "opp_k_rate": 0.217
-        }
-      ],
-      "headline": "Over 5.0 STRIKEOUTS (medium confidence)",
       "notes": []
     },
     {

@@ -110,16 +110,6 @@
       "matchup": "NYY @ CHC"
     },
     {
-      "player": "Willson Contreras",
-      "prop": "hitter_fantasy_score",
-      "lean": "Over",
-      "line": 5.0,
-      "projection": 7.0,
-      "edge": 1.99,
-      "confidence": "medium",
-      "matchup": "BOS @ LAD"
-    },
-    {
       "player": "Paul Skenes",
       "prop": "strikeouts",
       "lean": "Over",
@@ -158,6 +148,16 @@
       "edge": 1.8,
       "confidence": "medium",
       "matchup": "PIT @ CIN"
+    },
+    {
+      "player": "Junior Caminero",
+      "prop": "hitter_fantasy_score",
+      "lean": "Over",
+      "line": 6.0,
+      "projection": 7.8,
+      "edge": 1.77,
+      "confidence": "medium",
+      "matchup": "CWS @ TB"
     }
   ],
   "all_actionable": [
@@ -232,16 +232,6 @@
       "matchup": "NYY @ CHC"
     },
     {
-      "player": "Willson Contreras",
-      "prop": "hitter_fantasy_score",
-      "line": 5.0,
-      "lean": "Over",
-      "projection": 7.0,
-      "edge": 1.99,
-      "confidence": "medium",
-      "matchup": "BOS @ LAD"
-    },
-    {
       "player": "Paul Skenes",
       "prop": "strikeouts",
       "line": 5.0,
@@ -312,12 +302,12 @@
       "matchup": "MIN @ SEA"
     },
     {
-      "player": "Esteury Ruiz",
+      "player": "Otto Lopez",
       "prop": "hitter_fantasy_score",
-      "line": 8.5,
+      "line": 6.0,
       "lean": "Over",
-      "projection": 10.2,
-      "edge": 1.74,
+      "projection": 7.7,
+      "edge": 1.72,
       "confidence": "medium",
       "matchup": "MIA @ NYM"
     },
@@ -360,6 +350,16 @@
       "edge": 1.71,
       "confidence": "medium",
       "matchup": "WSH @ ATL"
+    },
+    {
+      "player": "Brice Turang",
+      "prop": "hitter_fantasy_score",
+      "line": 6.5,
+      "lean": "Over",
+      "projection": 8.2,
+      "edge": 1.7,
+      "confidence": "medium",
+      "matchup": "MIL @ LAA"
     }
   ]
 }
