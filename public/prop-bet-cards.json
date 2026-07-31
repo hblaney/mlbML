@@ -290,6 +290,28 @@
       "notes": []
     },
     {
+      "player": "Robbie Ray",
+      "team": "SF",
+      "opponent": "SD",
+      "matchup": "SF @ SD",
+      "game_date": "2026-07-30",
+      "props": [
+        {
+          "prop": "strikeouts",
+          "pick": "Over",
+          "model_line": 5.0,
+          "use_line": 4.5,
+          "projection": 5.0,
+          "edge": 0.47,
+          "confidence": "low",
+          "k9": 8.14,
+          "opp_k_rate": 0.221
+        }
+      ],
+      "headline": "Over 4.5 STRIKEOUTS (low confidence)",
+      "notes": []
+    },
+    {
       "player": "Grant Holmes",
       "team": "ATL",
       "opponent": "WSH",
@@ -353,9 +375,7 @@
         }
       ],
       "headline": "Over 4.0 STRIKEOUTS (low confidence)",
-      "notes": [
-        "Probable starter not fully confirmed \u2014 verify before betting."
-      ]
+      "notes": []
     },
     {
       "player": "Noah Cameron",

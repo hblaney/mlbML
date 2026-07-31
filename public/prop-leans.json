@@ -2,7 +2,7 @@
   "generated_at": "2026-07-30",
   "source": "prop-leans-v2",
   "note": "K uses estimated PrizePicks lines when posted line unknown. Hitter FS from top-4 OPS bats per team.",
-  "actionable_count": 85,
+  "actionable_count": 94,
   "leans": [
     {
       "gameId": "mia-nym-2026-07-30-823595",
@@ -355,6 +355,22 @@
       "ops": 0.842
     },
     {
+      "gameId": "sf-sd-2026-07-30-823271",
+      "matchup": "SF @ SD",
+      "player": "Luis Campusano",
+      "team": "SD",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Robbie Ray",
+      "fair_line": 9.5,
+      "line": 8.0,
+      "projection": 9.6,
+      "lean": "Over",
+      "edge": 1.61,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.898
+    },
+    {
       "gameId": "tex-tb-2026-07-30-822946",
       "matchup": "TEX @ TB",
       "player": "Yandy D\u00edaz",
@@ -385,6 +401,22 @@
       "confidence": "medium",
       "line_source": "prizepicks_est",
       "ops": 0.828
+    },
+    {
+      "gameId": "sf-sd-2026-07-30-823271",
+      "matchup": "SF @ SD",
+      "player": "Ty France",
+      "team": "SD",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Robbie Ray",
+      "fair_line": 6.5,
+      "line": 5.0,
+      "projection": 6.6,
+      "lean": "Over",
+      "edge": 1.57,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.877
     },
     {
       "gameId": "sea-lad-2026-07-30-823921",
@@ -658,6 +690,22 @@
       "ops": 0.867
     },
     {
+      "gameId": "sf-sd-2026-07-30-823271",
+      "matchup": "SF @ SD",
+      "player": "Rafael Devers",
+      "team": "SF",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "JP Sears",
+      "fair_line": 6.5,
+      "line": 5.5,
+      "projection": 6.7,
+      "lean": "Over",
+      "edge": 1.24,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.79
+    },
+    {
       "gameId": "pit-cin-2026-07-30-824488",
       "matchup": "PIT @ CIN",
       "player": "Ryan O'Hearn",
@@ -720,6 +768,38 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.802
+    },
+    {
+      "gameId": "sf-sd-2026-07-30-823271",
+      "matchup": "SF @ SD",
+      "player": "Bryce Eldridge",
+      "team": "SF",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "JP Sears",
+      "fair_line": 6.5,
+      "line": 5.5,
+      "projection": 6.7,
+      "lean": "Over",
+      "edge": 1.19,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.805
+    },
+    {
+      "gameId": "sf-sd-2026-07-30-823271",
+      "matchup": "SF @ SD",
+      "player": "Fernando Tatis Jr.",
+      "team": "SD",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Robbie Ray",
+      "fair_line": 6.5,
+      "line": 5.5,
+      "projection": 6.7,
+      "lean": "Over",
+      "edge": 1.15,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.756
     },
     {
       "gameId": "mia-nym-2026-07-30-823595",
@@ -959,6 +1039,22 @@
       "k9": 9.07
     },
     {
+      "gameId": "sf-sd-2026-07-30-823271",
+      "matchup": "SF @ SD",
+      "player": "Casey Schmitt",
+      "team": "SF",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "JP Sears",
+      "fair_line": 7.0,
+      "line": 6.0,
+      "projection": 6.9,
+      "lean": "Over",
+      "edge": 0.9,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.784
+    },
+    {
       "gameId": "bos-ath-2026-07-30-824974",
       "matchup": "BOS @ ATH",
       "player": "Tyler Soderstrom",
@@ -973,6 +1069,22 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.81
+    },
+    {
+      "gameId": "sf-sd-2026-07-30-823271",
+      "matchup": "SF @ SD",
+      "player": "Luis Arraez",
+      "team": "SF",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "JP Sears",
+      "fair_line": 6.5,
+      "line": 5.5,
+      "projection": 6.4,
+      "lean": "Over",
+      "edge": 0.87,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.817
     },
     {
       "gameId": "nyy-cws-2026-07-30-824568",
@@ -1288,6 +1400,21 @@
       "k9": 8.25
     },
     {
+      "gameId": "sf-sd-2026-07-30-823271",
+      "matchup": "SF @ SD",
+      "player": "Robbie Ray",
+      "team": "SF",
+      "prop": "strikeouts",
+      "fair_line": 5.0,
+      "line": 4.5,
+      "projection": 5.0,
+      "lean": "Over",
+      "edge": 0.47,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "k9": 8.14
+    },
+    {
       "gameId": "wsh-atl-2026-07-30-824894",
       "matchup": "WSH @ ATL",
       "player": "Grant Holmes",
@@ -1316,6 +1443,21 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "k9": 6.52
+    },
+    {
+      "gameId": "sf-sd-2026-07-30-823271",
+      "matchup": "SF @ SD",
+      "player": "JP Sears",
+      "team": "SD",
+      "prop": "strikeouts",
+      "fair_line": 4.5,
+      "line": 4.0,
+      "projection": 4.4,
+      "lean": "Over",
+      "edge": 0.41,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "k9": 7.34
     },
     {
       "gameId": "kc-min-2026-07-30-823674",
@@ -1362,6 +1504,22 @@
       "confidence": "pass",
       "line_source": "prizepicks_est",
       "ops": 0.736
+    },
+    {
+      "gameId": "sf-sd-2026-07-30-823271",
+      "matchup": "SF @ SD",
+      "player": "Luis Rengifo",
+      "team": "SD",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Robbie Ray",
+      "fair_line": 5.0,
+      "line": 4.5,
+      "projection": 5.1,
+      "lean": "Pass",
+      "edge": 0.64,
+      "confidence": "pass",
+      "line_source": "prizepicks_est",
+      "ops": 0.981
     },
     {
       "gameId": "chc-stl-2026-07-30-823023",
