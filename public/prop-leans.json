@@ -307,22 +307,6 @@
       "ops": 0.86
     },
     {
-      "gameId": "mil-laa-2026-08-01-824000",
-      "matchup": "MIL @ LAA",
-      "player": "Brice Turang",
-      "team": "MIL",
-      "prop": "hitter_fantasy_score",
-      "vs_pitcher": "Jos\u00e9 Soriano",
-      "fair_line": 7.0,
-      "line": 5.5,
-      "projection": 7.2,
-      "lean": "Over",
-      "edge": 1.71,
-      "confidence": "medium",
-      "line_source": "prizepicks_est",
-      "ops": 0.834
-    },
-    {
       "gameId": "kc-col-2026-08-01-824326",
       "matchup": "KC @ COL",
       "player": "Cole Carrigg",
@@ -339,6 +323,22 @@
       "ops": 0.892
     },
     {
+      "gameId": "mil-laa-2026-08-01-824000",
+      "matchup": "MIL @ LAA",
+      "player": "Jake Bauers",
+      "team": "MIL",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Brent Suter",
+      "fair_line": 7.5,
+      "line": 6.0,
+      "projection": 7.7,
+      "lean": "Over",
+      "edge": 1.7,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.873
+    },
+    {
       "gameId": "cws-tb-2026-08-01-822944",
       "matchup": "CWS @ TB",
       "player": "Miguel Vargas",
@@ -353,6 +353,22 @@
       "confidence": "medium",
       "line_source": "prizepicks_est",
       "ops": 0.826
+    },
+    {
+      "gameId": "mil-laa-2026-08-01-824000",
+      "matchup": "MIL @ LAA",
+      "player": "Andrew Vaughn",
+      "team": "MIL",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Brent Suter",
+      "fair_line": 6.0,
+      "line": 4.5,
+      "projection": 6.2,
+      "lean": "Over",
+      "edge": 1.67,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.883
     },
     {
       "gameId": "pit-cin-2026-08-01-824485",
@@ -498,38 +514,6 @@
       "ops": 0.843
     },
     {
-      "gameId": "mil-laa-2026-08-01-824000",
-      "matchup": "MIL @ LAA",
-      "player": "Andrew Vaughn",
-      "team": "MIL",
-      "prop": "hitter_fantasy_score",
-      "vs_pitcher": "Jos\u00e9 Soriano",
-      "fair_line": 6.0,
-      "line": 4.5,
-      "projection": 6.0,
-      "lean": "Over",
-      "edge": 1.52,
-      "confidence": "medium",
-      "line_source": "prizepicks_est",
-      "ops": 0.883
-    },
-    {
-      "gameId": "mil-laa-2026-08-01-824000",
-      "matchup": "MIL @ LAA",
-      "player": "Jake Bauers",
-      "team": "MIL",
-      "prop": "hitter_fantasy_score",
-      "vs_pitcher": "Jos\u00e9 Soriano",
-      "fair_line": 7.5,
-      "line": 6.0,
-      "projection": 7.5,
-      "lean": "Over",
-      "edge": 1.52,
-      "confidence": "medium",
-      "line_source": "prizepicks_est",
-      "ops": 0.873
-    },
-    {
       "gameId": "nyy-chc-2026-08-01-824649",
       "matchup": "NYY @ CHC",
       "player": "Pedro Ram\u00edrez",
@@ -639,6 +623,22 @@
       "confidence": "medium",
       "line_source": "prizepicks_est",
       "ops": 0.866
+    },
+    {
+      "gameId": "mil-laa-2026-08-01-824000",
+      "matchup": "MIL @ LAA",
+      "player": "Brice Turang",
+      "team": "MIL",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Brent Suter",
+      "fair_line": 7.5,
+      "line": 6.0,
+      "projection": 7.4,
+      "lean": "Over",
+      "edge": 1.39,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.834
     },
     {
       "gameId": "kc-col-2026-08-01-824326",
@@ -943,22 +943,6 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.807
-    },
-    {
-      "gameId": "mil-laa-2026-08-01-824000",
-      "matchup": "MIL @ LAA",
-      "player": "Garrett Mitchell",
-      "team": "MIL",
-      "prop": "hitter_fantasy_score",
-      "vs_pitcher": "Jos\u00e9 Soriano",
-      "fair_line": 6.5,
-      "line": 5.5,
-      "projection": 6.7,
-      "lean": "Over",
-      "edge": 1.24,
-      "confidence": "low",
-      "line_source": "prizepicks_est",
-      "ops": 0.799
     },
     {
       "gameId": "mil-laa-2026-08-01-824000",
@@ -1599,17 +1583,18 @@
     {
       "gameId": "mil-laa-2026-08-01-824000",
       "matchup": "MIL @ LAA",
-      "player": "Jos\u00e9 Soriano",
-      "team": "LAA",
-      "prop": "strikeouts",
-      "fair_line": 5.5,
-      "line": 4.5,
-      "projection": 5.4,
+      "player": "Garrett Mitchell",
+      "team": "MIL",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Brent Suter",
+      "fair_line": 7.0,
+      "line": 6.0,
+      "projection": 6.9,
       "lean": "Over",
       "edge": 0.9,
-      "confidence": "medium",
+      "confidence": "low",
       "line_source": "prizepicks_est",
-      "k9": 9.0
+      "ops": 0.799
     },
     {
       "gameId": "stl-tor-2026-08-01-822781",
@@ -2219,6 +2204,21 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "k9": 6.67
+    },
+    {
+      "gameId": "mil-laa-2026-08-01-824000",
+      "matchup": "MIL @ LAA",
+      "player": "Brent Suter",
+      "team": "LAA",
+      "prop": "strikeouts",
+      "fair_line": 4.5,
+      "line": 4.0,
+      "projection": 4.5,
+      "lean": "Over",
+      "edge": 0.55,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "k9": 7.58
     },
     {
       "gameId": "mia-nym-2026-08-01-823594",

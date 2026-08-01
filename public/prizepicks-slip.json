@@ -352,14 +352,14 @@
       "matchup": "MIN @ SEA"
     },
     {
-      "player": "Brice Turang",
+      "player": "Cole Carrigg",
       "prop": "hitter_fantasy_score",
-      "line": 5.5,
+      "line": 10.0,
       "lean": "Over",
-      "projection": 7.2,
+      "projection": 11.7,
       "edge": 1.71,
       "confidence": "medium",
-      "matchup": "MIL @ LAA"
+      "matchup": "KC @ COL"
     }
   ]
 }
