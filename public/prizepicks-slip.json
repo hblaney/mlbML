@@ -120,14 +120,14 @@
       "matchup": "NYY @ CHC"
     },
     {
-      "player": "Joshua Kuroda-Grauer",
+      "player": "Willson Contreras",
       "prop": "hitter_fantasy_score",
       "lean": "Over",
-      "line": 13.5,
-      "projection": 15.4,
-      "edge": 1.95,
+      "line": 5.0,
+      "projection": 7.0,
+      "edge": 1.99,
       "confidence": "medium",
-      "matchup": "DET @ ATH"
+      "matchup": "BOS @ LAD"
     },
     {
       "player": "Paul Skenes",
@@ -242,14 +242,14 @@
       "matchup": "NYY @ CHC"
     },
     {
-      "player": "Joshua Kuroda-Grauer",
+      "player": "Willson Contreras",
       "prop": "hitter_fantasy_score",
-      "line": 13.5,
+      "line": 5.0,
       "lean": "Over",
-      "projection": 15.4,
-      "edge": 1.95,
+      "projection": 7.0,
+      "edge": 1.99,
       "confidence": "medium",
-      "matchup": "DET @ ATH"
+      "matchup": "BOS @ LAD"
     },
     {
       "player": "Paul Skenes",
@@ -322,6 +322,16 @@
       "matchup": "MIN @ SEA"
     },
     {
+      "player": "Christian Encarnacion-Strand",
+      "prop": "hitter_fantasy_score",
+      "line": 4.5,
+      "lean": "Over",
+      "projection": 6.2,
+      "edge": 1.74,
+      "confidence": "medium",
+      "matchup": "PHI @ BAL"
+    },
+    {
       "player": "Dillon Dingler",
       "prop": "hitter_fantasy_score",
       "line": 5.5,
@@ -350,16 +360,6 @@
       "edge": 1.72,
       "confidence": "medium",
       "matchup": "MIL @ LAA"
-    },
-    {
-      "player": "Drake Baldwin",
-      "prop": "hitter_fantasy_score",
-      "line": 5.0,
-      "lean": "Over",
-      "projection": 6.7,
-      "edge": 1.72,
-      "confidence": "medium",
-      "matchup": "WSH @ ATL"
     }
   ]
 }

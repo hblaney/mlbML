@@ -2,7 +2,7 @@
   "generated_at": "2026-07-31",
   "source": "prop-leans-v2",
   "note": "K uses estimated PrizePicks lines when posted line unknown. Hitter FS from top-4 OPS bats per team.",
-  "actionable_count": 137,
+  "actionable_count": 139,
   "leans": [
     {
       "gameId": "wsh-atl-2026-07-31-824892",
@@ -133,20 +133,20 @@
       "ops": 0.931
     },
     {
-      "gameId": "det-ath-2026-07-31-824975",
-      "matchup": "DET @ ATH",
-      "player": "Joshua Kuroda-Grauer",
-      "team": "ATH",
+      "gameId": "bos-lad-2026-07-31-823922",
+      "matchup": "BOS @ LAD",
+      "player": "Willson Contreras",
+      "team": "BOS",
       "prop": "hitter_fantasy_score",
-      "vs_pitcher": "Tyler Holton",
-      "fair_line": 15.5,
-      "line": 13.5,
-      "projection": 15.4,
+      "vs_pitcher": "Edgardo Henriquez",
+      "fair_line": 7.0,
+      "line": 5.0,
+      "projection": 7.0,
       "lean": "Over",
-      "edge": 1.95,
+      "edge": 1.99,
       "confidence": "medium",
       "line_source": "prizepicks_est",
-      "ops": 1.018
+      "ops": 0.945
     },
     {
       "gameId": "pit-cin-2026-07-31-824486",
@@ -258,6 +258,22 @@
       "confidence": "medium",
       "line_source": "prizepicks_est",
       "ops": 0.823
+    },
+    {
+      "gameId": "phi-bal-2026-07-31-824809",
+      "matchup": "PHI @ BAL",
+      "player": "Christian Encarnacion-Strand",
+      "team": "BAL",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Andrew Painter",
+      "fair_line": 6.0,
+      "line": 4.5,
+      "projection": 6.2,
+      "lean": "Over",
+      "edge": 1.74,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.949
     },
     {
       "gameId": "det-ath-2026-07-31-824975",
@@ -496,6 +512,22 @@
       "confidence": "medium",
       "line_source": "prizepicks_est",
       "ops": 0.882
+    },
+    {
+      "gameId": "min-sea-2026-07-31-823111",
+      "matchup": "MIN @ SEA",
+      "player": "Byron Buxton",
+      "team": "MIN",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Bryce Miller",
+      "fair_line": 7.5,
+      "line": 6.0,
+      "projection": 7.6,
+      "lean": "Over",
+      "edge": 1.6,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.864
     },
     {
       "gameId": "cws-tb-2026-07-31-822945",
@@ -1169,22 +1201,6 @@
     {
       "gameId": "phi-bal-2026-07-31-824809",
       "matchup": "PHI @ BAL",
-      "player": "Adley Rutschman",
-      "team": "BAL",
-      "prop": "hitter_fantasy_score",
-      "vs_pitcher": "Andrew Painter",
-      "fair_line": 6.5,
-      "line": 5.5,
-      "projection": 6.7,
-      "lean": "Over",
-      "edge": 1.15,
-      "confidence": "low",
-      "line_source": "prizepicks_est",
-      "ops": 0.764
-    },
-    {
-      "gameId": "phi-bal-2026-07-31-824809",
-      "matchup": "PHI @ BAL",
       "player": "Brandon Marsh",
       "team": "PHI",
       "prop": "hitter_fantasy_score",
@@ -1213,22 +1229,6 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.811
-    },
-    {
-      "gameId": "kc-col-2026-07-31-824325",
-      "matchup": "KC @ COL",
-      "player": "Bobby Witt Jr.",
-      "team": "KC",
-      "prop": "hitter_fantasy_score",
-      "vs_pitcher": "Tomoyuki Sugano",
-      "fair_line": 7.5,
-      "line": 6.5,
-      "projection": 7.6,
-      "lean": "Over",
-      "edge": 1.13,
-      "confidence": "low",
-      "line_source": "prizepicks_est",
-      "ops": 0.8
     },
     {
       "gameId": "cws-tb-2026-07-31-822945",
@@ -1343,22 +1343,6 @@
       "ops": 0.796
     },
     {
-      "gameId": "min-sea-2026-07-31-823111",
-      "matchup": "MIN @ SEA",
-      "player": "Alex Jackson",
-      "team": "MIN",
-      "prop": "hitter_fantasy_score",
-      "vs_pitcher": "Bryce Miller",
-      "fair_line": 6.0,
-      "line": 5.0,
-      "projection": 6.0,
-      "lean": "Over",
-      "edge": 1.02,
-      "confidence": "low",
-      "line_source": "prizepicks_est",
-      "ops": 0.753
-    },
-    {
       "gameId": "sf-sd-2026-07-31-823272",
       "matchup": "SF @ SD",
       "player": "Fernando Tatis Jr.",
@@ -1421,22 +1405,6 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.808
-    },
-    {
-      "gameId": "bos-lad-2026-07-31-823922",
-      "matchup": "BOS @ LAD",
-      "player": "Wilyer Abreu",
-      "team": "BOS",
-      "prop": "hitter_fantasy_score",
-      "vs_pitcher": "Edgardo Henriquez",
-      "fair_line": 6.0,
-      "line": 5.0,
-      "projection": 6.0,
-      "lean": "Over",
-      "edge": 1.0,
-      "confidence": "low",
-      "line_source": "prizepicks_est",
-      "ops": 0.754
     },
     {
       "gameId": "mil-laa-2026-07-31-823999",
@@ -1519,6 +1487,22 @@
       "ops": 1.045
     },
     {
+      "gameId": "kc-col-2026-07-31-824325",
+      "matchup": "KC @ COL",
+      "player": "Nick Loftin",
+      "team": "KC",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Tomoyuki Sugano",
+      "fair_line": 6.0,
+      "line": 5.0,
+      "projection": 6.0,
+      "lean": "Over",
+      "edge": 0.97,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.743
+    },
+    {
       "gameId": "pit-cin-2026-07-31-824486",
       "matchup": "PIT @ CIN",
       "player": "Sal Stewart",
@@ -1549,6 +1533,22 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.77
+    },
+    {
+      "gameId": "stl-tor-2026-07-31-822782",
+      "matchup": "STL @ TOR",
+      "player": "Nathan Lukes",
+      "team": "TOR",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Kyle Leahy",
+      "fair_line": 5.5,
+      "line": 4.5,
+      "projection": 5.5,
+      "lean": "Over",
+      "edge": 0.96,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.729
     },
     {
       "gameId": "mia-nym-2026-07-31-823593",
@@ -1599,6 +1599,22 @@
       "ops": 0.804
     },
     {
+      "gameId": "phi-bal-2026-07-31-824809",
+      "matchup": "PHI @ BAL",
+      "player": "Taylor Ward",
+      "team": "BAL",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Andrew Painter",
+      "fair_line": 6.5,
+      "line": 5.5,
+      "projection": 6.4,
+      "lean": "Over",
+      "edge": 0.92,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.733
+    },
+    {
       "gameId": "bos-lad-2026-07-31-823922",
       "matchup": "BOS @ LAD",
       "player": "Andruw Monasterio",
@@ -1613,6 +1629,22 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.774
+    },
+    {
+      "gameId": "min-sea-2026-07-31-823111",
+      "matchup": "MIN @ SEA",
+      "player": "Julio Rodr\u00edguez",
+      "team": "SEA",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Zebby Matthews",
+      "fair_line": 7.0,
+      "line": 6.0,
+      "projection": 6.9,
+      "lean": "Over",
+      "edge": 0.89,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.726
     },
     {
       "gameId": "det-ath-2026-07-31-824975",
@@ -1806,38 +1838,6 @@
       "ops": 0.722
     },
     {
-      "gameId": "phi-bal-2026-07-31-824809",
-      "matchup": "PHI @ BAL",
-      "player": "Blaze Alexander",
-      "team": "BAL",
-      "prop": "hitter_fantasy_score",
-      "vs_pitcher": "Andrew Painter",
-      "fair_line": 7.5,
-      "line": 6.5,
-      "projection": 7.3,
-      "lean": "Over",
-      "edge": 0.81,
-      "confidence": "low",
-      "line_source": "prizepicks_est",
-      "ops": 0.807
-    },
-    {
-      "gameId": "az-cle-2026-07-31-824407",
-      "matchup": "AZ @ CLE",
-      "player": "Brayan Rocchio",
-      "team": "CLE",
-      "prop": "hitter_fantasy_score",
-      "vs_pitcher": "Mitch Bratt",
-      "fair_line": 7.0,
-      "line": 6.0,
-      "projection": 6.8,
-      "lean": "Over",
-      "edge": 0.8,
-      "confidence": "low",
-      "line_source": "prizepicks_est",
-      "ops": 0.72
-    },
-    {
       "gameId": "det-ath-2026-07-31-824975",
       "matchup": "DET @ ATH",
       "player": "Carlos Cortes",
@@ -1852,6 +1852,22 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.76
+    },
+    {
+      "gameId": "det-ath-2026-07-31-824975",
+      "matchup": "DET @ ATH",
+      "player": "Gleyber Torres",
+      "team": "DET",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Jeffrey Springs",
+      "fair_line": 6.5,
+      "line": 5.5,
+      "projection": 6.3,
+      "lean": "Over",
+      "edge": 0.79,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.775
     },
     {
       "gameId": "bos-lad-2026-07-31-823922",
@@ -1915,6 +1931,22 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "k9": 7.23
+    },
+    {
+      "gameId": "az-cle-2026-07-31-824407",
+      "matchup": "AZ @ CLE",
+      "player": "Jos\u00e9 Ram\u00edrez",
+      "team": "CLE",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Mitch Bratt",
+      "fair_line": 8.5,
+      "line": 7.5,
+      "projection": 8.3,
+      "lean": "Over",
+      "edge": 0.75,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.73
     },
     {
       "gameId": "tex-hou-2026-07-31-824164",
@@ -2172,54 +2204,6 @@
       "k9": 7.17
     },
     {
-      "gameId": "det-ath-2026-07-31-824975",
-      "matchup": "DET @ ATH",
-      "player": "Hao-Yu Lee",
-      "team": "DET",
-      "prop": "hitter_fantasy_score",
-      "vs_pitcher": "Jeffrey Springs",
-      "fair_line": 8.5,
-      "line": 8.0,
-      "projection": 8.7,
-      "lean": "Pass",
-      "edge": 0.72,
-      "confidence": "pass",
-      "line_source": "prizepicks_est",
-      "ops": 0.738
-    },
-    {
-      "gameId": "min-sea-2026-07-31-823111",
-      "matchup": "MIN @ SEA",
-      "player": "Luke Raley",
-      "team": "SEA",
-      "prop": "hitter_fantasy_score",
-      "vs_pitcher": "Zebby Matthews",
-      "fair_line": 6.0,
-      "line": 5.5,
-      "projection": 6.1,
-      "lean": "Pass",
-      "edge": 0.62,
-      "confidence": "pass",
-      "line_source": "prizepicks_est",
-      "ops": 0.723
-    },
-    {
-      "gameId": "stl-tor-2026-07-31-822782",
-      "matchup": "STL @ TOR",
-      "player": "Jonatan Clase",
-      "team": "TOR",
-      "prop": "hitter_fantasy_score",
-      "vs_pitcher": "Kyle Leahy",
-      "fair_line": 5.0,
-      "line": 4.5,
-      "projection": 5.1,
-      "lean": "Pass",
-      "edge": 0.61,
-      "confidence": "pass",
-      "line_source": "prizepicks_est",
-      "ops": 0.905
-    },
-    {
       "gameId": "stl-tor-2026-07-31-822782",
       "matchup": "STL @ TOR",
       "player": "Ernie Clement",
@@ -2234,22 +2218,6 @@
       "confidence": "pass",
       "line_source": "prizepicks_est",
       "ops": 0.742
-    },
-    {
-      "gameId": "phi-bal-2026-07-31-824809",
-      "matchup": "PHI @ BAL",
-      "player": "Bryson Stott",
-      "team": "PHI",
-      "prop": "hitter_fantasy_score",
-      "vs_pitcher": "Brandon Young",
-      "fair_line": 6.5,
-      "line": 6.0,
-      "projection": 6.6,
-      "lean": "Pass",
-      "edge": 0.58,
-      "confidence": "pass",
-      "line_source": "prizepicks_est",
-      "ops": 0.725
     },
     {
       "gameId": "min-sea-2026-07-31-823111",
@@ -2268,22 +2236,6 @@
       "ops": 0.729
     },
     {
-      "gameId": "az-cle-2026-07-31-824407",
-      "matchup": "AZ @ CLE",
-      "player": "Nolan Arenado",
-      "team": "AZ",
-      "prop": "hitter_fantasy_score",
-      "vs_pitcher": "Tanner Bibee",
-      "fair_line": 6.0,
-      "line": 5.5,
-      "projection": 6.0,
-      "lean": "Pass",
-      "edge": 0.52,
-      "confidence": "pass",
-      "line_source": "prizepicks_est",
-      "ops": 0.742
-    },
-    {
       "gameId": "stl-tor-2026-07-31-822782",
       "matchup": "STL @ TOR",
       "player": "Luis Ur\u00edas",
@@ -2298,6 +2250,38 @@
       "confidence": "pass",
       "line_source": "prizepicks_est",
       "ops": 0.75
+    },
+    {
+      "gameId": "az-cle-2026-07-31-824407",
+      "matchup": "AZ @ CLE",
+      "player": "Tyler Locklear",
+      "team": "AZ",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Tanner Bibee",
+      "fair_line": 5.0,
+      "line": 4.5,
+      "projection": 4.9,
+      "lean": "Pass",
+      "edge": 0.37,
+      "confidence": "pass",
+      "line_source": "prizepicks_est",
+      "ops": 0.792
+    },
+    {
+      "gameId": "det-ath-2026-07-31-824975",
+      "matchup": "DET @ ATH",
+      "player": "Jonah Heim",
+      "team": "ATH",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Tyler Holton",
+      "fair_line": 5.0,
+      "line": 4.5,
+      "projection": 4.8,
+      "lean": "Pass",
+      "edge": 0.33,
+      "confidence": "pass",
+      "line_source": "prizepicks_est",
+      "ops": 0.721
     },
     {
       "gameId": "kc-col-2026-07-31-824325",
@@ -2373,6 +2357,22 @@
       "confidence": "pass",
       "line_source": "prizepicks_est",
       "k9": 5.49
+    },
+    {
+      "gameId": "phi-bal-2026-07-31-824809",
+      "matchup": "PHI @ BAL",
+      "player": "Bryan De La Cruz",
+      "team": "PHI",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Brandon Young",
+      "fair_line": 4.0,
+      "line": 4.5,
+      "projection": 4.1,
+      "lean": "Pass",
+      "edge": -0.43,
+      "confidence": "pass",
+      "line_source": "prizepicks_est",
+      "ops": 1.286
     }
   ],
   "top_plays": [
@@ -2457,14 +2457,14 @@
       "matchup": "NYY @ CHC"
     },
     {
-      "player": "Joshua Kuroda-Grauer",
+      "player": "Willson Contreras",
       "prop": "hitter_fantasy_score",
       "lean": "Over",
-      "line": 13.5,
-      "projection": 15.4,
-      "edge": 1.95,
+      "line": 5.0,
+      "projection": 7.0,
+      "edge": 1.99,
       "confidence": "medium",
-      "matchup": "DET @ ATH"
+      "matchup": "BOS @ LAD"
     },
     {
       "player": "Paul Skenes",
