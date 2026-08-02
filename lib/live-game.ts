@@ -50,6 +50,35 @@ type LiveFeedResponse = {
   };
 };
 
+type ScheduleGame = {
+  gamePk?: number;
+  status?: {
+    detailedState?: string;
+    abstractGameState?: string;
+    codedGameState?: string;
+  };
+  teams?: {
+    away?: { score?: number; team?: { id?: number } };
+    home?: { score?: number; team?: { id?: number } };
+  };
+  linescore?: {
+    currentInningOrdinal?: string;
+    inningState?: string;
+    teams?: {
+      away?: { runs?: number; hits?: number; errors?: number };
+      home?: { runs?: number; hits?: number; errors?: number };
+    };
+  };
+  probablePitchers?: {
+    away?: { fullName?: string };
+    home?: { fullName?: string };
+  };
+};
+
+type ScheduleResponse = {
+  dates?: { games?: ScheduleGame[] }[];
+};
+
 export function getGamePk(game: GamePrediction) {
   if (game.gamePk != null && Number.isFinite(Number(game.gamePk))) {
     return String(game.gamePk);
@@ -71,19 +100,43 @@ function isFinalStatus(detailed: string, abstract?: string, coded?: string) {
   );
 }
 
-function formatInning(feed: LiveFeedResponse) {
-  const status = feed.gameData?.status;
-  const detailed = status?.detailedState ?? "";
-  if (isFinalStatus(detailed, status?.abstractGameState, status?.codedGameState)) {
+function isLiveStatus(detailed: string, abstract?: string) {
+  const detailedLower = detailed.toLowerCase();
+  const abstractLower = (abstract ?? "").toLowerCase();
+  if (isFinalStatus(detailed, abstract)) {
+    return false;
+  }
+  return (
+    abstractLower === "live" ||
+    detailedLower.includes("progress") ||
+    detailedLower.includes("live") ||
+    detailedLower.includes("manager challenge")
+  );
+}
+
+function formatInningFromParts(
+  detailed: string,
+  abstract: string | undefined,
+  coded: string | undefined,
+  linescore?: { currentInningOrdinal?: string; inningState?: string }
+) {
+  if (isFinalStatus(detailed, abstract, coded)) {
     return "Final";
   }
-
-  const linescore = feed.liveData?.linescore;
   if (!linescore?.currentInningOrdinal) {
     return "Pregame";
   }
-
   return [linescore.inningState, linescore.currentInningOrdinal].filter(Boolean).join(" ");
+}
+
+function formatInning(feed: LiveFeedResponse) {
+  const status = feed.gameData?.status;
+  return formatInningFromParts(
+    status?.detailedState ?? "",
+    status?.abstractGameState,
+    status?.codedGameState,
+    feed.liveData?.linescore
+  );
 }
 
 export function formatInningNatural(inning: string) {
@@ -138,7 +191,7 @@ export function isGameLive(state: LiveGameState | null | undefined) {
     return false;
   }
 
-  if (status.includes("progress") || status.includes("live") || status.includes("manager challenge")) {
+  if (isLiveStatus(state.status, state.abstractStatus)) {
     return true;
   }
 
@@ -146,9 +199,125 @@ export function isGameLive(state: LiveGameState | null | undefined) {
   return inning !== "pregame" && !inning.includes("warmup") && !inning.includes("delayed start");
 }
 
+/** True when a board game's first pitch was long enough ago that "starts at 6:15" is nonsense. */
+export function gameStartIsStale(startsAt: string, nowMs = Date.now()) {
+  const start = new Date(startsAt).getTime();
+  if (!Number.isFinite(start)) {
+    return false;
+  }
+  // Regulation games rarely finish under ~2h; 3h covers rain delays without marking pregame as final.
+  return nowMs - start >= 3 * 60 * 60 * 1000;
+}
+
+function chicagoDateIso(value = new Date()) {
+  // en-CA yields YYYY-MM-DD
+  return new Intl.DateTimeFormat("en-CA", {
+    timeZone: "America/Chicago",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit"
+  }).format(value);
+}
+
+function boardSlateDates(board: GamePrediction[]) {
+  const dates = new Set<string>();
+  for (const game of board) {
+    const fromId = game.id.match(/(\d{4}-\d{2}-\d{2})/)?.[1];
+    const fromStarts = game.startsAt
+      ? new Intl.DateTimeFormat("en-CA", {
+          timeZone: "America/Chicago",
+          year: "numeric",
+          month: "2-digit",
+          day: "2-digit"
+        }).format(new Date(game.startsAt))
+      : null;
+    if (fromId) dates.add(fromId);
+    if (fromStarts) dates.add(fromStarts);
+  }
+  // Always include Chicago "today" so late boards still resolve.
+  dates.add(chicagoDateIso());
+  return [...dates];
+}
+
+function stateFromScheduleGame(game: GamePrediction, row: ScheduleGame): LiveGameState {
+  const detailed = row.status?.detailedState ?? "Scheduled";
+  const abstract = row.status?.abstractGameState;
+  const coded = row.status?.codedGameState;
+  const linescore = row.linescore;
+  const awayRuns = linescore?.teams?.away?.runs ?? row.teams?.away?.score ?? 0;
+  const homeRuns = linescore?.teams?.home?.runs ?? row.teams?.home?.score ?? 0;
+
+  return {
+    status: detailed,
+    abstractStatus: abstract,
+    inning: formatInningFromParts(detailed, abstract, coded, linescore),
+    away: {
+      teamId: game.awayTeam,
+      runs: awayRuns,
+      hits: linescore?.teams?.away?.hits ?? 0,
+      errors: linescore?.teams?.away?.errors ?? 0
+    },
+    home: {
+      teamId: game.homeTeam,
+      runs: homeRuns,
+      hits: linescore?.teams?.home?.hits ?? 0,
+      errors: linescore?.teams?.home?.errors ?? 0
+    },
+    probablePitchers: {
+      away: row.probablePitchers?.away?.fullName,
+      home: row.probablePitchers?.home?.fullName
+    },
+    recentPlays: []
+  };
+}
+
+async function fetchScheduleStatesByPk(dates: string[]) {
+  const byPk = new Map<string, ScheduleGame>();
+
+  await Promise.all(
+    dates.map(async (day) => {
+      try {
+        const url =
+          `https://statsapi.mlb.com/api/v1/schedule?sportId=1&date=${day}` +
+          `&hydrate=linescore,probablePitcher`;
+        const response = await fetch(url, { cache: "no-store" });
+        if (!response.ok) {
+          return;
+        }
+        const payload = (await response.json()) as ScheduleResponse;
+        for (const dateRow of payload.dates ?? []) {
+          for (const game of dateRow.games ?? []) {
+            if (game.gamePk != null) {
+              byPk.set(String(game.gamePk), game);
+            }
+          }
+        }
+      } catch {
+        // Fall through to per-game live feed.
+      }
+    })
+  );
+
+  return byPk;
+}
+
+/**
+ * Board-wide live/final states. Prefer one MLB schedule call (reliable for finals)
+ * over N live-feed requests that often time out on serverless and leave cards stuck
+ * on "starts at 6:15".
+ */
 export async function loadLiveGameStatesForBoard(board: GamePrediction[]) {
+  const scheduleByPk = await fetchScheduleStatesByPk(boardSlateDates(board));
   const entries = await Promise.all(
-    board.map(async (game) => [game.id, await loadLiveGameState(game)] as const)
+    board.map(async (game) => {
+      const pk = getGamePk(game);
+      const scheduled = pk ? scheduleByPk.get(pk) : undefined;
+      if (scheduled) {
+        return [game.id, stateFromScheduleGame(game, scheduled)] as const;
+      }
+      // Fallback for missing schedule rows (rare).
+      return [game.id, await loadLiveGameState(game)] as const;
+    })
   );
 
   return new Map(entries);

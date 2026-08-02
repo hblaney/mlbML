@@ -1,5 +1,11 @@
 import { GamePrediction, getTeam, normalizeTeamId } from "./data";
-import { formatInningWithArrow, isGameFinal, isGameLive, LiveGameState } from "./live-game";
+import {
+  formatInningWithArrow,
+  gameStartIsStale,
+  isGameFinal,
+  isGameLive,
+  LiveGameState
+} from "./live-game";
 import { formatCentralGameSchedule } from "./time";
 
 export type WatchTeamCard = {
@@ -41,13 +47,21 @@ export function pickTeamGame(
   }
 
   // Prefer a just-finished game over tomorrow's scheduled one on the same card.
-  const finalGame = teamGames.find((game) => isGameFinal(liveByGameId.get(game.id)));
+  const finalGame = teamGames.find((game) => {
+    const state = liveByGameId.get(game.id);
+    return isGameFinal(state) || (!state && gameStartIsStale(game.startsAt));
+  });
   if (finalGame) {
     return finalGame;
   }
 
   const upcomingGames = teamGames
-    .filter((game) => !isGameFinal(liveByGameId.get(game.id)))
+    .filter((game) => {
+      const state = liveByGameId.get(game.id);
+      if (isGameFinal(state)) return false;
+      if (!state && gameStartIsStale(game.startsAt)) return false;
+      return true;
+    })
     .sort((left, right) => new Date(left.startsAt).getTime() - new Date(right.startsAt).getTime());
 
   return upcomingGames[0] ?? teamGames[0];
@@ -85,6 +99,17 @@ export function formatWatchGameStatusLine(
 
   if (liveGame && isGameLive(liveGame)) {
     return formatLiveStatusLine(game, liveGame);
+  }
+
+  // Never show "8/1 @ 6:15 PM" after the game has clearly finished — that was the
+  // bug when live feeds timed out and finals fell through to the schedule line.
+  if (gameStartIsStale(game.startsAt)) {
+    if (liveGame && (liveGame.away || liveGame.home)) {
+      return formatFinalStatusLine(game, liveGame);
+    }
+    const away = getTeam(game.awayTeam).abbreviation;
+    const home = getTeam(game.homeTeam).abbreviation;
+    return `Final · ${away} vs ${home}`;
   }
 
   return formatScheduledStatusLine(game, teamId);

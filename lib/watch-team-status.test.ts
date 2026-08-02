@@ -70,4 +70,16 @@ assert.equal(
 const finalCards = buildWatchTeamStatuses(teams, board, finalLive);
 assert.equal(finalCards[0].statusLine, "Final · ARI 12-8 CLE");
 
+// Missing live payload after first pitch must NOT fall back to "starts at …".
+const staleStart = new Date(Date.now() - 5 * 60 * 60 * 1000).toISOString();
+const oldBoard = [game({ id: "az-cle-1", awayTeam: "az", homeTeam: "cle", startsAt: staleStart })];
+assert.equal(
+  formatWatchGameStatusLine(oldBoard[0], null, "az"),
+  "Final · ARI vs CLE"
+);
+assert.equal(
+  buildWatchTeamStatuses(teams, oldBoard, new Map([["az-cle-1", null]]))[0].statusLine,
+  "Final · ARI vs CLE"
+);
+
 console.log("watch_team_status_ok");
