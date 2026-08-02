@@ -220,7 +220,10 @@ export default async function WatchTeamPage({ params }: WatchTeamPageProps) {
   const [predictions, standings] = await Promise.all([loadPredictionBoard(), loadLiveStandings()]);
   const standing = standings.find((item) => item.teamId === team.id);
   const liveByGameId = await loadLiveGameStatesForBoard(predictions);
-  const primaryGame = pickTeamGame(team.id, predictions, liveByGameId);
+  const teamPredictions = predictions.filter(
+    (game) => game.awayTeam === team.id || game.homeTeam === team.id
+  );
+  const primaryGame = pickTeamGame(team.id, predictions, liveByGameId) ?? undefined;
   const opponentId = primaryGame?.awayTeam === team.id ? primaryGame.homeTeam : primaryGame?.awayTeam;
   const buffstreams = primaryGame ? await resolveBuffstreamsForGame(primaryGame) : null;
   const stream = getTeamWatchStream(team.id, opponentId, buffstreams);
