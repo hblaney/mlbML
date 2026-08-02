@@ -15,22 +15,21 @@ DESIGN (validated Jun 2026 on 3,410 graded games, chronological 70/30 split):
 
 from __future__ import annotations
 
-# Confidence thresholds on the market-blended probability scale, derived from ACTUAL
-# walk-forward win rates by pick-probability bucket (2,200 odds-backed games, Jun 2026):
-#   < 0.58        -> ~49-51% won   (Low — coin flip, DO NOT bet)
-#   0.58 - 0.65   -> ~59-62% won   (Medium)
-#   0.65 - 0.70   -> ~68-72% won   (High) — raised from 0.64 Jun 2026 walk-forward (+2.7pp H/E hit)
-#   0.70+         -> ~74% won      (Elite)
-# Probability sets the ceiling; High/Elite also require starter ERA edge + non-negative form.
+# Confidence thresholds on the true probability scale + win-separating gates.
+# Validated on 2026 market-backed walk-forward (not the old "force ≥3 Highs/day" quota):
+#   High:  p≥0.60 + form≥0 + era≥0.5 + market agrees  → ~72% on ~1.2/day
+#   Elite: p≥0.65 + form≥0.02 + era≥1.5 + market agrees → ~75% on ~0.25/day
+# No daily High quota — if nothing clears, the board shows zero Highs.
 MEDIUM_MIN = 0.58
-HIGH_MIN_RAW_PICK = 0.65
-ELITE_MIN_RAW_PICK = 0.70
-# High/Elite also require a real starter edge (walk-forward 2026: era>=0.8 + prob>=0.65 + form>=0.02
-# yields 81.5% H/E on 65 picks vs form>=0.0 at 81.3%/75).
-HIGH_MIN_ERA_DIFF = 0.8
-ELITE_MIN_ERA_DIFF = 2.5
-HIGH_MIN_FORM_EDGE = 0.02
-ELITE_MIN_FORM_EDGE = 0.0
+HIGH_MIN_RAW_PICK = 0.60
+ELITE_MIN_RAW_PICK = 0.65
+HIGH_MIN_ERA_DIFF = 0.5
+ELITE_MIN_ERA_DIFF = 1.5
+HIGH_MIN_FORM_EDGE = 0.0
+ELITE_MIN_FORM_EDGE = 0.02
+# Also require a real price edge so High isn't just chalk the book already loves.
+HIGH_MIN_MODEL_EDGE = 0.02
+ELITE_MIN_MODEL_EDGE = 0.02
 # Picks with an unconfirmed starter or no market price can't earn High/Elite (the
 # probability is less trustworthy without a confirmed starter / market anchor).
 UNCERTAIN_MEDIUM_MIN = 0.60
@@ -81,16 +80,26 @@ def confidence_from_display(
     if not starter_certain or not market_available:
         return "Medium" if p >= UNCERTAIN_MEDIUM_MIN else "Low"
 
-    # High/Elite require the model to agree with the market side — contrarian High
-    # picks hit ~68% vs ~81% when market agrees (2026 walk-forward, model-only publish).
+    # High/Elite require market agreement + price edge. Contrarian / no-edge "Highs"
+    # are how the label got worthless.
+    edge = float(model_edge)
     tier = "Low"
-    if p >= ELITE_MIN_RAW_PICK and era_diff >= ELITE_MIN_ERA_DIFF and form_edge >= ELITE_MIN_FORM_EDGE:
+    if (
+        p >= ELITE_MIN_RAW_PICK
+        and era_diff >= ELITE_MIN_ERA_DIFF
+        and form_edge >= ELITE_MIN_FORM_EDGE
+        and edge >= ELITE_MIN_MODEL_EDGE
+        and market_agrees is True
+    ):
         tier = "Elite"
-    elif p >= HIGH_MIN_RAW_PICK and era_diff >= HIGH_MIN_ERA_DIFF and form_edge >= HIGH_MIN_FORM_EDGE:
+    elif (
+        p >= HIGH_MIN_RAW_PICK
+        and era_diff >= HIGH_MIN_ERA_DIFF
+        and form_edge >= HIGH_MIN_FORM_EDGE
+        and edge >= HIGH_MIN_MODEL_EDGE
+        and market_agrees is True
+    ):
         tier = "High"
     elif p >= MEDIUM_MIN:
         tier = "Medium"
-
-    if tier in ("High", "Elite") and market_agrees is False:
-        return "Medium" if p >= MEDIUM_MIN else "Low"
     return tier

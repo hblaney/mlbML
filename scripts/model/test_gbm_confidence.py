@@ -51,15 +51,15 @@ def test_no_high_quota_without_gates() -> None:
 def test_high_requires_full_gates() -> None:
     board = [
         {
-            "pickProbability": 0.66,
-            "rawPickProbability": 0.66,
+            "pickProbability": 0.62,
+            "rawPickProbability": 0.62,
             "starterCertain": True,
-            "homeMoneyline": -150,
-            "awayMoneyline": 130,
+            "homeMoneyline": -130,
+            "awayMoneyline": 110,
             "marketAgrees": True,
             "modelEdge": 0.04,
-            "eraDiff": 1.0,
-            "formEdge": 0.05,
+            "eraDiff": 0.6,
+            "formEdge": 0.0,
             "explanation": [],
         }
     ]
@@ -67,7 +67,39 @@ def test_high_requires_full_gates() -> None:
     assert board[0]["confidence"] == "High"
 
 
+def test_no_high_without_market_agree_or_edge() -> None:
+    board = [
+        {
+            "pickProbability": 0.66,
+            "rawPickProbability": 0.66,
+            "starterCertain": True,
+            "homeMoneyline": -150,
+            "awayMoneyline": 130,
+            "marketAgrees": False,
+            "modelEdge": 0.08,
+            "eraDiff": 1.5,
+            "formEdge": 0.1,
+            "explanation": [],
+        },
+        {
+            "pickProbability": 0.66,
+            "rawPickProbability": 0.66,
+            "starterCertain": True,
+            "homeMoneyline": -150,
+            "awayMoneyline": 130,
+            "marketAgrees": True,
+            "modelEdge": 0.005,
+            "eraDiff": 1.5,
+            "formEdge": 0.1,
+            "explanation": [],
+        },
+    ]
+    assign_daily_confidence(board)
+    assert all(r["confidence"] != "High" and r["confidence"] != "Elite" for r in board)
+
+
 if __name__ == "__main__":
     test_no_high_quota_without_gates()
     test_high_requires_full_gates()
+    test_no_high_without_market_agree_or_edge()
     print("ok")
