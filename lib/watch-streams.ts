@@ -66,41 +66,32 @@ function buildTeamStream(
 ): WatchStreamSource {
   const sources: StreamLink[] = [];
 
-  if (buffstreams?.streamIds.length) {
-    sources.push({
-      label: "Home",
-      url: embedPath(`buff${buffstreams.streamIds[0]}`)
-    });
-
-    if (buffstreams.streamIds[1]) {
-      sources.push({
-        label: "Backup",
-        url: embedPath(`buff${buffstreams.streamIds[1]}`)
-      });
-    }
-  }
-
+  // Default to the numbered streame.center feed — it works from a static fallback
+  // even when Cloudflare blocks the deployed server from scraping mlbwebcast.com.
+  // The unnumbered "HD" feed needs a live token scrape and often fails on Vercel.
   sources.push(
-    { label: "Link 3", url: embedPath(`${config.streamSlug}2`) },
-    { label: "Link 4", url: embedPath(`${config.streamSlug}3`) }
+    { label: "Home", url: embedPath(`${config.streamSlug}2`) },
+    { label: "HD", url: embedPath(config.streamSlug) },
+    { label: "Link 3", url: embedPath(`${config.streamSlug}3`) }
   );
 
-  if (!buffstreams?.streamIds.length) {
+  if (buffstreams?.streamIds.length) {
     sources.push({
-      label: "Home",
-      url: webcastStreamUrl(config.streamSlug),
-      external: true
+      label: "Backup",
+      url: embedPath(`buff${buffstreams.streamIds[0]}`)
     });
-
-    const opponentConfig = opponentTeamId ? teamStreamConfig[opponentTeamId] : undefined;
-    if (opponentConfig) {
-      sources.push({
-        label: "Away",
-        url: webcastStreamUrl(opponentConfig.streamSlug),
-        external: true
-      });
-    }
   }
+
+  const opponentConfig = opponentTeamId ? teamStreamConfig[opponentTeamId] : undefined;
+  if (opponentConfig) {
+    sources.push({ label: "Away", url: embedPath(`${opponentConfig.streamSlug}2`) });
+  }
+
+  sources.push({
+    label: "Open site",
+    url: webcastStreamUrl(config.streamSlug),
+    external: true
+  });
 
   return {
     livePageUrl: buffstreams?.pageUrl ?? `${MLB_WEBCAST_ORIGIN}/${config.liveSlug}-live/`,
@@ -111,9 +102,10 @@ function buildTeamStream(
 export const mlbNetworkStream: WatchStreamSource = {
   livePageUrl: `${MLB_WEBCAST_ORIGIN}/mlb-network-live/`,
   sources: [
-    { label: "Link 3", url: embedPath("mlbnetwork2") },
-    { label: "Link 4", url: embedPath("mlbnetwork3") },
-    { label: "Home", url: webcastStreamUrl("mlbnetwork"), external: true }
+    { label: "Home", url: embedPath("mlbnetwork2") },
+    { label: "HD", url: embedPath("mlbnetwork") },
+    { label: "Link 3", url: embedPath("mlbnetwork3") },
+    { label: "Open site", url: webcastStreamUrl("mlbnetwork"), external: true }
   ]
 };
 

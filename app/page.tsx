@@ -32,15 +32,15 @@ export default async function HomePage() {
         <p className="eyebrow">Daily MLB model</p>
         <h1>Today&apos;s MLB predictions.</h1>
         <p className="lead">
-          Full-game Monte Carlo win probabilities — lineups, starters, and bullpens simulated thousands of
-          times. Sportsbook odds are shown for comparison, not as the pick.
+          Raw GBM win probabilities (Elo, form, starters, park) — not market-anchored. High confidence
+          is the daily top card (≥3 picks). Sportsbook lines are comparison only.
         </p>
         <div className="hero-actions">
-          <Link href="/accuracy" className="button">
-            Model accuracy
+          <Link href="/props" className="button">
+            Props card
           </Link>
           <Link href="/best-bets" className="button ghost">
-            Betting (optional)
+            Moneyline ticket
           </Link>
         </div>
       </section>

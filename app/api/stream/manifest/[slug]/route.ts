@@ -1,6 +1,7 @@
 import { resolveStreamManifest } from "@/lib/stream-proxy";
 
-export const runtime = "edge";
+// Node runtime: Edge IPs are often Cloudflare-blocked by MLB Webcast.
+export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
 type ManifestRouteProps = {

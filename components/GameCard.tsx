@@ -58,7 +58,7 @@ export function GameCard({ game, recordsByTeamId = {} }: { game: GamePrediction;
       </div>
 
       <div className="pick-block">
-        <p className="muted">Sim win probability</p>
+        <p className="muted">Model win probability</p>
         <div className="metric">{favorite.shortName} {formatPercent(pickProbability)}</div>
         <p className="muted">
           {marketForPick != null ? (
@@ -74,6 +74,8 @@ export function GameCard({ game, recordsByTeamId = {} }: { game: GamePrediction;
                   </span>
                 </>
               ) : null}
+              {" · "}
+              {game.confidence}
             </>
           ) : (
             <>Confidence: {game.confidence}</>
@@ -90,7 +92,7 @@ export function GameCard({ game, recordsByTeamId = {} }: { game: GamePrediction;
           <p className="muted">Away starter</p>
           <strong>{game.awayPitcher}</strong>
           <p className="muted">
-            Sim {formatPercent(game.modelAwayWinProbability)}
+            Model {formatPercent(game.modelAwayWinProbability)}
             {market ? ` · Mkt ${formatPercent(market.away)}` : ""} · {awayOdds}
           </p>
         </div>
@@ -98,7 +100,7 @@ export function GameCard({ game, recordsByTeamId = {} }: { game: GamePrediction;
           <p className="muted">Home starter</p>
           <strong>{game.homePitcher}</strong>
           <p className="muted">
-            Sim {formatPercent(game.modelHomeWinProbability)}
+            Model {formatPercent(game.modelHomeWinProbability)}
             {market ? ` · Mkt ${formatPercent(market.home)}` : ""} · {homeOdds}
           </p>
         </div>

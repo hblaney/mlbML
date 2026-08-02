@@ -10,13 +10,16 @@ const ALLOWED_UPSTREAM_HOSTS = new Set([
 
 const STREAM_HOST_SUFFIXES = [".m3u8", ".ts", ".m4s", ".mp4", ".key"];
 const STREAM_TOKEN_PATTERN = /var _d=\[(\d+),'(\d+)','([a-f0-9]+)'\]/i;
-const IFRAME_SRC_PATTERN = /<iframe[^>]+src=['"]([^'"]+)['"]/i;
 
 const ALLOWED_IFRAME_HOSTS = new Set([
+  // Current MLB Webcast embed hosts (Aug 2026+)
+  "streame.center",
+  "www.streame.center",
+  // Legacy hosts kept for older pages / network feeds
   "streams.center",
   "www.streams.center",
   "embedstreams.top",
-  "www.embedstreams.top"
+  "www.embedstreams.top",
 ]);
 
 export type StreamManifest = {
@@ -54,6 +57,7 @@ export function isAllowedUpstreamHost(hostname: string) {
     host.endsWith(".googlevideo.com") ||
     host.endsWith(".hereisman.net") ||
     host.endsWith(".r2.cloudflarestorage.com") ||
+    host.endsWith(".b-cdn.net") || // BunnyCDN (current MLB Webcast origin)
     host.includes("kamfir")
   );
 }
@@ -197,26 +201,26 @@ export function isAllowedIframeHost(hostname: string) {
 }
 
 export function parseIframeEmbedUrl(html: string) {
-  const match = html.match(IFRAME_SRC_PATTERN);
-  if (!match) {
-    return null;
-  }
-
-  const rawSrc = match[1].trim();
-  if (!rawSrc || rawSrc.startsWith("/cdn-cgi/")) {
-    return null;
-  }
-
-  try {
-    const parsed = new URL(rawSrc, MLB_WEBCAST_ORIGIN);
-    if (!isAllowedIframeHost(parsed.hostname)) {
-      return null;
+  // Prefer the first allowed player iframe (pages may also include challenge/ad iframes).
+  for (const match of html.matchAll(/<iframe[^>]+src=['"]([^'"]+)['"]/gi)) {
+    const rawSrc = match[1].trim();
+    if (!rawSrc || rawSrc.startsWith("/cdn-cgi/")) {
+      continue;
     }
 
-    return parsed.toString();
-  } catch {
-    return null;
+    try {
+      const parsed = new URL(rawSrc, MLB_WEBCAST_ORIGIN);
+      if (!isAllowedIframeHost(parsed.hostname)) {
+        continue;
+      }
+
+      return parsed.toString();
+    } catch {
+      continue;
+    }
   }
+
+  return null;
 }
 
 export async function resolveIframeEmbedUrl(slug: string) {

@@ -6,7 +6,7 @@ import {
   proxyHlsUrl
 } from "@/lib/stream-proxy";
 
-export const runtime = "edge";
+export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
 type UpstreamRouteProps = {

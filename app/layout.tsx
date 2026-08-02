@@ -1,11 +1,17 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { FavoritesProvider } from "@/components/FavoritesProvider";
 import { Nav } from "@/components/Nav";
 import "./globals.css";
 
 export const metadata: Metadata = {
   title: "MLB Edge",
-  description: "Daily MLB predictions, best bets, team stats, model accuracy, and watch links."
+  description: "Daily MLB board, props, and moneyline tickets."
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {

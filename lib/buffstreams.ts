@@ -89,6 +89,11 @@ export async function resolveBuffstreamsForGame(game: GamePrediction): Promise<B
     return null;
   }
 
+  // Domain seized / offline — don't waste time scraping a law-enforcement splash page.
+  if (/DOMAIN HAS BEEN SEIZED|Operation Offsides|This website has been seized/i.test(listHtml)) {
+    return null;
+  }
+
   const gameLinks = [...listHtml.matchAll(/href="(https:\/\/buffstreams\.plus\/mlb\/([^/]+)\/\d+)"/g)];
 
   for (const [, pageUrl, slug] of gameLinks) {

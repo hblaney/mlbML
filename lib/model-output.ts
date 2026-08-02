@@ -848,6 +848,9 @@ export type PropPredictionsOutput = {
   line_source?: string;
   count: number;
   min_edge?: number;
+  no_bet?: boolean;
+  no_bet_reason?: string;
+  card_quality?: string;
   top_bets?: PropPrediction[];
   /** Highest projected starter K Overs (includes model fill-ins when PP omits an ace). */
   ace_k_card?: PropPrediction[];

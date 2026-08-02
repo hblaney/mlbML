@@ -4,7 +4,6 @@ import { useState } from "react";
 import {
   getDefaultEmbedSource,
   hasBuffstreamsFeeds,
-  hasExternalTeamFeeds,
   type StreamLink
 } from "@/lib/watch-streams";
 
@@ -61,15 +60,11 @@ export function StreamEmbed({ title, sources }: StreamEmbedProps) {
               </button>
             ))}
           </div>
-          {hasBuffstreamsFeeds(sources) ? (
-            <p className="muted stream-feed-note">
-              Home and Backup use the Buffstreams team broadcast. Link 3 and Link 4 are alternate feeds.
-            </p>
-          ) : hasExternalTeamFeeds(sources) ? (
-            <p className="muted stream-feed-note">
-              Home and Away open the team broadcast on MLB Webcast. Link 3 and Link 4 stay embedded here.
-            </p>
-          ) : null}
+          <p className="muted stream-feed-note">
+            Home is the default feed. HD is an alternate. If one is blank, try another button — or Open
+            site.
+            {hasBuffstreamsFeeds(sources) ? " Backup is an extra source when available." : ""}
+          </p>
         </>
       ) : null}
     </div>
