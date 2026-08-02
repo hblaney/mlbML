@@ -173,6 +173,28 @@ def _decimal(american: int) -> float:
 K_OVER_MIN_CONF = 0.60
 K_OVER_MIN_PROJ_EDGE = 1.0
 K_OVER_MIN_LINE = 4.5  # real PP ladder; 3.5 baby goblins still excluded
+# Unders need the mean clearly below the line — Gasser 4.83 vs 5.0 was Elite junk.
+UNDER_MIN_PROJ_GAP = {
+    "pitcher_strikeouts": 1.0,
+    "pitcher_hits_allowed": 0.75,
+    "pitcher_earned_runs": 0.5,
+    "batter_hits": 0.35,
+    "batter_total_bases": 0.5,
+}
+DEFAULT_UNDER_MIN_PROJ_GAP = 0.5
+# Ace K Unders (6.5+) need a bigger cushion or they're just fading good pitchers.
+K_UNDER_ACE_LINE = 6.5
+K_UNDER_ACE_MIN_GAP = 1.5
+# Top card was 5× pitcher Ks because Unders on high K lines print soft model_probs.
+MAX_PER_PROP_ON_CARD = 2
+MAX_STRIKEOUT_LEGS_ON_CARD = 2
+# PrizePicks is mostly goblin (More-only). When playable Unders are scarce, seed
+# the card with strong hits/TB Overs so Top 5 isn't forced into pitcher Ks.
+BATTER_OVER_MIN_CONF = 0.62
+BATTER_OVER_MIN_PROJ_EDGE = {
+    "batter_hits": 0.40,
+    "batter_total_bases": 0.50,
+}
 
 # PrizePicks payout multipliers (stake-normalized). Used for the honest card EV
 # and the no-bet gate: if the shipped legs' probabilities don't clear the vig,
@@ -275,23 +297,54 @@ def _confidence(
     side: str = "Over",
     model_prob: float = 0.5,
     prop: str | None = None,
+    market_is_pickem: bool = False,
 ) -> str:
-    # Confidence is about hit probability, not edge-vs-pick'em. Against a 0.5
-    # PrizePicks prior, edge>=0.09 is trivial (model 0.59) and was labeling junk Elite.
+    # Elite requires real multi-book odds — PrizePicks pick'em is NOT 3 books.
+    real_books = (not market_is_pickem) and int(book_count or 0) >= 2
     if side == "Over":
         if prop == "pitcher_strikeouts" and model_prob >= 0.75:
-            return "Elite" if book_count >= 2 else "High"
+            return "Elite" if real_books else "High"
         if prop == "pitcher_strikeouts" and model_prob >= K_OVER_MIN_CONF:
             return "High"
+        # Hits/TB goblin Overs are the real app board — don't leave them forever-Low
+        # while only pitcher Ks can print High.
+        if prop in ("batter_hits", "batter_total_bases"):
+            if model_prob >= 0.70:
+                return "High"
+            if model_prob >= 0.62:
+                return "Medium"
+            return "Low"
         if model_prob < 0.85:
             return "Low"
-    if side == "Under" and model_prob >= TOP_BET_MIN_CONF and book_count >= 2:
+    if side == "Under" and model_prob >= 0.72 and real_books:
         return "Elite"
     if side == "Under" and model_prob >= 0.70:
         return "High"
     if model_prob >= 0.62 or edge >= 0.06:
         return "Medium"
     return "Low"
+
+
+def _under_proj_gap(prop: str) -> float:
+    return float(UNDER_MIN_PROJ_GAP.get(prop, DEFAULT_UNDER_MIN_PROJ_GAP))
+
+
+def _is_thin_under(p: dict) -> bool:
+    """Reject Unders where the projection barely clears the line (or is an ace trap)."""
+    if (p.get("side") or "") != "Under":
+        return False
+    try:
+        line = float(p.get("line") or 0)
+        proj = float(p.get("projection") or 0)
+    except (TypeError, ValueError):
+        return False
+    gap = line - proj
+    prop = str(p.get("prop") or "")
+    if gap < _under_proj_gap(prop):
+        return True
+    if prop == "pitcher_strikeouts" and line >= K_UNDER_ACE_LINE and gap < K_UNDER_ACE_MIN_GAP:
+        return True
+    return False
 
 
 def _is_freebie_leg(p: dict) -> bool:
@@ -391,15 +444,24 @@ def _sanitize_leg(p: dict) -> dict:
     model_p = float(row.get("model_prob") or 0.0)
     edge = float(row.get("edge") or 0.0)
     books = int(row.get("book_count") or 0)
+    pickem = bool(row.get("market_is_pickem")) or row.get("line_source") == "prizepicks"
     # Recompute confidence from model_prob — never trust a stale Elite tag.
     row["confidence"] = _confidence(
-        edge, books, side=side, model_prob=model_p, prop=row.get("prop"),
+        edge,
+        books,
+        side=side,
+        model_prob=model_p,
+        prop=row.get("prop"),
+        market_is_pickem=pickem,
     )
     if model_p < TOP_BET_MIN_CONF:
         row["below_oos_threshold"] = True
-    # Unders with mean at/above the line are coin flips — mark them.
+    # Unders with mean at/above the line — or barely below — are coin flips.
     try:
-        if side == "Under" and float(row.get("projection") or 0) >= float(row.get("line") or 0):
+        if side == "Under" and (
+            float(row.get("projection") or 0) >= float(row.get("line") or 0)
+            or _is_thin_under(row)
+        ):
             row["coin_flip"] = True
             row["confidence"] = "Low"
     except Exception:
@@ -432,13 +494,21 @@ def _pick_diverse(pool: list[dict], n: int, *, max_per_prop: int) -> list[dict]:
     for p in pool:
         if p["player"] in best:
             continue
-        if prop_counts.get(p["prop"], 0) >= max_per_prop:
-            continue
         if _is_unplayable_on_prizepicks(p) or _is_freebie_leg(p) or _hot_streak_blocks_under(p):
+            continue
+        if _is_thin_under(p):
             continue
         if p.get("bettable_on_prizepicks") is False:
             continue
-        is_pitcher = str(p.get("prop") or "").startswith("pitcher_")
+        prop = str(p.get("prop") or "")
+        prop_cap = (
+            MAX_STRIKEOUT_LEGS_ON_CARD
+            if prop == "pitcher_strikeouts"
+            else max_per_prop
+        )
+        if prop_counts.get(prop, 0) >= prop_cap:
+            continue
+        is_pitcher = prop.startswith("pitcher_")
         if (not is_pitcher) and p.get("lineup_confirmed") is False:
             continue
         if _leg_blocked_reason(p, now_utc=now_utc, slate_date=slate_date):
@@ -456,7 +526,7 @@ def _pick_diverse(pool: list[dict], n: int, *, max_per_prop: int) -> list[dict]:
         if row.get("coin_flip") or row.get("unplayable"):
             continue
         best[p["player"]] = row
-        prop_counts[p["prop"]] = prop_counts.get(p["prop"], 0) + 1
+        prop_counts[prop] = prop_counts.get(prop, 0) + 1
         if game:
             game_counts[game] = game_counts.get(game, 0) + 1
             (pitcher_teams if is_pitcher else batter_teams).setdefault(game, set()).add(team)
@@ -585,7 +655,7 @@ def build_predictions_from_prizepicks(game_date: date) -> list[dict]:
             over_price=-110,
             under_price=-110,
             market_prob_over=0.5,  # PrizePicks pick'em
-            book_count=3,
+            book_count=0,  # pick'em is not a multi-book consensus
         )
 
         if pp.prop.startswith("batter_"):
@@ -669,8 +739,20 @@ def build_predictions_from_prizepicks(game_date: date) -> list[dict]:
         edge = model_p - pickem
         if edge < MIN_EDGE:
             continue
-        # Unders need the mean below the line; otherwise it's a dressed-up coin flip.
-        if side == "Under" and float(proj.projection) >= float(pp.line):
+        # Unders need the mean clearly below the line — not a 0.1 cushion.
+        if side == "Under" and float(proj.projection) >= float(pp.line) - _under_proj_gap(pp.prop):
+            continue
+        thin_probe = {
+            "prop": pp.prop,
+            "side": side,
+            "line": float(pp.line),
+            "projection": float(proj.projection),
+        }
+        if _is_thin_under(thin_probe):
+            continue
+        # Goblin/demon Unders are not selectable on PrizePicks — never list them
+        # as High "leans" (they were crowding the board and the Top 5 pool).
+        if side == "Under" and str(pp.odds_type or "").lower() in ("demon", "goblin"):
             continue
         cand = {
                 "game_id": pp.game_id,
@@ -693,7 +775,12 @@ def build_predictions_from_prizepicks(game_date: date) -> list[dict]:
                 "price": None,
                 "ev": None,
                 "confidence": _confidence(
-                    edge, 3, side=side, model_prob=model_p, prop=pp.prop,
+                    edge,
+                    0,
+                    side=side,
+                    model_prob=model_p,
+                    prop=pp.prop,
+                    market_is_pickem=True,
                 ),
                 "book_count": 0,  # not a multi-book consensus — pick'em
                 "line_source": "prizepicks",
@@ -1253,8 +1340,48 @@ def _accuracy_lane(predictions: list[dict], min_conf: float, *, prefer_lines: bo
             continue
         if prefer_lines and (p["prop"], float(p["line"])) not in ACCURACY_LINES:
             continue
+        if _is_thin_under(p):
+            continue
+        # Demon/goblin Unders cannot be selected on PrizePicks.
+        if _is_unplayable_on_prizepicks(p):
+            continue
         out.append(p)
     out.sort(key=lambda p: (p["model_prob"], p["edge"]), reverse=True)
+    return out
+
+
+def _batter_over_lane(predictions: list[dict]) -> list[dict]:
+    """Strong hits/TB Overs — diversifies the card when Unders are unplayable.
+
+    PrizePicks tags most counting lines as goblin (More-only). The Under-only
+    accuracy lane then starves and Top 5 collapses to pitcher Ks. This lane
+    only takes overs with a real projection cushion.
+    """
+    out = []
+    for p in predictions:
+        prop = str(p.get("prop") or "")
+        if prop not in BATTER_OVER_MIN_PROJ_EDGE or p.get("side") != "Over":
+            continue
+        if float(p.get("model_prob") or 0) < BATTER_OVER_MIN_CONF:
+            continue
+        try:
+            line = float(p.get("line") or 0)
+            proj = float(p.get("projection") or 0)
+        except (TypeError, ValueError):
+            continue
+        if proj < line + BATTER_OVER_MIN_PROJ_EDGE[prop]:
+            continue
+        if _is_unplayable_on_prizepicks(p) or _is_freebie_leg(p):
+            continue
+        out.append(p)
+    out.sort(
+        key=lambda p: (
+            1 if p.get("pp_odds_type") == "standard" else 0,
+            p["model_prob"],
+            p["edge"],
+        ),
+        reverse=True,
+    )
     return out
 
 
@@ -1295,24 +1422,23 @@ def _k_over_lane(predictions: list[dict]) -> list[dict]:
 
 
 def build_top_bets(predictions: list[dict], n: int = 5) -> list[dict]:
-    """Always field n Flex legs: top n unique players by model_prob.
+    """Daily Top N: quality legs with market diversity.
 
-    No reserved markets, no "max 2 of this prop" cap — that was kicking out
-    #3 overall (Miz) for a weaker Singles leg. Only constraints:
-      - one leg per player
-      - freebies / coin-flips excluded
-      - K Overs eligible alongside accuracy Unders
+    Caps pitcher_strikeouts at 2 so the card isn't five soft K Unders. Prefer
+    fewer honest mixed legs (hits/TB + K) over padding with the same market.
     """
     # Floor matches OOS-tuned TOP_BET_MIN_CONF — do not pad with sub-threshold junk.
     pool = [
         p for p in (
             _accuracy_lane(predictions, TOP_BET_MIN_CONF, prefer_lines=False)
+            + _batter_over_lane(predictions)
             + _k_over_lane(predictions)
         )
         if (
             not _is_unplayable_on_prizepicks(p)
             and not _is_freebie_leg(p)
             and not _hot_streak_blocks_under(p)
+            and not _is_thin_under(p)
         )
     ]
     dedup: dict[tuple[str, str, float, str], dict] = {}
@@ -1321,15 +1447,18 @@ def build_top_bets(predictions: list[dict], n: int = 5) -> list[dict]:
         prev = dedup.get(key)
         if prev is None or p["model_prob"] > prev["model_prob"]:
             dedup[key] = p
+    # Prefer non-K props when model_prob is close — breaks the all-K Top 5.
     pool = sorted(
         dedup.values(),
-        key=lambda p: (p["model_prob"], p["edge"]),
+        key=lambda p: (
+            p["model_prob"],
+            0 if p.get("prop") != "pitcher_strikeouts" else -0.01,
+            p["edge"],
+        ),
         reverse=True,
     )
 
-    # Unique players only — allow any number of the same prop type.
-    # Prefer fewer honest legs over forcing n with coin flips.
-    legs = _pick_diverse(pool, n, max_per_prop=n)
+    legs = _pick_diverse(pool, n, max_per_prop=MAX_PER_PROP_ON_CARD)
     return [_sanitize_leg(l) for l in legs[:n]]
 
 
