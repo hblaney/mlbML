@@ -72,7 +72,7 @@ export function WatchMultiView({ games, slots, onChange }: WatchMultiViewProps) 
   const available = games.filter((game) => !slots.some((slot) => slot.gameId === game.id));
 
   return (
-    <section className="panel" id="multi-view">
+    <section className="panel">
       <div className="section-heading">
         <div>
           <p className="eyebrow">Multi-view</p>

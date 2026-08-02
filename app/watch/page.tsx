@@ -20,11 +20,6 @@ export default async function WatchPage() {
       <section className="panel strong">
         <p className="eyebrow">Team streams</p>
         <h1>Watch</h1>
-        <div className="hero-actions">
-          <a className="button" href="#multi-view">
-            Multi-view
-          </a>
-        </div>
       </section>
 
       <WatchHub games={games} teams={teams} />
