@@ -138,7 +138,7 @@ def main() -> None:
         notes = [
             f"Retrained through {bundle.trained_through.isoformat()}",
             "Published pick = raw GBM win% (Elo/form/starter/park). Not market-anchored.",
-            "OOS May–Jul 2026: overall ≈61%; daily top-3 High card ≈73% (90% not achievable at ≥3/day).",
+            "OOS May–Jul 2026: overall ≈61%. High/Elite require p/ERA/form/market gates — no daily High quota.",
         ]
         if sim.ok:
             notes.append(

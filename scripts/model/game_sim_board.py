@@ -261,27 +261,28 @@ def confidence_from_sim(
     *,
     starter_certain: bool,
     lineup_source: str,
+    era_diff: float = 0.0,
+    form_edge: float = 0.0,
+    market_available: bool = False,
+    market_agrees: bool | None = None,
+    model_edge: float = 0.0,
 ) -> str:
-    if not starter_certain:
-        if pick_prob >= 0.60:
-            return "Medium"
-        if pick_prob >= 0.54:
-            return "Low"
-        return "Low"
-    if lineup_source == "projected" and pick_prob < 0.58:
-        # Unconfirmed lineups → don't claim Elite.
-        if pick_prob >= 0.56:
-            return "High"
-        if pick_prob >= 0.53:
-            return "Medium"
-        return "Low"
-    if pick_prob >= 0.62:
-        return "Elite"
-    if pick_prob >= 0.57:
-        return "High"
-    if pick_prob >= 0.53:
-        return "Medium"
-    return "Low"
+    """Sim diagnostic confidence — same accountable gates as the GBM board.
+
+    Projected lineups are treated as unconfirmed starters (cap at Medium).
+    """
+    from probability_calibration import confidence_from_display
+
+    certain = starter_certain and lineup_source != "projected"
+    return confidence_from_display(
+        float(pick_prob),
+        model_edge=float(model_edge),
+        starter_certain=certain,
+        market_available=market_available,
+        market_agrees=market_agrees,
+        era_diff=float(era_diff),
+        form_edge=float(form_edge),
+    )
 
 
 def simulate_game_record(
