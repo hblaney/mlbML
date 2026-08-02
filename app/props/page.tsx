@@ -22,6 +22,11 @@ function signedPct(value: number): string {
   return `${value >= 0 ? "+" : ""}${(value * 100).toFixed(1)}%`;
 }
 
+function proj(value: number | undefined | null): string {
+  if (value === undefined || value === null || Number.isNaN(Number(value))) return "—";
+  return Number(value).toFixed(1);
+}
+
 function isPickem(leg: PropPrediction): boolean {
   return Boolean(leg.market_is_pickem || leg.line_source === "prizepicks" || leg.market_prob == null);
 }
@@ -33,6 +38,18 @@ function marketCell(leg: PropPrediction): string {
 function pickLabel(leg: PropPrediction): string {
   if (leg.pick) return leg.pick;
   return `${leg.side === "Over" ? "More" : "Less"} ${leg.line}`;
+}
+
+function sortBoard(a: PropPrediction, b: PropPrediction): number {
+  const time = (a.commence_time || "").localeCompare(b.commence_time || "");
+  if (time) return time;
+  const matchup = (a.matchup || "").localeCompare(b.matchup || "");
+  if (matchup) return matchup;
+  const player = a.player.localeCompare(b.player);
+  if (player) return player;
+  const prop = a.prop_label.localeCompare(b.prop_label);
+  if (prop) return prop;
+  return a.line - b.line || a.side.localeCompare(b.side);
 }
 
 export default async function PropsPage() {
@@ -52,30 +69,10 @@ export default async function PropsPage() {
 
   const topBets = data.top_bets ?? [];
   const parlayLegs = data.parlay?.legs ?? [];
-  // One card: prefer published top_bets; fall back to daily parlay legs (same set historically).
   const cardLegs = topBets.length > 0 ? topBets : parlayLegs;
   const aceKCard = (data.ace_k_card ?? []).slice(0, 8);
   const correlatedParlays = (data.correlated_parlays ?? []).filter((c) => !c.no_bet).slice(0, 3);
-
-  const confRank: Record<string, number> = { Elite: 0, High: 1, Medium: 2, Low: 3 };
-  const actionableEdges = [...(data.predictions ?? [])]
-    .filter((p) => {
-      const odds = (p.pp_odds_type || "standard").toLowerCase();
-      if ((odds === "demon" || odds === "goblin") && p.side === "Under") return false;
-      if (p.coin_flip) return false;
-      return true;
-    })
-    .sort((a, b) => {
-      const baby = (p: PropPrediction) =>
-        p.prop === "pitcher_strikeouts" && p.side === "Over" && p.line < 5.5 ? 1 : 0;
-      if (baby(a) !== baby(b)) return baby(a) - baby(b);
-      const ca = confRank[a.confidence] ?? 4;
-      const cb = confRank[b.confidence] ?? 4;
-      if (ca !== cb) return ca - cb;
-      if (b.model_prob !== a.model_prob) return b.model_prob - a.model_prob;
-      return b.edge - a.edge;
-    })
-    .slice(0, 40);
+  const fullBoard = [...(data.predictions ?? [])].sort(sortBoard);
 
   return (
     <main className="shell stack">
@@ -83,8 +80,9 @@ export default async function PropsPage() {
         <p className="eyebrow">Props · {data.generated_at}</p>
         <h1>Today&apos;s prop card</h1>
         <p className="lead">
-          Play the card below as a <strong>3-leg Power</strong> (or Top 5 if posted). Model % is hit
-          probability vs PrizePicks pick&apos;em.
+          Play the card as a <strong>3-leg Power</strong> (or Top 5 if posted).{" "}
+          <strong>Proj</strong> is the model&apos;s expected number;{" "}
+          <strong>Hit %</strong> is the chance that side clears the line.
         </p>
       </section>
 
@@ -110,7 +108,8 @@ export default async function PropsPage() {
                   <th>Player</th>
                   <th className="hide-sm">Prop</th>
                   <th>Pick</th>
-                  <th>Model</th>
+                  <th>Proj</th>
+                  <th>Hit %</th>
                   <th className="hide-sm">Conf</th>
                 </tr>
               </thead>
@@ -130,6 +129,9 @@ export default async function PropsPage() {
                     <td className="hide-sm">{b.prop_label}</td>
                     <td>
                       <strong>{pickLabel(b)}</strong>
+                    </td>
+                    <td>
+                      <strong>{proj(b.projection)}</strong>
                     </td>
                     <td>{pct(b.model_prob)}</td>
                     <td className="hide-sm">
@@ -168,7 +170,8 @@ export default async function PropsPage() {
                     <tr>
                       <th>Player</th>
                       <th>Pick</th>
-                      <th>Model</th>
+                      <th>Proj</th>
+                      <th>Hit %</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -182,6 +185,9 @@ export default async function PropsPage() {
                           <strong>
                             {leg.side === "Over" ? "More" : "Less"} {leg.line}
                           </strong>
+                        </td>
+                        <td>
+                          <strong>{proj(leg.projection)}</strong>
                         </td>
                         <td>{pct(leg.model_prob)}</td>
                       </tr>
@@ -207,7 +213,7 @@ export default async function PropsPage() {
                   <th>Pitcher</th>
                   <th>Proj</th>
                   <th>Lean</th>
-                  <th>Model</th>
+                  <th>Hit %</th>
                 </tr>
               </thead>
               <tbody>
@@ -218,7 +224,7 @@ export default async function PropsPage() {
                       <div className="muted small">{b.matchup}</div>
                     </td>
                     <td>
-                      <strong>{b.projection}</strong>
+                      <strong>{proj(b.projection)}</strong>
                     </td>
                     <td>
                       <strong>More {b.line}</strong>
@@ -264,38 +270,51 @@ export default async function PropsPage() {
 
       <section className="panel">
         <div className="section-heading compact">
-          <h2>More edges</h2>
-          <span className="muted">{actionableEdges.length} shown</span>
+          <div>
+            <p className="eyebrow">Full board</p>
+            <h2>All props</h2>
+          </div>
+          <span className="muted">{fullBoard.length} lines</span>
         </div>
         <div className="table-scroll">
           <table className="table">
             <thead>
               <tr>
                 <th>Player</th>
+                <th className="hide-sm">Matchup</th>
                 <th className="hide-sm">Prop</th>
                 <th>Pick</th>
-                <th>Model</th>
+                <th>Proj</th>
+                <th>Hit %</th>
+                <th className="hide-sm">Conf</th>
                 <th className="hide-sm">Edge</th>
               </tr>
             </thead>
             <tbody>
-              {actionableEdges.map((p) => (
-                <tr key={`${p.player}-${p.prop}-${p.line}-${p.side}`}>
+              {fullBoard.map((p) => (
+                <tr key={`${p.player}-${p.prop}-${p.line}-${p.side}-${p.pp_odds_type ?? "std"}`}>
                   <td>
                     <strong>{p.player}</strong>
                     <div className="muted small">
                       {p.prop_label}
-                      <span className="hide-sm">
-                        {" · "}
-                        {marketCell(p)}
-                      </span>
+                      {p.matchup ? ` · ${p.matchup}` : ""}
                     </div>
                   </td>
+                  <td className="hide-sm muted">{p.matchup || "—"}</td>
                   <td className="hide-sm">{p.prop_label}</td>
                   <td>
                     <strong>{pickLabel(p)}</strong>
+                    <div className="muted small">{marketCell(p)}</div>
+                  </td>
+                  <td>
+                    <strong>{proj(p.projection)}</strong>
                   </td>
                   <td>{pct(p.model_prob)}</td>
+                  <td className="hide-sm">
+                    <span className={`badge ${CONF_CLASS[p.confidence] ?? "muted"}`}>
+                      {p.confidence}
+                    </span>
+                  </td>
                   <td className={`hide-sm ${p.edge > 0 ? "positive" : "muted"}`}>
                     {signedPct(p.edge)}
                   </td>
