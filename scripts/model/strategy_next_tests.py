@@ -97,6 +97,8 @@ def enrich_moneyline(ml: dict[str, list[dict]], rows: list[dict]) -> dict[str, l
                 "market_agrees": market_agrees,
                 "confidence": row.get("confidence", candidate.get("confidence")),
                 "edge": float(row.get("modelEdge", candidate.get("edge", 0.0) or 0.0)),
+                "era_diff": float(row.get("eraDiff", candidate.get("era_diff", 0.0) or 0.0)),
+                "form_edge": float(row.get("formEdge", candidate.get("form_edge", 0.0) or 0.0)),
                 "model_probability": float(
                     row.get("pickProbability", candidate.get("model_probability", 0.0) or 0.0)
                 ),
