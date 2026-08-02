@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
 import { useFavorites } from "@/components/FavoritesProvider";
 
@@ -22,9 +23,38 @@ const more = [
 export function Nav() {
   const { user, signOut } = useFavorites();
   const pathname = usePathname();
+  const moreRef = useRef<HTMLDetailsElement>(null);
 
   const isActive = (href: string) =>
     href === "/" ? pathname === "/" : pathname === href || pathname.startsWith(`${href}/`);
+
+  const closeMore = () => {
+    if (moreRef.current) moreRef.current.open = false;
+  };
+
+  useEffect(() => {
+    closeMore();
+  }, [pathname]);
+
+  useEffect(() => {
+    const onPointerDown = (event: PointerEvent) => {
+      const el = moreRef.current;
+      if (!el?.open) return;
+      if (!el.contains(event.target as Node)) {
+        el.open = false;
+      }
+    };
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") closeMore();
+    };
+
+    document.addEventListener("pointerdown", onPointerDown);
+    document.addEventListener("keydown", onKeyDown);
+    return () => {
+      document.removeEventListener("pointerdown", onPointerDown);
+      document.removeEventListener("keydown", onKeyDown);
+    };
+  }, []);
 
   return (
     <header className="site-header">
@@ -50,20 +80,29 @@ export function Nav() {
             ))}
           </div>
 
-          <details className="nav-more">
+          <details ref={moreRef} className="nav-more">
             <summary>More</summary>
             <div className="nav-more-menu">
               {more.map((link) => (
-                <Link href={link.href} key={link.href}>
+                <Link href={link.href} key={link.href} onClick={closeMore}>
                   {link.label}
                 </Link>
               ))}
               {user ? (
-                <button className="text-button" onClick={() => void signOut()} type="button">
+                <button
+                  className="text-button"
+                  onClick={() => {
+                    closeMore();
+                    void signOut();
+                  }}
+                  type="button"
+                >
                   Log out ({user.email?.split("@")[0]})
                 </button>
               ) : (
-                <Link href="/login">Log in</Link>
+                <Link href="/login" onClick={closeMore}>
+                  Log in
+                </Link>
               )}
             </div>
           </details>
