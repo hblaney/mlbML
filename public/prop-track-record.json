@@ -1,33 +1,33 @@
 {
-  "generated_at": "2026-07-22",
+  "generated_at": "2026-08-01",
   "overall": {
-    "graded": 2680,
-    "wins": 1925,
-    "losses": 753,
+    "graded": 5105,
+    "wins": 3404,
+    "losses": 1699,
     "pushes": 2,
-    "hit_rate": 0.7188,
-    "roi": 0.4364
+    "hit_rate": 0.6671,
+    "roi": 0.3335
   },
   "by_confidence": {
     "Elite": {
-      "graded": 354,
-      "wins": 307,
-      "hit_rate": 0.8672
+      "graded": 699,
+      "wins": 549,
+      "hit_rate": 0.7854
     },
     "High": {
-      "graded": 731,
-      "wins": 536,
-      "hit_rate": 0.7332
+      "graded": 750,
+      "wins": 550,
+      "hit_rate": 0.7333
     },
     "Low": {
-      "graded": 1375,
-      "wins": 942,
-      "hit_rate": 0.6851
+      "graded": 3432,
+      "wins": 2163,
+      "hit_rate": 0.6302
     },
     "Medium": {
-      "graded": 220,
-      "wins": 140,
-      "hit_rate": 0.6364
+      "graded": 224,
+      "wins": 142,
+      "hit_rate": 0.6339
     }
   },
   "by_prop": {
@@ -37,14 +37,14 @@
       "hit_rate": 0.8491
     },
     "batter_hits": {
-      "graded": 342,
-      "wins": 230,
-      "hit_rate": 0.6725
+      "graded": 1462,
+      "wins": 901,
+      "hit_rate": 0.6163
     },
     "batter_hits_runs_rbis": {
       "graded": 492,
-      "wins": 333,
-      "hit_rate": 0.6768
+      "wins": 332,
+      "hit_rate": 0.6748
     },
     "batter_rbis": {
       "graded": 247,
@@ -57,9 +57,9 @@
       "hit_rate": 0.75
     },
     "batter_singles": {
-      "graded": 74,
-      "wins": 51,
-      "hit_rate": 0.6892
+      "graded": 305,
+      "wins": 203,
+      "hit_rate": 0.6656
     },
     "batter_stolen_bases": {
       "graded": 1,
@@ -67,9 +67,9 @@
       "hit_rate": 1.0
     },
     "batter_total_bases": {
-      "graded": 370,
-      "wins": 233,
-      "hit_rate": 0.6297
+      "graded": 1408,
+      "wins": 870,
+      "hit_rate": 0.6179
     },
     "batter_walks": {
       "graded": 383,
@@ -78,8 +78,8 @@
     },
     "pitcher_earned_runs": {
       "graded": 98,
-      "wins": 75,
-      "hit_rate": 0.7653
+      "wins": 74,
+      "hit_rate": 0.7551
     },
     "pitcher_hits_allowed": {
       "graded": 94,
@@ -87,9 +87,9 @@
       "hit_rate": 0.7234
     },
     "pitcher_strikeouts": {
-      "graded": 98,
-      "wins": 58,
-      "hit_rate": 0.5918
+      "graded": 134,
+      "wins": 79,
+      "hit_rate": 0.5896
     }
   },
   "parlay": {
@@ -111,7 +111,7 @@
       "legs": 2,
       "type": "power",
       "won": false,
-      "record": "1043-390"
+      "record": "1039-394"
     }
   ]
 }

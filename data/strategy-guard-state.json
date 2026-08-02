@@ -1,14 +1,7 @@
 {
-  "leader_streak_days": 3,
+  "leader_streak_days": 4,
   "leader_strategy": "daily_best_single",
   "signals": [
-    {
-      "date": "2026-06-24",
-      "leader_14d": "best_ticket",
-      "season_leader": "best_ticket",
-      "leader_streak_days": 0,
-      "switch_recommended": false
-    },
     {
       "date": "2026-06-24",
       "leader_14d": "best_ticket",
@@ -217,6 +210,13 @@
       "leader_14d": "daily_best_single",
       "season_leader": "daily_best_single",
       "leader_streak_days": 3,
+      "switch_recommended": false
+    },
+    {
+      "date": "2026-08-01",
+      "leader_14d": "daily_best_single",
+      "season_leader": "daily_best_single",
+      "leader_streak_days": 4,
       "switch_recommended": false
     }
   ]

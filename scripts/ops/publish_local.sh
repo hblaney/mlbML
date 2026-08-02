@@ -28,6 +28,16 @@ log "=== publish_local start ==="
 "${PY}" scripts/model/generate_prop_predictions.py >> "${LOG}" 2>&1 || log "props gen nonzero exit $?"
 "${PY}" scripts/model/lock_daily_ticket.py >> "${LOG}" 2>&1 || log "lock nonzero exit $?"
 
+# Accuracy / Record — rebuild when stale (evening publishes catch finals).
+HOUR="$(date +%H)"
+ACC_AGE_H="$(${PY} -c "import time,pathlib; p=pathlib.Path('public/accuracy.json'); print(999 if not p.exists() else (time.time()-p.stat().st_mtime)/3600)" 2>/dev/null || echo 999)"
+if [ "${HOUR}" -ge 19 ] || [ "${FORCE_RECORD:-0}" = "1" ] || awk "BEGIN{exit !(${ACC_AGE_H}+0 > 36)}" ; then
+  log "refreshing accuracy/record (acc_age_h=${ACC_AGE_H})"
+  FORCE="${FORCE_RECORD:-0}" "${REPO_DIR}/scripts/ops/refresh_record.sh" "${REPO_DIR}" >> "${LOG}" 2>&1 || log "record refresh exit $?"
+else
+  log "skipping record refresh (hour=${HOUR} acc_age_h=${ACC_AGE_H})"
+fi
+
 TODAY="$(date +%F)"
 MLDATE="$(${PY} -c "import json; print(json.load(open('public/predictions.json')).get('generated_at',''))" 2>/dev/null)"
 if [ "${MLDATE}" != "${TODAY}" ]; then
@@ -43,8 +53,17 @@ git add \
   public/prop-bet-cards.json \
   public/prop-leans.json \
   public/prop-track-record.json \
+  public/accuracy.json \
+  public/prediction-history.json \
+  public/model-live-performance.json \
+  public/model-health.json \
+  public/live-bankroll.json \
+  public/live-strategy-metrics.json \
+  public/clv.json \
+  public/strategy-guard.json \
   data/locked-tickets/*.json \
   data/prop-predictions/*.json \
+  data/live-bankroll-state.json \
   data/model/daily_edge.pkl \
   2>/dev/null
 

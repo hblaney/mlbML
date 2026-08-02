@@ -2,44 +2,44 @@
   "generated_from": "data/historical_odds.jsonl (opening=entry, closing=close), de-vigged",
   "note": "Positive CLV = our picked side's price shortened by first pitch = we beat the closing line.",
   "overall": {
-    "n": 1000,
-    "beat_close_rate": 0.6,
+    "n": 998,
+    "beat_close_rate": 0.5982,
     "avg_clv": 0.0079,
     "avg_clv_pct_points": 0.79,
-    "win_rate": 0.565,
-    "win_rate_when_beat_close": 0.58,
-    "win_rate_when_missed_close": 0.5425
+    "win_rate": 0.5641,
+    "win_rate_when_beat_close": 0.5796,
+    "win_rate_when_missed_close": 0.5411
   },
   "by_confidence": {
     "Elite": {
       "n": 0
     },
     "High": {
-      "n": 62,
-      "beat_close_rate": 0.6613,
-      "avg_clv": 0.0077,
-      "avg_clv_pct_points": 0.77,
-      "win_rate": 0.6774,
-      "win_rate_when_beat_close": 0.6585,
-      "win_rate_when_missed_close": 0.7143
+      "n": 17,
+      "beat_close_rate": 0.6471,
+      "avg_clv": 0.0061,
+      "avg_clv_pct_points": 0.61,
+      "win_rate": 0.6471,
+      "win_rate_when_beat_close": 0.6364,
+      "win_rate_when_missed_close": 0.6667
     },
     "Medium": {
-      "n": 596,
-      "beat_close_rate": 0.6711,
-      "avg_clv": 0.0119,
-      "avg_clv_pct_points": 1.19,
-      "win_rate": 0.594,
-      "win_rate_when_beat_close": 0.615,
-      "win_rate_when_missed_close": 0.551
+      "n": 632,
+      "beat_close_rate": 0.6804,
+      "avg_clv": 0.0123,
+      "avg_clv_pct_points": 1.23,
+      "win_rate": 0.5997,
+      "win_rate_when_beat_close": 0.6093,
+      "win_rate_when_missed_close": 0.5792
     },
     "Low": {
-      "n": 342,
-      "beat_close_rate": 0.4649,
-      "avg_clv": 0.0009,
-      "avg_clv_pct_points": 0.09,
-      "win_rate": 0.4942,
-      "win_rate_when_beat_close": 0.4717,
-      "win_rate_when_missed_close": 0.5137
+      "n": 349,
+      "beat_close_rate": 0.447,
+      "avg_clv": -0.0001,
+      "avg_clv_pct_points": -0.01,
+      "win_rate": 0.4957,
+      "win_rate_when_beat_close": 0.4936,
+      "win_rate_when_missed_close": 0.4974
     }
   },
   "recent": [
@@ -94,7 +94,7 @@
     {
       "date": "2026-06-25",
       "pick": "SEA",
-      "confidence": "Medium",
+      "confidence": "Low",
       "correct": 0,
       "entry_ml": -153,
       "close_ml": -153,
@@ -118,7 +118,7 @@
     {
       "date": "2026-06-25",
       "pick": "DET",
-      "confidence": "Medium",
+      "confidence": "Low",
       "correct": 0,
       "entry_ml": -121,
       "close_ml": -121,
@@ -166,7 +166,7 @@
     {
       "date": "2026-06-24",
       "pick": "TB",
-      "confidence": "Low",
+      "confidence": "Medium",
       "correct": 1,
       "entry_ml": -148,
       "close_ml": -148,
@@ -357,15 +357,15 @@
     },
     {
       "date": "2025-08-16",
-      "pick": "ATH",
+      "pick": "LAA",
       "confidence": "Low",
-      "correct": 1,
-      "entry_ml": -108,
-      "close_ml": -108,
-      "entry_prob": 0.4946,
-      "close_prob": 0.4967,
-      "clv": 0.0021,
-      "beat_close": true
+      "correct": 0,
+      "entry_ml": -113,
+      "close_ml": -111,
+      "entry_prob": 0.5054,
+      "close_prob": 0.5033,
+      "clv": -0.0021,
+      "beat_close": false
     },
     {
       "date": "2025-08-16",
@@ -418,7 +418,7 @@
     {
       "date": "2025-08-16",
       "pick": "BOS",
-      "confidence": "High",
+      "confidence": "Medium",
       "correct": 1,
       "entry_ml": -184,
       "close_ml": -192,
@@ -490,7 +490,7 @@
     {
       "date": "2025-08-14",
       "pick": "NYM",
-      "confidence": "High",
+      "confidence": "Medium",
       "correct": 0,
       "entry_ml": -196,
       "close_ml": -187,

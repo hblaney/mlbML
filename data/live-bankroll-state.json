@@ -1,17 +1,17 @@
 {
   "started_at": "2026-06-22",
   "starting_balance": 23.0,
-  "balance": 7.0984,
-  "wallet_balance": 7.09,
+  "balance": 4.8343,
+  "wallet_balance": 4.83,
   "wallet_starting": 23.0,
   "wallet_locked": true,
   "wallet_record": "2-3",
   "wallet_note": "Confirmed by Henry Jun 24 \u2014 Robinhood wallet $10. Includes off-script bets + system BAL lock.",
   "record": {
-    "wins": 1,
-    "losses": 5
+    "wins": 2,
+    "losses": 7
   },
-  "last_settled_date": "2026-07-19",
+  "last_settled_date": "2026-08-01",
   "tickets": [
     {
       "date": "2026-06-22",
@@ -127,6 +127,62 @@
       "model_probability": null,
       "grade_source": "locked_ticket",
       "prove_out": false
+    },
+    {
+      "date": "2026-07-19",
+      "kind": "single",
+      "label": "LAA ML",
+      "legs": [
+        "LAA"
+      ],
+      "leg_count": 1,
+      "stake_pct": 0.12,
+      "stake_amount": 0.85,
+      "profit": 0.09,
+      "balance_after": 7.18,
+      "won": true,
+      "odds": -901,
+      "model_probability": 0.66,
+      "grade_source": "locked_ticket",
+      "prove_out": false
+    },
+    {
+      "date": "2026-07-21",
+      "kind": "parlay",
+      "label": "WSH ML + ARI ML",
+      "legs": [
+        "WSH",
+        "ARI"
+      ],
+      "leg_count": 2,
+      "stake_pct": 0.18,
+      "stake_amount": 1.29,
+      "profit": -1.29,
+      "balance_after": 5.89,
+      "won": false,
+      "odds": 205,
+      "model_probability": 0.43737732000000007,
+      "grade_source": "locked_ticket",
+      "prove_out": false
+    },
+    {
+      "date": "2026-07-22",
+      "kind": "parlay",
+      "label": "SEA ML + DET ML",
+      "legs": [
+        "SEA",
+        "DET"
+      ],
+      "leg_count": 2,
+      "stake_pct": 0.18,
+      "stake_amount": 1.06,
+      "profit": -1.06,
+      "balance_after": 4.83,
+      "won": false,
+      "odds": 236,
+      "model_probability": 0.38185795000000006,
+      "grade_source": "locked_ticket",
+      "prove_out": false
     }
   ],
   "checkpoints": [
@@ -227,6 +283,53 @@
         "WSH"
       ],
       "stake_amount": 4.39,
+      "grade_source": "locked_ticket",
+      "prove_out": false
+    },
+    {
+      "date": "2026-07-19",
+      "profit": 0.0943,
+      "balance": 7.18,
+      "return_pct": -0.6878,
+      "won": true,
+      "leg_count": 1,
+      "label": "LAA ML",
+      "legs": [
+        "LAA"
+      ],
+      "stake_amount": 0.85,
+      "grade_source": "locked_ticket",
+      "prove_out": false
+    },
+    {
+      "date": "2026-07-21",
+      "profit": -1.29,
+      "balance": 5.89,
+      "return_pct": -0.7439,
+      "won": false,
+      "leg_count": 2,
+      "label": "WSH ML + ARI ML",
+      "legs": [
+        "WSH",
+        "ARI"
+      ],
+      "stake_amount": 1.29,
+      "grade_source": "locked_ticket",
+      "prove_out": false
+    },
+    {
+      "date": "2026-07-22",
+      "profit": -1.06,
+      "balance": 4.83,
+      "return_pct": -0.79,
+      "won": false,
+      "leg_count": 2,
+      "label": "SEA ML + DET ML",
+      "legs": [
+        "SEA",
+        "DET"
+      ],
+      "stake_amount": 1.06,
       "grade_source": "locked_ticket",
       "prove_out": false
     }

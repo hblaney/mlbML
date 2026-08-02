@@ -39,8 +39,11 @@ def main() -> None:
     today = date.today()
     yesterday = today - timedelta(days=1)
     team_abbr = load_team_abbreviations()
+    # Always warm up on prior-season games so early-season picks match the full
+    # walk-forward (WARMUP_GAMES). --current-season-only only skips rewriting
+    # prior-season output rows (those are preserved from the existing file).
     prior_games = None
-    if not args.current_season_only and yesterday.year > 2021:
+    if yesterday.year > 2021:
         prior_games = load_or_fetch_games(
             season_start_for(yesterday.year - 1),
             date(yesterday.year - 1, 10, 5),
@@ -59,6 +62,27 @@ def main() -> None:
         history_start = season_start_for(yesterday.year - 1)
         method = "season walk-forward with current-season retrain and market-backed confidence when odds are available"
 
+    # Keep prior-season archive rows when regenerating current season only.
+    if args.current_season_only and PUBLIC_PATH.exists():
+        try:
+            existing = json.loads(PUBLIC_PATH.read_text())
+            prior_rows = [
+                row
+                for row in existing.get("predictions", [])
+                if str(row.get("date", ""))[:4] < str(yesterday.year)
+            ]
+            if prior_rows:
+                rows = [*prior_rows, *rows]
+                history_start = date.fromisoformat(
+                    str(existing.get("history_start") or prior_rows[0]["date"])
+                )
+                method = (
+                    "current-season walk-forward retrain through yesterday "
+                    "+ preserved prior-season archive rows"
+                )
+        except (json.JSONDecodeError, KeyError, TypeError, ValueError):
+            pass
+
     rows.sort(key=lambda row: (row["date"], row["gamePk"]))
 
     PUBLIC_PATH.parent.mkdir(parents=True, exist_ok=True)
@@ -75,6 +99,7 @@ def main() -> None:
         )
     )
     print(f"generated_history_rows={len(rows)}")
+    print(f"trained_through={yesterday.isoformat()}")
 
 
 if __name__ == "__main__":

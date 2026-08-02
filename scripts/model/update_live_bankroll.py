@@ -858,27 +858,30 @@ def main() -> None:
     if lock_wallet:
         state["wallet_locked"] = True
 
-    if state.get("wallet_locked") and rebuild:
-        rebuild = False
-
-    season_start = season_start_for(today.year)
-    prior = (season_start_for(today.year - 1), date(today.year - 1, 8, 17))
-    ml, _ = load_moneyline_by_day(season_start, today, prior[0], prior[1])
-    ml = {day: candidates for day, candidates in ml.items() if date.fromisoformat(day) <= today}
-
-    from daily_auto_model import walk_forward_history
-    from mlb_api import load_or_fetch_games, load_team_abbreviations
-
-    rows = walk_forward_history(
-        load_or_fetch_games(season_start, today),
-        load_team_abbreviations(),
-        prior_games=load_or_fetch_games(prior[0], prior[1]),
-    )
-    ml = enrich_moneyline(ml, rows)
-    snaps_by_day = {snap["date"]: snap for snap in build_snapshots(ml, LIVE_STRATEGY)}
+    # Locked wallets may still --rebuild from official locked tickets (no sim).
+    # Only block rebuild when it would walk-forward invent tickets.
 
     yesterday = today - timedelta(days=1)
     allow_walk_forward = not bool(state.get("wallet_locked"))
+    # Locked wallets grade official locked/archived tickets only — skip the slow
+    # walk-forward rebuild that was freezing daily accuracy refreshes.
+    snaps_by_day: dict[str, dict] = {}
+    if allow_walk_forward:
+        season_start = season_start_for(today.year)
+        prior = (season_start_for(today.year - 1), date(today.year - 1, 8, 17))
+        ml, _ = load_moneyline_by_day(season_start, today, prior[0], prior[1])
+        ml = {day: candidates for day, candidates in ml.items() if date.fromisoformat(day) <= today}
+
+        from daily_auto_model import walk_forward_history
+        from mlb_api import load_or_fetch_games, load_team_abbreviations
+
+        rows = walk_forward_history(
+            load_or_fetch_games(season_start, today),
+            load_team_abbreviations(),
+            prior_games=load_or_fetch_games(prior[0], prior[1]),
+        )
+        ml = enrich_moneyline(ml, rows)
+        snaps_by_day = {snap["date"]: snap for snap in build_snapshots(ml, LIVE_STRATEGY)}
     if rebuild:
         if state.get("wallet_locked"):
             # Locked wallets only settle official locked/archived tickets — never sim rebuild.

@@ -1,9 +1,9 @@
 {
-  "generated_at": "2026-07-19",
+  "generated_at": "2026-08-01",
   "strategy": "market_agree_parlay",
   "period": {
     "start": "2026-03-20",
-    "end": "2026-07-19"
+    "end": "2026-08-01"
   },
   "stakes": {
     "1": 0.35,
