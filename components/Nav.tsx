@@ -8,8 +8,8 @@ const primary = [
   { href: "/", label: "Board" },
   { href: "/props", label: "Props" },
   { href: "/best-bets", label: "Moneyline" },
-  { href: "/accuracy", label: "Accuracy" },
   { href: "/watch", label: "Watch" },
+  { href: "/accuracy", label: "Accuracy" },
 ];
 
 const more = [
