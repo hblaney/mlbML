@@ -54,7 +54,7 @@ export default async function BestBetsPage() {
               {liveBankroll.hit_rate != null ? ` (${formatPercent(liveBankroll.hit_rate)})` : ""}
             </>
           ) : null}
-          . <Link href="/history">Full record →</Link>
+          . <Link href="/accuracy">Accuracy →</Link>
         </p>
       </section>
 
@@ -183,8 +183,8 @@ export default async function BestBetsPage() {
               <p className="eyebrow">Recent</p>
               <h2>Last graded tickets</h2>
             </div>
-            <Link className="muted" href="/history">
-              Record →
+            <Link className="muted" href="/accuracy">
+              Accuracy →
             </Link>
           </div>
           <div className="table-scroll">
