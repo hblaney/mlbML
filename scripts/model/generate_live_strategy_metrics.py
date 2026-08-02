@@ -11,7 +11,7 @@ from exhaustive_strategy_search import flat_stats_for_snapshots, load_moneyline_
 from strategy_next_tests import build_snapshots, enrich_moneyline
 from strategy_research import compound
 
-LIVE_STRATEGY = "market_agree_parlay"
+LIVE_STRATEGY = "daily_best_single"
 STAKE_TIERED = {1: 0.35, 2: 0.45, 3: 0.10}
 OUTPUT = Path(__file__).resolve().parents[2] / "public" / "live-strategy-metrics.json"
 

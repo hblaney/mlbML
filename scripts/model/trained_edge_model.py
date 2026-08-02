@@ -28,8 +28,8 @@ from weather import cached_historical_weather_or_default, fetch_weather
 
 
 WARMUP_GAMES = 180
-# ~one MLB slate — adapt to recent baseball, not a month-old fit.
-REFIT_EVERY = 10
+# Walk-forward validated: REFIT_EVERY=30 beats more frequent refits on recent windows.
+REFIT_EVERY = 30
 TRAINED_MODEL_WEIGHT = 1.00
 PRIOR_SEASON_SAMPLE_WEIGHT = 0.45
 CURRENT_SEASON_SAMPLE_WEIGHT = 1.60

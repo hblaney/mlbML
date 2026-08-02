@@ -1,14 +1,14 @@
 {
   "generated_at": "2026-08-01",
   "tracking_mode": "live_best_bets",
-  "disclaimer": "Tracks locked system tickets + your Robinhood wallet. Stakes = live daily exposure for market_agree_parlay (small market-agree edges, parlays when 2\u20133 legs).",
-  "strategy": "market_agree_parlay",
+  "disclaimer": "Tracks locked system tickets + your Robinhood wallet. Stakes = live daily exposure for daily_best_single (one quality ML when gates clear; else skip).",
+  "strategy": "daily_best_single",
   "staking": "ratchet",
   "ratchet_tiers": null,
   "stake_by_leg_count": {
-    "1": 0.12,
-    "2": 0.18,
-    "3": 0.18
+    "1": 0.18,
+    "2": 0.12,
+    "3": 0.1
   },
   "prove_out": {
     "active": true,
@@ -365,5 +365,5 @@
       "prove_out": false
     }
   ],
-  "tracking_note": "market_agree_parlay \u00b7 market-agree small-edge parlays (2\u20133 legs) or single fallback \u00b7 wallet locked when confirmed"
+  "tracking_note": "daily_best_single \u00b7 one quality ML single when p\u226565% / edge\u22652% / odds>-250 / +EV \u00b7 else skip \u00b7 wallet locked when confirmed"
 }

@@ -761,8 +761,8 @@ export const TRG59_MIN_COMBINED_PROBABILITY = 0.34;
 /** @deprecated use TRG59_FORCE_PARLAY_MIN_PROBABILITY */
 export const MED60_FORCE_PARLAY_MIN_PROBABILITY = TRG59_FORCE_PARLAY_MIN_PROBABILITY;
 
-/** Live plan: market-agree small-edge parlays — multiply small edges, don't hunt fake dogs. */
-export const LIVE_BETTING_STRATEGY = "market_agree_parlay";
+/** Live plan: one quality moneyline single/day (not parlays). */
+export const LIVE_BETTING_STRATEGY = "daily_best_single";
 
 /** Small positive edge band — live big-edge (≥8%) hit ~48% recently (model error). */
 export const MARKET_AGREE_MIN_EDGE = 0.015;
@@ -918,7 +918,7 @@ export type ParlayCandidate = {
   ev: number;
   payoutProfit: number;
   score: number;
-  strategy?: "edge" | "anchor" | "premium" | "premium_4" | "forced_top_2" | "live_quality" | "live_premium" | "trg59_top2" | "high_elite_76_parlay" | "best_ticket" | "calibrated_parlay" | "quality_single" | "strong_parlay" | "power_parlay" | "parlay_first" | "daily_top3_evscore" | "daily_top3_prob" | "market_agree_parlay" | "edge_value_ticket";
+  strategy?: "edge" | "anchor" | "premium" | "premium_4" | "forced_top_2" | "live_quality" | "live_premium" | "trg59_top2" | "high_elite_76_parlay" | "best_ticket" | "calibrated_parlay" | "quality_single" | "strong_parlay" | "power_parlay" | "parlay_first" | "daily_top3_evscore" | "daily_top3_prob" | "market_agree_parlay" | "daily_best_single" | "edge_value_ticket";
 };
 
 /** Flat fallback when leg-specific stake is unavailable (2026 sweep best: 35%). */
@@ -2195,9 +2195,9 @@ export function getDailyTop3EVScoreTicket(board: GamePrediction[] = predictions)
   return getDailyTop3ProbTicket(board);
 }
 
-/** Daily ticket: market_agree_parlay — small market-agree edges, multiplied via parlays. */
+/** Daily ticket: quality single ML — p≥65%, edge≥2%, odds > -250, +EV. Skip if none. */
 export function getBestDailyTicket(board: GamePrediction[] = predictions): DailyTicket | null {
-  return getMarketAgreeParlayTicket(board);
+  return getDailyBestSingleTicket(board);
 }
 
 export function getDailyParlayTickets(board: GamePrediction[] = predictions) {

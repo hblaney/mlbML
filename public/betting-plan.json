@@ -1,47 +1,41 @@
 {
-  "generated_at": "2026-07-13",
-  "strategy": "market_agree_parlay",
-  "mode": "market_agree_small_edge_parlay",
-  "achieved_ticket_hit_rate": 0.4286,
-  "model_version": "daily-auto-v5.1-honest-parlay",
-  "pipeline_version": "unified-public-v19-honest-market-agree-parlay",
+  "generated_at": "2026-08-01",
+  "strategy": "daily_best_single",
+  "mode": "quality_daily_single",
+  "achieved_ticket_hit_rate": 1.0,
+  "model_version": "daily-auto-v6.1-raw-gbm",
+  "pipeline_version": "unified-public-v21-raw-gbm-high-card",
   "strategy_rules": [
-    "Official bet = market-agree SMALL-edge parlays (2\u20133 legs). Multiply small edges \u2014 do not hunt anti-market dogs.",
-    "Leg gates: market agrees, Medium+, edge 1.5\u20135.5%, pick \u226555%, confirmed starter, +EV.",
-    "Published probabilities are market-residual with capped edge; anti-market \u03b1 is near zero.",
-    "Model retrains daily through yesterday with heavy recent-game sample weights.",
+    "Official bet = one quality moneyline SINGLE per day when gates clear; else skip.",
+    "Gates: model p \u2265 65%, edge \u2265 2%, odds better than -250, +EV, confirmed starter.",
+    "Do not force parlays \u2014 recent market-agree parlays hit ~43% and burned the wallet.",
     "Do not hand-build tickets off the research board \u2014 the locked ticket is the only official slip.",
-    "Walk-forward ticket (market_agree_parlay): 42-56 (42.9% hit)",
-    "Model season pick accuracy: 57.2%",
-    "Last-100 form: 60.0% acc, AUC 0.43"
+    "Model retrains daily through yesterday; REFIT_EVERY=30 (walk-forward validated).",
+    "Walk-forward ticket (daily_best_single): 8-0 (100.0% hit)",
+    "Model season pick accuracy: 56.9%",
+    "Last-100 form: 55.0% acc, AUC 0.37"
   ],
   "stake_by_leg_count": {
-    "1": 0.12,
-    "2": 0.18,
-    "3": 0.18
+    "1": 0.18,
+    "2": 0.12,
+    "3": 0.1
   },
-  "market_agree_parlay_gates": {
-    "min_edge": 0.015,
-    "max_edge": 0.055,
-    "min_probability": 0.55,
-    "require_market_agrees": true,
-    "exclude_low_confidence": true,
-    "prefer_legs": [
-      3,
-      2
-    ],
-    "allow_single_fallback": true
+  "daily_best_single_gates": {
+    "min_probability": 0.65,
+    "min_edge": 0.02,
+    "min_odds": -250,
+    "require_positive_ev": true,
+    "require_starter_certain": true
   },
   "walk_forward": {
-    "record": "42-56",
-    "ticket_hit_rate": 0.4286,
-    "parlay_hit_rate": 0.3077,
-    "flat_roi_per_100": 0.1284,
-    "bet_days": 98
+    "record": "8-0",
+    "ticket_hit_rate": 1.0,
+    "flat_roi_per_100": 0.519,
+    "bet_days": 8
   },
   "backtest_period": {
     "start": "2026-03-20",
-    "end": "2026-07-13"
+    "end": "2026-08-01"
   },
-  "retuned_from": "Honest publish + market-agree parlays (2026-07-13)"
+  "retuned_from": "Kill losing market_agree_parlay; ship daily_best_single (2026-08-01)"
 }

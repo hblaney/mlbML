@@ -24,7 +24,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 PUBLIC = ROOT / "public"
-LIVE_STRATEGY = "market_agree_parlay"
+LIVE_STRATEGY = "daily_best_single"
 PROB_TOL = 1e-6
 RECENT_DAYS = 21
 
@@ -107,8 +107,8 @@ def check_strategy_labels() -> list[str]:
         if plan.get("strategy") != LIVE_STRATEGY:
             errors.append(f"betting-plan strategy {plan.get('strategy')!r} != {LIVE_STRATEGY!r}")
         blob = json.dumps(plan).lower()
-        if "market_agree_parlay" not in blob and LIVE_STRATEGY not in blob:
-            errors.append("betting-plan.json does not reference the live market_agree_parlay strategy")
+        if LIVE_STRATEGY not in blob:
+            errors.append(f"betting-plan.json does not reference the live {LIVE_STRATEGY} strategy")
     return errors
 
 

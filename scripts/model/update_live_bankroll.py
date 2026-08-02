@@ -13,7 +13,7 @@ from exhaustive_strategy_search import load_moneyline_by_day
 from strategy_next_tests import build_snapshots, enrich_moneyline
 from strategy_research import DAILY_CAP
 
-LIVE_STRATEGY = "market_agree_parlay"
+LIVE_STRATEGY = "daily_best_single"
 STAKE_TIERED = {1: 0.12, 2: 0.18, 3: 0.18, 4: 0.18}
 FLAT_PROVE_OUT_USD = 5.0
 PROVE_OUT_TICKETS = 20
@@ -22,7 +22,7 @@ DEFAULT_STARTING_BALANCE = 25.0
 DEFAULT_STARTED_AT = "2026-06-13"
 TRACKING_DISCLAIMER = (
     "Tracks locked system tickets + your Robinhood wallet. "
-    "Stakes = live daily exposure for market_agree_parlay (small market-agree edges, parlays when 2–3 legs)."
+    "Stakes = live daily exposure for daily_best_single (one quality ML when gates clear; else skip)."
 )
 REPO_ROOT = Path(__file__).resolve().parents[2]
 STATE_PATH = REPO_ROOT / "data" / "live-bankroll-state.json"
@@ -994,7 +994,7 @@ def main() -> None:
         "today_ticket": today_ticket,
         "checkpoints": state["checkpoints"],
         "tickets": state.get("tickets", []),
-        "tracking_note": f"{LIVE_STRATEGY} · market-agree small-edge parlays (2–3 legs) or single fallback · wallet locked when confirmed",
+        "tracking_note": f"{LIVE_STRATEGY} · one quality ML single when p≥65% / edge≥2% / odds>-250 / +EV · else skip · wallet locked when confirmed",
     }
     save_state(state)
     OUTPUT_PATH.write_text(json.dumps(output, indent=2))
