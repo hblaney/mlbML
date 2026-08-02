@@ -9,10 +9,10 @@ const primary = [
   { href: "/props", label: "Props" },
   { href: "/best-bets", label: "Moneyline" },
   { href: "/accuracy", label: "Accuracy" },
+  { href: "/watch", label: "Watch" },
 ];
 
 const more = [
-  { href: "/watch", label: "Watch" },
   { href: "/stats", label: "Stats" },
   { href: "/bet-watcher", label: "Bet Watcher" },
   { href: "/paper-trading", label: "Paper Bets" },
