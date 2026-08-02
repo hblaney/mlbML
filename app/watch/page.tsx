@@ -1,4 +1,5 @@
-import { WatchTeamsGrid } from "@/components/WatchTeamsGrid";
+import { WatchHub } from "@/components/WatchHub";
+import { toWatchBoardGames } from "@/lib/watch-board-game";
 import { loadLiveGameStatesForBoard } from "@/lib/live-game";
 import { loadPredictionBoard } from "@/lib/model-output";
 import { getWatchTeams } from "@/lib/team-media";
@@ -12,15 +13,21 @@ export default async function WatchPage() {
   const board = await loadPredictionBoard();
   const liveByGameId = await loadLiveGameStatesForBoard(board);
   const teams = buildWatchTeamStatuses(watchTeams, board, liveByGameId);
+  const games = toWatchBoardGames(board);
 
   return (
     <main className="shell stack">
       <section className="panel strong">
         <p className="eyebrow">Team streams</p>
         <h1>Watch</h1>
+        <div className="hero-actions">
+          <a className="button" href="#multi-view">
+            Multi-view
+          </a>
+        </div>
       </section>
 
-      <WatchTeamsGrid teams={teams} />
+      <WatchHub games={games} teams={teams} />
     </main>
   );
 }

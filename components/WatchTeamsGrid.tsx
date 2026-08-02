@@ -4,12 +4,25 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { FavoriteButton } from "@/components/FavoriteButton";
 import { useFavorites } from "@/components/FavoritesProvider";
+import { findWatchGameForTeam, type WatchBoardGame, WATCH_MULTI_MAX } from "@/lib/watch-board-game";
 import { fetchClientWatchStatusLines } from "@/lib/watch-live-client";
 import type { WatchTeamCard } from "@/lib/watch-team-status";
 
 const POLL_MS = 15_000;
 
-export function WatchTeamsGrid({ teams: initialTeams }: { teams: WatchTeamCard[] }) {
+type WatchTeamsGridProps = {
+  teams: WatchTeamCard[];
+  games?: WatchBoardGame[];
+  selectedGameIds?: Set<string>;
+  onToggleMultiView?: (teamId: string) => void;
+};
+
+export function WatchTeamsGrid({
+  teams: initialTeams,
+  games = [],
+  selectedGameIds,
+  onToggleMultiView
+}: WatchTeamsGridProps) {
   const { favoriteTeamIds, user } = useFavorites();
   const [teams, setTeams] = useState(initialTeams);
 
@@ -22,8 +35,6 @@ export function WatchTeamsGrid({ teams: initialTeams }: { teams: WatchTeamCard[]
 
     async function refreshStatuses() {
       try {
-        // Hit MLB schedule directly in the browser — production was 404ing /api/watch-status
-        // and SSR was leaving finished games stuck on start times.
         const byTeam = await fetchClientWatchStatusLines();
         if (cancelled || Object.keys(byTeam).length === 0) {
           return;
@@ -48,6 +59,7 @@ export function WatchTeamsGrid({ teams: initialTeams }: { teams: WatchTeamCard[]
 
   const favoriteTeams = teams.filter((team) => favoriteTeamIds.includes(team.id));
   const otherTeams = teams.filter((team) => !favoriteTeamIds.includes(team.id));
+  const selectedCount = selectedGameIds?.size ?? 0;
 
   const networkCard = (
     <div className="team-watch-card-wrap">
@@ -63,6 +75,10 @@ export function WatchTeamsGrid({ teams: initialTeams }: { teams: WatchTeamCard[]
   );
 
   function renderCard(team: WatchTeamCard) {
+    const game = findWatchGameForTeam(team.id, games);
+    const inView = Boolean(game && selectedGameIds?.has(game.id));
+    const canAdd = Boolean(game && onToggleMultiView && (inView || selectedCount < WATCH_MULTI_MAX));
+
     return (
       <div className="team-watch-card-wrap" key={team.id}>
         <Link className="team-watch-card" href={`/watch/${team.id}`}>
@@ -74,7 +90,18 @@ export function WatchTeamsGrid({ teams: initialTeams }: { teams: WatchTeamCard[]
             <span className="team-watch-abbrev">{team.abbreviation}</span>
           </span>
         </Link>
-        <FavoriteButton kind="team" label={team.name} teamId={team.id} />
+        <div className="team-watch-card-actions">
+          {canAdd ? (
+            <button
+              className={inView ? "watch-multi-toggle active" : "watch-multi-toggle"}
+              onClick={() => onToggleMultiView?.(team.id)}
+              type="button"
+            >
+              {inView ? "In view" : "Add"}
+            </button>
+          ) : null}
+          <FavoriteButton kind="team" label={team.name} teamId={team.id} />
+        </div>
       </div>
     );
   }

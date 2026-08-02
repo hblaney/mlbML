@@ -1056,11 +1056,107 @@ h2 {
   position: relative;
 }
 
-.team-watch-card-wrap .favorite-button {
+.team-watch-card-actions {
+  display: flex;
+  gap: 6px;
   position: absolute;
   right: 10px;
   top: 10px;
   z-index: 2;
+}
+
+.team-watch-card-wrap .favorite-button {
+  position: static;
+}
+
+.watch-multi-toggle {
+  background: rgba(8, 9, 11, 0.72);
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  color: var(--text);
+  cursor: pointer;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  padding: 6px 10px;
+  text-transform: uppercase;
+}
+
+.watch-multi-toggle.active {
+  background: rgba(125, 222, 162, 0.16);
+  border-color: rgba(125, 222, 162, 0.55);
+  color: #7ddea2;
+}
+
+.watch-multi-picker {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.watch-multi-chip {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--text);
+  cursor: pointer;
+  font-size: 12px;
+  padding: 8px 12px;
+}
+
+.watch-multi-chip:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
+.multi-stream-grid {
+  display: grid;
+  gap: 18px;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+}
+
+.multi-stream-card {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  display: grid;
+  gap: 12px;
+  padding: 14px;
+}
+
+.multi-stream-head {
+  align-items: center;
+  display: flex;
+  gap: 12px;
+}
+
+.multi-stream-logos {
+  display: flex;
+  gap: 6px;
+}
+
+.multi-stream-logos img {
+  height: 28px;
+  width: 28px;
+}
+
+.multi-stream-head h3 {
+  margin: 0 0 4px;
+}
+
+.multi-stream-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.multi-stream-actions button {
+  background: transparent;
+  border: 0;
+  color: var(--muted);
+  cursor: pointer;
+  font-size: 12px;
+  text-decoration: underline;
 }
 
 .team-stream-hero {
@@ -1505,7 +1601,8 @@ strong {
     gap: 8px;
   }
 
-  .bet-watcher-stream-grid {
+  .bet-watcher-stream-grid,
+  .multi-stream-grid {
     grid-template-columns: 1fr;
   }
 
