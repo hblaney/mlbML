@@ -110,6 +110,16 @@
       "matchup": "MIN @ SEA"
     },
     {
+      "player": "CJ Abrams",
+      "prop": "hitter_fantasy_score",
+      "lean": "Over",
+      "line": 6.0,
+      "projection": 8.0,
+      "edge": 2.0,
+      "confidence": "medium",
+      "matchup": "WSH @ ATL"
+    },
+    {
       "player": "Shohei Ohtani",
       "prop": "hitter_fantasy_score",
       "lean": "Over",
@@ -120,12 +130,12 @@
       "matchup": "BOS @ LAD"
     },
     {
-      "player": "CJ Abrams",
+      "player": "James Wood",
       "prop": "hitter_fantasy_score",
       "lean": "Over",
-      "line": 6.5,
-      "projection": 8.4,
-      "edge": 1.91,
+      "line": 6.0,
+      "projection": 7.9,
+      "edge": 1.9,
       "confidence": "medium",
       "matchup": "WSH @ ATL"
     },
@@ -148,16 +158,6 @@
       "edge": 1.87,
       "confidence": "medium",
       "matchup": "CWS @ TB"
-    },
-    {
-      "player": "Jacob deGrom",
-      "prop": "strikeouts",
-      "lean": "Over",
-      "line": 4.5,
-      "projection": 6.4,
-      "edge": 1.85,
-      "confidence": "high",
-      "matchup": "TEX @ HOU"
     }
   ],
   "all_actionable": [
@@ -232,6 +232,16 @@
       "matchup": "MIN @ SEA"
     },
     {
+      "player": "CJ Abrams",
+      "prop": "hitter_fantasy_score",
+      "line": 6.0,
+      "lean": "Over",
+      "projection": 8.0,
+      "edge": 2.0,
+      "confidence": "medium",
+      "matchup": "WSH @ ATL"
+    },
+    {
       "player": "Shohei Ohtani",
       "prop": "hitter_fantasy_score",
       "line": 6.0,
@@ -242,12 +252,12 @@
       "matchup": "BOS @ LAD"
     },
     {
-      "player": "CJ Abrams",
+      "player": "James Wood",
       "prop": "hitter_fantasy_score",
-      "line": 6.5,
+      "line": 6.0,
       "lean": "Over",
-      "projection": 8.4,
-      "edge": 1.91,
+      "projection": 7.9,
+      "edge": 1.9,
       "confidence": "medium",
       "matchup": "WSH @ ATL"
     },
@@ -292,16 +302,6 @@
       "matchup": "BOS @ LAD"
     },
     {
-      "player": "James Wood",
-      "prop": "hitter_fantasy_score",
-      "line": 6.5,
-      "lean": "Over",
-      "projection": 8.3,
-      "edge": 1.81,
-      "confidence": "medium",
-      "matchup": "WSH @ ATL"
-    },
-    {
       "player": "Luis Campusano",
       "prop": "hitter_fantasy_score",
       "line": 8.0,
@@ -332,16 +332,6 @@
       "matchup": "NYY @ CHC"
     },
     {
-      "player": "Luis Garc\u00eda Jr.",
-      "prop": "hitter_fantasy_score",
-      "line": 6.0,
-      "lean": "Over",
-      "projection": 7.7,
-      "edge": 1.72,
-      "confidence": "medium",
-      "matchup": "WSH @ ATL"
-    },
-    {
       "player": "Dominic Canzone",
       "prop": "hitter_fantasy_score",
       "line": 5.5,
@@ -360,6 +350,16 @@
       "edge": 1.71,
       "confidence": "medium",
       "matchup": "KC @ COL"
+    },
+    {
+      "player": "Jake Bauers",
+      "prop": "hitter_fantasy_score",
+      "line": 6.0,
+      "lean": "Over",
+      "projection": 7.7,
+      "edge": 1.7,
+      "confidence": "medium",
+      "matchup": "MIL @ LAA"
     }
   ]
 }

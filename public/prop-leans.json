@@ -2,7 +2,7 @@
   "generated_at": "2026-08-01",
   "source": "prop-leans-v2",
   "note": "K uses estimated PrizePicks lines when posted line unknown. Hitter FS from top-4 OPS bats per team.",
-  "actionable_count": 143,
+  "actionable_count": 144,
   "leans": [
     {
       "gameId": "mia-nym-2026-08-01-823594",
@@ -117,6 +117,22 @@
       "ops": 0.935
     },
     {
+      "gameId": "wsh-atl-2026-08-01-824890",
+      "matchup": "WSH @ ATL",
+      "player": "CJ Abrams",
+      "team": "WSH",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Mart\u00edn P\u00e9rez",
+      "fair_line": 8.0,
+      "line": 6.0,
+      "projection": 8.0,
+      "lean": "Over",
+      "edge": 2.0,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.93
+    },
+    {
       "gameId": "bos-lad-2026-08-01-823920",
       "matchup": "BOS @ LAD",
       "player": "Shohei Ohtani",
@@ -135,18 +151,18 @@
     {
       "gameId": "wsh-atl-2026-08-01-824890",
       "matchup": "WSH @ ATL",
-      "player": "CJ Abrams",
+      "player": "James Wood",
       "team": "WSH",
       "prop": "hitter_fantasy_score",
-      "vs_pitcher": "Reynaldo L\u00f3pez",
-      "fair_line": 8.5,
-      "line": 6.5,
-      "projection": 8.4,
+      "vs_pitcher": "Mart\u00edn P\u00e9rez",
+      "fair_line": 8.0,
+      "line": 6.0,
+      "projection": 7.9,
       "lean": "Over",
-      "edge": 1.91,
+      "edge": 1.9,
       "confidence": "medium",
       "line_source": "prizepicks_est",
-      "ops": 0.93
+      "ops": 0.944
     },
     {
       "gameId": "pit-cin-2026-08-01-824485",
@@ -212,22 +228,6 @@
       "ops": 1.467
     },
     {
-      "gameId": "wsh-atl-2026-08-01-824890",
-      "matchup": "WSH @ ATL",
-      "player": "James Wood",
-      "team": "WSH",
-      "prop": "hitter_fantasy_score",
-      "vs_pitcher": "Reynaldo L\u00f3pez",
-      "fair_line": 8.5,
-      "line": 6.5,
-      "projection": 8.3,
-      "lean": "Over",
-      "edge": 1.81,
-      "confidence": "medium",
-      "line_source": "prizepicks_est",
-      "ops": 0.944
-    },
-    {
       "gameId": "sf-sd-2026-08-01-823269",
       "matchup": "SF @ SD",
       "player": "Luis Campusano",
@@ -273,22 +273,6 @@
       "confidence": "medium",
       "line_source": "prizepicks_est",
       "ops": 0.927
-    },
-    {
-      "gameId": "wsh-atl-2026-08-01-824890",
-      "matchup": "WSH @ ATL",
-      "player": "Luis Garc\u00eda Jr.",
-      "team": "WSH",
-      "prop": "hitter_fantasy_score",
-      "vs_pitcher": "Reynaldo L\u00f3pez",
-      "fair_line": 7.5,
-      "line": 6.0,
-      "projection": 7.7,
-      "lean": "Over",
-      "edge": 1.72,
-      "confidence": "medium",
-      "line_source": "prizepicks_est",
-      "ops": 0.875
     },
     {
       "gameId": "min-sea-2026-08-01-823109",
@@ -498,6 +482,22 @@
       "ops": 0.835
     },
     {
+      "gameId": "wsh-atl-2026-08-01-824890",
+      "matchup": "WSH @ ATL",
+      "player": "Andr\u00e9s Chaparro",
+      "team": "WSH",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Mart\u00edn P\u00e9rez",
+      "fair_line": 6.0,
+      "line": 4.5,
+      "projection": 6.1,
+      "lean": "Over",
+      "edge": 1.58,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.856
+    },
+    {
       "gameId": "bos-lad-2026-08-01-823920",
       "matchup": "BOS @ LAD",
       "player": "Max Muncy",
@@ -657,22 +657,6 @@
       "ops": 0.881
     },
     {
-      "gameId": "wsh-atl-2026-08-01-824890",
-      "matchup": "WSH @ ATL",
-      "player": "Andr\u00e9s Chaparro",
-      "team": "WSH",
-      "prop": "hitter_fantasy_score",
-      "vs_pitcher": "Reynaldo L\u00f3pez",
-      "fair_line": 6.5,
-      "line": 5.0,
-      "projection": 6.4,
-      "lean": "Over",
-      "edge": 1.39,
-      "confidence": "medium",
-      "line_source": "prizepicks_est",
-      "ops": 0.856
-    },
-    {
       "gameId": "det-ath-2026-08-01-824972",
       "matchup": "DET @ ATH",
       "player": "Riley Greene",
@@ -799,6 +783,22 @@
       "confidence": "medium",
       "line_source": "prizepicks_est",
       "ops": 0.839
+    },
+    {
+      "gameId": "wsh-atl-2026-08-01-824890",
+      "matchup": "WSH @ ATL",
+      "player": "Luis Garc\u00eda Jr.",
+      "team": "WSH",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Mart\u00edn P\u00e9rez",
+      "fair_line": 7.5,
+      "line": 6.0,
+      "projection": 7.3,
+      "lean": "Over",
+      "edge": 1.34,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.875
     },
     {
       "gameId": "bos-lad-2026-08-01-823920",
@@ -2101,6 +2101,21 @@
       "k9": 6.69
     },
     {
+      "gameId": "wsh-atl-2026-08-01-824890",
+      "matchup": "WSH @ ATL",
+      "player": "Mart\u00edn P\u00e9rez",
+      "team": "ATL",
+      "prop": "strikeouts",
+      "fair_line": 4.0,
+      "line": 3.5,
+      "projection": 4.2,
+      "lean": "Over",
+      "edge": 0.68,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "k9": 6.93
+    },
+    {
       "gameId": "sf-sd-2026-08-01-823269",
       "matchup": "SF @ SD",
       "player": "Walker Buehler",
@@ -2358,21 +2373,6 @@
       "confidence": "pass",
       "line_source": "prizepicks_est",
       "k9": 6.0
-    },
-    {
-      "gameId": "wsh-atl-2026-08-01-824890",
-      "matchup": "WSH @ ATL",
-      "player": "Reynaldo L\u00f3pez",
-      "team": "ATL",
-      "prop": "strikeouts",
-      "fair_line": 3.5,
-      "line": 3.5,
-      "projection": 3.6,
-      "lean": "Pass",
-      "edge": 0.1,
-      "confidence": "pass",
-      "line_source": "prizepicks_est",
-      "k9": 5.97
     }
   ],
   "top_plays": [
@@ -2447,6 +2447,16 @@
       "matchup": "MIN @ SEA"
     },
     {
+      "player": "CJ Abrams",
+      "prop": "hitter_fantasy_score",
+      "lean": "Over",
+      "line": 6.0,
+      "projection": 8.0,
+      "edge": 2.0,
+      "confidence": "medium",
+      "matchup": "WSH @ ATL"
+    },
+    {
       "player": "Shohei Ohtani",
       "prop": "hitter_fantasy_score",
       "lean": "Over",
@@ -2457,12 +2467,12 @@
       "matchup": "BOS @ LAD"
     },
     {
-      "player": "CJ Abrams",
+      "player": "James Wood",
       "prop": "hitter_fantasy_score",
       "lean": "Over",
-      "line": 6.5,
-      "projection": 8.4,
-      "edge": 1.91,
+      "line": 6.0,
+      "projection": 7.9,
+      "edge": 1.9,
       "confidence": "medium",
       "matchup": "WSH @ ATL"
     },
@@ -2485,16 +2495,6 @@
       "edge": 1.87,
       "confidence": "medium",
       "matchup": "CWS @ TB"
-    },
-    {
-      "player": "Jacob deGrom",
-      "prop": "strikeouts",
-      "lean": "Over",
-      "line": 4.5,
-      "projection": 6.4,
-      "edge": 1.85,
-      "confidence": "high",
-      "matchup": "TEX @ HOU"
     }
   ]
 }
