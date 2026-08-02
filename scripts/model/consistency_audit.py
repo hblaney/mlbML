@@ -176,7 +176,7 @@ def check_locked_ticket() -> list[str]:
             errors.append("locked-ticket.json missing ticket.label for today")
         return errors
     # No lock yet — only fail after the primary publish window (noon CT) so early
-    # morning runs don't false-alarm before the 11 AM lock.
+    # morning runs don't false-alarm before the 10 AM lock.
     from datetime import datetime
     from zoneinfo import ZoneInfo
 

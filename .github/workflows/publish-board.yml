@@ -10,9 +10,10 @@ name: Publish Live Board
 on:
   workflow_dispatch:
   schedule:
-    # Morning publish (~11 AM CT). Three ticks so a dropped/late tick self-heals.
-    - cron: "0,30 16 * * *"
-    - cron: "0 17 * * *"
+    # Morning publish (~10 AM CT). Three ticks so a dropped/late tick self-heals.
+    # 15:00 UTC = 10:00 AM CDT / 9:00 AM CST.
+    - cron: "0,30 15 * * *"
+    - cron: "0 16 * * *"
     # Afternoon refresh (~3 PM CT).
     - cron: "0,30 20 * * *"
     - cron: "0 21 * * *"
