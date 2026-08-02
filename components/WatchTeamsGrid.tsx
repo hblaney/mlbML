@@ -4,9 +4,10 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { FavoriteButton } from "@/components/FavoriteButton";
 import { useFavorites } from "@/components/FavoritesProvider";
+import { fetchClientWatchStatusLines } from "@/lib/watch-live-client";
 import type { WatchTeamCard } from "@/lib/watch-team-status";
 
-const POLL_MS = 20_000;
+const POLL_MS = 15_000;
 
 export function WatchTeamsGrid({ teams: initialTeams }: { teams: WatchTeamCard[] }) {
   const { favoriteTeamIds, user } = useFavorites();
@@ -21,29 +22,23 @@ export function WatchTeamsGrid({ teams: initialTeams }: { teams: WatchTeamCard[]
 
     async function refreshStatuses() {
       try {
-        const response = await fetch("/api/watch-status", { cache: "no-store" });
-        if (!response.ok) {
-          return;
-        }
-        const payload = (await response.json()) as {
-          teams?: { id: string; statusLine: string | null }[];
-        };
-        const next = new Map((payload.teams ?? []).map((row) => [row.id, row.statusLine]));
-        if (cancelled || next.size === 0) {
+        // Hit MLB schedule directly in the browser — production was 404ing /api/watch-status
+        // and SSR was leaving finished games stuck on start times.
+        const byTeam = await fetchClientWatchStatusLines();
+        if (cancelled || Object.keys(byTeam).length === 0) {
           return;
         }
         setTeams((current) =>
           current.map((team) =>
-            next.has(team.id) ? { ...team, statusLine: next.get(team.id) ?? null } : team
+            byTeam[team.id] ? { ...team, statusLine: byTeam[team.id] } : team
           )
         );
       } catch {
-        // Keep last good status line if MLB/API blips.
+        // Keep last good status line if MLB blips.
       }
     }
 
     const id = window.setInterval(refreshStatuses, POLL_MS);
-    // Immediate refresh after mount so SSR cache can't leave a stale inning up.
     void refreshStatuses();
     return () => {
       cancelled = true;
