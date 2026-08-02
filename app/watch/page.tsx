@@ -18,7 +18,6 @@ export default async function WatchPage() {
       <section className="panel strong">
         <p className="eyebrow">Team streams</p>
         <h1>Watch</h1>
-        <p className="lead">Pick a team to open its stream page. Favorite teams appear first when you are logged in.</p>
       </section>
 
       <WatchTeamsGrid teams={teams} />
