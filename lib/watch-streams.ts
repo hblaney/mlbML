@@ -1,3 +1,4 @@
+import { getTeam, normalizeTeamId } from "./data";
 import type { BuffstreamsMatch } from "./buffstreams";
 
 const MLB_WEBCAST_ORIGIN = "https://mlbwebcast.com";
@@ -59,53 +60,105 @@ function webcastStreamUrl(streamSlug: string) {
   return `${MLB_WEBCAST_ORIGIN}/stream/${streamSlug}.html`;
 }
 
-function buildTeamStream(
-  config: TeamStreamConfig,
-  opponentTeamId?: string,
-  buffstreams?: BuffstreamsMatch | null
-): WatchStreamSource {
+function teamFeed(teamId: string): StreamLink | null {
+  const id = normalizeTeamId(teamId);
+  const config = teamStreamConfig[id];
+  if (!config) return null;
+  // Numbered "2" feed is the reliable streame.center fallback. Unnumbered HD and
+  // duplicate "3" links were confusing labels that often blanked out.
+  return {
+    label: getTeam(id).abbreviation,
+    url: embedPath(`${config.streamSlug}2`)
+  };
+}
+
+/**
+ * Matchup streams labeled by team abbreviation (DET / ATH), not Home/HD/Link 3.
+ * Focus team's feed is listed first (default player).
+ */
+export function getMatchupWatchStream(options: {
+  focusTeamId: string;
+  awayTeamId: string;
+  homeTeamId: string;
+  buffstreams?: BuffstreamsMatch | null;
+}): WatchStreamSource | undefined {
+  const focusId = normalizeTeamId(options.focusTeamId);
+  const awayId = normalizeTeamId(options.awayTeamId);
+  const homeId = normalizeTeamId(options.homeTeamId);
+  const focusConfig = teamStreamConfig[focusId];
+  if (!focusConfig) {
+    return undefined;
+  }
+
   const sources: StreamLink[] = [];
+  const seen = new Set<string>();
 
-  // Default to the numbered streame.center feed — it works from a static fallback
-  // even when Cloudflare blocks the deployed server from scraping mlbwebcast.com.
-  // The unnumbered "HD" feed needs a live token scrape and often fails on Vercel.
-  sources.push(
-    { label: "Home", url: embedPath(`${config.streamSlug}2`) },
-    { label: "HD", url: embedPath(config.streamSlug) },
-    { label: "Link 3", url: embedPath(`${config.streamSlug}3`) }
-  );
+  const pushUnique = (link: StreamLink | null) => {
+    if (!link || seen.has(link.url)) return;
+    seen.add(link.url);
+    sources.push(link);
+  };
 
-  if (buffstreams?.streamIds.length) {
-    sources.push({
+  // Focus feed first so the default embed is the team the user picked.
+  pushUnique(teamFeed(focusId));
+  pushUnique(teamFeed(homeId));
+  pushUnique(teamFeed(awayId));
+
+  if (options.buffstreams?.streamIds.length) {
+    pushUnique({
       label: "Backup",
-      url: embedPath(`buff${buffstreams.streamIds[0]}`)
+      url: embedPath(`buff${options.buffstreams.streamIds[0]}`)
     });
   }
 
-  const opponentConfig = opponentTeamId ? teamStreamConfig[opponentTeamId] : undefined;
-  if (opponentConfig) {
-    sources.push({ label: "Away", url: embedPath(`${opponentConfig.streamSlug}2`) });
-  }
-
   sources.push({
-    label: "Open site",
-    url: webcastStreamUrl(config.streamSlug),
+    label: "Open webcast",
+    url: webcastStreamUrl(focusConfig.streamSlug),
     external: true
   });
 
   return {
-    livePageUrl: buffstreams?.pageUrl ?? `${MLB_WEBCAST_ORIGIN}/${config.liveSlug}-live/`,
+    livePageUrl:
+      options.buffstreams?.pageUrl ?? `${MLB_WEBCAST_ORIGIN}/${focusConfig.liveSlug}-live/`,
     sources
   };
+}
+
+function buildTeamStream(
+  config: TeamStreamConfig,
+  opponentTeamId?: string,
+  buffstreams?: BuffstreamsMatch | null,
+  focusTeamId?: string
+): WatchStreamSource {
+  // Legacy path when only a focus + opponent are known.
+  const focusId =
+    focusTeamId && teamStreamConfig[normalizeTeamId(focusTeamId)]
+      ? normalizeTeamId(focusTeamId)
+      : Object.entries(teamStreamConfig).find(([, value]) => value.streamSlug === config.streamSlug)?.[0] ??
+        "nyy";
+  const opponentId = opponentTeamId ? normalizeTeamId(opponentTeamId) : undefined;
+
+  return (
+    getMatchupWatchStream({
+      focusTeamId: focusId,
+      awayTeamId: opponentId ?? focusId,
+      homeTeamId: focusId,
+      buffstreams
+    }) ?? {
+      livePageUrl: `${MLB_WEBCAST_ORIGIN}/${config.liveSlug}-live/`,
+      sources: [
+        { label: getTeam(focusId).abbreviation, url: embedPath(`${config.streamSlug}2`) },
+        { label: "Open webcast", url: webcastStreamUrl(config.streamSlug), external: true }
+      ]
+    }
+  );
 }
 
 export const mlbNetworkStream: WatchStreamSource = {
   livePageUrl: `${MLB_WEBCAST_ORIGIN}/mlb-network-live/`,
   sources: [
-    { label: "Home", url: embedPath("mlbnetwork2") },
-    { label: "HD", url: embedPath("mlbnetwork") },
-    { label: "Link 3", url: embedPath("mlbnetwork3") },
-    { label: "Open site", url: webcastStreamUrl("mlbnetwork"), external: true }
+    { label: "MLB Network", url: embedPath("mlbnetwork2") },
+    { label: "Open webcast", url: webcastStreamUrl("mlbnetwork"), external: true }
   ]
 };
 
@@ -114,12 +167,13 @@ export function getTeamWatchStream(
   opponentTeamId?: string,
   buffstreams?: BuffstreamsMatch | null
 ) {
-  const config = teamStreamConfig[teamId];
+  const id = normalizeTeamId(teamId);
+  const config = teamStreamConfig[id];
   if (!config) {
     return undefined;
   }
 
-  return buildTeamStream(config, opponentTeamId, buffstreams);
+  return buildTeamStream(config, opponentTeamId, buffstreams, id);
 }
 
 export function hasBuffstreamsFeeds(sources: StreamLink[]) {

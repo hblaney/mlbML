@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   getDefaultEmbedSource,
   hasBuffstreamsFeeds,
@@ -14,6 +14,11 @@ type StreamEmbedProps = {
 
 export function StreamEmbed({ title, sources }: StreamEmbedProps) {
   const [activeSource, setActiveSource] = useState(() => getDefaultEmbedSource(sources));
+
+  // When the multi-view swaps games, reset to that card's default feed.
+  useEffect(() => {
+    setActiveSource(getDefaultEmbedSource(sources));
+  }, [sources]);
 
   if (sources.length === 0 || !activeSource) {
     return null;
@@ -53,7 +58,11 @@ export function StreamEmbed({ title, sources }: StreamEmbedProps) {
                       : "stream-source"
                 }
                 key={`${source.label}-${source.url}`}
-                onClick={() => handleSourceClick(source)}
+                onClick={(event) => {
+                  event.preventDefault();
+                  event.stopPropagation();
+                  handleSourceClick(source);
+                }}
                 type="button"
               >
                 {source.external ? `${source.label} ↗` : source.label}
@@ -61,8 +70,7 @@ export function StreamEmbed({ title, sources }: StreamEmbedProps) {
             ))}
           </div>
           <p className="muted stream-feed-note">
-            Home is the default feed. HD is an alternate. If one is blank, try another button — or Open
-            site.
+            Buttons are team feeds (abbreviation). If one is blank, try the other team or Open webcast.
             {hasBuffstreamsFeeds(sources) ? " Backup is an extra source when available." : ""}
           </p>
         </>

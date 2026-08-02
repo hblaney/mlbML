@@ -1,7 +1,7 @@
 import { resolveBuffstreamsForGame } from "@/lib/buffstreams";
-import { getTeam } from "@/lib/data";
+import { getTeam, normalizeTeamId } from "@/lib/data";
 import { loadPredictionBoard } from "@/lib/model-output";
-import { getTeamWatchStream } from "@/lib/watch-streams";
+import { getMatchupWatchStream } from "@/lib/watch-streams";
 
 export const dynamic = "force-dynamic";
 
@@ -20,17 +20,29 @@ export async function GET(request: Request) {
     return Response.json({ error: "Game not found on today's board" }, { status: 404 });
   }
 
-  const buffstreams = await resolveBuffstreamsForGame(game);
-  const teamId = focusTeamId ?? game.homeTeam;
-  const opponentId = teamId === game.homeTeam ? game.awayTeam : game.homeTeam;
-  const stream = getTeamWatchStream(teamId, opponentId, buffstreams);
+  const awayTeamId = normalizeTeamId(game.awayTeam);
+  const homeTeamId = normalizeTeamId(game.homeTeam);
+  const teamId = normalizeTeamId(focusTeamId ?? homeTeamId);
+
+  const buffstreams = await resolveBuffstreamsForGame({
+    ...game,
+    awayTeam: awayTeamId,
+    homeTeam: homeTeamId
+  });
+
+  const stream = getMatchupWatchStream({
+    focusTeamId: teamId,
+    awayTeamId,
+    homeTeamId,
+    buffstreams
+  });
 
   if (!stream) {
     return Response.json({ error: "No stream configured for this matchup" }, { status: 404 });
   }
 
-  const away = getTeam(game.awayTeam);
-  const home = getTeam(game.homeTeam);
+  const away = getTeam(awayTeamId);
+  const home = getTeam(homeTeamId);
 
   return Response.json({
     gameId,

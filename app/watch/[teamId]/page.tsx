@@ -10,7 +10,7 @@ import { formatStandingRecord, loadLiveStandings, TeamStanding } from "@/lib/sta
 import { formatCentralGameTime } from "@/lib/time";
 import { formatWatchGameStatusLine, pickTeamGame } from "@/lib/watch-team-status";
 import { resolveBuffstreamsForGame } from "@/lib/buffstreams";
-import { getTeamWatchStream } from "@/lib/watch-streams";
+import { getMatchupWatchStream, getTeamWatchStream } from "@/lib/watch-streams";
 
 type WatchTeamPageProps = {
   params: Promise<{ teamId: string }>;
@@ -226,7 +226,14 @@ export default async function WatchTeamPage({ params }: WatchTeamPageProps) {
   const primaryGame = pickTeamGame(team.id, predictions, liveByGameId) ?? undefined;
   const opponentId = primaryGame?.awayTeam === team.id ? primaryGame.homeTeam : primaryGame?.awayTeam;
   const buffstreams = primaryGame ? await resolveBuffstreamsForGame(primaryGame) : null;
-  const stream = getTeamWatchStream(team.id, opponentId, buffstreams);
+  const stream = primaryGame
+    ? getMatchupWatchStream({
+        focusTeamId: team.id,
+        awayTeamId: primaryGame.awayTeam,
+        homeTeamId: primaryGame.homeTeam,
+        buffstreams
+      })
+    : getTeamWatchStream(team.id, opponentId, buffstreams);
   const opponentStanding = standings.find((item) => item.teamId === opponentId);
   const liveGame = primaryGame ? (liveByGameId.get(primaryGame.id) ?? null) : null;
   const streamPageLabel = buffstreams ? "Open on Buffstreams" : "Open on MLB Webcast";
