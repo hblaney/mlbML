@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useRef } from "react";
-import { usePathname } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 import { useFavorites } from "@/components/FavoritesProvider";
 
 const primary = [
@@ -23,10 +23,9 @@ const more = [
 export function Nav() {
   const { user, signOut } = useFavorites();
   const pathname = usePathname();
+  const searchParams = useSearchParams();
   const moreRef = useRef<HTMLDetailsElement>(null);
-
-  const isActive = (href: string) =>
-    href === "/" ? pathname === "/" : pathname === href || pathname.startsWith(`${href}/`);
+  const hideForNativeApp = searchParams.get("native") === "1";
 
   const closeMore = () => {
     if (moreRef.current) moreRef.current.open = false;
@@ -55,6 +54,13 @@ export function Nav() {
       document.removeEventListener("keydown", onKeyDown);
     };
   }, []);
+
+  if (hideForNativeApp) {
+    return null;
+  }
+
+  const isActive = (href: string) =>
+    href === "/" ? pathname === "/" : pathname === href || pathname.startsWith(`${href}/`);
 
   return (
     <header className="site-header">

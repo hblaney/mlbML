@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import { Suspense } from "react";
 import { FavoritesProvider } from "@/components/FavoritesProvider";
 import { Nav } from "@/components/Nav";
 import "./globals.css";
@@ -19,7 +20,9 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html lang="en">
       <body>
         <FavoritesProvider>
-          <Nav />
+          <Suspense fallback={null}>
+            <Nav />
+          </Suspense>
           {children}
         </FavoritesProvider>
       </body>
