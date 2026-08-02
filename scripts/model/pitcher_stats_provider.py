@@ -48,9 +48,12 @@ _DEFAULTS: dict[str, float] = {
     "games_started": 0.0,
 }
 
-# Rate stats are shrunk toward the prior season with this many innings of prior weight.
-# At 40 current-season IP the estimate is a 50/50 blend; by ~120 IP it is ~75% current.
-PRIOR_IP_WEIGHT = 40.0
+# Rate stats are shrunk toward the prior season with this many innings of prior
+# weight — but only while the current-season sample is thin. Past this IP cutoff
+# we trust season-to-date rates alone (dragging a mid-season ace toward last
+# year's ERA invented fake lines like Miz "2.28" when he was actually ~1.58).
+PRIOR_IP_WEIGHT = 25.0
+PRIOR_BLEND_IP_CAP = 60.0
 
 _RATE_KEYS = (
     "era",
@@ -149,13 +152,16 @@ def _blend(current: dict[str, float | None], prior: dict[str, float | None]) -> 
     """Shrink current-season rate stats toward the prior season by sample size.
 
     Workload counters (IP, GS) stay as the current-season point-in-time totals.
+    Once current-season IP clears PRIOR_BLEND_IP_CAP, rates are current-only —
+    mid-season lines should not be diluted by last year.
     """
     ip_c = float(current.get("innings_pitched") or 0.0)
     out: dict[str, float] = {}
+    use_prior = ip_c > 0 and ip_c < PRIOR_BLEND_IP_CAP
     for key in _RATE_KEYS:
         cur = current.get(key)
         pri = prior.get(key)
-        if cur is not None and pri is not None and ip_c > 0:
+        if cur is not None and pri is not None and use_prior:
             w = ip_c / (ip_c + PRIOR_IP_WEIGHT)
             out[key] = w * float(cur) + (1.0 - w) * float(pri)
         elif cur is not None and ip_c > 0:
