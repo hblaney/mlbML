@@ -267,8 +267,11 @@ def day_actions_parlay_first(candidates: list[dict]) -> list[DayAction]:
     return []
 
 
-DAILY_SINGLE_MIN_PROB = 0.65
+# Align with High confidence (BET) gates — not a bare 65% probability floor.
+DAILY_SINGLE_MIN_PROB = 0.55
 DAILY_SINGLE_MIN_EDGE = 0.02
+DAILY_SINGLE_MIN_ERA = 0.5
+DAILY_SINGLE_MIN_FORM = 0.1
 DAILY_SINGLE_MIN_ODDS = -250  # skip heavier chalk than this (juice eats the edge)
 
 
@@ -279,12 +282,10 @@ def day_actions_daily_best_single(
     min_edge: float = DAILY_SINGLE_MIN_EDGE,
     min_odds: float = DAILY_SINGLE_MIN_ODDS,
 ) -> list[DayAction]:
-    """Bet the model's single highest-probability *quality* pick each day as a moneyline
-    single: model prob >= min_prob, edge >= min_edge, odds better than min_odds, +EV.
+    """Bet the best High-lane moneyline single when one clears the stack.
 
-    Walk-forward 2026 (real odds): 63-14 / 81.8% hit, and the quality gate lifts the
-    recent-window hit rate from ~60% to ~73% by cutting coin-flip (prob 0.60-0.65) and
-    no-edge (edge < 2%) picks that were net losers. Fires on ~78% of days.
+    Same gates as confidence High: p / ERA / form / edge / market agree / +EV /
+    odds better than min_odds. Skip when nothing earns a BET label.
     """
     pool = [
         c
@@ -293,7 +294,12 @@ def day_actions_daily_best_single(
         and float(c.get("model_probability", 0.0)) >= min_prob
         and float(c.get("edge", 0.0)) >= min_edge
         and float(c.get("odds", 0.0)) > min_odds
+        and c.get("market_agrees") is True
+        and float(c.get("era_diff", c.get("eraDiff", 0.0)) or 0.0) >= DAILY_SINGLE_MIN_ERA
+        and float(c.get("form_edge", c.get("formEdge", 0.0)) or 0.0) >= DAILY_SINGLE_MIN_FORM
+        and str(c.get("confidence") or "") in ("High", "Elite", "")
     ]
+    # If confidence isn't on the candidate yet, gates above still enforce the High stack.
     if not pool:
         return []
     top = max(pool, key=lambda c: float(c.get("model_probability", 0.0)))

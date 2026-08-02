@@ -32,8 +32,8 @@ export default async function HomePage() {
         <p className="eyebrow">Daily MLB model</p>
         <h1>Today&apos;s MLB predictions.</h1>
         <p className="lead">
-          Raw GBM win probabilities (Elo, form, starters, park) — not market-anchored. High confidence
-          is the daily top card (≥3 picks). Sportsbook lines are comparison only.
+          Calibrated win probabilities with betting labels: High/Elite = bet, Medium = lean,
+          Low = pass. No fake High quota — only picks that clear the full gate.
         </p>
         <div className="hero-actions">
           <Link href="/props" className="button">

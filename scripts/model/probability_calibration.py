@@ -15,21 +15,23 @@ DESIGN (validated Jun 2026 on 3,410 graded games, chronological 70/30 split):
 
 from __future__ import annotations
 
-# Confidence thresholds on the true probability scale + win-separating gates.
-# Validated on 2026 market-backed walk-forward (not the old "force ≥3 Highs/day" quota):
-#   High:  p≥0.60 + form≥0 + era≥0.5 + market agrees  → ~72% on ~1.2/day
-#   Elite: p≥0.65 + form≥0.02 + era≥1.5 + market agrees → ~75% on ~0.25/day
+# Confidence is a BETTING label, not a probability bucket.
+# Validated on 2026 market-backed walk-forward (season + last-30/45 stability):
+#   High (BET):  p≥0.55 + form≥0.1 + era≥0.5 + edge≥2% + market agrees
+#                → ~70% hit, ~0.4/day (last-30/45 ~67%)
+#   Medium (LEAN): price-supported edge without the full matchup stack → ~62-66%
+#   Low (PASS): rest → ~53-55% — do not bet
+#   Elite: stricter High (rare)
 # No daily High quota — if nothing clears, the board shows zero Highs.
-MEDIUM_MIN = 0.58
-HIGH_MIN_RAW_PICK = 0.60
+MEDIUM_MIN = 0.55
+HIGH_MIN_RAW_PICK = 0.55
 ELITE_MIN_RAW_PICK = 0.65
 HIGH_MIN_ERA_DIFF = 0.5
 ELITE_MIN_ERA_DIFF = 1.5
-HIGH_MIN_FORM_EDGE = 0.0
-ELITE_MIN_FORM_EDGE = 0.02
-# Also require a real price edge so High isn't just chalk the book already loves.
+HIGH_MIN_FORM_EDGE = 0.1
+ELITE_MIN_FORM_EDGE = 0.1
 HIGH_MIN_MODEL_EDGE = 0.02
-ELITE_MIN_MODEL_EDGE = 0.02
+ELITE_MIN_MODEL_EDGE = 0.03
 # Picks with an unconfirmed starter or no market price can't earn High/Elite (the
 # probability is less trustworthy without a confirmed starter / market anchor).
 UNCERTAIN_MEDIUM_MIN = 0.60
@@ -66,24 +68,23 @@ def confidence_from_display(
     era_diff: float = 0.0,
     form_edge: float = 0.0,
 ) -> str:
-    """Confidence tier on the true probability scale, gated by win-separating factors.
+    """Confidence tier = actionable betting label on the true probability scale.
 
-    display_pick is the honest (calibrated == raw) pick probability. No market or an
-    unconfirmed starter caps the pick at Medium (we can't confirm direction/quality).
+    High/Elite require the full win-separating stack (p + ERA + form + price edge +
+    market agree). Medium is a lean when price supports the side but a matchup gate
+    is soft. Low means pass.
     """
+    del raw_pick  # kept for call-site compatibility
     p = float(display_pick)
     era_diff = round(float(era_diff), 6)
     form_edge = round(float(form_edge), 6)
+    edge = float(model_edge)
 
     # An unconfirmed starter or no market price makes the probability less trustworthy:
     # cap such picks at Medium (and only if they clear a slightly higher bar).
     if not starter_certain or not market_available:
         return "Medium" if p >= UNCERTAIN_MEDIUM_MIN else "Low"
 
-    # High/Elite require market agreement + price edge. Contrarian / no-edge "Highs"
-    # are how the label got worthless.
-    edge = float(model_edge)
-    tier = "Low"
     if (
         p >= ELITE_MIN_RAW_PICK
         and era_diff >= ELITE_MIN_ERA_DIFF
@@ -91,15 +92,28 @@ def confidence_from_display(
         and edge >= ELITE_MIN_MODEL_EDGE
         and market_agrees is True
     ):
-        tier = "Elite"
-    elif (
+        return "Elite"
+    if (
         p >= HIGH_MIN_RAW_PICK
         and era_diff >= HIGH_MIN_ERA_DIFF
         and form_edge >= HIGH_MIN_FORM_EDGE
         and edge >= HIGH_MIN_MODEL_EDGE
         and market_agrees is True
     ):
-        tier = "High"
-    elif p >= MEDIUM_MIN:
-        tier = "Medium"
-    return tier
+        return "High"
+    # Lean: book agrees and model has a real price edge, but form/ERA aren't full High.
+    if market_agrees is True and edge >= HIGH_MIN_MODEL_EDGE and p >= MEDIUM_MIN:
+        return "Medium"
+    # Strong matchup without a clean price edge still rates a lean above coin-flips.
+    if p >= 0.58 and era_diff >= HIGH_MIN_ERA_DIFF and form_edge >= 0.0:
+        return "Medium"
+    return "Low"
+
+
+def bet_action_from_confidence(confidence: str) -> str:
+    """Map confidence → what the user should do with bankroll."""
+    if confidence in ("Elite", "High"):
+        return "bet"
+    if confidence == "Medium":
+        return "lean"
+    return "pass"

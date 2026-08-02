@@ -46,28 +46,32 @@ def test_no_high_quota_without_gates() -> None:
     ]
     assign_daily_confidence(board)
     assert all(r["confidence"] not in ("High", "Elite") for r in board)
+    # First row is a lean (price-supported, soft ERA).
+    assert board[0]["confidence"] == "Medium"
+    assert board[0]["betAction"] == "lean"
 
 
 def test_high_requires_full_gates() -> None:
     board = [
         {
-            "pickProbability": 0.62,
-            "rawPickProbability": 0.62,
+            "pickProbability": 0.58,
+            "rawPickProbability": 0.58,
             "starterCertain": True,
             "homeMoneyline": -130,
             "awayMoneyline": 110,
             "marketAgrees": True,
             "modelEdge": 0.04,
             "eraDiff": 0.6,
-            "formEdge": 0.0,
+            "formEdge": 0.15,
             "explanation": [],
         }
     ]
     assign_daily_confidence(board)
     assert board[0]["confidence"] == "High"
+    assert board[0]["betAction"] == "bet"
 
 
-def test_no_high_without_market_agree_or_edge() -> None:
+def test_no_high_without_form_or_market_or_edge() -> None:
     board = [
         {
             "pickProbability": 0.66,
@@ -78,7 +82,7 @@ def test_no_high_without_market_agree_or_edge() -> None:
             "marketAgrees": False,
             "modelEdge": 0.08,
             "eraDiff": 1.5,
-            "formEdge": 0.1,
+            "formEdge": 0.2,
             "explanation": [],
         },
         {
@@ -90,16 +94,30 @@ def test_no_high_without_market_agree_or_edge() -> None:
             "marketAgrees": True,
             "modelEdge": 0.005,
             "eraDiff": 1.5,
-            "formEdge": 0.1,
+            "formEdge": 0.2,
+            "explanation": [],
+        },
+        {
+            "pickProbability": 0.66,
+            "rawPickProbability": 0.66,
+            "starterCertain": True,
+            "homeMoneyline": -150,
+            "awayMoneyline": 130,
+            "marketAgrees": True,
+            "modelEdge": 0.05,
+            "eraDiff": 1.5,
+            "formEdge": 0.0,  # below High form gate (0.1)
             "explanation": [],
         },
     ]
     assign_daily_confidence(board)
     assert all(r["confidence"] != "High" and r["confidence"] != "Elite" for r in board)
+    assert board[2]["confidence"] == "Medium"  # price-supported lean
+    assert board[2]["betAction"] == "lean"
 
 
 if __name__ == "__main__":
     test_no_high_quota_without_gates()
     test_high_requires_full_gates()
-    test_no_high_without_market_agree_or_edge()
+    test_no_high_without_form_or_market_or_edge()
     print("ok")

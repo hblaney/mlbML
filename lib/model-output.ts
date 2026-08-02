@@ -1159,6 +1159,13 @@ function normalizePredictionRows(rows: PredictionOutputRow[]): GamePrediction[] 
       projectedTotal: row.projectedTotal ?? null,
       oddsSource: row.oddsSource ?? null,
       confidence,
+      betAction:
+        row.betAction ??
+        (confidence === "Elite" || confidence === "High"
+          ? "bet"
+          : confidence === "Medium"
+            ? "lean"
+            : "pass"),
       marketAgrees: row.marketAgrees,
       modelEdge: row.modelEdge,
       modelVersion: row.modelVersion ?? "daily-model",

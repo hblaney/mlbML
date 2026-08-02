@@ -54,7 +54,8 @@
         "OOS May\u2013Jul 2026: overall \u224861%. High/Elite require p/ERA/form/market gates \u2014 no daily High quota.",
         "PA sim diagnostic: home 41.0% (runs 4.0-2.9, confirmed)",
         "Market prices from 9 sportsbook source(s)"
-      ]
+      ],
+      "betAction": "bet"
     },
     {
       "id": "wsh-atl-2026-08-01-824890",
@@ -104,7 +105,8 @@
         "OOS May\u2013Jul 2026: overall \u224861%. High/Elite require p/ERA/form/market gates \u2014 no daily High quota.",
         "PA sim diagnostic: home 72.3% (runs 3.0-5.1, confirmed)",
         "Market prices from 5 sportsbook source(s)"
-      ]
+      ],
+      "betAction": "bet"
     },
     {
       "id": "sf-sd-2026-08-01-823269",
@@ -154,7 +156,8 @@
         "OOS May\u2013Jul 2026: overall \u224861%. High/Elite require p/ERA/form/market gates \u2014 no daily High quota.",
         "PA sim diagnostic: home 42.6% (runs 3.7-2.9, confirmed)",
         "Market prices from 9 sportsbook source(s)"
-      ]
+      ],
+      "betAction": "lean"
     },
     {
       "id": "phi-bal-2026-08-01-824808",
@@ -204,7 +207,59 @@
         "OOS May\u2013Jul 2026: overall \u224861%. High/Elite require p/ERA/form/market gates \u2014 no daily High quota.",
         "PA sim diagnostic: home 38.2% (runs 3.5-2.3, confirmed)",
         "Market prices from 9 sportsbook source(s)"
-      ]
+      ],
+      "betAction": "lean"
+    },
+    {
+      "id": "stl-tor-2026-08-01-822781",
+      "date": "2026-08-01",
+      "startsAt": "2026-08-01T19:07:00Z",
+      "awayTeam": "stl",
+      "homeTeam": "tor",
+      "awayPitcher": "Quinn Mathews",
+      "homePitcher": "Kevin Gausman",
+      "starterCertain": true,
+      "pitcherChanged": false,
+      "seriesFade": false,
+      "predictedTeam": "tor",
+      "pickProbability": 0.5501,
+      "rawPickProbability": 0.5501,
+      "modelHomeWinProbability": 0.5501,
+      "modelAwayWinProbability": 0.4499,
+      "simRawHomeWinProbability": 0.441,
+      "simRawAwayWinProbability": 0.559,
+      "simHomeWinProbability": 0.441,
+      "simAwayWinProbability": 0.559,
+      "gbmHomeWinProbability": 0.5501,
+      "gbmAwayWinProbability": 0.4499,
+      "nSims": 2000,
+      "lineupSource": "confirmed",
+      "predictionSource": "raw_gbm",
+      "homeMoneyline": -117,
+      "awayMoneyline": 102,
+      "homeRunline": -0.16666666666666666,
+      "awayRunline": 0.16666666666666666,
+      "homeRunlinePrice": -102,
+      "awayRunlinePrice": -115,
+      "marketTotal": 9.0,
+      "overPrice": -109,
+      "underPrice": -110,
+      "projectedTotal": 5.58,
+      "oddsSource": "The Odds API",
+      "confidence": "Medium",
+      "marketAgrees": true,
+      "modelEdge": 0.0288,
+      "eraDiff": 0.067629,
+      "formEdge": 0.2,
+      "modelVersion": "daily-auto-v6.1-raw-gbm",
+      "explanation": [
+        "Retrained through 2026-07-31",
+        "Published pick = raw GBM win% (Elo/form/starter/park). Not market-anchored.",
+        "OOS May\u2013Jul 2026: overall \u224861%. High/Elite require p/ERA/form/market gates \u2014 no daily High quota.",
+        "PA sim diagnostic: home 44.1% (runs 3.1-2.5, confirmed)",
+        "Market prices from 9 sportsbook source(s)"
+      ],
+      "betAction": "lean"
     },
     {
       "id": "bos-lad-2026-08-01-823920",
@@ -242,7 +297,7 @@
       "underPrice": -108,
       "projectedTotal": 5.32,
       "oddsSource": "The Odds API",
-      "confidence": "Medium",
+      "confidence": "Low",
       "marketAgrees": true,
       "modelEdge": -0.0009,
       "eraDiff": 1.467385,
@@ -254,7 +309,8 @@
         "OOS May\u2013Jul 2026: overall \u224861%. High/Elite require p/ERA/form/market gates \u2014 no daily High quota.",
         "PA sim diagnostic: home 71.5% (runs 1.8-3.5, confirmed)",
         "Market prices from 9 sportsbook source(s)"
-      ]
+      ],
+      "betAction": "pass"
     },
     {
       "id": "tex-hou-2026-08-01-824162",
@@ -304,57 +360,8 @@
         "OOS May\u2013Jul 2026: overall \u224861%. High/Elite require p/ERA/form/market gates \u2014 no daily High quota.",
         "PA sim diagnostic: home 53.9% (runs 2.9-3.0, confirmed)",
         "Market prices from 9 sportsbook source(s)"
-      ]
-    },
-    {
-      "id": "stl-tor-2026-08-01-822781",
-      "date": "2026-08-01",
-      "startsAt": "2026-08-01T19:07:00Z",
-      "awayTeam": "stl",
-      "homeTeam": "tor",
-      "awayPitcher": "Quinn Mathews",
-      "homePitcher": "Kevin Gausman",
-      "starterCertain": true,
-      "pitcherChanged": false,
-      "seriesFade": false,
-      "predictedTeam": "tor",
-      "pickProbability": 0.5501,
-      "rawPickProbability": 0.5501,
-      "modelHomeWinProbability": 0.5501,
-      "modelAwayWinProbability": 0.4499,
-      "simRawHomeWinProbability": 0.441,
-      "simRawAwayWinProbability": 0.559,
-      "simHomeWinProbability": 0.441,
-      "simAwayWinProbability": 0.559,
-      "gbmHomeWinProbability": 0.5501,
-      "gbmAwayWinProbability": 0.4499,
-      "nSims": 2000,
-      "lineupSource": "confirmed",
-      "predictionSource": "raw_gbm",
-      "homeMoneyline": -117,
-      "awayMoneyline": 102,
-      "homeRunline": -0.16666666666666666,
-      "awayRunline": 0.16666666666666666,
-      "homeRunlinePrice": -102,
-      "awayRunlinePrice": -115,
-      "marketTotal": 9.0,
-      "overPrice": -109,
-      "underPrice": -110,
-      "projectedTotal": 5.58,
-      "oddsSource": "The Odds API",
-      "confidence": "Low",
-      "marketAgrees": true,
-      "modelEdge": 0.0288,
-      "eraDiff": 0.067629,
-      "formEdge": 0.2,
-      "modelVersion": "daily-auto-v6.1-raw-gbm",
-      "explanation": [
-        "Retrained through 2026-07-31",
-        "Published pick = raw GBM win% (Elo/form/starter/park). Not market-anchored.",
-        "OOS May\u2013Jul 2026: overall \u224861%. High/Elite require p/ERA/form/market gates \u2014 no daily High quota.",
-        "PA sim diagnostic: home 44.1% (runs 3.1-2.5, confirmed)",
-        "Market prices from 9 sportsbook source(s)"
-      ]
+      ],
+      "betAction": "pass"
     },
     {
       "id": "cws-tb-2026-08-01-822944",
@@ -404,7 +411,8 @@
         "OOS May\u2013Jul 2026: overall \u224861%. High/Elite require p/ERA/form/market gates \u2014 no daily High quota.",
         "PA sim diagnostic: home 50.1% (runs 3.1-3.1, confirmed)",
         "Market prices from 9 sportsbook source(s)"
-      ]
+      ],
+      "betAction": "pass"
     },
     {
       "id": "nyy-chc-2026-08-01-824649",
@@ -454,7 +462,8 @@
         "OOS May\u2013Jul 2026: overall \u224861%. High/Elite require p/ERA/form/market gates \u2014 no daily High quota.",
         "PA sim diagnostic: home 40.9% (runs 3.1-2.2, confirmed)",
         "Market prices from 9 sportsbook source(s)"
-      ]
+      ],
+      "betAction": "pass"
     },
     {
       "id": "kc-col-2026-08-01-824326",
@@ -504,7 +513,8 @@
         "OOS May\u2013Jul 2026: overall \u224861%. High/Elite require p/ERA/form/market gates \u2014 no daily High quota.",
         "PA sim diagnostic: home 51.6% (runs 4.3-4.3, confirmed)",
         "Market prices from 9 sportsbook source(s)"
-      ]
+      ],
+      "betAction": "pass"
     },
     {
       "id": "mia-nym-2026-08-01-823594",
@@ -554,7 +564,8 @@
         "OOS May\u2013Jul 2026: overall \u224861%. High/Elite require p/ERA/form/market gates \u2014 no daily High quota.",
         "PA sim diagnostic: home 60.1% (runs 2.5-3.1, confirmed)",
         "Market prices from 9 sportsbook source(s)"
-      ]
+      ],
+      "betAction": "pass"
     },
     {
       "id": "az-cle-2026-08-01-824405",
@@ -604,7 +615,8 @@
         "OOS May\u2013Jul 2026: overall \u224861%. High/Elite require p/ERA/form/market gates \u2014 no daily High quota.",
         "PA sim diagnostic: home 50.8% (runs 2.6-2.4, confirmed)",
         "Market prices from 9 sportsbook source(s)"
-      ]
+      ],
+      "betAction": "pass"
     },
     {
       "id": "min-sea-2026-08-01-823109",
@@ -654,7 +666,8 @@
         "OOS May\u2013Jul 2026: overall \u224861%. High/Elite require p/ERA/form/market gates \u2014 no daily High quota.",
         "PA sim diagnostic: home 59.0% (runs 2.7-3.4, confirmed)",
         "Market prices from 9 sportsbook source(s)"
-      ]
+      ],
+      "betAction": "pass"
     },
     {
       "id": "pit-cin-2026-08-01-824485",
@@ -704,7 +717,8 @@
         "OOS May\u2013Jul 2026: overall \u224861%. High/Elite require p/ERA/form/market gates \u2014 no daily High quota.",
         "PA sim diagnostic: home 39.4% (runs 4.7-3.4, confirmed)",
         "Market prices from 9 sportsbook source(s)"
-      ]
+      ],
+      "betAction": "pass"
     },
     {
       "id": "mil-laa-2026-08-01-824000",
@@ -754,7 +768,8 @@
         "OOS May\u2013Jul 2026: overall \u224861%. High/Elite require p/ERA/form/market gates \u2014 no daily High quota.",
         "PA sim diagnostic: home 45.6% (runs 4.3-3.7, confirmed)",
         "Market prices from 9 sportsbook source(s)"
-      ]
+      ],
+      "betAction": "pass"
     }
   ]
 }

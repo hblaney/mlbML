@@ -38,7 +38,9 @@ export type GamePrediction = {
   projectedTotal?: number | null;
   oddsSource?: string | null;
   confidence: "Low" | "Medium" | "High" | "Elite";
-  /** Model agrees with no-vig market on pick side (informational — not required for High/Elite). */
+  /** What to do with bankroll: bet (High/Elite), lean (Medium), pass (Low). */
+  betAction?: "bet" | "lean" | "pass";
+  /** Model agrees with no-vig market on pick side — required for High/Elite. */
   marketAgrees?: boolean | null;
   /** Sim pick% − market implied for the picked side (uncapped). */
   modelEdge?: number;
@@ -2023,18 +2025,17 @@ export function getQualitySingleTicket(board: GamePrediction[] = predictions): D
   };
 }
 
-/** daily_best_single quality gates. */
-export const DAILY_SINGLE_MIN_PROBABILITY = 0.65;
+/** daily_best_single = best High/Elite (BET) pick. Same gates as confidence High. */
+export const DAILY_SINGLE_MIN_PROBABILITY = 0.55;
 export const DAILY_SINGLE_MIN_EDGE = 0.02;
+export const DAILY_SINGLE_MIN_ERA_DIFF = 0.5;
+export const DAILY_SINGLE_MIN_FORM_EDGE = 0.1;
 export const DAILY_SINGLE_MIN_ODDS = -250;
 
 /**
- * daily_best_single — bet the model's single highest-probability *quality* pick each day
- * as a moneyline single: model prob >= 0.65, edge >= 0.02, odds better than -250, +EV.
- * This is the live strategy. Walk-forward 2026 (real odds): 63-14 / 81.8% hit, and the
- * quality gate lifts the recent-window hit rate from ~60% to ~73% by cutting coin-flip
- * (prob 0.60-0.65) and no-edge (<2%) picks that were net losers. Fires on ~78% of days,
- * versus the old High/Elite parlay gates that skipped ~84% of days.
+ * daily_best_single — bet the model's best High-confidence moneyline when one exists.
+ * Gates match the High label (p≥55%, form≥0.1, ERA≥0.5, edge≥2%, market agrees, +EV,
+ * odds better than -250). Skip the day when nothing earns High — do not pad with leans.
  */
 export function getDailyBestSingleTicket(board: GamePrediction[] = predictions): DailyTicket | null {
   const pool = buildMarketMoneylineCandidates(board).filter(
@@ -2044,6 +2045,10 @@ export function getDailyBestSingleTicket(board: GamePrediction[] = predictions):
       bet.edge >= DAILY_SINGLE_MIN_EDGE &&
       bet.odds > DAILY_SINGLE_MIN_ODDS &&
       bet.game.starterCertain !== false &&
+      bet.game.marketAgrees === true &&
+      (bet.game.eraDiff ?? 0) >= DAILY_SINGLE_MIN_ERA_DIFF &&
+      (bet.game.formEdge ?? 0) >= DAILY_SINGLE_MIN_FORM_EDGE &&
+      (bet.game.confidence === "High" || bet.game.confidence === "Elite") &&
       Math.abs(bet.odds) <= ML_SANITY_LIMIT_LIVE
   );
   if (pool.length === 0) {

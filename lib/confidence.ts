@@ -1,15 +1,19 @@
-// Prediction-first confidence — probability tier + starter/form gates (matches probability_calibration.py).
+// Betting-label confidence — mirrors scripts/model/probability_calibration.py.
 
 import type { GamePrediction } from "./data";
 
-export const CONFIDENCE_MEDIUM_MIN = 0.58;
-export const CONFIDENCE_HIGH_MIN = 0.65;
-export const CONFIDENCE_ELITE_MIN = 0.7;
+/** Lean floor (price-supported). */
+export const CONFIDENCE_MEDIUM_MIN = 0.55;
+/** High = BET lane. */
+export const CONFIDENCE_HIGH_MIN = 0.55;
+export const CONFIDENCE_ELITE_MIN = 0.65;
 export const CONFIDENCE_UNCERTAIN_MEDIUM_MIN = 0.6;
-export const CONFIDENCE_HIGH_MIN_ERA_DIFF = 0.8;
-export const CONFIDENCE_ELITE_MIN_ERA_DIFF = 2.5;
-export const CONFIDENCE_HIGH_MIN_FORM_EDGE = 0.02;
-export const CONFIDENCE_ELITE_MIN_FORM_EDGE = 0.0;
+export const CONFIDENCE_HIGH_MIN_ERA_DIFF = 0.5;
+export const CONFIDENCE_ELITE_MIN_ERA_DIFF = 1.5;
+export const CONFIDENCE_HIGH_MIN_FORM_EDGE = 0.1;
+export const CONFIDENCE_ELITE_MIN_FORM_EDGE = 0.1;
+export const CONFIDENCE_HIGH_MIN_MODEL_EDGE = 0.02;
+export const CONFIDENCE_ELITE_MIN_MODEL_EDGE = 0.03;
 
 export type ConfidenceContext = {
   modelEdge?: number;
@@ -29,31 +33,43 @@ export function confidenceFromPickProbability(
   const marketAvailable = context.marketAvailable ?? true;
   const eraDiff = Math.round((context.eraDiff ?? 0) * 1e6) / 1e6;
   const formEdge = Math.round((context.formEdge ?? 0) * 1e6) / 1e6;
+  const edge = context.modelEdge ?? 0;
 
-  // Unconfirmed starter or no market price makes the probability less trustworthy.
   if (!starterCertain || !marketAvailable) {
     return probability >= CONFIDENCE_UNCERTAIN_MEDIUM_MIN ? "Medium" : "Low";
   }
 
-  // Market agreement is informational only — PA Monte Carlo can disagree with the book.
   if (
     probability >= CONFIDENCE_ELITE_MIN &&
     eraDiff >= CONFIDENCE_ELITE_MIN_ERA_DIFF &&
-    formEdge >= CONFIDENCE_ELITE_MIN_FORM_EDGE
+    formEdge >= CONFIDENCE_ELITE_MIN_FORM_EDGE &&
+    edge >= CONFIDENCE_ELITE_MIN_MODEL_EDGE &&
+    context.marketAgrees === true
   ) {
     return "Elite";
   }
   if (
     probability >= CONFIDENCE_HIGH_MIN &&
     eraDiff >= CONFIDENCE_HIGH_MIN_ERA_DIFF &&
-    formEdge >= CONFIDENCE_HIGH_MIN_FORM_EDGE
+    formEdge >= CONFIDENCE_HIGH_MIN_FORM_EDGE &&
+    edge >= CONFIDENCE_HIGH_MIN_MODEL_EDGE &&
+    context.marketAgrees === true
   ) {
     return "High";
   }
-  if (probability >= CONFIDENCE_MEDIUM_MIN) {
+  if (context.marketAgrees === true && edge >= CONFIDENCE_HIGH_MIN_MODEL_EDGE && probability >= CONFIDENCE_MEDIUM_MIN) {
+    return "Medium";
+  }
+  if (probability >= 0.58 && eraDiff >= CONFIDENCE_HIGH_MIN_ERA_DIFF && formEdge >= 0) {
     return "Medium";
   }
   return "Low";
+}
+
+export function betActionFromConfidence(confidence: GamePrediction["confidence"]): "bet" | "lean" | "pass" {
+  if (confidence === "Elite" || confidence === "High") return "bet";
+  if (confidence === "Medium") return "lean";
+  return "pass";
 }
 
 export function assertConfidenceMatchesPick(

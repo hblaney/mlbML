@@ -54,7 +54,10 @@ export function GameCard({ game, recordsByTeamId = {} }: { game: GamePrediction;
             {homeRecord ? <span className="team-record">{homeRecord}</span> : null}
           </div>
         </div>
-        <span className="badge">{game.confidence}</span>
+        <span className="badge">
+          {game.confidence}
+          {game.betAction === "bet" ? " · BET" : game.betAction === "lean" ? " · LEAN" : ""}
+        </span>
       </div>
 
       <div className="pick-block">
@@ -76,9 +79,13 @@ export function GameCard({ game, recordsByTeamId = {} }: { game: GamePrediction;
               ) : null}
               {" · "}
               {game.confidence}
+              {game.betAction === "bet" ? " · bet this" : game.betAction === "lean" ? " · lean" : " · pass"}
             </>
           ) : (
-            <>Confidence: {game.confidence}</>
+            <>
+              Confidence: {game.confidence}
+              {game.betAction === "bet" ? " · bet this" : game.betAction === "lean" ? " · lean" : " · pass"}
+            </>
           )}
         </p>
       </div>

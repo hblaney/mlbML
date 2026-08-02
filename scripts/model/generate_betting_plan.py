@@ -59,11 +59,15 @@ def main() -> None:
         "strategy_rules": rules,
         "stake_by_leg_count": {str(k): v for k, v in STAKE_BY_LEG.items()},
         "daily_best_single_gates": {
-            "min_probability": 0.65,
+            "min_probability": 0.55,
             "min_edge": 0.02,
+            "min_era_diff": 0.5,
+            "min_form_edge": 0.1,
             "min_odds": -250,
+            "require_market_agrees": True,
             "require_positive_ev": True,
             "require_starter_certain": True,
+            "require_high_confidence": True,
         },
         "walk_forward": {
             "record": record,
