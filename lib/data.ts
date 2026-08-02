@@ -480,9 +480,20 @@ export function getBestBets(board: GamePrediction[] = predictions): BestBet[] {
   return [];
 }
 
-/** Board ranked by model win probability (prediction-first). */
+const BOARD_CONFIDENCE_RANK: Record<GamePrediction["confidence"], number> = {
+  Elite: 4,
+  High: 3,
+  Medium: 2,
+  Low: 1
+};
+
+/** Board ranked by confidence first (Elite/High above Medium), then probability. */
 export function getSortedPredictions(board: GamePrediction[] = predictions): GamePrediction[] {
-  return [...board].sort((left, right) => (right.pickProbability ?? 0) - (left.pickProbability ?? 0));
+  return [...board].sort(
+    (left, right) =>
+      BOARD_CONFIDENCE_RANK[right.confidence] - BOARD_CONFIDENCE_RANK[left.confidence] ||
+      (right.pickProbability ?? 0) - (left.pickProbability ?? 0)
+  );
 }
 
 function sigmoid(value: number) {

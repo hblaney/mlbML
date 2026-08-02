@@ -234,7 +234,14 @@ def main() -> None:
         deduped_board.append(row)
     board = deduped_board
     assign_daily_confidence(board)
-    board.sort(key=lambda row: row.get("pickProbability") or 0, reverse=True)
+    _CONF_RANK = {"Elite": 4, "High": 3, "Medium": 2, "Low": 1}
+    board.sort(
+        key=lambda row: (
+            _CONF_RANK.get(str(row.get("confidence") or "Low"), 0),
+            float(row.get("pickProbability") or 0),
+        ),
+        reverse=True,
+    )
     payload = {
         "generated_at": today.isoformat(),
         "board_generated_at": board_generated_at,

@@ -1185,7 +1185,13 @@ function normalizePredictionRows(rows: PredictionOutputRow[]): GamePrediction[] 
       assertConfidenceMatchesPick(normalized);
     }
     return normalized;
-  }).sort((left, right) => (right.pickProbability ?? 0) - (left.pickProbability ?? 0));
+  }).sort((left, right) => {
+    const rank: Record<string, number> = { Elite: 4, High: 3, Medium: 2, Low: 1 };
+    return (
+      (rank[right.confidence] ?? 0) - (rank[left.confidence] ?? 0) ||
+      (right.pickProbability ?? 0) - (left.pickProbability ?? 0)
+    );
+  });
 }
 
 export async function loadPredictionBoard(): Promise<GamePrediction[]> {
