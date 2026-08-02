@@ -16,6 +16,8 @@ export type Team = {
 
 export type GamePrediction = {
   id: string;
+  /** MLB Stats API gamePk when known (also embedded at end of id). */
+  gamePk?: number | string | null;
   startsAt: string;
   awayTeam: string;
   homeTeam: string;

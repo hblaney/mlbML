@@ -2,13 +2,13 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { StreamEmbed } from "@/components/StreamEmbed";
 import { GamePrediction, getTeam, teams } from "@/lib/data";
-import { loadLiveGameState, LiveGameState } from "@/lib/live-game";
+import { loadLiveGameStatesForBoard, LiveGameState } from "@/lib/live-game";
 import { loadPredictionBoard } from "@/lib/model-output";
 import { formatOdds, formatPercent } from "@/lib/odds";
 import { getTeamLogoUrl } from "@/lib/team-media";
 import { formatStandingRecord, loadLiveStandings, TeamStanding } from "@/lib/standings";
 import { formatCentralGameTime } from "@/lib/time";
-import { formatWatchGameStatusLine } from "@/lib/watch-team-status";
+import { formatWatchGameStatusLine, pickTeamGame } from "@/lib/watch-team-status";
 import { resolveBuffstreamsForGame } from "@/lib/buffstreams";
 import { getTeamWatchStream } from "@/lib/watch-streams";
 
@@ -16,9 +16,9 @@ type WatchTeamPageProps = {
   params: Promise<{ teamId: string }>;
 };
 
-export function generateStaticParams() {
-  return teams.map((team) => ({ teamId: team.id }));
-}
+// Live scores must never be baked into a static page.
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
 
 function getFavorite(game: GamePrediction) {
   const home = getTeam(game.homeTeam);
@@ -166,7 +166,7 @@ function LiveGamePanel({ game, liveGame }: { game?: GamePrediction; liveGame: Li
       {game && liveGame ? (
         <div className="live-game-grid">
           <div>
-            <p className="muted">{liveGame.inning}</p>
+            <p className="muted">{liveGame.inning === "Final" ? "Final" : liveGame.inning}</p>
             <table className="box-score-table">
               <thead>
                 <tr>
@@ -219,13 +219,13 @@ export default async function WatchTeamPage({ params }: WatchTeamPageProps) {
   const logoUrl = getTeamLogoUrl(team.id);
   const [predictions, standings] = await Promise.all([loadPredictionBoard(), loadLiveStandings()]);
   const standing = standings.find((item) => item.teamId === team.id);
-  const teamPredictions = predictions.filter((game) => game.awayTeam === team.id || game.homeTeam === team.id);
-  const primaryGame = teamPredictions[0];
+  const liveByGameId = await loadLiveGameStatesForBoard(predictions);
+  const primaryGame = pickTeamGame(team.id, predictions, liveByGameId);
   const opponentId = primaryGame?.awayTeam === team.id ? primaryGame.homeTeam : primaryGame?.awayTeam;
   const buffstreams = primaryGame ? await resolveBuffstreamsForGame(primaryGame) : null;
   const stream = getTeamWatchStream(team.id, opponentId, buffstreams);
   const opponentStanding = standings.find((item) => item.teamId === opponentId);
-  const liveGame = await loadLiveGameState(primaryGame);
+  const liveGame = primaryGame ? (liveByGameId.get(primaryGame.id) ?? null) : null;
   const streamPageLabel = buffstreams ? "Open on Buffstreams" : "Open on MLB Webcast";
 
   return (

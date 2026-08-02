@@ -5,6 +5,7 @@ import { getWatchTeams } from "@/lib/team-media";
 import { buildWatchTeamStatuses } from "@/lib/watch-team-status";
 
 export const dynamic = "force-dynamic";
+export const revalidate = 0;
 
 export default async function WatchPage() {
   const watchTeams = getWatchTeams();

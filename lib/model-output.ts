@@ -1136,8 +1136,11 @@ function normalizePredictionRows(rows: PredictionOutputRow[]): GamePrediction[] 
         rawPick: row.rawPickProbability ?? pickProbability,
       });
 
+    const id = row.id ?? `${awayTeam}-${homeTeam}-${row.startsAt ?? "today"}`;
+    const pkFromId = id.match(/-(\d+)$/)?.[1];
     const normalized: GamePrediction = {
-      id: row.id ?? `${awayTeam}-${homeTeam}-${row.startsAt ?? "today"}`,
+      id,
+      gamePk: row.gamePk ?? (pkFromId ? Number(pkFromId) : null),
       startsAt: row.startsAt ?? new Date().toISOString(),
       awayTeam,
       homeTeam,

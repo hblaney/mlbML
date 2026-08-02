@@ -1,4 +1,4 @@
-import { GamePrediction, getTeam } from "./data";
+import { GamePrediction, getTeam, normalizeTeamId } from "./data";
 import { formatInningWithArrow, isGameFinal, isGameLive, LiveGameState } from "./live-game";
 import { formatCentralGameSchedule } from "./time";
 
@@ -18,12 +18,18 @@ function getOpponentAbbrev(game: GamePrediction, teamId: string) {
   return getTeam(opponentId).abbreviation;
 }
 
-function pickTeamGame(
+/** Prefer live, then final, then next scheduled game for a team card/page. */
+export function pickTeamGame(
   teamId: string,
   board: GamePrediction[],
   liveByGameId: Map<string, LiveGameState | null>
 ) {
-  const teamGames = board.filter((game) => game.awayTeam === teamId || game.homeTeam === teamId);
+  const normalizedTeam = normalizeTeamId(teamId);
+  const teamGames = board.filter(
+    (game) =>
+      normalizeTeamId(game.awayTeam) === normalizedTeam ||
+      normalizeTeamId(game.homeTeam) === normalizedTeam
+  );
 
   if (teamGames.length === 0) {
     return null;
@@ -34,6 +40,12 @@ function pickTeamGame(
     return liveGame;
   }
 
+  // Prefer a just-finished game over tomorrow's scheduled one on the same card.
+  const finalGame = teamGames.find((game) => isGameFinal(liveByGameId.get(game.id)));
+  if (finalGame) {
+    return finalGame;
+  }
+
   const upcomingGames = teamGames
     .filter((game) => !isGameFinal(liveByGameId.get(game.id)))
     .sort((left, right) => new Date(left.startsAt).getTime() - new Date(right.startsAt).getTime());
@@ -41,14 +53,21 @@ function pickTeamGame(
   return upcomingGames[0] ?? teamGames[0];
 }
 
-function formatLiveStatusLine(game: GamePrediction, liveGame: LiveGameState) {
+function formatScoreStatusLine(game: GamePrediction, liveGame: LiveGameState, prefix: string) {
   const away = getTeam(game.awayTeam);
   const home = getTeam(game.homeTeam);
   const awayRuns = liveGame.away?.runs ?? 0;
   const homeRuns = liveGame.home?.runs ?? 0;
-  const inning = formatInningWithArrow(liveGame.inning);
 
-  return `${inning} · ${away.abbreviation} ${awayRuns}-${homeRuns} ${home.abbreviation}`;
+  return `${prefix} · ${away.abbreviation} ${awayRuns}-${homeRuns} ${home.abbreviation}`;
+}
+
+function formatLiveStatusLine(game: GamePrediction, liveGame: LiveGameState) {
+  return formatScoreStatusLine(game, liveGame, formatInningWithArrow(liveGame.inning));
+}
+
+function formatFinalStatusLine(game: GamePrediction, liveGame: LiveGameState) {
+  return formatScoreStatusLine(game, liveGame, "Final");
 }
 
 function formatScheduledStatusLine(game: GamePrediction, teamId: string) {
@@ -60,6 +79,10 @@ export function formatWatchGameStatusLine(
   liveGame: LiveGameState | null | undefined,
   teamId: string
 ) {
+  if (liveGame && isGameFinal(liveGame)) {
+    return formatFinalStatusLine(game, liveGame);
+  }
+
   if (liveGame && isGameLive(liveGame)) {
     return formatLiveStatusLine(game, liveGame);
   }
@@ -80,17 +103,9 @@ export function buildWatchTeamStatuses(
     }
 
     const liveGame = liveByGameId.get(game.id);
-
-    if (liveGame && isGameLive(liveGame)) {
-      return {
-        ...team,
-        statusLine: formatLiveStatusLine(game, liveGame)
-      };
-    }
-
     return {
       ...team,
-      statusLine: formatScheduledStatusLine(game, team.id)
+      statusLine: formatWatchGameStatusLine(game, liveGame, team.id)
     };
   });
 }
