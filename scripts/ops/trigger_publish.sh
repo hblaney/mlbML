@@ -11,7 +11,7 @@
 
 set -u
 
-REPO_DIR="/Users/henryblaney/Desktop/VIP/mlb-edge"
+REPO_DIR="${REPO_DIR:-/Users/henryblaney/Desktop/VIP/mlb-edge}"
 LOG_DIR="${REPO_DIR}/data/ops"
 LOG="${LOG_DIR}/publish-trigger.log"
 mkdir -p "${LOG_DIR}"

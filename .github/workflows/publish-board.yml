@@ -10,10 +10,12 @@ name: Publish Live Board
 on:
   workflow_dispatch:
   schedule:
-    # Morning publish (~10 AM CT). Three ticks so a dropped/late tick self-heals.
+    # Morning publish (~10 AM CT). Dense ticks — GitHub routinely drops/delays
+    # the 15:00 UTC hour after we moved off the old 16:00 (11 AM CT) slot.
     # 15:00 UTC = 10:00 AM CDT / 9:00 AM CST.
-    - cron: "0,30 15 * * *"
-    - cron: "0 16 * * *"
+    - cron: "0,15,30,45 15 * * *"
+    - cron: "0,15,30 16 * * *"
+    - cron: "0 17 * * *"
     # Afternoon refresh (~3 PM CT).
     - cron: "0,30 20 * * *"
     - cron: "0 21 * * *"
@@ -56,11 +58,19 @@ jobs:
             echo "manual dispatch -> publish"
             exit 0
           fi
-          # Minutes since the last board was published. Publish windows are >=4h
-          # apart, so a 150m freshness window lets each window's first tick
-          # publish while later catch-up ticks (same hour) no-op.
+          # Always publish when the board is not today's date (Chicago), even if a
+          # catch-up tick somehow looks "fresh" by age. This is what failed after
+          # the 10 AM move: morning ticks were dropped and noon was the first fire.
+          today=$(TZ=America/Chicago date +%F)
+          board_day=$(python3 -c "import json; print(json.load(open('public/predictions.json')).get('generated_at',''))" 2>/dev/null || echo "")
+          if [ "${board_day}" != "${today}" ]; then
+            echo "publish=true" >> "$GITHUB_OUTPUT"
+            echo "board date '${board_day}' != today '${today}' -> publish"
+            exit 0
+          fi
+          # Same-day catch-up: skip if published in the last 150 minutes.
           age=$(python3 -c "import json; from datetime import datetime, timezone; d=json.load(open('public/prop-predictions.json')); t=datetime.fromisoformat(d['board_generated_at'].replace('Z','+00:00')); print(int((datetime.now(timezone.utc)-t).total_seconds()//60))" 2>/dev/null || echo 99999)
-          echo "last board age: ${age} min"
+          echo "last board age: ${age} min (board_day=${board_day})"
           if [ "${age}" -lt 150 ]; then
             echo "publish=false" >> "$GITHUB_OUTPUT"
             echo "board published <150m ago -> skip (redundant catch-up tick)"
