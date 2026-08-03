@@ -1,41 +1,33 @@
 {
-  "generated_at": "2026-08-01",
-  "strategy": "daily_best_single",
-  "mode": "quality_daily_single",
-  "achieved_ticket_hit_rate": 1.0,
+  "generated_at": "2026-08-03",
+  "strategy": "daily_high_two_leg",
+  "mode": "high_two_leg_stack",
   "model_version": "daily-auto-v6.1-raw-gbm",
   "pipeline_version": "unified-public-v21-raw-gbm-high-card",
   "strategy_rules": [
-    "Official bet = one quality moneyline SINGLE per day when gates clear; else skip.",
-    "Gates: model p \u2265 65%, edge \u2265 2%, odds better than -250, +EV, confirmed starter.",
-    "Do not force parlays \u2014 recent market-agree parlays hit ~43% and burned the wallet.",
-    "Do not hand-build tickets off the research board \u2014 the locked ticket is the only official slip.",
-    "Model retrains daily through yesterday; REFIT_EVERY=30 (walk-forward validated).",
-    "Walk-forward ticket (daily_best_single): 8-0 (100.0% hit)",
-    "Model season pick accuracy: 56.9%",
-    "Last-100 form: 55.0% acc, AUC 0.37"
+    "Official bet = 2-leg High moneyline parlay when 2+ High/Elite legs clear; else one High single; else skip.",
+    "Gates (per leg): p ≥ 55%, form ≥ 0.1, ERA edge ≥ 0.5, edge ≥ 2%, market agrees, +EV, odds better than -250, confirmed starter.",
+    "Never pad with Medium/Low. Never force a 3-leg.",
+    "Do not hand-build tickets off the research board — the locked ticket is the only official slip.",
+    "Model retrains daily through yesterday; REFIT_EVERY=30 (walk-forward validated)."
   ],
   "stake_by_leg_count": {
     "1": 0.18,
     "2": 0.12,
     "3": 0.1
   },
-  "daily_best_single_gates": {
-    "min_probability": 0.65,
+  "daily_high_two_leg_gates": {
+    "min_probability": 0.55,
     "min_edge": 0.02,
+    "min_era_diff": 0.5,
+    "min_form_edge": 0.1,
     "min_odds": -250,
+    "require_market_agrees": true,
     "require_positive_ev": true,
-    "require_starter_certain": true
+    "require_starter_certain": true,
+    "require_high_confidence": true,
+    "prefer_leg_count": 2,
+    "max_leg_count": 2
   },
-  "walk_forward": {
-    "record": "8-0",
-    "ticket_hit_rate": 1.0,
-    "flat_roi_per_100": 0.519,
-    "bet_days": 8
-  },
-  "backtest_period": {
-    "start": "2026-03-20",
-    "end": "2026-08-01"
-  },
-  "retuned_from": "Kill losing market_agree_parlay; ship daily_best_single (2026-08-01)"
+  "retuned_from": "Prefer 2-leg High stacks after live $10→$40 compound (2026-08-03)"
 }

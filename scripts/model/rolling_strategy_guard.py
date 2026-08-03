@@ -11,7 +11,7 @@ from exhaustive_strategy_search import STAKE, flat_stats_for_snapshots, load_mon
 from strategy_next_tests import build_snapshots, enrich_moneyline
 from strategy_research import DAILY_CAP, compound
 
-LIVE_STRATEGY = "daily_best_single"
+LIVE_STRATEGY = "daily_high_two_leg"
 CHALLENGERS = [
     "parlay_first",
     "best_ticket",

@@ -5,7 +5,9 @@ import {
   getSortedPredictions,
   getTeam,
   LIVE_BETTING_STRATEGY,
-  OPTIMIZED_STAKE_BY_LEG_COUNT
+  OPTIMIZED_STAKE_BY_LEG_COUNT,
+  type BestBet,
+  type DailyTicket
 } from "@/lib/data";
 import { loadLiveBankroll, loadBettingPlan, loadPredictionBoard } from "@/lib/model-output";
 import { formatOdds, formatPercent } from "@/lib/odds";
@@ -13,6 +15,30 @@ import { formatStandingRecord, loadLiveStandings } from "@/lib/standings";
 import { formatCentralGameTime } from "@/lib/time";
 
 export const dynamic = "force-dynamic";
+
+function ticketLegs(ticket: DailyTicket): BestBet[] {
+  if (ticket.kind === "single") return [ticket.bet];
+  if (ticket.kind === "multi_single") return ticket.bets;
+  return ticket.parlay.legs;
+}
+
+function ticketTitle(ticket: DailyTicket): string {
+  const legs = ticketLegs(ticket);
+  if (legs.length === 1) return `${legs[0].team.abbreviation} moneyline`;
+  return `${legs.map((leg) => `${leg.team.abbreviation} ML`).join(" + ")}`;
+}
+
+function ticketOdds(ticket: DailyTicket): number | null {
+  if (ticket.kind === "single") return ticket.bet.odds;
+  if (ticket.kind === "parlay") return ticket.parlay.americanOdds;
+  return null;
+}
+
+function ticketModelProb(ticket: DailyTicket): number | null {
+  if (ticket.kind === "single") return ticket.bet.modelProbability;
+  if (ticket.kind === "parlay") return ticket.parlay.probability;
+  return null;
+}
 
 export default async function BestBetsPage() {
   const board = await loadPredictionBoard();
@@ -26,10 +52,13 @@ export default async function BestBetsPage() {
   );
 
   const bankroll = liveBankroll?.wallet_balance ?? liveBankroll?.balance ?? 10;
+  const legCount = ticket ? ticketLegs(ticket).length : 1;
   const stakePct =
     bettingPlan?.ratchet_tiers != null
-      ? getRatchetStakePct(bankroll, 1, bettingPlan.ratchet_tiers)
-      : (bettingPlan?.stake_by_leg_count?.["1"] ?? OPTIMIZED_STAKE_BY_LEG_COUNT[1]);
+      ? getRatchetStakePct(bankroll, legCount, bettingPlan.ratchet_tiers)
+      : (bettingPlan?.stake_by_leg_count?.[String(legCount)] ??
+        OPTIMIZED_STAKE_BY_LEG_COUNT[legCount] ??
+        OPTIMIZED_STAKE_BY_LEG_COUNT[1]);
   const stakeUsd = bankroll * stakePct;
 
   const formatBankroll = (value: number) =>
@@ -38,6 +67,8 @@ export default async function BestBetsPage() {
       : `$${value.toFixed(2)}`;
 
   const recordFor = (teamId: string) => formatStandingRecord(standingsByTeamId.get(teamId));
+  const odds = ticket ? ticketOdds(ticket) : null;
+  const modelProb = ticket ? ticketModelProb(ticket) : null;
 
   return (
     <main className="shell stack">
@@ -45,8 +76,8 @@ export default async function BestBetsPage() {
         <p className="eyebrow">Moneyline</p>
         <h1>Today&apos;s bet</h1>
         <p className="lead">
-          One High-confidence single when the gates clear — otherwise skip. Wallet{" "}
-          <strong>{formatBankroll(bankroll)}</strong>
+          Prefer a <strong>2-leg High stack</strong> when two clear; otherwise one High single; else
+          skip. Wallet <strong>{formatBankroll(bankroll)}</strong>
           {liveBankroll && liveBankroll.record !== "0-0" ? (
             <>
               {" "}
@@ -58,45 +89,61 @@ export default async function BestBetsPage() {
         </p>
       </section>
 
-      {ticket?.kind === "single" ? (
+      {ticket ? (
         <section className="panel strong">
           <div className="section-heading compact">
             <div>
               <p className="eyebrow">Bet this</p>
-              <h2>
-                {ticket.bet.team.abbreviation} moneyline
-              </h2>
+              <h2>{ticketTitle(ticket)}</h2>
             </div>
-            <span className="positive">{ticket.bet.game.confidence}</span>
+            <span className="positive">
+              {ticket.kind === "parlay" ? "2-leg" : "Single"} · High
+            </span>
           </div>
+
+          <div className="stack" style={{ gap: 14, marginBottom: 16 }}>
+            {ticketLegs(ticket).map((bet) => (
+              <article key={`${bet.game.id}-${bet.team.id}`}>
+                <p className="muted">
+                  {bet.team.abbreviation} ML · {formatOdds(bet.odds)} ·{" "}
+                  {formatCentralGameTime(bet.game.startsAt)}
+                </p>
+                <strong>{bet.matchup}</strong>
+                <p>
+                  <Link className="team-stream-link" href={`/watch/${bet.team.id}`}>
+                    {bet.team.name}
+                  </Link>{" "}
+                  ({recordFor(bet.team.id)}) vs{" "}
+                  <Link className="team-stream-link" href={`/watch/${bet.opponent.id}`}>
+                    {bet.opponent.name}
+                  </Link>{" "}
+                  ({recordFor(bet.opponent.id)})
+                </p>
+                <p className="muted">
+                  Model {formatPercent(bet.modelProbability)} · Edge{" "}
+                  <span className={bet.edge > 0 ? "positive" : "warning"}>
+                    {formatPercent(bet.edge)}
+                  </span>{" "}
+                  · {bet.game.confidence}
+                </p>
+              </article>
+            ))}
+          </div>
+
           <div className="grid two">
             <article>
-              <p className="muted">Matchup</p>
-              <strong>{ticket.bet.matchup}</strong>
-              <p>
-                <Link className="team-stream-link" href={`/watch/${ticket.bet.team.id}`}>
-                  {ticket.bet.team.name}
-                </Link>{" "}
-                ({recordFor(ticket.bet.team.id)}) vs{" "}
-                <Link className="team-stream-link" href={`/watch/${ticket.bet.opponent.id}`}>
-                  {ticket.bet.opponent.name}
-                </Link>{" "}
-                ({recordFor(ticket.bet.opponent.id)})
+              <p className="muted">{ticket.kind === "parlay" ? "Parlay price" : "Line"}</p>
+              <div className="metric">{odds != null ? formatOdds(odds) : "—"}</div>
+              <p className="muted">
+                Combined model{" "}
+                {modelProb != null ? formatPercent(modelProb) : "—"}
               </p>
-              <p className="muted">{formatCentralGameTime(ticket.bet.game.startsAt)}</p>
             </article>
             <article>
-              <p className="muted">Line</p>
-              <div className="metric">{formatOdds(ticket.bet.odds)}</div>
+              <p className="muted">Suggested stake</p>
+              <div className="metric">{formatBankroll(stakeUsd)}</div>
               <p className="muted">
-                Model {formatPercent(ticket.bet.modelProbability)} · Edge{" "}
-                <span className={ticket.bet.edge > 0 ? "positive" : "warning"}>
-                  {formatPercent(ticket.bet.edge)}
-                </span>
-              </p>
-              <p className="muted">
-                Suggested stake <strong>{formatBankroll(stakeUsd)}</strong> (
-                {formatPercent(stakePct)} of wallet)
+                {formatPercent(stakePct)} of wallet · {legCount}-leg sizing
               </p>
             </article>
           </div>
@@ -111,8 +158,8 @@ export default async function BestBetsPage() {
             <span className="muted">PASS</span>
           </div>
           <p className="muted">
-            Nothing cleared the High lane (p ≥ 55%, form, ERA edge, price edge, market agree, +EV). Sitting
-            out is the play.
+            Need at least one High lane clear (p ≥ 55%, form, ERA edge, price edge, market agree,
+            +EV). Two Highs → 2-leg; one High → single.
           </p>
         </section>
       )}
@@ -144,7 +191,7 @@ export default async function BestBetsPage() {
                   const pickTeam = getTeam(pickId);
                   const away = getTeam(game.awayTeam);
                   const home = getTeam(game.homeTeam);
-                  const odds = pickIsHome ? game.homeMoneyline : game.awayMoneyline;
+                  const line = pickIsHome ? game.homeMoneyline : game.awayMoneyline;
                   const edge = game.modelEdge ?? 0;
                   return (
                     <tr key={game.id}>
@@ -156,7 +203,7 @@ export default async function BestBetsPage() {
                         </p>
                       </td>
                       <td>{game.confidence}</td>
-                      <td>{odds != null ? formatOdds(odds) : "—"}</td>
+                      <td>{line != null ? formatOdds(line) : "—"}</td>
                       <td className="hide-sm">{formatPercent(game.pickProbability ?? 0)}</td>
                       <td className={`hide-sm ${edge > 0 ? "positive" : "warning"}`}>
                         {formatPercent(edge)}

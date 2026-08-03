@@ -308,6 +308,49 @@ def day_actions_daily_best_single(
     return [DayAction(legs=None, single=top, label="daily_single")]
 
 
+def day_actions_daily_high_two_leg(
+    candidates: list[dict],
+    *,
+    min_prob: float = DAILY_SINGLE_MIN_PROB,
+    min_edge: float = DAILY_SINGLE_MIN_EDGE,
+    min_odds: float = DAILY_SINGLE_MIN_ODDS,
+) -> list[DayAction]:
+    """2-leg High stack when 2+ clear; else one High single; else skip."""
+    pool = sorted(
+        [
+            c
+            for c in model_pick_candidates(candidates)
+            if float(c.get("ev", 0.0)) > 0
+            and float(c.get("model_probability", 0.0)) >= min_prob
+            and float(c.get("edge", 0.0)) >= min_edge
+            and float(c.get("odds", 0.0)) > min_odds
+            and c.get("market_agrees") is True
+            and float(c.get("era_diff", c.get("eraDiff", 0.0)) or 0.0) >= DAILY_SINGLE_MIN_ERA
+            and float(c.get("form_edge", c.get("formEdge", 0.0)) or 0.0) >= DAILY_SINGLE_MIN_FORM
+            and str(c.get("confidence") or "") in ("High", "Elite", "")
+        ],
+        key=lambda c: float(c.get("model_probability", 0.0)),
+        reverse=True,
+    )
+    if not pool:
+        return []
+
+    unique: list[dict] = []
+    seen: set[str] = set()
+    for cand in pool:
+        game_id = str(cand.get("game_id") or cand.get("matchup") or cand.get("team") or id(cand))
+        if game_id in seen:
+            continue
+        seen.add(game_id)
+        unique.append(cand)
+        if len(unique) >= 2:
+            break
+
+    if len(unique) >= 2:
+        return [DayAction(legs=unique[:2], single=None, label="daily_high_two_leg")]
+    return [DayAction(legs=None, single=unique[0], label="daily_high_single")]
+
+
 def day_actions_market_agree_parlay(candidates: list[dict]) -> list[DayAction]:
     """Small market-agree edges only; multiply via 3- then 2-leg parlays; else single."""
     pool = [
@@ -437,6 +480,9 @@ def day_actions_for_test(candidates: list[dict], rule: str) -> list[DayAction]:
 
     if rule == "daily_best_single":
         return day_actions_daily_best_single(candidates)
+
+    if rule == "daily_high_two_leg":
+        return day_actions_daily_high_two_leg(candidates)
 
     if rule == "market_agree_parlay":
         return day_actions_market_agree_parlay(candidates)

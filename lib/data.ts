@@ -776,8 +776,8 @@ export const TRG59_MIN_COMBINED_PROBABILITY = 0.34;
 /** @deprecated use TRG59_FORCE_PARLAY_MIN_PROBABILITY */
 export const MED60_FORCE_PARLAY_MIN_PROBABILITY = TRG59_FORCE_PARLAY_MIN_PROBABILITY;
 
-/** Live plan: one quality moneyline single/day (not parlays). */
-export const LIVE_BETTING_STRATEGY = "daily_best_single";
+/** Live plan: 2-leg High stack when available; else one High single; else skip. */
+export const LIVE_BETTING_STRATEGY = "daily_high_two_leg";
 
 /** Small positive edge band — live big-edge (≥8%) hit ~48% recently (model error). */
 export const MARKET_AGREE_MIN_EDGE = 0.015;
@@ -933,7 +933,7 @@ export type ParlayCandidate = {
   ev: number;
   payoutProfit: number;
   score: number;
-  strategy?: "edge" | "anchor" | "premium" | "premium_4" | "forced_top_2" | "live_quality" | "live_premium" | "trg59_top2" | "high_elite_76_parlay" | "best_ticket" | "calibrated_parlay" | "quality_single" | "strong_parlay" | "power_parlay" | "parlay_first" | "daily_top3_evscore" | "daily_top3_prob" | "market_agree_parlay" | "daily_best_single" | "edge_value_ticket";
+  strategy?: "edge" | "anchor" | "premium" | "premium_4" | "forced_top_2" | "live_quality" | "live_premium" | "trg59_top2" | "high_elite_76_parlay" | "best_ticket" | "calibrated_parlay" | "quality_single" | "strong_parlay" | "power_parlay" | "parlay_first" | "daily_top3_evscore" | "daily_top3_prob" | "market_agree_parlay" | "daily_best_single" | "daily_high_two_leg" | "edge_value_ticket";
 };
 
 /** Flat fallback when leg-specific stake is unavailable (2026 sweep best: 35%). */
@@ -2027,12 +2027,33 @@ export function getQualitySingleTicket(board: GamePrediction[] = predictions): D
   };
 }
 
-/** daily_best_single = best High/Elite (BET) pick. Same gates as confidence High. */
+/** daily_best_single / daily_high_two_leg = High/Elite (BET) lane gates. */
 export const DAILY_SINGLE_MIN_PROBABILITY = 0.55;
 export const DAILY_SINGLE_MIN_EDGE = 0.02;
 export const DAILY_SINGLE_MIN_ERA_DIFF = 0.5;
 export const DAILY_SINGLE_MIN_FORM_EDGE = 0.1;
 export const DAILY_SINGLE_MIN_ODDS = -250;
+
+function highLaneMoneylinePool(board: GamePrediction[] = predictions): BestBet[] {
+  return buildMarketMoneylineCandidates(board)
+    .filter(
+      (bet) =>
+        bet.ev > 0 &&
+        bet.modelProbability >= DAILY_SINGLE_MIN_PROBABILITY &&
+        bet.edge >= DAILY_SINGLE_MIN_EDGE &&
+        bet.odds > DAILY_SINGLE_MIN_ODDS &&
+        bet.game.starterCertain !== false &&
+        bet.game.marketAgrees === true &&
+        (bet.game.eraDiff ?? 0) >= DAILY_SINGLE_MIN_ERA_DIFF &&
+        (bet.game.formEdge ?? 0) >= DAILY_SINGLE_MIN_FORM_EDGE &&
+        (bet.game.confidence === "High" || bet.game.confidence === "Elite") &&
+        Math.abs(bet.odds) <= ML_SANITY_LIMIT_LIVE
+    )
+    .sort(
+      (left, right) =>
+        right.modelProbability - left.modelProbability || right.ev - left.ev || right.edge - left.edge
+    );
+}
 
 /**
  * daily_best_single — bet the model's best High-confidence moneyline when one exists.
@@ -2040,27 +2061,50 @@ export const DAILY_SINGLE_MIN_ODDS = -250;
  * odds better than -250). Skip the day when nothing earns High — do not pad with leans.
  */
 export function getDailyBestSingleTicket(board: GamePrediction[] = predictions): DailyTicket | null {
-  const pool = buildMarketMoneylineCandidates(board).filter(
-    (bet) =>
-      bet.ev > 0 &&
-      bet.modelProbability >= DAILY_SINGLE_MIN_PROBABILITY &&
-      bet.edge >= DAILY_SINGLE_MIN_EDGE &&
-      bet.odds > DAILY_SINGLE_MIN_ODDS &&
-      bet.game.starterCertain !== false &&
-      bet.game.marketAgrees === true &&
-      (bet.game.eraDiff ?? 0) >= DAILY_SINGLE_MIN_ERA_DIFF &&
-      (bet.game.formEdge ?? 0) >= DAILY_SINGLE_MIN_FORM_EDGE &&
-      (bet.game.confidence === "High" || bet.game.confidence === "Elite") &&
-      Math.abs(bet.odds) <= ML_SANITY_LIMIT_LIVE
-  );
+  const pool = highLaneMoneylinePool(board);
   if (pool.length === 0) {
     return null;
   }
 
-  const best = pool.sort(
-    (left, right) => right.modelProbability - left.modelProbability || right.ev - left.ev
-  )[0];
+  const best = pool[0];
+  return {
+    kind: "single",
+    bet: { ...best, qualified: true },
+    score: best.modelProbability,
+    qualified: true,
+  };
+}
 
+/**
+ * daily_high_two_leg — primary live ticket (Aug 2026):
+ *   - 2+ High/Elite legs → 2-leg moneyline parlay (top two by model p)
+ *   - exactly 1 High → single
+ *   - 0 → skip
+ * Same High gates as daily_best_single. Never pads with Medium/Low.
+ */
+export function getDailyHighTwoLegTicket(board: GamePrediction[] = predictions): DailyTicket | null {
+  const pool = highLaneMoneylinePool(board);
+  if (pool.length === 0) {
+    return null;
+  }
+
+  const seen = new Set<string>();
+  const unique: BestBet[] = [];
+  for (const bet of pool) {
+    if (seen.has(bet.game.id)) continue;
+    seen.add(bet.game.id);
+    unique.push(bet);
+    if (unique.length >= 2) break;
+  }
+
+  if (unique.length >= 2 && isParlayCorrelationAllowed(unique.slice(0, 2))) {
+    const legs = unique.slice(0, 2).map((bet) => ({ ...bet, qualified: true }));
+    const parlay = buildParlayCandidate(legs);
+    parlay.strategy = "daily_high_two_leg";
+    return { kind: "parlay", parlay, score: parlay.score, qualified: true };
+  }
+
+  const best = unique[0];
   return {
     kind: "single",
     bet: { ...best, qualified: true },
@@ -2213,9 +2257,9 @@ export function getDailyTop3EVScoreTicket(board: GamePrediction[] = predictions)
   return getDailyTop3ProbTicket(board);
 }
 
-/** Daily ticket: quality single ML — p≥65%, edge≥2%, odds > -250, +EV. Skip if none. */
+/** Daily ticket: 2-leg High stack when available; else one High single; else skip. */
 export function getBestDailyTicket(board: GamePrediction[] = predictions): DailyTicket | null {
-  return getDailyBestSingleTicket(board);
+  return getDailyHighTwoLegTicket(board);
 }
 
 export function getDailyParlayTickets(board: GamePrediction[] = predictions) {
