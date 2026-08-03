@@ -2,7 +2,7 @@
   "generated_at": "2026-08-03",
   "source": "prop-leans-v2",
   "note": "K uses estimated PrizePicks lines when posted line unknown. Hitter FS from top-4 OPS bats per team.",
-  "actionable_count": 51,
+  "actionable_count": 60,
   "leans": [
     {
       "gameId": "tor-hou-2026-08-03-824160",
@@ -291,6 +291,22 @@
       "ops": 0.888
     },
     {
+      "gameId": "sf-tex-2026-08-03-822867",
+      "matchup": "SF @ TEX",
+      "player": "Joc Pederson",
+      "team": "TEX",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Logan Webb",
+      "fair_line": 6.5,
+      "line": 5.0,
+      "projection": 6.5,
+      "lean": "Over",
+      "edge": 1.49,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.85
+    },
+    {
       "gameId": "pit-mil-2026-08-03-823757",
       "matchup": "PIT @ MIL",
       "player": "Bryan Reynolds",
@@ -467,6 +483,22 @@
       "ops": 0.751
     },
     {
+      "gameId": "sf-tex-2026-08-03-822867",
+      "matchup": "SF @ TEX",
+      "player": "Rafael Devers",
+      "team": "SF",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Cal Quantrill",
+      "fair_line": 6.5,
+      "line": 5.5,
+      "projection": 6.7,
+      "lean": "Over",
+      "edge": 1.18,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.805
+    },
+    {
       "gameId": "pit-mil-2026-08-03-823757",
       "matchup": "PIT @ MIL",
       "player": "Brandon Lowe",
@@ -515,6 +547,22 @@
       "ops": 0.793
     },
     {
+      "gameId": "sf-tex-2026-08-03-822867",
+      "matchup": "SF @ TEX",
+      "player": "Luis Arraez",
+      "team": "SF",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Cal Quantrill",
+      "fair_line": 6.0,
+      "line": 5.0,
+      "projection": 6.1,
+      "lean": "Over",
+      "edge": 1.14,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.8
+    },
+    {
       "gameId": "wsh-phi-2026-08-03-823431",
       "matchup": "WSH @ PHI",
       "player": "Brandon Marsh",
@@ -545,6 +593,38 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.757
+    },
+    {
+      "gameId": "tor-hou-2026-08-03-824160",
+      "matchup": "TOR @ HOU",
+      "player": "Jonatan Clase",
+      "team": "TOR",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Cristian Javier",
+      "fair_line": 5.5,
+      "line": 4.5,
+      "projection": 5.6,
+      "lean": "Over",
+      "edge": 1.05,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.905
+    },
+    {
+      "gameId": "sf-tex-2026-08-03-822867",
+      "matchup": "SF @ TEX",
+      "player": "Justin Foscue",
+      "team": "TEX",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Logan Webb",
+      "fair_line": 7.5,
+      "line": 6.5,
+      "projection": 7.5,
+      "lean": "Over",
+      "edge": 1.03,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.79
     },
     {
       "gameId": "stl-nyy-2026-08-03-823520",
@@ -627,6 +707,22 @@
       "ops": 0.788
     },
     {
+      "gameId": "sf-tex-2026-08-03-822867",
+      "matchup": "SF @ TEX",
+      "player": "Wyatt Langford",
+      "team": "TEX",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Logan Webb",
+      "fair_line": 7.0,
+      "line": 6.0,
+      "projection": 6.9,
+      "lean": "Over",
+      "edge": 0.92,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.819
+    },
+    {
       "gameId": "sd-az-2026-08-03-825095",
       "matchup": "SD @ AZ",
       "player": "Gabriel Moreno",
@@ -641,6 +737,22 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.818
+    },
+    {
+      "gameId": "sf-tex-2026-08-03-822867",
+      "matchup": "SF @ TEX",
+      "player": "Bryce Eldridge",
+      "team": "SF",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Cal Quantrill",
+      "fair_line": 6.5,
+      "line": 5.5,
+      "projection": 6.4,
+      "lean": "Over",
+      "edge": 0.87,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.79
     },
     {
       "gameId": "wsh-phi-2026-08-03-823431",
@@ -690,20 +802,36 @@
       "ops": 1.015
     },
     {
-      "gameId": "wsh-phi-2026-08-03-823431",
-      "matchup": "WSH @ PHI",
-      "player": "Bryan De La Cruz",
-      "team": "PHI",
+      "gameId": "sf-tex-2026-08-03-822867",
+      "matchup": "SF @ TEX",
+      "player": "Josh Jung",
+      "team": "TEX",
       "prop": "hitter_fantasy_score",
-      "vs_pitcher": "Andrew Alvarez",
-      "fair_line": 5.5,
-      "line": 4.5,
-      "projection": 5.3,
+      "vs_pitcher": "Logan Webb",
+      "fair_line": 6.0,
+      "line": 5.0,
+      "projection": 5.8,
       "lean": "Over",
-      "edge": 0.83,
+      "edge": 0.85,
       "confidence": "low",
       "line_source": "prizepicks_est",
-      "ops": 1.235
+      "ops": 0.802
+    },
+    {
+      "gameId": "sd-az-2026-08-03-825095",
+      "matchup": "SD @ AZ",
+      "player": "Ketel Marte",
+      "team": "AZ",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Michael King",
+      "fair_line": 6.5,
+      "line": 5.5,
+      "projection": 6.3,
+      "lean": "Over",
+      "edge": 0.85,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.751
     },
     {
       "gameId": "pit-mil-2026-08-03-823757",
@@ -735,6 +863,22 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.753
+    },
+    {
+      "gameId": "sf-tex-2026-08-03-822867",
+      "matchup": "SF @ TEX",
+      "player": "Casey Schmitt",
+      "team": "SF",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Cal Quantrill",
+      "fair_line": 7.0,
+      "line": 6.0,
+      "projection": 6.8,
+      "lean": "Over",
+      "edge": 0.76,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.784
     },
     {
       "gameId": "sd-az-2026-08-03-825095",
@@ -876,20 +1020,35 @@
       "ops": 0.731
     },
     {
-      "gameId": "tor-hou-2026-08-03-824160",
-      "matchup": "TOR @ HOU",
-      "player": "Ernie Clement",
-      "team": "TOR",
+      "gameId": "wsh-phi-2026-08-03-823431",
+      "matchup": "WSH @ PHI",
+      "player": "Bryson Stott",
+      "team": "PHI",
       "prop": "hitter_fantasy_score",
-      "vs_pitcher": "Cristian Javier",
-      "fair_line": 6.0,
-      "line": 5.5,
-      "projection": 6.0,
+      "vs_pitcher": "Andrew Alvarez",
+      "fair_line": 6.5,
+      "line": 6.0,
+      "projection": 6.5,
       "lean": "Pass",
-      "edge": 0.5,
+      "edge": 0.54,
       "confidence": "pass",
       "line_source": "prizepicks_est",
-      "ops": 0.729
+      "ops": 0.724
+    },
+    {
+      "gameId": "sf-tex-2026-08-03-822867",
+      "matchup": "SF @ TEX",
+      "player": "Logan Webb",
+      "team": "SF",
+      "prop": "strikeouts",
+      "fair_line": 4.5,
+      "line": 4.0,
+      "projection": 4.3,
+      "lean": "Pass",
+      "edge": 0.32,
+      "confidence": "pass",
+      "line_source": "prizepicks_est",
+      "k9": 7.03
     },
     {
       "gameId": "pit-mil-2026-08-03-823757",
@@ -909,22 +1068,6 @@
     {
       "gameId": "sd-az-2026-08-03-825095",
       "matchup": "SD @ AZ",
-      "player": "Tyler Locklear",
-      "team": "AZ",
-      "prop": "hitter_fantasy_score",
-      "vs_pitcher": "Michael King",
-      "fair_line": 5.0,
-      "line": 4.5,
-      "projection": 4.8,
-      "lean": "Pass",
-      "edge": 0.28,
-      "confidence": "pass",
-      "line_source": "prizepicks_est",
-      "ops": 0.755
-    },
-    {
-      "gameId": "sd-az-2026-08-03-825095",
-      "matchup": "SD @ AZ",
       "player": "Brandon Pfaadt",
       "team": "AZ",
       "prop": "strikeouts",
@@ -936,6 +1079,21 @@
       "confidence": "pass",
       "line_source": "prizepicks_est",
       "k9": 6.13
+    },
+    {
+      "gameId": "sf-tex-2026-08-03-822867",
+      "matchup": "SF @ TEX",
+      "player": "Cal Quantrill",
+      "team": "TEX",
+      "prop": "strikeouts",
+      "fair_line": 3.5,
+      "line": 3.5,
+      "projection": 3.7,
+      "lean": "Pass",
+      "edge": 0.22,
+      "confidence": "pass",
+      "line_source": "prizepicks_est",
+      "k9": 6.2
     },
     {
       "gameId": "stl-nyy-2026-08-03-823520",
