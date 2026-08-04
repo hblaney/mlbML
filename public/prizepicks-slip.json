@@ -5,24 +5,24 @@
   "slip": {
     "legs": [
       {
-        "player": "Yordan Alvarez",
+        "player": "Pete Crow-Armstrong",
         "prop": "hitter_fantasy_score",
-        "line": 6.5,
+        "line": 5.5,
         "pick": "Over",
-        "projection": 8.7,
-        "matchup": "TOR @ HOU",
+        "projection": 7.7,
+        "matchup": "LAD @ CHC",
         "confidence": "high",
-        "edge": 2.16
+        "edge": 2.18
       },
       {
-        "player": "Junior Caminero",
+        "player": "Shohei Ohtani",
         "prop": "hitter_fantasy_score",
-        "line": 6.0,
+        "line": 5.5,
         "pick": "Over",
-        "projection": 8.2,
-        "matchup": "TB @ COL",
+        "projection": 7.7,
+        "matchup": "LAD @ CHC",
         "confidence": "high",
-        "edge": 2.16
+        "edge": 2.18
       },
       {
         "player": "Cam Schlittler",
@@ -35,10 +35,30 @@
         "edge": 1.98
       }
     ],
-    "score": 7.15,
-    "same_game_warning": false
+    "score": 7.19,
+    "same_game_warning": true
   },
   "top_plays": [
+    {
+      "player": "Pete Crow-Armstrong",
+      "prop": "hitter_fantasy_score",
+      "lean": "Over",
+      "line": 5.5,
+      "projection": 7.7,
+      "edge": 2.18,
+      "confidence": "high",
+      "matchup": "LAD @ CHC"
+    },
+    {
+      "player": "Shohei Ohtani",
+      "prop": "hitter_fantasy_score",
+      "lean": "Over",
+      "line": 5.5,
+      "projection": 7.7,
+      "edge": 2.18,
+      "confidence": "high",
+      "matchup": "LAD @ CHC"
+    },
     {
       "player": "Yordan Alvarez",
       "prop": "hitter_fantasy_score",
@@ -138,29 +158,29 @@
       "edge": 1.87,
       "confidence": "medium",
       "matchup": "TOR @ HOU"
-    },
-    {
-      "player": "Ian Seymour",
-      "prop": "strikeouts",
-      "lean": "Over",
-      "line": 4.5,
-      "projection": 6.4,
-      "edge": 1.86,
-      "confidence": "high",
-      "matchup": "TB @ COL"
-    },
-    {
-      "player": "Jordan Walker",
-      "prop": "hitter_fantasy_score",
-      "lean": "Over",
-      "line": 5.0,
-      "projection": 6.7,
-      "edge": 1.69,
-      "confidence": "medium",
-      "matchup": "STL @ NYY"
     }
   ],
   "all_actionable": [
+    {
+      "player": "Pete Crow-Armstrong",
+      "prop": "hitter_fantasy_score",
+      "line": 5.5,
+      "lean": "Over",
+      "projection": 7.7,
+      "edge": 2.18,
+      "confidence": "high",
+      "matchup": "LAD @ CHC"
+    },
+    {
+      "player": "Shohei Ohtani",
+      "prop": "hitter_fantasy_score",
+      "line": 5.5,
+      "lean": "Over",
+      "projection": 7.7,
+      "edge": 2.18,
+      "confidence": "high",
+      "matchup": "LAD @ CHC"
+    },
     {
       "player": "Yordan Alvarez",
       "prop": "hitter_fantasy_score",
@@ -292,6 +312,16 @@
       "matchup": "SD @ AZ"
     },
     {
+      "player": "Freddie Freeman",
+      "prop": "hitter_fantasy_score",
+      "line": 5.0,
+      "lean": "Over",
+      "projection": 6.7,
+      "edge": 1.67,
+      "confidence": "medium",
+      "matchup": "LAD @ CHC"
+    },
+    {
       "player": "Andrew Vaughn",
       "prop": "hitter_fantasy_score",
       "line": 4.5,
@@ -330,36 +360,6 @@
       "edge": 1.59,
       "confidence": "medium",
       "matchup": "WSH @ PHI"
-    },
-    {
-      "player": "Hunter Goodman",
-      "prop": "hitter_fantasy_score",
-      "line": 6.0,
-      "lean": "Over",
-      "projection": 7.6,
-      "edge": 1.58,
-      "confidence": "medium",
-      "matchup": "TB @ COL"
-    },
-    {
-      "player": "Joc Pederson",
-      "prop": "hitter_fantasy_score",
-      "line": 5.0,
-      "lean": "Over",
-      "projection": 6.5,
-      "edge": 1.49,
-      "confidence": "medium",
-      "matchup": "SF @ TEX"
-    },
-    {
-      "player": "Bryan Reynolds",
-      "prop": "hitter_fantasy_score",
-      "line": 5.5,
-      "lean": "Over",
-      "projection": 7.0,
-      "edge": 1.47,
-      "confidence": "medium",
-      "matchup": "PIT @ MIL"
     }
   ]
 }

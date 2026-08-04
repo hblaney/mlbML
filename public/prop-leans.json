@@ -2,8 +2,40 @@
   "generated_at": "2026-08-03",
   "source": "prop-leans-v2",
   "note": "K uses estimated PrizePicks lines when posted line unknown. Hitter FS from top-4 OPS bats per team.",
-  "actionable_count": 60,
+  "actionable_count": 70,
   "leans": [
+    {
+      "gameId": "lad-chc-2026-08-03-824647",
+      "matchup": "LAD @ CHC",
+      "player": "Pete Crow-Armstrong",
+      "team": "CHC",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Justin Wrobleski",
+      "fair_line": 7.5,
+      "line": 5.5,
+      "projection": 7.7,
+      "lean": "Over",
+      "edge": 2.18,
+      "confidence": "high",
+      "line_source": "prizepicks_est",
+      "ops": 0.921
+    },
+    {
+      "gameId": "lad-chc-2026-08-03-824647",
+      "matchup": "LAD @ CHC",
+      "player": "Shohei Ohtani",
+      "team": "LAD",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Matthew Boyd",
+      "fair_line": 7.5,
+      "line": 5.5,
+      "projection": 7.7,
+      "lean": "Over",
+      "edge": 2.18,
+      "confidence": "high",
+      "line_source": "prizepicks_est",
+      "ops": 0.939
+    },
     {
       "gameId": "tor-hou-2026-08-03-824160",
       "matchup": "TOR @ HOU",
@@ -211,6 +243,22 @@
       "ops": 0.822
     },
     {
+      "gameId": "lad-chc-2026-08-03-824647",
+      "matchup": "LAD @ CHC",
+      "player": "Freddie Freeman",
+      "team": "LAD",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Matthew Boyd",
+      "fair_line": 6.5,
+      "line": 5.0,
+      "projection": 6.7,
+      "lean": "Over",
+      "edge": 1.67,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.874
+    },
+    {
       "gameId": "pit-mil-2026-08-03-823757",
       "matchup": "PIT @ MIL",
       "player": "Andrew Vaughn",
@@ -289,6 +337,38 @@
       "confidence": "medium",
       "line_source": "prizepicks_est",
       "ops": 0.888
+    },
+    {
+      "gameId": "lad-chc-2026-08-03-824647",
+      "matchup": "LAD @ CHC",
+      "player": "Tommy Edman",
+      "team": "LAD",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Matthew Boyd",
+      "fair_line": 6.0,
+      "line": 4.5,
+      "projection": 6.1,
+      "lean": "Over",
+      "edge": 1.56,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.822
+    },
+    {
+      "gameId": "lad-chc-2026-08-03-824647",
+      "matchup": "LAD @ CHC",
+      "player": "Seiya Suzuki",
+      "team": "CHC",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Justin Wrobleski",
+      "fair_line": 6.5,
+      "line": 5.0,
+      "projection": 6.5,
+      "lean": "Over",
+      "edge": 1.53,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.84
     },
     {
       "gameId": "sf-tex-2026-08-03-822867",
@@ -387,6 +467,22 @@
       "ops": 0.864
     },
     {
+      "gameId": "lad-chc-2026-08-03-824647",
+      "matchup": "LAD @ CHC",
+      "player": "Max Muncy",
+      "team": "LAD",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Matthew Boyd",
+      "fair_line": 7.0,
+      "line": 5.5,
+      "projection": 6.9,
+      "lean": "Over",
+      "edge": 1.36,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.842
+    },
+    {
       "gameId": "tb-col-2026-08-03-824324",
       "matchup": "TB @ COL",
       "player": "Yandy D\u00edaz",
@@ -449,6 +545,22 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.773
+    },
+    {
+      "gameId": "lad-chc-2026-08-03-824647",
+      "matchup": "LAD @ CHC",
+      "player": "Pedro Ram\u00edrez",
+      "team": "CHC",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Justin Wrobleski",
+      "fair_line": 11.5,
+      "line": 10.5,
+      "projection": 11.7,
+      "lean": "Over",
+      "edge": 1.22,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.813
     },
     {
       "gameId": "pit-mil-2026-08-03-823757",
@@ -739,6 +851,22 @@
       "ops": 0.818
     },
     {
+      "gameId": "lad-chc-2026-08-03-824647",
+      "matchup": "LAD @ CHC",
+      "player": "Michael Conforto",
+      "team": "CHC",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Justin Wrobleski",
+      "fair_line": 5.5,
+      "line": 4.5,
+      "projection": 5.4,
+      "lean": "Over",
+      "edge": 0.9,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.781
+    },
+    {
       "gameId": "sf-tex-2026-08-03-822867",
       "matchup": "SF @ TEX",
       "player": "Bryce Eldridge",
@@ -881,6 +1009,21 @@
       "ops": 0.784
     },
     {
+      "gameId": "lad-chc-2026-08-03-824647",
+      "matchup": "LAD @ CHC",
+      "player": "Justin Wrobleski",
+      "team": "LAD",
+      "prop": "strikeouts",
+      "fair_line": 4.0,
+      "line": 3.5,
+      "projection": 4.2,
+      "lean": "Over",
+      "edge": 0.72,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "k9": 6.95
+    },
+    {
       "gameId": "sd-az-2026-08-03-825095",
       "matchup": "SD @ AZ",
       "player": "Michael King",
@@ -939,6 +1082,21 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "k9": 8.54
+    },
+    {
+      "gameId": "lad-chc-2026-08-03-824647",
+      "matchup": "LAD @ CHC",
+      "player": "Matthew Boyd",
+      "team": "CHC",
+      "prop": "strikeouts",
+      "fair_line": 5.0,
+      "line": 4.5,
+      "projection": 4.9,
+      "lean": "Over",
+      "edge": 0.39,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "k9": 8.18
     },
     {
       "gameId": "tor-hou-2026-08-03-824160",
@@ -1113,6 +1271,26 @@
   ],
   "top_plays": [
     {
+      "player": "Pete Crow-Armstrong",
+      "prop": "hitter_fantasy_score",
+      "lean": "Over",
+      "line": 5.5,
+      "projection": 7.7,
+      "edge": 2.18,
+      "confidence": "high",
+      "matchup": "LAD @ CHC"
+    },
+    {
+      "player": "Shohei Ohtani",
+      "prop": "hitter_fantasy_score",
+      "lean": "Over",
+      "line": 5.5,
+      "projection": 7.7,
+      "edge": 2.18,
+      "confidence": "high",
+      "matchup": "LAD @ CHC"
+    },
+    {
       "player": "Yordan Alvarez",
       "prop": "hitter_fantasy_score",
       "lean": "Over",
@@ -1211,26 +1389,6 @@
       "edge": 1.87,
       "confidence": "medium",
       "matchup": "TOR @ HOU"
-    },
-    {
-      "player": "Ian Seymour",
-      "prop": "strikeouts",
-      "lean": "Over",
-      "line": 4.5,
-      "projection": 6.4,
-      "edge": 1.86,
-      "confidence": "high",
-      "matchup": "TB @ COL"
-    },
-    {
-      "player": "Jordan Walker",
-      "prop": "hitter_fantasy_score",
-      "lean": "Over",
-      "line": 5.0,
-      "projection": 6.7,
-      "edge": 1.69,
-      "confidence": "medium",
-      "matchup": "STL @ NYY"
     }
   ]
 }
