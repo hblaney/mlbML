@@ -28,18 +28,18 @@
       "beat_close_rate": 0.6804,
       "avg_clv": 0.0123,
       "avg_clv_pct_points": 1.23,
-      "win_rate": 0.5997,
+      "win_rate": 0.5981,
       "win_rate_when_beat_close": 0.6093,
-      "win_rate_when_missed_close": 0.5792
+      "win_rate_when_missed_close": 0.5743
     },
     "Low": {
       "n": 349,
       "beat_close_rate": 0.447,
       "avg_clv": -0.0001,
       "avg_clv_pct_points": -0.01,
-      "win_rate": 0.4957,
+      "win_rate": 0.4986,
       "win_rate_when_beat_close": 0.4936,
-      "win_rate_when_missed_close": 0.4974
+      "win_rate_when_missed_close": 0.5026
     }
   },
   "recent": [
@@ -94,7 +94,7 @@
     {
       "date": "2026-06-25",
       "pick": "SEA",
-      "confidence": "Low",
+      "confidence": "Medium",
       "correct": 0,
       "entry_ml": -153,
       "close_ml": -153,
@@ -166,7 +166,7 @@
     {
       "date": "2026-06-24",
       "pick": "TB",
-      "confidence": "Medium",
+      "confidence": "Low",
       "correct": 1,
       "entry_ml": -148,
       "close_ml": -148,

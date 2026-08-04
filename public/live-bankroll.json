@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-08-01",
+  "generated_at": "2026-08-03",
   "tracking_mode": "live_best_bets",
-  "disclaimer": "Tracks locked system tickets + your Robinhood wallet. Stakes = live daily exposure for daily_best_single (one quality ML when gates clear; else skip).",
-  "strategy": "daily_best_single",
+  "disclaimer": "Tracks locked system tickets + your Robinhood wallet. Stakes = live daily exposure for daily_high_two_leg (2-leg High stack when available; else one High single; else skip).",
+  "strategy": "daily_high_two_leg",
   "staking": "ratchet",
   "ratchet_tiers": null,
   "stake_by_leg_count": {
@@ -14,25 +14,25 @@
     "active": true,
     "mode": "prove_out_20",
     "target_tickets": 20,
-    "tickets_graded": 9
+    "tickets_graded": 10
   },
   "daily_exposure_cap": 0.5,
   "started_at": "2026-06-22",
   "starting_balance": 23.0,
-  "balance": 4.83,
-  "wallet_balance": 4.83,
+  "balance": 4.9,
+  "wallet_balance": 4.9,
   "wallet_starting": 23.0,
   "wallet_locked": true,
   "wallet_record": "2-3",
   "wallet_note": "Confirmed by Henry Jun 24 \u2014 Robinhood wallet $10. Includes off-script bets + system BAL lock.",
-  "profit": -18.17,
-  "return_pct": -0.79,
-  "record": "2-7",
-  "hit_rate": 0.2222,
+  "profit": -18.1,
+  "return_pct": -0.787,
+  "record": "3-7",
+  "hit_rate": 0.3,
   "backtest_ticket_hit_rate": 0.62,
-  "last_settled_date": "2026-08-01",
+  "last_settled_date": "2026-08-03",
   "today_ticket": {
-    "date": "2026-08-01",
+    "date": "2026-08-03",
     "label": "No bet today",
     "legs": [],
     "leg_count": 0,
@@ -188,6 +188,21 @@
         "DET"
       ],
       "stake_amount": 1.06,
+      "grade_source": "locked_ticket",
+      "prove_out": false
+    },
+    {
+      "date": "2026-08-02",
+      "profit": 0.0693,
+      "balance": 4.9,
+      "return_pct": -0.787,
+      "won": true,
+      "leg_count": 1,
+      "label": "HOU ML",
+      "legs": [
+        "HOU"
+      ],
+      "stake_amount": 0.58,
       "grade_source": "locked_ticket",
       "prove_out": false
     }
@@ -363,7 +378,25 @@
       "model_probability": 0.38185795000000006,
       "grade_source": "locked_ticket",
       "prove_out": false
+    },
+    {
+      "date": "2026-08-02",
+      "kind": "single",
+      "label": "HOU ML",
+      "legs": [
+        "HOU"
+      ],
+      "leg_count": 1,
+      "stake_pct": 0.12,
+      "stake_amount": 0.58,
+      "profit": 0.07,
+      "balance_after": 4.9,
+      "won": true,
+      "odds": -837,
+      "model_probability": 0.5937,
+      "grade_source": "locked_ticket",
+      "prove_out": false
     }
   ],
-  "tracking_note": "daily_best_single \u00b7 one quality ML single when p\u226565% / edge\u22652% / odds>-250 / +EV \u00b7 else skip \u00b7 wallet locked when confirmed"
+  "tracking_note": "daily_high_two_leg \u00b7 one quality ML single when p\u226565% / edge\u22652% / odds>-250 / +EV \u00b7 else skip \u00b7 wallet locked when confirmed"
 }

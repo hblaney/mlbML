@@ -1,17 +1,17 @@
 {
   "started_at": "2026-06-22",
   "starting_balance": 23.0,
-  "balance": 4.8343,
-  "wallet_balance": 4.83,
+  "balance": 4.9036,
+  "wallet_balance": 4.9,
   "wallet_starting": 23.0,
   "wallet_locked": true,
   "wallet_record": "2-3",
   "wallet_note": "Confirmed by Henry Jun 24 \u2014 Robinhood wallet $10. Includes off-script bets + system BAL lock.",
   "record": {
-    "wins": 2,
+    "wins": 3,
     "losses": 7
   },
-  "last_settled_date": "2026-08-01",
+  "last_settled_date": "2026-08-03",
   "tickets": [
     {
       "date": "2026-06-22",
@@ -183,6 +183,24 @@
       "model_probability": 0.38185795000000006,
       "grade_source": "locked_ticket",
       "prove_out": false
+    },
+    {
+      "date": "2026-08-02",
+      "kind": "single",
+      "label": "HOU ML",
+      "legs": [
+        "HOU"
+      ],
+      "leg_count": 1,
+      "stake_pct": 0.12,
+      "stake_amount": 0.58,
+      "profit": 0.07,
+      "balance_after": 4.9,
+      "won": true,
+      "odds": -837,
+      "model_probability": 0.5937,
+      "grade_source": "locked_ticket",
+      "prove_out": false
     }
   ],
   "checkpoints": [
@@ -330,6 +348,21 @@
         "DET"
       ],
       "stake_amount": 1.06,
+      "grade_source": "locked_ticket",
+      "prove_out": false
+    },
+    {
+      "date": "2026-08-02",
+      "profit": 0.0693,
+      "balance": 4.9,
+      "return_pct": -0.787,
+      "won": true,
+      "leg_count": 1,
+      "label": "HOU ML",
+      "legs": [
+        "HOU"
+      ],
+      "stake_amount": 0.58,
       "grade_source": "locked_ticket",
       "prove_out": false
     }
