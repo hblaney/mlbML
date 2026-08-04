@@ -80,6 +80,16 @@
       "matchup": "SD @ AZ"
     },
     {
+      "player": "Bryan De La Cruz",
+      "prop": "hitter_fantasy_score",
+      "lean": "Over",
+      "line": 4.5,
+      "projection": 6.7,
+      "edge": 2.16,
+      "confidence": "high",
+      "matchup": "WSH @ PHI"
+    },
+    {
       "player": "Munetaka Murakami",
       "prop": "hitter_fantasy_score",
       "lean": "Over",
@@ -98,6 +108,16 @@
       "edge": 2.09,
       "confidence": "high",
       "matchup": "LAD @ CHC"
+    },
+    {
+      "player": "Christian Encarnacion-Strand",
+      "prop": "hitter_fantasy_score",
+      "lean": "Over",
+      "line": 4.5,
+      "projection": 6.5,
+      "edge": 2.03,
+      "confidence": "high",
+      "matchup": "LAA @ BAL"
     },
     {
       "player": "Jeremy Pe\u00f1a",
@@ -138,26 +158,6 @@
       "edge": 1.94,
       "confidence": "medium",
       "matchup": "PIT @ MIL"
-    },
-    {
-      "player": "CJ Abrams",
-      "prop": "hitter_fantasy_score",
-      "lean": "Over",
-      "line": 6.0,
-      "projection": 7.9,
-      "edge": 1.93,
-      "confidence": "medium",
-      "matchup": "WSH @ PHI"
-    },
-    {
-      "player": "Griffin Conine",
-      "prop": "hitter_fantasy_score",
-      "lean": "Over",
-      "line": 5.5,
-      "projection": 7.4,
-      "edge": 1.87,
-      "confidence": "medium",
-      "matchup": "MIA @ ATL"
     }
   ],
   "all_actionable": [
@@ -202,6 +202,16 @@
       "matchup": "SD @ AZ"
     },
     {
+      "player": "Bryan De La Cruz",
+      "prop": "hitter_fantasy_score",
+      "line": 4.5,
+      "lean": "Over",
+      "projection": 6.7,
+      "edge": 2.16,
+      "confidence": "high",
+      "matchup": "WSH @ PHI"
+    },
+    {
       "player": "Munetaka Murakami",
       "prop": "hitter_fantasy_score",
       "line": 7.5,
@@ -220,6 +230,16 @@
       "edge": 2.09,
       "confidence": "high",
       "matchup": "LAD @ CHC"
+    },
+    {
+      "player": "Christian Encarnacion-Strand",
+      "prop": "hitter_fantasy_score",
+      "line": 4.5,
+      "lean": "Over",
+      "projection": 6.5,
+      "edge": 2.03,
+      "confidence": "high",
+      "matchup": "LAA @ BAL"
     },
     {
       "player": "Jeremy Pe\u00f1a",
@@ -340,26 +360,6 @@
       "edge": 1.73,
       "confidence": "medium",
       "matchup": "MIA @ ATL"
-    },
-    {
-      "player": "Nathaniel Lowe",
-      "prop": "hitter_fantasy_score",
-      "line": 4.5,
-      "lean": "Over",
-      "projection": 6.2,
-      "edge": 1.72,
-      "confidence": "medium",
-      "matchup": "ATH @ CIN"
-    },
-    {
-      "player": "Tommy Edman",
-      "prop": "hitter_fantasy_score",
-      "line": 4.5,
-      "lean": "Over",
-      "projection": 6.2,
-      "edge": 1.72,
-      "confidence": "medium",
-      "matchup": "LAD @ CHC"
     }
   ]
 }

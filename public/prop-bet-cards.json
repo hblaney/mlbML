@@ -290,6 +290,28 @@
       "notes": []
     },
     {
+      "player": "Carson Palmquist",
+      "team": "WSH",
+      "opponent": "PHI",
+      "matchup": "WSH @ PHI",
+      "game_date": "2026-08-04",
+      "props": [
+        {
+          "prop": "strikeouts",
+          "pick": "Over",
+          "model_line": 4.5,
+          "use_line": 4.0,
+          "projection": 4.7,
+          "edge": 0.72,
+          "confidence": "medium",
+          "k9": 7.61,
+          "opp_k_rate": 0.236
+        }
+      ],
+      "headline": "Over 4.0 STRIKEOUTS (medium confidence)",
+      "notes": []
+    },
+    {
       "player": "J.T. Ginn",
       "team": "ATH",
       "opponent": "CIN",
@@ -419,9 +441,7 @@
         }
       ],
       "headline": "Over 4.0 STRIKEOUTS (medium confidence)",
-      "notes": [
-        "Probable starter not fully confirmed \u2014 verify before betting."
-      ]
+      "notes": []
     },
     {
       "player": "Gabriel Hughes",
@@ -528,6 +548,28 @@
           "confidence": "low",
           "k9": 8.15,
           "opp_k_rate": 0.22
+        }
+      ],
+      "headline": "Over 4.5 STRIKEOUTS (low confidence)",
+      "notes": []
+    },
+    {
+      "player": "Cade Povich",
+      "team": "BAL",
+      "opponent": "LAA",
+      "matchup": "LAA @ BAL",
+      "game_date": "2026-08-04",
+      "props": [
+        {
+          "prop": "strikeouts",
+          "pick": "Over",
+          "model_line": 5.0,
+          "use_line": 4.5,
+          "projection": 4.9,
+          "edge": 0.42,
+          "confidence": "low",
+          "k9": 7.77,
+          "opp_k_rate": 0.252
         }
       ],
       "headline": "Over 4.5 STRIKEOUTS (low confidence)",
