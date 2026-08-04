@@ -2,7 +2,7 @@
   "generated_at": "2026-08-03",
   "source": "prop-leans-v2",
   "note": "K uses estimated PrizePicks lines when posted line unknown. Hitter FS from top-4 OPS bats per team.",
-  "actionable_count": 70,
+  "actionable_count": 69,
   "leans": [
     {
       "gameId": "lad-chc-2026-08-03-824647",
@@ -707,22 +707,6 @@
       "ops": 0.757
     },
     {
-      "gameId": "tor-hou-2026-08-03-824160",
-      "matchup": "TOR @ HOU",
-      "player": "Jonatan Clase",
-      "team": "TOR",
-      "prop": "hitter_fantasy_score",
-      "vs_pitcher": "Cristian Javier",
-      "fair_line": 5.5,
-      "line": 4.5,
-      "projection": 5.6,
-      "lean": "Over",
-      "edge": 1.05,
-      "confidence": "low",
-      "line_source": "prizepicks_est",
-      "ops": 0.905
-    },
-    {
       "gameId": "sf-tex-2026-08-03-822867",
       "matchup": "SF @ TEX",
       "player": "Justin Foscue",
@@ -946,20 +930,20 @@
       "ops": 0.802
     },
     {
-      "gameId": "sd-az-2026-08-03-825095",
-      "matchup": "SD @ AZ",
-      "player": "Ketel Marte",
-      "team": "AZ",
+      "gameId": "wsh-phi-2026-08-03-823431",
+      "matchup": "WSH @ PHI",
+      "player": "Bryan De La Cruz",
+      "team": "PHI",
       "prop": "hitter_fantasy_score",
-      "vs_pitcher": "Michael King",
-      "fair_line": 6.5,
-      "line": 5.5,
-      "projection": 6.3,
+      "vs_pitcher": "Andrew Alvarez",
+      "fair_line": 5.5,
+      "line": 4.5,
+      "projection": 5.3,
       "lean": "Over",
-      "edge": 0.85,
+      "edge": 0.83,
       "confidence": "low",
       "line_source": "prizepicks_est",
-      "ops": 0.751
+      "ops": 1.235
     },
     {
       "gameId": "pit-mil-2026-08-03-823757",
@@ -1178,20 +1162,20 @@
       "ops": 0.731
     },
     {
-      "gameId": "wsh-phi-2026-08-03-823431",
-      "matchup": "WSH @ PHI",
-      "player": "Bryson Stott",
-      "team": "PHI",
+      "gameId": "tor-hou-2026-08-03-824160",
+      "matchup": "TOR @ HOU",
+      "player": "Ernie Clement",
+      "team": "TOR",
       "prop": "hitter_fantasy_score",
-      "vs_pitcher": "Andrew Alvarez",
-      "fair_line": 6.5,
-      "line": 6.0,
-      "projection": 6.5,
+      "vs_pitcher": "Cristian Javier",
+      "fair_line": 6.0,
+      "line": 5.5,
+      "projection": 6.0,
       "lean": "Pass",
-      "edge": 0.54,
+      "edge": 0.5,
       "confidence": "pass",
       "line_source": "prizepicks_est",
-      "ops": 0.724
+      "ops": 0.729
     },
     {
       "gameId": "sf-tex-2026-08-03-822867",
@@ -1222,6 +1206,22 @@
       "confidence": "pass",
       "line_source": "prizepicks_est",
       "k9": 8.0
+    },
+    {
+      "gameId": "sd-az-2026-08-03-825095",
+      "matchup": "SD @ AZ",
+      "player": "Tyler Locklear",
+      "team": "AZ",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Michael King",
+      "fair_line": 5.0,
+      "line": 4.5,
+      "projection": 4.8,
+      "lean": "Pass",
+      "edge": 0.28,
+      "confidence": "pass",
+      "line_source": "prizepicks_est",
+      "ops": 0.755
     },
     {
       "gameId": "sd-az-2026-08-03-825095",
