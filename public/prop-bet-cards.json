@@ -1,212 +1,190 @@
 {
-  "generated_at": "2026-08-04",
+  "generated_at": "2026-08-05",
   "source": "prop-bet-card-v1",
   "disclaimer": "Compare use_line to PrizePicks posted line before playing.",
   "cards": [
     {
-      "player": "Jes\u00fas Luzardo",
-      "team": "PHI",
-      "opponent": "WSH",
-      "matchup": "WSH @ PHI",
-      "game_date": "2026-08-04",
-      "props": [
-        {
-          "prop": "strikeouts",
-          "pick": "Over",
-          "model_line": 6.5,
-          "use_line": 5.0,
-          "projection": 6.6,
-          "edge": 1.63,
-          "confidence": "high",
-          "k9": 10.98,
-          "opp_k_rate": 0.213
-        }
-      ],
-      "headline": "Over 5.0 STRIKEOUTS (high confidence)",
-      "notes": []
-    },
-    {
-      "player": "Joe Ryan",
-      "team": "MIN",
-      "opponent": "KC",
-      "matchup": "MIN @ KC",
-      "game_date": "2026-08-04",
-      "props": [
-        {
-          "prop": "strikeouts",
-          "pick": "Over",
-          "model_line": 6.0,
-          "use_line": 4.5,
-          "projection": 6.1,
-          "edge": 1.6,
-          "confidence": "high",
-          "k9": 10.1,
-          "opp_k_rate": 0.213
-        }
-      ],
-      "headline": "Over 4.5 STRIKEOUTS (high confidence)",
-      "notes": []
-    },
-    {
-      "player": "Tarik Skubal",
-      "team": "LAD",
-      "opponent": "CHC",
-      "matchup": "LAD @ CHC",
-      "game_date": "2026-08-04",
-      "props": [
-        {
-          "prop": "strikeouts",
-          "pick": "Over",
-          "model_line": 6.5,
-          "use_line": 5.0,
-          "projection": 6.6,
-          "edge": 1.56,
-          "confidence": "high",
-          "k9": 10.8,
-          "opp_k_rate": 0.218
-        }
-      ],
-      "headline": "Over 5.0 STRIKEOUTS (high confidence)",
-      "notes": []
-    },
-    {
-      "player": "Logan Henderson",
-      "team": "MIL",
-      "opponent": "PIT",
-      "matchup": "PIT @ MIL",
-      "game_date": "2026-08-04",
+      "player": "Drew Anderson",
+      "team": "DET",
+      "opponent": "SEA",
+      "matchup": "DET @ SEA",
+      "game_date": "2026-08-05",
       "props": [
         {
           "prop": "strikeouts",
           "pick": "Over",
           "model_line": 7.0,
-          "use_line": 5.5,
-          "projection": 7.1,
-          "edge": 1.55,
-          "confidence": "high",
-          "k9": 11.29,
-          "opp_k_rate": 0.241
-        }
-      ],
-      "headline": "Over 5.5 STRIKEOUTS (high confidence)",
-      "notes": []
-    },
-    {
-      "player": "Jared Jones",
-      "team": "PIT",
-      "opponent": "MIL",
-      "matchup": "PIT @ MIL",
-      "game_date": "2026-08-04",
-      "props": [
-        {
-          "prop": "strikeouts",
-          "pick": "Over",
-          "model_line": 6.0,
-          "use_line": 4.5,
-          "projection": 6.0,
-          "edge": 1.54,
-          "confidence": "high",
-          "k9": 10.04,
-          "opp_k_rate": 0.211
-        }
-      ],
-      "headline": "Over 4.5 STRIKEOUTS (high confidence)",
-      "notes": []
-    },
-    {
-      "player": "Randy Dobnak",
-      "team": "KC",
-      "opponent": "MIN",
-      "matchup": "MIN @ KC",
-      "game_date": "2026-08-04",
-      "props": [
-        {
-          "prop": "strikeouts",
-          "pick": "Under",
-          "model_line": 2.0,
-          "use_line": 3.5,
-          "projection": 2.0,
-          "edge": 1.5,
-          "confidence": "high",
-          "k9": 3.3,
-          "opp_k_rate": 0.215
-        }
-      ],
-      "headline": "Under 3.5 STRIKEOUTS (high confidence)",
-      "notes": []
-    },
-    {
-      "player": "MacKenzie Gore",
-      "team": "TEX",
-      "opponent": "SF",
-      "matchup": "SF @ TEX",
-      "game_date": "2026-08-04",
-      "props": [
-        {
-          "prop": "strikeouts",
-          "pick": "Over",
-          "model_line": 6.0,
-          "use_line": 4.5,
-          "projection": 6.0,
-          "edge": 1.49,
-          "confidence": "high",
-          "k9": 9.98,
-          "opp_k_rate": 0.208
-        }
-      ],
-      "headline": "Over 4.5 STRIKEOUTS (high confidence)",
-      "notes": []
-    },
-    {
-      "player": "Ryan Weathers",
-      "team": "NYY",
-      "opponent": "STL",
-      "matchup": "STL @ NYY",
-      "game_date": "2026-08-04",
-      "props": [
-        {
-          "prop": "strikeouts",
-          "pick": "Over",
-          "model_line": 6.0,
-          "use_line": 4.5,
-          "projection": 5.9,
-          "edge": 1.38,
-          "confidence": "high",
-          "k9": 9.86,
-          "opp_k_rate": 0.204
-        }
-      ],
-      "headline": "Over 4.5 STRIKEOUTS (high confidence)",
-      "notes": []
-    },
-    {
-      "player": "Joey Cantillo",
-      "team": "CLE",
-      "opponent": "NYM",
-      "matchup": "NYM @ CLE",
-      "game_date": "2026-08-04",
-      "props": [
-        {
-          "prop": "strikeouts",
-          "pick": "Over",
-          "model_line": 6.0,
           "use_line": 5.0,
-          "projection": 6.0,
-          "edge": 1.02,
+          "projection": 6.8,
+          "edge": 1.8,
           "confidence": "high",
-          "k9": 9.82,
-          "opp_k_rate": 0.225
+          "k9": 11.03,
+          "opp_k_rate": 0.23
         }
       ],
       "headline": "Over 5.0 STRIKEOUTS (high confidence)",
       "notes": []
     },
     {
-      "player": "Trey Yesavage",
-      "team": "TOR",
-      "opponent": "HOU",
+      "player": "Kyle Harrison",
+      "team": "MIL",
+      "opponent": "PIT",
+      "matchup": "PIT @ MIL",
+      "game_date": "2026-08-05",
+      "props": [
+        {
+          "prop": "strikeouts",
+          "pick": "Over",
+          "model_line": 7.0,
+          "use_line": 5.0,
+          "projection": 6.8,
+          "edge": 1.79,
+          "confidence": "high",
+          "k9": 10.86,
+          "opp_k_rate": 0.241
+        }
+      ],
+      "headline": "Over 5.0 STRIKEOUTS (high confidence)",
+      "notes": []
+    },
+    {
+      "player": "Paul Skenes",
+      "team": "PIT",
+      "opponent": "MIL",
+      "matchup": "PIT @ MIL",
+      "game_date": "2026-08-05",
+      "props": [
+        {
+          "prop": "strikeouts",
+          "pick": "Over",
+          "model_line": 7.0,
+          "use_line": 5.0,
+          "projection": 6.8,
+          "edge": 1.78,
+          "confidence": "high",
+          "k9": 11.26,
+          "opp_k_rate": 0.211
+        }
+      ],
+      "headline": "Over 5.0 STRIKEOUTS (high confidence)",
+      "notes": []
+    },
+    {
+      "player": "Christian Scott",
+      "team": "NYM",
+      "opponent": "CLE",
+      "matchup": "NYM @ CLE",
+      "game_date": "2026-08-05",
+      "props": [
+        {
+          "prop": "strikeouts",
+          "pick": "Over",
+          "model_line": 6.5,
+          "use_line": 5.0,
+          "projection": 6.7,
+          "edge": 1.73,
+          "confidence": "high",
+          "k9": 11.03,
+          "opp_k_rate": 0.221
+        }
+      ],
+      "headline": "Over 5.0 STRIKEOUTS (high confidence)",
+      "notes": []
+    },
+    {
+      "player": "Sean Burke",
+      "team": "CWS",
+      "opponent": "BOS",
+      "matchup": "CWS @ BOS",
+      "game_date": "2026-08-05",
+      "props": [
+        {
+          "prop": "strikeouts",
+          "pick": "Over",
+          "model_line": 6.0,
+          "use_line": 4.5,
+          "projection": 6.2,
+          "edge": 1.66,
+          "confidence": "high",
+          "k9": 10.13,
+          "opp_k_rate": 0.219
+        }
+      ],
+      "headline": "Over 4.5 STRIKEOUTS (high confidence)",
+      "notes": []
+    },
+    {
+      "player": "Reid Detmers",
+      "team": "LAA",
+      "opponent": "BAL",
+      "matchup": "LAA @ BAL",
+      "game_date": "2026-08-05",
+      "props": [
+        {
+          "prop": "strikeouts",
+          "pick": "Over",
+          "model_line": 6.5,
+          "use_line": 5.0,
+          "projection": 6.5,
+          "edge": 1.54,
+          "confidence": "high",
+          "k9": 10.44,
+          "opp_k_rate": 0.243
+        }
+      ],
+      "headline": "Over 5.0 STRIKEOUTS (high confidence)",
+      "notes": []
+    },
+    {
+      "player": "Eury P\u00e9rez",
+      "team": "MIA",
+      "opponent": "ATL",
+      "matchup": "MIA @ ATL",
+      "game_date": "2026-08-05",
+      "props": [
+        {
+          "prop": "strikeouts",
+          "pick": "Over",
+          "model_line": 6.0,
+          "use_line": 4.5,
+          "projection": 5.8,
+          "edge": 1.3,
+          "confidence": "high",
+          "k9": 9.63,
+          "opp_k_rate": 0.212
+        }
+      ],
+      "headline": "Over 4.5 STRIKEOUTS (high confidence)",
+      "notes": []
+    },
+    {
+      "player": "Hunter Brown",
+      "team": "HOU",
+      "opponent": "TOR",
       "matchup": "TOR @ HOU",
-      "game_date": "2026-08-04",
+      "game_date": "2026-08-05",
+      "props": [
+        {
+          "prop": "strikeouts",
+          "pick": "Over",
+          "model_line": 5.5,
+          "use_line": 4.5,
+          "projection": 5.7,
+          "edge": 1.15,
+          "confidence": "high",
+          "k9": 9.59,
+          "opp_k_rate": 0.194
+        }
+      ],
+      "headline": "Over 4.5 STRIKEOUTS (high confidence)",
+      "notes": []
+    },
+    {
+      "player": "Will Warren",
+      "team": "NYY",
+      "opponent": "STL",
+      "matchup": "STL @ NYY",
+      "game_date": "2026-08-05",
       "props": [
         {
           "prop": "strikeouts",
@@ -214,109 +192,43 @@
           "model_line": 5.5,
           "use_line": 4.5,
           "projection": 5.4,
-          "edge": 0.91,
+          "edge": 0.89,
           "confidence": "medium",
-          "k9": 8.93,
-          "opp_k_rate": 0.216
+          "k9": 9.03,
+          "opp_k_rate": 0.205
         }
       ],
       "headline": "Over 4.5 STRIKEOUTS (medium confidence)",
       "notes": []
     },
     {
-      "player": "Patrick Sandoval",
-      "team": "BOS",
-      "opponent": "CWS",
-      "matchup": "CWS @ BOS",
-      "game_date": "2026-08-04",
+      "player": "Dean Kremer",
+      "team": "MIN",
+      "opponent": "KC",
+      "matchup": "MIN @ KC",
+      "game_date": "2026-08-05",
       "props": [
         {
           "prop": "strikeouts",
           "pick": "Over",
-          "model_line": 6.0,
-          "use_line": 5.0,
-          "projection": 5.9,
-          "edge": 0.9,
-          "confidence": "medium",
-          "k9": 9.47,
-          "opp_k_rate": 0.238
-        }
-      ],
-      "headline": "Over 5.0 STRIKEOUTS (medium confidence)",
-      "notes": []
-    },
-    {
-      "player": "Sean Manaea",
-      "team": "NYM",
-      "opponent": "CLE",
-      "matchup": "NYM @ CLE",
-      "game_date": "2026-08-04",
-      "props": [
-        {
-          "prop": "strikeouts",
-          "pick": "Over",
-          "model_line": 5.5,
+          "model_line": 5.0,
           "use_line": 4.5,
-          "projection": 5.3,
-          "edge": 0.77,
+          "projection": 5.2,
+          "edge": 0.72,
           "confidence": "medium",
-          "k9": 8.64,
-          "opp_k_rate": 0.222
+          "k9": 8.66,
+          "opp_k_rate": 0.213
         }
       ],
       "headline": "Over 4.5 STRIKEOUTS (medium confidence)",
       "notes": []
     },
     {
-      "player": "Ryan Gusto",
-      "team": "MIA",
-      "opponent": "ATL",
-      "matchup": "MIA @ ATL",
-      "game_date": "2026-08-04",
-      "props": [
-        {
-          "prop": "strikeouts",
-          "pick": "Over",
-          "model_line": 4.0,
-          "use_line": 3.5,
-          "projection": 4.2,
-          "edge": 0.74,
-          "confidence": "medium",
-          "k9": 7.03,
-          "opp_k_rate": 0.212
-        }
-      ],
-      "headline": "Over 3.5 STRIKEOUTS (medium confidence)",
-      "notes": []
-    },
-    {
-      "player": "Carson Palmquist",
+      "player": "Jake Irvin",
       "team": "WSH",
       "opponent": "PHI",
       "matchup": "WSH @ PHI",
-      "game_date": "2026-08-04",
-      "props": [
-        {
-          "prop": "strikeouts",
-          "pick": "Over",
-          "model_line": 4.5,
-          "use_line": 4.0,
-          "projection": 4.7,
-          "edge": 0.72,
-          "confidence": "medium",
-          "k9": 7.61,
-          "opp_k_rate": 0.236
-        }
-      ],
-      "headline": "Over 4.0 STRIKEOUTS (medium confidence)",
-      "notes": []
-    },
-    {
-      "player": "J.T. Ginn",
-      "team": "ATH",
-      "opponent": "CIN",
-      "matchup": "ATH @ CIN",
-      "game_date": "2026-08-04",
+      "game_date": "2026-08-05",
       "props": [
         {
           "prop": "strikeouts",
@@ -326,19 +238,85 @@
           "projection": 5.2,
           "edge": 0.71,
           "confidence": "medium",
-          "k9": 8.23,
-          "opp_k_rate": 0.252
+          "k9": 8.4,
+          "opp_k_rate": 0.235
         }
       ],
       "headline": "Over 4.5 STRIKEOUTS (medium confidence)",
       "notes": []
     },
     {
-      "player": "Brady Singer",
+      "player": "Casey Mize",
+      "team": "SD",
+      "opponent": "AZ",
+      "matchup": "SD @ AZ",
+      "game_date": "2026-08-05",
+      "props": [
+        {
+          "prop": "strikeouts",
+          "pick": "Over",
+          "model_line": 5.0,
+          "use_line": 4.5,
+          "projection": 5.2,
+          "edge": 0.69,
+          "confidence": "medium",
+          "k9": 8.83,
+          "opp_k_rate": 0.192
+        }
+      ],
+      "headline": "Over 4.5 STRIKEOUTS (medium confidence)",
+      "notes": []
+    },
+    {
+      "player": "Carson Whisenhunt",
+      "team": "SF",
+      "opponent": "TEX",
+      "matchup": "SF @ TEX",
+      "game_date": "2026-08-05",
+      "props": [
+        {
+          "prop": "strikeouts",
+          "pick": "Over",
+          "model_line": 4.0,
+          "use_line": 3.5,
+          "projection": 4.2,
+          "edge": 0.67,
+          "confidence": "medium",
+          "k9": 6.78,
+          "opp_k_rate": 0.227
+        }
+      ],
+      "headline": "Over 3.5 STRIKEOUTS (medium confidence)",
+      "notes": []
+    },
+    {
+      "player": "Tanner Bibee",
+      "team": "CLE",
+      "opponent": "NYM",
+      "matchup": "NYM @ CLE",
+      "game_date": "2026-08-05",
+      "props": [
+        {
+          "prop": "strikeouts",
+          "pick": "Over",
+          "model_line": 4.0,
+          "use_line": 3.5,
+          "projection": 4.2,
+          "edge": 0.67,
+          "confidence": "medium",
+          "k9": 6.8,
+          "opp_k_rate": 0.225
+        }
+      ],
+      "headline": "Over 3.5 STRIKEOUTS (medium confidence)",
+      "notes": []
+    },
+    {
+      "player": "Rhett Lowder",
       "team": "CIN",
       "opponent": "ATH",
       "matchup": "ATH @ CIN",
-      "game_date": "2026-08-04",
+      "game_date": "2026-08-05",
       "props": [
         {
           "prop": "strikeouts",
@@ -346,9 +324,9 @@
           "model_line": 4.5,
           "use_line": 4.0,
           "projection": 4.7,
-          "edge": 0.67,
+          "edge": 0.66,
           "confidence": "medium",
-          "k9": 7.61,
+          "k9": 7.59,
           "opp_k_rate": 0.227
         }
       ],
@@ -356,131 +334,43 @@
       "notes": []
     },
     {
-      "player": "Grant Holmes",
-      "team": "ATL",
-      "opponent": "MIA",
-      "matchup": "MIA @ ATL",
-      "game_date": "2026-08-04",
+      "player": "Trevor Rogers",
+      "team": "BAL",
+      "opponent": "LAA",
+      "matchup": "LAA @ BAL",
+      "game_date": "2026-08-05",
       "props": [
         {
           "prop": "strikeouts",
           "pick": "Over",
           "model_line": 4.5,
           "use_line": 4.0,
-          "projection": 4.7,
-          "edge": 0.65,
+          "projection": 4.6,
+          "edge": 0.63,
           "confidence": "medium",
-          "k9": 7.68,
-          "opp_k_rate": 0.216
+          "k9": 7.3,
+          "opp_k_rate": 0.252
         }
       ],
       "headline": "Over 4.0 STRIKEOUTS (medium confidence)",
       "notes": []
     },
     {
-      "player": "Emerson Hancock",
+      "player": "Bryan Woo",
       "team": "SEA",
       "opponent": "DET",
       "matchup": "DET @ SEA",
-      "game_date": "2026-08-04",
-      "props": [
-        {
-          "prop": "strikeouts",
-          "pick": "Over",
-          "model_line": 5.0,
-          "use_line": 4.5,
-          "projection": 5.1,
-          "edge": 0.61,
-          "confidence": "medium",
-          "k9": 8.32,
-          "opp_k_rate": 0.228
-        }
-      ],
-      "headline": "Over 4.5 STRIKEOUTS (medium confidence)",
-      "notes": []
-    },
-    {
-      "player": "Hayden Wesneski",
-      "team": "HOU",
-      "opponent": "TOR",
-      "matchup": "TOR @ HOU",
-      "game_date": "2026-08-04",
-      "props": [
-        {
-          "prop": "strikeouts",
-          "pick": "Over",
-          "model_line": 4.5,
-          "use_line": 4.0,
-          "projection": 4.6,
-          "edge": 0.61,
-          "confidence": "medium",
-          "k9": 7.83,
-          "opp_k_rate": 0.194
-        }
-      ],
-      "headline": "Over 4.0 STRIKEOUTS (medium confidence)",
-      "notes": []
-    },
-    {
-      "player": "Grayson Rodriguez",
-      "team": "LAA",
-      "opponent": "BAL",
-      "matchup": "LAA @ BAL",
-      "game_date": "2026-08-04",
-      "props": [
-        {
-          "prop": "strikeouts",
-          "pick": "Over",
-          "model_line": 4.5,
-          "use_line": 4.0,
-          "projection": 4.6,
-          "edge": 0.61,
-          "confidence": "medium",
-          "k9": 7.36,
-          "opp_k_rate": 0.243
-        }
-      ],
-      "headline": "Over 4.0 STRIKEOUTS (medium confidence)",
-      "notes": []
-    },
-    {
-      "player": "Gabriel Hughes",
-      "team": "COL",
-      "opponent": "TB",
-      "matchup": "TB @ COL",
-      "game_date": "2026-08-04",
-      "props": [
-        {
-          "prop": "strikeouts",
-          "pick": "Over",
-          "model_line": 4.5,
-          "use_line": 4.0,
-          "projection": 4.6,
-          "edge": 0.56,
-          "confidence": "medium",
-          "k9": 7.77,
-          "opp_k_rate": 0.191
-        }
-      ],
-      "headline": "Over 4.0 STRIKEOUTS (medium confidence)",
-      "notes": []
-    },
-    {
-      "player": "Freddy Peralta",
-      "team": "TB",
-      "opponent": "COL",
-      "matchup": "TB @ COL",
-      "game_date": "2026-08-04",
+      "game_date": "2026-08-05",
       "props": [
         {
           "prop": "strikeouts",
           "pick": "Over",
           "model_line": 5.5,
           "use_line": 5.0,
-          "projection": 5.5,
-          "edge": 0.5,
+          "projection": 5.6,
+          "edge": 0.61,
           "confidence": "medium",
-          "k9": 8.95,
+          "k9": 9.12,
           "opp_k_rate": 0.228
         }
       ],
@@ -488,33 +378,55 @@
       "notes": []
     },
     {
-      "player": "Blade Tidwell",
-      "team": "SF",
-      "opponent": "TEX",
-      "matchup": "SF @ TEX",
-      "game_date": "2026-08-04",
+      "player": "Bryce Elder",
+      "team": "ATL",
+      "opponent": "MIA",
+      "matchup": "MIA @ ATL",
+      "game_date": "2026-08-05",
+      "props": [
+        {
+          "prop": "strikeouts",
+          "pick": "Over",
+          "model_line": 4.5,
+          "use_line": 4.0,
+          "projection": 4.6,
+          "edge": 0.6,
+          "confidence": "medium",
+          "k9": 7.6,
+          "opp_k_rate": 0.216
+        }
+      ],
+      "headline": "Over 4.0 STRIKEOUTS (medium confidence)",
+      "notes": []
+    },
+    {
+      "player": "Andre Pallante",
+      "team": "STL",
+      "opponent": "NYY",
+      "matchup": "STL @ NYY",
+      "game_date": "2026-08-05",
       "props": [
         {
           "prop": "strikeouts",
           "pick": "Over",
           "model_line": 4.0,
           "use_line": 3.5,
-          "projection": 4.0,
-          "edge": 0.49,
-          "confidence": "low",
-          "k9": 6.49,
-          "opp_k_rate": 0.228
+          "projection": 4.1,
+          "edge": 0.59,
+          "confidence": "medium",
+          "k9": 6.52,
+          "opp_k_rate": 0.243
         }
       ],
-      "headline": "Over 3.5 STRIKEOUTS (low confidence)",
+      "headline": "Over 3.5 STRIKEOUTS (medium confidence)",
       "notes": []
     },
     {
-      "player": "Troy Melton",
-      "team": "DET",
-      "opponent": "SEA",
-      "matchup": "DET @ SEA",
-      "game_date": "2026-08-04",
+      "player": "Noah Cameron",
+      "team": "KC",
+      "opponent": "MIN",
+      "matchup": "MIN @ KC",
+      "game_date": "2026-08-05",
       "props": [
         {
           "prop": "strikeouts",
@@ -522,21 +434,109 @@
           "model_line": 5.0,
           "use_line": 4.5,
           "projection": 5.0,
-          "edge": 0.47,
-          "confidence": "low",
-          "k9": 8.06,
-          "opp_k_rate": 0.23
+          "edge": 0.53,
+          "confidence": "medium",
+          "k9": 8.33,
+          "opp_k_rate": 0.214
         }
       ],
-      "headline": "Over 4.5 STRIKEOUTS (low confidence)",
+      "headline": "Over 4.5 STRIKEOUTS (medium confidence)",
       "notes": []
     },
     {
-      "player": "Davis Martin",
-      "team": "CWS",
-      "opponent": "BOS",
-      "matchup": "CWS @ BOS",
-      "game_date": "2026-08-04",
+      "player": "Andrew Painter",
+      "team": "PHI",
+      "opponent": "WSH",
+      "matchup": "WSH @ PHI",
+      "game_date": "2026-08-05",
+      "props": [
+        {
+          "prop": "strikeouts",
+          "pick": "Over",
+          "model_line": 4.5,
+          "use_line": 4.0,
+          "projection": 4.5,
+          "edge": 0.52,
+          "confidence": "medium",
+          "k9": 7.48,
+          "opp_k_rate": 0.214
+        }
+      ],
+      "headline": "Over 4.0 STRIKEOUTS (medium confidence)",
+      "notes": []
+    },
+    {
+      "player": "Tomoyuki Sugano",
+      "team": "COL",
+      "opponent": "TB",
+      "matchup": "TB @ COL",
+      "game_date": "2026-08-05",
+      "props": [
+        {
+          "prop": "strikeouts",
+          "pick": "Under",
+          "model_line": 3.0,
+          "use_line": 3.5,
+          "projection": 3.0,
+          "edge": 0.52,
+          "confidence": "medium",
+          "k9": 5.08,
+          "opp_k_rate": 0.191
+        }
+      ],
+      "headline": "Under 3.5 STRIKEOUTS (medium confidence)",
+      "notes": []
+    },
+    {
+      "player": "Shota Imanaga",
+      "team": "CHC",
+      "opponent": "LAD",
+      "matchup": "LAD @ CHC",
+      "game_date": "2026-08-05",
+      "props": [
+        {
+          "prop": "strikeouts",
+          "pick": "Over",
+          "model_line": 5.0,
+          "use_line": 4.5,
+          "projection": 5.0,
+          "edge": 0.51,
+          "confidence": "medium",
+          "k9": 8.39,
+          "opp_k_rate": 0.204
+        }
+      ],
+      "headline": "Over 4.5 STRIKEOUTS (medium confidence)",
+      "notes": []
+    },
+    {
+      "player": "Eric Lauer",
+      "team": "LAD",
+      "opponent": "CHC",
+      "matchup": "LAD @ CHC",
+      "game_date": "2026-08-05",
+      "props": [
+        {
+          "prop": "strikeouts",
+          "pick": "Over",
+          "model_line": 4.5,
+          "use_line": 4.0,
+          "projection": 4.5,
+          "edge": 0.49,
+          "confidence": "low",
+          "k9": 7.39,
+          "opp_k_rate": 0.218
+        }
+      ],
+      "headline": "Over 4.0 STRIKEOUTS (low confidence)",
+      "notes": []
+    },
+    {
+      "player": "Jacob Lopez",
+      "team": "ATH",
+      "opponent": "CIN",
+      "matchup": "ATH @ CIN",
+      "game_date": "2026-08-05",
       "props": [
         {
           "prop": "strikeouts",
@@ -546,29 +546,7 @@
           "projection": 5.0,
           "edge": 0.46,
           "confidence": "low",
-          "k9": 8.15,
-          "opp_k_rate": 0.22
-        }
-      ],
-      "headline": "Over 4.5 STRIKEOUTS (low confidence)",
-      "notes": []
-    },
-    {
-      "player": "Cade Povich",
-      "team": "BAL",
-      "opponent": "LAA",
-      "matchup": "LAA @ BAL",
-      "game_date": "2026-08-04",
-      "props": [
-        {
-          "prop": "strikeouts",
-          "pick": "Over",
-          "model_line": 5.0,
-          "use_line": 4.5,
-          "projection": 4.9,
-          "edge": 0.42,
-          "confidence": "low",
-          "k9": 7.77,
+          "k9": 7.84,
           "opp_k_rate": 0.252
         }
       ],
@@ -576,11 +554,33 @@
       "notes": []
     },
     {
-      "player": "Hunter Dobbins",
-      "team": "STL",
-      "opponent": "NYY",
-      "matchup": "STL @ NYY",
-      "game_date": "2026-08-04",
+      "player": "Nick Martinez",
+      "team": "TB",
+      "opponent": "COL",
+      "matchup": "TB @ COL",
+      "game_date": "2026-08-05",
+      "props": [
+        {
+          "prop": "strikeouts",
+          "pick": "Under",
+          "model_line": 3.0,
+          "use_line": 3.5,
+          "projection": 3.1,
+          "edge": 0.4,
+          "confidence": "low",
+          "k9": 5.04,
+          "opp_k_rate": 0.228
+        }
+      ],
+      "headline": "Under 3.5 STRIKEOUTS (low confidence)",
+      "notes": []
+    },
+    {
+      "player": "Jameson Taillon",
+      "team": "TOR",
+      "opponent": "HOU",
+      "matchup": "TOR @ HOU",
+      "game_date": "2026-08-05",
       "props": [
         {
           "prop": "strikeouts",
@@ -588,10 +588,10 @@
           "model_line": 5.0,
           "use_line": 4.5,
           "projection": 4.9,
-          "edge": 0.35,
+          "edge": 0.37,
           "confidence": "low",
-          "k9": 7.74,
-          "opp_k_rate": 0.244
+          "k9": 8.05,
+          "opp_k_rate": 0.215
         }
       ],
       "headline": "Over 4.5 STRIKEOUTS (low confidence)",
