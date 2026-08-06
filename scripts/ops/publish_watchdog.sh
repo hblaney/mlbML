@@ -1,6 +1,7 @@
 #!/bin/zsh
 # Morning watchdog: if today's board is missing, force a publish (and kill hangs).
-# Runs every 10 minutes 10:00–12:00 CT so a single failed/hung slot cannot wipe the day.
+# Runs every 10 minutes 9:00–12:00 local. SLA: site fully live by 11:00 AM CT —
+# publish must already be done (or finishing) by then, not starting.
 
 set -u
 
@@ -15,8 +16,8 @@ mkdir -p "${SUPPORT}"
 log(){ echo "$(date '+%F %T') $*" >> "${LOG}"; }
 
 HOUR="$(date +%H)"
-# Only police the morning window (and a noon catch-up).
-if [ "${HOUR}" -lt 10 ] || [ "${HOUR}" -gt 12 ]; then
+# Only police the morning window (9 AM start → 11 AM live deadline + noon catch-up).
+if [ "${HOUR}" -lt 9 ] || [ "${HOUR}" -gt 12 ]; then
   exit 0
 fi
 

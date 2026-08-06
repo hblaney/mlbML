@@ -25,6 +25,8 @@ install_script "${ROOT}/scripts/ops/publish_watchdog.sh" "publish_watchdog.sh"
 install_script "${ROOT}/scripts/ops/trigger_publish.sh" "trigger_publish.sh"
 
 # --- primary publisher --------------------------------------------------------
+# SLA: site FULLY refreshed by 11:00 AM local (CT). Start ~9:00 so moneyline+props
+# finish and push before 11 — never treat 11:00 as the start time.
 cat > "${AGENTS}/com.mlbedge.publish.plist" <<'EOF'
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
@@ -39,6 +41,9 @@ cat > "${AGENTS}/com.mlbedge.publish.plist" <<'EOF'
   </array>
   <key>StartCalendarInterval</key>
   <array>
+    <dict><key>Hour</key><integer>9</integer><key>Minute</key><integer>0</integer></dict>
+    <dict><key>Hour</key><integer>9</integer><key>Minute</key><integer>20</integer></dict>
+    <dict><key>Hour</key><integer>9</integer><key>Minute</key><integer>40</integer></dict>
     <dict><key>Hour</key><integer>10</integer><key>Minute</key><integer>0</integer></dict>
     <dict><key>Hour</key><integer>10</integer><key>Minute</key><integer>20</integer></dict>
     <dict><key>Hour</key><integer>10</integer><key>Minute</key><integer>40</integer></dict>
@@ -59,11 +64,11 @@ cat > "${AGENTS}/com.mlbedge.publish.plist" <<'EOF'
 EOF
 
 # --- watchdog every 10 min during morning ------------------------------------
-# launchd has no "every 10 min 10-12 only" without listing; list 10:00-12:00 :00/:10/:20/:30/:40/:50
+# Police 9:00–12:00 so a hung 9 AM start cannot miss the 11 AM live deadline.
 python3 - <<'PY' > "${AGENTS}/com.mlbedge.publish-watchdog.plist"
 from pathlib import Path
 intervals = []
-for hour in (10, 11, 12):
+for hour in (9, 10, 11, 12):
     for minute in (0, 10, 20, 30, 40, 50):
         intervals.append(
             f"""    <dict>

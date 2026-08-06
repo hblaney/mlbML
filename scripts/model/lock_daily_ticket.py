@@ -1,7 +1,7 @@
 """Lock the official daily system ticket at first publish.
 
 The live board refreshes hourly (new odds, model retrains, confidence relabels).
-Without a lock, what you see at 2 PM can disagree with what was published at 10 AM —
+Without a lock, what you see at 2 PM can disagree with what was published by 11 AM —
 exactly the failure mode where a bet was placed on one card and the site later showed another.
 
 Rules:

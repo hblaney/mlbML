@@ -6,6 +6,9 @@
 # clock and forces the Publish Live Board workflow via workflow_dispatch. The
 # heavy pipeline still runs in GitHub's cloud — this is just a reliable trigger.
 #
+# SLA: board fully live by 11:00 AM CT. Local slots start ~9:00 so publish is
+# done by then — 11:00 is catch-up, not start.
+#
 # The GitHub token is read from the macOS keychain at runtime via git's credential
 # helper, so no secret is written to disk.
 

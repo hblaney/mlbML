@@ -118,7 +118,8 @@ Daily automation is defined in `.github/workflows/daily-model.yml`:
 3. Add the GitHub repository secret `ODDS_API_KEY`.
 4. Add the Vercel environment variable `ODDS_API_KEY` too if you want manual
    Vercel rebuilds to have access to live odds.
-5. The scheduled GitHub Action refreshes the public JSON every morning. Vercel
+5. The scheduled GitHub Action refreshes the public JSON every morning so the
+   board is fully live by **11:00 AM CT** (publish starts ~9:00 AM CT). Vercel
    redeploys when GitHub receives the commit.
 
 To update the model later, edit files in `scripts/model/`, run:

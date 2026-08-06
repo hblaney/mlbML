@@ -24,7 +24,8 @@ MONEYLINE_TIMEOUT_SEC=720    # 12m hard cap
 PROPS_TIMEOUT_SEC=600        # 10m — never block the moneyline push longer than this
 LOCK_TIMEOUT_SEC=90
 MONEYLINE_RETRIES=3
-STALE_LOCK_SEC=1500          # 25m — next 10:20/10:40 slot can always reclaim
+STALE_LOCK_SEC=1500          # 25m — next 9:20/9:40/10:xx slot can always reclaim
+# SLA: board fully live on the site by 11:00 AM CT (start ~9:00, never start-at-11).
 
 log(){ echo "$(date '+%F %T') $*" >> "${LOG}"; }
 

@@ -10,9 +10,11 @@ name: Publish Live Board
 on:
   workflow_dispatch:
   schedule:
-    # Morning publish (~10 AM CT). Dense ticks — GitHub routinely drops/delays
-    # the 15:00 UTC hour after we moved off the old 16:00 (11 AM CT) slot.
-    # 15:00 UTC = 10:00 AM CDT / 9:00 AM CST.
+    # SLA: board must be FULLY live on the site by 11:00 AM America/Chicago.
+    # Publish must START early — cold GH runs take ~40–90 min, so a 10/11 AM
+    # start is too late. Dense ticks from 9:00 AM CT; 11:00 is catch-up only.
+    # 14:00 UTC = 9:00 AM CDT / 8:00 AM CST.
+    - cron: "0,15,30,45 14 * * *"
     - cron: "0,15,30,45 15 * * *"
     - cron: "0,15,30 16 * * *"
     - cron: "0 17 * * *"
@@ -59,8 +61,8 @@ jobs:
             exit 0
           fi
           # Always publish when the board is not today's date (Chicago), even if a
-          # catch-up tick somehow looks "fresh" by age. This is what failed after
-          # the 10 AM move: morning ticks were dropped and noon was the first fire.
+          # catch-up tick somehow looks "fresh" by age. Morning ticks must finish
+          # before the 11 AM CT live deadline — do not treat 11 as the start.
           today=$(TZ=America/Chicago date +%F)
           board_day=$(python3 -c "import json; print(json.load(open('public/predictions.json')).get('generated_at',''))" 2>/dev/null || echo "")
           if [ "${board_day}" != "${today}" ]; then
