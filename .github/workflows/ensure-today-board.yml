@@ -1,0 +1,27 @@
+name: Ensure Today Board
+
+# Second scheduler on OFFSET minutes so a dropped publish-board cron cannot
+# wipe the morning. Same concurrency group + same guard: if the board is
+# already today, this no-ops in seconds. Mac can be dead — this is the backup.
+
+on:
+  workflow_dispatch:
+  schedule:
+    # Offsets (:08/:23/:38/:53) avoid the congested :00/:15/:30/:45 slots that
+    # GitHub routinely delays or drops. Window = 7 AM–1 PM America/Chicago.
+    # 12:00 UTC = 7:00 AM CDT / 6:00 AM CST.
+    - cron: "8,23,38,53 12-18 * * *"
+    # Mid-afternoon stale check (~3 PM CT) if morning still failed.
+    - cron: "8,38 20 * * *"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: mlb-board-publish
+  cancel-in-progress: false
+
+jobs:
+  ensure:
+    uses: ./.github/workflows/publish-board.yml
+    secrets: inherit
