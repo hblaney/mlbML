@@ -110,6 +110,16 @@
       "matchup": "TOR @ PHI"
     },
     {
+      "player": "Pete Crow-Armstrong",
+      "prop": "hitter_fantasy_score",
+      "lean": "Over",
+      "line": 6.0,
+      "projection": 7.8,
+      "edge": 1.79,
+      "confidence": "medium",
+      "matchup": "CHC @ KC"
+    },
+    {
       "player": "Shohei Ohtani",
       "prop": "hitter_fantasy_score",
       "lean": "Over",
@@ -148,16 +158,6 @@
       "edge": 1.75,
       "confidence": "medium",
       "matchup": "TB @ SEA"
-    },
-    {
-      "player": "Griffin Conine",
-      "prop": "hitter_fantasy_score",
-      "lean": "Over",
-      "line": 6.5,
-      "projection": 8.2,
-      "edge": 1.75,
-      "confidence": "medium",
-      "matchup": "LAA @ MIA"
     }
   ],
   "all_actionable": [
@@ -230,6 +230,16 @@
       "edge": 1.87,
       "confidence": "high",
       "matchup": "TOR @ PHI"
+    },
+    {
+      "player": "Pete Crow-Armstrong",
+      "prop": "hitter_fantasy_score",
+      "line": 6.0,
+      "lean": "Over",
+      "projection": 7.8,
+      "edge": 1.79,
+      "confidence": "medium",
+      "matchup": "CHC @ KC"
     },
     {
       "player": "Shohei Ohtani",
@@ -350,16 +360,6 @@
       "edge": 1.67,
       "confidence": "medium",
       "matchup": "HOU @ SD"
-    },
-    {
-      "player": "Shea Langeliers",
-      "prop": "hitter_fantasy_score",
-      "line": 5.0,
-      "lean": "Over",
-      "projection": 6.7,
-      "edge": 1.66,
-      "confidence": "medium",
-      "matchup": "ATH @ BOS"
     }
   ]
 }

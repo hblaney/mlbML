@@ -2,7 +2,7 @@
   "generated_at": "2026-08-07",
   "source": "prop-leans-v2",
   "note": "K uses estimated PrizePicks lines when posted line unknown. Hitter FS from top-4 OPS bats per team.",
-  "actionable_count": 124,
+  "actionable_count": 134,
   "leans": [
     {
       "gameId": "nym-pit-2026-08-07-823349",
@@ -114,6 +114,22 @@
       "confidence": "high",
       "line_source": "prizepicks_est",
       "k9": 10.8
+    },
+    {
+      "gameId": "chc-kc-2026-08-07-824081",
+      "matchup": "CHC @ KC",
+      "player": "Pete Crow-Armstrong",
+      "team": "CHC",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Daniel Lynch IV",
+      "fair_line": 8.0,
+      "line": 6.0,
+      "projection": 7.8,
+      "lean": "Over",
+      "edge": 1.79,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.936
     },
     {
       "gameId": "lad-az-2026-08-07-825051",
@@ -387,6 +403,22 @@
       "ops": 0.825
     },
     {
+      "gameId": "chc-kc-2026-08-07-824081",
+      "matchup": "CHC @ KC",
+      "player": "Tyler Tolbert",
+      "team": "KC",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Kevin Gausman",
+      "fair_line": 11.0,
+      "line": 9.5,
+      "projection": 11.1,
+      "lean": "Over",
+      "edge": 1.59,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.843
+    },
+    {
       "gameId": "cin-wsh-2026-08-07-822699",
       "matchup": "CIN @ WSH",
       "player": "Elly De La Cruz",
@@ -561,6 +593,22 @@
       "k9": 9.54
     },
     {
+      "gameId": "chc-kc-2026-08-07-824081",
+      "matchup": "CHC @ KC",
+      "player": "Seiya Suzuki",
+      "team": "CHC",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Daniel Lynch IV",
+      "fair_line": 6.5,
+      "line": 5.0,
+      "projection": 6.5,
+      "lean": "Over",
+      "edge": 1.48,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.84
+    },
+    {
       "gameId": "min-mil-2026-08-07-823750",
       "matchup": "MIN @ MIL",
       "player": "Ryan Jeffers",
@@ -671,6 +719,22 @@
       "confidence": "medium",
       "line_source": "prizepicks_est",
       "ops": 0.831
+    },
+    {
+      "gameId": "chc-kc-2026-08-07-824081",
+      "matchup": "CHC @ KC",
+      "player": "Luke Maile",
+      "team": "KC",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Kevin Gausman",
+      "fair_line": 6.0,
+      "line": 4.5,
+      "projection": 5.9,
+      "lean": "Over",
+      "edge": 1.4,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.846
     },
     {
       "gameId": "min-mil-2026-08-07-823750",
@@ -1024,6 +1088,22 @@
       "ops": 0.821
     },
     {
+      "gameId": "chc-kc-2026-08-07-824081",
+      "matchup": "CHC @ KC",
+      "player": "Jac Caglianone",
+      "team": "KC",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Kevin Gausman",
+      "fair_line": 6.0,
+      "line": 5.0,
+      "projection": 6.1,
+      "lean": "Over",
+      "edge": 1.15,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.762
+    },
+    {
       "gameId": "nym-pit-2026-08-07-823349",
       "matchup": "NYM @ PIT",
       "player": "Jared Young",
@@ -1278,6 +1358,22 @@
       "k9": 9.1
     },
     {
+      "gameId": "chc-kc-2026-08-07-824081",
+      "matchup": "CHC @ KC",
+      "player": "Pedro Ram\u00edrez",
+      "team": "CHC",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Daniel Lynch IV",
+      "fair_line": 10.5,
+      "line": 9.5,
+      "projection": 10.5,
+      "lean": "Over",
+      "edge": 0.99,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.765
+    },
+    {
       "gameId": "bal-tex-2026-08-07-822863",
       "matchup": "BAL @ TEX",
       "player": "Wyatt Langford",
@@ -1468,6 +1564,21 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.801
+    },
+    {
+      "gameId": "chc-kc-2026-08-07-824081",
+      "matchup": "CHC @ KC",
+      "player": "Kevin Gausman",
+      "team": "CHC",
+      "prop": "strikeouts",
+      "fair_line": 5.5,
+      "line": 4.5,
+      "projection": 5.4,
+      "lean": "Over",
+      "edge": 0.91,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "k9": 8.98
     },
     {
       "gameId": "bal-tex-2026-08-07-822863",
@@ -1675,6 +1786,38 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.758
+    },
+    {
+      "gameId": "chc-kc-2026-08-07-824081",
+      "matchup": "CHC @ KC",
+      "player": "Nick Loftin",
+      "team": "KC",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Kevin Gausman",
+      "fair_line": 6.0,
+      "line": 5.0,
+      "projection": 5.8,
+      "lean": "Over",
+      "edge": 0.8,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.731
+    },
+    {
+      "gameId": "chc-kc-2026-08-07-824081",
+      "matchup": "CHC @ KC",
+      "player": "Michael Conforto",
+      "team": "CHC",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Daniel Lynch IV",
+      "fair_line": 5.5,
+      "line": 4.5,
+      "projection": 5.3,
+      "lean": "Over",
+      "edge": 0.8,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.771
     },
     {
       "gameId": "cle-cws-2026-08-07-824566",
@@ -1905,6 +2048,21 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "k9": 6.69
+    },
+    {
+      "gameId": "chc-kc-2026-08-07-824081",
+      "matchup": "CHC @ KC",
+      "player": "Daniel Lynch IV",
+      "team": "KC",
+      "prop": "strikeouts",
+      "fair_line": 4.0,
+      "line": 3.5,
+      "projection": 4.0,
+      "lean": "Over",
+      "edge": 0.48,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "k9": 6.55
     },
     {
       "gameId": "nym-pit-2026-08-07-823349",
@@ -2289,6 +2447,16 @@
       "matchup": "TOR @ PHI"
     },
     {
+      "player": "Pete Crow-Armstrong",
+      "prop": "hitter_fantasy_score",
+      "lean": "Over",
+      "line": 6.0,
+      "projection": 7.8,
+      "edge": 1.79,
+      "confidence": "medium",
+      "matchup": "CHC @ KC"
+    },
+    {
       "player": "Shohei Ohtani",
       "prop": "hitter_fantasy_score",
       "lean": "Over",
@@ -2327,16 +2495,6 @@
       "edge": 1.75,
       "confidence": "medium",
       "matchup": "TB @ SEA"
-    },
-    {
-      "player": "Griffin Conine",
-      "prop": "hitter_fantasy_score",
-      "lean": "Over",
-      "line": 6.5,
-      "projection": 8.2,
-      "edge": 1.75,
-      "confidence": "medium",
-      "matchup": "LAA @ MIA"
     }
   ]
 }

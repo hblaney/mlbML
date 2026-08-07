@@ -158,6 +158,28 @@
       "notes": []
     },
     {
+      "player": "Kevin Gausman",
+      "team": "CHC",
+      "opponent": "KC",
+      "matchup": "CHC @ KC",
+      "game_date": "2026-08-07",
+      "props": [
+        {
+          "prop": "strikeouts",
+          "pick": "Over",
+          "model_line": 5.5,
+          "use_line": 4.5,
+          "projection": 5.4,
+          "edge": 0.91,
+          "confidence": "medium",
+          "k9": 8.98,
+          "opp_k_rate": 0.211
+        }
+      ],
+      "headline": "Over 4.5 STRIKEOUTS (medium confidence)",
+      "notes": []
+    },
+    {
       "player": "Roki Sasaki",
       "team": "LAD",
       "opponent": "AZ",
@@ -419,9 +441,7 @@
         }
       ],
       "headline": "Over 3.5 STRIKEOUTS (low confidence)",
-      "notes": [
-        "Probable starter not fully confirmed \u2014 verify before betting."
-      ]
+      "notes": []
     },
     {
       "player": "Carmen Mlodzinski",
