@@ -268,6 +268,28 @@
       "notes": []
     },
     {
+      "player": "JT Brubaker",
+      "team": "SF",
+      "opponent": "DET",
+      "matchup": "DET @ SF",
+      "game_date": "2026-08-07",
+      "props": [
+        {
+          "prop": "strikeouts",
+          "pick": "Over",
+          "model_line": 4.0,
+          "use_line": 3.5,
+          "projection": 4.2,
+          "edge": 0.68,
+          "confidence": "medium",
+          "k9": 6.8,
+          "opp_k_rate": 0.228
+        }
+      ],
+      "headline": "Over 3.5 STRIKEOUTS (medium confidence)",
+      "notes": []
+    },
+    {
       "player": "Ronel Blanco",
       "team": "HOU",
       "opponent": "SD",

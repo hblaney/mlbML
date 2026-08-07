@@ -80,6 +80,16 @@
       "matchup": "ATH @ BOS"
     },
     {
+      "player": "Willson Contreras",
+      "prop": "hitter_fantasy_score",
+      "lean": "Over",
+      "line": 6.0,
+      "projection": 8.0,
+      "edge": 2.02,
+      "confidence": "high",
+      "matchup": "ATH @ BOS"
+    },
+    {
       "player": "CJ Abrams",
       "prop": "hitter_fantasy_score",
       "lean": "Over",
@@ -88,16 +98,6 @@
       "edge": 1.94,
       "confidence": "medium",
       "matchup": "CIN @ WSH"
-    },
-    {
-      "player": "Joshua Kuroda-Grauer",
-      "prop": "hitter_fantasy_score",
-      "lean": "Over",
-      "line": 13.5,
-      "projection": 15.4,
-      "edge": 1.89,
-      "confidence": "medium",
-      "matchup": "ATH @ BOS"
     },
     {
       "player": "Zack Wheeler",
@@ -202,6 +202,16 @@
       "matchup": "ATH @ BOS"
     },
     {
+      "player": "Willson Contreras",
+      "prop": "hitter_fantasy_score",
+      "line": 6.0,
+      "lean": "Over",
+      "projection": 8.0,
+      "edge": 2.02,
+      "confidence": "high",
+      "matchup": "ATH @ BOS"
+    },
+    {
       "player": "CJ Abrams",
       "prop": "hitter_fantasy_score",
       "line": 7.5,
@@ -210,16 +220,6 @@
       "edge": 1.94,
       "confidence": "medium",
       "matchup": "CIN @ WSH"
-    },
-    {
-      "player": "Joshua Kuroda-Grauer",
-      "prop": "hitter_fantasy_score",
-      "line": 13.5,
-      "lean": "Over",
-      "projection": 15.4,
-      "edge": 1.89,
-      "confidence": "medium",
-      "matchup": "ATH @ BOS"
     },
     {
       "player": "Zack Wheeler",
