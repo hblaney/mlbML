@@ -1,15 +1,42 @@
 {
   "date": "2026-08-07",
-  "locked_at": "2026-08-07T13:17:14Z",
-  "board_generated_at": "2026-08-07T12:53:28Z",
+  "locked_at": "2026-08-07T17:49:50Z",
+  "board_generated_at": "2026-08-07T17:27:26Z",
   "model_version": "daily-auto-v6.1-raw-gbm",
   "pipeline_version": "unified-public-v21-raw-gbm-high-card",
   "source": "lock_daily_ticket.py",
-  "note": "Official daily ticket \u2014 frozen at first publish. Later board refreshes do not change this.",
+  "note": "Upgraded from morning skip once a qualifying High ticket appeared (odds/gates were not ready at first publish).",
   "ticket": {
-    "kind": "skip",
-    "label": "No bet today",
-    "legs": [],
-    "leg_count": 0
-  }
+    "kind": "parlay",
+    "label": "STL ML + MIA ML",
+    "legs": [
+      "STL",
+      "MIA"
+    ],
+    "leg_count": 2,
+    "odds": 174,
+    "model_probability": 0.44169944,
+    "leg_details": [
+      {
+        "team": "STL",
+        "matchup": "COL @ STL",
+        "confidence": "Elite",
+        "pickProbability": 0.7138,
+        "edge": 0.09115849056603775,
+        "odds": -165,
+        "startsAt": "2026-08-08T00:15:00Z"
+      },
+      {
+        "team": "MIA",
+        "matchup": "LAA @ MIA",
+        "confidence": "High",
+        "pickProbability": 0.6188,
+        "edge": 0.03202314049586774,
+        "odds": -142,
+        "startsAt": "2026-08-07T23:10:00Z"
+      }
+    ]
+  },
+  "upgraded_from_skip": true,
+  "previous_locked_at": "2026-08-07T13:17:14Z"
 }

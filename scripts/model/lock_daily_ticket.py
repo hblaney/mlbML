@@ -5,7 +5,10 @@ Without a lock, what you see at 2 PM can disagree with what was published by 11 
 exactly the failure mode where a bet was placed on one card and the site later showed another.
 
 Rules:
-  - First lock of the calendar day wins. Never overwritten by later refreshes.
+  - First *real* lock of the calendar day wins. Never overwrite a ticket that already
+    has legs.
+  - A morning SKIP (odds missing / no High yet) MAY be upgraded once a qualifying
+    High ticket appears later the same day — otherwise the site lies all afternoon.
   - Written to data/locked-tickets/{date}.json (grading) and public/locked-ticket.json (site).
   - Includes each leg's confidence + probability at lock time so labels can't drift retroactively.
 """
@@ -136,10 +139,19 @@ def publish(lock: dict) -> None:
     )
 
 
+def _is_skip_ticket(ticket: dict | None) -> bool:
+    if not ticket:
+        return True
+    kind = ticket.get("kind")
+    legs = ticket.get("legs") or []
+    leg_count = int(ticket.get("leg_count") or 0)
+    return kind == "skip" or leg_count == 0 or len(legs) == 0
+
+
 def main() -> None:
     day_iso = _today()
     existing = load_lock(day_iso)
-    if existing:
+    if existing and not _is_skip_ticket(existing.get("ticket")):
         PUBLIC_PATH.write_text(json.dumps(existing, indent=2))
         t = existing["ticket"]
         print(
@@ -162,14 +174,33 @@ def main() -> None:
 
     ticket = ticket_from_board(BOARD_PATH)
     if not ticket:
+        if existing and _is_skip_ticket(existing.get("ticket")):
+            PUBLIC_PATH.write_text(json.dumps(existing, indent=2))
+            print(f"locked_ticket_exists date={day_iso} kind=skip — still no qualifying ticket")
+            return
         print(f"locked_ticket_skip: no qualifying system ticket for {day_iso}")
-        # Still write an explicit skip lock so the site knows "official = no bet"
+        # Still write an explicit skip lock so the site knows "official = no bet" for now.
+        # Later publishes may upgrade this skip once Highs clear.
         lock = build_lock(
             day_iso,
             {"kind": "skip", "label": "No bet today", "legs": [], "leg_count": 0},
             board,
             source="lock_daily_ticket.py",
         )
+        lock["note"] = (
+            "Provisional skip — may upgrade to a High ticket later today if odds/gates clear."
+        )
+        publish(lock)
+        return
+
+    if existing and _is_skip_ticket(existing.get("ticket")):
+        lock = build_lock(day_iso, ticket, board, source="lock_daily_ticket.py")
+        lock["note"] = (
+            "Upgraded from morning skip once a qualifying High ticket appeared "
+            "(odds/gates were not ready at first publish)."
+        )
+        lock["upgraded_from_skip"] = True
+        lock["previous_locked_at"] = existing.get("locked_at")
         publish(lock)
         return
 
