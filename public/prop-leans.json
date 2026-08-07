@@ -371,6 +371,22 @@
       "k9": 10.87
     },
     {
+      "gameId": "laa-mia-2026-08-07-823836",
+      "matchup": "LAA @ MIA",
+      "player": "Mike Trout",
+      "team": "LAA",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Tyler Phillips",
+      "fair_line": 6.5,
+      "line": 5.0,
+      "projection": 6.6,
+      "lean": "Over",
+      "edge": 1.59,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.825
+    },
+    {
       "gameId": "cin-wsh-2026-08-07-822699",
       "matchup": "CIN @ WSH",
       "player": "Elly De La Cruz",
@@ -1292,22 +1308,6 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.81
-    },
-    {
-      "gameId": "laa-mia-2026-08-07-823836",
-      "matchup": "LAA @ MIA",
-      "player": "Nolan Schanuel",
-      "team": "LAA",
-      "prop": "hitter_fantasy_score",
-      "vs_pitcher": "Tyler Phillips",
-      "fair_line": 5.5,
-      "line": 4.5,
-      "projection": 5.4,
-      "lean": "Over",
-      "edge": 0.94,
-      "confidence": "low",
-      "line_source": "prizepicks_est",
-      "ops": 0.727
     },
     {
       "gameId": "atl-nyy-2026-08-07-823515",
