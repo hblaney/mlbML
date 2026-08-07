@@ -240,7 +240,8 @@ export default async function BestBetsPage() {
           </div>
           <p className="muted" style={{ marginBottom: 12 }}>
             These are locked High/Elite moneyline tickets from the site — not your personal
-            PrizePicks / Underdog slips. Skips mean no High cleared that day.
+            PrizePicks / Underdog slips. A morning <strong>SKIP</strong> can upgrade later the
+            same day once odds/Highs clear (today&apos;s card is the live bet up top).
           </p>
           <div className="table-scroll">
             <table className="table">
