@@ -10,7 +10,7 @@ from daily_auto_model import MODEL_VERSION, PIPELINE_VERSION, ensure_trained_thr
 from game_sim_board import simulate_game_record
 from gbm_confidence import assign_daily_confidence
 from mlb_api import fetch_upcoming_games, load_team_abbreviations
-from odds_provider import fetch_moneyline_market, market_for_game
+from odds_provider import fetch_moneyline_market, get_last_odds_error, get_last_odds_source, market_for_game
 from trained_edge_model import _safe_pitcher_stats
 
 PUBLIC_PATH = Path(__file__).resolve().parents[2] / "public" / "predictions.json"
@@ -148,13 +148,12 @@ def main() -> None:
 
         predicted_team = home_abbr if predicted_home else away_abbr
         if odds_available:
-            notes.append(f"Market prices from {market_snapshot.source_count} sportsbook source(s)")
+            source = get_last_odds_source() or "sportsbooks"
+            notes.append(f"Market prices from {market_snapshot.source_count} sportsbook source(s) ({source})")
         else:
-            from odds_provider import get_last_odds_error
-
             odds_error = get_last_odds_error()
             if odds_error and "OUT_OF_USAGE_CREDITS" in odds_error:
-                notes.append("The Odds API quota is exhausted; moneylines will stay empty until credits reset or the plan is upgraded")
+                notes.append("The Odds API quota is exhausted and ESPN fallback also failed")
             elif odds_error:
                 notes.append(f"Live sportsbook odds unavailable: {odds_error}")
             else:
@@ -213,7 +212,7 @@ def main() -> None:
                 "overPrice": market_snapshot.over_price if odds_available and market_snapshot.over_price else None,
                 "underPrice": market_snapshot.under_price if odds_available and market_snapshot.under_price else None,
                 "projectedTotal": projected_total,
-                "oddsSource": "The Odds API" if odds_available else None,
+                "oddsSource": get_last_odds_source() if odds_available else None,
                 "confidence": "Low",
                 "marketAgrees": market_agrees,
                 "modelEdge": round(model_edge, 4),
