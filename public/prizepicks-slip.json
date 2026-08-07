@@ -5,21 +5,21 @@
   "slip": {
     "legs": [
       {
-        "player": "Willson Contreras",
-        "prop": "hitter_fantasy_score",
-        "line": 5.5,
-        "pick": "Over",
-        "projection": 7.6,
-        "matchup": "CWS @ BOS",
-        "confidence": "high",
-        "edge": 2.15
-      },
-      {
         "player": "Jahmai Jones",
         "prop": "hitter_fantasy_score",
         "line": 6.0,
         "pick": "Over",
         "projection": 8.1,
+        "matchup": "CWS @ BOS",
+        "confidence": "high",
+        "edge": 2.13
+      },
+      {
+        "player": "Munetaka Murakami",
+        "prop": "hitter_fantasy_score",
+        "line": 7.0,
+        "pick": "Over",
+        "projection": 9.1,
         "matchup": "CWS @ BOS",
         "confidence": "high",
         "edge": 2.13
@@ -35,20 +35,10 @@
         "edge": 1.97
       }
     ],
-    "score": 7.1,
+    "score": 7.08,
     "same_game_warning": true
   },
   "top_plays": [
-    {
-      "player": "Willson Contreras",
-      "prop": "hitter_fantasy_score",
-      "lean": "Over",
-      "line": 5.5,
-      "projection": 7.6,
-      "edge": 2.15,
-      "confidence": "high",
-      "matchup": "CWS @ BOS"
-    },
     {
       "player": "Jahmai Jones",
       "prop": "hitter_fantasy_score",
@@ -108,6 +98,16 @@
       "edge": 1.96,
       "confidence": "high",
       "matchup": "TOR @ CHC"
+    },
+    {
+      "player": "Joshua Kuroda-Grauer",
+      "prop": "hitter_fantasy_score",
+      "lean": "Over",
+      "line": 14.0,
+      "projection": 15.9,
+      "edge": 1.91,
+      "confidence": "medium",
+      "matchup": "ATH @ CIN"
     },
     {
       "player": "Esmerlyn Valdez",
@@ -162,16 +162,6 @@
   ],
   "all_actionable": [
     {
-      "player": "Willson Contreras",
-      "prop": "hitter_fantasy_score",
-      "line": 5.5,
-      "lean": "Over",
-      "projection": 7.6,
-      "edge": 2.15,
-      "confidence": "high",
-      "matchup": "CWS @ BOS"
-    },
-    {
       "player": "Jahmai Jones",
       "prop": "hitter_fantasy_score",
       "line": 6.0,
@@ -230,6 +220,16 @@
       "edge": 1.96,
       "confidence": "high",
       "matchup": "TOR @ CHC"
+    },
+    {
+      "player": "Joshua Kuroda-Grauer",
+      "prop": "hitter_fantasy_score",
+      "line": 14.0,
+      "lean": "Over",
+      "projection": 15.9,
+      "edge": 1.91,
+      "confidence": "medium",
+      "matchup": "ATH @ CIN"
     },
     {
       "player": "Cristopher S\u00e1nchez",
