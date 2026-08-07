@@ -1,6 +1,6 @@
 {
   "generated_at": "2026-08-07",
-  "board_generated_at": "2026-08-07T17:07:05Z",
+  "board_generated_at": "2026-08-07T17:22:38Z",
   "trained_through": "2026-08-06",
   "model_version": "daily-auto-v6.1-raw-gbm",
   "pipeline_version": "unified-public-v21-raw-gbm-high-card",
@@ -373,7 +373,7 @@
       "awayPitcher": "Keider Montero",
       "homePitcher": "JT Brubaker",
       "starterCertain": true,
-      "pitcherChanged": true,
+      "pitcherChanged": false,
       "seriesFade": false,
       "predictedTeam": "det",
       "pickProbability": 0.5835,
@@ -411,8 +411,7 @@
         "Published pick = raw GBM win% (Elo/form/starter/park). Not market-anchored.",
         "OOS May\u2013Jul 2026: overall \u224861%. High/Elite require p/ERA/form/market gates \u2014 no daily High quota.",
         "PA sim diagnostic: home 43.1% (runs 2.8-2.1, projected)",
-        "The Odds API quota is exhausted; moneylines will stay empty until credits reset or the plan is upgraded",
-        "Probable starter changed since last board refresh"
+        "The Odds API quota is exhausted; moneylines will stay empty until credits reset or the plan is upgraded"
       ],
       "betAction": "pass"
     },
