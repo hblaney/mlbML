@@ -9,7 +9,7 @@ import {
   type BestBet,
   type DailyTicket
 } from "@/lib/data";
-import { loadLiveBankroll, loadBettingPlan, loadPredictionBoard } from "@/lib/model-output";
+import { loadLiveBankroll, loadBettingPlan, loadPredictionBoard, loadRecentLockedTicketDays } from "@/lib/model-output";
 import { formatOdds, formatPercent } from "@/lib/odds";
 import { formatStandingRecord, loadLiveStandings } from "@/lib/standings";
 import { formatCentralGameTime } from "@/lib/time";
@@ -44,7 +44,11 @@ export default async function BestBetsPage() {
   const board = await loadPredictionBoard();
   const standings = await loadLiveStandings();
   const standingsByTeamId = new Map(standings.map((standing) => [standing.teamId, standing]));
-  const [bettingPlan, liveBankroll] = await Promise.all([loadBettingPlan(), loadLiveBankroll()]);
+  const [bettingPlan, liveBankroll, recentDays] = await Promise.all([
+    loadBettingPlan(),
+    loadLiveBankroll(),
+    loadRecentLockedTicketDays(14)
+  ]);
 
   const ticket = getBestDailyTicket(board);
   const highPicks = getSortedPredictions(board).filter(
@@ -223,7 +227,70 @@ export default async function BestBetsPage() {
         </p>
       </section>
 
-      {liveBankroll?.tickets && liveBankroll.tickets.length > 0 ? (
+      {recentDays.length > 0 ? (
+        <section className="panel">
+          <div className="section-heading compact">
+            <div>
+              <p className="eyebrow">Last 14 days</p>
+              <h2>Official system tickets</h2>
+            </div>
+            <Link className="muted" href="/accuracy">
+              Accuracy →
+            </Link>
+          </div>
+          <p className="muted" style={{ marginBottom: 12 }}>
+            These are locked High/Elite moneyline tickets from the site — not your personal
+            PrizePicks / Underdog slips. Skips mean no High cleared that day.
+          </p>
+          <div className="table-scroll">
+            <table className="table">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Ticket</th>
+                  <th>Result</th>
+                </tr>
+              </thead>
+              <tbody>
+                {recentDays.map((row) => {
+                  const resultClass =
+                    row.status === "win"
+                      ? "positive"
+                      : row.status === "loss"
+                        ? "warning"
+                        : "muted";
+                  const resultLabel =
+                    row.status === "win"
+                      ? "WIN"
+                      : row.status === "loss"
+                        ? "LOSS"
+                        : row.status === "skip"
+                          ? "SKIP"
+                          : row.status === "pending"
+                            ? "PENDING"
+                            : "—";
+                  return (
+                    <tr key={row.date}>
+                      <td>{row.date}</td>
+                      <td>
+                        <strong>{row.label}</strong>
+                      </td>
+                      <td className={resultClass}>{resultLabel}</td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+          {liveBankroll?.tickets && liveBankroll.tickets.length > 0 ? (
+            <p className="muted" style={{ marginTop: 12 }}>
+              Graded system record: <strong>{liveBankroll.record}</strong>
+              {liveBankroll.hit_rate != null ? ` (${formatPercent(liveBankroll.hit_rate)})` : ""} ·
+              last settled {liveBankroll.last_settled_date ?? "—"}.
+            </p>
+          ) : null}
+        </section>
+      ) : liveBankroll?.tickets && liveBankroll.tickets.length > 0 ? (
         <section className="panel">
           <div className="section-heading compact">
             <div>
@@ -246,7 +313,7 @@ export default async function BestBetsPage() {
               <tbody>
                 {[...liveBankroll.tickets]
                   .reverse()
-                  .slice(0, 5)
+                  .slice(0, 14)
                   .map((row) => (
                     <tr key={row.date}>
                       <td>{row.date}</td>

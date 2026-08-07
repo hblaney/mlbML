@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-03",
+  "generated_at": "2026-08-07",
   "tracking_mode": "live_best_bets",
   "disclaimer": "Tracks locked system tickets + your Robinhood wallet. Stakes = live daily exposure for daily_high_two_leg (2-leg High stack when available; else one High single; else skip).",
   "strategy": "daily_high_two_leg",
@@ -14,25 +14,25 @@
     "active": true,
     "mode": "prove_out_20",
     "target_tickets": 20,
-    "tickets_graded": 10
+    "tickets_graded": 11
   },
   "daily_exposure_cap": 0.5,
   "started_at": "2026-06-22",
   "starting_balance": 23.0,
-  "balance": 4.9,
-  "wallet_balance": 4.9,
+  "balance": 5.73,
+  "wallet_balance": 5.73,
   "wallet_starting": 23.0,
   "wallet_locked": true,
   "wallet_record": "2-3",
   "wallet_note": "Confirmed by Henry Jun 24 \u2014 Robinhood wallet $10. Includes off-script bets + system BAL lock.",
-  "profit": -18.1,
-  "return_pct": -0.787,
-  "record": "3-7",
-  "hit_rate": 0.3,
+  "profit": -17.27,
+  "return_pct": -0.7509,
+  "record": "4-7",
+  "hit_rate": 0.3636,
   "backtest_ticket_hit_rate": 0.62,
-  "last_settled_date": "2026-08-03",
+  "last_settled_date": "2026-08-07",
   "today_ticket": {
-    "date": "2026-08-03",
+    "date": "2026-08-07",
     "label": "No bet today",
     "legs": [],
     "leg_count": 0,
@@ -203,6 +203,22 @@
         "HOU"
       ],
       "stake_amount": 0.58,
+      "grade_source": "locked_ticket",
+      "prove_out": false
+    },
+    {
+      "date": "2026-08-05",
+      "profit": 0.8317,
+      "balance": 5.73,
+      "return_pct": -0.7509,
+      "won": true,
+      "leg_count": 2,
+      "label": "MIL ML + TB ML",
+      "legs": [
+        "MIL",
+        "TB"
+      ],
+      "stake_amount": 0.88,
       "grade_source": "locked_ticket",
       "prove_out": false
     }
@@ -394,6 +410,25 @@
       "won": true,
       "odds": -837,
       "model_probability": 0.5937,
+      "grade_source": "locked_ticket",
+      "prove_out": false
+    },
+    {
+      "date": "2026-08-05",
+      "kind": "parlay",
+      "label": "MIL ML + TB ML",
+      "legs": [
+        "MIL",
+        "TB"
+      ],
+      "leg_count": 2,
+      "stake_pct": 0.18,
+      "stake_amount": 0.88,
+      "profit": 0.83,
+      "balance_after": 5.73,
+      "won": true,
+      "odds": 191,
+      "model_probability": 0.44347134,
       "grade_source": "locked_ticket",
       "prove_out": false
     }

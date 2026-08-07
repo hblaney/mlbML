@@ -705,6 +705,79 @@ export async function loadLiveBankroll() {
   }
 }
 
+export type LockedTicketDay = {
+  date: string;
+  kind: string;
+  label: string;
+  legCount: number;
+  legs: string[];
+  won?: boolean | null;
+  status: "win" | "loss" | "skip" | "pending" | "ungraded";
+};
+
+/** Last N calendar days of official locked tickets, joined to bankroll grades when present. */
+export async function loadRecentLockedTicketDays(days = 14): Promise<LockedTicketDay[]> {
+  const bankroll = await loadLiveBankroll();
+  const gradeByDate = new Map(
+    (bankroll?.tickets ?? []).map((row) => [row.date, row] as const)
+  );
+
+  const chicagoDate = (offsetDays: number) => {
+    const ms = Date.now() - offsetDays * 24 * 60 * 60 * 1000;
+    return new Intl.DateTimeFormat("en-CA", {
+      timeZone: "America/Chicago",
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit"
+    }).format(new Date(ms));
+  };
+
+  const todayIso = chicagoDate(0);
+  const out: LockedTicketDay[] = [];
+  for (let i = 0; i < days; i++) {
+    const iso = chicagoDate(i);
+    try {
+      const filePath = path.join(process.cwd(), "data", "locked-tickets", `${iso}.json`);
+      const raw = await readFile(filePath, "utf8");
+      const payload = JSON.parse(raw) as {
+        ticket?: {
+          kind?: string;
+          label?: string;
+          leg_count?: number;
+          legs?: Array<{ team?: string } | string>;
+        };
+      };
+      const ticket = payload.ticket ?? {};
+      const kind = ticket.kind ?? "skip";
+      const label = ticket.label ?? (kind === "skip" ? "No bet today" : "Ticket");
+      const legs = (ticket.legs ?? [])
+        .map((leg) => (typeof leg === "string" ? leg : String(leg.team ?? "")))
+        .filter(Boolean);
+      const grade = gradeByDate.get(iso);
+      let status: LockedTicketDay["status"] = "ungraded";
+      if (kind === "skip" || (ticket.leg_count ?? 0) === 0) {
+        status = "skip";
+      } else if (grade && typeof grade.won === "boolean") {
+        status = grade.won ? "win" : "loss";
+      } else if (iso === todayIso) {
+        status = "pending";
+      }
+      out.push({
+        date: iso,
+        kind,
+        label: grade?.label ?? label,
+        legCount: ticket.leg_count ?? legs.length,
+        legs: grade?.legs?.length ? grade.legs : legs,
+        won: grade?.won ?? null,
+        status
+      });
+    } catch {
+      // no lock file for that day
+    }
+  }
+  return out;
+}
+
 export async function loadLiveStrategyMetrics() {
   try {
     const filePath = path.join(process.cwd(), "public", "live-strategy-metrics.json");
