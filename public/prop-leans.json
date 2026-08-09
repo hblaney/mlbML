@@ -2,7 +2,7 @@
   "generated_at": "2026-08-08",
   "source": "prop-leans-v2",
   "note": "K uses estimated PrizePicks lines when posted line unknown. Hitter FS from top-4 OPS bats per team.",
-  "actionable_count": 136,
+  "actionable_count": 137,
   "leans": [
     {
       "gameId": "hou-sd-2026-08-08-823267",
@@ -385,22 +385,6 @@
       "ops": 0.842
     },
     {
-      "gameId": "tb-sea-2026-08-08-823102",
-      "matchup": "TB @ SEA",
-      "player": "Dominic Canzone",
-      "team": "SEA",
-      "prop": "hitter_fantasy_score",
-      "vs_pitcher": "Griffin Jax",
-      "fair_line": 6.5,
-      "line": 5.0,
-      "projection": 6.7,
-      "lean": "Over",
-      "edge": 1.66,
-      "confidence": "medium",
-      "line_source": "prizepicks_est",
-      "ops": 0.822
-    },
-    {
       "gameId": "atl-nyy-2026-08-08-823514",
       "matchup": "ATL @ NYY",
       "player": "Matt Olson",
@@ -479,22 +463,6 @@
       "confidence": "medium",
       "line_source": "prizepicks_est",
       "ops": 0.846
-    },
-    {
-      "gameId": "tb-sea-2026-08-08-823102",
-      "matchup": "TB @ SEA",
-      "player": "Randy Arozarena",
-      "team": "SEA",
-      "prop": "hitter_fantasy_score",
-      "vs_pitcher": "Griffin Jax",
-      "fair_line": 7.0,
-      "line": 5.5,
-      "projection": 7.1,
-      "lean": "Over",
-      "edge": 1.57,
-      "confidence": "medium",
-      "line_source": "prizepicks_est",
-      "ops": 0.827
     },
     {
       "gameId": "min-mil-2026-08-08-823752",
@@ -703,6 +671,22 @@
       "ops": 0.875
     },
     {
+      "gameId": "tb-sea-2026-08-08-823102",
+      "matchup": "TB @ SEA",
+      "player": "Dominic Canzone",
+      "team": "SEA",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Casey Legumina",
+      "fair_line": 7.0,
+      "line": 5.5,
+      "projection": 6.9,
+      "lean": "Over",
+      "edge": 1.43,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.822
+    },
+    {
       "gameId": "hou-sd-2026-08-08-823267",
       "matchup": "HOU @ SD",
       "player": "Ty France",
@@ -813,6 +797,22 @@
       "confidence": "medium",
       "line_source": "prizepicks_est",
       "ops": 0.89
+    },
+    {
+      "gameId": "tb-sea-2026-08-08-823102",
+      "matchup": "TB @ SEA",
+      "player": "Randy Arozarena",
+      "team": "SEA",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Casey Legumina",
+      "fair_line": 7.5,
+      "line": 6.0,
+      "projection": 7.4,
+      "lean": "Over",
+      "edge": 1.35,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.827
     },
     {
       "gameId": "col-stl-2026-08-08-823021",
@@ -1134,22 +1134,6 @@
       "ops": 0.818
     },
     {
-      "gameId": "tb-sea-2026-08-08-823102",
-      "matchup": "TB @ SEA",
-      "player": "Julio Rodr\u00edguez",
-      "team": "SEA",
-      "prop": "hitter_fantasy_score",
-      "vs_pitcher": "Griffin Jax",
-      "fair_line": 6.5,
-      "line": 5.5,
-      "projection": 6.6,
-      "lean": "Over",
-      "edge": 1.12,
-      "confidence": "low",
-      "line_source": "prizepicks_est",
-      "ops": 0.752
-    },
-    {
       "gameId": "atl-nyy-2026-08-08-823514",
       "matchup": "ATL @ NYY",
       "player": "Cody Bellinger",
@@ -1244,21 +1228,6 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.805
-    },
-    {
-      "gameId": "tb-sea-2026-08-08-823102",
-      "matchup": "TB @ SEA",
-      "player": "Griffin Jax",
-      "team": "TB",
-      "prop": "strikeouts",
-      "fair_line": 6.0,
-      "line": 5.0,
-      "projection": 6.1,
-      "lean": "Over",
-      "edge": 1.05,
-      "confidence": "medium",
-      "line_source": "prizepicks_est",
-      "k9": 9.82
     },
     {
       "gameId": "laa-mia-2026-08-08-823834",
@@ -1420,6 +1389,22 @@
       "ops": 0.735
     },
     {
+      "gameId": "tb-sea-2026-08-08-823102",
+      "matchup": "TB @ SEA",
+      "player": "Cole Young",
+      "team": "SEA",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Casey Legumina",
+      "fair_line": 6.0,
+      "line": 5.0,
+      "projection": 5.9,
+      "lean": "Over",
+      "edge": 0.94,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.734
+    },
+    {
       "gameId": "hou-sd-2026-08-08-823267",
       "matchup": "HOU @ SD",
       "player": "Peter Lambert",
@@ -1529,6 +1514,22 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.72
+    },
+    {
+      "gameId": "tb-sea-2026-08-08-823102",
+      "matchup": "TB @ SEA",
+      "player": "Julio Rodr\u00edguez",
+      "team": "SEA",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Casey Legumina",
+      "fair_line": 7.0,
+      "line": 6.0,
+      "projection": 6.9,
+      "lean": "Over",
+      "edge": 0.89,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.752
     },
     {
       "gameId": "nym-pit-2026-08-08-823348",
@@ -1990,6 +1991,21 @@
       "k9": 6.92
     },
     {
+      "gameId": "tb-sea-2026-08-08-823102",
+      "matchup": "TB @ SEA",
+      "player": "Casey Legumina",
+      "team": "TB",
+      "prop": "strikeouts",
+      "fair_line": 4.5,
+      "line": 4.0,
+      "projection": 4.6,
+      "lean": "Over",
+      "edge": 0.65,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "k9": 7.54
+    },
+    {
       "gameId": "cin-wsh-2026-08-08-822701",
       "matchup": "CIN @ WSH",
       "player": "Andrew Alvarez",
@@ -2185,22 +2201,6 @@
       "confidence": "pass",
       "line_source": "prizepicks_est",
       "ops": 0.719
-    },
-    {
-      "gameId": "tb-sea-2026-08-08-823102",
-      "matchup": "TB @ SEA",
-      "player": "Cole Young",
-      "team": "SEA",
-      "prop": "hitter_fantasy_score",
-      "vs_pitcher": "Griffin Jax",
-      "fair_line": 5.5,
-      "line": 5.0,
-      "projection": 5.7,
-      "lean": "Pass",
-      "edge": 0.71,
-      "confidence": "pass",
-      "line_source": "prizepicks_est",
-      "ops": 0.734
     },
     {
       "gameId": "col-stl-2026-08-08-823021",

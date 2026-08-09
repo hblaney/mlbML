@@ -158,28 +158,6 @@
       "notes": []
     },
     {
-      "player": "Griffin Jax",
-      "team": "TB",
-      "opponent": "SEA",
-      "matchup": "TB @ SEA",
-      "game_date": "2026-08-08",
-      "props": [
-        {
-          "prop": "strikeouts",
-          "pick": "Over",
-          "model_line": 6.0,
-          "use_line": 5.0,
-          "projection": 6.1,
-          "edge": 1.05,
-          "confidence": "high",
-          "k9": 9.82,
-          "opp_k_rate": 0.23
-        }
-      ],
-      "headline": "Over 5.0 STRIKEOUTS (high confidence)",
-      "notes": []
-    },
-    {
       "player": "Robert Stock",
       "team": "NYM",
       "opponent": "PIT",
@@ -353,6 +331,28 @@
         }
       ],
       "headline": "Over 3.5 STRIKEOUTS (medium confidence)",
+      "notes": []
+    },
+    {
+      "player": "Casey Legumina",
+      "team": "TB",
+      "opponent": "SEA",
+      "matchup": "TB @ SEA",
+      "game_date": "2026-08-08",
+      "props": [
+        {
+          "prop": "strikeouts",
+          "pick": "Over",
+          "model_line": 4.5,
+          "use_line": 4.0,
+          "projection": 4.6,
+          "edge": 0.65,
+          "confidence": "medium",
+          "k9": 7.54,
+          "opp_k_rate": 0.23
+        }
+      ],
+      "headline": "Over 4.0 STRIKEOUTS (medium confidence)",
       "notes": []
     },
     {
