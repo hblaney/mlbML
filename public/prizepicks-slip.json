@@ -120,6 +120,16 @@
       "matchup": "ATL @ NYY"
     },
     {
+      "player": "Yordan Alvarez",
+      "prop": "hitter_fantasy_score",
+      "lean": "Over",
+      "line": 6.5,
+      "projection": 8.4,
+      "edge": 1.87,
+      "confidence": "medium",
+      "matchup": "HOU @ SD"
+    },
+    {
       "player": "Jes\u00fas Luzardo",
       "prop": "strikeouts",
       "lean": "Over",
@@ -148,16 +158,6 @@
       "edge": 1.84,
       "confidence": "high",
       "matchup": "MIN @ MIL"
-    },
-    {
-      "player": "Jahmai Jones",
-      "prop": "hitter_fantasy_score",
-      "lean": "Over",
-      "line": 6.0,
-      "projection": 7.8,
-      "edge": 1.83,
-      "confidence": "medium",
-      "matchup": "ATH @ BOS"
     }
   ],
   "all_actionable": [
@@ -240,6 +240,16 @@
       "edge": 1.91,
       "confidence": "medium",
       "matchup": "ATL @ NYY"
+    },
+    {
+      "player": "Yordan Alvarez",
+      "prop": "hitter_fantasy_score",
+      "line": 6.5,
+      "lean": "Over",
+      "projection": 8.4,
+      "edge": 1.87,
+      "confidence": "medium",
+      "matchup": "HOU @ SD"
     },
     {
       "player": "Jes\u00fas Luzardo",
@@ -350,16 +360,6 @@
       "edge": 1.7,
       "confidence": "medium",
       "matchup": "CHC @ KC"
-    },
-    {
-      "player": "Luis Garc\u00eda Jr.",
-      "prop": "hitter_fantasy_score",
-      "line": 6.0,
-      "lean": "Over",
-      "projection": 7.7,
-      "edge": 1.69,
-      "confidence": "medium",
-      "matchup": "CIN @ WSH"
     }
   ]
 }

@@ -2,7 +2,7 @@
   "generated_at": "2026-08-09",
   "source": "prop-leans-v2",
   "note": "K uses estimated PrizePicks lines when posted line unknown. Hitter FS from top-4 OPS bats per team.",
-  "actionable_count": 121,
+  "actionable_count": 129,
   "leans": [
     {
       "gameId": "cin-wsh-2026-08-09-822700",
@@ -131,6 +131,22 @@
       "confidence": "medium",
       "line_source": "prizepicks_est",
       "ops": 0.903
+    },
+    {
+      "gameId": "hou-sd-2026-08-09-823268",
+      "matchup": "HOU @ SD",
+      "player": "Yordan Alvarez",
+      "team": "HOU",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Randy V\u00e1squez",
+      "fair_line": 8.5,
+      "line": 6.5,
+      "projection": 8.4,
+      "lean": "Over",
+      "edge": 1.87,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 1.069
     },
     {
       "gameId": "tor-phi-2026-08-09-823425",
@@ -434,6 +450,22 @@
       "ops": 0.857
     },
     {
+      "gameId": "hou-sd-2026-08-09-823268",
+      "matchup": "HOU @ SD",
+      "player": "Ty France",
+      "team": "SD",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Cristian Javier",
+      "fair_line": 7.0,
+      "line": 5.5,
+      "projection": 7.1,
+      "lean": "Over",
+      "edge": 1.57,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.862
+    },
+    {
       "gameId": "col-stl-2026-08-09-823020",
       "matchup": "COL @ STL",
       "player": "Alec Burleson",
@@ -497,6 +529,22 @@
       "k9": 10.57
     },
     {
+      "gameId": "hou-sd-2026-08-09-823268",
+      "matchup": "HOU @ SD",
+      "player": "Luis Campusano",
+      "team": "SD",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Cristian Javier",
+      "fair_line": 9.5,
+      "line": 8.0,
+      "projection": 9.5,
+      "lean": "Over",
+      "edge": 1.49,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.874
+    },
+    {
       "gameId": "det-sf-2026-08-09-823190",
       "matchup": "DET @ SF",
       "player": "Dillon Dingler",
@@ -511,6 +559,22 @@
       "confidence": "medium",
       "line_source": "prizepicks_est",
       "ops": 0.87
+    },
+    {
+      "gameId": "hou-sd-2026-08-09-823268",
+      "matchup": "HOU @ SD",
+      "player": "Jeremy Pe\u00f1a",
+      "team": "HOU",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Randy V\u00e1squez",
+      "fair_line": 7.5,
+      "line": 6.0,
+      "projection": 7.5,
+      "lean": "Over",
+      "edge": 1.48,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.857
     },
     {
       "gameId": "min-mil-2026-08-09-823751",
@@ -817,6 +881,22 @@
       "ops": 0.861
     },
     {
+      "gameId": "hou-sd-2026-08-09-823268",
+      "matchup": "HOU @ SD",
+      "player": "Fernando Tatis Jr.",
+      "team": "SD",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Cristian Javier",
+      "fair_line": 7.0,
+      "line": 6.0,
+      "projection": 7.2,
+      "lean": "Over",
+      "edge": 1.24,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.761
+    },
+    {
       "gameId": "chc-kc-2026-08-09-824078",
       "matchup": "CHC @ KC",
       "player": "Luke Maile",
@@ -847,6 +927,22 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.812
+    },
+    {
+      "gameId": "hou-sd-2026-08-09-823268",
+      "matchup": "HOU @ SD",
+      "player": "Luis Rengifo",
+      "team": "SD",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Cristian Javier",
+      "fair_line": 5.5,
+      "line": 4.5,
+      "projection": 5.7,
+      "lean": "Over",
+      "edge": 1.22,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.844
     },
     {
       "gameId": "det-sf-2026-08-09-823190",
@@ -1151,6 +1247,22 @@
       "ops": 0.796
     },
     {
+      "gameId": "hou-sd-2026-08-09-823268",
+      "matchup": "HOU @ SD",
+      "player": "Isaac Paredes",
+      "team": "HOU",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Randy V\u00e1squez",
+      "fair_line": 6.0,
+      "line": 5.0,
+      "projection": 6.1,
+      "lean": "Over",
+      "edge": 1.07,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.765
+    },
+    {
       "gameId": "atl-nyy-2026-08-09-823513",
       "matchup": "ATL @ NYY",
       "player": "Cody Bellinger",
@@ -1293,6 +1405,22 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.737
+    },
+    {
+      "gameId": "hou-sd-2026-08-09-823268",
+      "matchup": "HOU @ SD",
+      "player": "Christian Walker",
+      "team": "HOU",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Randy V\u00e1squez",
+      "fair_line": 6.5,
+      "line": 5.5,
+      "projection": 6.5,
+      "lean": "Over",
+      "edge": 0.97,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.781
     },
     {
       "gameId": "nym-pit-2026-08-09-823345",
@@ -2156,6 +2284,21 @@
       "k9": 7.67
     },
     {
+      "gameId": "hou-sd-2026-08-09-823268",
+      "matchup": "HOU @ SD",
+      "player": "Cristian Javier",
+      "team": "HOU",
+      "prop": "strikeouts",
+      "fair_line": 5.0,
+      "line": 4.5,
+      "projection": 4.8,
+      "lean": "Pass",
+      "edge": 0.31,
+      "confidence": "pass",
+      "line_source": "prizepicks_est",
+      "k9": 7.9
+    },
+    {
       "gameId": "cle-cws-2026-08-09-824564",
       "matchup": "CLE @ CWS",
       "player": "Davis Martin",
@@ -2215,6 +2358,21 @@
       "confidence": "pass",
       "line_source": "prizepicks_est",
       "ops": 0.721
+    },
+    {
+      "gameId": "hou-sd-2026-08-09-823268",
+      "matchup": "HOU @ SD",
+      "player": "Randy V\u00e1squez",
+      "team": "SD",
+      "prop": "strikeouts",
+      "fair_line": 3.5,
+      "line": 3.5,
+      "projection": 3.5,
+      "lean": "Pass",
+      "edge": 0.0,
+      "confidence": "pass",
+      "line_source": "prizepicks_est",
+      "k9": 5.79
     }
   ],
   "top_plays": [
@@ -2299,6 +2457,16 @@
       "matchup": "ATL @ NYY"
     },
     {
+      "player": "Yordan Alvarez",
+      "prop": "hitter_fantasy_score",
+      "lean": "Over",
+      "line": 6.5,
+      "projection": 8.4,
+      "edge": 1.87,
+      "confidence": "medium",
+      "matchup": "HOU @ SD"
+    },
+    {
       "player": "Jes\u00fas Luzardo",
       "prop": "strikeouts",
       "lean": "Over",
@@ -2327,16 +2495,6 @@
       "edge": 1.84,
       "confidence": "high",
       "matchup": "MIN @ MIL"
-    },
-    {
-      "player": "Jahmai Jones",
-      "prop": "hitter_fantasy_score",
-      "lean": "Over",
-      "line": 6.0,
-      "projection": 7.8,
-      "edge": 1.83,
-      "confidence": "medium",
-      "matchup": "ATH @ BOS"
     }
   ]
 }
