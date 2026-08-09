@@ -15,14 +15,14 @@
         "edge": 2.2
       },
       {
-        "player": "Shohei Ohtani",
+        "player": "Junior Caminero",
         "prop": "hitter_fantasy_score",
-        "line": 5.5,
+        "line": 5.0,
         "pick": "Over",
-        "projection": 7.5,
-        "matchup": "LAD @ AZ",
+        "projection": 7.2,
+        "matchup": "TB @ SEA",
         "confidence": "high",
-        "edge": 2.05
+        "edge": 2.18
       },
       {
         "player": "Jes\u00fas Luzardo",
@@ -35,7 +35,7 @@
         "edge": 1.87
       }
     ],
-    "score": 6.97,
+    "score": 7.1,
     "same_game_warning": false
   },
   "top_plays": [
@@ -50,6 +50,26 @@
       "matchup": "CIN @ WSH"
     },
     {
+      "player": "Junior Caminero",
+      "prop": "hitter_fantasy_score",
+      "lean": "Over",
+      "line": 5.0,
+      "projection": 7.2,
+      "edge": 2.18,
+      "confidence": "high",
+      "matchup": "TB @ SEA"
+    },
+    {
+      "player": "Willson Contreras",
+      "prop": "hitter_fantasy_score",
+      "lean": "Over",
+      "line": 5.0,
+      "projection": 7.2,
+      "edge": 2.17,
+      "confidence": "high",
+      "matchup": "ATH @ BOS"
+    },
+    {
       "player": "Shohei Ohtani",
       "prop": "hitter_fantasy_score",
       "lean": "Over",
@@ -130,34 +150,14 @@
       "matchup": "MIN @ MIL"
     },
     {
-      "player": "Juan Soto",
+      "player": "Jahmai Jones",
       "prop": "hitter_fantasy_score",
       "lean": "Over",
       "line": 6.0,
       "projection": 7.8,
-      "edge": 1.82,
+      "edge": 1.83,
       "confidence": "medium",
-      "matchup": "NYM @ PIT"
-    },
-    {
-      "player": "Hunter Goodman",
-      "prop": "hitter_fantasy_score",
-      "lean": "Over",
-      "line": 5.5,
-      "projection": 7.2,
-      "edge": 1.75,
-      "confidence": "medium",
-      "matchup": "COL @ STL"
-    },
-    {
-      "player": "Bryan Reynolds",
-      "prop": "hitter_fantasy_score",
-      "lean": "Over",
-      "line": 5.0,
-      "projection": 6.7,
-      "edge": 1.74,
-      "confidence": "medium",
-      "matchup": "NYM @ PIT"
+      "matchup": "ATH @ BOS"
     }
   ],
   "all_actionable": [
@@ -172,6 +172,26 @@
       "matchup": "CIN @ WSH"
     },
     {
+      "player": "Junior Caminero",
+      "prop": "hitter_fantasy_score",
+      "line": 5.0,
+      "lean": "Over",
+      "projection": 7.2,
+      "edge": 2.18,
+      "confidence": "high",
+      "matchup": "TB @ SEA"
+    },
+    {
+      "player": "Willson Contreras",
+      "prop": "hitter_fantasy_score",
+      "line": 5.0,
+      "lean": "Over",
+      "projection": 7.2,
+      "edge": 2.17,
+      "confidence": "high",
+      "matchup": "ATH @ BOS"
+    },
+    {
       "player": "Shohei Ohtani",
       "prop": "hitter_fantasy_score",
       "line": 5.5,
@@ -250,6 +270,16 @@
       "edge": 1.84,
       "confidence": "high",
       "matchup": "MIN @ MIL"
+    },
+    {
+      "player": "Jahmai Jones",
+      "prop": "hitter_fantasy_score",
+      "line": 6.0,
+      "lean": "Over",
+      "projection": 7.8,
+      "edge": 1.83,
+      "confidence": "medium",
+      "matchup": "ATH @ BOS"
     },
     {
       "player": "Juan Soto",
@@ -330,36 +360,6 @@
       "edge": 1.69,
       "confidence": "medium",
       "matchup": "CIN @ WSH"
-    },
-    {
-      "player": "Esteury Ruiz",
-      "prop": "hitter_fantasy_score",
-      "line": 9.5,
-      "lean": "Over",
-      "projection": 11.2,
-      "edge": 1.69,
-      "confidence": "medium",
-      "matchup": "LAA @ MIA"
-    },
-    {
-      "player": "Andr\u00e9s Chaparro",
-      "prop": "hitter_fantasy_score",
-      "line": 5.0,
-      "lean": "Over",
-      "projection": 6.7,
-      "edge": 1.68,
-      "confidence": "medium",
-      "matchup": "CIN @ WSH"
-    },
-    {
-      "player": "Jordan Walker",
-      "prop": "hitter_fantasy_score",
-      "line": 6.5,
-      "lean": "Over",
-      "projection": 8.2,
-      "edge": 1.67,
-      "confidence": "medium",
-      "matchup": "COL @ STL"
     }
   ]
 }
