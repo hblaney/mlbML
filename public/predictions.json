@@ -1,6 +1,6 @@
 {
   "generated_at": "2026-08-09",
-  "board_generated_at": "2026-08-09T21:40:18Z",
+  "board_generated_at": "2026-08-10T01:06:50Z",
   "trained_through": "2026-08-08",
   "model_version": "daily-auto-v6.1-raw-gbm",
   "pipeline_version": "unified-public-v21-raw-gbm-high-card",
@@ -53,7 +53,7 @@
         "Published pick = raw GBM win% (Elo/form/starter/park). Not market-anchored.",
         "OOS May\u2013Jul 2026: overall \u224861%. High/Elite require p/ERA/form/market gates \u2014 no daily High quota.",
         "PA sim diagnostic: home 59.8% (runs 3.4-4.2, confirmed)",
-        "No live sportsbook odds available; EV/best-bet calculations are disabled for this game"
+        "Live sportsbook odds unavailable: ESPN odds fallback returned no moneylines"
       ],
       "betAction": "lean"
     },
@@ -104,7 +104,7 @@
         "Published pick = raw GBM win% (Elo/form/starter/park). Not market-anchored.",
         "OOS May\u2013Jul 2026: overall \u224861%. High/Elite require p/ERA/form/market gates \u2014 no daily High quota.",
         "PA sim diagnostic: home 72.9% (runs 1.7-3.5, confirmed)",
-        "No live sportsbook odds available; EV/best-bet calculations are disabled for this game"
+        "Live sportsbook odds unavailable: ESPN odds fallback returned no moneylines"
       ],
       "betAction": "lean"
     },
@@ -155,7 +155,7 @@
         "Published pick = raw GBM win% (Elo/form/starter/park). Not market-anchored.",
         "OOS May\u2013Jul 2026: overall \u224861%. High/Elite require p/ERA/form/market gates \u2014 no daily High quota.",
         "PA sim diagnostic: home 50.8% (runs 3.4-3.3, confirmed)",
-        "No live sportsbook odds available; EV/best-bet calculations are disabled for this game"
+        "Live sportsbook odds unavailable: ESPN odds fallback returned no moneylines"
       ],
       "betAction": "lean"
     },
@@ -206,7 +206,7 @@
         "Published pick = raw GBM win% (Elo/form/starter/park). Not market-anchored.",
         "OOS May\u2013Jul 2026: overall \u224861%. High/Elite require p/ERA/form/market gates \u2014 no daily High quota.",
         "PA sim diagnostic: home 48.6% (runs 4.8-4.4, confirmed)",
-        "No live sportsbook odds available; EV/best-bet calculations are disabled for this game"
+        "Live sportsbook odds unavailable: ESPN odds fallback returned no moneylines"
       ],
       "betAction": "lean"
     },
@@ -226,10 +226,10 @@
       "rawPickProbability": 0.5988,
       "modelHomeWinProbability": 0.5988,
       "modelAwayWinProbability": 0.4012,
-      "simRawHomeWinProbability": 0.6275,
-      "simRawAwayWinProbability": 0.3725,
-      "simHomeWinProbability": 0.6275,
-      "simAwayWinProbability": 0.3725,
+      "simRawHomeWinProbability": 0.633,
+      "simRawAwayWinProbability": 0.367,
+      "simHomeWinProbability": 0.633,
+      "simAwayWinProbability": 0.367,
       "gbmHomeWinProbability": 0.5988,
       "gbmAwayWinProbability": 0.4012,
       "nSims": 2000,
@@ -244,7 +244,7 @@
       "marketTotal": null,
       "overPrice": null,
       "underPrice": null,
-      "projectedTotal": 7.71,
+      "projectedTotal": 7.66,
       "oddsSource": null,
       "confidence": "Low",
       "marketAgrees": null,
@@ -256,8 +256,8 @@
         "Retrained through 2026-08-08",
         "Published pick = raw GBM win% (Elo/form/starter/park). Not market-anchored.",
         "OOS May\u2013Jul 2026: overall \u224861%. High/Elite require p/ERA/form/market gates \u2014 no daily High quota.",
-        "PA sim diagnostic: home 62.7% (runs 3.4-4.4, confirmed)",
-        "No live sportsbook odds available; EV/best-bet calculations are disabled for this game"
+        "PA sim diagnostic: home 63.3% (runs 3.3-4.4, confirmed)",
+        "Live sportsbook odds unavailable: ESPN odds fallback returned no moneylines"
       ],
       "betAction": "pass"
     },
@@ -308,7 +308,7 @@
         "Published pick = raw GBM win% (Elo/form/starter/park). Not market-anchored.",
         "OOS May\u2013Jul 2026: overall \u224861%. High/Elite require p/ERA/form/market gates \u2014 no daily High quota.",
         "PA sim diagnostic: home 70.3% (runs 2.1-3.8, confirmed)",
-        "No live sportsbook odds available; EV/best-bet calculations are disabled for this game"
+        "Live sportsbook odds unavailable: ESPN odds fallback returned no moneylines"
       ],
       "betAction": "pass"
     },
@@ -359,7 +359,7 @@
         "Published pick = raw GBM win% (Elo/form/starter/park). Not market-anchored.",
         "OOS May\u2013Jul 2026: overall \u224861%. High/Elite require p/ERA/form/market gates \u2014 no daily High quota.",
         "PA sim diagnostic: home 68.0% (runs 2.4-3.9, confirmed)",
-        "No live sportsbook odds available; EV/best-bet calculations are disabled for this game"
+        "Live sportsbook odds unavailable: ESPN odds fallback returned no moneylines"
       ],
       "betAction": "pass"
     },
@@ -379,10 +379,10 @@
       "rawPickProbability": 0.5719,
       "modelHomeWinProbability": 0.4281,
       "modelAwayWinProbability": 0.5719,
-      "simRawHomeWinProbability": 0.377,
-      "simRawAwayWinProbability": 0.623,
-      "simHomeWinProbability": 0.377,
-      "simAwayWinProbability": 0.623,
+      "simRawHomeWinProbability": 0.3585,
+      "simRawAwayWinProbability": 0.6415,
+      "simHomeWinProbability": 0.3585,
+      "simAwayWinProbability": 0.6415,
       "gbmHomeWinProbability": 0.4281,
       "gbmAwayWinProbability": 0.5719,
       "nSims": 2000,
@@ -397,7 +397,7 @@
       "marketTotal": null,
       "overPrice": null,
       "underPrice": null,
-      "projectedTotal": 4.85,
+      "projectedTotal": 4.67,
       "oddsSource": null,
       "confidence": "Low",
       "marketAgrees": null,
@@ -409,8 +409,8 @@
         "Retrained through 2026-08-08",
         "Published pick = raw GBM win% (Elo/form/starter/park). Not market-anchored.",
         "OOS May\u2013Jul 2026: overall \u224861%. High/Elite require p/ERA/form/market gates \u2014 no daily High quota.",
-        "PA sim diagnostic: home 37.7% (runs 3.0-1.8, confirmed)",
-        "No live sportsbook odds available; EV/best-bet calculations are disabled for this game"
+        "PA sim diagnostic: home 35.9% (runs 3.0-1.7, confirmed)",
+        "Live sportsbook odds unavailable: ESPN odds fallback returned no moneylines"
       ],
       "betAction": "pass"
     },
@@ -430,10 +430,10 @@
       "rawPickProbability": 0.5633,
       "modelHomeWinProbability": 0.5633,
       "modelAwayWinProbability": 0.4367,
-      "simRawHomeWinProbability": 0.5225,
-      "simRawAwayWinProbability": 0.4775,
-      "simHomeWinProbability": 0.5225,
-      "simAwayWinProbability": 0.4775,
+      "simRawHomeWinProbability": 0.554,
+      "simRawAwayWinProbability": 0.446,
+      "simHomeWinProbability": 0.554,
+      "simAwayWinProbability": 0.446,
       "gbmHomeWinProbability": 0.5633,
       "gbmAwayWinProbability": 0.4367,
       "nSims": 2000,
@@ -448,7 +448,7 @@
       "marketTotal": null,
       "overPrice": null,
       "underPrice": null,
-      "projectedTotal": 5.87,
+      "projectedTotal": 5.74,
       "oddsSource": null,
       "confidence": "Low",
       "marketAgrees": null,
@@ -460,8 +460,8 @@
         "Retrained through 2026-08-08",
         "Published pick = raw GBM win% (Elo/form/starter/park). Not market-anchored.",
         "OOS May\u2013Jul 2026: overall \u224861%. High/Elite require p/ERA/form/market gates \u2014 no daily High quota.",
-        "PA sim diagnostic: home 52.2% (runs 3.0-2.9, confirmed)",
-        "No live sportsbook odds available; EV/best-bet calculations are disabled for this game",
+        "PA sim diagnostic: home 55.4% (runs 2.8-3.0, confirmed)",
+        "Live sportsbook odds unavailable: ESPN odds fallback returned no moneylines",
         "Pick lost last 2 vs this opponent \u2014 excluded from parlays (series fade)"
       ],
       "betAction": "pass"
@@ -513,7 +513,7 @@
         "Published pick = raw GBM win% (Elo/form/starter/park). Not market-anchored.",
         "OOS May\u2013Jul 2026: overall \u224861%. High/Elite require p/ERA/form/market gates \u2014 no daily High quota.",
         "PA sim diagnostic: home 58.4% (runs 2.6-3.2, confirmed)",
-        "No live sportsbook odds available; EV/best-bet calculations are disabled for this game",
+        "Live sportsbook odds unavailable: ESPN odds fallback returned no moneylines",
         "Pick lost last 2 vs this opponent \u2014 excluded from parlays (series fade)"
       ],
       "betAction": "pass"
@@ -565,7 +565,7 @@
         "Published pick = raw GBM win% (Elo/form/starter/park). Not market-anchored.",
         "OOS May\u2013Jul 2026: overall \u224861%. High/Elite require p/ERA/form/market gates \u2014 no daily High quota.",
         "PA sim diagnostic: home 46.1% (runs 3.1-2.6, confirmed)",
-        "No live sportsbook odds available; EV/best-bet calculations are disabled for this game"
+        "Live sportsbook odds unavailable: ESPN odds fallback returned no moneylines"
       ],
       "betAction": "pass"
     },
@@ -616,7 +616,7 @@
         "Published pick = raw GBM win% (Elo/form/starter/park). Not market-anchored.",
         "OOS May\u2013Jul 2026: overall \u224861%. High/Elite require p/ERA/form/market gates \u2014 no daily High quota.",
         "PA sim diagnostic: home 45.7% (runs 3.0-2.4, confirmed)",
-        "No live sportsbook odds available; EV/best-bet calculations are disabled for this game"
+        "Live sportsbook odds unavailable: ESPN odds fallback returned no moneylines"
       ],
       "betAction": "pass"
     },
@@ -636,10 +636,10 @@
       "rawPickProbability": 0.5304,
       "modelHomeWinProbability": 0.4696,
       "modelAwayWinProbability": 0.5304,
-      "simRawHomeWinProbability": 0.49,
-      "simRawAwayWinProbability": 0.51,
-      "simHomeWinProbability": 0.49,
-      "simAwayWinProbability": 0.51,
+      "simRawHomeWinProbability": 0.4675,
+      "simRawAwayWinProbability": 0.5325,
+      "simHomeWinProbability": 0.4675,
+      "simAwayWinProbability": 0.5325,
       "gbmHomeWinProbability": 0.4696,
       "gbmAwayWinProbability": 0.5304,
       "nSims": 2000,
@@ -654,7 +654,7 @@
       "marketTotal": null,
       "overPrice": null,
       "underPrice": null,
-      "projectedTotal": 6.2,
+      "projectedTotal": 6.35,
       "oddsSource": null,
       "confidence": "Low",
       "marketAgrees": null,
@@ -666,8 +666,8 @@
         "Retrained through 2026-08-08",
         "Published pick = raw GBM win% (Elo/form/starter/park). Not market-anchored.",
         "OOS May\u2013Jul 2026: overall \u224861%. High/Elite require p/ERA/form/market gates \u2014 no daily High quota.",
-        "PA sim diagnostic: home 49.0% (runs 3.2-3.0, confirmed)",
-        "No live sportsbook odds available; EV/best-bet calculations are disabled for this game"
+        "PA sim diagnostic: home 46.8% (runs 3.4-2.9, confirmed)",
+        "Live sportsbook odds unavailable: ESPN odds fallback returned no moneylines"
       ],
       "betAction": "pass"
     },
@@ -718,7 +718,7 @@
         "Published pick = raw GBM win% (Elo/form/starter/park). Not market-anchored.",
         "OOS May\u2013Jul 2026: overall \u224861%. High/Elite require p/ERA/form/market gates \u2014 no daily High quota.",
         "PA sim diagnostic: home 52.7% (runs 3.6-3.6, confirmed)",
-        "No live sportsbook odds available; EV/best-bet calculations are disabled for this game"
+        "Live sportsbook odds unavailable: ESPN odds fallback returned no moneylines"
       ],
       "betAction": "pass"
     },
@@ -731,7 +731,7 @@
       "awayPitcher": "Cristian Javier",
       "homePitcher": "Randy V\u00e1squez",
       "starterCertain": true,
-      "pitcherChanged": true,
+      "pitcherChanged": false,
       "seriesFade": false,
       "predictedTeam": "sd",
       "pickProbability": 0.5188,
@@ -747,20 +747,20 @@
       "nSims": 2000,
       "lineupSource": "confirmed",
       "predictionSource": "raw_gbm",
-      "homeMoneyline": -114,
-      "awayMoneyline": 106,
-      "homeRunline": 1.5,
-      "awayRunline": -1.5,
-      "homeRunlinePrice": -197,
-      "awayRunlinePrice": 161,
-      "marketTotal": 9.0,
-      "overPrice": -113,
-      "underPrice": -107,
+      "homeMoneyline": null,
+      "awayMoneyline": null,
+      "homeRunline": null,
+      "awayRunline": null,
+      "homeRunlinePrice": null,
+      "awayRunlinePrice": null,
+      "marketTotal": null,
+      "overPrice": null,
+      "underPrice": null,
       "projectedTotal": 6.85,
-      "oddsSource": "ESPN/DraftKings",
+      "oddsSource": null,
       "confidence": "Low",
-      "marketAgrees": true,
-      "modelEdge": -0.0044,
+      "marketAgrees": null,
+      "modelEdge": 0.0,
       "eraDiff": 1.458917,
       "formEdge": -0.1,
       "modelVersion": "daily-auto-v6.1-raw-gbm",
@@ -769,8 +769,7 @@
         "Published pick = raw GBM win% (Elo/form/starter/park). Not market-anchored.",
         "OOS May\u2013Jul 2026: overall \u224861%. High/Elite require p/ERA/form/market gates \u2014 no daily High quota.",
         "PA sim diagnostic: home 33.4% (runs 4.3-2.6, confirmed)",
-        "Market prices from 1 sportsbook source(s) (ESPN/DraftKings)",
-        "Probable starter changed since last board refresh"
+        "Live sportsbook odds unavailable: ESPN odds fallback returned no moneylines"
       ],
       "betAction": "pass"
     }
