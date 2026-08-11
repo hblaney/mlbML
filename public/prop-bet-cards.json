@@ -268,6 +268,28 @@
       "notes": []
     },
     {
+      "player": "Jake Irvin",
+      "team": "WSH",
+      "opponent": "CHC",
+      "matchup": "CHC @ WSH",
+      "game_date": "2026-08-11",
+      "props": [
+        {
+          "prop": "strikeouts",
+          "pick": "Over",
+          "model_line": 5.5,
+          "use_line": 4.5,
+          "projection": 5.5,
+          "edge": 0.96,
+          "confidence": "medium",
+          "k9": 9.0,
+          "opp_k_rate": 0.218
+        }
+      ],
+      "headline": "Over 4.5 STRIKEOUTS (medium confidence)",
+      "notes": []
+    },
+    {
       "player": "Mitch Bratt",
       "team": "AZ",
       "opponent": "COL",
@@ -353,9 +375,7 @@
         }
       ],
       "headline": "Over 4.5 STRIKEOUTS (medium confidence)",
-      "notes": [
-        "Probable starter not fully confirmed \u2014 verify before betting."
-      ]
+      "notes": []
     },
     {
       "player": "Patrick Sandoval",

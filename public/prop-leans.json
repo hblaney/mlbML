@@ -2,7 +2,7 @@
   "generated_at": "2026-08-11",
   "source": "prop-leans-v2",
   "note": "K uses estimated PrizePicks lines when posted line unknown. Hitter FS from top-4 OPS bats per team.",
-  "actionable_count": 119,
+  "actionable_count": 129,
   "leans": [
     {
       "gameId": "kc-lad-2026-08-11-823917",
@@ -19,6 +19,22 @@
       "confidence": "high",
       "line_source": "prizepicks_est",
       "ops": 0.94
+    },
+    {
+      "gameId": "chc-wsh-2026-08-11-822697",
+      "matchup": "CHC @ WSH",
+      "player": "Pete Crow-Armstrong",
+      "team": "CHC",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Jake Irvin",
+      "fair_line": 8.5,
+      "line": 6.5,
+      "projection": 8.6,
+      "lean": "Over",
+      "edge": 2.14,
+      "confidence": "high",
+      "line_source": "prizepicks_est",
+      "ops": 0.932
     },
     {
       "gameId": "nym-atl-2026-08-11-824886",
@@ -113,6 +129,22 @@
       "confidence": "high",
       "line_source": "prizepicks_est",
       "k9": 13.11
+    },
+    {
+      "gameId": "chc-wsh-2026-08-11-822697",
+      "matchup": "CHC @ WSH",
+      "player": "CJ Abrams",
+      "team": "WSH",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Shota Imanaga",
+      "fair_line": 8.0,
+      "line": 6.0,
+      "projection": 7.9,
+      "lean": "Over",
+      "edge": 1.91,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.903
     },
     {
       "gameId": "cin-cws-2026-08-11-824563",
@@ -223,6 +255,22 @@
       "ops": 0.942
     },
     {
+      "gameId": "chc-wsh-2026-08-11-822697",
+      "matchup": "CHC @ WSH",
+      "player": "James Wood",
+      "team": "WSH",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Shota Imanaga",
+      "fair_line": 8.0,
+      "line": 6.0,
+      "projection": 7.8,
+      "lean": "Over",
+      "edge": 1.78,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.928
+    },
+    {
       "gameId": "bos-tor-2026-08-11-822778",
       "matchup": "BOS @ TOR",
       "player": "Willson Contreras",
@@ -284,6 +332,22 @@
       "confidence": "medium",
       "line_source": "prizepicks_est",
       "ops": 0.891
+    },
+    {
+      "gameId": "chc-wsh-2026-08-11-822697",
+      "matchup": "CHC @ WSH",
+      "player": "Seiya Suzuki",
+      "team": "CHC",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Jake Irvin",
+      "fair_line": 7.0,
+      "line": 5.5,
+      "projection": 7.2,
+      "lean": "Over",
+      "edge": 1.65,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.831
     },
     {
       "gameId": "kc-lad-2026-08-11-823917",
@@ -588,6 +652,22 @@
       "ops": 0.862
     },
     {
+      "gameId": "chc-wsh-2026-08-11-822697",
+      "matchup": "CHC @ WSH",
+      "player": "Andr\u00e9s Chaparro",
+      "team": "WSH",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Shota Imanaga",
+      "fair_line": 6.5,
+      "line": 5.0,
+      "projection": 6.5,
+      "lean": "Over",
+      "edge": 1.46,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.848
+    },
+    {
       "gameId": "mil-sd-2026-08-11-823264",
       "matchup": "MIL @ SD",
       "player": "Jake Bauers",
@@ -777,6 +857,22 @@
       "confidence": "medium",
       "line_source": "prizepicks_est",
       "ops": 0.835
+    },
+    {
+      "gameId": "chc-wsh-2026-08-11-822697",
+      "matchup": "CHC @ WSH",
+      "player": "Luis Garc\u00eda Jr.",
+      "team": "WSH",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Shota Imanaga",
+      "fair_line": 7.5,
+      "line": 6.0,
+      "projection": 7.3,
+      "lean": "Over",
+      "edge": 1.3,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.873
     },
     {
       "gameId": "pit-mia-2026-08-11-823832",
@@ -1417,6 +1513,21 @@
       "ops": 0.743
     },
     {
+      "gameId": "chc-wsh-2026-08-11-822697",
+      "matchup": "CHC @ WSH",
+      "player": "Jake Irvin",
+      "team": "WSH",
+      "prop": "strikeouts",
+      "fair_line": 5.5,
+      "line": 4.5,
+      "projection": 5.5,
+      "lean": "Over",
+      "edge": 0.96,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "k9": 9.0
+    },
+    {
       "gameId": "phi-stl-2026-08-11-823019",
       "matchup": "PHI @ STL",
       "player": "Iv\u00e1n Herrera",
@@ -1431,6 +1542,22 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.757
+    },
+    {
+      "gameId": "chc-wsh-2026-08-11-822697",
+      "matchup": "CHC @ WSH",
+      "player": "Michael Conforto",
+      "team": "CHC",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Jake Irvin",
+      "fair_line": 6.0,
+      "line": 5.0,
+      "projection": 6.0,
+      "lean": "Over",
+      "edge": 0.95,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.786
     },
     {
       "gameId": "tex-laa-2026-08-11-823997",
@@ -1673,6 +1800,22 @@
       "ops": 0.812
     },
     {
+      "gameId": "chc-wsh-2026-08-11-822697",
+      "matchup": "CHC @ WSH",
+      "player": "Pedro Ram\u00edrez",
+      "team": "CHC",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Jake Irvin",
+      "fair_line": 12.0,
+      "line": 11.0,
+      "projection": 11.8,
+      "lean": "Over",
+      "edge": 0.81,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.788
+    },
+    {
       "gameId": "hou-sf-2026-08-11-823186",
       "matchup": "HOU @ SF",
       "player": "Rafael Devers",
@@ -1764,6 +1907,21 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "k9": 8.98
+    },
+    {
+      "gameId": "chc-wsh-2026-08-11-822697",
+      "matchup": "CHC @ WSH",
+      "player": "Shota Imanaga",
+      "team": "CHC",
+      "prop": "strikeouts",
+      "fair_line": 5.0,
+      "line": 4.5,
+      "projection": 5.1,
+      "lean": "Over",
+      "edge": 0.63,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "k9": 8.48
     },
     {
       "gameId": "bos-tor-2026-08-11-822778",
@@ -2229,6 +2387,16 @@
       "matchup": "KC @ LAD"
     },
     {
+      "player": "Pete Crow-Armstrong",
+      "prop": "hitter_fantasy_score",
+      "lean": "Over",
+      "line": 6.5,
+      "projection": 8.6,
+      "edge": 2.14,
+      "confidence": "high",
+      "matchup": "CHC @ WSH"
+    },
+    {
       "player": "Juan Soto",
       "prop": "hitter_fantasy_score",
       "lean": "Over",
@@ -2289,6 +2457,16 @@
       "matchup": "BOS @ TOR"
     },
     {
+      "player": "CJ Abrams",
+      "prop": "hitter_fantasy_score",
+      "lean": "Over",
+      "line": 6.0,
+      "projection": 7.9,
+      "edge": 1.91,
+      "confidence": "medium",
+      "matchup": "CHC @ WSH"
+    },
+    {
       "player": "Sean Burke",
       "prop": "strikeouts",
       "lean": "Over",
@@ -2317,26 +2495,6 @@
       "edge": 1.86,
       "confidence": "high",
       "matchup": "CLE @ DET"
-    },
-    {
-      "player": "Kyle Schwarber",
-      "prop": "hitter_fantasy_score",
-      "lean": "Over",
-      "line": 5.5,
-      "projection": 7.3,
-      "edge": 1.85,
-      "confidence": "medium",
-      "matchup": "PHI @ STL"
-    },
-    {
-      "player": "Kyle Harrison",
-      "prop": "strikeouts",
-      "lean": "Over",
-      "line": 5.0,
-      "projection": 6.9,
-      "edge": 1.85,
-      "confidence": "high",
-      "matchup": "MIL @ SD"
     }
   ]
 }

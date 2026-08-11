@@ -15,14 +15,14 @@
         "edge": 2.18
       },
       {
-        "player": "Juan Soto",
+        "player": "Pete Crow-Armstrong",
         "prop": "hitter_fantasy_score",
-        "line": 5.5,
+        "line": 6.5,
         "pick": "Over",
-        "projection": 7.6,
-        "matchup": "NYM @ ATL",
+        "projection": 8.6,
+        "matchup": "CHC @ WSH",
         "confidence": "high",
-        "edge": 2.13
+        "edge": 2.14
       },
       {
         "player": "Nolan McLean",
@@ -35,8 +35,8 @@
         "edge": 2.0
       }
     ],
-    "score": 7.16,
-    "same_game_warning": true
+    "score": 7.17,
+    "same_game_warning": false
   },
   "top_plays": [
     {
@@ -48,6 +48,16 @@
       "edge": 2.18,
       "confidence": "high",
       "matchup": "KC @ LAD"
+    },
+    {
+      "player": "Pete Crow-Armstrong",
+      "prop": "hitter_fantasy_score",
+      "lean": "Over",
+      "line": 6.5,
+      "projection": 8.6,
+      "edge": 2.14,
+      "confidence": "high",
+      "matchup": "CHC @ WSH"
     },
     {
       "player": "Juan Soto",
@@ -108,6 +118,16 @@
       "edge": 1.96,
       "confidence": "high",
       "matchup": "BOS @ TOR"
+    },
+    {
+      "player": "CJ Abrams",
+      "prop": "hitter_fantasy_score",
+      "lean": "Over",
+      "line": 6.0,
+      "projection": 7.9,
+      "edge": 1.91,
+      "confidence": "medium",
+      "matchup": "CHC @ WSH"
     },
     {
       "player": "Sean Burke",
@@ -138,26 +158,6 @@
       "edge": 1.86,
       "confidence": "high",
       "matchup": "CLE @ DET"
-    },
-    {
-      "player": "Kyle Schwarber",
-      "prop": "hitter_fantasy_score",
-      "lean": "Over",
-      "line": 5.5,
-      "projection": 7.3,
-      "edge": 1.85,
-      "confidence": "medium",
-      "matchup": "PHI @ STL"
-    },
-    {
-      "player": "Kyle Harrison",
-      "prop": "strikeouts",
-      "lean": "Over",
-      "line": 5.0,
-      "projection": 6.9,
-      "edge": 1.85,
-      "confidence": "high",
-      "matchup": "MIL @ SD"
     }
   ],
   "all_actionable": [
@@ -170,6 +170,16 @@
       "edge": 2.18,
       "confidence": "high",
       "matchup": "KC @ LAD"
+    },
+    {
+      "player": "Pete Crow-Armstrong",
+      "prop": "hitter_fantasy_score",
+      "line": 6.5,
+      "lean": "Over",
+      "projection": 8.6,
+      "edge": 2.14,
+      "confidence": "high",
+      "matchup": "CHC @ WSH"
     },
     {
       "player": "Juan Soto",
@@ -230,6 +240,16 @@
       "edge": 1.96,
       "confidence": "high",
       "matchup": "BOS @ TOR"
+    },
+    {
+      "player": "CJ Abrams",
+      "prop": "hitter_fantasy_score",
+      "line": 6.0,
+      "lean": "Over",
+      "projection": 7.9,
+      "edge": 1.91,
+      "confidence": "medium",
+      "matchup": "CHC @ WSH"
     },
     {
       "player": "Sean Burke",
@@ -302,6 +322,16 @@
       "matchup": "PIT @ MIA"
     },
     {
+      "player": "James Wood",
+      "prop": "hitter_fantasy_score",
+      "line": 6.0,
+      "lean": "Over",
+      "projection": 7.8,
+      "edge": 1.78,
+      "confidence": "medium",
+      "matchup": "CHC @ WSH"
+    },
+    {
       "player": "Willson Contreras",
       "prop": "hitter_fantasy_score",
       "line": 5.0,
@@ -330,36 +360,6 @@
       "edge": 1.67,
       "confidence": "medium",
       "matchup": "TB @ ATH"
-    },
-    {
-      "player": "Matt Olson",
-      "prop": "hitter_fantasy_score",
-      "line": 5.5,
-      "lean": "Over",
-      "projection": 7.2,
-      "edge": 1.66,
-      "confidence": "medium",
-      "matchup": "NYM @ ATL"
-    },
-    {
-      "player": "Blake Snell",
-      "prop": "strikeouts",
-      "line": 5.0,
-      "lean": "Over",
-      "projection": 6.6,
-      "edge": 1.64,
-      "confidence": "high",
-      "matchup": "KC @ LAD"
-    },
-    {
-      "player": "Ryan Jeffers",
-      "prop": "hitter_fantasy_score",
-      "line": 5.0,
-      "lean": "Over",
-      "projection": 6.6,
-      "edge": 1.62,
-      "confidence": "medium",
-      "matchup": "BAL @ MIN"
     }
   ]
 }
