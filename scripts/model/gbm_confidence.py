@@ -21,6 +21,11 @@ def assign_daily_confidence(board: list[dict[str, Any]]) -> None:
         return
 
     for row in board:
+        # Market-favorite overrides are accuracy patches, not High tickets.
+        if row.get("marketOverride"):
+            row["confidence"] = "Low"
+            row["betAction"] = "pass"
+            continue
         p = float(row.get("pickProbability") or 0.0)
         market_available = row.get("homeMoneyline") is not None and row.get("awayMoneyline") is not None
         conf = confidence_from_display(

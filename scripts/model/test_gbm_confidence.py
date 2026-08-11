@@ -116,8 +116,30 @@ def test_no_high_without_form_or_market_or_edge() -> None:
     assert board[2]["betAction"] == "lean"
 
 
+def test_market_override_stays_low() -> None:
+    board = [
+        {
+            "pickProbability": 0.62,
+            "rawPickProbability": 0.56,
+            "starterCertain": True,
+            "homeMoneyline": -160,
+            "awayMoneyline": 140,
+            "marketAgrees": True,
+            "modelEdge": -0.08,
+            "eraDiff": 1.2,
+            "formEdge": 0.2,
+            "marketOverride": True,
+            "explanation": [],
+        }
+    ]
+    assign_daily_confidence(board)
+    assert board[0]["confidence"] == "Low"
+    assert board[0]["betAction"] == "pass"
+
+
 if __name__ == "__main__":
     test_no_high_quota_without_gates()
     test_high_requires_full_gates()
     test_no_high_without_form_or_market_or_edge()
+    test_market_override_stays_low()
     print("ok")

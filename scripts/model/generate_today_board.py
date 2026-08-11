@@ -10,6 +10,7 @@ from daily_auto_model import MODEL_VERSION, PIPELINE_VERSION, ensure_trained_thr
 from game_sim_board import simulate_game_record
 from gbm_confidence import assign_daily_confidence
 from mlb_api import fetch_upcoming_games, load_team_abbreviations
+from market_pick_policy import resolve_published_side
 from odds_provider import fetch_moneyline_market, get_last_odds_error, get_last_odds_source, market_for_game
 from trained_edge_model import _safe_pitcher_stats
 
@@ -109,15 +110,26 @@ def main() -> None:
         gbm_home = float(prediction.home_probability)
         gbm_away = float(prediction.away_probability)
 
-        # Official pick = raw GBM (OOS ~61% May–Jul). Sim stays diagnostic.
+        # Official pick = raw GBM unless it fades a live market. August Low+disagree
+        # was 12% — publish the sportsbook favorite there. High/Elite still require
+        # GBM and market on the same side, so tickets do not flip.
         home_probability = gbm_home
         away_probability = gbm_away
-        pick_probability = max(home_probability, away_probability)
-        raw_pick = pick_probability
+        raw_pick = max(home_probability, away_probability)
         prediction_source = "raw_gbm"
         sim = simulate_game_record(game, starter_certain=starter_certain, n_sims=2000)
 
-        predicted_home = home_probability >= away_probability
+        market_home = market_probs[0] if market_probs else None
+        market_away = market_probs[1] if market_probs else None
+        predicted_home, market_override = resolve_published_side(
+            home_probability, away_probability, market_home, market_away
+        )
+        gbm_home_pick = home_probability >= away_probability
+        pick_probability = home_probability if predicted_home else away_probability
+        if market_override and market_home is not None and market_away is not None:
+            # Show the market's no-vig on the published favorite, not GBM's <50% dog side.
+            pick_probability = market_home if predicted_home else market_away
+
         _pick_pit = home_pit if predicted_home else away_pit
         _opp_pit = away_pit if predicted_home else home_pit
         era_diff = round(_opp_pit["era"] - _pick_pit["era"], 6)
@@ -125,21 +137,25 @@ def main() -> None:
         _opp_team = bundle.league.team(game.away_team_id if predicted_home else game.home_team_id)
         form_edge = round(_pick_team.win_pct(10) - _opp_team.win_pct(10), 6)
 
-        market_home = market_probs[0] if market_probs else None
-        market_away = market_probs[1] if market_probs else None
         market_agrees = None
         model_edge = 0.0
         if market_home is not None and market_away is not None:
             market_pick_home = market_home >= market_away
             market_agrees = predicted_home == market_pick_home
             market_for_pick = market_home if predicted_home else market_away
-            model_edge = pick_probability - market_for_pick
+            gbm_on_pick = home_probability if predicted_home else away_probability
+            model_edge = gbm_on_pick - market_for_pick
 
         notes = [
             f"Retrained through {bundle.trained_through.isoformat()}",
-            "Published pick = raw GBM win% (Elo/form/starter/park). Not market-anchored.",
+            "Published pick = raw GBM unless it fades a live sportsbook favorite.",
             "OOS May–Jul 2026: overall ≈61%. High/Elite require p/ERA/form/market gates — no daily High quota.",
         ]
+        if market_override:
+            faded = home_abbr if gbm_home_pick else away_abbr
+            notes.append(
+                f"GBM faded the market ({faded} {raw_pick:.0%}); published the sportsbook favorite instead"
+            )
         if sim.ok:
             notes.append(
                 f"PA sim diagnostic: home {sim.home_win_prob:.1%} "
@@ -202,6 +218,8 @@ def main() -> None:
                 "nSims": sim.n_sims if sim.ok else 0,
                 "lineupSource": sim.lineup_source if sim.ok else None,
                 "predictionSource": prediction_source,
+                "marketOverride": market_override,
+                "gbmPredictedTeam": home_abbr if gbm_home_pick else away_abbr,
                 "homeMoneyline": market_snapshot.home_moneyline if odds_available else None,
                 "awayMoneyline": market_snapshot.away_moneyline if odds_available else None,
                 "homeRunline": market_snapshot.home_runline if odds_available and market_snapshot.home_runline_price else None,

@@ -1207,6 +1207,7 @@ function normalizePredictionRows(rows: PredictionOutputRow[]): GamePrediction[] 
         starterCertain: row.starterCertain,
         marketAvailable: homeMoneyline != null && awayMoneyline != null,
         rawPick: row.rawPickProbability ?? pickProbability,
+        marketOverride: row.marketOverride,
       });
 
     const id = row.id ?? `${awayTeam}-${homeTeam}-${row.startsAt ?? "today"}`;
@@ -1255,6 +1256,8 @@ function normalizePredictionRows(rows: PredictionOutputRow[]): GamePrediction[] 
       eraDiff: row.eraDiff,
       formEdge: row.formEdge,
       predictionSource: row.predictionSource,
+      marketOverride: row.marketOverride,
+      gbmPredictedTeam: row.gbmPredictedTeam,
       lineupSource: row.lineupSource,
       nSims: row.nSims,
       simRawHomeWinProbability: row.simRawHomeWinProbability,

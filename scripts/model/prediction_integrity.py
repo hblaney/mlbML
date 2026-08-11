@@ -137,15 +137,22 @@ def recompute_and_verify_board(payload: dict | None = None) -> list[str]:
         expected_team = abbr.get(game.home_team_id if hp >= ap else game.away_team_id, "").lower()
         stored_conf = row.get("confidence")
         expected_conf = conf_by_id.get(gid)
+        market_override = bool(row.get("marketOverride"))
 
-        if abs(stored_pick - pick) > TOLERANCE:
-            errors.append(f"{gid}: pick recompute {pick:.4f} != stored {stored_pick:.4f}")
         if abs(stored_home - hp) > TOLERANCE:
             errors.append(f"{gid}: home recompute {hp:.4f} != stored {stored_home:.4f}")
         if expected_conf is not None and stored_conf != expected_conf:
             errors.append(f"{gid}: confidence recompute {expected_conf!r} != stored {stored_conf!r}")
-        if stored_team != expected_team:
-            errors.append(f"{gid}: predictedTeam {stored_team!r} != recompute {expected_team!r}")
+        if market_override:
+            if stored_conf != "Low":
+                errors.append(f"{gid}: marketOverride must stay Low, got {stored_conf!r}")
+            if stored_team == expected_team:
+                errors.append(f"{gid}: marketOverride predictedTeam still matches GBM fade {stored_team!r}")
+        else:
+            if abs(stored_pick - pick) > TOLERANCE:
+                errors.append(f"{gid}: pick recompute {pick:.4f} != stored {stored_pick:.4f}")
+            if stored_team != expected_team:
+                errors.append(f"{gid}: predictedTeam {stored_team!r} != recompute {expected_team!r}")
 
     return errors
 
