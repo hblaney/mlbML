@@ -2,7 +2,7 @@
   "generated_at": "2026-08-11",
   "source": "prop-leans-v2",
   "note": "K uses estimated PrizePicks lines when posted line unknown. Hitter FS from top-4 OPS bats per team.",
-  "actionable_count": 110,
+  "actionable_count": 119,
   "leans": [
     {
       "gameId": "kc-lad-2026-08-11-823917",
@@ -128,6 +128,22 @@
       "confidence": "high",
       "line_source": "prizepicks_est",
       "k9": 10.07
+    },
+    {
+      "gameId": "hou-sf-2026-08-11-823186",
+      "matchup": "HOU @ SF",
+      "player": "Yordan Alvarez",
+      "team": "HOU",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Carson Whisenhunt",
+      "fair_line": 9.0,
+      "line": 7.0,
+      "projection": 8.9,
+      "lean": "Over",
+      "edge": 1.87,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 1.059
     },
     {
       "gameId": "cle-det-2026-08-11-824240",
@@ -652,6 +668,22 @@
       "ops": 0.858
     },
     {
+      "gameId": "hou-sf-2026-08-11-823186",
+      "matchup": "HOU @ SF",
+      "player": "Jeremy Pe\u00f1a",
+      "team": "HOU",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Carson Whisenhunt",
+      "fair_line": 8.0,
+      "line": 6.5,
+      "projection": 7.9,
+      "lean": "Over",
+      "edge": 1.4,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.837
+    },
+    {
       "gameId": "mil-sd-2026-08-11-823264",
       "matchup": "MIL @ SD",
       "player": "Ty France",
@@ -666,6 +698,21 @@
       "confidence": "medium",
       "line_source": "prizepicks_est",
       "ops": 0.872
+    },
+    {
+      "gameId": "hou-sf-2026-08-11-823186",
+      "matchup": "HOU @ SF",
+      "player": "Hunter Brown",
+      "team": "HOU",
+      "prop": "strikeouts",
+      "fair_line": 6.0,
+      "line": 4.5,
+      "projection": 5.9,
+      "lean": "Over",
+      "edge": 1.37,
+      "confidence": "high",
+      "line_source": "prizepicks_est",
+      "k9": 9.76
     },
     {
       "gameId": "col-az-2026-08-11-825046",
@@ -1067,6 +1114,22 @@
       "ops": 0.814
     },
     {
+      "gameId": "hou-sf-2026-08-11-823186",
+      "matchup": "HOU @ SF",
+      "player": "Jung Hoo Lee",
+      "team": "SF",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Hunter Brown",
+      "fair_line": 6.0,
+      "line": 5.0,
+      "projection": 6.1,
+      "lean": "Over",
+      "edge": 1.12,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.782
+    },
+    {
       "gameId": "sea-nyy-2026-08-11-823512",
       "matchup": "SEA @ NYY",
       "player": "Dominic Canzone",
@@ -1290,6 +1353,38 @@
       "ops": 0.763
     },
     {
+      "gameId": "hou-sf-2026-08-11-823186",
+      "matchup": "HOU @ SF",
+      "player": "Isaac Paredes",
+      "team": "HOU",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Carson Whisenhunt",
+      "fair_line": 6.5,
+      "line": 5.5,
+      "projection": 6.5,
+      "lean": "Over",
+      "edge": 0.99,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.766
+    },
+    {
+      "gameId": "hou-sf-2026-08-11-823186",
+      "matchup": "HOU @ SF",
+      "player": "Casey Schmitt",
+      "team": "SF",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Hunter Brown",
+      "fair_line": 6.5,
+      "line": 5.5,
+      "projection": 6.5,
+      "lean": "Over",
+      "edge": 0.98,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.784
+    },
+    {
       "gameId": "col-az-2026-08-11-825046",
       "matchup": "COL @ AZ",
       "player": "James McCann",
@@ -1352,6 +1447,22 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.784
+    },
+    {
+      "gameId": "hou-sf-2026-08-11-823186",
+      "matchup": "HOU @ SF",
+      "player": "Bryce Eldridge",
+      "team": "SF",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Hunter Brown",
+      "fair_line": 6.0,
+      "line": 5.0,
+      "projection": 5.9,
+      "lean": "Over",
+      "edge": 0.92,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.768
     },
     {
       "gameId": "bos-tor-2026-08-11-822778",
@@ -1482,6 +1593,22 @@
       "ops": 0.806
     },
     {
+      "gameId": "hou-sf-2026-08-11-823186",
+      "matchup": "HOU @ SF",
+      "player": "Christian Walker",
+      "team": "HOU",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Carson Whisenhunt",
+      "fair_line": 7.0,
+      "line": 6.0,
+      "projection": 6.8,
+      "lean": "Over",
+      "edge": 0.85,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.772
+    },
+    {
       "gameId": "pit-mia-2026-08-11-823832",
       "matchup": "PIT @ MIA",
       "player": "Liam Hicks",
@@ -1544,6 +1671,22 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.812
+    },
+    {
+      "gameId": "hou-sf-2026-08-11-823186",
+      "matchup": "HOU @ SF",
+      "player": "Rafael Devers",
+      "team": "SF",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Hunter Brown",
+      "fair_line": 6.5,
+      "line": 5.5,
+      "projection": 6.3,
+      "lean": "Over",
+      "edge": 0.79,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.792
     },
     {
       "gameId": "bal-min-2026-08-11-823673",
@@ -2013,6 +2156,21 @@
       "k9": 7.0
     },
     {
+      "gameId": "hou-sf-2026-08-11-823186",
+      "matchup": "HOU @ SF",
+      "player": "Carson Whisenhunt",
+      "team": "SF",
+      "prop": "strikeouts",
+      "fair_line": 4.5,
+      "line": 4.0,
+      "projection": 4.3,
+      "lean": "Pass",
+      "edge": 0.27,
+      "confidence": "pass",
+      "line_source": "prizepicks_est",
+      "k9": 7.06
+    },
+    {
       "gameId": "mil-sd-2026-08-11-823264",
       "matchup": "MIL @ SD",
       "player": "Walker Buehler",
@@ -2141,6 +2299,16 @@
       "matchup": "CIN @ CWS"
     },
     {
+      "player": "Yordan Alvarez",
+      "prop": "hitter_fantasy_score",
+      "lean": "Over",
+      "line": 7.0,
+      "projection": 8.9,
+      "edge": 1.87,
+      "confidence": "medium",
+      "matchup": "HOU @ SF"
+    },
+    {
       "player": "Drew Anderson",
       "prop": "strikeouts",
       "lean": "Over",
@@ -2169,16 +2337,6 @@
       "edge": 1.85,
       "confidence": "high",
       "matchup": "MIL @ SD"
-    },
-    {
-      "player": "Paul Skenes",
-      "prop": "strikeouts",
-      "lean": "Over",
-      "line": 5.0,
-      "projection": 6.8,
-      "edge": 1.81,
-      "confidence": "high",
-      "matchup": "PIT @ MIA"
     }
   ]
 }
