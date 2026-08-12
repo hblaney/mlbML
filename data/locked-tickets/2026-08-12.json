@@ -1,15 +1,32 @@
 {
   "date": "2026-08-12",
-  "locked_at": "2026-08-12T05:21:47Z",
-  "board_generated_at": "2026-08-12T05:04:13Z",
+  "locked_at": "2026-08-12T16:29:27Z",
+  "board_generated_at": "2026-08-12T16:28:04Z",
   "model_version": "daily-auto-v6.1-raw-gbm",
   "pipeline_version": "unified-public-v21-raw-gbm-high-card",
   "source": "lock_daily_ticket.py",
-  "note": "Provisional skip \u2014 may upgrade to a High ticket later today if odds/gates clear.",
+  "note": "Upgraded from morning skip once a qualifying High ticket appeared (odds/gates were not ready at first publish).",
   "ticket": {
-    "kind": "skip",
-    "label": "No bet today",
-    "legs": [],
-    "leg_count": 0
-  }
+    "kind": "single",
+    "label": "ARI ML",
+    "legs": [
+      "ARI"
+    ],
+    "leg_count": 1,
+    "odds": -170,
+    "model_probability": 0.6558,
+    "leg_details": [
+      {
+        "team": "ARI",
+        "matchup": "COL @ ARI",
+        "confidence": "High",
+        "pickProbability": 0.6558,
+        "edge": 0.0261703703703704,
+        "odds": -170,
+        "startsAt": "2026-08-12T19:40:00Z"
+      }
+    ]
+  },
+  "upgraded_from_skip": true,
+  "previous_locked_at": "2026-08-12T05:21:47Z"
 }
