@@ -2,7 +2,7 @@
   "generated_at": "2026-08-14",
   "source": "prop-leans-v2",
   "note": "K uses estimated PrizePicks lines when posted line unknown. Hitter FS from top-4 OPS bats per team.",
-  "actionable_count": 98,
+  "actionable_count": 106,
   "leans": [
     {
       "gameId": "bos-pit-2026-08-14-823346",
@@ -98,6 +98,21 @@
       "confidence": "high",
       "line_source": "prizepicks_est",
       "k9": 11.51
+    },
+    {
+      "gameId": "az-atl-2026-08-14-824882",
+      "matchup": "AZ @ ATL",
+      "player": "Chris Sale",
+      "team": "ATL",
+      "prop": "strikeouts",
+      "fair_line": 6.5,
+      "line": 4.5,
+      "projection": 6.5,
+      "lean": "Over",
+      "edge": 1.99,
+      "confidence": "high",
+      "line_source": "prizepicks_est",
+      "k9": 11.05
     },
     {
       "gameId": "mil-lad-2026-08-14-823913",
@@ -241,6 +256,38 @@
       "confidence": "medium",
       "line_source": "prizepicks_est",
       "ops": 0.873
+    },
+    {
+      "gameId": "az-atl-2026-08-14-824882",
+      "matchup": "AZ @ ATL",
+      "player": "Gabriel Moreno",
+      "team": "AZ",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Chris Sale",
+      "fair_line": 6.0,
+      "line": 4.5,
+      "projection": 6.2,
+      "lean": "Over",
+      "edge": 1.67,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.836
+    },
+    {
+      "gameId": "az-atl-2026-08-14-824882",
+      "matchup": "AZ @ ATL",
+      "player": "Matt Olson",
+      "team": "ATL",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Brandon Pfaadt",
+      "fair_line": 7.0,
+      "line": 5.5,
+      "projection": 7.2,
+      "lean": "Over",
+      "edge": 1.66,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.889
     },
     {
       "gameId": "nyy-tor-2026-08-14-822777",
@@ -563,6 +610,22 @@
       "ops": 0.837
     },
     {
+      "gameId": "az-atl-2026-08-14-824882",
+      "matchup": "AZ @ ATL",
+      "player": "Corbin Carroll",
+      "team": "AZ",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Chris Sale",
+      "fair_line": 7.0,
+      "line": 5.5,
+      "projection": 6.8,
+      "lean": "Over",
+      "edge": 1.34,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.82
+    },
+    {
       "gameId": "cws-det-2026-08-14-824237",
       "matchup": "CWS @ DET",
       "player": "Randal Grichuk",
@@ -738,6 +801,22 @@
       "ops": 0.776
     },
     {
+      "gameId": "az-atl-2026-08-14-824882",
+      "matchup": "AZ @ ATL",
+      "player": "Drake Baldwin",
+      "team": "ATL",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Brandon Pfaadt",
+      "fair_line": 6.5,
+      "line": 5.5,
+      "projection": 6.6,
+      "lean": "Over",
+      "edge": 1.13,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.812
+    },
+    {
       "gameId": "mil-lad-2026-08-14-823913",
       "matchup": "MIL @ LAD",
       "player": "Dalton Rushing",
@@ -800,6 +879,22 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.804
+    },
+    {
+      "gameId": "az-atl-2026-08-14-824882",
+      "matchup": "AZ @ ATL",
+      "player": "Michael Harris II",
+      "team": "ATL",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Brandon Pfaadt",
+      "fair_line": 6.5,
+      "line": 5.5,
+      "projection": 6.6,
+      "lean": "Over",
+      "edge": 1.06,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.808
     },
     {
       "gameId": "col-sf-2026-08-14-823185",
@@ -943,6 +1038,22 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.793
+    },
+    {
+      "gameId": "az-atl-2026-08-14-824882",
+      "matchup": "AZ @ ATL",
+      "player": "Ozzie Albies",
+      "team": "ATL",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Brandon Pfaadt",
+      "fair_line": 6.0,
+      "line": 5.0,
+      "projection": 6.0,
+      "lean": "Over",
+      "edge": 0.97,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.744
     },
     {
       "gameId": "sea-hou-2026-08-14-824159",
@@ -1134,6 +1245,22 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.716
+    },
+    {
+      "gameId": "az-atl-2026-08-14-824882",
+      "matchup": "AZ @ ATL",
+      "player": "James McCann",
+      "team": "AZ",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Chris Sale",
+      "fair_line": 6.0,
+      "line": 5.0,
+      "projection": 5.8,
+      "lean": "Over",
+      "edge": 0.83,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.777
     },
     {
       "gameId": "nyy-tor-2026-08-14-822777",
@@ -1728,6 +1855,22 @@
       "k9": 7.92
     },
     {
+      "gameId": "az-atl-2026-08-14-824882",
+      "matchup": "AZ @ ATL",
+      "player": "Tyler Locklear",
+      "team": "AZ",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Chris Sale",
+      "fair_line": 5.0,
+      "line": 4.5,
+      "projection": 4.8,
+      "lean": "Pass",
+      "edge": 0.31,
+      "confidence": "pass",
+      "line_source": "prizepicks_est",
+      "ops": 0.846
+    },
+    {
       "gameId": "stl-chc-2026-08-14-824643",
       "matchup": "STL @ CHC",
       "player": "Clay Holmes",
@@ -1741,6 +1884,21 @@
       "confidence": "pass",
       "line_source": "prizepicks_est",
       "k9": 6.35
+    },
+    {
+      "gameId": "az-atl-2026-08-14-824882",
+      "matchup": "AZ @ ATL",
+      "player": "Brandon Pfaadt",
+      "team": "AZ",
+      "prop": "strikeouts",
+      "fair_line": 3.5,
+      "line": 3.5,
+      "projection": 3.4,
+      "lean": "Pass",
+      "edge": -0.07,
+      "confidence": "pass",
+      "line_source": "prizepicks_est",
+      "k9": 5.67
     }
   ],
   "top_plays": [
@@ -1805,6 +1963,16 @@
       "matchup": "SD @ CLE"
     },
     {
+      "player": "Chris Sale",
+      "prop": "strikeouts",
+      "lean": "Over",
+      "line": 4.5,
+      "projection": 6.5,
+      "edge": 1.99,
+      "confidence": "high",
+      "matchup": "AZ @ ATL"
+    },
+    {
       "player": "Shohei Ohtani",
       "prop": "hitter_fantasy_score",
       "lean": "Over",
@@ -1853,16 +2021,6 @@
       "edge": 1.79,
       "confidence": "high",
       "matchup": "MIA @ CIN"
-    },
-    {
-      "player": "James Wood",
-      "prop": "hitter_fantasy_score",
-      "lean": "Over",
-      "line": 7.5,
-      "projection": 9.3,
-      "edge": 1.76,
-      "confidence": "medium",
-      "matchup": "WSH @ NYM"
     }
   ]
 }

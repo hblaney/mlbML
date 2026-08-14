@@ -26,6 +26,28 @@
       "notes": []
     },
     {
+      "player": "Chris Sale",
+      "team": "ATL",
+      "opponent": "AZ",
+      "matchup": "AZ @ ATL",
+      "game_date": "2026-08-14",
+      "props": [
+        {
+          "prop": "strikeouts",
+          "pick": "Over",
+          "model_line": 6.5,
+          "use_line": 4.5,
+          "projection": 6.5,
+          "edge": 1.99,
+          "confidence": "high",
+          "k9": 11.05,
+          "opp_k_rate": 0.192
+        }
+      ],
+      "headline": "Over 4.5 STRIKEOUTS (high confidence)",
+      "notes": []
+    },
+    {
       "player": "Chase Burns",
       "team": "CIN",
       "opponent": "MIA",

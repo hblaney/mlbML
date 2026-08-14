@@ -100,6 +100,16 @@
       "matchup": "SD @ CLE"
     },
     {
+      "player": "Chris Sale",
+      "prop": "strikeouts",
+      "lean": "Over",
+      "line": 4.5,
+      "projection": 6.5,
+      "edge": 1.99,
+      "confidence": "high",
+      "matchup": "AZ @ ATL"
+    },
+    {
       "player": "Shohei Ohtani",
       "prop": "hitter_fantasy_score",
       "lean": "Over",
@@ -148,16 +158,6 @@
       "edge": 1.79,
       "confidence": "high",
       "matchup": "MIA @ CIN"
-    },
-    {
-      "player": "James Wood",
-      "prop": "hitter_fantasy_score",
-      "lean": "Over",
-      "line": 7.5,
-      "projection": 9.3,
-      "edge": 1.76,
-      "confidence": "medium",
-      "matchup": "WSH @ NYM"
     }
   ],
   "all_actionable": [
@@ -220,6 +220,16 @@
       "edge": 1.99,
       "confidence": "high",
       "matchup": "SD @ CLE"
+    },
+    {
+      "player": "Chris Sale",
+      "prop": "strikeouts",
+      "line": 4.5,
+      "lean": "Over",
+      "projection": 6.5,
+      "edge": 1.99,
+      "confidence": "high",
+      "matchup": "AZ @ ATL"
     },
     {
       "player": "Shohei Ohtani",
@@ -312,6 +322,26 @@
       "matchup": "WSH @ NYM"
     },
     {
+      "player": "Gabriel Moreno",
+      "prop": "hitter_fantasy_score",
+      "line": 4.5,
+      "lean": "Over",
+      "projection": 6.2,
+      "edge": 1.67,
+      "confidence": "medium",
+      "matchup": "AZ @ ATL"
+    },
+    {
+      "player": "Matt Olson",
+      "prop": "hitter_fantasy_score",
+      "line": 5.5,
+      "lean": "Over",
+      "projection": 7.2,
+      "edge": 1.66,
+      "confidence": "medium",
+      "matchup": "AZ @ ATL"
+    },
+    {
       "player": "Ben Rice",
       "prop": "hitter_fantasy_score",
       "line": 6.0,
@@ -330,36 +360,6 @@
       "edge": 1.63,
       "confidence": "medium",
       "matchup": "MIA @ CIN"
-    },
-    {
-      "player": "Jake McCarthy",
-      "prop": "hitter_fantasy_score",
-      "line": 6.0,
-      "lean": "Over",
-      "projection": 7.6,
-      "edge": 1.62,
-      "confidence": "medium",
-      "matchup": "COL @ SF"
-    },
-    {
-      "player": "Max Muncy",
-      "prop": "hitter_fantasy_score",
-      "line": 5.5,
-      "lean": "Over",
-      "projection": 7.1,
-      "edge": 1.62,
-      "confidence": "medium",
-      "matchup": "MIL @ LAD"
-    },
-    {
-      "player": "Cole Carrigg",
-      "prop": "hitter_fantasy_score",
-      "line": 9.0,
-      "lean": "Over",
-      "projection": 10.6,
-      "edge": 1.6,
-      "confidence": "medium",
-      "matchup": "COL @ SF"
     }
   ]
 }
