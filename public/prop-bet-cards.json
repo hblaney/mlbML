@@ -336,6 +336,28 @@
       "notes": []
     },
     {
+      "player": "Chris Bassitt",
+      "team": "BAL",
+      "opponent": "TB",
+      "matchup": "BAL @ TB",
+      "game_date": "2026-08-14",
+      "props": [
+        {
+          "prop": "strikeouts",
+          "pick": "Over",
+          "model_line": 4.0,
+          "use_line": 3.5,
+          "projection": 4.0,
+          "edge": 0.47,
+          "confidence": "low",
+          "k9": 6.79,
+          "opp_k_rate": 0.188
+        }
+      ],
+      "headline": "Over 3.5 STRIKEOUTS (low confidence)",
+      "notes": []
+    },
+    {
       "player": "Jackson Jobe",
       "team": "DET",
       "opponent": "CWS",

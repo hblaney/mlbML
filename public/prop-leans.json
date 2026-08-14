@@ -2,7 +2,7 @@
   "generated_at": "2026-08-14",
   "source": "prop-leans-v2",
   "note": "K uses estimated PrizePicks lines when posted line unknown. Hitter FS from top-4 OPS bats per team.",
-  "actionable_count": 106,
+  "actionable_count": 114,
   "leans": [
     {
       "gameId": "bos-pit-2026-08-14-823346",
@@ -161,6 +161,22 @@
       "confidence": "medium",
       "line_source": "prizepicks_est",
       "ops": 0.918
+    },
+    {
+      "gameId": "bal-tb-2026-08-14-822942",
+      "matchup": "BAL @ TB",
+      "player": "Junior Caminero",
+      "team": "TB",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Chris Bassitt",
+      "fair_line": 8.0,
+      "line": 6.0,
+      "projection": 7.8,
+      "lean": "Over",
+      "edge": 1.82,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.923
     },
     {
       "gameId": "sd-cle-2026-08-14-824399",
@@ -450,6 +466,22 @@
       "ops": 0.898
     },
     {
+      "gameId": "bal-tb-2026-08-14-822942",
+      "matchup": "BAL @ TB",
+      "player": "Yandy D\u00edaz",
+      "team": "TB",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Chris Bassitt",
+      "fair_line": 7.0,
+      "line": 5.5,
+      "projection": 7.0,
+      "lean": "Over",
+      "edge": 1.49,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.837
+    },
+    {
       "gameId": "stl-chc-2026-08-14-824643",
       "matchup": "STL @ CHC",
       "player": "Alec Burleson",
@@ -624,6 +656,22 @@
       "confidence": "medium",
       "line_source": "prizepicks_est",
       "ops": 0.82
+    },
+    {
+      "gameId": "bal-tb-2026-08-14-822942",
+      "matchup": "BAL @ TB",
+      "player": "Pete Alonso",
+      "team": "BAL",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Steven Matz",
+      "fair_line": 7.5,
+      "line": 6.0,
+      "projection": 7.3,
+      "lean": "Over",
+      "edge": 1.33,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.833
     },
     {
       "gameId": "cws-det-2026-08-14-824237",
@@ -801,6 +849,22 @@
       "ops": 0.776
     },
     {
+      "gameId": "bal-tb-2026-08-14-822942",
+      "matchup": "BAL @ TB",
+      "player": "Jonathan Aranda",
+      "team": "TB",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Chris Bassitt",
+      "fair_line": 6.5,
+      "line": 5.5,
+      "projection": 6.6,
+      "lean": "Over",
+      "edge": 1.13,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.804
+    },
+    {
       "gameId": "az-atl-2026-08-14-824882",
       "matchup": "AZ @ ATL",
       "player": "Drake Baldwin",
@@ -831,6 +895,22 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.81
+    },
+    {
+      "gameId": "bal-tb-2026-08-14-822942",
+      "matchup": "BAL @ TB",
+      "player": "Christian Encarnacion-Strand",
+      "team": "BAL",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Steven Matz",
+      "fair_line": 6.0,
+      "line": 5.0,
+      "projection": 6.1,
+      "lean": "Over",
+      "edge": 1.11,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.801
     },
     {
       "gameId": "kc-laa-2026-08-14-823993",
@@ -1054,6 +1134,38 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.744
+    },
+    {
+      "gameId": "bal-tb-2026-08-14-822942",
+      "matchup": "BAL @ TB",
+      "player": "Ryan Vilade",
+      "team": "TB",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Chris Bassitt",
+      "fair_line": 7.0,
+      "line": 6.0,
+      "projection": 6.9,
+      "lean": "Over",
+      "edge": 0.95,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.759
+    },
+    {
+      "gameId": "bal-tb-2026-08-14-822942",
+      "matchup": "BAL @ TB",
+      "player": "Taylor Ward",
+      "team": "BAL",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Steven Matz",
+      "fair_line": 6.0,
+      "line": 5.0,
+      "projection": 5.9,
+      "lean": "Over",
+      "edge": 0.95,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.729
     },
     {
       "gameId": "sea-hou-2026-08-14-824159",
@@ -1576,6 +1688,21 @@
       "k9": 6.46
     },
     {
+      "gameId": "bal-tb-2026-08-14-822942",
+      "matchup": "BAL @ TB",
+      "player": "Chris Bassitt",
+      "team": "BAL",
+      "prop": "strikeouts",
+      "fair_line": 4.0,
+      "line": 3.5,
+      "projection": 4.0,
+      "lean": "Over",
+      "edge": 0.47,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "k9": 6.79
+    },
+    {
       "gameId": "cws-det-2026-08-14-824237",
       "matchup": "CWS @ DET",
       "player": "Jackson Jobe",
@@ -1713,6 +1840,22 @@
       "ops": 0.729
     },
     {
+      "gameId": "bal-tb-2026-08-14-822942",
+      "matchup": "BAL @ TB",
+      "player": "Jackson Holliday",
+      "team": "BAL",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Steven Matz",
+      "fair_line": 6.0,
+      "line": 5.5,
+      "projection": 6.2,
+      "lean": "Pass",
+      "edge": 0.67,
+      "confidence": "pass",
+      "line_source": "prizepicks_est",
+      "ops": 0.722
+    },
+    {
       "gameId": "kc-laa-2026-08-14-823993",
       "matchup": "KC @ LAA",
       "player": "Lane Thomas",
@@ -1838,6 +1981,21 @@
       "confidence": "pass",
       "line_source": "prizepicks_est",
       "k9": 7.97
+    },
+    {
+      "gameId": "bal-tb-2026-08-14-822942",
+      "matchup": "BAL @ TB",
+      "player": "Steven Matz",
+      "team": "TB",
+      "prop": "strikeouts",
+      "fair_line": 4.5,
+      "line": 4.0,
+      "projection": 4.3,
+      "lean": "Pass",
+      "edge": 0.32,
+      "confidence": "pass",
+      "line_source": "prizepicks_est",
+      "k9": 6.89
     },
     {
       "gameId": "sd-cle-2026-08-14-824399",
@@ -2003,6 +2161,16 @@
       "matchup": "BOS @ PIT"
     },
     {
+      "player": "Junior Caminero",
+      "prop": "hitter_fantasy_score",
+      "lean": "Over",
+      "line": 6.0,
+      "projection": 7.8,
+      "edge": 1.82,
+      "confidence": "medium",
+      "matchup": "BAL @ TB"
+    },
+    {
       "player": "Luis Campusano",
       "prop": "hitter_fantasy_score",
       "lean": "Over",
@@ -2011,16 +2179,6 @@
       "edge": 1.8,
       "confidence": "medium",
       "matchup": "SD @ CLE"
-    },
-    {
-      "player": "Chase Burns",
-      "prop": "strikeouts",
-      "lean": "Over",
-      "line": 4.5,
-      "projection": 6.3,
-      "edge": 1.79,
-      "confidence": "high",
-      "matchup": "MIA @ CIN"
     }
   ]
 }

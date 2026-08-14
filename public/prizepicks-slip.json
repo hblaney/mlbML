@@ -140,6 +140,16 @@
       "matchup": "BOS @ PIT"
     },
     {
+      "player": "Junior Caminero",
+      "prop": "hitter_fantasy_score",
+      "lean": "Over",
+      "line": 6.0,
+      "projection": 7.8,
+      "edge": 1.82,
+      "confidence": "medium",
+      "matchup": "BAL @ TB"
+    },
+    {
       "player": "Luis Campusano",
       "prop": "hitter_fantasy_score",
       "lean": "Over",
@@ -148,16 +158,6 @@
       "edge": 1.8,
       "confidence": "medium",
       "matchup": "SD @ CLE"
-    },
-    {
-      "player": "Chase Burns",
-      "prop": "strikeouts",
-      "lean": "Over",
-      "line": 4.5,
-      "projection": 6.3,
-      "edge": 1.79,
-      "confidence": "high",
-      "matchup": "MIA @ CIN"
     }
   ],
   "all_actionable": [
@@ -262,6 +262,16 @@
       "matchup": "BOS @ PIT"
     },
     {
+      "player": "Junior Caminero",
+      "prop": "hitter_fantasy_score",
+      "line": 6.0,
+      "lean": "Over",
+      "projection": 7.8,
+      "edge": 1.82,
+      "confidence": "medium",
+      "matchup": "BAL @ TB"
+    },
+    {
       "player": "Luis Campusano",
       "prop": "hitter_fantasy_score",
       "line": 7.5,
@@ -350,16 +360,6 @@
       "edge": 1.65,
       "confidence": "medium",
       "matchup": "NYY @ TOR"
-    },
-    {
-      "player": "Esteury Ruiz",
-      "prop": "hitter_fantasy_score",
-      "line": 8.0,
-      "lean": "Over",
-      "projection": 9.6,
-      "edge": 1.63,
-      "confidence": "medium",
-      "matchup": "MIA @ CIN"
     }
   ]
 }
