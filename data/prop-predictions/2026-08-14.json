@@ -1,6 +1,6 @@
 {
   "generated_at": "2026-08-14",
-  "board_generated_at": "2026-08-14T15:02:10Z",
+  "board_generated_at": "2026-08-14T15:22:51Z",
   "source": "prizepicks partner-api + calibrated leakage-safe projections (OOS-gated Top 5)",
   "line_source": "prizepicks",
   "count": 518,
@@ -11507,7 +11507,7 @@
       "book_count": 0,
       "line_source": "prizepicks",
       "market_is_pickem": true,
-      "pp_odds_type": "standard",
+      "pp_odds_type": "goblin",
       "lineup_confirmed": true,
       "note": "bb9=3.1 ip=5.8"
     },
