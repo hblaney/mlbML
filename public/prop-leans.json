@@ -2,7 +2,7 @@
   "generated_at": "2026-08-15",
   "source": "prop-leans-v2",
   "note": "K uses estimated PrizePicks lines when posted line unknown. Hitter FS from top-4 OPS bats per team.",
-  "actionable_count": 125,
+  "actionable_count": 132,
   "leans": [
     {
       "gameId": "mia-cin-2026-08-15-824480",
@@ -163,6 +163,22 @@
       "confidence": "medium",
       "line_source": "prizepicks_est",
       "ops": 0.917
+    },
+    {
+      "gameId": "sd-cle-2026-08-15-824400",
+      "matchup": "SD @ CLE",
+      "player": "Luis Campusano",
+      "team": "SD",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Joey Cantillo",
+      "fair_line": 10.0,
+      "line": 8.0,
+      "projection": 9.8,
+      "lean": "Over",
+      "edge": 1.83,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.935
     },
     {
       "gameId": "wsh-nym-2026-08-15-823588",
@@ -846,6 +862,22 @@
       "ops": 0.871
     },
     {
+      "gameId": "sd-cle-2026-08-15-824400",
+      "matchup": "SD @ CLE",
+      "player": "Ty France",
+      "team": "SD",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Joey Cantillo",
+      "fair_line": 7.0,
+      "line": 5.5,
+      "projection": 6.8,
+      "lean": "Over",
+      "edge": 1.3,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.881
+    },
+    {
       "gameId": "col-sf-2026-08-15-823184",
       "matchup": "COL @ SF",
       "player": "Cole Carrigg",
@@ -1134,6 +1166,22 @@
       "ops": 0.793
     },
     {
+      "gameId": "sd-cle-2026-08-15-824400",
+      "matchup": "SD @ CLE",
+      "player": "Fernando Tatis Jr.",
+      "team": "SD",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Joey Cantillo",
+      "fair_line": 7.0,
+      "line": 6.0,
+      "projection": 7.1,
+      "lean": "Over",
+      "edge": 1.07,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.778
+    },
+    {
       "gameId": "tex-ath-2026-08-15-824966",
       "matchup": "TEX @ ATH",
       "player": "Carlos Cortes",
@@ -1182,6 +1230,38 @@
       "ops": 0.758
     },
     {
+      "gameId": "sd-cle-2026-08-15-824400",
+      "matchup": "SD @ CLE",
+      "player": "Chase DeLauter",
+      "team": "CLE",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Wandy Peralta",
+      "fair_line": 7.5,
+      "line": 6.5,
+      "projection": 7.6,
+      "lean": "Over",
+      "edge": 1.05,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.799
+    },
+    {
+      "gameId": "sd-cle-2026-08-15-824400",
+      "matchup": "SD @ CLE",
+      "player": "Luis Rengifo",
+      "team": "SD",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Joey Cantillo",
+      "fair_line": 5.5,
+      "line": 4.5,
+      "projection": 5.6,
+      "lean": "Over",
+      "edge": 1.05,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.846
+    },
+    {
       "gameId": "wsh-nym-2026-08-15-823588",
       "matchup": "WSH @ NYM",
       "player": "Andr\u00e9s Chaparro",
@@ -1212,6 +1292,21 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.816
+    },
+    {
+      "gameId": "sd-cle-2026-08-15-824400",
+      "matchup": "SD @ CLE",
+      "player": "Joey Cantillo",
+      "team": "CLE",
+      "prop": "strikeouts",
+      "fair_line": 6.0,
+      "line": 5.0,
+      "projection": 6.0,
+      "lean": "Over",
+      "edge": 1.03,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "k9": 9.93
     },
     {
       "gameId": "tex-ath-2026-08-15-824966",
@@ -1579,6 +1674,22 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.715
+    },
+    {
+      "gameId": "sd-cle-2026-08-15-824400",
+      "matchup": "SD @ CLE",
+      "player": "Travis Bazzana",
+      "team": "CLE",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Wandy Peralta",
+      "fair_line": 7.5,
+      "line": 6.5,
+      "projection": 7.4,
+      "lean": "Over",
+      "edge": 0.85,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.708
     },
     {
       "gameId": "sea-hou-2026-08-15-824157",
@@ -1999,6 +2110,22 @@
       "ops": 1.389
     },
     {
+      "gameId": "sd-cle-2026-08-15-824400",
+      "matchup": "SD @ CLE",
+      "player": "Jos\u00e9 Ram\u00edrez",
+      "team": "CLE",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Wandy Peralta",
+      "fair_line": 7.0,
+      "line": 6.5,
+      "projection": 7.2,
+      "lean": "Pass",
+      "edge": 0.68,
+      "confidence": "pass",
+      "line_source": "prizepicks_est",
+      "ops": 0.715
+    },
+    {
       "gameId": "bal-tb-2026-08-15-822941",
       "matchup": "BAL @ TB",
       "player": "Taylor Ward",
@@ -2077,6 +2204,22 @@
       "confidence": "pass",
       "line_source": "prizepicks_est",
       "ops": 0.747
+    },
+    {
+      "gameId": "sd-cle-2026-08-15-824400",
+      "matchup": "SD @ CLE",
+      "player": "Austin Hedges",
+      "team": "CLE",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Wandy Peralta",
+      "fair_line": 5.0,
+      "line": 4.5,
+      "projection": 5.0,
+      "lean": "Pass",
+      "edge": 0.53,
+      "confidence": "pass",
+      "line_source": "prizepicks_est",
+      "ops": 0.731
     },
     {
       "gameId": "tex-ath-2026-08-15-824966",
@@ -2215,6 +2358,21 @@
       "confidence": "pass",
       "line_source": "prizepicks_est",
       "ops": 0.853
+    },
+    {
+      "gameId": "sd-cle-2026-08-15-824400",
+      "matchup": "SD @ CLE",
+      "player": "Wandy Peralta",
+      "team": "SD",
+      "prop": "strikeouts",
+      "fair_line": 3.5,
+      "line": 3.5,
+      "projection": 3.4,
+      "lean": "Pass",
+      "edge": -0.09,
+      "confidence": "pass",
+      "line_source": "prizepicks_est",
+      "k9": 5.61
     }
   ],
   "top_plays": [
@@ -2319,6 +2477,16 @@
       "matchup": "BOS @ PIT"
     },
     {
+      "player": "Luis Campusano",
+      "prop": "hitter_fantasy_score",
+      "lean": "Over",
+      "line": 8.0,
+      "projection": 9.8,
+      "edge": 1.83,
+      "confidence": "medium",
+      "matchup": "SD @ CLE"
+    },
+    {
       "player": "Juan Soto",
       "prop": "hitter_fantasy_score",
       "lean": "Over",
@@ -2327,16 +2495,6 @@
       "edge": 1.8,
       "confidence": "medium",
       "matchup": "WSH @ NYM"
-    },
-    {
-      "player": "Munetaka Murakami",
-      "prop": "hitter_fantasy_score",
-      "lean": "Over",
-      "line": 6.5,
-      "projection": 8.3,
-      "edge": 1.8,
-      "confidence": "medium",
-      "matchup": "CWS @ DET"
     }
   ]
 }
