@@ -48,6 +48,28 @@
       "notes": []
     },
     {
+      "player": "Gage Jump",
+      "team": "ATH",
+      "opponent": "TEX",
+      "matchup": "TEX @ ATH",
+      "game_date": "2026-08-14",
+      "props": [
+        {
+          "prop": "strikeouts",
+          "pick": "Over",
+          "model_line": 6.5,
+          "use_line": 4.5,
+          "projection": 6.4,
+          "edge": 1.9,
+          "confidence": "high",
+          "k9": 10.4,
+          "opp_k_rate": 0.228
+        }
+      ],
+      "headline": "Over 4.5 STRIKEOUTS (high confidence)",
+      "notes": []
+    },
+    {
       "player": "Chase Burns",
       "team": "CIN",
       "opponent": "MIA",
@@ -243,9 +265,7 @@
         }
       ],
       "headline": "Over 4.5 STRIKEOUTS (medium confidence)",
-      "notes": [
-        "Probable starter not fully confirmed \u2014 verify before betting."
-      ]
+      "notes": []
     },
     {
       "player": "Kyle Freeland",

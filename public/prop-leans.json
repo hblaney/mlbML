@@ -2,7 +2,7 @@
   "generated_at": "2026-08-14",
   "source": "prop-leans-v2",
   "note": "K uses estimated PrizePicks lines when posted line unknown. Hitter FS from top-4 OPS bats per team.",
-  "actionable_count": 114,
+  "actionable_count": 122,
   "leans": [
     {
       "gameId": "bos-pit-2026-08-14-823346",
@@ -129,6 +129,21 @@
       "confidence": "medium",
       "line_source": "prizepicks_est",
       "ops": 0.935
+    },
+    {
+      "gameId": "tex-ath-2026-08-14-824968",
+      "matchup": "TEX @ ATH",
+      "player": "Gage Jump",
+      "team": "ATH",
+      "prop": "strikeouts",
+      "fair_line": 6.5,
+      "line": 4.5,
+      "projection": 6.4,
+      "lean": "Over",
+      "edge": 1.9,
+      "confidence": "high",
+      "line_source": "prizepicks_est",
+      "k9": 10.4
     },
     {
       "gameId": "wsh-nym-2026-08-14-823591",
@@ -466,6 +481,22 @@
       "ops": 0.898
     },
     {
+      "gameId": "tex-ath-2026-08-14-824968",
+      "matchup": "TEX @ ATH",
+      "player": "Shea Langeliers",
+      "team": "ATH",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Kumar Rocker",
+      "fair_line": 7.0,
+      "line": 5.5,
+      "projection": 7.0,
+      "lean": "Over",
+      "edge": 1.5,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.829
+    },
+    {
       "gameId": "bal-tb-2026-08-14-822942",
       "matchup": "BAL @ TB",
       "player": "Yandy D\u00edaz",
@@ -704,6 +735,22 @@
       "confidence": "medium",
       "line_source": "prizepicks_est",
       "ops": 0.838
+    },
+    {
+      "gameId": "tex-ath-2026-08-14-824968",
+      "matchup": "TEX @ ATH",
+      "player": "Joc Pederson",
+      "team": "TEX",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Gage Jump",
+      "fair_line": 7.0,
+      "line": 5.5,
+      "projection": 6.8,
+      "lean": "Over",
+      "edge": 1.26,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.848
     },
     {
       "gameId": "nyy-tor-2026-08-14-822777",
@@ -977,6 +1024,22 @@
       "ops": 0.808
     },
     {
+      "gameId": "tex-ath-2026-08-14-824968",
+      "matchup": "TEX @ ATH",
+      "player": "Josh Jung",
+      "team": "TEX",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Gage Jump",
+      "fair_line": 6.0,
+      "line": 5.0,
+      "projection": 6.1,
+      "lean": "Over",
+      "edge": 1.06,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.802
+    },
+    {
       "gameId": "col-sf-2026-08-14-823185",
       "matchup": "COL @ SF",
       "player": "Rafael Devers",
@@ -1231,6 +1294,22 @@
       "ops": 0.764
     },
     {
+      "gameId": "tex-ath-2026-08-14-824968",
+      "matchup": "TEX @ ATH",
+      "player": "Wyatt Langford",
+      "team": "TEX",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Gage Jump",
+      "fair_line": 7.0,
+      "line": 6.0,
+      "projection": 6.9,
+      "lean": "Over",
+      "edge": 0.92,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.777
+    },
+    {
       "gameId": "sea-hou-2026-08-14-824159",
       "matchup": "SEA @ HOU",
       "player": "Julio Rodr\u00edguez",
@@ -1293,6 +1372,22 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.761
+    },
+    {
+      "gameId": "tex-ath-2026-08-14-824968",
+      "matchup": "TEX @ ATH",
+      "player": "Brandon Nimmo",
+      "team": "TEX",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Gage Jump",
+      "fair_line": 6.5,
+      "line": 5.5,
+      "projection": 6.4,
+      "lean": "Over",
+      "edge": 0.86,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.784
     },
     {
       "gameId": "nyy-tor-2026-08-14-822777",
@@ -1566,6 +1661,22 @@
       "ops": 0.816
     },
     {
+      "gameId": "tex-ath-2026-08-14-824968",
+      "matchup": "TEX @ ATH",
+      "player": "Tyler Soderstrom",
+      "team": "ATH",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Kumar Rocker",
+      "fair_line": 7.0,
+      "line": 6.0,
+      "projection": 6.8,
+      "lean": "Over",
+      "edge": 0.78,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.811
+    },
+    {
       "gameId": "wsh-nym-2026-08-14-823591",
       "matchup": "WSH @ NYM",
       "player": "Francisco Lindor",
@@ -1626,6 +1737,21 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "k9": 8.39
+    },
+    {
+      "gameId": "tex-ath-2026-08-14-824968",
+      "matchup": "TEX @ ATH",
+      "player": "Kumar Rocker",
+      "team": "TEX",
+      "prop": "strikeouts",
+      "fair_line": 5.0,
+      "line": 4.5,
+      "projection": 5.1,
+      "lean": "Over",
+      "edge": 0.63,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "k9": 8.35
     },
     {
       "gameId": "col-sf-2026-08-14-823185",
@@ -1904,6 +2030,38 @@
       "ops": 0.733
     },
     {
+      "gameId": "tex-ath-2026-08-14-824968",
+      "matchup": "TEX @ ATH",
+      "player": "Jonah Heim",
+      "team": "ATH",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Kumar Rocker",
+      "fair_line": 5.0,
+      "line": 4.5,
+      "projection": 5.1,
+      "lean": "Pass",
+      "edge": 0.55,
+      "confidence": "pass",
+      "line_source": "prizepicks_est",
+      "ops": 0.721
+    },
+    {
+      "gameId": "tex-ath-2026-08-14-824968",
+      "matchup": "TEX @ ATH",
+      "player": "Carlos Cortes",
+      "team": "ATH",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Kumar Rocker",
+      "fair_line": 6.0,
+      "line": 5.5,
+      "projection": 6.0,
+      "lean": "Pass",
+      "edge": 0.53,
+      "confidence": "pass",
+      "line_source": "prizepicks_est",
+      "ops": 0.743
+    },
+    {
       "gameId": "sea-hou-2026-08-14-824159",
       "matchup": "SEA @ HOU",
       "player": "Cole Young",
@@ -2141,6 +2299,16 @@
       "matchup": "MIL @ LAD"
     },
     {
+      "player": "Gage Jump",
+      "prop": "strikeouts",
+      "lean": "Over",
+      "line": 4.5,
+      "projection": 6.4,
+      "edge": 1.9,
+      "confidence": "high",
+      "matchup": "TEX @ ATH"
+    },
+    {
       "player": "Juan Soto",
       "prop": "hitter_fantasy_score",
       "lean": "Over",
@@ -2169,16 +2337,6 @@
       "edge": 1.82,
       "confidence": "medium",
       "matchup": "BAL @ TB"
-    },
-    {
-      "player": "Luis Campusano",
-      "prop": "hitter_fantasy_score",
-      "lean": "Over",
-      "line": 7.5,
-      "projection": 9.3,
-      "edge": 1.8,
-      "confidence": "medium",
-      "matchup": "SD @ CLE"
     }
   ]
 }
