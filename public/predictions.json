@@ -1,6 +1,6 @@
 {
   "generated_at": "2026-08-15",
-  "board_generated_at": "2026-08-15T15:02:18Z",
+  "board_generated_at": "2026-08-15T15:21:25Z",
   "trained_through": "2026-08-14",
   "model_version": "daily-auto-v6.1-raw-gbm",
   "pipeline_version": "unified-public-v21-raw-gbm-high-card",
@@ -626,8 +626,8 @@
       "awayMoneyline": 108,
       "homeRunline": 1.5,
       "awayRunline": -1.5,
-      "homeRunlinePrice": -203,
-      "awayRunlinePrice": 166,
+      "homeRunlinePrice": -204,
+      "awayRunlinePrice": 167,
       "marketTotal": 8.5,
       "overPrice": -105,
       "underPrice": -114,
