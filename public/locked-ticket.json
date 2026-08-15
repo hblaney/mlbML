@@ -1,15 +1,32 @@
 {
   "date": "2026-08-15",
-  "locked_at": "2026-08-15T12:50:58Z",
-  "board_generated_at": "2026-08-15T12:29:04Z",
+  "locked_at": "2026-08-15T14:07:35Z",
+  "board_generated_at": "2026-08-15T14:05:14Z",
   "model_version": "daily-auto-v6.1-raw-gbm",
   "pipeline_version": "unified-public-v21-raw-gbm-high-card",
   "source": "lock_daily_ticket.py",
-  "note": "Provisional skip \u2014 may upgrade to a High ticket later today if odds/gates clear.",
+  "note": "Upgraded from morning skip once a qualifying High ticket appeared (odds/gates were not ready at first publish).",
   "ticket": {
-    "kind": "skip",
-    "label": "No bet today",
-    "legs": [],
-    "leg_count": 0
-  }
+    "kind": "single",
+    "label": "BOS ML",
+    "legs": [
+      "BOS"
+    ],
+    "leg_count": 1,
+    "odds": -120,
+    "model_probability": 0.5712,
+    "leg_details": [
+      {
+        "team": "BOS",
+        "matchup": "BOS @ PIT",
+        "confidence": "High",
+        "pickProbability": 0.5712,
+        "edge": 0.025745454545454627,
+        "odds": -120,
+        "startsAt": "2026-08-15T23:15:00Z"
+      }
+    ]
+  },
+  "upgraded_from_skip": true,
+  "previous_locked_at": "2026-08-15T12:50:58Z"
 }
