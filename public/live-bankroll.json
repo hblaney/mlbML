@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-07",
+  "generated_at": "2026-08-16",
   "tracking_mode": "live_best_bets",
   "disclaimer": "Tracks locked system tickets + your Robinhood wallet. Stakes = live daily exposure for daily_high_two_leg (2-leg High stack when available; else one High single; else skip).",
   "strategy": "daily_high_two_leg",
@@ -14,33 +14,35 @@
     "active": true,
     "mode": "prove_out_20",
     "target_tickets": 20,
-    "tickets_graded": 11
+    "tickets_graded": 18
   },
   "daily_exposure_cap": 0.5,
   "started_at": "2026-06-22",
   "starting_balance": 23.0,
-  "balance": 5.73,
-  "wallet_balance": 5.73,
+  "balance": 4.84,
+  "wallet_balance": 4.84,
   "wallet_starting": 23.0,
   "wallet_locked": true,
   "wallet_record": "2-3",
   "wallet_note": "Confirmed by Henry Jun 24 \u2014 Robinhood wallet $10. Includes off-script bets + system BAL lock.",
-  "profit": -17.27,
-  "return_pct": -0.7509,
-  "record": "4-7",
-  "hit_rate": 0.3636,
+  "profit": -18.16,
+  "return_pct": -0.7896,
+  "record": "7-11",
+  "hit_rate": 0.3889,
   "backtest_ticket_hit_rate": 0.62,
-  "last_settled_date": "2026-08-07",
+  "last_settled_date": "2026-08-15",
   "today_ticket": {
-    "date": "2026-08-07",
-    "label": "No bet today",
-    "legs": [],
-    "leg_count": 0,
-    "stake_pct": 0.0,
-    "stake_amount": 0.0,
-    "status": "graded",
-    "odds": null,
-    "model_probability": null,
+    "date": "2026-08-16",
+    "label": "TEX ML",
+    "legs": [
+      "TEX"
+    ],
+    "leg_count": 1,
+    "stake_pct": 0.12,
+    "stake_amount": 0.58,
+    "status": "pending",
+    "odds": -127,
+    "model_probability": 0.6244,
     "prove_out": false
   },
   "checkpoints": [
@@ -219,6 +221,114 @@
         "TB"
       ],
       "stake_amount": 0.88,
+      "grade_source": "locked_ticket",
+      "prove_out": false
+    },
+    {
+      "date": "2026-08-08",
+      "profit": -1.03,
+      "balance": 4.7,
+      "return_pct": -0.7957,
+      "won": false,
+      "leg_count": 2,
+      "label": "CHC ML + STL ML",
+      "legs": [
+        "CHC",
+        "STL"
+      ],
+      "stake_amount": 1.03,
+      "grade_source": "locked_ticket",
+      "prove_out": false
+    },
+    {
+      "date": "2026-08-09",
+      "profit": 1.7684,
+      "balance": 6.47,
+      "return_pct": -0.7187,
+      "won": true,
+      "leg_count": 2,
+      "label": "MIA ML + DET ML",
+      "legs": [
+        "MIA",
+        "DET"
+      ],
+      "stake_amount": 0.85,
+      "grade_source": "locked_ticket",
+      "prove_out": false
+    },
+    {
+      "date": "2026-08-10",
+      "profit": -0.78,
+      "balance": 5.69,
+      "return_pct": -0.7526,
+      "won": false,
+      "leg_count": 1,
+      "label": "BOS ML",
+      "legs": [
+        "BOS"
+      ],
+      "stake_amount": 0.78,
+      "grade_source": "locked_ticket",
+      "prove_out": false
+    },
+    {
+      "date": "2026-08-11",
+      "profit": 0.3799,
+      "balance": 6.07,
+      "return_pct": -0.7361,
+      "won": true,
+      "leg_count": 1,
+      "label": "TB ML",
+      "legs": [
+        "TB"
+      ],
+      "stake_amount": 0.68,
+      "grade_source": "locked_ticket",
+      "prove_out": false
+    },
+    {
+      "date": "2026-08-12",
+      "profit": -0.73,
+      "balance": 5.34,
+      "return_pct": -0.7678,
+      "won": false,
+      "leg_count": 1,
+      "label": "ARI ML",
+      "legs": [
+        "ARI"
+      ],
+      "stake_amount": 0.73,
+      "grade_source": "locked_ticket",
+      "prove_out": false
+    },
+    {
+      "date": "2026-08-14",
+      "profit": -0.96,
+      "balance": 4.38,
+      "return_pct": -0.8096,
+      "won": false,
+      "leg_count": 2,
+      "label": "CHC ML + BOS ML",
+      "legs": [
+        "CHC",
+        "BOS"
+      ],
+      "stake_amount": 0.96,
+      "grade_source": "locked_ticket",
+      "prove_out": false
+    },
+    {
+      "date": "2026-08-15",
+      "profit": 0.4609,
+      "balance": 4.84,
+      "return_pct": -0.7896,
+      "won": true,
+      "leg_count": 1,
+      "label": "BOS ML",
+      "legs": [
+        "BOS"
+      ],
+      "stake_amount": 0.53,
       "grade_source": "locked_ticket",
       "prove_out": false
     }
@@ -429,6 +539,135 @@
       "won": true,
       "odds": 191,
       "model_probability": 0.44347134,
+      "grade_source": "locked_ticket",
+      "prove_out": false
+    },
+    {
+      "date": "2026-08-08",
+      "kind": "parlay",
+      "label": "CHC ML + STL ML",
+      "legs": [
+        "CHC",
+        "STL"
+      ],
+      "leg_count": 2,
+      "stake_pct": 0.18,
+      "stake_amount": 1.03,
+      "profit": -1.03,
+      "balance_after": 4.7,
+      "won": false,
+      "odds": 168,
+      "model_probability": 0.44183601,
+      "grade_source": "locked_ticket",
+      "prove_out": false
+    },
+    {
+      "date": "2026-08-09",
+      "kind": "parlay",
+      "label": "MIA ML + DET ML",
+      "legs": [
+        "MIA",
+        "DET"
+      ],
+      "leg_count": 2,
+      "stake_pct": 0.18,
+      "stake_amount": 0.85,
+      "profit": 1.77,
+      "balance_after": 6.47,
+      "won": true,
+      "odds": 208,
+      "model_probability": 0.37716805,
+      "grade_source": "locked_ticket",
+      "prove_out": false
+    },
+    {
+      "date": "2026-08-10",
+      "kind": "single",
+      "label": "BOS ML",
+      "legs": [
+        "BOS"
+      ],
+      "leg_count": 1,
+      "stake_pct": 0.12,
+      "stake_amount": 0.78,
+      "profit": -0.78,
+      "balance_after": 5.69,
+      "won": false,
+      "odds": -153,
+      "model_probability": 0.7,
+      "grade_source": "locked_ticket",
+      "prove_out": false
+    },
+    {
+      "date": "2026-08-11",
+      "kind": "single",
+      "label": "TB ML",
+      "legs": [
+        "TB"
+      ],
+      "leg_count": 1,
+      "stake_pct": 0.12,
+      "stake_amount": 0.68,
+      "profit": 0.38,
+      "balance_after": 6.07,
+      "won": true,
+      "odds": -179,
+      "model_probability": 0.6948,
+      "grade_source": "locked_ticket",
+      "prove_out": false
+    },
+    {
+      "date": "2026-08-12",
+      "kind": "single",
+      "label": "ARI ML",
+      "legs": [
+        "ARI"
+      ],
+      "leg_count": 1,
+      "stake_pct": 0.12,
+      "stake_amount": 0.73,
+      "profit": -0.73,
+      "balance_after": 5.34,
+      "won": false,
+      "odds": -170,
+      "model_probability": 0.6558,
+      "grade_source": "locked_ticket",
+      "prove_out": false
+    },
+    {
+      "date": "2026-08-14",
+      "kind": "parlay",
+      "label": "CHC ML + BOS ML",
+      "legs": [
+        "CHC",
+        "BOS"
+      ],
+      "leg_count": 2,
+      "stake_pct": 0.18,
+      "stake_amount": 0.96,
+      "profit": -0.96,
+      "balance_after": 4.38,
+      "won": false,
+      "odds": 181,
+      "model_probability": 0.46150308,
+      "grade_source": "locked_ticket",
+      "prove_out": false
+    },
+    {
+      "date": "2026-08-15",
+      "kind": "single",
+      "label": "BOS ML",
+      "legs": [
+        "BOS"
+      ],
+      "leg_count": 1,
+      "stake_pct": 0.12,
+      "stake_amount": 0.53,
+      "profit": 0.46,
+      "balance_after": 4.84,
+      "won": true,
+      "odds": -115,
+      "model_probability": 0.5712,
       "grade_source": "locked_ticket",
       "prove_out": false
     }

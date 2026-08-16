@@ -606,6 +606,7 @@ def grade_locked_ticket_from_details(ticket: dict, day_iso: str) -> dict | None:
         team = str(leg).upper()
         detail = detail_by_team.get(team, {})
         odds = detail.get("odds")
+        model_probability = detail.get("pickProbability") or detail.get("model_probability") or 0.5
         status = team_leg_status_on_day(team, day, abbr_map)
         if status is None or odds is None:
             return None
@@ -613,9 +614,19 @@ def grade_locked_ticket_from_details(ticket: dict, day_iso: str) -> dict | None:
             all_decided = False
             continue
         if status == "void":
-            leg_rows.append({"team": team, "odds": odds, "won": True, "void": True})
+            leg_rows.append(
+                {"team": team, "odds": odds, "won": True, "void": True, "model_probability": model_probability}
+            )
             continue
-        leg_rows.append({"team": team, "odds": odds, "won": status == "won", "void": False})
+        leg_rows.append(
+            {
+                "team": team,
+                "odds": odds,
+                "won": status == "won",
+                "void": False,
+                "model_probability": model_probability,
+            }
+        )
 
     if not all_decided:
         return None
