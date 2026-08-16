@@ -1,7 +1,8 @@
 """Odds provider for market features and best-bet edges.
 
-Set ODDS_API_KEY to use The Odds API. Without a key, the model uses neutral
-market priors so local development still works.
+Free sources (no key): Action Network scoreboard, The Odds Gap lineshop,
+and ESPN/DraftKings fallback. Set ODDS_USE_ODDSAPI=1 and ODDS_API_KEY to
+prefer The Odds API when you have credits.
 """
 
 from __future__ import annotations
@@ -10,7 +11,9 @@ import json
 import os
 import ssl
 import time
+from datetime import datetime, timedelta
 from pathlib import Path
+from zoneinfo import ZoneInfo
 from urllib.error import HTTPError
 from urllib.parse import urlencode
 from urllib.request import urlopen
@@ -22,7 +25,23 @@ from mlb_api import GameRecord, load_team_names
 
 ODDS_API_BASE = "https://api.the-odds-api.com/v4/sports/baseball_mlb/odds"
 ODDS_HISTORICAL_API_BASE = "https://api.the-odds-api.com/v4/historical/sports/baseball_mlb/odds"
+ODDS_GAP_LINEShop_URL = os.getenv("ODDS_GAP_LINESHOP_URL", "https://theoddsgap.com/api/lineshop")
+ODDS_GAP_PREFERRED_BOOKS = tuple(
+    book.strip()
+    for book in os.getenv(
+        "ODDS_GAP_PREFERRED_BOOKS",
+        "draftkings,fanduel,betmgm,pinnacle,williamhill_us",
+    ).split(",")
+    if book.strip()
+)
 ESPN_SCOREBOARD_API = "https://site.api.espn.com/apis/site/v2/sports/baseball/mlb/scoreboard"
+ACTION_NETWORK_SCOREBOARD_URL = os.getenv(
+    "ACTION_NETWORK_SCOREBOARD_URL",
+    "https://api.actionnetwork.com/web/v1/scoreboard/mlb",
+)
+TEAM_NAME_ALIASES = {
+    "oakland athletics": "athletics",
+}
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 ODDS_CACHE_PATH = PROJECT_ROOT / "data" / "odds_live_cache.json"
 ODDS_CACHE_TTL_SECONDS = int(os.getenv("ODDS_CACHE_TTL_SECONDS", "21600"))
@@ -189,6 +208,279 @@ def _espn_close_line(side: dict | None) -> float | None:
         return None
 
 
+def _books_for_averaging(book_keys: tuple[str, ...], available: dict) -> list[str]:
+    chosen = [book for book in book_keys if book in available]
+    if chosen:
+        return chosen
+    return list(available.keys())
+
+
+def _avg_from_books(
+    books: dict,
+    book_keys: tuple[str, ...],
+    *,
+    home_field: str,
+    away_field: str,
+) -> tuple[int, int, int]:
+    home_prices: list[int] = []
+    away_prices: list[int] = []
+    for book in _books_for_averaging(book_keys, books):
+        row = books.get(book) or {}
+        home_price = _parse_american(row.get(home_field))
+        away_price = _parse_american(row.get(away_field))
+        if home_price and away_price:
+            home_prices.append(home_price)
+            away_prices.append(away_price)
+    if not home_prices:
+        return 0, 0, 0
+    return _average_price(home_prices), _average_price(away_prices), len(home_prices)
+
+
+def _normalize_team_key(name: str) -> str:
+    lowered = name.strip().lower()
+    return TEAM_NAME_ALIASES.get(lowered, lowered)
+
+
+def _merge_markets(*markets: dict[tuple[str, str], MarketSnapshot]) -> dict[tuple[str, str], MarketSnapshot]:
+    merged: dict[tuple[str, str], MarketSnapshot] = {}
+    for market in markets:
+        for (away, home), snapshot in market.items():
+            key = (_normalize_team_key(away), _normalize_team_key(home))
+            existing = merged.get(key)
+            if existing is None or snapshot.source_count > existing.source_count:
+                merged[key] = snapshot
+    return merged
+
+
+def _pick_best_oddsgap_games(games: list[dict]) -> list[dict]:
+    buckets: dict[tuple[str, str], list[dict]] = {}
+    for game in games:
+        away = str(game.get("away") or "").strip()
+        home = str(game.get("home") or "").strip()
+        if not away or not home:
+            continue
+        buckets.setdefault((away.lower(), home.lower()), []).append(game)
+
+    picked: list[dict] = []
+    for rows in buckets.values():
+
+        def score(row: dict) -> tuple[int, str]:
+            books = row.get("book_odds") or {}
+            valid = sum(
+                1
+                for book in ODDS_GAP_PREFERRED_BOOKS
+                if (books.get(book) or {}).get("home_odds") and (books.get(book) or {}).get("away_odds")
+            )
+            if not valid:
+                valid = sum(
+                    1
+                    for row_b in books.values()
+                    if row_b.get("home_odds") and row_b.get("away_odds")
+                )
+            return valid, str(row.get("commence_time") or "")
+
+        picked.append(max(rows, key=score))
+    return picked
+
+
+def _game_date_chicago(raw: str | None):
+    if not raw:
+        return None
+    try:
+        return datetime.fromisoformat(raw.replace("Z", "+00:00")).astimezone(ZoneInfo("America/Chicago")).date()
+    except ValueError:
+        return None
+
+
+def fetch_oddsgap_moneyline_market() -> dict[tuple[str, str], MarketSnapshot]:
+    """Free multi-book odds via The Odds Gap lineshop (no API key)."""
+    global LAST_ODDS_ERROR, LAST_ODDS_SOURCE
+
+    try:
+        with _urlopen(ODDS_GAP_LINEShop_URL, timeout=35) as response:
+            payload = json.load(response)
+    except Exception as error:
+        LAST_ODDS_ERROR = f"The Odds Gap lineshop failed: {error}"
+        print(LAST_ODDS_ERROR)
+        return {}
+
+    mlb_games = [
+        game
+        for game in payload.get("games") or []
+        if game.get("sport") == "baseball_mlb" or str(game.get("sport_label") or "").upper() == "MLB"
+    ]
+    today = datetime.now(ZoneInfo("America/Chicago")).date()
+    mlb_games = [
+        game
+        for game in mlb_games
+        if _game_date_chicago(game.get("commence_time")) in {today, today + timedelta(days=1)}
+    ]
+    mlb_games = _pick_best_oddsgap_games(mlb_games)
+
+    market: dict[tuple[str, str], MarketSnapshot] = {}
+    for game in mlb_games:
+        away_name = str(game.get("away") or "").strip()
+        home_name = str(game.get("home") or "").strip()
+        book_odds = game.get("book_odds") or {}
+        home_ml, away_ml, source_count = _avg_from_books(
+            book_odds,
+            ODDS_GAP_PREFERRED_BOOKS,
+            home_field="home_odds",
+            away_field="away_odds",
+        )
+        if not home_ml or not away_ml:
+            continue
+
+        spread_books = ((game.get("spread_data") or {}).get("all_books") or {})
+        home_rl = away_rl = None
+        home_rl_price = away_rl_price = 0
+        if spread_books:
+            _, _, spread_count = _avg_from_books(
+                spread_books,
+                ODDS_GAP_PREFERRED_BOOKS,
+                home_field="home_juice",
+                away_field="away_juice",
+            )
+            if spread_count:
+                home_lines = []
+                away_lines = []
+                home_juices = []
+                away_juices = []
+                for book in _books_for_averaging(ODDS_GAP_PREFERRED_BOOKS, spread_books):
+                    row = spread_books.get(book) or {}
+                    if row.get("home_line") is None or row.get("away_line") is None:
+                        continue
+                    home_lines.append(float(row["home_line"]))
+                    away_lines.append(float(row["away_line"]))
+                    home_juices.append(_parse_american(row.get("home_juice")))
+                    away_juices.append(_parse_american(row.get("away_juice")))
+                if home_lines:
+                    home_rl = sum(home_lines) / len(home_lines)
+                    away_rl = sum(away_lines) / len(away_lines)
+                    home_rl_price = _average_price([p for p in home_juices if p])
+                    away_rl_price = _average_price([p for p in away_juices if p])
+
+        totals_block = game.get("totals_data") or {}
+        total_books = totals_block.get("all_books") or {}
+        consensus_total = totals_block.get("consensus_total")
+        over_prices: list[int] = []
+        under_prices: list[int] = []
+        totals: list[float] = []
+        target_total = float(consensus_total) if consensus_total is not None else None
+        for book in _books_for_averaging(ODDS_GAP_PREFERRED_BOOKS, total_books):
+            row = total_books.get(book) or {}
+            total = row.get("total")
+            over = _parse_american(row.get("over_juice"))
+            under = _parse_american(row.get("under_juice"))
+            if total is None or not over or not under:
+                continue
+            total_f = float(total)
+            if target_total is not None and abs(total_f - target_total) > 0.01:
+                continue
+            totals.append(total_f)
+            over_prices.append(over)
+            under_prices.append(under)
+
+        market[(_normalize_team_key(away_name), _normalize_team_key(home_name))] = MarketSnapshot(
+            home_moneyline=home_ml,
+            away_moneyline=away_ml,
+            home_implied_probability=implied_probability(home_ml),
+            away_implied_probability=implied_probability(away_ml),
+            market_total=sum(totals) / len(totals) if totals else (target_total or 8.5),
+            over_price=_average_price(over_prices),
+            under_price=_average_price(under_prices),
+            home_runline=float(home_rl if home_rl is not None else -1.5),
+            away_runline=float(away_rl if away_rl is not None else 1.5),
+            home_runline_price=home_rl_price,
+            away_runline_price=away_rl_price,
+            source_count=source_count,
+        )
+
+    if market:
+        LAST_ODDS_ERROR = None
+        if not LAST_ODDS_SOURCE:
+            LAST_ODDS_SOURCE = "The Odds Gap"
+        print(f"oddsgap_odds_ok games={len(market)} books={','.join(ODDS_GAP_PREFERRED_BOOKS)}")
+    else:
+        if not LAST_ODDS_ERROR:
+            LAST_ODDS_ERROR = "The Odds Gap returned no MLB moneylines"
+        print(LAST_ODDS_ERROR or "oddsgap_odds_empty")
+    return market
+
+
+def fetch_action_network_moneyline_market() -> dict[tuple[str, str], MarketSnapshot]:
+    """Free multi-book odds via Action Network's public scoreboard API (no key)."""
+    global LAST_ODDS_ERROR, LAST_ODDS_SOURCE
+
+    try:
+        with _urlopen(ACTION_NETWORK_SCOREBOARD_URL, timeout=25) as response:
+            payload = json.load(response)
+    except Exception as error:
+        LAST_ODDS_ERROR = f"Action Network odds failed: {error}"
+        print(LAST_ODDS_ERROR)
+        return {}
+
+    market: dict[tuple[str, str], MarketSnapshot] = {}
+    for game in payload.get("games") or []:
+        if game.get("status") in {"complete", "closed"} or game.get("real_status") == "closed":
+            continue
+
+        teams = {team["id"]: str(team.get("full_name") or "").strip() for team in game.get("teams") or []}
+        away_name = teams.get(game.get("away_team_id"), "")
+        home_name = teams.get(game.get("home_team_id"), "")
+        if not away_name or not home_name:
+            continue
+
+        game_lines = [
+            row
+            for row in game.get("odds") or []
+            if row.get("type") == "game" and row.get("ml_home") and row.get("ml_away")
+        ]
+        if not game_lines:
+            continue
+
+        home_mls = [_parse_american(row.get("ml_home")) for row in game_lines]
+        away_mls = [_parse_american(row.get("ml_away")) for row in game_lines]
+        home_mls = [price for price in home_mls if price]
+        away_mls = [price for price in away_mls if price]
+        if not home_mls or not away_mls:
+            continue
+
+        home_rls = [float(row["spread_home"]) for row in game_lines if row.get("spread_home") is not None]
+        away_rls = [float(row["spread_away"]) for row in game_lines if row.get("spread_away") is not None]
+        home_rl_prices = [_parse_american(row.get("spread_home_line")) for row in game_lines]
+        away_rl_prices = [_parse_american(row.get("spread_away_line")) for row in game_lines]
+        totals = [float(row["total"]) for row in game_lines if row.get("total") is not None]
+        over_prices = [_parse_american(row.get("over")) for row in game_lines]
+        under_prices = [_parse_american(row.get("under")) for row in game_lines]
+
+        home_ml = _average_price(home_mls)
+        away_ml = _average_price(away_mls)
+        market[(_normalize_team_key(away_name), _normalize_team_key(home_name))] = MarketSnapshot(
+            home_moneyline=home_ml,
+            away_moneyline=away_ml,
+            home_implied_probability=implied_probability(home_ml),
+            away_implied_probability=implied_probability(away_ml),
+            market_total=sum(totals) / len(totals) if totals else 8.5,
+            over_price=_average_price([price for price in over_prices if price]),
+            under_price=_average_price([price for price in under_prices if price]),
+            home_runline=sum(home_rls) / len(home_rls) if home_rls else -1.5,
+            away_runline=sum(away_rls) / len(away_rls) if away_rls else 1.5,
+            home_runline_price=_average_price([price for price in home_rl_prices if price]),
+            away_runline_price=_average_price([price for price in away_rl_prices if price]),
+            source_count=len(home_mls),
+        )
+
+    if market:
+        LAST_ODDS_ERROR = None
+        LAST_ODDS_SOURCE = "Action Network"
+        print(f"action_network_odds_ok games={len(market)}")
+    else:
+        LAST_ODDS_ERROR = "Action Network returned no MLB moneylines"
+        print(LAST_ODDS_ERROR)
+    return market
+
+
 def fetch_espn_moneyline_market(*, game_date: str | None = None) -> dict[tuple[str, str], MarketSnapshot]:
     """Free fallback: DraftKings lines via ESPN's public scoreboard API (no key)."""
     global LAST_ODDS_ERROR, LAST_ODDS_SOURCE
@@ -261,7 +553,7 @@ def fetch_espn_moneyline_market(*, game_date: str | None = None) -> dict[tuple[s
         if away_rl is None:
             away_rl = -home_rl if home_rl is not None else 1.5
 
-        market[(away_name.lower(), home_name.lower())] = MarketSnapshot(
+        market[(_normalize_team_key(away_name), _normalize_team_key(home_name))] = MarketSnapshot(
             home_moneyline=home_ml,
             away_moneyline=away_ml,
             home_implied_probability=implied_probability(home_ml),
@@ -278,12 +570,51 @@ def fetch_espn_moneyline_market(*, game_date: str | None = None) -> dict[tuple[s
 
     if market:
         LAST_ODDS_ERROR = None
-        LAST_ODDS_SOURCE = "ESPN/DraftKings"
-        _write_cached_market(market)
+        if not LAST_ODDS_SOURCE:
+            LAST_ODDS_SOURCE = "ESPN/DraftKings"
         print(f"espn_odds_ok games={len(market)}")
     else:
-        LAST_ODDS_ERROR = "ESPN odds fallback returned no moneylines"
-        print(LAST_ODDS_ERROR)
+        if not LAST_ODDS_ERROR:
+            LAST_ODDS_ERROR = "ESPN odds fallback returned no moneylines"
+        print(LAST_ODDS_ERROR or "espn_odds_empty")
+    return market
+
+
+def fetch_free_moneyline_market() -> dict[tuple[str, str], MarketSnapshot]:
+    """Merge free odds feeds, preferring the source with the most books per game."""
+    global LAST_ODDS_ERROR, LAST_ODDS_SOURCE
+
+    skip_action = os.getenv("ODDS_SKIP_ACTIONNETWORK", "").strip().lower() in {"1", "true", "yes"}
+    skip_oddsgap = os.getenv("ODDS_SKIP_ODDSGAP", "").strip().lower() in {"1", "true", "yes"}
+    skip_espn = os.getenv("ODDS_SKIP_ESPN", "").strip().lower() in {"1", "true", "yes"}
+
+    parts: list[dict[tuple[str, str], MarketSnapshot]] = []
+    sources: list[str] = []
+
+    if not skip_action:
+        action_network = fetch_action_network_moneyline_market()
+        if action_network:
+            parts.append(action_network)
+            sources.append("Action Network")
+    if not skip_oddsgap:
+        oddsgap = fetch_oddsgap_moneyline_market()
+        if oddsgap:
+            parts.append(oddsgap)
+            sources.append("The Odds Gap")
+    if not skip_espn:
+        espn = fetch_espn_moneyline_market()
+        if espn:
+            parts.append(espn)
+            sources.append("ESPN")
+
+    if not parts:
+        return {}
+
+    market = _merge_markets(*parts)
+    LAST_ODDS_ERROR = None
+    LAST_ODDS_SOURCE = " + ".join(sources)
+    _write_cached_market(market)
+    print(f"free_odds_ok games={len(market)} sources={LAST_ODDS_SOURCE}")
     return market
 
 
@@ -306,35 +637,27 @@ def fetch_moneyline_market(*, force_refresh: bool = False) -> dict[tuple[str, st
 
     _load_env_file()
     api_key = os.getenv("ODDS_API_KEY")
-    prefer_espn = os.getenv("ODDS_PREFER_ESPN", "").strip().lower() in {"1", "true", "yes"}
+    use_oddsapi = os.getenv("ODDS_USE_ODDSAPI", "").strip().lower() in {"1", "true", "yes"}
 
-    def _fallback_espn_or_cache(reason: str) -> dict[tuple[str, str], MarketSnapshot]:
-        LAST_ODDS_ERROR = reason
-        print(reason)
-        espn = fetch_espn_moneyline_market()
-        if espn:
-            return espn
+    free_market = fetch_free_moneyline_market()
+    if free_market and not use_oddsapi:
+        return free_market
+
+    if not api_key:
+        if free_market:
+            return free_market
         cached = _read_cached_market(max_age_seconds=7 * 24 * 60 * 60)
         if cached:
             LAST_ODDS_SOURCE = LAST_ODDS_SOURCE or "cache"
             return cached
+        LAST_ODDS_ERROR = LAST_ODDS_ERROR or "No free odds sources returned MLB moneylines"
         return {}
-
-    if prefer_espn or not api_key:
-        if not api_key and not prefer_espn:
-            print("ODDS_API_KEY is not set — trying ESPN odds fallback")
-        espn = fetch_espn_moneyline_market()
-        if espn:
-            return espn
-        if not api_key:
-            LAST_ODDS_ERROR = LAST_ODDS_ERROR or "ODDS_API_KEY is not set"
-            return {}
 
     params = urlencode(
         {
             "apiKey": api_key,
             "regions": os.getenv("ODDS_REGIONS", "us"),
-            "markets": os.getenv("ODDS_MARKETS", "h2h,spreads,totals"),
+            "markets": os.getenv("ODDS_MARKETS", "h2h"),
             "oddsFormat": "american",
         }
     )
@@ -344,9 +667,21 @@ def fetch_moneyline_market(*, force_refresh: bool = False) -> dict[tuple[str, st
             events = json.load(response)
     except HTTPError as error:
         body = error.read().decode("utf-8", errors="replace")
-        return _fallback_espn_or_cache(f"The Odds API HTTP {error.code}: {body[:240]}")
+        print(f"The Odds API HTTP {error.code}: {body[:240]}")
+        if free_market:
+            return free_market
+        cached = _read_cached_market(max_age_seconds=7 * 24 * 60 * 60)
+        if cached:
+            LAST_ODDS_SOURCE = LAST_ODDS_SOURCE or "cache"
+            return cached
+        LAST_ODDS_ERROR = body[:240]
+        return {}
     except Exception as error:
-        return _fallback_espn_or_cache(f"The Odds API request failed: {error}")
+        print(f"The Odds API request failed: {error}")
+        if free_market:
+            return free_market
+        LAST_ODDS_ERROR = str(error)
+        return {}
 
     LAST_ODDS_ERROR = None
 
@@ -391,7 +726,7 @@ def fetch_moneyline_market(*, force_refresh: bool = False) -> dict[tuple[str, st
 
         home_price = _average_price(home_prices)
         away_price = _average_price(away_prices)
-        market[(away_name.lower(), home_name.lower())] = MarketSnapshot(
+        market[(_normalize_team_key(away_name), _normalize_team_key(home_name))] = MarketSnapshot(
             home_moneyline=home_price,
             away_moneyline=away_price,
             home_implied_probability=implied_probability(home_price),
@@ -407,11 +742,21 @@ def fetch_moneyline_market(*, force_refresh: bool = False) -> dict[tuple[str, st
         )
 
     if market:
-        LAST_ODDS_SOURCE = "The Odds API"
-        _write_cached_market(market)
-        return market
+        merged = _merge_markets(free_market, market) if free_market else market
+        LAST_ODDS_SOURCE = "The Odds API" if not free_market else f"{LAST_ODDS_SOURCE or 'free odds'} + The Odds API"
+        _write_cached_market(merged)
+        return merged
 
-    return _fallback_espn_or_cache("The Odds API returned no events")
+    if free_market:
+        return free_market
+
+    cached = _read_cached_market(max_age_seconds=7 * 24 * 60 * 60)
+    if cached:
+        LAST_ODDS_SOURCE = LAST_ODDS_SOURCE or "cache"
+        return cached
+
+    LAST_ODDS_ERROR = "The Odds API returned no events"
+    return {}
 
 
 def _parse_market_events(events: list[dict]) -> dict[tuple[str, str], MarketSnapshot]:
@@ -486,7 +831,7 @@ def market_for_game(game: GameRecord, market: dict[tuple[str, str], MarketSnapsh
         return MarketSnapshot()
 
     names = load_team_names()
-    away = names.get(game.away_team_id, "").lower()
-    home = names.get(game.home_team_id, "").lower()
+    away = _normalize_team_key(names.get(game.away_team_id, ""))
+    home = _normalize_team_key(names.get(game.home_team_id, ""))
 
     return market.get((away, home), MarketSnapshot())

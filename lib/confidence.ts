@@ -23,16 +23,12 @@ export type ConfidenceContext = {
   rawPick?: number;
   eraDiff?: number;
   formEdge?: number;
-  marketOverride?: boolean;
 };
 
 export function confidenceFromPickProbability(
   probability: number,
   context: ConfidenceContext = {}
 ): GamePrediction["confidence"] {
-  if (context.marketOverride) {
-    return "Low";
-  }
   const starterCertain = context.starterCertain ?? true;
   const marketAvailable = context.marketAvailable ?? true;
   const eraDiff = Math.round((context.eraDiff ?? 0) * 1e6) / 1e6;
@@ -90,7 +86,6 @@ export function assertConfidenceMatchesPick(
     | "awayMoneyline"
     | "eraDiff"
     | "formEdge"
-    | "marketOverride"
   >
 ): void {
   const pick = game.pickProbability ?? 0;
@@ -102,7 +97,6 @@ export function assertConfidenceMatchesPick(
     rawPick: game.rawPickProbability ?? pick,
     eraDiff: game.eraDiff ?? 0,
     formEdge: game.formEdge ?? 0,
-    marketOverride: game.marketOverride,
   });
   if (game.confidence !== expected) {
     throw new Error(

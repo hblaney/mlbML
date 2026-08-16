@@ -57,12 +57,8 @@ export type GamePrediction = {
   eraDiff?: number;
   /** Recent form edge (pick team 10-game win% minus opponent 10-game win%) — High/Elite gate. */
   formEdge?: number;
-  /** pa_monte_carlo | gbm_fallback | raw_gbm */
+  /** pa_monte_carlo | gbm_fallback */
   predictionSource?: string;
-  /** True when GBM faded a live favorite and we published the sportsbook side instead. */
-  marketOverride?: boolean;
-  /** GBM's original side before any market-favorite override. */
-  gbmPredictedTeam?: string;
   lineupSource?: string | null;
   nSims?: number;
   simRawHomeWinProbability?: number | null;

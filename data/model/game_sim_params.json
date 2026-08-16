@@ -1,6 +1,6 @@
 {
   "calibration": "identity",
-  "architecture": "pa_monte_carlo_v1",
+  "architecture": "pa_monte_carlo_v2_role_bullpen",
   "x": [0.0, 0.5, 1.0],
   "y": [0.0, 0.5, 1.0],
   "n_sims_default": 8000,

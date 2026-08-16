@@ -15,14 +15,14 @@
         "edge": 2.14
       },
       {
-        "player": "Willson Contreras",
+        "player": "Rafael Flores Jr.",
         "prop": "hitter_fantasy_score",
-        "line": 5.0,
+        "line": 9.5,
         "pick": "Over",
-        "projection": 7.1,
+        "projection": 11.6,
         "matchup": "BOS @ PIT",
         "confidence": "high",
-        "edge": 2.1
+        "edge": 2.12
       },
       {
         "player": "Tarik Skubal",
@@ -35,7 +35,7 @@
         "edge": 1.99
       }
     ],
-    "score": 7.08,
+    "score": 7.1,
     "same_game_warning": false
   },
   "top_plays": [
@@ -50,12 +50,12 @@
       "matchup": "CWS @ DET"
     },
     {
-      "player": "Willson Contreras",
+      "player": "Rafael Flores Jr.",
       "prop": "hitter_fantasy_score",
       "lean": "Over",
-      "line": 5.0,
-      "projection": 7.1,
-      "edge": 2.1,
+      "line": 9.5,
+      "projection": 11.6,
+      "edge": 2.12,
       "confidence": "high",
       "matchup": "BOS @ PIT"
     },
@@ -78,6 +78,16 @@
       "edge": 2.07,
       "confidence": "high",
       "matchup": "BOS @ PIT"
+    },
+    {
+      "player": "Eduardo Valencia",
+      "prop": "hitter_fantasy_score",
+      "lean": "Over",
+      "line": 25.0,
+      "projection": 27.1,
+      "edge": 2.07,
+      "confidence": "high",
+      "matchup": "CWS @ DET"
     },
     {
       "player": "Pete Crow-Armstrong",
@@ -118,6 +128,16 @@
       "edge": 1.97,
       "confidence": "medium",
       "matchup": "SD @ CLE"
+    },
+    {
+      "player": "Joshua Kuroda-Grauer",
+      "prop": "hitter_fantasy_score",
+      "lean": "Over",
+      "line": 13.0,
+      "projection": 14.9,
+      "edge": 1.95,
+      "confidence": "medium",
+      "matchup": "TEX @ ATH"
     },
     {
       "player": "Drew Anderson",
@@ -138,26 +158,6 @@
       "edge": 1.92,
       "confidence": "medium",
       "matchup": "BOS @ PIT"
-    },
-    {
-      "player": "Juan Soto",
-      "prop": "hitter_fantasy_score",
-      "lean": "Over",
-      "line": 6.5,
-      "projection": 8.3,
-      "edge": 1.84,
-      "confidence": "medium",
-      "matchup": "WSH @ NYM"
-    },
-    {
-      "player": "James Wood",
-      "prop": "hitter_fantasy_score",
-      "lean": "Over",
-      "line": 6.0,
-      "projection": 7.8,
-      "edge": 1.84,
-      "confidence": "medium",
-      "matchup": "WSH @ NYM"
     }
   ],
   "all_actionable": [
@@ -172,12 +172,12 @@
       "matchup": "CWS @ DET"
     },
     {
-      "player": "Willson Contreras",
+      "player": "Rafael Flores Jr.",
       "prop": "hitter_fantasy_score",
-      "line": 5.0,
+      "line": 9.5,
       "lean": "Over",
-      "projection": 7.1,
-      "edge": 2.1,
+      "projection": 11.6,
+      "edge": 2.12,
       "confidence": "high",
       "matchup": "BOS @ PIT"
     },
@@ -200,6 +200,16 @@
       "edge": 2.07,
       "confidence": "high",
       "matchup": "BOS @ PIT"
+    },
+    {
+      "player": "Eduardo Valencia",
+      "prop": "hitter_fantasy_score",
+      "line": 25.0,
+      "lean": "Over",
+      "projection": 27.1,
+      "edge": 2.07,
+      "confidence": "high",
+      "matchup": "CWS @ DET"
     },
     {
       "player": "Pete Crow-Armstrong",
@@ -250,6 +260,16 @@
       "edge": 1.95,
       "confidence": "high",
       "matchup": "CWS @ DET"
+    },
+    {
+      "player": "Joshua Kuroda-Grauer",
+      "prop": "hitter_fantasy_score",
+      "line": 13.0,
+      "lean": "Over",
+      "projection": 14.9,
+      "edge": 1.95,
+      "confidence": "medium",
+      "matchup": "TEX @ ATH"
     },
     {
       "player": "Jahmai Jones",
@@ -340,26 +360,6 @@
       "edge": 1.75,
       "confidence": "medium",
       "matchup": "MIA @ CIN"
-    },
-    {
-      "player": "Dylan Cease",
-      "prop": "strikeouts",
-      "line": 6.5,
-      "lean": "Over",
-      "projection": 8.2,
-      "edge": 1.72,
-      "confidence": "high",
-      "matchup": "NYY @ TOR"
-    },
-    {
-      "player": "Logan Henderson",
-      "prop": "strikeouts",
-      "line": 5.0,
-      "lean": "Over",
-      "projection": 6.7,
-      "edge": 1.72,
-      "confidence": "high",
-      "matchup": "MIL @ LAD"
     }
   ]
 }
