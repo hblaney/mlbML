@@ -32,7 +32,22 @@ type FavoriteRow = {
 };
 
 function missingSupabaseError() {
-  return "Supabase is not configured yet. Add NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY in Vercel.";
+  return "Supabase is not configured yet. Add NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY in Vercel (then redeploy).";
+}
+
+function friendlyAuthError(error: { message?: string } | null | undefined): string {
+  const message = (error?.message || "").trim() || "Login failed.";
+  // Browser TypeError when DNS/network can't reach the Supabase project URL.
+  if (/failed to fetch|networkerror|load failed|fetch failed/i.test(message)) {
+    return (
+      "Can't reach Supabase (Failed to fetch). Your project URL is missing, paused, or deleted. " +
+      "In Supabase → Project Settings → API, copy Project URL + anon public key into Vercel env vars, then redeploy."
+    );
+  }
+  if (/invalid api key|jwt/i.test(message)) {
+    return "Supabase rejected the API key. Re-copy the anon public key into NEXT_PUBLIC_SUPABASE_ANON_KEY in Vercel and redeploy.";
+  }
+  return message;
 }
 
 function toAppUser(user: { id: string; email?: string; created_at?: string } | null): AppUser | null {
@@ -75,19 +90,28 @@ export async function signUp(email: string, password: string): Promise<AuthResul
     return { ok: false, error: missingSupabaseError() };
   }
 
-  const { data, error } = await supabase.auth.signUp({
-    email: normalizedEmail,
-    password
-  });
+  try {
+    const { data, error } = await supabase.auth.signUp({
+      email: normalizedEmail,
+      password
+    });
 
-  if (error) {
-    return { ok: false, error: error.message };
+    if (error) {
+      return { ok: false, error: friendlyAuthError(error) };
+    }
+
+    return {
+      ok: true,
+      message: data.session ? "Account created." : "Account created. Check your email to confirm your signup."
+    };
+  } catch (err) {
+    return {
+      ok: false,
+      error: friendlyAuthError({
+        message: err instanceof Error ? err.message : "Failed to fetch"
+      })
+    };
   }
-
-  return {
-    ok: true,
-    message: data.session ? "Account created." : "Account created. Check your email to confirm your signup."
-  };
 }
 
 export async function signIn(email: string, password: string): Promise<AuthResult> {
@@ -99,16 +123,25 @@ export async function signIn(email: string, password: string): Promise<AuthResul
     return { ok: false, error: missingSupabaseError() };
   }
 
-  const { error } = await supabase.auth.signInWithPassword({
-    email: normalizedEmail,
-    password
-  });
+  try {
+    const { error } = await supabase.auth.signInWithPassword({
+      email: normalizedEmail,
+      password
+    });
 
-  if (error) {
-    return { ok: false, error: error.message };
+    if (error) {
+      return { ok: false, error: friendlyAuthError(error) };
+    }
+
+    return { ok: true };
+  } catch (err) {
+    return {
+      ok: false,
+      error: friendlyAuthError({
+        message: err instanceof Error ? err.message : "Failed to fetch"
+      })
+    };
   }
-
-  return { ok: true };
 }
 
 export async function sendPasswordReset(email: string): Promise<AuthResult> {
@@ -124,12 +157,21 @@ export async function sendPasswordReset(email: string): Promise<AuthResult> {
     return { ok: false, error: missingSupabaseError() };
   }
 
-  const { error } = await supabase.auth.resetPasswordForEmail(normalizedEmail, {
-    redirectTo: `${window.location.origin}/reset-password`
-  });
+  try {
+    const { error } = await supabase.auth.resetPasswordForEmail(normalizedEmail, {
+      redirectTo: `${window.location.origin}/reset-password`
+    });
 
-  if (error) {
-    return { ok: false, error: error.message };
+    if (error) {
+      return { ok: false, error: friendlyAuthError(error) };
+    }
+  } catch (err) {
+    return {
+      ok: false,
+      error: friendlyAuthError({
+        message: err instanceof Error ? err.message : "Failed to fetch"
+      })
+    };
   }
 
   return { ok: true, message: "Password reset email sent. Check your inbox." };
