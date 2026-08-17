@@ -2,7 +2,7 @@
   "generated_at": "2026-08-17",
   "source": "prop-leans-v2",
   "note": "K uses estimated PrizePicks lines when posted line unknown. Hitter FS from top-4 OPS bats per team.",
-  "actionable_count": 70,
+  "actionable_count": 88,
   "leans": [
     {
       "gameId": "det-pit-2026-08-17-823343",
@@ -19,6 +19,22 @@
       "confidence": "high",
       "line_source": "prizepicks_est",
       "ops": 0.939
+    },
+    {
+      "gameId": "az-bos-2026-08-17-824725",
+      "matchup": "AZ @ BOS",
+      "player": "Willson Contreras",
+      "team": "BOS",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Mitch Bratt",
+      "fair_line": 7.0,
+      "line": 5.0,
+      "projection": 7.2,
+      "lean": "Over",
+      "edge": 2.19,
+      "confidence": "high",
+      "line_source": "prizepicks_est",
+      "ops": 0.912
     },
     {
       "gameId": "sd-nym-2026-08-17-823589",
@@ -67,6 +83,22 @@
       "confidence": "high",
       "line_source": "prizepicks_est",
       "ops": 0.905
+    },
+    {
+      "gameId": "az-bos-2026-08-17-824725",
+      "matchup": "AZ @ BOS",
+      "player": "Jahmai Jones",
+      "team": "BOS",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Mitch Bratt",
+      "fair_line": 8.0,
+      "line": 6.0,
+      "projection": 8.0,
+      "lean": "Over",
+      "edge": 2.03,
+      "confidence": "high",
+      "line_source": "prizepicks_est",
+      "ops": 1.433
     },
     {
       "gameId": "cws-chc-2026-08-17-824641",
@@ -211,6 +243,38 @@
       "ops": 0.83
     },
     {
+      "gameId": "stl-cin-2026-08-17-824478",
+      "matchup": "STL @ CIN",
+      "player": "Nathaniel Lowe",
+      "team": "CIN",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Andre Pallante",
+      "fair_line": 6.0,
+      "line": 4.5,
+      "projection": 6.2,
+      "lean": "Over",
+      "edge": 1.72,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.821
+    },
+    {
+      "gameId": "stl-cin-2026-08-17-824478",
+      "matchup": "STL @ CIN",
+      "player": "Jordan Walker",
+      "team": "STL",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Rhett Lowder",
+      "fair_line": 7.5,
+      "line": 6.0,
+      "projection": 7.7,
+      "lean": "Over",
+      "edge": 1.72,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.839
+    },
+    {
       "gameId": "ath-kc-2026-08-17-824077",
       "matchup": "ATH @ KC",
       "player": "Shea Langeliers",
@@ -240,6 +304,22 @@
       "confidence": "high",
       "line_source": "prizepicks_est",
       "k9": 11.74
+    },
+    {
+      "gameId": "az-bos-2026-08-17-824725",
+      "matchup": "AZ @ BOS",
+      "player": "Gabriel Moreno",
+      "team": "AZ",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Alec Gamboa",
+      "fair_line": 6.0,
+      "line": 4.5,
+      "projection": 6.2,
+      "lean": "Over",
+      "edge": 1.7,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.85
     },
     {
       "gameId": "lad-col-2026-08-17-824320",
@@ -482,6 +562,22 @@
       "ops": 0.851
     },
     {
+      "gameId": "stl-cin-2026-08-17-824478",
+      "matchup": "STL @ CIN",
+      "player": "Alec Burleson",
+      "team": "STL",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Rhett Lowder",
+      "fair_line": 7.5,
+      "line": 6.0,
+      "projection": 7.4,
+      "lean": "Over",
+      "edge": 1.36,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.849
+    },
+    {
       "gameId": "mia-phi-2026-08-17-823427",
       "matchup": "MIA @ PHI",
       "player": "Esteury Ruiz",
@@ -509,6 +605,38 @@
       "projection": 6.8,
       "lean": "Over",
       "edge": 1.32,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.821
+    },
+    {
+      "gameId": "az-bos-2026-08-17-824725",
+      "matchup": "AZ @ BOS",
+      "player": "Corbin Carroll",
+      "team": "AZ",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Alec Gamboa",
+      "fair_line": 7.0,
+      "line": 5.5,
+      "projection": 6.8,
+      "lean": "Over",
+      "edge": 1.29,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.834
+    },
+    {
+      "gameId": "stl-cin-2026-08-17-824478",
+      "matchup": "STL @ CIN",
+      "player": "Elly De La Cruz",
+      "team": "CIN",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Andre Pallante",
+      "fair_line": 7.5,
+      "line": 6.0,
+      "projection": 7.3,
+      "lean": "Over",
+      "edge": 1.28,
       "confidence": "medium",
       "line_source": "prizepicks_est",
       "ops": 0.821
@@ -546,6 +674,22 @@
       "ops": 0.868
     },
     {
+      "gameId": "az-bos-2026-08-17-824725",
+      "matchup": "AZ @ BOS",
+      "player": "James McCann",
+      "team": "AZ",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Alec Gamboa",
+      "fair_line": 5.5,
+      "line": 4.5,
+      "projection": 5.7,
+      "lean": "Over",
+      "edge": 1.24,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.785
+    },
+    {
       "gameId": "det-pit-2026-08-17-823343",
       "matchup": "DET @ PIT",
       "player": "Bryan Reynolds",
@@ -560,6 +704,22 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.81
+    },
+    {
+      "gameId": "stl-cin-2026-08-17-824478",
+      "matchup": "STL @ CIN",
+      "player": "JJ Bleday",
+      "team": "CIN",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Andre Pallante",
+      "fair_line": 6.0,
+      "line": 5.0,
+      "projection": 6.2,
+      "lean": "Over",
+      "edge": 1.22,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.772
     },
     {
       "gameId": "ath-kc-2026-08-17-824077",
@@ -624,6 +784,22 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.773
+    },
+    {
+      "gameId": "stl-cin-2026-08-17-824478",
+      "matchup": "STL @ CIN",
+      "player": "Sal Stewart",
+      "team": "CIN",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Andre Pallante",
+      "fair_line": 7.0,
+      "line": 6.0,
+      "projection": 7.1,
+      "lean": "Over",
+      "edge": 1.12,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.809
     },
     {
       "gameId": "lad-col-2026-08-17-824320",
@@ -754,6 +930,22 @@
       "ops": 0.766
     },
     {
+      "gameId": "stl-cin-2026-08-17-824478",
+      "matchup": "STL @ CIN",
+      "player": "JJ Wetherholt",
+      "team": "STL",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Rhett Lowder",
+      "fair_line": 7.5,
+      "line": 6.5,
+      "projection": 7.5,
+      "lean": "Over",
+      "edge": 0.98,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.726
+    },
+    {
       "gameId": "ath-kc-2026-08-17-824077",
       "matchup": "ATH @ KC",
       "player": "Tyler Soderstrom",
@@ -784,6 +976,22 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.75
+    },
+    {
+      "gameId": "stl-cin-2026-08-17-824478",
+      "matchup": "STL @ CIN",
+      "player": "Iv\u00e1n Herrera",
+      "team": "STL",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Rhett Lowder",
+      "fair_line": 6.5,
+      "line": 5.5,
+      "projection": 6.5,
+      "lean": "Over",
+      "edge": 0.96,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.748
     },
     {
       "gameId": "sd-nym-2026-08-17-823589",
@@ -945,6 +1153,22 @@
       "ops": 0.77
     },
     {
+      "gameId": "az-bos-2026-08-17-824725",
+      "matchup": "AZ @ BOS",
+      "player": "Ceddanne Rafaela",
+      "team": "BOS",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Mitch Bratt",
+      "fair_line": 7.0,
+      "line": 6.0,
+      "projection": 6.8,
+      "lean": "Over",
+      "edge": 0.81,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.786
+    },
+    {
       "gameId": "bal-tb-2026-08-17-822939",
       "matchup": "BAL @ TB",
       "player": "Ryan Vilade",
@@ -1025,6 +1249,22 @@
       "ops": 0.794
     },
     {
+      "gameId": "az-bos-2026-08-17-824725",
+      "matchup": "AZ @ BOS",
+      "player": "Wilyer Abreu",
+      "team": "BOS",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Mitch Bratt",
+      "fair_line": 7.0,
+      "line": 6.0,
+      "projection": 6.8,
+      "lean": "Over",
+      "edge": 0.76,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.808
+    },
+    {
       "gameId": "bal-tb-2026-08-17-822939",
       "matchup": "BAL @ TB",
       "player": "Shane McClanahan",
@@ -1070,6 +1310,21 @@
       "k9": 6.77
     },
     {
+      "gameId": "az-bos-2026-08-17-824725",
+      "matchup": "AZ @ BOS",
+      "player": "Mitch Bratt",
+      "team": "AZ",
+      "prop": "strikeouts",
+      "fair_line": 4.0,
+      "line": 3.5,
+      "projection": 4.1,
+      "lean": "Over",
+      "edge": 0.56,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "k9": 6.68
+    },
+    {
       "gameId": "mia-phi-2026-08-17-823427",
       "matchup": "MIA @ PHI",
       "player": "Janson Junk",
@@ -1085,6 +1340,21 @@
       "k9": 6.57
     },
     {
+      "gameId": "stl-cin-2026-08-17-824478",
+      "matchup": "STL @ CIN",
+      "player": "Andre Pallante",
+      "team": "STL",
+      "prop": "strikeouts",
+      "fair_line": 4.0,
+      "line": 3.5,
+      "projection": 4.0,
+      "lean": "Over",
+      "edge": 0.54,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "k9": 6.37
+    },
+    {
       "gameId": "det-pit-2026-08-17-823343",
       "matchup": "DET @ PIT",
       "player": "Framber Valdez",
@@ -1098,6 +1368,21 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "k9": 7.17
+    },
+    {
+      "gameId": "stl-cin-2026-08-17-824478",
+      "matchup": "STL @ CIN",
+      "player": "Rhett Lowder",
+      "team": "CIN",
+      "prop": "strikeouts",
+      "fair_line": 4.5,
+      "line": 4.0,
+      "projection": 4.4,
+      "lean": "Over",
+      "edge": 0.38,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "k9": 7.35
     },
     {
       "gameId": "lad-col-2026-08-17-824320",
@@ -1254,6 +1539,52 @@
       "k9": 6.99
     },
     {
+      "gameId": "stl-cin-2026-08-17-824514",
+      "matchup": "STL @ CIN",
+      "player": "Kent Emanuel",
+      "team": "CIN",
+      "prop": "strikeouts",
+      "fair_line": 5.0,
+      "line": 4.5,
+      "projection": 4.8,
+      "lean": "Pass",
+      "edge": 0.27,
+      "confidence": "pass",
+      "line_source": "prizepicks_est",
+      "k9": 8.0
+    },
+    {
+      "gameId": "az-bos-2026-08-17-824725",
+      "matchup": "AZ @ BOS",
+      "player": "Alec Gamboa",
+      "team": "BOS",
+      "prop": "strikeouts",
+      "fair_line": 3.5,
+      "line": 3.5,
+      "projection": 3.7,
+      "lean": "Pass",
+      "edge": 0.23,
+      "confidence": "pass",
+      "line_source": "prizepicks_est",
+      "k9": 6.35
+    },
+    {
+      "gameId": "az-bos-2026-08-17-824725",
+      "matchup": "AZ @ BOS",
+      "player": "Tyler Locklear",
+      "team": "AZ",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Alec Gamboa",
+      "fair_line": 4.5,
+      "line": 4.5,
+      "projection": 4.7,
+      "lean": "Pass",
+      "edge": 0.22,
+      "confidence": "pass",
+      "line_source": "prizepicks_est",
+      "ops": 0.801
+    },
+    {
       "gameId": "atl-min-2026-08-17-823668",
       "matchup": "ATL @ MIN",
       "player": "Bailey Ober",
@@ -1267,6 +1598,21 @@
       "confidence": "pass",
       "line_source": "prizepicks_est",
       "k9": 6.09
+    },
+    {
+      "gameId": "stl-cin-2026-08-17-824514",
+      "matchup": "STL @ CIN",
+      "player": "Quinn Mathews",
+      "team": "STL",
+      "prop": "strikeouts",
+      "fair_line": 3.5,
+      "line": 3.5,
+      "projection": 3.4,
+      "lean": "Pass",
+      "edge": -0.08,
+      "confidence": "pass",
+      "line_source": "prizepicks_est",
+      "k9": 5.4
     }
   ],
   "top_plays": [
@@ -1279,6 +1625,16 @@
       "edge": 2.22,
       "confidence": "high",
       "matchup": "DET @ PIT"
+    },
+    {
+      "player": "Willson Contreras",
+      "prop": "hitter_fantasy_score",
+      "lean": "Over",
+      "line": 5.0,
+      "projection": 7.2,
+      "edge": 2.19,
+      "confidence": "high",
+      "matchup": "AZ @ BOS"
     },
     {
       "player": "Juan Soto",
@@ -1309,6 +1665,16 @@
       "edge": 2.04,
       "confidence": "high",
       "matchup": "MIA @ PHI"
+    },
+    {
+      "player": "Jahmai Jones",
+      "prop": "hitter_fantasy_score",
+      "lean": "Over",
+      "line": 6.0,
+      "projection": 8.0,
+      "edge": 2.03,
+      "confidence": "high",
+      "matchup": "AZ @ BOS"
     },
     {
       "player": "Munetaka Murakami",
@@ -1369,26 +1735,6 @@
       "edge": 1.84,
       "confidence": "high",
       "matchup": "MIA @ PHI"
-    },
-    {
-      "player": "Junior Caminero",
-      "prop": "hitter_fantasy_score",
-      "lean": "Over",
-      "line": 5.5,
-      "projection": 7.3,
-      "edge": 1.81,
-      "confidence": "medium",
-      "matchup": "BAL @ TB"
-    },
-    {
-      "player": "Luis Campusano",
-      "prop": "hitter_fantasy_score",
-      "lean": "Over",
-      "line": 7.5,
-      "projection": 9.3,
-      "edge": 1.81,
-      "confidence": "medium",
-      "matchup": "SD @ NYM"
     }
   ]
 }

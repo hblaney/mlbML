@@ -15,14 +15,14 @@
         "edge": 2.22
       },
       {
-        "player": "Juan Soto",
+        "player": "Willson Contreras",
         "prop": "hitter_fantasy_score",
-        "line": 6.0,
+        "line": 5.0,
         "pick": "Over",
-        "projection": 8.2,
-        "matchup": "SD @ NYM",
+        "projection": 7.2,
+        "matchup": "AZ @ BOS",
         "confidence": "high",
-        "edge": 2.18
+        "edge": 2.19
       },
       {
         "player": "Nolan McLean",
@@ -35,8 +35,8 @@
         "edge": 1.86
       }
     ],
-    "score": 7.11,
-    "same_game_warning": true
+    "score": 7.12,
+    "same_game_warning": false
   },
   "top_plays": [
     {
@@ -48,6 +48,16 @@
       "edge": 2.22,
       "confidence": "high",
       "matchup": "DET @ PIT"
+    },
+    {
+      "player": "Willson Contreras",
+      "prop": "hitter_fantasy_score",
+      "lean": "Over",
+      "line": 5.0,
+      "projection": 7.2,
+      "edge": 2.19,
+      "confidence": "high",
+      "matchup": "AZ @ BOS"
     },
     {
       "player": "Juan Soto",
@@ -78,6 +88,16 @@
       "edge": 2.04,
       "confidence": "high",
       "matchup": "MIA @ PHI"
+    },
+    {
+      "player": "Jahmai Jones",
+      "prop": "hitter_fantasy_score",
+      "lean": "Over",
+      "line": 6.0,
+      "projection": 8.0,
+      "edge": 2.03,
+      "confidence": "high",
+      "matchup": "AZ @ BOS"
     },
     {
       "player": "Munetaka Murakami",
@@ -138,26 +158,6 @@
       "edge": 1.84,
       "confidence": "high",
       "matchup": "MIA @ PHI"
-    },
-    {
-      "player": "Junior Caminero",
-      "prop": "hitter_fantasy_score",
-      "lean": "Over",
-      "line": 5.5,
-      "projection": 7.3,
-      "edge": 1.81,
-      "confidence": "medium",
-      "matchup": "BAL @ TB"
-    },
-    {
-      "player": "Luis Campusano",
-      "prop": "hitter_fantasy_score",
-      "lean": "Over",
-      "line": 7.5,
-      "projection": 9.3,
-      "edge": 1.81,
-      "confidence": "medium",
-      "matchup": "SD @ NYM"
     }
   ],
   "all_actionable": [
@@ -170,6 +170,16 @@
       "edge": 2.22,
       "confidence": "high",
       "matchup": "DET @ PIT"
+    },
+    {
+      "player": "Willson Contreras",
+      "prop": "hitter_fantasy_score",
+      "line": 5.0,
+      "lean": "Over",
+      "projection": 7.2,
+      "edge": 2.19,
+      "confidence": "high",
+      "matchup": "AZ @ BOS"
     },
     {
       "player": "Juan Soto",
@@ -200,6 +210,16 @@
       "edge": 2.04,
       "confidence": "high",
       "matchup": "MIA @ PHI"
+    },
+    {
+      "player": "Jahmai Jones",
+      "prop": "hitter_fantasy_score",
+      "line": 6.0,
+      "lean": "Over",
+      "projection": 8.0,
+      "edge": 2.03,
+      "confidence": "high",
+      "matchup": "AZ @ BOS"
     },
     {
       "player": "Munetaka Murakami",
@@ -292,6 +312,26 @@
       "matchup": "LAD @ COL"
     },
     {
+      "player": "Nathaniel Lowe",
+      "prop": "hitter_fantasy_score",
+      "line": 4.5,
+      "lean": "Over",
+      "projection": 6.2,
+      "edge": 1.72,
+      "confidence": "medium",
+      "matchup": "STL @ CIN"
+    },
+    {
+      "player": "Jordan Walker",
+      "prop": "hitter_fantasy_score",
+      "line": 6.0,
+      "lean": "Over",
+      "projection": 7.7,
+      "edge": 1.72,
+      "confidence": "medium",
+      "matchup": "STL @ CIN"
+    },
+    {
       "player": "Shea Langeliers",
       "prop": "hitter_fantasy_score",
       "line": 5.0,
@@ -312,54 +352,14 @@
       "matchup": "LAD @ COL"
     },
     {
-      "player": "Hunter Goodman",
-      "prop": "hitter_fantasy_score",
-      "line": 5.5,
-      "lean": "Over",
-      "projection": 7.2,
-      "edge": 1.69,
-      "confidence": "medium",
-      "matchup": "LAD @ COL"
-    },
-    {
-      "player": "Max Muncy",
-      "prop": "hitter_fantasy_score",
-      "line": 5.5,
-      "lean": "Over",
-      "projection": 7.1,
-      "edge": 1.62,
-      "confidence": "medium",
-      "matchup": "LAD @ COL"
-    },
-    {
-      "player": "Freddie Freeman",
-      "prop": "hitter_fantasy_score",
-      "line": 5.0,
-      "lean": "Over",
-      "projection": 6.6,
-      "edge": 1.61,
-      "confidence": "medium",
-      "matchup": "LAD @ COL"
-    },
-    {
-      "player": "Cole Carrigg",
-      "prop": "hitter_fantasy_score",
-      "line": 8.5,
-      "lean": "Over",
-      "projection": 10.1,
-      "edge": 1.57,
-      "confidence": "medium",
-      "matchup": "LAD @ COL"
-    },
-    {
-      "player": "Bryan De La Cruz",
+      "player": "Gabriel Moreno",
       "prop": "hitter_fantasy_score",
       "line": 4.5,
       "lean": "Over",
-      "projection": 6.0,
-      "edge": 1.52,
+      "projection": 6.2,
+      "edge": 1.7,
       "confidence": "medium",
-      "matchup": "MIA @ PHI"
+      "matchup": "AZ @ BOS"
     }
   ]
 }
