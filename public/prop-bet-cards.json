@@ -70,10 +70,10 @@
       "notes": []
     },
     {
-      "player": "Jack Perkins",
-      "team": "ATH",
-      "opponent": "KC",
-      "matchup": "ATH @ KC",
+      "player": "Bryan Hudson",
+      "team": "CWS",
+      "opponent": "CHC",
+      "matchup": "CWS @ CHC",
       "game_date": "2026-08-18",
       "props": [
         {
@@ -81,17 +81,15 @@
           "pick": "Over",
           "model_line": 6.0,
           "use_line": 4.5,
-          "projection": 6.2,
-          "edge": 1.75,
+          "projection": 5.9,
+          "edge": 1.35,
           "confidence": "high",
-          "k9": 10.36,
-          "opp_k_rate": 0.212
+          "k9": 9.64,
+          "opp_k_rate": 0.217
         }
       ],
       "headline": "Over 4.5 STRIKEOUTS (high confidence)",
-      "notes": [
-        "Probable starter not fully confirmed \u2014 verify before betting."
-      ]
+      "notes": []
     },
     {
       "player": "Carlos Rod\u00f3n",
@@ -157,9 +155,7 @@
         }
       ],
       "headline": "Over 4.5 STRIKEOUTS (medium confidence)",
-      "notes": [
-        "Probable starter not fully confirmed \u2014 verify before betting."
-      ]
+      "notes": []
     },
     {
       "player": "Bryce Miller",
@@ -225,6 +221,50 @@
         }
       ],
       "headline": "Over 4.5 STRIKEOUTS (medium confidence)",
+      "notes": []
+    },
+    {
+      "player": "Brady Basso",
+      "team": "ATH",
+      "opponent": "KC",
+      "matchup": "ATH @ KC",
+      "game_date": "2026-08-18",
+      "props": [
+        {
+          "prop": "strikeouts",
+          "pick": "Over",
+          "model_line": 4.0,
+          "use_line": 3.5,
+          "projection": 4.2,
+          "edge": 0.68,
+          "confidence": "medium",
+          "k9": 6.93,
+          "opp_k_rate": 0.212
+        }
+      ],
+      "headline": "Over 3.5 STRIKEOUTS (medium confidence)",
+      "notes": []
+    },
+    {
+      "player": "Daniel Lynch IV",
+      "team": "KC",
+      "opponent": "ATH",
+      "matchup": "ATH @ KC",
+      "game_date": "2026-08-18",
+      "props": [
+        {
+          "prop": "strikeouts",
+          "pick": "Over",
+          "model_line": 4.0,
+          "use_line": 3.5,
+          "projection": 4.2,
+          "edge": 0.67,
+          "confidence": "medium",
+          "k9": 6.8,
+          "opp_k_rate": 0.226
+        }
+      ],
+      "headline": "Over 3.5 STRIKEOUTS (medium confidence)",
       "notes": []
     },
     {

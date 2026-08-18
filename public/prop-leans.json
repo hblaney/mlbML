@@ -2,8 +2,40 @@
   "generated_at": "2026-08-18",
   "source": "prop-leans-v2",
   "note": "K uses estimated PrizePicks lines when posted line unknown. Hitter FS from top-4 OPS bats per team.",
-  "actionable_count": 114,
+  "actionable_count": 131,
   "leans": [
+    {
+      "gameId": "cws-chc-2026-08-18-824639",
+      "matchup": "CWS @ CHC",
+      "player": "Munetaka Murakami",
+      "team": "CWS",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Kevin Gausman",
+      "fair_line": 9.0,
+      "line": 7.0,
+      "projection": 9.2,
+      "lean": "Over",
+      "edge": 2.17,
+      "confidence": "high",
+      "line_source": "prizepicks_est",
+      "ops": 0.91
+    },
+    {
+      "gameId": "cws-chc-2026-08-18-824639",
+      "matchup": "CWS @ CHC",
+      "player": "Randal Grichuk",
+      "team": "CWS",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Kevin Gausman",
+      "fair_line": 7.0,
+      "line": 5.0,
+      "projection": 7.2,
+      "lean": "Over",
+      "edge": 2.16,
+      "confidence": "high",
+      "line_source": "prizepicks_est",
+      "ops": 0.915
+    },
     {
       "gameId": "az-bos-2026-08-18-824723",
       "matchup": "AZ @ BOS",
@@ -130,6 +162,22 @@
       "confidence": "medium",
       "line_source": "prizepicks_est",
       "ops": 1.433
+    },
+    {
+      "gameId": "cws-chc-2026-08-18-824639",
+      "matchup": "CWS @ CHC",
+      "player": "Pete Crow-Armstrong",
+      "team": "CHC",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Bryan Hudson",
+      "fair_line": 8.5,
+      "line": 6.5,
+      "projection": 8.4,
+      "lean": "Over",
+      "edge": 1.89,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.929
     },
     {
       "gameId": "sd-nym-2026-08-18-823586",
@@ -322,6 +370,22 @@
       "ops": 0.842
     },
     {
+      "gameId": "cws-chc-2026-08-18-824639",
+      "matchup": "CWS @ CHC",
+      "player": "Seiya Suzuki",
+      "team": "CHC",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Bryan Hudson",
+      "fair_line": 7.0,
+      "line": 5.5,
+      "projection": 7.1,
+      "lean": "Over",
+      "edge": 1.63,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.854
+    },
+    {
       "gameId": "stl-cin-2026-08-18-824475",
       "matchup": "STL @ CIN",
       "player": "Alec Burleson",
@@ -338,6 +402,22 @@
       "ops": 0.848
     },
     {
+      "gameId": "cws-chc-2026-08-18-824639",
+      "matchup": "CWS @ CHC",
+      "player": "Miguel Vargas",
+      "team": "CWS",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Kevin Gausman",
+      "fair_line": 7.0,
+      "line": 5.5,
+      "projection": 7.1,
+      "lean": "Over",
+      "edge": 1.61,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.834
+    },
+    {
       "gameId": "atl-min-2026-08-18-823667",
       "matchup": "ATL @ MIN",
       "player": "Ryan Jeffers",
@@ -352,6 +432,22 @@
       "confidence": "medium",
       "line_source": "prizepicks_est",
       "ops": 0.87
+    },
+    {
+      "gameId": "ath-kc-2026-08-18-824075",
+      "matchup": "ATH @ KC",
+      "player": "Shea Langeliers",
+      "team": "ATH",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Daniel Lynch IV",
+      "fair_line": 6.5,
+      "line": 5.0,
+      "projection": 6.6,
+      "lean": "Over",
+      "edge": 1.58,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.829
     },
     {
       "gameId": "lad-col-2026-08-18-824319",
@@ -514,6 +610,22 @@
       "ops": 0.831
     },
     {
+      "gameId": "ath-kc-2026-08-18-824075",
+      "matchup": "ATH @ KC",
+      "player": "Tyler Tolbert",
+      "team": "KC",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Brady Basso",
+      "fair_line": 10.5,
+      "line": 9.0,
+      "projection": 10.4,
+      "lean": "Over",
+      "edge": 1.43,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.82
+    },
+    {
       "gameId": "det-pit-2026-08-18-823341",
       "matchup": "DET @ PIT",
       "player": "Ben Malgeri",
@@ -592,6 +704,21 @@
       "confidence": "medium",
       "line_source": "prizepicks_est",
       "ops": 0.877
+    },
+    {
+      "gameId": "cws-chc-2026-08-18-824639",
+      "matchup": "CWS @ CHC",
+      "player": "Bryan Hudson",
+      "team": "CWS",
+      "prop": "strikeouts",
+      "fair_line": 6.0,
+      "line": 4.5,
+      "projection": 5.9,
+      "lean": "Over",
+      "edge": 1.35,
+      "confidence": "high",
+      "line_source": "prizepicks_est",
+      "k9": 9.64
     },
     {
       "gameId": "sea-mil-2026-08-18-823749",
@@ -770,6 +897,22 @@
       "ops": 0.821
     },
     {
+      "gameId": "cws-chc-2026-08-18-824639",
+      "matchup": "CWS @ CHC",
+      "player": "Pedro Ram\u00edrez",
+      "team": "CHC",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Bryan Hudson",
+      "fair_line": 10.5,
+      "line": 9.5,
+      "projection": 10.7,
+      "lean": "Over",
+      "edge": 1.21,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.774
+    },
+    {
       "gameId": "az-bos-2026-08-18-824723",
       "matchup": "AZ @ BOS",
       "player": "Ceddanne Rafaela",
@@ -895,6 +1038,22 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.788
+    },
+    {
+      "gameId": "ath-kc-2026-08-18-824075",
+      "matchup": "ATH @ KC",
+      "player": "Jac Caglianone",
+      "team": "KC",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Brady Basso",
+      "fair_line": 6.5,
+      "line": 5.5,
+      "projection": 6.6,
+      "lean": "Over",
+      "edge": 1.14,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.819
     },
     {
       "gameId": "laa-hou-2026-08-18-824154",
@@ -1248,6 +1407,21 @@
       "ops": 0.81
     },
     {
+      "gameId": "cws-chc-2026-08-18-824639",
+      "matchup": "CWS @ CHC",
+      "player": "Kevin Gausman",
+      "team": "CHC",
+      "prop": "strikeouts",
+      "fair_line": 5.5,
+      "line": 4.5,
+      "projection": 5.4,
+      "lean": "Over",
+      "edge": 0.93,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "k9": 8.71
+    },
+    {
       "gameId": "det-pit-2026-08-18-823341",
       "matchup": "DET @ PIT",
       "player": "Ryan O'Hearn",
@@ -1438,6 +1612,38 @@
       "ops": 0.717
     },
     {
+      "gameId": "cws-chc-2026-08-18-824639",
+      "matchup": "CWS @ CHC",
+      "player": "Sam Antonacci",
+      "team": "CWS",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Kevin Gausman",
+      "fair_line": 8.0,
+      "line": 7.0,
+      "projection": 7.9,
+      "lean": "Over",
+      "edge": 0.87,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.765
+    },
+    {
+      "gameId": "ath-kc-2026-08-18-824075",
+      "matchup": "ATH @ KC",
+      "player": "Tyler Soderstrom",
+      "team": "ATH",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Daniel Lynch IV",
+      "fair_line": 6.5,
+      "line": 5.5,
+      "projection": 6.4,
+      "lean": "Over",
+      "edge": 0.86,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.81
+    },
+    {
       "gameId": "sf-cle-2026-08-18-824398",
       "matchup": "SF @ CLE",
       "player": "Travis Bazzana",
@@ -1468,6 +1674,22 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.757
+    },
+    {
+      "gameId": "ath-kc-2026-08-18-824075",
+      "matchup": "ATH @ KC",
+      "player": "Michael Massey",
+      "team": "KC",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Brady Basso",
+      "fair_line": 6.0,
+      "line": 5.0,
+      "projection": 5.8,
+      "lean": "Over",
+      "edge": 0.82,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.744
     },
     {
       "gameId": "det-pit-2026-08-18-823341",
@@ -1614,6 +1836,22 @@
       "ops": 0.779
     },
     {
+      "gameId": "cws-chc-2026-08-18-824639",
+      "matchup": "CWS @ CHC",
+      "player": "Michael Conforto",
+      "team": "CHC",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Bryan Hudson",
+      "fair_line": 6.0,
+      "line": 5.0,
+      "projection": 5.8,
+      "lean": "Over",
+      "edge": 0.77,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.765
+    },
+    {
       "gameId": "sf-cle-2026-08-18-824398",
       "matchup": "SF @ CLE",
       "player": "Jos\u00e9 Ram\u00edrez",
@@ -1659,6 +1897,36 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "k9": 8.59
+    },
+    {
+      "gameId": "ath-kc-2026-08-18-824075",
+      "matchup": "ATH @ KC",
+      "player": "Brady Basso",
+      "team": "ATH",
+      "prop": "strikeouts",
+      "fair_line": 4.0,
+      "line": 3.5,
+      "projection": 4.2,
+      "lean": "Over",
+      "edge": 0.68,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "k9": 6.93
+    },
+    {
+      "gameId": "ath-kc-2026-08-18-824075",
+      "matchup": "ATH @ KC",
+      "player": "Daniel Lynch IV",
+      "team": "KC",
+      "prop": "strikeouts",
+      "fair_line": 4.0,
+      "line": 3.5,
+      "projection": 4.2,
+      "lean": "Over",
+      "edge": 0.67,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "k9": 6.8
     },
     {
       "gameId": "atl-min-2026-08-18-823667",
@@ -1809,6 +2077,22 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "k9": 5.09
+    },
+    {
+      "gameId": "ath-kc-2026-08-18-824075",
+      "matchup": "ATH @ KC",
+      "player": "Carlos Cortes",
+      "team": "ATH",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Daniel Lynch IV",
+      "fair_line": 5.5,
+      "line": 5.0,
+      "projection": 5.7,
+      "lean": "Pass",
+      "edge": 0.73,
+      "confidence": "pass",
+      "line_source": "prizepicks_est",
+      "ops": 0.748
     },
     {
       "gameId": "stl-cin-2026-08-18-824475",
@@ -2029,6 +2313,38 @@
       "k9": 6.31
     },
     {
+      "gameId": "ath-kc-2026-08-18-824075",
+      "matchup": "ATH @ KC",
+      "player": "Jonah Heim",
+      "team": "ATH",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Daniel Lynch IV",
+      "fair_line": 5.0,
+      "line": 4.5,
+      "projection": 4.8,
+      "lean": "Pass",
+      "edge": 0.25,
+      "confidence": "pass",
+      "line_source": "prizepicks_est",
+      "ops": 0.721
+    },
+    {
+      "gameId": "ath-kc-2026-08-18-824075",
+      "matchup": "ATH @ KC",
+      "player": "Lane Thomas",
+      "team": "KC",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Brady Basso",
+      "fair_line": 4.5,
+      "line": 4.5,
+      "projection": 4.6,
+      "lean": "Pass",
+      "edge": 0.13,
+      "confidence": "pass",
+      "line_source": "prizepicks_est",
+      "ops": 0.884
+    },
+    {
       "gameId": "az-bos-2026-08-18-824723",
       "matchup": "AZ @ BOS",
       "player": "Merrill Kelly",
@@ -2060,6 +2376,26 @@
     }
   ],
   "top_plays": [
+    {
+      "player": "Munetaka Murakami",
+      "prop": "hitter_fantasy_score",
+      "lean": "Over",
+      "line": 7.0,
+      "projection": 9.2,
+      "edge": 2.17,
+      "confidence": "high",
+      "matchup": "CWS @ CHC"
+    },
+    {
+      "player": "Randal Grichuk",
+      "prop": "hitter_fantasy_score",
+      "lean": "Over",
+      "line": 5.0,
+      "projection": 7.2,
+      "edge": 2.16,
+      "confidence": "high",
+      "matchup": "CWS @ CHC"
+    },
     {
       "player": "Willson Contreras",
       "prop": "hitter_fantasy_score",
@@ -2141,6 +2477,16 @@
       "matchup": "AZ @ BOS"
     },
     {
+      "player": "Pete Crow-Armstrong",
+      "prop": "hitter_fantasy_score",
+      "lean": "Over",
+      "line": 6.5,
+      "projection": 8.4,
+      "edge": 1.89,
+      "confidence": "medium",
+      "matchup": "CWS @ CHC"
+    },
+    {
       "player": "Luis Campusano",
       "prop": "hitter_fantasy_score",
       "lean": "Over",
@@ -2149,36 +2495,6 @@
       "edge": 1.87,
       "confidence": "medium",
       "matchup": "SD @ NYM"
-    },
-    {
-      "player": "Esmerlyn Valdez",
-      "prop": "hitter_fantasy_score",
-      "lean": "Over",
-      "line": 8.0,
-      "projection": 9.9,
-      "edge": 1.85,
-      "confidence": "medium",
-      "matchup": "DET @ PIT"
-    },
-    {
-      "player": "Junior Caminero",
-      "prop": "hitter_fantasy_score",
-      "lean": "Over",
-      "line": 5.5,
-      "projection": 7.3,
-      "edge": 1.83,
-      "confidence": "medium",
-      "matchup": "TOR @ TB"
-    },
-    {
-      "player": "Jackson Kent",
-      "prop": "strikeouts",
-      "lean": "Over",
-      "line": 6.5,
-      "projection": 8.3,
-      "edge": 1.81,
-      "confidence": "high",
-      "matchup": "WSH @ TEX"
     }
   ]
 }
