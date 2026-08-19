@@ -2,7 +2,7 @@
   "generated_at": "2026-08-19",
   "source": "prop-leans-v2",
   "note": "K uses estimated PrizePicks lines when posted line unknown. Hitter FS from top-4 OPS bats per team.",
-  "actionable_count": 128,
+  "actionable_count": 134,
   "leans": [
     {
       "gameId": "az-bos-2026-08-19-824722",
@@ -275,6 +275,22 @@
       "ops": 0.82
     },
     {
+      "gameId": "ath-kc-2026-08-19-824076",
+      "matchup": "ATH @ KC",
+      "player": "Jac Caglianone",
+      "team": "KC",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Jeffrey Springs",
+      "fair_line": 7.0,
+      "line": 5.5,
+      "projection": 7.2,
+      "lean": "Over",
+      "edge": 1.7,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.823
+    },
+    {
       "gameId": "nyy-bal-2026-08-19-824801",
       "matchup": "NYY @ BAL",
       "player": "Ben Rice",
@@ -545,6 +561,22 @@
       "k9": 10.02
     },
     {
+      "gameId": "ath-kc-2026-08-19-824076",
+      "matchup": "ATH @ KC",
+      "player": "Shea Langeliers",
+      "team": "ATH",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Seth Lugo",
+      "fair_line": 7.0,
+      "line": 5.5,
+      "projection": 7.0,
+      "lean": "Over",
+      "edge": 1.53,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.829
+    },
+    {
       "gameId": "az-bos-2026-08-19-824722",
       "matchup": "AZ @ BOS",
       "player": "Gabriel Moreno",
@@ -735,6 +767,22 @@
       "confidence": "medium",
       "line_source": "prizepicks_est",
       "ops": 0.82
+    },
+    {
+      "gameId": "ath-kc-2026-08-19-824076",
+      "matchup": "ATH @ KC",
+      "player": "Tyler Tolbert",
+      "team": "KC",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Jeffrey Springs",
+      "fair_line": 11.5,
+      "line": 10.0,
+      "projection": 11.4,
+      "lean": "Over",
+      "edge": 1.36,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.831
     },
     {
       "gameId": "atl-min-2026-08-19-823664",
@@ -1723,6 +1771,38 @@
       "ops": 0.8
     },
     {
+      "gameId": "ath-kc-2026-08-19-824076",
+      "matchup": "ATH @ KC",
+      "player": "Michael Massey",
+      "team": "KC",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Jeffrey Springs",
+      "fair_line": 6.5,
+      "line": 5.5,
+      "projection": 6.3,
+      "lean": "Over",
+      "edge": 0.79,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.746
+    },
+    {
+      "gameId": "ath-kc-2026-08-19-824076",
+      "matchup": "ATH @ KC",
+      "player": "Tyler Soderstrom",
+      "team": "ATH",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Seth Lugo",
+      "fair_line": 7.0,
+      "line": 6.0,
+      "projection": 6.8,
+      "lean": "Over",
+      "edge": 0.79,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.81
+    },
+    {
       "gameId": "sf-cle-2026-08-19-824394",
       "matchup": "SF @ CLE",
       "player": "Jung Hoo Lee",
@@ -1985,6 +2065,21 @@
       "k9": 8.22
     },
     {
+      "gameId": "ath-kc-2026-08-19-824076",
+      "matchup": "ATH @ KC",
+      "player": "Jeffrey Springs",
+      "team": "ATH",
+      "prop": "strikeouts",
+      "fair_line": 4.5,
+      "line": 4.0,
+      "projection": 4.4,
+      "lean": "Over",
+      "edge": 0.42,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "k9": 7.33
+    },
+    {
       "gameId": "tor-tb-2026-08-19-822937",
       "matchup": "TOR @ TB",
       "player": "Max Scherzer",
@@ -2094,6 +2189,22 @@
       "ops": 0.717
     },
     {
+      "gameId": "ath-kc-2026-08-19-824076",
+      "matchup": "ATH @ KC",
+      "player": "Carlos Cortes",
+      "team": "ATH",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Seth Lugo",
+      "fair_line": 6.0,
+      "line": 5.5,
+      "projection": 6.1,
+      "lean": "Pass",
+      "edge": 0.6,
+      "confidence": "pass",
+      "line_source": "prizepicks_est",
+      "ops": 0.745
+    },
+    {
       "gameId": "sf-cle-2026-08-19-824394",
       "matchup": "SF @ CLE",
       "player": "Austin Hedges",
@@ -2108,6 +2219,38 @@
       "confidence": "pass",
       "line_source": "prizepicks_est",
       "ops": 0.717
+    },
+    {
+      "gameId": "ath-kc-2026-08-19-824076",
+      "matchup": "ATH @ KC",
+      "player": "Jonah Heim",
+      "team": "ATH",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Seth Lugo",
+      "fair_line": 5.0,
+      "line": 4.5,
+      "projection": 5.1,
+      "lean": "Pass",
+      "edge": 0.57,
+      "confidence": "pass",
+      "line_source": "prizepicks_est",
+      "ops": 0.721
+    },
+    {
+      "gameId": "ath-kc-2026-08-19-824076",
+      "matchup": "ATH @ KC",
+      "player": "Lane Thomas",
+      "team": "KC",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Jeffrey Springs",
+      "fair_line": 5.0,
+      "line": 4.5,
+      "projection": 5.0,
+      "lean": "Pass",
+      "edge": 0.5,
+      "confidence": "pass",
+      "line_source": "prizepicks_est",
+      "ops": 0.778
     },
     {
       "gameId": "az-bos-2026-08-19-824722",
@@ -2139,6 +2282,21 @@
       "confidence": "pass",
       "line_source": "prizepicks_est",
       "k9": 7.84
+    },
+    {
+      "gameId": "ath-kc-2026-08-19-824076",
+      "matchup": "ATH @ KC",
+      "player": "Seth Lugo",
+      "team": "KC",
+      "prop": "strikeouts",
+      "fair_line": 4.5,
+      "line": 4.0,
+      "projection": 4.3,
+      "lean": "Pass",
+      "edge": 0.27,
+      "confidence": "pass",
+      "line_source": "prizepicks_est",
+      "k9": 6.98
     },
     {
       "gameId": "tor-tb-2026-08-19-822937",

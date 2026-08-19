@@ -332,6 +332,16 @@
       "matchup": "SEA @ MIL"
     },
     {
+      "player": "Jac Caglianone",
+      "prop": "hitter_fantasy_score",
+      "line": 5.5,
+      "lean": "Over",
+      "projection": 7.2,
+      "edge": 1.7,
+      "confidence": "medium",
+      "matchup": "ATH @ KC"
+    },
+    {
       "player": "Ben Rice",
       "prop": "hitter_fantasy_score",
       "line": 6.0,
@@ -350,16 +360,6 @@
       "edge": 1.69,
       "confidence": "medium",
       "matchup": "MIA @ PHI"
-    },
-    {
-      "player": "Chase Burns",
-      "prop": "strikeouts",
-      "line": 4.5,
-      "lean": "Over",
-      "projection": 6.2,
-      "edge": 1.69,
-      "confidence": "high",
-      "matchup": "STL @ CIN"
     }
   ]
 }

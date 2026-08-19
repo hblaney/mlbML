@@ -444,6 +444,28 @@
       "notes": []
     },
     {
+      "player": "Jeffrey Springs",
+      "team": "ATH",
+      "opponent": "KC",
+      "matchup": "ATH @ KC",
+      "game_date": "2026-08-19",
+      "props": [
+        {
+          "prop": "strikeouts",
+          "pick": "Over",
+          "model_line": 4.5,
+          "use_line": 4.0,
+          "projection": 4.4,
+          "edge": 0.42,
+          "confidence": "low",
+          "k9": 7.33,
+          "opp_k_rate": 0.212
+        }
+      ],
+      "headline": "Over 4.0 STRIKEOUTS (low confidence)",
+      "notes": []
+    },
+    {
       "player": "Max Scherzer",
       "team": "TOR",
       "opponent": "TB",
