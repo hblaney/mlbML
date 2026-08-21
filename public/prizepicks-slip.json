@@ -332,6 +332,16 @@
       "matchup": "WSH @ MIA"
     },
     {
+      "player": "Cam Schlittler",
+      "prop": "strikeouts",
+      "line": 5.0,
+      "lean": "Over",
+      "projection": 6.6,
+      "edge": 1.61,
+      "confidence": "high",
+      "matchup": "TOR @ NYY"
+    },
+    {
       "player": "CJ Abrams",
       "prop": "hitter_fantasy_score",
       "line": 7.0,
@@ -347,16 +357,6 @@
       "line": 5.5,
       "lean": "Over",
       "projection": 7.1,
-      "edge": 1.59,
-      "confidence": "medium",
-      "matchup": "ATL @ MIL"
-    },
-    {
-      "player": "Matt Olson",
-      "prop": "hitter_fantasy_score",
-      "line": 5.0,
-      "lean": "Over",
-      "projection": 6.6,
       "edge": 1.59,
       "confidence": "medium",
       "matchup": "ATL @ MIL"

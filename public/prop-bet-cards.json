@@ -113,9 +113,7 @@
         }
       ],
       "headline": "Over 5.0 STRIKEOUTS (high confidence)",
-      "notes": [
-        "Probable starter not fully confirmed \u2014 verify before betting."
-      ]
+      "notes": []
     },
     {
       "player": "Connor Prielipp",
@@ -158,6 +156,28 @@
           "confidence": "high",
           "k9": 9.92,
           "opp_k_rate": 0.251
+        }
+      ],
+      "headline": "Over 5.0 STRIKEOUTS (high confidence)",
+      "notes": []
+    },
+    {
+      "player": "Mason Fluharty",
+      "team": "TOR",
+      "opponent": "NYY",
+      "matchup": "TOR @ NYY",
+      "game_date": "2026-08-21",
+      "props": [
+        {
+          "prop": "strikeouts",
+          "pick": "Over",
+          "model_line": 6.0,
+          "use_line": 5.0,
+          "projection": 6.2,
+          "edge": 1.16,
+          "confidence": "high",
+          "k9": 9.78,
+          "opp_k_rate": 0.247
         }
       ],
       "headline": "Over 5.0 STRIKEOUTS (high confidence)",
