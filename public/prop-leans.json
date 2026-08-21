@@ -2,7 +2,7 @@
   "generated_at": "2026-08-21",
   "source": "prop-leans-v2",
   "note": "K uses estimated PrizePicks lines when posted line unknown. Hitter FS from top-4 OPS bats per team.",
-  "actionable_count": 114,
+  "actionable_count": 124,
   "leans": [
     {
       "gameId": "nym-cws-2026-08-21-824559",
@@ -274,6 +274,21 @@
       "ops": 0.875
     },
     {
+      "gameId": "stl-phi-2026-08-21-823420",
+      "matchup": "STL @ PHI",
+      "player": "Jes\u00fas Luzardo",
+      "team": "PHI",
+      "prop": "strikeouts",
+      "fair_line": 6.5,
+      "line": 5.0,
+      "projection": 6.6,
+      "lean": "Over",
+      "edge": 1.61,
+      "confidence": "high",
+      "line_source": "prizepicks_est",
+      "k9": 11.08
+    },
+    {
       "gameId": "tor-nyy-2026-08-21-823510",
       "matchup": "TOR @ NYY",
       "player": "Cam Schlittler",
@@ -303,6 +318,22 @@
       "confidence": "medium",
       "line_source": "prizepicks_est",
       "ops": 0.884
+    },
+    {
+      "gameId": "stl-phi-2026-08-21-823420",
+      "matchup": "STL @ PHI",
+      "player": "Bryce Harper",
+      "team": "PHI",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Hunter Dobbins",
+      "fair_line": 7.0,
+      "line": 5.5,
+      "projection": 7.1,
+      "lean": "Over",
+      "edge": 1.59,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.873
     },
     {
       "gameId": "atl-mil-2026-08-21-823746",
@@ -529,6 +560,22 @@
       "ops": 0.896
     },
     {
+      "gameId": "stl-phi-2026-08-21-823420",
+      "matchup": "STL @ PHI",
+      "player": "Bryan De La Cruz",
+      "team": "PHI",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Hunter Dobbins",
+      "fair_line": 6.0,
+      "line": 4.5,
+      "projection": 5.9,
+      "lean": "Over",
+      "edge": 1.37,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.956
+    },
+    {
       "gameId": "cle-col-2026-08-21-824317",
       "matchup": "CLE @ COL",
       "player": "Cole Carrigg",
@@ -543,6 +590,22 @@
       "confidence": "medium",
       "line_source": "prizepicks_est",
       "ops": 0.831
+    },
+    {
+      "gameId": "stl-phi-2026-08-21-823420",
+      "matchup": "STL @ PHI",
+      "player": "Jordan Walker",
+      "team": "STL",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Jes\u00fas Luzardo",
+      "fair_line": 7.5,
+      "line": 6.0,
+      "projection": 7.3,
+      "lean": "Over",
+      "edge": 1.3,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.854
     },
     {
       "gameId": "tor-nyy-2026-08-21-823510",
@@ -622,6 +685,38 @@
       "confidence": "medium",
       "line_source": "prizepicks_est",
       "ops": 0.843
+    },
+    {
+      "gameId": "stl-phi-2026-08-21-823420",
+      "matchup": "STL @ PHI",
+      "player": "Alec Burleson",
+      "team": "STL",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Jes\u00fas Luzardo",
+      "fair_line": 7.0,
+      "line": 5.5,
+      "projection": 6.8,
+      "lean": "Over",
+      "edge": 1.27,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.844
+    },
+    {
+      "gameId": "stl-phi-2026-08-21-823420",
+      "matchup": "STL @ PHI",
+      "player": "Kyle Schwarber",
+      "team": "PHI",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Hunter Dobbins",
+      "fair_line": 7.5,
+      "line": 6.0,
+      "projection": 7.3,
+      "lean": "Over",
+      "edge": 1.26,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.888
     },
     {
       "gameId": "pit-lad-2026-08-21-823911",
@@ -1165,6 +1260,22 @@
       "ops": 0.756
     },
     {
+      "gameId": "stl-phi-2026-08-21-823420",
+      "matchup": "STL @ PHI",
+      "player": "Iv\u00e1n Herrera",
+      "team": "STL",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Jes\u00fas Luzardo",
+      "fair_line": 6.0,
+      "line": 5.0,
+      "projection": 5.9,
+      "lean": "Over",
+      "edge": 0.95,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.745
+    },
+    {
       "gameId": "tb-bal-2026-08-21-824800",
       "matchup": "TB @ BAL",
       "player": "Taylor Ward",
@@ -1259,6 +1370,22 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.816
+    },
+    {
+      "gameId": "stl-phi-2026-08-21-823420",
+      "matchup": "STL @ PHI",
+      "player": "Brandon Marsh",
+      "team": "PHI",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Hunter Dobbins",
+      "fair_line": 6.5,
+      "line": 5.5,
+      "projection": 6.4,
+      "lean": "Over",
+      "edge": 0.91,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.755
     },
     {
       "gameId": "wsh-mia-2026-08-21-823830",
@@ -1419,6 +1546,22 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.761
+    },
+    {
+      "gameId": "stl-phi-2026-08-21-823420",
+      "matchup": "STL @ PHI",
+      "player": "JJ Wetherholt",
+      "team": "STL",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Jes\u00fas Luzardo",
+      "fair_line": 7.0,
+      "line": 6.0,
+      "projection": 6.8,
+      "lean": "Over",
+      "edge": 0.82,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.721
     },
     {
       "gameId": "nym-cws-2026-08-21-824559",
@@ -1775,6 +1918,21 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "k9": 8.23
+    },
+    {
+      "gameId": "stl-phi-2026-08-21-823420",
+      "matchup": "STL @ PHI",
+      "player": "Hunter Dobbins",
+      "team": "STL",
+      "prop": "strikeouts",
+      "fair_line": 5.0,
+      "line": 4.5,
+      "projection": 5.0,
+      "lean": "Over",
+      "edge": 0.46,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "k9": 8.09
     },
     {
       "gameId": "chc-sea-2026-08-21-823101",
