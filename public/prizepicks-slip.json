@@ -80,6 +80,16 @@
       "matchup": "SF @ BOS"
     },
     {
+      "player": "Luis Campusano",
+      "prop": "hitter_fantasy_score",
+      "lean": "Over",
+      "line": 7.5,
+      "projection": 9.6,
+      "edge": 2.05,
+      "confidence": "high",
+      "matchup": "MIN @ SD"
+    },
+    {
       "player": "Pete Crow-Armstrong",
       "prop": "hitter_fantasy_score",
       "lean": "Over",
@@ -148,16 +158,6 @@
       "edge": 1.76,
       "confidence": "high",
       "matchup": "ATL @ MIL"
-    },
-    {
-      "player": "Jacob Misiorowski",
-      "prop": "strikeouts",
-      "lean": "Over",
-      "line": 6.5,
-      "projection": 8.2,
-      "edge": 1.74,
-      "confidence": "high",
-      "matchup": "ATL @ MIL"
     }
   ],
   "all_actionable": [
@@ -200,6 +200,16 @@
       "edge": 2.09,
       "confidence": "high",
       "matchup": "SF @ BOS"
+    },
+    {
+      "player": "Luis Campusano",
+      "prop": "hitter_fantasy_score",
+      "line": 7.5,
+      "lean": "Over",
+      "projection": 9.6,
+      "edge": 2.05,
+      "confidence": "high",
+      "matchup": "MIN @ SD"
     },
     {
       "player": "Pete Crow-Armstrong",
@@ -312,6 +322,16 @@
       "matchup": "PIT @ LAD"
     },
     {
+      "player": "Byron Buxton",
+      "prop": "hitter_fantasy_score",
+      "line": 6.0,
+      "lean": "Over",
+      "projection": 7.7,
+      "edge": 1.65,
+      "confidence": "medium",
+      "matchup": "MIN @ SD"
+    },
+    {
       "player": "Miguel Vargas",
       "prop": "hitter_fantasy_score",
       "line": 5.5,
@@ -340,26 +360,6 @@
       "edge": 1.61,
       "confidence": "high",
       "matchup": "STL @ PHI"
-    },
-    {
-      "player": "Cam Schlittler",
-      "prop": "strikeouts",
-      "line": 5.0,
-      "lean": "Over",
-      "projection": 6.6,
-      "edge": 1.61,
-      "confidence": "high",
-      "matchup": "TOR @ NYY"
-    },
-    {
-      "player": "CJ Abrams",
-      "prop": "hitter_fantasy_score",
-      "line": 7.0,
-      "lean": "Over",
-      "projection": 8.6,
-      "edge": 1.6,
-      "confidence": "medium",
-      "matchup": "WSH @ MIA"
     }
   ]
 }

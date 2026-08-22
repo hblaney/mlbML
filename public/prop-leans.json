@@ -2,7 +2,7 @@
   "generated_at": "2026-08-21",
   "source": "prop-leans-v2",
   "note": "K uses estimated PrizePicks lines when posted line unknown. Hitter FS from top-4 OPS bats per team.",
-  "actionable_count": 124,
+  "actionable_count": 133,
   "leans": [
     {
       "gameId": "nym-cws-2026-08-21-824559",
@@ -67,6 +67,22 @@
       "confidence": "high",
       "line_source": "prizepicks_est",
       "ops": 0.927
+    },
+    {
+      "gameId": "min-sd-2026-08-21-823262",
+      "matchup": "MIN @ SD",
+      "player": "Luis Campusano",
+      "team": "SD",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Connor Prielipp",
+      "fair_line": 9.5,
+      "line": 7.5,
+      "projection": 9.6,
+      "lean": "Over",
+      "edge": 2.05,
+      "confidence": "high",
+      "line_source": "prizepicks_est",
+      "ops": 0.904
     },
     {
       "gameId": "chc-sea-2026-08-21-823101",
@@ -240,6 +256,22 @@
       "confidence": "medium",
       "line_source": "prizepicks_est",
       "ops": 0.839
+    },
+    {
+      "gameId": "min-sd-2026-08-21-823262",
+      "matchup": "MIN @ SD",
+      "player": "Byron Buxton",
+      "team": "MIN",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Randy V\u00e1squez",
+      "fair_line": 7.5,
+      "line": 6.0,
+      "projection": 7.7,
+      "lean": "Over",
+      "edge": 1.65,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.844
     },
     {
       "gameId": "nym-cws-2026-08-21-824559",
@@ -560,6 +592,22 @@
       "ops": 0.896
     },
     {
+      "gameId": "min-sd-2026-08-21-823262",
+      "matchup": "MIN @ SD",
+      "player": "Ty France",
+      "team": "SD",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Connor Prielipp",
+      "fair_line": 7.0,
+      "line": 5.5,
+      "projection": 6.9,
+      "lean": "Over",
+      "edge": 1.39,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.86
+    },
+    {
       "gameId": "stl-phi-2026-08-21-823420",
       "matchup": "STL @ PHI",
       "player": "Bryan De La Cruz",
@@ -574,6 +622,53 @@
       "confidence": "medium",
       "line_source": "prizepicks_est",
       "ops": 0.956
+    },
+    {
+      "gameId": "min-sd-2026-08-21-823262",
+      "matchup": "MIN @ SD",
+      "player": "Connor Prielipp",
+      "team": "MIN",
+      "prop": "strikeouts",
+      "fair_line": 6.0,
+      "line": 4.5,
+      "projection": 5.9,
+      "lean": "Over",
+      "edge": 1.36,
+      "confidence": "high",
+      "line_source": "prizepicks_est",
+      "k9": 9.65
+    },
+    {
+      "gameId": "min-sd-2026-08-21-823262",
+      "matchup": "MIN @ SD",
+      "player": "Luis Rengifo",
+      "team": "SD",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Connor Prielipp",
+      "fair_line": 6.0,
+      "line": 4.5,
+      "projection": 5.8,
+      "lean": "Over",
+      "edge": 1.33,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.85
+    },
+    {
+      "gameId": "min-sd-2026-08-21-823262",
+      "matchup": "MIN @ SD",
+      "player": "Ryan Jeffers",
+      "team": "MIN",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Randy V\u00e1squez",
+      "fair_line": 7.0,
+      "line": 5.5,
+      "projection": 6.8,
+      "lean": "Over",
+      "edge": 1.33,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.883
     },
     {
       "gameId": "cle-col-2026-08-21-824317",
@@ -797,6 +892,22 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.784
+    },
+    {
+      "gameId": "min-sd-2026-08-21-823262",
+      "matchup": "MIN @ SD",
+      "player": "Trevor Larnach",
+      "team": "MIN",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Randy V\u00e1squez",
+      "fair_line": 6.0,
+      "line": 5.0,
+      "projection": 6.2,
+      "lean": "Over",
+      "edge": 1.19,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.776
     },
     {
       "gameId": "sf-bos-2026-08-21-824721",
@@ -1372,6 +1483,22 @@
       "ops": 0.816
     },
     {
+      "gameId": "min-sd-2026-08-21-823262",
+      "matchup": "MIN @ SD",
+      "player": "Kody Clemens",
+      "team": "MIN",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Randy V\u00e1squez",
+      "fair_line": 8.0,
+      "line": 7.0,
+      "projection": 7.9,
+      "lean": "Over",
+      "edge": 0.91,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.758
+    },
+    {
       "gameId": "stl-phi-2026-08-21-823420",
       "matchup": "STL @ PHI",
       "player": "Brandon Marsh",
@@ -1402,6 +1529,22 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.795
+    },
+    {
+      "gameId": "min-sd-2026-08-21-823262",
+      "matchup": "MIN @ SD",
+      "player": "Fernando Tatis Jr.",
+      "team": "SD",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Connor Prielipp",
+      "fair_line": 7.5,
+      "line": 6.5,
+      "projection": 7.4,
+      "lean": "Over",
+      "edge": 0.88,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.788
     },
     {
       "gameId": "atl-mil-2026-08-21-823746",
@@ -2201,6 +2344,21 @@
       "ops": 0.803
     },
     {
+      "gameId": "min-sd-2026-08-21-823262",
+      "matchup": "MIN @ SD",
+      "player": "Randy V\u00e1squez",
+      "team": "SD",
+      "prop": "strikeouts",
+      "fair_line": 3.5,
+      "line": 3.5,
+      "projection": 3.5,
+      "lean": "Pass",
+      "edge": -0.02,
+      "confidence": "pass",
+      "line_source": "prizepicks_est",
+      "k9": 5.76
+    },
+    {
       "gameId": "det-kc-2026-08-21-824072",
       "matchup": "DET @ KC",
       "player": "Lane Thomas",
@@ -2257,6 +2415,16 @@
       "edge": 2.09,
       "confidence": "high",
       "matchup": "SF @ BOS"
+    },
+    {
+      "player": "Luis Campusano",
+      "prop": "hitter_fantasy_score",
+      "lean": "Over",
+      "line": 7.5,
+      "projection": 9.6,
+      "edge": 2.05,
+      "confidence": "high",
+      "matchup": "MIN @ SD"
     },
     {
       "player": "Pete Crow-Armstrong",
@@ -2325,16 +2493,6 @@
       "line": 5.0,
       "projection": 6.8,
       "edge": 1.76,
-      "confidence": "high",
-      "matchup": "ATL @ MIL"
-    },
-    {
-      "player": "Jacob Misiorowski",
-      "prop": "strikeouts",
-      "lean": "Over",
-      "line": 6.5,
-      "projection": 8.2,
-      "edge": 1.74,
       "confidence": "high",
       "matchup": "ATL @ MIL"
     }
