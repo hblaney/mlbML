@@ -2,7 +2,7 @@
   "generated_at": "2026-08-22",
   "source": "prop-leans-v2",
   "note": "K uses estimated PrizePicks lines when posted line unknown. Hitter FS from top-4 OPS bats per team.",
-  "actionable_count": 122,
+  "actionable_count": 130,
   "leans": [
     {
       "gameId": "wsh-mia-2026-08-22-823831",
@@ -290,6 +290,22 @@
       "ops": 0.854
     },
     {
+      "gameId": "stl-phi-2026-08-22-823422",
+      "matchup": "STL @ PHI",
+      "player": "Kyle Schwarber",
+      "team": "PHI",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Quinn Mathews",
+      "fair_line": 7.0,
+      "line": 5.5,
+      "projection": 7.2,
+      "lean": "Over",
+      "edge": 1.69,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.883
+    },
+    {
       "gameId": "wsh-mia-2026-08-22-823831",
       "matchup": "WSH @ MIA",
       "player": "CJ Abrams",
@@ -416,6 +432,37 @@
       "ops": 0.836
     },
     {
+      "gameId": "stl-phi-2026-08-22-823422",
+      "matchup": "STL @ PHI",
+      "player": "Alec Burleson",
+      "team": "STL",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Andrew Painter",
+      "fair_line": 7.5,
+      "line": 6.0,
+      "projection": 7.6,
+      "lean": "Over",
+      "edge": 1.64,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.844
+    },
+    {
+      "gameId": "stl-phi-2026-08-22-823422",
+      "matchup": "STL @ PHI",
+      "player": "Quinn Mathews",
+      "team": "STL",
+      "prop": "strikeouts",
+      "fair_line": 6.0,
+      "line": 4.5,
+      "projection": 6.1,
+      "lean": "Over",
+      "edge": 1.62,
+      "confidence": "high",
+      "line_source": "prizepicks_est",
+      "k9": 10.0
+    },
+    {
       "gameId": "cin-az-2026-08-22-825044",
       "matchup": "CIN @ AZ",
       "player": "Nathaniel Lowe",
@@ -495,6 +542,22 @@
       "ops": 0.874
     },
     {
+      "gameId": "stl-phi-2026-08-22-823422",
+      "matchup": "STL @ PHI",
+      "player": "Bryce Harper",
+      "team": "PHI",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Quinn Mathews",
+      "fair_line": 7.0,
+      "line": 5.5,
+      "projection": 7.0,
+      "lean": "Over",
+      "edge": 1.53,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.867
+    },
+    {
       "gameId": "wsh-mia-2026-08-22-823831",
       "matchup": "WSH @ MIA",
       "player": "Esteury Ruiz",
@@ -556,6 +619,22 @@
       "confidence": "medium",
       "line_source": "prizepicks_est",
       "ops": 0.847
+    },
+    {
+      "gameId": "stl-phi-2026-08-22-823422",
+      "matchup": "STL @ PHI",
+      "player": "Bryan De La Cruz",
+      "team": "PHI",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Quinn Mathews",
+      "fair_line": 6.0,
+      "line": 4.5,
+      "projection": 5.9,
+      "lean": "Over",
+      "edge": 1.39,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.986
     },
     {
       "gameId": "min-sd-2026-08-22-823261",
@@ -668,6 +747,22 @@
       "confidence": "medium",
       "line_source": "prizepicks_est",
       "ops": 0.876
+    },
+    {
+      "gameId": "stl-phi-2026-08-22-823422",
+      "matchup": "STL @ PHI",
+      "player": "Jordan Walker",
+      "team": "STL",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Andrew Painter",
+      "fair_line": 8.5,
+      "line": 7.0,
+      "projection": 8.3,
+      "lean": "Over",
+      "edge": 1.31,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.863
     },
     {
       "gameId": "tb-bal-2026-08-22-824798",
@@ -1259,6 +1354,22 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.809
+    },
+    {
+      "gameId": "stl-phi-2026-08-22-823422",
+      "matchup": "STL @ PHI",
+      "player": "Brandon Marsh",
+      "team": "PHI",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Quinn Mathews",
+      "fair_line": 6.5,
+      "line": 5.5,
+      "projection": 6.4,
+      "lean": "Over",
+      "edge": 0.94,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.761
     },
     {
       "gameId": "pit-lad-2026-08-22-823910",
@@ -1922,6 +2033,21 @@
       "k9": 7.44
     },
     {
+      "gameId": "stl-phi-2026-08-22-823422",
+      "matchup": "STL @ PHI",
+      "player": "Andrew Painter",
+      "team": "PHI",
+      "prop": "strikeouts",
+      "fair_line": 4.5,
+      "line": 4.0,
+      "projection": 4.5,
+      "lean": "Over",
+      "edge": 0.47,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "k9": 7.49
+    },
+    {
       "gameId": "chc-sea-2026-08-22-823100",
       "matchup": "CHC @ SEA",
       "player": "Kade Anderson",
@@ -1953,6 +2079,22 @@
       "ops": 0.739
     },
     {
+      "gameId": "stl-phi-2026-08-22-823422",
+      "matchup": "STL @ PHI",
+      "player": "Iv\u00e1n Herrera",
+      "team": "STL",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Andrew Painter",
+      "fair_line": 6.5,
+      "line": 6.0,
+      "projection": 6.7,
+      "lean": "Pass",
+      "edge": 0.67,
+      "confidence": "pass",
+      "line_source": "prizepicks_est",
+      "ops": 0.742
+    },
+    {
       "gameId": "tor-nyy-2026-08-22-823509",
       "matchup": "TOR @ NYY",
       "player": "Trent Grisham",
@@ -1967,6 +2109,22 @@
       "confidence": "pass",
       "line_source": "prizepicks_est",
       "ops": 0.737
+    },
+    {
+      "gameId": "stl-phi-2026-08-22-823422",
+      "matchup": "STL @ PHI",
+      "player": "JJ Wetherholt",
+      "team": "STL",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Andrew Painter",
+      "fair_line": 7.5,
+      "line": 7.0,
+      "projection": 7.6,
+      "lean": "Pass",
+      "edge": 0.6,
+      "confidence": "pass",
+      "line_source": "prizepicks_est",
+      "ops": 0.714
     },
     {
       "gameId": "nym-cws-2026-08-22-824560",

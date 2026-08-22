@@ -114,6 +114,28 @@
       "notes": []
     },
     {
+      "player": "Quinn Mathews",
+      "team": "STL",
+      "opponent": "PHI",
+      "matchup": "STL @ PHI",
+      "game_date": "2026-08-22",
+      "props": [
+        {
+          "prop": "strikeouts",
+          "pick": "Over",
+          "model_line": 6.0,
+          "use_line": 4.5,
+          "projection": 6.1,
+          "edge": 1.62,
+          "confidence": "high",
+          "k9": 10.0,
+          "opp_k_rate": 0.224
+        }
+      ],
+      "headline": "Over 4.5 STRIKEOUTS (high confidence)",
+      "notes": []
+    },
+    {
       "player": "Jared Jones",
       "team": "PIT",
       "opponent": "LAD",
@@ -441,9 +463,7 @@
         }
       ],
       "headline": "Over 4.0 STRIKEOUTS (low confidence)",
-      "notes": [
-        "Probable starter not fully confirmed \u2014 verify before betting."
-      ]
+      "notes": []
     },
     {
       "player": "Kade Anderson",
