@@ -2,7 +2,7 @@
   "generated_at": "2026-08-23",
   "source": "prop-leans-v2",
   "note": "K uses estimated PrizePicks lines when posted line unknown. Hitter FS from top-4 OPS bats per team.",
-  "actionable_count": 124,
+  "actionable_count": 134,
   "leans": [
     {
       "gameId": "sf-bos-2026-08-23-824720",
@@ -752,6 +752,22 @@
       "ops": 0.796
     },
     {
+      "gameId": "det-kc-2026-08-23-824071",
+      "matchup": "DET @ KC",
+      "player": "Riley Greene",
+      "team": "DET",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Daniel Lynch IV",
+      "fair_line": 6.0,
+      "line": 5.0,
+      "projection": 6.2,
+      "lean": "Over",
+      "edge": 1.24,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.816
+    },
+    {
       "gameId": "cin-az-2026-08-23-825043",
       "matchup": "CIN @ AZ",
       "player": "James McCann",
@@ -880,6 +896,22 @@
       "ops": 0.81
     },
     {
+      "gameId": "det-kc-2026-08-23-824071",
+      "matchup": "DET @ KC",
+      "player": "Kevin McGonigle",
+      "team": "DET",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Daniel Lynch IV",
+      "fair_line": 7.0,
+      "line": 6.0,
+      "projection": 7.2,
+      "lean": "Over",
+      "edge": 1.17,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.804
+    },
+    {
       "gameId": "ath-hou-2026-08-23-824150",
       "matchup": "ATH @ HOU",
       "player": "Christian Walker",
@@ -910,6 +942,22 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.795
+    },
+    {
+      "gameId": "det-kc-2026-08-23-824071",
+      "matchup": "DET @ KC",
+      "player": "Tyler Tolbert",
+      "team": "KC",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Jacob Waguespack",
+      "fair_line": 9.0,
+      "line": 8.0,
+      "projection": 9.1,
+      "lean": "Over",
+      "edge": 1.15,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.791
     },
     {
       "gameId": "cle-col-2026-08-23-824315",
@@ -958,6 +1006,22 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.789
+    },
+    {
+      "gameId": "det-kc-2026-08-23-824071",
+      "matchup": "DET @ KC",
+      "player": "Ben Malgeri",
+      "team": "DET",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Daniel Lynch IV",
+      "fair_line": 12.5,
+      "line": 11.5,
+      "projection": 12.6,
+      "lean": "Over",
+      "edge": 1.13,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.803
     },
     {
       "gameId": "atl-mil-2026-08-23-823745",
@@ -1102,6 +1166,22 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.8
+    },
+    {
+      "gameId": "det-kc-2026-08-23-824071",
+      "matchup": "DET @ KC",
+      "player": "Jac Caglianone",
+      "team": "KC",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Jacob Waguespack",
+      "fair_line": 6.0,
+      "line": 5.0,
+      "projection": 6.0,
+      "lean": "Over",
+      "edge": 1.04,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.819
     },
     {
       "gameId": "ath-hou-2026-08-23-824150",
@@ -1423,6 +1503,22 @@
       "ops": 0.788
     },
     {
+      "gameId": "det-kc-2026-08-23-824071",
+      "matchup": "DET @ KC",
+      "player": "Vinnie Pasquantino",
+      "team": "KC",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Jacob Waguespack",
+      "fair_line": 5.5,
+      "line": 4.5,
+      "projection": 5.4,
+      "lean": "Over",
+      "edge": 0.92,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.706
+    },
+    {
       "gameId": "tor-nyy-2026-08-23-823507",
       "matchup": "TOR @ NYY",
       "player": "Ernie Clement",
@@ -1518,6 +1614,22 @@
       "ops": 0.815
     },
     {
+      "gameId": "det-kc-2026-08-23-824071",
+      "matchup": "DET @ KC",
+      "player": "Dillon Dingler",
+      "team": "DET",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Daniel Lynch IV",
+      "fair_line": 6.5,
+      "line": 5.5,
+      "projection": 6.4,
+      "lean": "Over",
+      "edge": 0.86,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.802
+    },
+    {
       "gameId": "cin-az-2026-08-23-825043",
       "matchup": "CIN @ AZ",
       "player": "Sal Stewart",
@@ -1532,6 +1644,22 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.809
+    },
+    {
+      "gameId": "det-kc-2026-08-23-824071",
+      "matchup": "DET @ KC",
+      "player": "Michael Massey",
+      "team": "KC",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Jacob Waguespack",
+      "fair_line": 5.5,
+      "line": 4.5,
+      "projection": 5.3,
+      "lean": "Over",
+      "edge": 0.85,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.751
     },
     {
       "gameId": "laa-tex-2026-08-23-822856",
@@ -1877,6 +2005,21 @@
       "k9": 8.23
     },
     {
+      "gameId": "det-kc-2026-08-23-824071",
+      "matchup": "DET @ KC",
+      "player": "Daniel Lynch IV",
+      "team": "KC",
+      "prop": "strikeouts",
+      "fair_line": 4.0,
+      "line": 3.5,
+      "projection": 4.0,
+      "lean": "Over",
+      "edge": 0.52,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "k9": 6.56
+    },
+    {
       "gameId": "stl-phi-2026-08-23-823421",
       "matchup": "STL @ PHI",
       "player": "Kyle Leahy",
@@ -1965,6 +2108,21 @@
       "confidence": "high",
       "line_source": "prizepicks_est",
       "k9": 0.0
+    },
+    {
+      "gameId": "det-kc-2026-08-23-824071",
+      "matchup": "DET @ KC",
+      "player": "Jacob Waguespack",
+      "team": "DET",
+      "prop": "strikeouts",
+      "fair_line": 3.0,
+      "line": 3.5,
+      "projection": 3.1,
+      "lean": "Under",
+      "edge": 0.38,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "k9": 5.2
     },
     {
       "gameId": "chc-sea-2026-08-23-823099",

@@ -397,9 +397,7 @@
         }
       ],
       "headline": "Over 3.5 STRIKEOUTS (medium confidence)",
-      "notes": [
-        "Probable starter not fully confirmed \u2014 verify before betting."
-      ]
+      "notes": []
     },
     {
       "player": "Kyle Leahy",
@@ -509,6 +507,28 @@
         }
       ],
       "headline": "Over 3.5 STRIKEOUTS (low confidence)",
+      "notes": []
+    },
+    {
+      "player": "Jacob Waguespack",
+      "team": "DET",
+      "opponent": "KC",
+      "matchup": "DET @ KC",
+      "game_date": "2026-08-23",
+      "props": [
+        {
+          "prop": "strikeouts",
+          "pick": "Under",
+          "model_line": 3.0,
+          "use_line": 3.5,
+          "projection": 3.1,
+          "edge": 0.38,
+          "confidence": "low",
+          "k9": 5.2,
+          "opp_k_rate": 0.21
+        }
+      ],
+      "headline": "Under 3.5 STRIKEOUTS (low confidence)",
       "notes": []
     }
   ]
