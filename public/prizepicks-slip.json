@@ -25,18 +25,18 @@
         "edge": 2.06
       },
       {
-        "player": "Cade Cavalli",
+        "player": "Chase Burns",
         "prop": "strikeouts",
         "line": 4.5,
         "pick": "Over",
-        "projection": 6.3,
-        "matchup": "COL @ WSH",
+        "projection": 6.4,
+        "matchup": "CIN @ SF",
         "confidence": "high",
-        "edge": 1.78
+        "edge": 1.85
       }
     ],
-    "score": 6.83,
-    "same_game_warning": true
+    "score": 6.9,
+    "same_game_warning": false
   },
   "top_plays": [
     {
@@ -88,6 +88,16 @@
       "edge": 1.87,
       "confidence": "medium",
       "matchup": "CHC @ AZ"
+    },
+    {
+      "player": "Chase Burns",
+      "prop": "strikeouts",
+      "lean": "Over",
+      "line": 4.5,
+      "projection": 6.4,
+      "edge": 1.85,
+      "confidence": "high",
+      "matchup": "CIN @ SF"
     },
     {
       "player": "Bryan De La Cruz",
@@ -148,16 +158,6 @@
       "edge": 1.68,
       "confidence": "medium",
       "matchup": "MIN @ ATH"
-    },
-    {
-      "player": "Griffin Conine",
-      "prop": "hitter_fantasy_score",
-      "lean": "Over",
-      "line": 5.5,
-      "projection": 7.1,
-      "edge": 1.64,
-      "confidence": "medium",
-      "matchup": "BOS @ MIA"
     }
   ],
   "all_actionable": [
@@ -210,6 +210,16 @@
       "edge": 1.87,
       "confidence": "medium",
       "matchup": "CHC @ AZ"
+    },
+    {
+      "player": "Chase Burns",
+      "prop": "strikeouts",
+      "line": 4.5,
+      "lean": "Over",
+      "projection": 6.4,
+      "edge": 1.85,
+      "confidence": "high",
+      "matchup": "CIN @ SF"
     },
     {
       "player": "Bryan De La Cruz",
@@ -350,16 +360,6 @@
       "edge": 1.5,
       "confidence": "medium",
       "matchup": "TB @ DET"
-    },
-    {
-      "player": "Corbin Carroll",
-      "prop": "hitter_fantasy_score",
-      "line": 6.0,
-      "lean": "Over",
-      "projection": 7.5,
-      "edge": 1.5,
-      "confidence": "medium",
-      "matchup": "CHC @ AZ"
     }
   ]
 }

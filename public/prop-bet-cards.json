@@ -23,9 +23,7 @@
         }
       ],
       "headline": "Over 4.5 STRIKEOUTS (high confidence)",
-      "notes": [
-        "Probable starter not fully confirmed \u2014 verify before betting."
-      ]
+      "notes": []
     },
     {
       "player": "Cade Cavalli",
@@ -330,6 +328,28 @@
           "confidence": "medium",
           "k9": 6.67,
           "opp_k_rate": 0.213
+        }
+      ],
+      "headline": "Over 3.5 STRIKEOUTS (medium confidence)",
+      "notes": []
+    },
+    {
+      "player": "Carson Whisenhunt",
+      "team": "SF",
+      "opponent": "CIN",
+      "matchup": "CIN @ SF",
+      "game_date": "2026-08-24",
+      "props": [
+        {
+          "prop": "strikeouts",
+          "pick": "Over",
+          "model_line": 4.0,
+          "use_line": 3.5,
+          "projection": 4.0,
+          "edge": 0.52,
+          "confidence": "medium",
+          "k9": 6.34,
+          "opp_k_rate": 0.254
         }
       ],
       "headline": "Over 3.5 STRIKEOUTS (medium confidence)",

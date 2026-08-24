@@ -2,7 +2,7 @@
   "generated_at": "2026-08-24",
   "source": "prop-leans-v2",
   "note": "K uses estimated PrizePicks lines when posted line unknown. Hitter FS from top-4 OPS bats per team.",
-  "actionable_count": 80,
+  "actionable_count": 90,
   "leans": [
     {
       "gameId": "bos-mia-2026-08-24-823828",
@@ -83,6 +83,21 @@
       "confidence": "medium",
       "line_source": "prizepicks_est",
       "ops": 0.938
+    },
+    {
+      "gameId": "cin-sf-2026-08-24-823183",
+      "matchup": "CIN @ SF",
+      "player": "Chase Burns",
+      "team": "CIN",
+      "prop": "strikeouts",
+      "fair_line": 6.5,
+      "line": 4.5,
+      "projection": 6.4,
+      "lean": "Over",
+      "edge": 1.85,
+      "confidence": "high",
+      "line_source": "prizepicks_est",
+      "k9": 10.52
     },
     {
       "gameId": "phi-sea-2026-08-24-823097",
@@ -402,6 +417,22 @@
       "ops": 0.851
     },
     {
+      "gameId": "cin-sf-2026-08-24-823183",
+      "matchup": "CIN @ SF",
+      "player": "Nathaniel Lowe",
+      "team": "CIN",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Carson Whisenhunt",
+      "fair_line": 7.0,
+      "line": 5.5,
+      "projection": 6.9,
+      "lean": "Over",
+      "edge": 1.41,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.821
+    },
+    {
       "gameId": "tex-cws-2026-08-24-824557",
       "matchup": "TEX @ CWS",
       "player": "Munetaka Murakami",
@@ -641,6 +672,22 @@
       "ops": 0.765
     },
     {
+      "gameId": "cin-sf-2026-08-24-823183",
+      "matchup": "CIN @ SF",
+      "player": "Rafael Devers",
+      "team": "SF",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Chase Burns",
+      "fair_line": 6.0,
+      "line": 5.0,
+      "projection": 6.1,
+      "lean": "Over",
+      "edge": 1.12,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.787
+    },
+    {
       "gameId": "col-wsh-2026-08-24-822695",
       "matchup": "COL @ WSH",
       "player": "Cole Carrigg",
@@ -721,6 +768,22 @@
       "ops": 0.766
     },
     {
+      "gameId": "cin-sf-2026-08-24-823183",
+      "matchup": "CIN @ SF",
+      "player": "Elly De La Cruz",
+      "team": "CIN",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Carson Whisenhunt",
+      "fair_line": 8.0,
+      "line": 7.0,
+      "projection": 8.0,
+      "lean": "Over",
+      "edge": 1.04,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.817
+    },
+    {
       "gameId": "pit-sd-2026-08-24-823260",
       "matchup": "PIT @ SD",
       "player": "Luis Rengifo",
@@ -767,6 +830,22 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 1.0
+    },
+    {
+      "gameId": "cin-sf-2026-08-24-823183",
+      "matchup": "CIN @ SF",
+      "player": "JJ Bleday",
+      "team": "CIN",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Carson Whisenhunt",
+      "fair_line": 7.0,
+      "line": 6.0,
+      "projection": 7.0,
+      "lean": "Over",
+      "edge": 0.96,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.779
     },
     {
       "gameId": "min-ath-2026-08-24-824964",
@@ -880,6 +959,22 @@
       "ops": 0.753
     },
     {
+      "gameId": "cin-sf-2026-08-24-823183",
+      "matchup": "CIN @ SF",
+      "player": "Sal Stewart",
+      "team": "CIN",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Carson Whisenhunt",
+      "fair_line": 8.0,
+      "line": 7.0,
+      "projection": 7.9,
+      "lean": "Over",
+      "edge": 0.88,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.808
+    },
+    {
       "gameId": "tex-cws-2026-08-24-824557",
       "matchup": "TEX @ CWS",
       "player": "Josh Jung",
@@ -894,6 +989,22 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.802
+    },
+    {
+      "gameId": "cin-sf-2026-08-24-823183",
+      "matchup": "CIN @ SF",
+      "player": "Bryce Eldridge",
+      "team": "SF",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Chase Burns",
+      "fair_line": 6.0,
+      "line": 5.0,
+      "projection": 5.9,
+      "lean": "Over",
+      "edge": 0.87,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.781
     },
     {
       "gameId": "min-ath-2026-08-24-824964",
@@ -974,6 +1085,38 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.759
+    },
+    {
+      "gameId": "cin-sf-2026-08-24-823183",
+      "matchup": "CIN @ SF",
+      "player": "Luis Arraez",
+      "team": "SF",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Chase Burns",
+      "fair_line": 5.5,
+      "line": 4.5,
+      "projection": 5.3,
+      "lean": "Over",
+      "edge": 0.83,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.784
+    },
+    {
+      "gameId": "cin-sf-2026-08-24-823183",
+      "matchup": "CIN @ SF",
+      "player": "Casey Schmitt",
+      "team": "SF",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Chase Burns",
+      "fair_line": 6.5,
+      "line": 5.5,
+      "projection": 6.3,
+      "lean": "Over",
+      "edge": 0.82,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.784
     },
     {
       "gameId": "cle-laa-2026-08-24-823992",
@@ -1255,6 +1398,21 @@
       "k9": 6.67
     },
     {
+      "gameId": "cin-sf-2026-08-24-823183",
+      "matchup": "CIN @ SF",
+      "player": "Carson Whisenhunt",
+      "team": "SF",
+      "prop": "strikeouts",
+      "fair_line": 4.0,
+      "line": 3.5,
+      "projection": 4.0,
+      "lean": "Over",
+      "edge": 0.52,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "k9": 6.34
+    },
+    {
       "gameId": "pit-sd-2026-08-24-823260",
       "matchup": "PIT @ SD",
       "player": "Robbie Ray",
@@ -1479,6 +1637,16 @@
       "matchup": "CHC @ AZ"
     },
     {
+      "player": "Chase Burns",
+      "prop": "strikeouts",
+      "lean": "Over",
+      "line": 4.5,
+      "projection": 6.4,
+      "edge": 1.85,
+      "confidence": "high",
+      "matchup": "CIN @ SF"
+    },
+    {
       "player": "Bryan De La Cruz",
       "prop": "hitter_fantasy_score",
       "lean": "Over",
@@ -1537,16 +1705,6 @@
       "edge": 1.68,
       "confidence": "medium",
       "matchup": "MIN @ ATH"
-    },
-    {
-      "player": "Griffin Conine",
-      "prop": "hitter_fantasy_score",
-      "lean": "Over",
-      "line": 5.5,
-      "projection": 7.1,
-      "edge": 1.64,
-      "confidence": "medium",
-      "matchup": "BOS @ MIA"
     }
   ]
 }
