@@ -2,7 +2,7 @@
   "generated_at": "2026-08-24",
   "source": "prop-leans-v2",
   "note": "K uses estimated PrizePicks lines when posted line unknown. Hitter FS from top-4 OPS bats per team.",
-  "actionable_count": 70,
+  "actionable_count": 80,
   "leans": [
     {
       "gameId": "bos-mia-2026-08-24-823828",
@@ -53,6 +53,22 @@
       "ops": 1.586
     },
     {
+      "gameId": "tex-cws-2026-08-24-824557",
+      "matchup": "TEX @ CWS",
+      "player": "Randal Grichuk",
+      "team": "CWS",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Kumar Rocker",
+      "fair_line": 7.5,
+      "line": 5.5,
+      "projection": 7.4,
+      "lean": "Over",
+      "edge": 1.93,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.932
+    },
+    {
       "gameId": "chc-az-2026-08-24-825041",
       "matchup": "CHC @ AZ",
       "player": "Pete Crow-Armstrong",
@@ -98,6 +114,21 @@
       "confidence": "high",
       "line_source": "prizepicks_est",
       "k9": 10.22
+    },
+    {
+      "gameId": "tex-cws-2026-08-24-824557",
+      "matchup": "TEX @ CWS",
+      "player": "Jos\u00e9 Urquidy",
+      "team": "CWS",
+      "prop": "strikeouts",
+      "fair_line": 6.5,
+      "line": 5.0,
+      "projection": 6.7,
+      "lean": "Over",
+      "edge": 1.75,
+      "confidence": "high",
+      "line_source": "prizepicks_est",
+      "k9": 10.96
     },
     {
       "gameId": "col-wsh-2026-08-24-822695",
@@ -371,6 +402,22 @@
       "ops": 0.851
     },
     {
+      "gameId": "tex-cws-2026-08-24-824557",
+      "matchup": "TEX @ CWS",
+      "player": "Munetaka Murakami",
+      "team": "CWS",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Kumar Rocker",
+      "fair_line": 9.0,
+      "line": 7.5,
+      "projection": 8.9,
+      "lean": "Over",
+      "edge": 1.41,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.875
+    },
+    {
       "gameId": "phi-sea-2026-08-24-823097",
       "matchup": "PHI @ SEA",
       "player": "Randy Arozarena",
@@ -432,6 +479,22 @@
       "confidence": "medium",
       "line_source": "prizepicks_est",
       "ops": 0.841
+    },
+    {
+      "gameId": "tex-cws-2026-08-24-824557",
+      "matchup": "TEX @ CWS",
+      "player": "Miguel Vargas",
+      "team": "CWS",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Kumar Rocker",
+      "fair_line": 7.5,
+      "line": 6.0,
+      "projection": 7.3,
+      "lean": "Over",
+      "edge": 1.32,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.854
     },
     {
       "gameId": "pit-sd-2026-08-24-823260",
@@ -817,6 +880,22 @@
       "ops": 0.753
     },
     {
+      "gameId": "tex-cws-2026-08-24-824557",
+      "matchup": "TEX @ CWS",
+      "player": "Josh Jung",
+      "team": "TEX",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Jos\u00e9 Urquidy",
+      "fair_line": 7.0,
+      "line": 6.0,
+      "projection": 6.9,
+      "lean": "Over",
+      "edge": 0.88,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.802
+    },
+    {
       "gameId": "min-ath-2026-08-24-824964",
       "matchup": "MIN @ ATH",
       "player": "Tyler Soderstrom",
@@ -847,6 +926,38 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.813
+    },
+    {
+      "gameId": "tex-cws-2026-08-24-824557",
+      "matchup": "TEX @ CWS",
+      "player": "Justin Foscue",
+      "team": "TEX",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Jos\u00e9 Urquidy",
+      "fair_line": 8.5,
+      "line": 7.5,
+      "projection": 8.4,
+      "lean": "Over",
+      "edge": 0.86,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.781
+    },
+    {
+      "gameId": "tex-cws-2026-08-24-824557",
+      "matchup": "TEX @ CWS",
+      "player": "Joc Pederson",
+      "team": "TEX",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Jos\u00e9 Urquidy",
+      "fair_line": 7.5,
+      "line": 6.5,
+      "projection": 7.3,
+      "lean": "Over",
+      "edge": 0.85,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.806
     },
     {
       "gameId": "min-ath-2026-08-24-824964",
@@ -910,6 +1021,38 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.802
+    },
+    {
+      "gameId": "tex-cws-2026-08-24-824557",
+      "matchup": "TEX @ CWS",
+      "player": "Tristan Peters",
+      "team": "CWS",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Kumar Rocker",
+      "fair_line": 8.0,
+      "line": 7.0,
+      "projection": 7.8,
+      "lean": "Over",
+      "edge": 0.81,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.772
+    },
+    {
+      "gameId": "tex-cws-2026-08-24-824557",
+      "matchup": "TEX @ CWS",
+      "player": "Wyatt Langford",
+      "team": "TEX",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Jos\u00e9 Urquidy",
+      "fair_line": 8.0,
+      "line": 7.0,
+      "projection": 7.8,
+      "lean": "Over",
+      "edge": 0.81,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.771
     },
     {
       "gameId": "pit-sd-2026-08-24-823260",
@@ -1080,6 +1223,21 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "k9": 7.54
+    },
+    {
+      "gameId": "tex-cws-2026-08-24-824557",
+      "matchup": "TEX @ CWS",
+      "player": "Kumar Rocker",
+      "team": "TEX",
+      "prop": "strikeouts",
+      "fair_line": 5.0,
+      "line": 4.5,
+      "projection": 5.1,
+      "lean": "Over",
+      "edge": 0.56,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "k9": 8.11
     },
     {
       "gameId": "bos-mia-2026-08-24-823828",
@@ -1301,6 +1459,16 @@
       "matchup": "BOS @ MIA"
     },
     {
+      "player": "Randal Grichuk",
+      "prop": "hitter_fantasy_score",
+      "lean": "Over",
+      "line": 5.5,
+      "projection": 7.4,
+      "edge": 1.93,
+      "confidence": "medium",
+      "matchup": "TEX @ CWS"
+    },
+    {
       "player": "Pete Crow-Armstrong",
       "prop": "hitter_fantasy_score",
       "lean": "Over",
@@ -1329,6 +1497,16 @@
       "edge": 1.78,
       "confidence": "high",
       "matchup": "COL @ WSH"
+    },
+    {
+      "player": "Jos\u00e9 Urquidy",
+      "prop": "strikeouts",
+      "lean": "Over",
+      "line": 5.0,
+      "projection": 6.7,
+      "edge": 1.75,
+      "confidence": "high",
+      "matchup": "TEX @ CWS"
     },
     {
       "player": "Jake McCarthy",
@@ -1369,26 +1547,6 @@
       "edge": 1.64,
       "confidence": "medium",
       "matchup": "BOS @ MIA"
-    },
-    {
-      "player": "Zack Wheeler",
-      "prop": "strikeouts",
-      "lean": "Over",
-      "line": 5.0,
-      "projection": 6.6,
-      "edge": 1.64,
-      "confidence": "high",
-      "matchup": "PHI @ SEA"
-    },
-    {
-      "player": "Shea Langeliers",
-      "prop": "hitter_fantasy_score",
-      "lean": "Over",
-      "line": 5.5,
-      "projection": 7.1,
-      "edge": 1.62,
-      "confidence": "medium",
-      "matchup": "MIN @ ATH"
     }
   ]
 }

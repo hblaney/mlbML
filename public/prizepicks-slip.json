@@ -70,6 +70,16 @@
       "matchup": "BOS @ MIA"
     },
     {
+      "player": "Randal Grichuk",
+      "prop": "hitter_fantasy_score",
+      "lean": "Over",
+      "line": 5.5,
+      "projection": 7.4,
+      "edge": 1.93,
+      "confidence": "medium",
+      "matchup": "TEX @ CWS"
+    },
+    {
       "player": "Pete Crow-Armstrong",
       "prop": "hitter_fantasy_score",
       "lean": "Over",
@@ -98,6 +108,16 @@
       "edge": 1.78,
       "confidence": "high",
       "matchup": "COL @ WSH"
+    },
+    {
+      "player": "Jos\u00e9 Urquidy",
+      "prop": "strikeouts",
+      "lean": "Over",
+      "line": 5.0,
+      "projection": 6.7,
+      "edge": 1.75,
+      "confidence": "high",
+      "matchup": "TEX @ CWS"
     },
     {
       "player": "Jake McCarthy",
@@ -138,26 +158,6 @@
       "edge": 1.64,
       "confidence": "medium",
       "matchup": "BOS @ MIA"
-    },
-    {
-      "player": "Zack Wheeler",
-      "prop": "strikeouts",
-      "lean": "Over",
-      "line": 5.0,
-      "projection": 6.6,
-      "edge": 1.64,
-      "confidence": "high",
-      "matchup": "PHI @ SEA"
-    },
-    {
-      "player": "Shea Langeliers",
-      "prop": "hitter_fantasy_score",
-      "lean": "Over",
-      "line": 5.5,
-      "projection": 7.1,
-      "edge": 1.62,
-      "confidence": "medium",
-      "matchup": "MIN @ ATH"
     }
   ],
   "all_actionable": [
@@ -192,6 +192,16 @@
       "matchup": "BOS @ MIA"
     },
     {
+      "player": "Randal Grichuk",
+      "prop": "hitter_fantasy_score",
+      "line": 5.5,
+      "lean": "Over",
+      "projection": 7.4,
+      "edge": 1.93,
+      "confidence": "medium",
+      "matchup": "TEX @ CWS"
+    },
+    {
       "player": "Pete Crow-Armstrong",
       "prop": "hitter_fantasy_score",
       "line": 7.0,
@@ -220,6 +230,16 @@
       "edge": 1.78,
       "confidence": "high",
       "matchup": "COL @ WSH"
+    },
+    {
+      "player": "Jos\u00e9 Urquidy",
+      "prop": "strikeouts",
+      "line": 5.0,
+      "lean": "Over",
+      "projection": 6.7,
+      "edge": 1.75,
+      "confidence": "high",
+      "matchup": "TEX @ CWS"
     },
     {
       "player": "Jake McCarthy",
@@ -340,26 +360,6 @@
       "edge": 1.5,
       "confidence": "medium",
       "matchup": "CHC @ AZ"
-    },
-    {
-      "player": "Andr\u00e9s Chaparro",
-      "prop": "hitter_fantasy_score",
-      "line": 6.0,
-      "lean": "Over",
-      "projection": 7.5,
-      "edge": 1.49,
-      "confidence": "medium",
-      "matchup": "COL @ WSH"
-    },
-    {
-      "player": "Ty France",
-      "prop": "hitter_fantasy_score",
-      "line": 5.0,
-      "lean": "Over",
-      "projection": 6.5,
-      "edge": 1.49,
-      "confidence": "medium",
-      "matchup": "PIT @ SD"
     }
   ]
 }

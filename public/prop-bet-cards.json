@@ -50,6 +50,28 @@
       "notes": []
     },
     {
+      "player": "Jos\u00e9 Urquidy",
+      "team": "CWS",
+      "opponent": "TEX",
+      "matchup": "TEX @ CWS",
+      "game_date": "2026-08-24",
+      "props": [
+        {
+          "prop": "strikeouts",
+          "pick": "Over",
+          "model_line": 6.5,
+          "use_line": 5.0,
+          "projection": 6.7,
+          "edge": 1.75,
+          "confidence": "high",
+          "k9": 10.96,
+          "opp_k_rate": 0.23
+        }
+      ],
+      "headline": "Over 5.0 STRIKEOUTS (high confidence)",
+      "notes": []
+    },
+    {
       "player": "Zack Wheeler",
       "team": "PHI",
       "opponent": "SEA",
@@ -289,9 +311,7 @@
         }
       ],
       "headline": "Over 4.5 STRIKEOUTS (medium confidence)",
-      "notes": [
-        "Probable starter not fully confirmed \u2014 verify before betting."
-      ]
+      "notes": []
     },
     {
       "player": "Sandy Alcantara",
