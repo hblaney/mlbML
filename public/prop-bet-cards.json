@@ -92,28 +92,6 @@
       "notes": []
     },
     {
-      "player": "Ian Seymour",
-      "team": "TB",
-      "opponent": "DET",
-      "matchup": "TB @ DET",
-      "game_date": "2026-08-25",
-      "props": [
-        {
-          "prop": "strikeouts",
-          "pick": "Over",
-          "model_line": 6.5,
-          "use_line": 5.0,
-          "projection": 6.7,
-          "edge": 1.69,
-          "confidence": "high",
-          "k9": 10.92,
-          "opp_k_rate": 0.225
-        }
-      ],
-      "headline": "Over 5.0 STRIKEOUTS (high confidence)",
-      "notes": []
-    },
-    {
       "player": "Taj Bradley",
       "team": "MIN",
       "opponent": "ATH",
@@ -177,9 +155,7 @@
         }
       ],
       "headline": "Over 4.5 STRIKEOUTS (high confidence)",
-      "notes": [
-        "Probable starter not fully confirmed \u2014 verify before betting."
-      ]
+      "notes": []
     },
     {
       "player": "Aaron Nola",
@@ -311,6 +287,28 @@
         }
       ],
       "headline": "Over 3.5 STRIKEOUTS (medium confidence)",
+      "notes": []
+    },
+    {
+      "player": "Matthew Liberatore",
+      "team": "STL",
+      "opponent": "BAL",
+      "matchup": "BAL @ STL",
+      "game_date": "2026-08-25",
+      "props": [
+        {
+          "prop": "strikeouts",
+          "pick": "Over",
+          "model_line": 5.5,
+          "use_line": 5.0,
+          "projection": 5.6,
+          "edge": 0.64,
+          "confidence": "medium",
+          "k9": 9.0,
+          "opp_k_rate": 0.243
+        }
+      ],
+      "headline": "Over 5.0 STRIKEOUTS (medium confidence)",
       "notes": []
     },
     {
@@ -467,6 +465,28 @@
         }
       ],
       "headline": "Over 3.5 STRIKEOUTS (low confidence)",
+      "notes": []
+    },
+    {
+      "player": "Casey Legumina",
+      "team": "TB",
+      "opponent": "DET",
+      "matchup": "TB @ DET",
+      "game_date": "2026-08-25",
+      "props": [
+        {
+          "prop": "strikeouts",
+          "pick": "Over",
+          "model_line": 5.0,
+          "use_line": 4.5,
+          "projection": 4.9,
+          "edge": 0.38,
+          "confidence": "low",
+          "k9": 7.97,
+          "opp_k_rate": 0.225
+        }
+      ],
+      "headline": "Over 4.5 STRIKEOUTS (low confidence)",
       "notes": []
     },
     {

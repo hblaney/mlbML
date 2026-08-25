@@ -15,14 +15,14 @@
         "edge": 2.24
       },
       {
-        "player": "Randal Grichuk",
+        "player": "Willson Contreras",
         "prop": "hitter_fantasy_score",
         "line": 5.0,
         "pick": "Over",
         "projection": 7.2,
-        "matchup": "TEX @ CWS",
+        "matchup": "BOS @ MIA",
         "confidence": "high",
-        "edge": 2.16
+        "edge": 2.22
       },
       {
         "player": "Jacob deGrom",
@@ -35,8 +35,8 @@
         "edge": 1.96
       }
     ],
-    "score": 7.21,
-    "same_game_warning": true
+    "score": 7.27,
+    "same_game_warning": false
   },
   "top_plays": [
     {
@@ -48,6 +48,16 @@
       "edge": 2.24,
       "confidence": "high",
       "matchup": "HOU @ NYY"
+    },
+    {
+      "player": "Willson Contreras",
+      "prop": "hitter_fantasy_score",
+      "lean": "Over",
+      "line": 5.0,
+      "projection": 7.2,
+      "edge": 2.22,
+      "confidence": "high",
+      "matchup": "BOS @ MIA"
     },
     {
       "player": "Randal Grichuk",
@@ -78,6 +88,16 @@
       "edge": 2.12,
       "confidence": "high",
       "matchup": "CHC @ AZ"
+    },
+    {
+      "player": "Jahmai Jones",
+      "prop": "hitter_fantasy_score",
+      "lean": "Over",
+      "line": 6.0,
+      "projection": 8.1,
+      "edge": 2.11,
+      "confidence": "high",
+      "matchup": "BOS @ MIA"
     },
     {
       "player": "Bryan De La Cruz",
@@ -138,26 +158,6 @@
       "edge": 1.85,
       "confidence": "high",
       "matchup": "MIL @ NYM"
-    },
-    {
-      "player": "Byron Buxton",
-      "prop": "hitter_fantasy_score",
-      "lean": "Over",
-      "line": 6.0,
-      "projection": 7.7,
-      "edge": 1.75,
-      "confidence": "medium",
-      "matchup": "MIN @ ATH"
-    },
-    {
-      "player": "Corbin Carroll",
-      "prop": "hitter_fantasy_score",
-      "lean": "Over",
-      "line": 5.5,
-      "projection": 7.2,
-      "edge": 1.74,
-      "confidence": "medium",
-      "matchup": "CHC @ AZ"
     }
   ],
   "all_actionable": [
@@ -170,6 +170,16 @@
       "edge": 2.24,
       "confidence": "high",
       "matchup": "HOU @ NYY"
+    },
+    {
+      "player": "Willson Contreras",
+      "prop": "hitter_fantasy_score",
+      "line": 5.0,
+      "lean": "Over",
+      "projection": 7.2,
+      "edge": 2.22,
+      "confidence": "high",
+      "matchup": "BOS @ MIA"
     },
     {
       "player": "Randal Grichuk",
@@ -200,6 +210,16 @@
       "edge": 2.12,
       "confidence": "high",
       "matchup": "CHC @ AZ"
+    },
+    {
+      "player": "Jahmai Jones",
+      "prop": "hitter_fantasy_score",
+      "line": 6.0,
+      "lean": "Over",
+      "projection": 8.1,
+      "edge": 2.11,
+      "confidence": "high",
+      "matchup": "BOS @ MIA"
     },
     {
       "player": "Bryan De La Cruz",
@@ -292,16 +312,6 @@
       "matchup": "PIT @ SD"
     },
     {
-      "player": "Ian Seymour",
-      "prop": "strikeouts",
-      "line": 5.0,
-      "lean": "Over",
-      "projection": 6.7,
-      "edge": 1.69,
-      "confidence": "high",
-      "matchup": "TB @ DET"
-    },
-    {
       "player": "Taj Bradley",
       "prop": "strikeouts",
       "line": 4.5,
@@ -350,16 +360,6 @@
       "edge": 1.61,
       "confidence": "medium",
       "matchup": "CHC @ AZ"
-    },
-    {
-      "player": "Ty France",
-      "prop": "hitter_fantasy_score",
-      "line": 5.0,
-      "lean": "Over",
-      "projection": 6.5,
-      "edge": 1.55,
-      "confidence": "medium",
-      "matchup": "PIT @ SD"
     }
   ]
 }
