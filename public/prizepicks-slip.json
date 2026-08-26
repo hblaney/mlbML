@@ -110,6 +110,16 @@
       "matchup": "PHI @ SEA"
     },
     {
+      "player": "James Wood",
+      "prop": "hitter_fantasy_score",
+      "lean": "Over",
+      "line": 6.0,
+      "projection": 8.1,
+      "edge": 2.06,
+      "confidence": "high",
+      "matchup": "COL @ WSH"
+    },
+    {
       "player": "Juan Soto",
       "prop": "hitter_fantasy_score",
       "lean": "Over",
@@ -148,16 +158,6 @@
       "edge": 1.86,
       "confidence": "medium",
       "matchup": "LAD @ ATL"
-    },
-    {
-      "player": "Kyle Harrison",
-      "prop": "strikeouts",
-      "lean": "Over",
-      "line": 5.0,
-      "projection": 6.9,
-      "edge": 1.85,
-      "confidence": "high",
-      "matchup": "MIL @ NYM"
     }
   ],
   "all_actionable": [
@@ -230,6 +230,16 @@
       "edge": 2.1,
       "confidence": "high",
       "matchup": "PHI @ SEA"
+    },
+    {
+      "player": "James Wood",
+      "prop": "hitter_fantasy_score",
+      "line": 6.0,
+      "lean": "Over",
+      "projection": 8.1,
+      "edge": 2.06,
+      "confidence": "high",
+      "matchup": "COL @ WSH"
     },
     {
       "player": "Juan Soto",
@@ -342,24 +352,14 @@
       "matchup": "HOU @ NYY"
     },
     {
-      "player": "Tyler Glasnow",
-      "prop": "strikeouts",
-      "line": 5.0,
-      "lean": "Over",
-      "projection": 6.6,
-      "edge": 1.61,
-      "confidence": "high",
-      "matchup": "LAD @ ATL"
-    },
-    {
-      "player": "Gabriel Moreno",
+      "player": "CJ Abrams",
       "prop": "hitter_fantasy_score",
-      "line": 5.0,
+      "line": 6.5,
       "lean": "Over",
-      "projection": 6.6,
-      "edge": 1.61,
+      "projection": 8.1,
+      "edge": 1.62,
       "confidence": "medium",
-      "matchup": "CHC @ AZ"
+      "matchup": "COL @ WSH"
     }
   ]
 }
