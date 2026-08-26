@@ -292,6 +292,16 @@
       "matchup": "MIN @ ATH"
     },
     {
+      "player": "Nathaniel Lowe",
+      "prop": "hitter_fantasy_score",
+      "line": 4.5,
+      "lean": "Over",
+      "projection": 6.2,
+      "edge": 1.73,
+      "confidence": "medium",
+      "matchup": "CIN @ SF"
+    },
+    {
       "player": "Junior Caminero",
       "prop": "hitter_fantasy_score",
       "line": 5.0,
@@ -350,16 +360,6 @@
       "edge": 1.67,
       "confidence": "medium",
       "matchup": "CHC @ AZ"
-    },
-    {
-      "player": "Ben Rice",
-      "prop": "hitter_fantasy_score",
-      "line": 5.5,
-      "lean": "Over",
-      "projection": 7.2,
-      "edge": 1.66,
-      "confidence": "medium",
-      "matchup": "HOU @ NYY"
     }
   ]
 }

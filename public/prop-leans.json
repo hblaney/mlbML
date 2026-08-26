@@ -212,6 +212,22 @@
       "ops": 0.829
     },
     {
+      "gameId": "cin-sf-2026-08-26-823180",
+      "matchup": "CIN @ SF",
+      "player": "Nathaniel Lowe",
+      "team": "CIN",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Logan Webb",
+      "fair_line": 6.0,
+      "line": 4.5,
+      "projection": 6.2,
+      "lean": "Over",
+      "edge": 1.73,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.821
+    },
+    {
       "gameId": "tb-det-2026-08-26-824234",
       "matchup": "TB @ DET",
       "player": "Junior Caminero",
@@ -546,22 +562,6 @@
       "k9": 9.7
     },
     {
-      "gameId": "cin-sf-2026-08-26-823180",
-      "matchup": "CIN @ SF",
-      "player": "Nathaniel Lowe",
-      "team": "CIN",
-      "prop": "hitter_fantasy_score",
-      "vs_pitcher": "Landen Roupp",
-      "fair_line": 6.5,
-      "line": 5.0,
-      "projection": 6.4,
-      "lean": "Over",
-      "edge": 1.43,
-      "confidence": "medium",
-      "line_source": "prizepicks_est",
-      "ops": 0.821
-    },
-    {
       "gameId": "cle-laa-2026-08-26-823988",
       "matchup": "CLE @ LAA",
       "player": "Gabriel Arias",
@@ -785,6 +785,22 @@
       "ops": 0.802
     },
     {
+      "gameId": "cin-sf-2026-08-26-823180",
+      "matchup": "CIN @ SF",
+      "player": "Elly De La Cruz",
+      "team": "CIN",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Logan Webb",
+      "fair_line": 7.0,
+      "line": 6.0,
+      "projection": 7.2,
+      "lean": "Over",
+      "edge": 1.21,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.813
+    },
+    {
       "gameId": "tex-cws-2026-08-26-824555",
       "matchup": "TEX @ CWS",
       "player": "MacKenzie Gore",
@@ -798,6 +814,22 @@
       "confidence": "medium",
       "line_source": "prizepicks_est",
       "k9": 9.95
+    },
+    {
+      "gameId": "cin-sf-2026-08-26-823180",
+      "matchup": "CIN @ SF",
+      "player": "JJ Bleday",
+      "team": "CIN",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Logan Webb",
+      "fair_line": 6.0,
+      "line": 5.0,
+      "projection": 6.2,
+      "lean": "Over",
+      "edge": 1.2,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.768
     },
     {
       "gameId": "lad-atl-2026-08-26-824878",
@@ -1022,6 +1054,22 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.788
+    },
+    {
+      "gameId": "cin-sf-2026-08-26-823180",
+      "matchup": "CIN @ SF",
+      "player": "Sal Stewart",
+      "team": "CIN",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Logan Webb",
+      "fair_line": 7.0,
+      "line": 6.0,
+      "projection": 7.1,
+      "lean": "Over",
+      "edge": 1.11,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.81
     },
     {
       "gameId": "mil-nym-2026-08-26-823584",
@@ -1422,22 +1470,6 @@
       "ops": 0.802
     },
     {
-      "gameId": "cin-sf-2026-08-26-823180",
-      "matchup": "CIN @ SF",
-      "player": "Elly De La Cruz",
-      "team": "CIN",
-      "prop": "hitter_fantasy_score",
-      "vs_pitcher": "Landen Roupp",
-      "fair_line": 7.5,
-      "line": 6.5,
-      "projection": 7.4,
-      "lean": "Over",
-      "edge": 0.93,
-      "confidence": "low",
-      "line_source": "prizepicks_est",
-      "ops": 0.813
-    },
-    {
       "gameId": "cle-laa-2026-08-26-823988",
       "matchup": "CLE @ LAA",
       "player": "Chase DeLauter",
@@ -1516,22 +1548,6 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.713
-    },
-    {
-      "gameId": "cin-sf-2026-08-26-823180",
-      "matchup": "CIN @ SF",
-      "player": "JJ Bleday",
-      "team": "CIN",
-      "prop": "hitter_fantasy_score",
-      "vs_pitcher": "Landen Roupp",
-      "fair_line": 6.5,
-      "line": 5.5,
-      "projection": 6.4,
-      "lean": "Over",
-      "edge": 0.89,
-      "confidence": "low",
-      "line_source": "prizepicks_est",
-      "ops": 0.768
     },
     {
       "gameId": "tb-det-2026-08-26-824234",
@@ -1703,22 +1719,6 @@
       "projection": 6.8,
       "lean": "Over",
       "edge": 0.84,
-      "confidence": "low",
-      "line_source": "prizepicks_est",
-      "ops": 0.81
-    },
-    {
-      "gameId": "cin-sf-2026-08-26-823180",
-      "matchup": "CIN @ SF",
-      "player": "Sal Stewart",
-      "team": "CIN",
-      "prop": "hitter_fantasy_score",
-      "vs_pitcher": "Landen Roupp",
-      "fair_line": 7.5,
-      "line": 6.5,
-      "projection": 7.3,
-      "lean": "Over",
-      "edge": 0.82,
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.81
@@ -1929,17 +1929,17 @@
     {
       "gameId": "cin-sf-2026-08-26-823180",
       "matchup": "CIN @ SF",
-      "player": "Landen Roupp",
+      "player": "Logan Webb",
       "team": "SF",
       "prop": "strikeouts",
-      "fair_line": 5.5,
-      "line": 5.0,
-      "projection": 5.5,
+      "fair_line": 4.5,
+      "line": 4.0,
+      "projection": 4.5,
       "lean": "Over",
       "edge": 0.52,
       "confidence": "low",
       "line_source": "prizepicks_est",
-      "k9": 8.69
+      "k9": 7.12
     },
     {
       "gameId": "bal-stl-2026-08-26-823015",
