@@ -15,14 +15,14 @@
         "edge": 2.09
       },
       {
-        "player": "James Wood",
+        "player": "Yordan Alvarez",
         "prop": "hitter_fantasy_score",
         "line": 6.5,
         "pick": "Over",
-        "projection": 8.5,
-        "matchup": "COL @ WSH",
-        "confidence": "medium",
-        "edge": 1.99
+        "projection": 8.6,
+        "matchup": "HOU @ NYY",
+        "confidence": "high",
+        "edge": 2.05
       },
       {
         "player": "Jes\u00fas Luzardo",
@@ -35,7 +35,7 @@
         "edge": 1.91
       }
     ],
-    "score": 6.69,
+    "score": 6.9,
     "same_game_warning": false
   },
   "top_plays": [
@@ -48,6 +48,16 @@
       "edge": 2.09,
       "confidence": "high",
       "matchup": "LAD @ ATL"
+    },
+    {
+      "player": "Yordan Alvarez",
+      "prop": "hitter_fantasy_score",
+      "lean": "Over",
+      "line": 6.5,
+      "projection": 8.6,
+      "edge": 2.05,
+      "confidence": "high",
+      "matchup": "HOU @ NYY"
     },
     {
       "player": "James Wood",
@@ -148,16 +158,6 @@
       "edge": 1.74,
       "confidence": "medium",
       "matchup": "PHI @ SEA"
-    },
-    {
-      "player": "Shea Langeliers",
-      "prop": "hitter_fantasy_score",
-      "lean": "Over",
-      "line": 5.5,
-      "projection": 7.2,
-      "edge": 1.74,
-      "confidence": "medium",
-      "matchup": "MIN @ ATH"
     }
   ],
   "all_actionable": [
@@ -170,6 +170,16 @@
       "edge": 2.09,
       "confidence": "high",
       "matchup": "LAD @ ATL"
+    },
+    {
+      "player": "Yordan Alvarez",
+      "prop": "hitter_fantasy_score",
+      "line": 6.5,
+      "lean": "Over",
+      "projection": 8.6,
+      "edge": 2.05,
+      "confidence": "high",
+      "matchup": "HOU @ NYY"
     },
     {
       "player": "James Wood",
@@ -342,24 +352,14 @@
       "matchup": "CHC @ AZ"
     },
     {
-      "player": "Mickey Moniak",
-      "prop": "hitter_fantasy_score",
-      "line": 6.5,
-      "lean": "Over",
-      "projection": 8.2,
-      "edge": 1.65,
-      "confidence": "medium",
-      "matchup": "COL @ WSH"
-    },
-    {
-      "player": "Bryce Harper",
+      "player": "Ben Rice",
       "prop": "hitter_fantasy_score",
       "line": 5.5,
       "lean": "Over",
-      "projection": 7.1,
-      "edge": 1.63,
+      "projection": 7.2,
+      "edge": 1.66,
       "confidence": "medium",
-      "matchup": "PHI @ SEA"
+      "matchup": "HOU @ NYY"
     }
   ]
 }

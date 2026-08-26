@@ -2,7 +2,7 @@
   "generated_at": "2026-08-26",
   "source": "prop-leans-v2",
   "note": "K uses estimated PrizePicks lines when posted line unknown. Hitter FS from top-4 OPS bats per team.",
-  "actionable_count": 122,
+  "actionable_count": 131,
   "leans": [
     {
       "gameId": "lad-atl-2026-08-26-824878",
@@ -19,6 +19,22 @@
       "confidence": "high",
       "line_source": "prizepicks_est",
       "ops": 0.934
+    },
+    {
+      "gameId": "hou-nyy-2026-08-26-823506",
+      "matchup": "HOU @ NYY",
+      "player": "Yordan Alvarez",
+      "team": "HOU",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Elmer Rodr\u00edguez",
+      "fair_line": 8.5,
+      "line": 6.5,
+      "projection": 8.6,
+      "lean": "Over",
+      "edge": 2.05,
+      "confidence": "high",
+      "line_source": "prizepicks_est",
+      "ops": 1.056
     },
     {
       "gameId": "col-wsh-2026-08-26-822692",
@@ -290,6 +306,22 @@
       "confidence": "medium",
       "line_source": "prizepicks_est",
       "ops": 0.844
+    },
+    {
+      "gameId": "hou-nyy-2026-08-26-823506",
+      "matchup": "HOU @ NYY",
+      "player": "Ben Rice",
+      "team": "NYY",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Peter Lambert",
+      "fair_line": 7.0,
+      "line": 5.5,
+      "projection": 7.2,
+      "lean": "Over",
+      "edge": 1.66,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.868
     },
     {
       "gameId": "col-wsh-2026-08-26-822692",
@@ -1088,6 +1120,22 @@
       "ops": 0.808
     },
     {
+      "gameId": "hou-nyy-2026-08-26-823506",
+      "matchup": "HOU @ NYY",
+      "player": "Jeremy Pe\u00f1a",
+      "team": "HOU",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Elmer Rodr\u00edguez",
+      "fair_line": 7.5,
+      "line": 6.5,
+      "projection": 7.6,
+      "lean": "Over",
+      "edge": 1.08,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.816
+    },
+    {
       "gameId": "pit-sd-2026-08-26-823255",
       "matchup": "PIT @ SD",
       "player": "Bryan Reynolds",
@@ -1136,6 +1184,38 @@
       "ops": 0.779
     },
     {
+      "gameId": "hou-nyy-2026-08-26-823506",
+      "matchup": "HOU @ NYY",
+      "player": "Cody Bellinger",
+      "team": "NYY",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Peter Lambert",
+      "fair_line": 6.5,
+      "line": 5.5,
+      "projection": 6.5,
+      "lean": "Over",
+      "edge": 1.04,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.771
+    },
+    {
+      "gameId": "hou-nyy-2026-08-26-823506",
+      "matchup": "HOU @ NYY",
+      "player": "Paul Goldschmidt",
+      "team": "NYY",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Peter Lambert",
+      "fair_line": 6.0,
+      "line": 5.0,
+      "projection": 6.0,
+      "lean": "Over",
+      "edge": 1.04,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.758
+    },
+    {
       "gameId": "cin-sf-2026-08-26-823180",
       "matchup": "CIN @ SF",
       "player": "Bryce Eldridge",
@@ -1150,6 +1230,22 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.781
+    },
+    {
+      "gameId": "hou-nyy-2026-08-26-823506",
+      "matchup": "HOU @ NYY",
+      "player": "Trent Grisham",
+      "team": "NYY",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Peter Lambert",
+      "fair_line": 6.5,
+      "line": 5.5,
+      "projection": 6.5,
+      "lean": "Over",
+      "edge": 1.0,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.737
     },
     {
       "gameId": "tex-cws-2026-08-26-824555",
@@ -1229,6 +1325,22 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.812
+    },
+    {
+      "gameId": "hou-nyy-2026-08-26-823506",
+      "matchup": "HOU @ NYY",
+      "player": "Christian Walker",
+      "team": "HOU",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Elmer Rodr\u00edguez",
+      "fair_line": 6.5,
+      "line": 5.5,
+      "projection": 6.5,
+      "lean": "Over",
+      "edge": 0.96,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.741
     },
     {
       "gameId": "kc-tor-2026-08-26-822772",
@@ -1356,6 +1468,22 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.809
+    },
+    {
+      "gameId": "hou-nyy-2026-08-26-823506",
+      "matchup": "HOU @ NYY",
+      "player": "Isaac Paredes",
+      "team": "HOU",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Elmer Rodr\u00edguez",
+      "fair_line": 6.5,
+      "line": 5.5,
+      "projection": 6.4,
+      "lean": "Over",
+      "edge": 0.91,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.784
     },
     {
       "gameId": "min-ath-2026-08-26-824963",
@@ -1752,6 +1880,21 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "k9": 7.02
+    },
+    {
+      "gameId": "hou-nyy-2026-08-26-823506",
+      "matchup": "HOU @ NYY",
+      "player": "Peter Lambert",
+      "team": "HOU",
+      "prop": "strikeouts",
+      "fair_line": 5.5,
+      "line": 5.0,
+      "projection": 5.6,
+      "lean": "Over",
+      "edge": 0.56,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "k9": 8.83
     },
     {
       "gameId": "col-wsh-2026-08-26-822692",
@@ -2215,6 +2358,21 @@
       "confidence": "pass",
       "line_source": "prizepicks_est",
       "k9": 5.64
+    },
+    {
+      "gameId": "hou-nyy-2026-08-26-823506",
+      "matchup": "HOU @ NYY",
+      "player": "Elmer Rodr\u00edguez",
+      "team": "NYY",
+      "prop": "strikeouts",
+      "fair_line": 3.0,
+      "line": 3.5,
+      "projection": 3.2,
+      "lean": "Pass",
+      "edge": -0.29,
+      "confidence": "pass",
+      "line_source": "prizepicks_est",
+      "k9": 5.29
     }
   ],
   "top_plays": [
@@ -2227,6 +2385,16 @@
       "edge": 2.09,
       "confidence": "high",
       "matchup": "LAD @ ATL"
+    },
+    {
+      "player": "Yordan Alvarez",
+      "prop": "hitter_fantasy_score",
+      "lean": "Over",
+      "line": 6.5,
+      "projection": 8.6,
+      "edge": 2.05,
+      "confidence": "high",
+      "matchup": "HOU @ NYY"
     },
     {
       "player": "James Wood",
@@ -2327,16 +2495,6 @@
       "edge": 1.74,
       "confidence": "medium",
       "matchup": "PHI @ SEA"
-    },
-    {
-      "player": "Shea Langeliers",
-      "prop": "hitter_fantasy_score",
-      "lean": "Over",
-      "line": 5.5,
-      "projection": 7.2,
-      "edge": 1.74,
-      "confidence": "medium",
-      "matchup": "MIN @ ATH"
     }
   ]
 }
