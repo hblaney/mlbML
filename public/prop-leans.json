@@ -2,7 +2,7 @@
   "generated_at": "2026-08-27",
   "source": "prop-leans-v2",
   "note": "K uses estimated PrizePicks lines when posted line unknown. Hitter FS from top-4 OPS bats per team.",
-  "actionable_count": 51,
+  "actionable_count": 57,
   "leans": [
     {
       "gameId": "col-wsh-2026-08-27-822694",
@@ -83,6 +83,22 @@
       "confidence": "medium",
       "line_source": "prizepicks_est",
       "ops": 1.051
+    },
+    {
+      "gameId": "bal-stl-2026-08-27-823014",
+      "matchup": "BAL @ STL",
+      "player": "Christian Encarnacion-Strand",
+      "team": "BAL",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Gordon Graceffo",
+      "fair_line": 6.0,
+      "line": 4.5,
+      "projection": 6.2,
+      "lean": "Over",
+      "edge": 1.74,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.82
     },
     {
       "gameId": "mil-nym-2026-08-27-823581",
@@ -209,6 +225,54 @@
       "confidence": "medium",
       "line_source": "prizepicks_est",
       "ops": 0.87
+    },
+    {
+      "gameId": "bal-stl-2026-08-27-823014",
+      "matchup": "BAL @ STL",
+      "player": "Pete Alonso",
+      "team": "BAL",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Gordon Graceffo",
+      "fair_line": 7.0,
+      "line": 5.5,
+      "projection": 7.1,
+      "lean": "Over",
+      "edge": 1.58,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.881
+    },
+    {
+      "gameId": "bal-stl-2026-08-27-823014",
+      "matchup": "BAL @ STL",
+      "player": "Jordan Walker",
+      "team": "STL",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Trevor Rogers",
+      "fair_line": 7.5,
+      "line": 6.0,
+      "projection": 7.5,
+      "lean": "Over",
+      "edge": 1.55,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.846
+    },
+    {
+      "gameId": "bal-stl-2026-08-27-823014",
+      "matchup": "BAL @ STL",
+      "player": "Alec Burleson",
+      "team": "STL",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Trevor Rogers",
+      "fair_line": 7.0,
+      "line": 5.5,
+      "projection": 7.0,
+      "lean": "Over",
+      "edge": 1.51,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.839
     },
     {
       "gameId": "az-sf-2026-08-27-823179",
@@ -624,6 +688,22 @@
       "ops": 0.77
     },
     {
+      "gameId": "bal-stl-2026-08-27-823014",
+      "matchup": "BAL @ STL",
+      "player": "Dylan Beavers",
+      "team": "BAL",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Gordon Graceffo",
+      "fair_line": 6.0,
+      "line": 5.0,
+      "projection": 5.9,
+      "lean": "Over",
+      "edge": 0.89,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.723
+    },
+    {
       "gameId": "hou-nyy-2026-08-27-823503",
       "matchup": "HOU @ NYY",
       "player": "Christian Walker",
@@ -766,6 +846,21 @@
       "k9": 8.6
     },
     {
+      "gameId": "bal-stl-2026-08-27-823014",
+      "matchup": "BAL @ STL",
+      "player": "Trevor Rogers",
+      "team": "BAL",
+      "prop": "strikeouts",
+      "fair_line": 4.5,
+      "line": 4.0,
+      "projection": 4.6,
+      "lean": "Over",
+      "edge": 0.62,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "k9": 7.73
+    },
+    {
       "gameId": "az-sf-2026-08-27-823179",
       "matchup": "AZ @ SF",
       "player": "Landen Roupp",
@@ -875,6 +970,22 @@
       "ops": 0.736
     },
     {
+      "gameId": "bal-stl-2026-08-27-823014",
+      "matchup": "BAL @ STL",
+      "player": "Iv\u00e1n Herrera",
+      "team": "STL",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Trevor Rogers",
+      "fair_line": 6.0,
+      "line": 5.5,
+      "projection": 6.1,
+      "lean": "Pass",
+      "edge": 0.58,
+      "confidence": "pass",
+      "line_source": "prizepicks_est",
+      "ops": 0.742
+    },
+    {
       "gameId": "lad-atl-2026-08-27-824879",
       "matchup": "LAD @ ATL",
       "player": "Ozzie Albies",
@@ -891,6 +1002,22 @@
       "ops": 0.728
     },
     {
+      "gameId": "bal-stl-2026-08-27-823014",
+      "matchup": "BAL @ STL",
+      "player": "JJ Wetherholt",
+      "team": "STL",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Trevor Rogers",
+      "fair_line": 7.0,
+      "line": 6.5,
+      "projection": 7.1,
+      "lean": "Pass",
+      "edge": 0.56,
+      "confidence": "pass",
+      "line_source": "prizepicks_est",
+      "ops": 0.724
+    },
+    {
       "gameId": "kc-tor-2026-08-27-822771",
       "matchup": "KC @ TOR",
       "player": "Luis Ur\u00edas",
@@ -905,6 +1032,22 @@
       "confidence": "pass",
       "line_source": "prizepicks_est",
       "ops": 0.803
+    },
+    {
+      "gameId": "bal-stl-2026-08-27-823014",
+      "matchup": "BAL @ STL",
+      "player": "Taylor Ward",
+      "team": "BAL",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Gordon Graceffo",
+      "fair_line": 5.5,
+      "line": 5.0,
+      "projection": 5.5,
+      "lean": "Pass",
+      "edge": 0.5,
+      "confidence": "pass",
+      "line_source": "prizepicks_est",
+      "ops": 0.729
     },
     {
       "gameId": "hou-nyy-2026-08-27-823503",
@@ -951,6 +1094,21 @@
       "confidence": "pass",
       "line_source": "prizepicks_est",
       "k9": 6.11
+    },
+    {
+      "gameId": "bal-stl-2026-08-27-823014",
+      "matchup": "BAL @ STL",
+      "player": "Gordon Graceffo",
+      "team": "STL",
+      "prop": "strikeouts",
+      "fair_line": 3.5,
+      "line": 3.5,
+      "projection": 3.4,
+      "lean": "Pass",
+      "edge": -0.12,
+      "confidence": "pass",
+      "line_source": "prizepicks_est",
+      "k9": 5.4
     }
   ],
   "top_plays": [
@@ -1003,6 +1161,16 @@
       "edge": 1.77,
       "confidence": "medium",
       "matchup": "HOU @ NYY"
+    },
+    {
+      "player": "Christian Encarnacion-Strand",
+      "prop": "hitter_fantasy_score",
+      "lean": "Over",
+      "line": 4.5,
+      "projection": 6.2,
+      "edge": 1.74,
+      "confidence": "medium",
+      "matchup": "BAL @ STL"
     },
     {
       "player": "Jacob Misiorowski",
@@ -1063,16 +1231,6 @@
       "edge": 1.59,
       "confidence": "medium",
       "matchup": "LAD @ ATL"
-    },
-    {
-      "player": "Luis Garc\u00eda Jr.",
-      "prop": "hitter_fantasy_score",
-      "lean": "Over",
-      "line": 6.5,
-      "projection": 8.1,
-      "edge": 1.58,
-      "confidence": "medium",
-      "matchup": "COL @ WSH"
     }
   ]
 }
