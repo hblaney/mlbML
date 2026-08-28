@@ -177,9 +177,7 @@
         }
       ],
       "headline": "Over 6.5 STRIKEOUTS (high confidence)",
-      "notes": [
-        "Probable starter not fully confirmed \u2014 verify before betting."
-      ]
+      "notes": []
     },
     {
       "player": "Drew Anderson",
@@ -242,6 +240,28 @@
           "confidence": "medium",
           "k9": 8.66,
           "opp_k_rate": 0.239
+        }
+      ],
+      "headline": "Over 4.5 STRIKEOUTS (medium confidence)",
+      "notes": []
+    },
+    {
+      "player": "Jacob Lopez",
+      "team": "ATH",
+      "opponent": "BAL",
+      "matchup": "BAL @ ATH",
+      "game_date": "2026-08-28",
+      "props": [
+        {
+          "prop": "strikeouts",
+          "pick": "Over",
+          "model_line": 5.5,
+          "use_line": 4.5,
+          "projection": 5.4,
+          "edge": 0.9,
+          "confidence": "medium",
+          "k9": 8.62,
+          "opp_k_rate": 0.244
         }
       ],
       "headline": "Over 4.5 STRIKEOUTS (medium confidence)",
@@ -512,6 +532,28 @@
       "notes": []
     },
     {
+      "player": "Emerson Hancock",
+      "team": "SEA",
+      "opponent": "TOR",
+      "matchup": "SEA @ TOR",
+      "game_date": "2026-08-28",
+      "props": [
+        {
+          "prop": "strikeouts",
+          "pick": "Over",
+          "model_line": 5.0,
+          "use_line": 4.5,
+          "projection": 5.0,
+          "edge": 0.46,
+          "confidence": "low",
+          "k9": 8.42,
+          "opp_k_rate": 0.194
+        }
+      ],
+      "headline": "Over 4.5 STRIKEOUTS (low confidence)",
+      "notes": []
+    },
+    {
       "player": "Brandon Young",
       "team": "BAL",
       "opponent": "ATH",
@@ -531,9 +573,7 @@
         }
       ],
       "headline": "Over 4.0 STRIKEOUTS (low confidence)",
-      "notes": [
-        "Probable starter not fully confirmed \u2014 verify before betting."
-      ]
+      "notes": []
     },
     {
       "player": "Andrew Painter",

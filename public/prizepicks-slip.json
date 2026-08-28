@@ -312,6 +312,16 @@
       "matchup": "MIA @ WSH"
     },
     {
+      "player": "Randy Arozarena",
+      "prop": "hitter_fantasy_score",
+      "line": 5.0,
+      "lean": "Over",
+      "projection": 6.7,
+      "edge": 1.71,
+      "confidence": "medium",
+      "matchup": "SEA @ TOR"
+    },
+    {
       "player": "Jackson Kent",
       "prop": "strikeouts",
       "line": 4.5,
@@ -350,16 +360,6 @@
       "edge": 1.69,
       "confidence": "medium",
       "matchup": "CWS @ MIN"
-    },
-    {
-      "player": "Jordan Walker",
-      "prop": "hitter_fantasy_score",
-      "line": 6.0,
-      "lean": "Over",
-      "projection": 7.7,
-      "edge": 1.68,
-      "confidence": "medium",
-      "matchup": "PIT @ STL"
     }
   ]
 }
