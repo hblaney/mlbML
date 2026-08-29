@@ -2,7 +2,7 @@
   "generated_at": "2026-08-29",
   "source": "prop-leans-v2",
   "note": "K uses estimated PrizePicks lines when posted line unknown. Hitter FS from top-4 OPS bats per team.",
-  "actionable_count": 123,
+  "actionable_count": 131,
   "leans": [
     {
       "gameId": "hou-nym-2026-08-29-823582",
@@ -320,6 +320,22 @@
       "k9": 10.83
     },
     {
+      "gameId": "col-atl-2026-08-29-824874",
+      "matchup": "COL @ ATL",
+      "player": "Matt Olson",
+      "team": "ATL",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Zach Agnos",
+      "fair_line": 7.5,
+      "line": 6.0,
+      "projection": 7.6,
+      "lean": "Over",
+      "edge": 1.64,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.866
+    },
+    {
       "gameId": "cin-chc-2026-08-29-824637",
       "matchup": "CIN @ CHC",
       "player": "Seiya Suzuki",
@@ -410,6 +426,22 @@
       "projection": 7.5,
       "lean": "Over",
       "edge": 1.5,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.83
+    },
+    {
+      "gameId": "az-sf-2026-08-29-823177",
+      "matchup": "AZ @ SF",
+      "player": "Corbin Carroll",
+      "team": "AZ",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Matt Wilkinson",
+      "fair_line": 8.0,
+      "line": 6.5,
+      "projection": 7.9,
+      "lean": "Over",
+      "edge": 1.45,
       "confidence": "medium",
       "line_source": "prizepicks_est",
       "ops": 0.83
@@ -525,6 +557,22 @@
       "confidence": "medium",
       "line_source": "prizepicks_est",
       "ops": 0.835
+    },
+    {
+      "gameId": "az-sf-2026-08-29-823177",
+      "matchup": "AZ @ SF",
+      "player": "Gabriel Moreno",
+      "team": "AZ",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Matt Wilkinson",
+      "fair_line": 7.5,
+      "line": 6.0,
+      "projection": 7.3,
+      "lean": "Over",
+      "edge": 1.33,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.843
     },
     {
       "gameId": "tex-mil-2026-08-29-823741",
@@ -703,22 +751,6 @@
       "ops": 0.833
     },
     {
-      "gameId": "col-atl-2026-08-29-824874",
-      "matchup": "COL @ ATL",
-      "player": "Matt Olson",
-      "team": "ATL",
-      "prop": "hitter_fantasy_score",
-      "vs_pitcher": "Ryan Feltner",
-      "fair_line": 8.0,
-      "line": 6.5,
-      "projection": 7.8,
-      "lean": "Over",
-      "edge": 1.28,
-      "confidence": "medium",
-      "line_source": "prizepicks_est",
-      "ops": 0.866
-    },
-    {
       "gameId": "sd-tb-2026-08-29-822936",
       "matchup": "SD @ TB",
       "player": "Ty France",
@@ -798,6 +830,22 @@
       "ops": 0.795
     },
     {
+      "gameId": "col-atl-2026-08-29-824874",
+      "matchup": "COL @ ATL",
+      "player": "Michael Harris II",
+      "team": "ATL",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Zach Agnos",
+      "fair_line": 7.0,
+      "line": 6.0,
+      "projection": 7.2,
+      "lean": "Over",
+      "edge": 1.23,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.817
+    },
+    {
       "gameId": "hou-nym-2026-08-29-823582",
       "matchup": "HOU @ NYM",
       "player": "Carson Benge",
@@ -828,6 +876,22 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.786
+    },
+    {
+      "gameId": "az-sf-2026-08-29-823177",
+      "matchup": "AZ @ SF",
+      "player": "Bryce Eldridge",
+      "team": "SF",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Merrill Kelly",
+      "fair_line": 6.5,
+      "line": 5.5,
+      "projection": 6.7,
+      "lean": "Over",
+      "edge": 1.21,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.793
     },
     {
       "gameId": "cws-min-2026-08-29-823665",
@@ -878,6 +942,22 @@
       "ops": 0.765
     },
     {
+      "gameId": "az-sf-2026-08-29-823177",
+      "matchup": "AZ @ SF",
+      "player": "James McCann",
+      "team": "AZ",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Matt Wilkinson",
+      "fair_line": 6.5,
+      "line": 5.5,
+      "projection": 6.7,
+      "lean": "Over",
+      "edge": 1.19,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.773
+    },
+    {
       "gameId": "tex-mil-2026-08-29-823741",
       "matchup": "TEX @ MIL",
       "player": "Brice Turang",
@@ -924,6 +1004,22 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.814
+    },
+    {
+      "gameId": "col-atl-2026-08-29-824874",
+      "matchup": "COL @ ATL",
+      "player": "Drake Baldwin",
+      "team": "ATL",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Zach Agnos",
+      "fair_line": 7.0,
+      "line": 6.0,
+      "projection": 7.2,
+      "lean": "Over",
+      "edge": 1.19,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.813
     },
     {
       "gameId": "cws-min-2026-08-29-823665",
@@ -1036,6 +1132,54 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.803
+    },
+    {
+      "gameId": "az-sf-2026-08-29-823177",
+      "matchup": "AZ @ SF",
+      "player": "Rafael Devers",
+      "team": "SF",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Merrill Kelly",
+      "fair_line": 7.0,
+      "line": 6.0,
+      "projection": 7.0,
+      "lean": "Over",
+      "edge": 1.05,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.81
+    },
+    {
+      "gameId": "az-sf-2026-08-29-823177",
+      "matchup": "AZ @ SF",
+      "player": "Casey Schmitt",
+      "team": "SF",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Merrill Kelly",
+      "fair_line": 7.0,
+      "line": 6.0,
+      "projection": 7.1,
+      "lean": "Over",
+      "edge": 1.05,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.784
+    },
+    {
+      "gameId": "az-sf-2026-08-29-823177",
+      "matchup": "AZ @ SF",
+      "player": "Tyler Locklear",
+      "team": "AZ",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Matt Wilkinson",
+      "fair_line": 5.5,
+      "line": 4.5,
+      "projection": 5.6,
+      "lean": "Over",
+      "edge": 1.05,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.801
     },
     {
       "gameId": "pit-stl-2026-08-29-823011",
@@ -1166,6 +1310,22 @@
       "ops": 0.746
     },
     {
+      "gameId": "az-sf-2026-08-29-823177",
+      "matchup": "AZ @ SF",
+      "player": "Jung Hoo Lee",
+      "team": "SF",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Merrill Kelly",
+      "fair_line": 6.5,
+      "line": 5.5,
+      "projection": 6.5,
+      "lean": "Over",
+      "edge": 0.97,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.75
+    },
+    {
       "gameId": "tex-mil-2026-08-29-823741",
       "matchup": "TEX @ MIL",
       "player": "Shane Drohan",
@@ -1291,22 +1451,6 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.718
-    },
-    {
-      "gameId": "col-atl-2026-08-29-824874",
-      "matchup": "COL @ ATL",
-      "player": "Ozzie Albies",
-      "team": "ATL",
-      "prop": "hitter_fantasy_score",
-      "vs_pitcher": "Ryan Feltner",
-      "fair_line": 6.5,
-      "line": 5.5,
-      "projection": 6.4,
-      "lean": "Over",
-      "edge": 0.9,
-      "confidence": "low",
-      "line_source": "prizepicks_est",
-      "ops": 0.725
     },
     {
       "gameId": "bos-nyy-2026-08-29-823539",
@@ -1453,22 +1597,6 @@
       "ops": 0.807
     },
     {
-      "gameId": "col-atl-2026-08-29-824874",
-      "matchup": "COL @ ATL",
-      "player": "Michael Harris II",
-      "team": "ATL",
-      "prop": "hitter_fantasy_score",
-      "vs_pitcher": "Ryan Feltner",
-      "fair_line": 7.5,
-      "line": 6.5,
-      "projection": 7.4,
-      "lean": "Over",
-      "edge": 0.86,
-      "confidence": "low",
-      "line_source": "prizepicks_est",
-      "ops": 0.817
-    },
-    {
       "gameId": "cws-min-2026-08-29-823665",
       "matchup": "CWS @ MIN",
       "player": "Kody Clemens",
@@ -1579,22 +1707,6 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.816
-    },
-    {
-      "gameId": "col-atl-2026-08-29-824874",
-      "matchup": "COL @ ATL",
-      "player": "Drake Baldwin",
-      "team": "ATL",
-      "prop": "hitter_fantasy_score",
-      "vs_pitcher": "Ryan Feltner",
-      "fair_line": 7.5,
-      "line": 6.5,
-      "projection": 7.3,
-      "lean": "Over",
-      "edge": 0.82,
-      "confidence": "low",
-      "line_source": "prizepicks_est",
-      "ops": 0.813
     },
     {
       "gameId": "mia-wsh-2026-08-29-822690",
@@ -1739,6 +1851,22 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.81
+    },
+    {
+      "gameId": "col-atl-2026-08-29-824874",
+      "matchup": "COL @ ATL",
+      "player": "Ozzie Albies",
+      "team": "ATL",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Zach Agnos",
+      "fair_line": 6.5,
+      "line": 5.5,
+      "projection": 6.3,
+      "lean": "Over",
+      "edge": 0.78,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.725
     },
     {
       "gameId": "tex-mil-2026-08-29-823741",
@@ -1907,21 +2035,6 @@
       "k9": 8.03
     },
     {
-      "gameId": "col-atl-2026-08-29-824874",
-      "matchup": "COL @ ATL",
-      "player": "Ryan Feltner",
-      "team": "COL",
-      "prop": "strikeouts",
-      "fair_line": 4.0,
-      "line": 3.5,
-      "projection": 3.9,
-      "lean": "Over",
-      "edge": 0.41,
-      "confidence": "low",
-      "line_source": "prizepicks_est",
-      "k9": 6.45
-    },
-    {
       "gameId": "kc-cle-2026-08-29-824392",
       "matchup": "KC @ CLE",
       "player": "Daniel Lynch IV",
@@ -1950,6 +2063,21 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "k9": 6.45
+    },
+    {
+      "gameId": "az-sf-2026-08-29-823177",
+      "matchup": "AZ @ SF",
+      "player": "Matt Wilkinson",
+      "team": "SF",
+      "prop": "strikeouts",
+      "fair_line": 2.0,
+      "line": 3.5,
+      "projection": 1.9,
+      "lean": "Under",
+      "edge": 1.63,
+      "confidence": "high",
+      "line_source": "prizepicks_est",
+      "k9": 3.18
     },
     {
       "gameId": "phi-laa-2026-08-29-823986",
@@ -2187,6 +2315,21 @@
       "k9": 7.06
     },
     {
+      "gameId": "col-atl-2026-08-29-824874",
+      "matchup": "COL @ ATL",
+      "player": "Zach Agnos",
+      "team": "COL",
+      "prop": "strikeouts",
+      "fair_line": 3.5,
+      "line": 3.5,
+      "projection": 3.7,
+      "lean": "Pass",
+      "edge": 0.16,
+      "confidence": "pass",
+      "line_source": "prizepicks_est",
+      "k9": 6.04
+    },
+    {
       "gameId": "lad-det-2026-08-29-824230",
       "matchup": "LAD @ DET",
       "player": "Keider Montero",
@@ -2200,6 +2343,21 @@
       "confidence": "pass",
       "line_source": "prizepicks_est",
       "k9": 5.99
+    },
+    {
+      "gameId": "az-sf-2026-08-29-823177",
+      "matchup": "AZ @ SF",
+      "player": "Merrill Kelly",
+      "team": "AZ",
+      "prop": "strikeouts",
+      "fair_line": 3.5,
+      "line": 3.5,
+      "projection": 3.6,
+      "lean": "Pass",
+      "edge": 0.05,
+      "confidence": "pass",
+      "line_source": "prizepicks_est",
+      "k9": 5.88
     },
     {
       "gameId": "sd-tb-2026-08-29-822936",

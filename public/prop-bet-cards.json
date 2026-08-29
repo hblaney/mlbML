@@ -114,6 +114,28 @@
       "notes": []
     },
     {
+      "player": "Matt Wilkinson",
+      "team": "SF",
+      "opponent": "AZ",
+      "matchup": "AZ @ SF",
+      "game_date": "2026-08-29",
+      "props": [
+        {
+          "prop": "strikeouts",
+          "pick": "Under",
+          "model_line": 2.0,
+          "use_line": 3.5,
+          "projection": 1.9,
+          "edge": 1.63,
+          "confidence": "high",
+          "k9": 3.18,
+          "opp_k_rate": 0.192
+        }
+      ],
+      "headline": "Under 3.5 STRIKEOUTS (high confidence)",
+      "notes": []
+    },
+    {
       "player": "Cristopher S\u00e1nchez",
       "team": "PHI",
       "opponent": "LAA",
@@ -421,28 +443,6 @@
         }
       ],
       "headline": "Over 4.5 STRIKEOUTS (low confidence)",
-      "notes": []
-    },
-    {
-      "player": "Ryan Feltner",
-      "team": "COL",
-      "opponent": "ATL",
-      "matchup": "COL @ ATL",
-      "game_date": "2026-08-29",
-      "props": [
-        {
-          "prop": "strikeouts",
-          "pick": "Over",
-          "model_line": 4.0,
-          "use_line": 3.5,
-          "projection": 3.9,
-          "edge": 0.41,
-          "confidence": "low",
-          "k9": 6.45,
-          "opp_k_rate": 0.216
-        }
-      ],
-      "headline": "Over 3.5 STRIKEOUTS (low confidence)",
       "notes": []
     },
     {
