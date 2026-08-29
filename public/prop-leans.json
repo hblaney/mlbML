@@ -2,8 +2,24 @@
   "generated_at": "2026-08-29",
   "source": "prop-leans-v2",
   "note": "K uses estimated PrizePicks lines when posted line unknown. Hitter FS from top-4 OPS bats per team.",
-  "actionable_count": 131,
+  "actionable_count": 132,
   "leans": [
+    {
+      "gameId": "bos-nyy-2026-08-29-823501",
+      "matchup": "BOS @ NYY",
+      "player": "Jahmai Jones",
+      "team": "BOS",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Max Fried",
+      "fair_line": 7.5,
+      "line": 5.5,
+      "projection": 7.7,
+      "lean": "Over",
+      "edge": 2.24,
+      "confidence": "high",
+      "line_source": "prizepicks_est",
+      "ops": 1.502
+    },
     {
       "gameId": "hou-nym-2026-08-29-823582",
       "matchup": "HOU @ NYM",
@@ -52,38 +68,6 @@
       "k9": 10.36
     },
     {
-      "gameId": "bos-nyy-2026-08-29-823539",
-      "matchup": "BOS @ NYY",
-      "player": "Willson Contreras",
-      "team": "BOS",
-      "prop": "hitter_fantasy_score",
-      "vs_pitcher": "Carlos Rod\u00f3n",
-      "fair_line": 7.0,
-      "line": 5.0,
-      "projection": 7.0,
-      "lean": "Over",
-      "edge": 1.95,
-      "confidence": "medium",
-      "line_source": "prizepicks_est",
-      "ops": 0.908
-    },
-    {
-      "gameId": "bos-nyy-2026-08-29-823539",
-      "matchup": "BOS @ NYY",
-      "player": "Jahmai Jones",
-      "team": "BOS",
-      "prop": "hitter_fantasy_score",
-      "vs_pitcher": "Carlos Rod\u00f3n",
-      "fair_line": 8.0,
-      "line": 6.0,
-      "projection": 7.9,
-      "lean": "Over",
-      "edge": 1.9,
-      "confidence": "medium",
-      "line_source": "prizepicks_est",
-      "ops": 1.502
-    },
-    {
       "gameId": "phi-laa-2026-08-29-823986",
       "matchup": "PHI @ LAA",
       "player": "Bryan De La Cruz",
@@ -129,6 +113,22 @@
       "confidence": "medium",
       "line_source": "prizepicks_est",
       "ops": 0.922
+    },
+    {
+      "gameId": "bos-nyy-2026-08-29-823501",
+      "matchup": "BOS @ NYY",
+      "player": "Willson Contreras",
+      "team": "BOS",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Max Fried",
+      "fair_line": 7.0,
+      "line": 5.0,
+      "projection": 6.8,
+      "lean": "Over",
+      "edge": 1.81,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.908
     },
     {
       "gameId": "cws-min-2026-08-29-823665",
@@ -273,22 +273,6 @@
       "ops": 0.829
     },
     {
-      "gameId": "bos-nyy-2026-08-29-823539",
-      "matchup": "BOS @ NYY",
-      "player": "Ben Rice",
-      "team": "NYY",
-      "prop": "hitter_fantasy_score",
-      "vs_pitcher": "Jake Bennett",
-      "fair_line": 7.0,
-      "line": 5.5,
-      "projection": 7.1,
-      "lean": "Over",
-      "edge": 1.65,
-      "confidence": "medium",
-      "line_source": "prizepicks_est",
-      "ops": 0.884
-    },
-    {
       "gameId": "cws-min-2026-08-29-823665",
       "matchup": "CWS @ MIN",
       "player": "Munetaka Murakami",
@@ -334,6 +318,22 @@
       "confidence": "medium",
       "line_source": "prizepicks_est",
       "ops": 0.866
+    },
+    {
+      "gameId": "bos-nyy-2026-08-29-823501",
+      "matchup": "BOS @ NYY",
+      "player": "Ben Rice",
+      "team": "NYY",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Alec Gamboa",
+      "fair_line": 6.5,
+      "line": 5.0,
+      "projection": 6.6,
+      "lean": "Over",
+      "edge": 1.62,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.884
     },
     {
       "gameId": "cin-chc-2026-08-29-824637",
@@ -1118,6 +1118,22 @@
       "ops": 0.805
     },
     {
+      "gameId": "bos-nyy-2026-08-29-823501",
+      "matchup": "BOS @ NYY",
+      "player": "Paul Goldschmidt",
+      "team": "NYY",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Alec Gamboa",
+      "fair_line": 5.5,
+      "line": 4.5,
+      "projection": 5.6,
+      "lean": "Over",
+      "edge": 1.06,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.766
+    },
+    {
       "gameId": "sd-tb-2026-08-29-822936",
       "matchup": "SD @ TB",
       "player": "Ryan Vilade",
@@ -1214,22 +1230,6 @@
       "ops": 0.785
     },
     {
-      "gameId": "bos-nyy-2026-08-29-823539",
-      "matchup": "BOS @ NYY",
-      "player": "Paul Goldschmidt",
-      "team": "NYY",
-      "prop": "hitter_fantasy_score",
-      "vs_pitcher": "Jake Bennett",
-      "fair_line": 6.0,
-      "line": 5.0,
-      "projection": 6.0,
-      "lean": "Over",
-      "edge": 1.01,
-      "confidence": "low",
-      "line_source": "prizepicks_est",
-      "ops": 0.766
-    },
-    {
       "gameId": "lad-det-2026-08-29-824230",
       "matchup": "LAD @ DET",
       "player": "Kevin McGonigle",
@@ -1244,22 +1244,6 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.796
-    },
-    {
-      "gameId": "bos-nyy-2026-08-29-823539",
-      "matchup": "BOS @ NYY",
-      "player": "Ceddanne Rafaela",
-      "team": "BOS",
-      "prop": "hitter_fantasy_score",
-      "vs_pitcher": "Carlos Rod\u00f3n",
-      "fair_line": 6.5,
-      "line": 5.5,
-      "projection": 6.5,
-      "lean": "Over",
-      "edge": 0.98,
-      "confidence": "low",
-      "line_source": "prizepicks_est",
-      "ops": 0.779
     },
     {
       "gameId": "hou-nym-2026-08-29-823582",
@@ -1405,20 +1389,20 @@
       "ops": 0.733
     },
     {
-      "gameId": "bos-nyy-2026-08-29-823539",
+      "gameId": "bos-nyy-2026-08-29-823501",
       "matchup": "BOS @ NYY",
-      "player": "Wilyer Abreu",
-      "team": "BOS",
+      "player": "Cody Bellinger",
+      "team": "NYY",
       "prop": "hitter_fantasy_score",
-      "vs_pitcher": "Carlos Rod\u00f3n",
-      "fair_line": 6.5,
-      "line": 5.5,
-      "projection": 6.4,
+      "vs_pitcher": "Alec Gamboa",
+      "fair_line": 6.0,
+      "line": 5.0,
+      "projection": 5.9,
       "lean": "Over",
       "edge": 0.92,
       "confidence": "low",
       "line_source": "prizepicks_est",
-      "ops": 0.797
+      "ops": 0.758
     },
     {
       "gameId": "cin-chc-2026-08-29-824637",
@@ -1451,22 +1435,6 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.718
-    },
-    {
-      "gameId": "bos-nyy-2026-08-29-823539",
-      "matchup": "BOS @ NYY",
-      "player": "Cody Bellinger",
-      "team": "NYY",
-      "prop": "hitter_fantasy_score",
-      "vs_pitcher": "Jake Bennett",
-      "fair_line": 6.5,
-      "line": 5.5,
-      "projection": 6.4,
-      "lean": "Over",
-      "edge": 0.89,
-      "confidence": "low",
-      "line_source": "prizepicks_est",
-      "ops": 0.758
     },
     {
       "gameId": "tex-mil-2026-08-29-823741",
@@ -1597,6 +1565,22 @@
       "ops": 0.807
     },
     {
+      "gameId": "bos-nyy-2026-08-29-823501",
+      "matchup": "BOS @ NYY",
+      "player": "Ceddanne Rafaela",
+      "team": "BOS",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Max Fried",
+      "fair_line": 6.5,
+      "line": 5.5,
+      "projection": 6.4,
+      "lean": "Over",
+      "edge": 0.85,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.779
+    },
+    {
       "gameId": "cws-min-2026-08-29-823665",
       "matchup": "CWS @ MIN",
       "player": "Kody Clemens",
@@ -1627,6 +1611,22 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.798
+    },
+    {
+      "gameId": "bos-nyy-2026-08-29-823501",
+      "matchup": "BOS @ NYY",
+      "player": "Trent Grisham",
+      "team": "NYY",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Alec Gamboa",
+      "fair_line": 6.0,
+      "line": 5.0,
+      "projection": 5.8,
+      "lean": "Over",
+      "edge": 0.84,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.724
     },
     {
       "gameId": "phi-laa-2026-08-29-823986",
@@ -1725,22 +1725,6 @@
       "ops": 0.786
     },
     {
-      "gameId": "bos-nyy-2026-08-29-823539",
-      "matchup": "BOS @ NYY",
-      "player": "Trent Grisham",
-      "team": "NYY",
-      "prop": "hitter_fantasy_score",
-      "vs_pitcher": "Jake Bennett",
-      "fair_line": 6.5,
-      "line": 5.5,
-      "projection": 6.3,
-      "lean": "Over",
-      "edge": 0.81,
-      "confidence": "low",
-      "line_source": "prizepicks_est",
-      "ops": 0.724
-    },
-    {
       "gameId": "bal-ath-2026-08-29-824961",
       "matchup": "BAL @ ATH",
       "player": "Carlos Cortes",
@@ -1803,6 +1787,22 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.813
+    },
+    {
+      "gameId": "bos-nyy-2026-08-29-823501",
+      "matchup": "BOS @ NYY",
+      "player": "Wilyer Abreu",
+      "team": "BOS",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Max Fried",
+      "fair_line": 6.5,
+      "line": 5.5,
+      "projection": 6.3,
+      "lean": "Over",
+      "edge": 0.79,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.797
     },
     {
       "gameId": "phi-laa-2026-08-29-823986",
@@ -2018,6 +2018,21 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "k9": 7.69
+    },
+    {
+      "gameId": "bos-nyy-2026-08-29-823501",
+      "matchup": "BOS @ NYY",
+      "player": "Max Fried",
+      "team": "NYY",
+      "prop": "strikeouts",
+      "fair_line": 5.0,
+      "line": 4.5,
+      "projection": 5.0,
+      "lean": "Over",
+      "edge": 0.47,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "k9": 8.24
     },
     {
       "gameId": "bal-ath-2026-08-29-824961",
@@ -2240,6 +2255,21 @@
       "ops": 0.723
     },
     {
+      "gameId": "bos-nyy-2026-08-29-823501",
+      "matchup": "BOS @ NYY",
+      "player": "Alec Gamboa",
+      "team": "BOS",
+      "prop": "strikeouts",
+      "fair_line": 4.0,
+      "line": 3.5,
+      "projection": 3.8,
+      "lean": "Pass",
+      "edge": 0.35,
+      "confidence": "pass",
+      "line_source": "prizepicks_est",
+      "k9": 6.1
+    },
+    {
       "gameId": "cws-min-2026-08-29-823665",
       "matchup": "CWS @ MIN",
       "player": "Erick Fedde",
@@ -2377,6 +2407,16 @@
   ],
   "top_plays": [
     {
+      "player": "Jahmai Jones",
+      "prop": "hitter_fantasy_score",
+      "lean": "Over",
+      "line": 5.5,
+      "projection": 7.7,
+      "edge": 2.24,
+      "confidence": "high",
+      "matchup": "BOS @ NYY"
+    },
+    {
       "player": "Juan Soto",
       "prop": "hitter_fantasy_score",
       "lean": "Over",
@@ -2407,26 +2447,6 @@
       "matchup": "BAL @ ATH"
     },
     {
-      "player": "Willson Contreras",
-      "prop": "hitter_fantasy_score",
-      "lean": "Over",
-      "line": 5.0,
-      "projection": 7.0,
-      "edge": 1.95,
-      "confidence": "medium",
-      "matchup": "BOS @ NYY"
-    },
-    {
-      "player": "Jahmai Jones",
-      "prop": "hitter_fantasy_score",
-      "lean": "Over",
-      "line": 6.0,
-      "projection": 7.9,
-      "edge": 1.9,
-      "confidence": "medium",
-      "matchup": "BOS @ NYY"
-    },
-    {
       "player": "Bryan De La Cruz",
       "prop": "hitter_fantasy_score",
       "lean": "Over",
@@ -2455,6 +2475,16 @@
       "edge": 1.85,
       "confidence": "high",
       "matchup": "HOU @ NYM"
+    },
+    {
+      "player": "Willson Contreras",
+      "prop": "hitter_fantasy_score",
+      "lean": "Over",
+      "line": 5.0,
+      "projection": 6.8,
+      "edge": 1.81,
+      "confidence": "medium",
+      "matchup": "BOS @ NYY"
     },
     {
       "player": "Randal Grichuk",

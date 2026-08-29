@@ -5,22 +5,22 @@
   "slip": {
     "legs": [
       {
+        "player": "Jahmai Jones",
+        "prop": "hitter_fantasy_score",
+        "line": 5.5,
+        "pick": "Over",
+        "projection": 7.7,
+        "matchup": "BOS @ NYY",
+        "confidence": "high",
+        "edge": 2.24
+      },
+      {
         "player": "Juan Soto",
         "prop": "hitter_fantasy_score",
         "line": 6.0,
         "pick": "Over",
         "projection": 8.0,
         "matchup": "HOU @ NYM",
-        "confidence": "high",
-        "edge": 2.01
-      },
-      {
-        "player": "Shohei Ohtani",
-        "prop": "hitter_fantasy_score",
-        "line": 5.5,
-        "pick": "Over",
-        "projection": 7.5,
-        "matchup": "LAD @ DET",
         "confidence": "high",
         "edge": 2.01
       },
@@ -35,10 +35,20 @@
         "edge": 2.0
       }
     ],
-    "score": 6.87,
+    "score": 7.1,
     "same_game_warning": false
   },
   "top_plays": [
+    {
+      "player": "Jahmai Jones",
+      "prop": "hitter_fantasy_score",
+      "lean": "Over",
+      "line": 5.5,
+      "projection": 7.7,
+      "edge": 2.24,
+      "confidence": "high",
+      "matchup": "BOS @ NYY"
+    },
     {
       "player": "Juan Soto",
       "prop": "hitter_fantasy_score",
@@ -70,26 +80,6 @@
       "matchup": "BAL @ ATH"
     },
     {
-      "player": "Willson Contreras",
-      "prop": "hitter_fantasy_score",
-      "lean": "Over",
-      "line": 5.0,
-      "projection": 7.0,
-      "edge": 1.95,
-      "confidence": "medium",
-      "matchup": "BOS @ NYY"
-    },
-    {
-      "player": "Jahmai Jones",
-      "prop": "hitter_fantasy_score",
-      "lean": "Over",
-      "line": 6.0,
-      "projection": 7.9,
-      "edge": 1.9,
-      "confidence": "medium",
-      "matchup": "BOS @ NYY"
-    },
-    {
       "player": "Bryan De La Cruz",
       "prop": "hitter_fantasy_score",
       "lean": "Over",
@@ -118,6 +108,16 @@
       "edge": 1.85,
       "confidence": "high",
       "matchup": "HOU @ NYM"
+    },
+    {
+      "player": "Willson Contreras",
+      "prop": "hitter_fantasy_score",
+      "lean": "Over",
+      "line": 5.0,
+      "projection": 6.8,
+      "edge": 1.81,
+      "confidence": "medium",
+      "matchup": "BOS @ NYY"
     },
     {
       "player": "Randal Grichuk",
@@ -162,6 +162,16 @@
   ],
   "all_actionable": [
     {
+      "player": "Jahmai Jones",
+      "prop": "hitter_fantasy_score",
+      "line": 5.5,
+      "lean": "Over",
+      "projection": 7.7,
+      "edge": 2.24,
+      "confidence": "high",
+      "matchup": "BOS @ NYY"
+    },
+    {
       "player": "Juan Soto",
       "prop": "hitter_fantasy_score",
       "line": 6.0,
@@ -192,26 +202,6 @@
       "matchup": "BAL @ ATH"
     },
     {
-      "player": "Willson Contreras",
-      "prop": "hitter_fantasy_score",
-      "line": 5.0,
-      "lean": "Over",
-      "projection": 7.0,
-      "edge": 1.95,
-      "confidence": "medium",
-      "matchup": "BOS @ NYY"
-    },
-    {
-      "player": "Jahmai Jones",
-      "prop": "hitter_fantasy_score",
-      "line": 6.0,
-      "lean": "Over",
-      "projection": 7.9,
-      "edge": 1.9,
-      "confidence": "medium",
-      "matchup": "BOS @ NYY"
-    },
-    {
       "player": "Bryan De La Cruz",
       "prop": "hitter_fantasy_score",
       "line": 5.0,
@@ -240,6 +230,16 @@
       "edge": 1.85,
       "confidence": "medium",
       "matchup": "CIN @ CHC"
+    },
+    {
+      "player": "Willson Contreras",
+      "prop": "hitter_fantasy_score",
+      "line": 5.0,
+      "lean": "Over",
+      "projection": 6.8,
+      "edge": 1.81,
+      "confidence": "medium",
+      "matchup": "BOS @ NYY"
     },
     {
       "player": "Randal Grichuk",
@@ -332,16 +332,6 @@
       "matchup": "BAL @ ATH"
     },
     {
-      "player": "Ben Rice",
-      "prop": "hitter_fantasy_score",
-      "line": 5.5,
-      "lean": "Over",
-      "projection": 7.1,
-      "edge": 1.65,
-      "confidence": "medium",
-      "matchup": "BOS @ NYY"
-    },
-    {
       "player": "Munetaka Murakami",
       "prop": "hitter_fantasy_score",
       "line": 7.0,
@@ -360,6 +350,16 @@
       "edge": 1.64,
       "confidence": "high",
       "matchup": "LAD @ DET"
+    },
+    {
+      "player": "Matt Olson",
+      "prop": "hitter_fantasy_score",
+      "line": 6.0,
+      "lean": "Over",
+      "projection": 7.6,
+      "edge": 1.64,
+      "confidence": "medium",
+      "matchup": "COL @ ATL"
     }
   ]
 }
