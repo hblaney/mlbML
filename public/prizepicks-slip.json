@@ -332,6 +332,16 @@
       "matchup": "MIL @ CHC"
     },
     {
+      "player": "Hunter Goodman",
+      "prop": "hitter_fantasy_score",
+      "line": 6.0,
+      "lean": "Over",
+      "projection": 7.7,
+      "edge": 1.68,
+      "confidence": "medium",
+      "matchup": "BAL @ COL"
+    },
+    {
       "player": "Sal Stewart",
       "prop": "hitter_fantasy_score",
       "line": 5.5,
@@ -350,16 +360,6 @@
       "edge": 1.66,
       "confidence": "medium",
       "matchup": "SD @ CIN"
-    },
-    {
-      "player": "Kyle Schwarber",
-      "prop": "hitter_fantasy_score",
-      "line": 5.5,
-      "lean": "Over",
-      "projection": 7.2,
-      "edge": 1.66,
-      "confidence": "medium",
-      "matchup": "PHI @ AZ"
     }
   ]
 }

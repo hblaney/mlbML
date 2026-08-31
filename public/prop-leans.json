@@ -2,7 +2,7 @@
   "generated_at": "2026-08-31",
   "source": "prop-leans-v2",
   "note": "K uses estimated PrizePicks lines when posted line unknown. Hitter FS from top-4 OPS bats per team.",
-  "actionable_count": 100,
+  "actionable_count": 109,
   "leans": [
     {
       "gameId": "sea-bos-2026-08-31-824719",
@@ -273,6 +273,22 @@
       "k9": 11.06
     },
     {
+      "gameId": "bal-col-2026-08-31-824314",
+      "matchup": "BAL @ COL",
+      "player": "Hunter Goodman",
+      "team": "COL",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Cade Povich",
+      "fair_line": 7.5,
+      "line": 6.0,
+      "projection": 7.7,
+      "lean": "Over",
+      "edge": 1.68,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.862
+    },
+    {
       "gameId": "sd-cin-2026-08-31-824473",
       "matchup": "SD @ CIN",
       "player": "Sal Stewart",
@@ -382,6 +398,22 @@
       "confidence": "medium",
       "line_source": "prizepicks_est",
       "ops": 0.877
+    },
+    {
+      "gameId": "bal-col-2026-08-31-824314",
+      "matchup": "BAL @ COL",
+      "player": "Pete Alonso",
+      "team": "BAL",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Tanner Gordon",
+      "fair_line": 7.5,
+      "line": 6.0,
+      "projection": 7.6,
+      "lean": "Over",
+      "edge": 1.59,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.863
     },
     {
       "gameId": "phi-az-2026-08-31-825040",
@@ -655,6 +687,38 @@
       "ops": 0.836
     },
     {
+      "gameId": "bal-col-2026-08-31-824314",
+      "matchup": "BAL @ COL",
+      "player": "Christian Encarnacion-Strand",
+      "team": "BAL",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Tanner Gordon",
+      "fair_line": 6.5,
+      "line": 5.5,
+      "projection": 6.7,
+      "lean": "Over",
+      "edge": 1.25,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.804
+    },
+    {
+      "gameId": "bal-col-2026-08-31-824314",
+      "matchup": "BAL @ COL",
+      "player": "TJ Rumfield",
+      "team": "COL",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Cade Povich",
+      "fair_line": 7.0,
+      "line": 6.0,
+      "projection": 7.2,
+      "lean": "Over",
+      "edge": 1.24,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.817
+    },
+    {
       "gameId": "sd-cin-2026-08-31-824473",
       "matchup": "SD @ CIN",
       "player": "Luis Rengifo",
@@ -701,6 +765,22 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.782
+    },
+    {
+      "gameId": "bal-col-2026-08-31-824314",
+      "matchup": "BAL @ COL",
+      "player": "Mickey Moniak",
+      "team": "COL",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Cade Povich",
+      "fair_line": 7.0,
+      "line": 6.0,
+      "projection": 7.2,
+      "lean": "Over",
+      "edge": 1.19,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.804
     },
     {
       "gameId": "det-min-2026-08-31-823663",
@@ -876,6 +956,22 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.818
+    },
+    {
+      "gameId": "bal-col-2026-08-31-824314",
+      "matchup": "BAL @ COL",
+      "player": "Jake McCarthy",
+      "team": "COL",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Cade Povich",
+      "fair_line": 7.5,
+      "line": 6.5,
+      "projection": 7.6,
+      "lean": "Over",
+      "edge": 1.1,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.807
     },
     {
       "gameId": "mil-chc-2026-08-31-824635",
@@ -1355,6 +1451,22 @@
       "ops": 0.758
     },
     {
+      "gameId": "bal-col-2026-08-31-824314",
+      "matchup": "BAL @ COL",
+      "player": "Coby Mayo",
+      "team": "BAL",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Tanner Gordon",
+      "fair_line": 7.0,
+      "line": 6.0,
+      "projection": 6.8,
+      "lean": "Over",
+      "edge": 0.83,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.729
+    },
+    {
       "gameId": "sd-cin-2026-08-31-824473",
       "matchup": "SD @ CIN",
       "player": "Fernando Tatis Jr.",
@@ -1467,6 +1579,21 @@
       "ops": 0.749
     },
     {
+      "gameId": "bal-col-2026-08-31-824314",
+      "matchup": "BAL @ COL",
+      "player": "Tanner Gordon",
+      "team": "COL",
+      "prop": "strikeouts",
+      "fair_line": 4.5,
+      "line": 4.0,
+      "projection": 4.7,
+      "lean": "Over",
+      "edge": 0.66,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "k9": 7.42
+    },
+    {
       "gameId": "sea-bos-2026-08-31-824719",
       "matchup": "SEA @ BOS",
       "player": "George Kirby",
@@ -1570,6 +1697,21 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "k9": 7.79
+    },
+    {
+      "gameId": "bal-col-2026-08-31-824314",
+      "matchup": "BAL @ COL",
+      "player": "Cade Povich",
+      "team": "BAL",
+      "prop": "strikeouts",
+      "fair_line": 5.0,
+      "line": 4.5,
+      "projection": 4.9,
+      "lean": "Over",
+      "edge": 0.4,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "k9": 7.97
     },
     {
       "gameId": "det-min-2026-08-31-823663",
@@ -1681,6 +1823,22 @@
       "confidence": "pass",
       "line_source": "prizepicks_est",
       "ops": 0.723
+    },
+    {
+      "gameId": "bal-col-2026-08-31-824314",
+      "matchup": "BAL @ COL",
+      "player": "Taylor Ward",
+      "team": "BAL",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Tanner Gordon",
+      "fair_line": 6.0,
+      "line": 5.5,
+      "projection": 6.0,
+      "lean": "Pass",
+      "edge": 0.5,
+      "confidence": "pass",
+      "line_source": "prizepicks_est",
+      "ops": 0.729
     },
     {
       "gameId": "phi-az-2026-08-31-825040",

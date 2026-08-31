@@ -243,9 +243,7 @@
         }
       ],
       "headline": "Over 4.0 STRIKEOUTS (medium confidence)",
-      "notes": [
-        "Probable starter not fully confirmed \u2014 verify before betting."
-      ]
+      "notes": []
     },
     {
       "player": "George Kirby",
@@ -396,6 +394,28 @@
           "confidence": "low",
           "k9": 7.79,
           "opp_k_rate": 0.253
+        }
+      ],
+      "headline": "Over 4.5 STRIKEOUTS (low confidence)",
+      "notes": []
+    },
+    {
+      "player": "Cade Povich",
+      "team": "BAL",
+      "opponent": "COL",
+      "matchup": "BAL @ COL",
+      "game_date": "2026-08-31",
+      "props": [
+        {
+          "prop": "strikeouts",
+          "pick": "Over",
+          "model_line": 5.0,
+          "use_line": 4.5,
+          "projection": 4.9,
+          "edge": 0.4,
+          "confidence": "low",
+          "k9": 7.97,
+          "opp_k_rate": 0.228
         }
       ],
       "headline": "Over 4.5 STRIKEOUTS (low confidence)",
