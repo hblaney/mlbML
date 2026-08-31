@@ -2,7 +2,7 @@
   "generated_at": "2026-08-31",
   "source": "prop-leans-v2",
   "note": "K uses estimated PrizePicks lines when posted line unknown. Hitter FS from top-4 OPS bats per team.",
-  "actionable_count": 91,
+  "actionable_count": 100,
   "leans": [
     {
       "gameId": "sea-bos-2026-08-31-824719",
@@ -211,6 +211,22 @@
       "ops": 0.886
     },
     {
+      "gameId": "phi-az-2026-08-31-825040",
+      "matchup": "PHI @ AZ",
+      "player": "Bryan De La Cruz",
+      "team": "PHI",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Brandon Pfaadt",
+      "fair_line": 6.0,
+      "line": 4.5,
+      "projection": 6.2,
+      "lean": "Over",
+      "edge": 1.73,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.884
+    },
+    {
       "gameId": "ath-tex-2026-08-31-822855",
       "matchup": "ATH @ TEX",
       "player": "Jacob deGrom",
@@ -289,6 +305,22 @@
       "ops": 0.821
     },
     {
+      "gameId": "phi-az-2026-08-31-825040",
+      "matchup": "PHI @ AZ",
+      "player": "Kyle Schwarber",
+      "team": "PHI",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Brandon Pfaadt",
+      "fair_line": 7.0,
+      "line": 5.5,
+      "projection": 7.2,
+      "lean": "Over",
+      "edge": 1.66,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.886
+    },
+    {
       "gameId": "mia-wsh-2026-08-31-822689",
       "matchup": "MIA @ WSH",
       "player": "Griffin Conine",
@@ -352,6 +384,38 @@
       "ops": 0.877
     },
     {
+      "gameId": "phi-az-2026-08-31-825040",
+      "matchup": "PHI @ AZ",
+      "player": "Corbin Carroll",
+      "team": "AZ",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Aaron Nola",
+      "fair_line": 7.5,
+      "line": 6.0,
+      "projection": 7.6,
+      "lean": "Over",
+      "edge": 1.58,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.822
+    },
+    {
+      "gameId": "phi-az-2026-08-31-825040",
+      "matchup": "PHI @ AZ",
+      "player": "Gabriel Moreno",
+      "team": "AZ",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Aaron Nola",
+      "fair_line": 7.0,
+      "line": 5.5,
+      "projection": 7.1,
+      "lean": "Over",
+      "edge": 1.57,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.848
+    },
+    {
       "gameId": "cws-hou-2026-08-31-824149",
       "matchup": "CWS @ HOU",
       "player": "Miguel Vargas",
@@ -382,6 +446,22 @@
       "confidence": "medium",
       "line_source": "prizepicks_est",
       "ops": 0.873
+    },
+    {
+      "gameId": "phi-az-2026-08-31-825040",
+      "matchup": "PHI @ AZ",
+      "player": "Bryce Harper",
+      "team": "PHI",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Brandon Pfaadt",
+      "fair_line": 7.0,
+      "line": 5.5,
+      "projection": 7.0,
+      "lean": "Over",
+      "edge": 1.53,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.889
     },
     {
       "gameId": "det-min-2026-08-31-823663",
@@ -669,6 +749,21 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.784
+    },
+    {
+      "gameId": "phi-az-2026-08-31-825040",
+      "matchup": "PHI @ AZ",
+      "player": "Aaron Nola",
+      "team": "PHI",
+      "prop": "strikeouts",
+      "fair_line": 5.5,
+      "line": 4.5,
+      "projection": 5.7,
+      "lean": "Over",
+      "edge": 1.15,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "k9": 9.63
     },
     {
       "gameId": "ath-tex-2026-08-31-822855",
@@ -1180,6 +1275,22 @@
       "ops": 0.819
     },
     {
+      "gameId": "phi-az-2026-08-31-825040",
+      "matchup": "PHI @ AZ",
+      "player": "James McCann",
+      "team": "AZ",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Aaron Nola",
+      "fair_line": 6.5,
+      "line": 5.5,
+      "projection": 6.4,
+      "lean": "Over",
+      "edge": 0.87,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.765
+    },
+    {
       "gameId": "nym-tb-2026-08-31-822932",
       "matchup": "NYM @ TB",
       "player": "Tyrone Taylor",
@@ -1194,6 +1305,22 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.879
+    },
+    {
+      "gameId": "phi-az-2026-08-31-825040",
+      "matchup": "PHI @ AZ",
+      "player": "Tyler Locklear",
+      "team": "AZ",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Aaron Nola",
+      "fair_line": 5.5,
+      "line": 4.5,
+      "projection": 5.3,
+      "lean": "Over",
+      "edge": 0.85,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.801
     },
     {
       "gameId": "nyy-laa-2026-08-31-823982",
@@ -1322,6 +1449,22 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.807
+    },
+    {
+      "gameId": "phi-az-2026-08-31-825040",
+      "matchup": "PHI @ AZ",
+      "player": "Brandon Marsh",
+      "team": "PHI",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Brandon Pfaadt",
+      "fair_line": 6.5,
+      "line": 5.5,
+      "projection": 6.3,
+      "lean": "Over",
+      "edge": 0.76,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.749
     },
     {
       "gameId": "sea-bos-2026-08-31-824719",
@@ -1538,6 +1681,21 @@
       "confidence": "pass",
       "line_source": "prizepicks_est",
       "ops": 0.723
+    },
+    {
+      "gameId": "phi-az-2026-08-31-825040",
+      "matchup": "PHI @ AZ",
+      "player": "Brandon Pfaadt",
+      "team": "AZ",
+      "prop": "strikeouts",
+      "fair_line": 4.0,
+      "line": 3.5,
+      "projection": 3.8,
+      "lean": "Pass",
+      "edge": 0.27,
+      "confidence": "pass",
+      "line_source": "prizepicks_est",
+      "k9": 6.17
     },
     {
       "gameId": "sf-atl-2026-08-31-824911",

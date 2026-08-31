@@ -292,6 +292,16 @@
       "matchup": "MIL @ CHC"
     },
     {
+      "player": "Bryan De La Cruz",
+      "prop": "hitter_fantasy_score",
+      "line": 4.5,
+      "lean": "Over",
+      "projection": 6.2,
+      "edge": 1.73,
+      "confidence": "medium",
+      "matchup": "PHI @ AZ"
+    },
+    {
       "player": "Jacob deGrom",
       "prop": "strikeouts",
       "line": 5.0,
@@ -342,24 +352,14 @@
       "matchup": "SD @ CIN"
     },
     {
-      "player": "Griffin Conine",
+      "player": "Kyle Schwarber",
       "prop": "hitter_fantasy_score",
-      "line": 5.0,
+      "line": 5.5,
       "lean": "Over",
-      "projection": 6.6,
-      "edge": 1.62,
+      "projection": 7.2,
+      "edge": 1.66,
       "confidence": "medium",
-      "matchup": "MIA @ WSH"
-    },
-    {
-      "player": "Ian Seymour",
-      "prop": "strikeouts",
-      "line": 5.0,
-      "lean": "Over",
-      "projection": 6.6,
-      "edge": 1.61,
-      "confidence": "high",
-      "matchup": "NYM @ TB"
+      "matchup": "PHI @ AZ"
     }
   ]
 }
