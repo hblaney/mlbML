@@ -4,6 +4,28 @@
   "disclaimer": "Compare use_line to PrizePicks posted line before playing.",
   "cards": [
     {
+      "player": "Jedixson Paez",
+      "team": "BOS",
+      "opponent": "SEA",
+      "matchup": "SEA @ BOS",
+      "game_date": "2026-09-01",
+      "props": [
+        {
+          "prop": "strikeouts",
+          "pick": "Under",
+          "model_line": 0.0,
+          "use_line": 3.5,
+          "projection": 0.0,
+          "edge": 3.5,
+          "confidence": "high",
+          "k9": 0.0,
+          "opp_k_rate": 0.234
+        }
+      ],
+      "headline": "Under 3.5 STRIKEOUTS (high confidence)",
+      "notes": []
+    },
+    {
       "player": "Gavin Williams",
       "team": "CLE",
       "opponent": "TOR",
@@ -199,9 +221,7 @@
         }
       ],
       "headline": "Over 4.5 STRIKEOUTS (medium confidence)",
-      "notes": [
-        "Probable starter not fully confirmed \u2014 verify before betting."
-      ]
+      "notes": []
     },
     {
       "player": "AJ Smith-Shawver",
@@ -402,7 +422,7 @@
       "notes": []
     },
     {
-      "player": "Spencer Arrighetti",
+      "player": "Spencer Miles",
       "team": "TOR",
       "opponent": "CLE",
       "matchup": "TOR @ CLE",
@@ -414,9 +434,9 @@
           "model_line": 5.0,
           "use_line": 4.5,
           "projection": 5.0,
-          "edge": 0.54,
+          "edge": 0.53,
           "confidence": "medium",
-          "k9": 8.34,
+          "k9": 8.32,
           "opp_k_rate": 0.214
         }
       ],

@@ -2,7 +2,7 @@
   "generated_at": "2026-09-01",
   "source": "prop-leans-v2",
   "note": "K uses estimated PrizePicks lines when posted line unknown. Hitter FS from top-4 OPS bats per team.",
-  "actionable_count": 131,
+  "actionable_count": 139,
   "leans": [
     {
       "gameId": "nym-tb-2026-09-01-822929",
@@ -53,6 +53,22 @@
       "ops": 0.908
     },
     {
+      "gameId": "sea-bos-2026-09-01-824716",
+      "matchup": "SEA @ BOS",
+      "player": "Jahmai Jones",
+      "team": "BOS",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Bryan Woo",
+      "fair_line": 8.0,
+      "line": 6.0,
+      "projection": 8.2,
+      "lean": "Over",
+      "edge": 2.17,
+      "confidence": "high",
+      "line_source": "prizepicks_est",
+      "ops": 1.363
+    },
+    {
       "gameId": "mil-chc-2026-09-01-824633",
       "matchup": "MIL @ CHC",
       "player": "Pete Crow-Armstrong",
@@ -67,6 +83,22 @@
       "confidence": "high",
       "line_source": "prizepicks_est",
       "ops": 0.949
+    },
+    {
+      "gameId": "sea-bos-2026-09-01-824716",
+      "matchup": "SEA @ BOS",
+      "player": "Willson Contreras",
+      "team": "BOS",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Bryan Woo",
+      "fair_line": 7.0,
+      "line": 5.0,
+      "projection": 7.1,
+      "lean": "Over",
+      "edge": 2.14,
+      "confidence": "high",
+      "line_source": "prizepicks_est",
+      "ops": 0.9
     },
     {
       "gameId": "nym-tb-2026-09-01-822929",
@@ -609,6 +641,22 @@
       "ops": 0.826
     },
     {
+      "gameId": "sea-bos-2026-09-01-824716",
+      "matchup": "SEA @ BOS",
+      "player": "Randy Arozarena",
+      "team": "SEA",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Jedixson Paez",
+      "fair_line": 8.5,
+      "line": 7.0,
+      "projection": 8.4,
+      "lean": "Over",
+      "edge": 1.37,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.836
+    },
+    {
       "gameId": "sd-cin-2026-09-01-824472",
       "matchup": "SD @ CIN",
       "player": "Nathaniel Lowe",
@@ -849,6 +897,22 @@
       "ops": 0.81
     },
     {
+      "gameId": "sea-bos-2026-09-01-824716",
+      "matchup": "SEA @ BOS",
+      "player": "Dominic Canzone",
+      "team": "SEA",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Jedixson Paez",
+      "fair_line": 7.5,
+      "line": 6.5,
+      "projection": 7.7,
+      "lean": "Over",
+      "edge": 1.21,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.81
+    },
+    {
       "gameId": "mil-chc-2026-09-01-824633",
       "matchup": "MIL @ CHC",
       "player": "Jackson Chourio",
@@ -927,6 +991,38 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.804
+    },
+    {
+      "gameId": "sea-bos-2026-09-01-824716",
+      "matchup": "SEA @ BOS",
+      "player": "Wilyer Abreu",
+      "team": "BOS",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Bryan Woo",
+      "fair_line": 6.5,
+      "line": 5.5,
+      "projection": 6.6,
+      "lean": "Over",
+      "edge": 1.12,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.798
+    },
+    {
+      "gameId": "sea-bos-2026-09-01-824716",
+      "matchup": "SEA @ BOS",
+      "player": "Ceddanne Rafaela",
+      "team": "BOS",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Bryan Woo",
+      "fair_line": 6.5,
+      "line": 5.5,
+      "projection": 6.6,
+      "lean": "Over",
+      "edge": 1.12,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.765
     },
     {
       "gameId": "ath-tex-2026-09-01-822854",
@@ -1309,6 +1405,22 @@
       "ops": 0.795
     },
     {
+      "gameId": "tor-cle-2026-09-01-824391",
+      "matchup": "TOR @ CLE",
+      "player": "Jos\u00e9 Ram\u00edrez",
+      "team": "CLE",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Spencer Miles",
+      "fair_line": 7.0,
+      "line": 6.0,
+      "projection": 7.0,
+      "lean": "Over",
+      "edge": 0.95,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.732
+    },
+    {
       "gameId": "cws-hou-2026-09-01-824148",
       "matchup": "CWS @ HOU",
       "player": "Christian Walker",
@@ -1373,6 +1485,22 @@
       "ops": 0.718
     },
     {
+      "gameId": "tor-cle-2026-09-01-824391",
+      "matchup": "TOR @ CLE",
+      "player": "Chase DeLauter",
+      "team": "CLE",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Spencer Miles",
+      "fair_line": 7.5,
+      "line": 6.5,
+      "projection": 7.4,
+      "lean": "Over",
+      "edge": 0.92,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.819
+    },
+    {
       "gameId": "ath-tex-2026-09-01-822854",
       "matchup": "ATH @ TEX",
       "player": "Joc Pederson",
@@ -1419,6 +1547,21 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.774
+    },
+    {
+      "gameId": "sea-bos-2026-09-01-824716",
+      "matchup": "SEA @ BOS",
+      "player": "Bryan Woo",
+      "team": "SEA",
+      "prop": "strikeouts",
+      "fair_line": 5.5,
+      "line": 4.5,
+      "projection": 5.4,
+      "lean": "Over",
+      "edge": 0.91,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "k9": 8.98
     },
     {
       "gameId": "sd-cin-2026-09-01-824472",
@@ -1533,6 +1676,22 @@
       "ops": 0.784
     },
     {
+      "gameId": "sea-bos-2026-09-01-824716",
+      "matchup": "SEA @ BOS",
+      "player": "Julio Rodr\u00edguez",
+      "team": "SEA",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Jedixson Paez",
+      "fair_line": 7.5,
+      "line": 6.5,
+      "projection": 7.4,
+      "lean": "Over",
+      "edge": 0.87,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.706
+    },
+    {
       "gameId": "det-min-2026-09-01-823661",
       "matchup": "DET @ MIN",
       "player": "Gleyber Torres",
@@ -1579,22 +1738,6 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.754
-    },
-    {
-      "gameId": "tor-cle-2026-09-01-824391",
-      "matchup": "TOR @ CLE",
-      "player": "Steven Kwan",
-      "team": "CLE",
-      "prop": "hitter_fantasy_score",
-      "vs_pitcher": "Spencer Arrighetti",
-      "fair_line": 6.0,
-      "line": 5.0,
-      "projection": 5.8,
-      "lean": "Over",
-      "edge": 0.85,
-      "confidence": "low",
-      "line_source": "prizepicks_est",
-      "ops": 0.713
     },
     {
       "gameId": "cws-hou-2026-09-01-824148",
@@ -1709,20 +1852,20 @@
       "ops": 0.79
     },
     {
-      "gameId": "tor-cle-2026-09-01-824391",
-      "matchup": "TOR @ CLE",
-      "player": "Gabriel Arias",
-      "team": "CLE",
+      "gameId": "sea-bos-2026-09-01-824716",
+      "matchup": "SEA @ BOS",
+      "player": "Luke Raley",
+      "team": "SEA",
       "prop": "hitter_fantasy_score",
-      "vs_pitcher": "Spencer Arrighetti",
-      "fair_line": 6.0,
-      "line": 5.0,
-      "projection": 5.8,
+      "vs_pitcher": "Jedixson Paez",
+      "fair_line": 7.0,
+      "line": 6.0,
+      "projection": 6.8,
       "lean": "Over",
-      "edge": 0.81,
+      "edge": 0.8,
       "confidence": "low",
       "line_source": "prizepicks_est",
-      "ops": 0.762
+      "ops": 0.723
     },
     {
       "gameId": "nym-tb-2026-09-01-822929",
@@ -1775,22 +1918,6 @@
     {
       "gameId": "tor-cle-2026-09-01-824391",
       "matchup": "TOR @ CLE",
-      "player": "Chase DeLauter",
-      "team": "CLE",
-      "prop": "hitter_fantasy_score",
-      "vs_pitcher": "Spencer Arrighetti",
-      "fair_line": 8.5,
-      "line": 7.5,
-      "projection": 8.3,
-      "lean": "Over",
-      "edge": 0.77,
-      "confidence": "low",
-      "line_source": "prizepicks_est",
-      "ops": 0.819
-    },
-    {
-      "gameId": "tor-cle-2026-09-01-824391",
-      "matchup": "TOR @ CLE",
       "player": "Kazuma Okamoto",
       "team": "TOR",
       "prop": "hitter_fantasy_score",
@@ -1803,22 +1930,6 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.748
-    },
-    {
-      "gameId": "tor-cle-2026-09-01-824391",
-      "matchup": "TOR @ CLE",
-      "player": "Jos\u00e9 Ram\u00edrez",
-      "team": "CLE",
-      "prop": "hitter_fantasy_score",
-      "vs_pitcher": "Spencer Arrighetti",
-      "fair_line": 8.0,
-      "line": 7.0,
-      "projection": 7.8,
-      "lean": "Over",
-      "edge": 0.76,
-      "confidence": "low",
-      "line_source": "prizepicks_est",
-      "ops": 0.732
     },
     {
       "gameId": "atl-wsh-2026-09-01-822687",
@@ -1943,17 +2054,17 @@
     {
       "gameId": "tor-cle-2026-09-01-824391",
       "matchup": "TOR @ CLE",
-      "player": "Spencer Arrighetti",
+      "player": "Spencer Miles",
       "team": "TOR",
       "prop": "strikeouts",
       "fair_line": 5.0,
       "line": 4.5,
       "projection": 5.0,
       "lean": "Over",
-      "edge": 0.54,
+      "edge": 0.53,
       "confidence": "low",
       "line_source": "prizepicks_est",
-      "k9": 8.34
+      "k9": 8.32
     },
     {
       "gameId": "phi-az-2026-09-01-825038",
@@ -2061,6 +2172,21 @@
       "k9": 7.29
     },
     {
+      "gameId": "sea-bos-2026-09-01-824716",
+      "matchup": "SEA @ BOS",
+      "player": "Jedixson Paez",
+      "team": "BOS",
+      "prop": "strikeouts",
+      "fair_line": 0.0,
+      "line": 3.5,
+      "projection": 0.0,
+      "lean": "Under",
+      "edge": 3.5,
+      "confidence": "high",
+      "line_source": "prizepicks_est",
+      "k9": 0.0
+    },
+    {
       "gameId": "mia-kc-2026-09-01-824070",
       "matchup": "MIA @ KC",
       "player": "Randy Dobnak",
@@ -2074,6 +2200,22 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "k9": 4.54
+    },
+    {
+      "gameId": "tor-cle-2026-09-01-824391",
+      "matchup": "TOR @ CLE",
+      "player": "Steven Kwan",
+      "team": "CLE",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Spencer Miles",
+      "fair_line": 5.0,
+      "line": 4.5,
+      "projection": 5.2,
+      "lean": "Pass",
+      "edge": 0.74,
+      "confidence": "pass",
+      "line_source": "prizepicks_est",
+      "ops": 0.713
     },
     {
       "gameId": "bal-col-2026-09-01-824313",
@@ -2106,6 +2248,22 @@
       "confidence": "pass",
       "line_source": "prizepicks_est",
       "ops": 0.722
+    },
+    {
+      "gameId": "tor-cle-2026-09-01-824391",
+      "matchup": "TOR @ CLE",
+      "player": "Gabriel Arias",
+      "team": "CLE",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Spencer Miles",
+      "fair_line": 5.0,
+      "line": 4.5,
+      "projection": 5.2,
+      "lean": "Pass",
+      "edge": 0.71,
+      "confidence": "pass",
+      "line_source": "prizepicks_est",
+      "ops": 0.762
     },
     {
       "gameId": "bal-col-2026-09-01-824313",
@@ -2219,6 +2377,16 @@
   ],
   "top_plays": [
     {
+      "player": "Jedixson Paez",
+      "prop": "strikeouts",
+      "lean": "Under",
+      "line": 3.5,
+      "projection": 0.0,
+      "edge": 3.5,
+      "confidence": "high",
+      "matchup": "SEA @ BOS"
+    },
+    {
       "player": "Juan Soto",
       "prop": "hitter_fantasy_score",
       "lean": "Over",
@@ -2249,6 +2417,16 @@
       "matchup": "STL @ LAD"
     },
     {
+      "player": "Jahmai Jones",
+      "prop": "hitter_fantasy_score",
+      "lean": "Over",
+      "line": 6.0,
+      "projection": 8.2,
+      "edge": 2.17,
+      "confidence": "high",
+      "matchup": "SEA @ BOS"
+    },
+    {
       "player": "Pete Crow-Armstrong",
       "prop": "hitter_fantasy_score",
       "lean": "Over",
@@ -2257,6 +2435,16 @@
       "edge": 2.16,
       "confidence": "high",
       "matchup": "MIL @ CHC"
+    },
+    {
+      "player": "Willson Contreras",
+      "prop": "hitter_fantasy_score",
+      "lean": "Over",
+      "line": 5.0,
+      "projection": 7.1,
+      "edge": 2.14,
+      "confidence": "high",
+      "matchup": "SEA @ BOS"
     },
     {
       "player": "Junior Caminero",
@@ -2307,36 +2495,6 @@
       "edge": 1.75,
       "confidence": "medium",
       "matchup": "NYM @ TB"
-    },
-    {
-      "player": "Alec Burleson",
-      "prop": "hitter_fantasy_score",
-      "lean": "Over",
-      "line": 5.5,
-      "projection": 7.2,
-      "edge": 1.74,
-      "confidence": "medium",
-      "matchup": "STL @ LAD"
-    },
-    {
-      "player": "Jac Caglianone",
-      "prop": "hitter_fantasy_score",
-      "lean": "Over",
-      "line": 5.0,
-      "projection": 6.7,
-      "edge": 1.73,
-      "confidence": "medium",
-      "matchup": "MIA @ KC"
-    },
-    {
-      "player": "Luis Garc\u00eda Jr.",
-      "prop": "hitter_fantasy_score",
-      "lean": "Over",
-      "line": 6.0,
-      "projection": 7.7,
-      "edge": 1.7,
-      "confidence": "medium",
-      "matchup": "ATL @ WSH"
     }
   ]
 }
