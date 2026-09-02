@@ -2,7 +2,7 @@
   "generated_at": "2026-09-02",
   "source": "prop-leans-v2",
   "note": "K uses estimated PrizePicks lines when posted line unknown. Hitter FS from top-4 OPS bats per team.",
-  "actionable_count": 125,
+  "actionable_count": 124,
   "leans": [
     {
       "gameId": "nym-tb-2026-09-02-822931",
@@ -223,21 +223,6 @@
       "confidence": "medium",
       "line_source": "prizepicks_est",
       "ops": 0.842
-    },
-    {
-      "gameId": "sf-pit-2026-09-02-823339",
-      "matchup": "SF @ PIT",
-      "player": "Jared Jones",
-      "team": "PIT",
-      "prop": "strikeouts",
-      "fair_line": 6.0,
-      "line": 4.5,
-      "projection": 6.2,
-      "lean": "Over",
-      "edge": 1.7,
-      "confidence": "high",
-      "line_source": "prizepicks_est",
-      "k9": 10.28
     },
     {
       "gameId": "sd-cin-2026-09-02-824470",
@@ -495,22 +480,6 @@
       "ops": 0.838
     },
     {
-      "gameId": "sf-pit-2026-09-02-823339",
-      "matchup": "SF @ PIT",
-      "player": "Rafael Devers",
-      "team": "SF",
-      "prop": "hitter_fantasy_score",
-      "vs_pitcher": "Jared Jones",
-      "fair_line": 7.0,
-      "line": 5.5,
-      "projection": 7.0,
-      "lean": "Over",
-      "edge": 1.49,
-      "confidence": "medium",
-      "line_source": "prizepicks_est",
-      "ops": 0.826
-    },
-    {
       "gameId": "sea-bos-2026-09-02-824717",
       "matchup": "SEA @ BOS",
       "player": "Randy Arozarena",
@@ -636,6 +605,22 @@
       "confidence": "medium",
       "line_source": "prizepicks_est",
       "ops": 0.863
+    },
+    {
+      "gameId": "sf-pit-2026-09-02-823339",
+      "matchup": "SF @ PIT",
+      "player": "Rafael Devers",
+      "team": "SF",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Bubba Chandler",
+      "fair_line": 7.0,
+      "line": 5.5,
+      "projection": 6.9,
+      "lean": "Over",
+      "edge": 1.4,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.826
     },
     {
       "gameId": "det-min-2026-09-02-823660",
@@ -1116,22 +1101,6 @@
       "ops": 0.799
     },
     {
-      "gameId": "sf-pit-2026-09-02-823339",
-      "matchup": "SF @ PIT",
-      "player": "Bryce Eldridge",
-      "team": "SF",
-      "prop": "hitter_fantasy_score",
-      "vs_pitcher": "Jared Jones",
-      "fair_line": 6.5,
-      "line": 5.5,
-      "projection": 6.6,
-      "lean": "Over",
-      "edge": 1.06,
-      "confidence": "low",
-      "line_source": "prizepicks_est",
-      "ops": 0.804
-    },
-    {
       "gameId": "sd-cin-2026-09-02-824470",
       "matchup": "SD @ CIN",
       "player": "Luis Rengifo",
@@ -1273,6 +1242,22 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.801
+    },
+    {
+      "gameId": "sf-pit-2026-09-02-823339",
+      "matchup": "SF @ PIT",
+      "player": "Bryce Eldridge",
+      "team": "SF",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Bubba Chandler",
+      "fair_line": 6.5,
+      "line": 5.5,
+      "projection": 6.5,
+      "lean": "Over",
+      "edge": 0.98,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.804
     },
     {
       "gameId": "nym-tb-2026-09-02-822931",
@@ -1545,22 +1530,6 @@
       "k9": 8.73
     },
     {
-      "gameId": "sf-pit-2026-09-02-823339",
-      "matchup": "SF @ PIT",
-      "player": "Casey Schmitt",
-      "team": "SF",
-      "prop": "hitter_fantasy_score",
-      "vs_pitcher": "Jared Jones",
-      "fair_line": 7.0,
-      "line": 6.0,
-      "projection": 6.9,
-      "lean": "Over",
-      "edge": 0.85,
-      "confidence": "low",
-      "line_source": "prizepicks_est",
-      "ops": 0.784
-    },
-    {
       "gameId": "mia-kc-2026-09-02-824068",
       "matchup": "MIA @ KC",
       "player": "Otto Lopez",
@@ -1767,6 +1736,22 @@
       "ops": 0.813
     },
     {
+      "gameId": "sf-pit-2026-09-02-823339",
+      "matchup": "SF @ PIT",
+      "player": "Casey Schmitt",
+      "team": "SF",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Bubba Chandler",
+      "fair_line": 7.0,
+      "line": 6.0,
+      "projection": 6.8,
+      "lean": "Over",
+      "edge": 0.77,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.784
+    },
+    {
       "gameId": "bal-col-2026-09-02-824312",
       "matchup": "BAL @ COL",
       "player": "Coby Mayo",
@@ -1813,22 +1798,6 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.788
-    },
-    {
-      "gameId": "sf-pit-2026-09-02-823339",
-      "matchup": "SF @ PIT",
-      "player": "Jung Hoo Lee",
-      "team": "SF",
-      "prop": "hitter_fantasy_score",
-      "vs_pitcher": "Jared Jones",
-      "fair_line": 6.5,
-      "line": 5.5,
-      "projection": 6.3,
-      "lean": "Over",
-      "edge": 0.76,
-      "confidence": "low",
-      "line_source": "prizepicks_est",
-      "ops": 0.744
     },
     {
       "gameId": "det-min-2026-09-02-823660",
@@ -1967,6 +1936,21 @@
       "k9": 7.91
     },
     {
+      "gameId": "sf-pit-2026-09-02-823339",
+      "matchup": "SF @ PIT",
+      "player": "Bubba Chandler",
+      "team": "PIT",
+      "prop": "strikeouts",
+      "fair_line": 5.0,
+      "line": 4.5,
+      "projection": 4.9,
+      "lean": "Over",
+      "edge": 0.35,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "k9": 8.04
+    },
+    {
       "gameId": "ath-tex-2026-09-02-822851",
       "matchup": "ATH @ TEX",
       "player": "Cody Bradford",
@@ -1996,6 +1980,22 @@
       "confidence": "pass",
       "line_source": "prizepicks_est",
       "ops": 0.728
+    },
+    {
+      "gameId": "sf-pit-2026-09-02-823339",
+      "matchup": "SF @ PIT",
+      "player": "Jung Hoo Lee",
+      "team": "SF",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Bubba Chandler",
+      "fair_line": 6.0,
+      "line": 5.5,
+      "projection": 6.2,
+      "lean": "Pass",
+      "edge": 0.68,
+      "confidence": "pass",
+      "line_source": "prizepicks_est",
+      "ops": 0.744
     },
     {
       "gameId": "nyy-laa-2026-09-02-823983",

@@ -92,28 +92,6 @@
       "notes": []
     },
     {
-      "player": "Jared Jones",
-      "team": "PIT",
-      "opponent": "SF",
-      "matchup": "SF @ PIT",
-      "game_date": "2026-09-02",
-      "props": [
-        {
-          "prop": "strikeouts",
-          "pick": "Over",
-          "model_line": 6.0,
-          "use_line": 4.5,
-          "projection": 6.2,
-          "edge": 1.7,
-          "confidence": "high",
-          "k9": 10.28,
-          "opp_k_rate": 0.213
-        }
-      ],
-      "headline": "Over 4.5 STRIKEOUTS (high confidence)",
-      "notes": []
-    },
-    {
       "player": "Drew Anderson",
       "team": "DET",
       "opponent": "MIN",
@@ -528,6 +506,28 @@
           "confidence": "low",
           "k9": 7.91,
           "opp_k_rate": 0.227
+        }
+      ],
+      "headline": "Over 4.5 STRIKEOUTS (low confidence)",
+      "notes": []
+    },
+    {
+      "player": "Bubba Chandler",
+      "team": "PIT",
+      "opponent": "SF",
+      "matchup": "SF @ PIT",
+      "game_date": "2026-09-02",
+      "props": [
+        {
+          "prop": "strikeouts",
+          "pick": "Over",
+          "model_line": 5.0,
+          "use_line": 4.5,
+          "projection": 4.9,
+          "edge": 0.35,
+          "confidence": "low",
+          "k9": 8.04,
+          "opp_k_rate": 0.213
         }
       ],
       "headline": "Over 4.5 STRIKEOUTS (low confidence)",
