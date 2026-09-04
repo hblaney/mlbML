@@ -2,7 +2,7 @@
   "generated_at": "2026-09-04",
   "source": "prop-leans-v2",
   "note": "K uses estimated PrizePicks lines when posted line unknown. Hitter FS from top-4 OPS bats per team.",
-  "actionable_count": 126,
+  "actionable_count": 134,
   "leans": [
     {
       "gameId": "atl-phi-2026-09-04-823418",
@@ -304,6 +304,22 @@
       "confidence": "medium",
       "line_source": "prizepicks_est",
       "ops": 0.836
+    },
+    {
+      "gameId": "ath-sea-2026-09-04-823093",
+      "matchup": "ATH @ SEA",
+      "player": "Shea Langeliers",
+      "team": "ATH",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Logan Gilbert",
+      "fair_line": 6.5,
+      "line": 5.0,
+      "projection": 6.6,
+      "lean": "Over",
+      "edge": 1.64,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.829
     },
     {
       "gameId": "bos-bal-2026-09-04-824797",
@@ -624,6 +640,22 @@
       "ops": 0.822
     },
     {
+      "gameId": "ath-sea-2026-09-04-823093",
+      "matchup": "ATH @ SEA",
+      "player": "Randy Arozarena",
+      "team": "SEA",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Kade Morris",
+      "fair_line": 8.5,
+      "line": 7.0,
+      "projection": 8.4,
+      "lean": "Over",
+      "edge": 1.44,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.837
+    },
+    {
       "gameId": "nyy-sd-2026-09-04-823256",
       "matchup": "NYY @ SD",
       "player": "Ben Rice",
@@ -800,6 +832,22 @@
       "ops": 0.824
     },
     {
+      "gameId": "ath-sea-2026-09-04-823093",
+      "matchup": "ATH @ SEA",
+      "player": "Dominic Canzone",
+      "team": "SEA",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Kade Morris",
+      "fair_line": 7.5,
+      "line": 6.5,
+      "projection": 7.7,
+      "lean": "Over",
+      "edge": 1.24,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.815
+    },
+    {
       "gameId": "tor-kc-2026-09-04-824067",
       "matchup": "TOR @ KC",
       "player": "Tyler Tolbert",
@@ -958,6 +1006,22 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.775
+    },
+    {
+      "gameId": "ath-sea-2026-09-04-823093",
+      "matchup": "ATH @ SEA",
+      "player": "Donovan Walton",
+      "team": "ATH",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Logan Gilbert",
+      "fair_line": 8.0,
+      "line": 7.0,
+      "projection": 8.2,
+      "lean": "Over",
+      "edge": 1.16,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.797
     },
     {
       "gameId": "laa-pit-2026-09-04-823338",
@@ -1200,6 +1264,22 @@
       "ops": 0.801
     },
     {
+      "gameId": "ath-sea-2026-09-04-823093",
+      "matchup": "ATH @ SEA",
+      "player": "Julio Rodr\u00edguez",
+      "team": "SEA",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Kade Morris",
+      "fair_line": 7.5,
+      "line": 6.5,
+      "projection": 7.5,
+      "lean": "Over",
+      "edge": 0.97,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.708
+    },
+    {
       "gameId": "chc-mia-2026-09-04-823824",
       "matchup": "CHC @ MIA",
       "player": "Alex Bregman",
@@ -1325,6 +1405,22 @@
       "confidence": "medium",
       "line_source": "prizepicks_est",
       "k9": 8.66
+    },
+    {
+      "gameId": "ath-sea-2026-09-04-823093",
+      "matchup": "ATH @ SEA",
+      "player": "Tyler Soderstrom",
+      "team": "ATH",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Logan Gilbert",
+      "fair_line": 6.5,
+      "line": 5.5,
+      "projection": 6.4,
+      "lean": "Over",
+      "edge": 0.92,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.81
     },
     {
       "gameId": "det-cle-2026-09-04-824387",
@@ -1662,6 +1758,22 @@
       "ops": 0.757
     },
     {
+      "gameId": "ath-sea-2026-09-04-823093",
+      "matchup": "ATH @ SEA",
+      "player": "Luke Raley",
+      "team": "SEA",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Kade Morris",
+      "fair_line": 7.0,
+      "line": 6.0,
+      "projection": 6.8,
+      "lean": "Over",
+      "edge": 0.8,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.723
+    },
+    {
       "gameId": "nyy-sd-2026-09-04-823256",
       "matchup": "NYY @ SD",
       "player": "Fernando Tatis Jr.",
@@ -1819,6 +1931,21 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "k9": 7.91
+    },
+    {
+      "gameId": "ath-sea-2026-09-04-823093",
+      "matchup": "ATH @ SEA",
+      "player": "Logan Gilbert",
+      "team": "SEA",
+      "prop": "strikeouts",
+      "fair_line": 5.5,
+      "line": 5.0,
+      "projection": 5.7,
+      "lean": "Over",
+      "edge": 0.71,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "k9": 9.32
     },
     {
       "gameId": "tb-tex-2026-09-04-822852",
@@ -2017,6 +2144,22 @@
       "ops": 0.736
     },
     {
+      "gameId": "ath-sea-2026-09-04-823093",
+      "matchup": "ATH @ SEA",
+      "player": "Henry Bolte",
+      "team": "ATH",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Logan Gilbert",
+      "fair_line": 7.0,
+      "line": 6.5,
+      "projection": 7.2,
+      "lean": "Pass",
+      "edge": 0.72,
+      "confidence": "pass",
+      "line_source": "prizepicks_est",
+      "ops": 0.744
+    },
+    {
       "gameId": "det-cle-2026-09-04-824387",
       "matchup": "DET @ CLE",
       "player": "Gleyber Torres",
@@ -2140,6 +2283,21 @@
       "confidence": "pass",
       "line_source": "prizepicks_est",
       "k9": 7.97
+    },
+    {
+      "gameId": "ath-sea-2026-09-04-823093",
+      "matchup": "ATH @ SEA",
+      "player": "Kade Morris",
+      "team": "ATH",
+      "prop": "strikeouts",
+      "fair_line": 4.0,
+      "line": 3.5,
+      "projection": 3.8,
+      "lean": "Pass",
+      "edge": 0.3,
+      "confidence": "pass",
+      "line_source": "prizepicks_est",
+      "k9": 6.14
     },
     {
       "gameId": "nyy-sd-2026-09-04-823256",

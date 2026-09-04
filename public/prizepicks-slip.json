@@ -352,14 +352,14 @@
       "matchup": "AZ @ HOU"
     },
     {
-      "player": "Pete Alonso",
+      "player": "Shea Langeliers",
       "prop": "hitter_fantasy_score",
-      "line": 5.5,
+      "line": 5.0,
       "lean": "Over",
-      "projection": 7.1,
-      "edge": 1.61,
+      "projection": 6.6,
+      "edge": 1.64,
       "confidence": "medium",
-      "matchup": "BOS @ BAL"
+      "matchup": "ATH @ SEA"
     }
   ]
 }
