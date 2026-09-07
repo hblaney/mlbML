@@ -116,6 +116,28 @@
       "notes": []
     },
     {
+      "player": "Joe Ryan",
+      "team": "MIN",
+      "opponent": "DET",
+      "matchup": "MIN @ DET",
+      "game_date": "2026-09-07",
+      "props": [
+        {
+          "prop": "strikeouts",
+          "pick": "Over",
+          "model_line": 6.0,
+          "use_line": 5.0,
+          "projection": 6.1,
+          "edge": 1.09,
+          "confidence": "high",
+          "k9": 9.88,
+          "opp_k_rate": 0.229
+        }
+      ],
+      "headline": "Over 5.0 STRIKEOUTS (high confidence)",
+      "notes": []
+    },
+    {
       "player": "Joey Cantillo",
       "team": "CLE",
       "opponent": "BAL",
@@ -157,9 +179,7 @@
         }
       ],
       "headline": "Over 4.0 STRIKEOUTS (medium confidence)",
-      "notes": [
-        "Probable starter not fully confirmed \u2014 verify before betting."
-      ]
+      "notes": []
     },
     {
       "player": "Matthew Boyd",
@@ -250,6 +270,28 @@
       "notes": []
     },
     {
+      "player": "Brayan Bello",
+      "team": "BOS",
+      "opponent": "LAA",
+      "matchup": "LAA @ BOS",
+      "game_date": "2026-09-07",
+      "props": [
+        {
+          "prop": "strikeouts",
+          "pick": "Over",
+          "model_line": 4.0,
+          "use_line": 3.5,
+          "projection": 4.1,
+          "edge": 0.59,
+          "confidence": "medium",
+          "k9": 6.45,
+          "opp_k_rate": 0.252
+        }
+      ],
+      "headline": "Over 3.5 STRIKEOUTS (medium confidence)",
+      "notes": []
+    },
+    {
       "player": "Jake Irvin",
       "team": "WSH",
       "opponent": "SD",
@@ -291,9 +333,7 @@
         }
       ],
       "headline": "Over 4.5 STRIKEOUTS (medium confidence)",
-      "notes": [
-        "Probable starter not fully confirmed \u2014 verify before betting."
-      ]
+      "notes": []
     },
     {
       "player": "Trevor Rogers",
@@ -337,9 +377,7 @@
         }
       ],
       "headline": "Over 4.0 STRIKEOUTS (low confidence)",
-      "notes": [
-        "Probable starter not fully confirmed \u2014 verify before betting."
-      ]
+      "notes": []
     }
   ]
 }

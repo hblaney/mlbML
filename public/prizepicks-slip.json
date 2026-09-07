@@ -60,6 +60,16 @@
       "matchup": "NYM @ MIA"
     },
     {
+      "player": "Willson Contreras",
+      "prop": "hitter_fantasy_score",
+      "lean": "Over",
+      "line": 5.5,
+      "projection": 7.7,
+      "edge": 2.18,
+      "confidence": "high",
+      "matchup": "LAA @ BOS"
+    },
+    {
       "player": "Pete Crow-Armstrong",
       "prop": "hitter_fantasy_score",
       "lean": "Over",
@@ -68,6 +78,16 @@
       "edge": 2.16,
       "confidence": "high",
       "matchup": "CHC @ MIL"
+    },
+    {
+      "player": "Jahmai Jones",
+      "prop": "hitter_fantasy_score",
+      "lean": "Over",
+      "line": 7.0,
+      "projection": 9.0,
+      "edge": 1.96,
+      "confidence": "medium",
+      "matchup": "LAA @ BOS"
     },
     {
       "player": "Dylan Cease",
@@ -88,6 +108,16 @@
       "edge": 1.74,
       "confidence": "medium",
       "matchup": "ATL @ PHI"
+    },
+    {
+      "player": "Jac Caglianone",
+      "prop": "hitter_fantasy_score",
+      "lean": "Over",
+      "line": 4.5,
+      "projection": 6.2,
+      "edge": 1.74,
+      "confidence": "medium",
+      "matchup": "AZ @ KC"
     },
     {
       "player": "Jes\u00fas Luzardo",
@@ -128,36 +158,6 @@
       "edge": 1.69,
       "confidence": "medium",
       "matchup": "ATL @ PHI"
-    },
-    {
-      "player": "Andrew Vaughn",
-      "prop": "hitter_fantasy_score",
-      "lean": "Over",
-      "line": 4.5,
-      "projection": 6.2,
-      "edge": 1.68,
-      "confidence": "medium",
-      "matchup": "CHC @ MIL"
-    },
-    {
-      "player": "Nick Pivetta",
-      "prop": "strikeouts",
-      "lean": "Over",
-      "line": 5.0,
-      "projection": 6.7,
-      "edge": 1.68,
-      "confidence": "high",
-      "matchup": "WSH @ SD"
-    },
-    {
-      "player": "Pete Alonso",
-      "prop": "hitter_fantasy_score",
-      "lean": "Over",
-      "line": 5.5,
-      "projection": 7.2,
-      "edge": 1.67,
-      "confidence": "medium",
-      "matchup": "CLE @ BAL"
     }
   ],
   "all_actionable": [
@@ -182,6 +182,16 @@
       "matchup": "NYM @ MIA"
     },
     {
+      "player": "Willson Contreras",
+      "prop": "hitter_fantasy_score",
+      "line": 5.5,
+      "lean": "Over",
+      "projection": 7.7,
+      "edge": 2.18,
+      "confidence": "high",
+      "matchup": "LAA @ BOS"
+    },
+    {
       "player": "Pete Crow-Armstrong",
       "prop": "hitter_fantasy_score",
       "line": 6.5,
@@ -190,6 +200,16 @@
       "edge": 2.16,
       "confidence": "high",
       "matchup": "CHC @ MIL"
+    },
+    {
+      "player": "Jahmai Jones",
+      "prop": "hitter_fantasy_score",
+      "line": 7.0,
+      "lean": "Over",
+      "projection": 9.0,
+      "edge": 1.96,
+      "confidence": "medium",
+      "matchup": "LAA @ BOS"
     },
     {
       "player": "Dylan Cease",
@@ -210,6 +230,16 @@
       "edge": 1.74,
       "confidence": "medium",
       "matchup": "ATL @ PHI"
+    },
+    {
+      "player": "Jac Caglianone",
+      "prop": "hitter_fantasy_score",
+      "line": 4.5,
+      "lean": "Over",
+      "projection": 6.2,
+      "edge": 1.74,
+      "confidence": "medium",
+      "matchup": "AZ @ KC"
     },
     {
       "player": "Jes\u00fas Luzardo",
@@ -328,36 +358,6 @@
       "lean": "Over",
       "projection": 7.5,
       "edge": 1.54,
-      "confidence": "medium",
-      "matchup": "WSH @ SD"
-    },
-    {
-      "player": "Ty France",
-      "prop": "hitter_fantasy_score",
-      "line": 5.5,
-      "lean": "Over",
-      "projection": 7.0,
-      "edge": 1.53,
-      "confidence": "medium",
-      "matchup": "WSH @ SD"
-    },
-    {
-      "player": "Jake Bauers",
-      "prop": "hitter_fantasy_score",
-      "line": 6.0,
-      "lean": "Over",
-      "projection": 7.5,
-      "edge": 1.52,
-      "confidence": "medium",
-      "matchup": "CHC @ MIL"
-    },
-    {
-      "player": "Luis Campusano",
-      "prop": "hitter_fantasy_score",
-      "line": 7.5,
-      "lean": "Over",
-      "projection": 9.0,
-      "edge": 1.51,
       "confidence": "medium",
       "matchup": "WSH @ SD"
     }
