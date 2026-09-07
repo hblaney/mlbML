@@ -2,7 +2,7 @@
   "generated_at": "2026-09-07",
   "source": "prop-leans-v2",
   "note": "K uses estimated PrizePicks lines when posted line unknown. Hitter FS from top-4 OPS bats per team.",
-  "actionable_count": 87,
+  "actionable_count": 97,
   "leans": [
     {
       "gameId": "wsh-sd-2026-09-07-823254",
@@ -69,6 +69,21 @@
       "ops": 0.946
     },
     {
+      "gameId": "cin-lad-2026-09-07-823902",
+      "matchup": "CIN @ LAD",
+      "player": "Emmet Sheehan",
+      "team": "LAD",
+      "prop": "strikeouts",
+      "fair_line": 6.5,
+      "line": 4.5,
+      "projection": 6.5,
+      "lean": "Over",
+      "edge": 1.97,
+      "confidence": "high",
+      "line_source": "prizepicks_est",
+      "k9": 10.2
+    },
+    {
       "gameId": "laa-bos-2026-09-07-824715",
       "matchup": "LAA @ BOS",
       "player": "Jahmai Jones",
@@ -83,6 +98,37 @@
       "confidence": "medium",
       "line_source": "prizepicks_est",
       "ops": 1.444
+    },
+    {
+      "gameId": "cin-lad-2026-09-07-823902",
+      "matchup": "CIN @ LAD",
+      "player": "Shohei Ohtani",
+      "team": "LAD",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Chase Burns",
+      "fair_line": 7.5,
+      "line": 5.5,
+      "projection": 7.4,
+      "lean": "Over",
+      "edge": 1.88,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.906
+    },
+    {
+      "gameId": "cin-lad-2026-09-07-823902",
+      "matchup": "CIN @ LAD",
+      "player": "Chase Burns",
+      "team": "CIN",
+      "prop": "strikeouts",
+      "fair_line": 6.5,
+      "line": 4.5,
+      "projection": 6.3,
+      "lean": "Over",
+      "edge": 1.83,
+      "confidence": "high",
+      "line_source": "prizepicks_est",
+      "k9": 10.59
     },
     {
       "gameId": "tor-ath-2026-09-07-824958",
@@ -242,6 +288,22 @@
       "ops": 0.853
     },
     {
+      "gameId": "cin-lad-2026-09-07-823902",
+      "matchup": "CIN @ LAD",
+      "player": "Max Muncy",
+      "team": "LAD",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Chase Burns",
+      "fair_line": 6.5,
+      "line": 5.0,
+      "projection": 6.7,
+      "lean": "Over",
+      "edge": 1.66,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.834
+    },
+    {
       "gameId": "wsh-sd-2026-09-07-823254",
       "matchup": "WSH @ SD",
       "player": "Andr\u00e9s Chaparro",
@@ -258,6 +320,22 @@
       "ops": 0.855
     },
     {
+      "gameId": "cin-lad-2026-09-07-823902",
+      "matchup": "CIN @ LAD",
+      "player": "Sal Stewart",
+      "team": "CIN",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Emmet Sheehan",
+      "fair_line": 7.5,
+      "line": 6.0,
+      "projection": 7.7,
+      "lean": "Over",
+      "edge": 1.65,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.821
+    },
+    {
       "gameId": "chc-mil-2026-09-07-823742",
       "matchup": "CHC @ MIL",
       "player": "Seiya Suzuki",
@@ -272,6 +350,22 @@
       "confidence": "medium",
       "line_source": "prizepicks_est",
       "ops": 0.85
+    },
+    {
+      "gameId": "cin-lad-2026-09-07-823902",
+      "matchup": "CIN @ LAD",
+      "player": "Nathaniel Lowe",
+      "team": "CIN",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Emmet Sheehan",
+      "fair_line": 6.5,
+      "line": 5.0,
+      "projection": 6.6,
+      "lean": "Over",
+      "edge": 1.6,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.821
     },
     {
       "gameId": "atl-phi-2026-09-07-823415",
@@ -481,6 +575,38 @@
       "ops": 0.83
     },
     {
+      "gameId": "cin-lad-2026-09-07-823902",
+      "matchup": "CIN @ LAD",
+      "player": "Elly De La Cruz",
+      "team": "CIN",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Emmet Sheehan",
+      "fair_line": 8.0,
+      "line": 6.5,
+      "projection": 7.9,
+      "lean": "Over",
+      "edge": 1.36,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.852
+    },
+    {
+      "gameId": "cin-lad-2026-09-07-823902",
+      "matchup": "CIN @ LAD",
+      "player": "Freddie Freeman",
+      "team": "LAD",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Chase Burns",
+      "fair_line": 6.5,
+      "line": 5.0,
+      "projection": 6.3,
+      "lean": "Over",
+      "edge": 1.28,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.837
+    },
+    {
       "gameId": "az-kc-2026-09-07-824062",
       "matchup": "AZ @ KC",
       "player": "Gabriel Moreno",
@@ -639,6 +765,22 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.784
+    },
+    {
+      "gameId": "cin-lad-2026-09-07-823902",
+      "matchup": "CIN @ LAD",
+      "player": "Dalton Rushing",
+      "team": "LAD",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Chase Burns",
+      "fair_line": 6.0,
+      "line": 5.0,
+      "projection": 6.2,
+      "lean": "Over",
+      "edge": 1.17,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.798
     },
     {
       "gameId": "chc-mil-2026-09-07-823742",
@@ -989,6 +1131,22 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.929
+    },
+    {
+      "gameId": "cin-lad-2026-09-07-823902",
+      "matchup": "CIN @ LAD",
+      "player": "JJ Bleday",
+      "team": "CIN",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Emmet Sheehan",
+      "fair_line": 6.5,
+      "line": 5.5,
+      "projection": 6.5,
+      "lean": "Over",
+      "edge": 0.97,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.758
     },
     {
       "gameId": "az-kc-2026-09-07-824062",
@@ -1627,6 +1785,16 @@
       "matchup": "CHC @ MIL"
     },
     {
+      "player": "Emmet Sheehan",
+      "prop": "strikeouts",
+      "lean": "Over",
+      "line": 4.5,
+      "projection": 6.5,
+      "edge": 1.97,
+      "confidence": "high",
+      "matchup": "CIN @ LAD"
+    },
+    {
       "player": "Jahmai Jones",
       "prop": "hitter_fantasy_score",
       "lean": "Over",
@@ -1635,6 +1803,26 @@
       "edge": 1.96,
       "confidence": "medium",
       "matchup": "LAA @ BOS"
+    },
+    {
+      "player": "Shohei Ohtani",
+      "prop": "hitter_fantasy_score",
+      "lean": "Over",
+      "line": 5.5,
+      "projection": 7.4,
+      "edge": 1.88,
+      "confidence": "medium",
+      "matchup": "CIN @ LAD"
+    },
+    {
+      "player": "Chase Burns",
+      "prop": "strikeouts",
+      "lean": "Over",
+      "line": 4.5,
+      "projection": 6.3,
+      "edge": 1.83,
+      "confidence": "high",
+      "matchup": "CIN @ LAD"
     },
     {
       "player": "Dylan Cease",
@@ -1674,36 +1862,6 @@
       "projection": 6.7,
       "edge": 1.73,
       "confidence": "high",
-      "matchup": "ATL @ PHI"
-    },
-    {
-      "player": "Matt Olson",
-      "prop": "hitter_fantasy_score",
-      "lean": "Over",
-      "line": 5.0,
-      "projection": 6.7,
-      "edge": 1.71,
-      "confidence": "medium",
-      "matchup": "ATL @ PHI"
-    },
-    {
-      "player": "Michael Conforto",
-      "prop": "hitter_fantasy_score",
-      "lean": "Over",
-      "line": 4.5,
-      "projection": 6.2,
-      "edge": 1.7,
-      "confidence": "medium",
-      "matchup": "CHC @ MIL"
-    },
-    {
-      "player": "Bryan De La Cruz",
-      "prop": "hitter_fantasy_score",
-      "lean": "Over",
-      "line": 4.5,
-      "projection": 6.2,
-      "edge": 1.69,
-      "confidence": "medium",
       "matchup": "ATL @ PHI"
     }
   ]
