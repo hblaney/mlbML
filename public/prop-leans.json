@@ -2,7 +2,7 @@
   "generated_at": "2026-09-08",
   "source": "prop-leans-v2",
   "note": "K uses estimated PrizePicks lines when posted line unknown. Hitter FS from top-4 OPS bats per team.",
-  "actionable_count": 128,
+  "actionable_count": 136,
   "leans": [
     {
       "gameId": "nym-mia-2026-09-08-823821",
@@ -512,6 +512,22 @@
       "ops": 0.821
     },
     {
+      "gameId": "tex-sea-2026-09-08-823092",
+      "matchup": "TEX @ SEA",
+      "player": "Justin Foscue",
+      "team": "TEX",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Bryce Miller",
+      "fair_line": 7.5,
+      "line": 6.0,
+      "projection": 7.5,
+      "lean": "Over",
+      "edge": 1.49,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.831
+    },
+    {
       "gameId": "tor-ath-2026-09-08-824957",
       "matchup": "TOR @ ATH",
       "player": "Shea Langeliers",
@@ -637,6 +653,22 @@
       "confidence": "medium",
       "line_source": "prizepicks_est",
       "ops": 0.83
+    },
+    {
+      "gameId": "tex-sea-2026-09-08-823092",
+      "matchup": "TEX @ SEA",
+      "player": "Randy Arozarena",
+      "team": "SEA",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Cal Quantrill",
+      "fair_line": 7.0,
+      "line": 5.5,
+      "projection": 6.9,
+      "lean": "Over",
+      "edge": 1.35,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.835
     },
     {
       "gameId": "col-nyy-2026-09-08-823500",
@@ -1453,6 +1485,22 @@
       "ops": 0.811
     },
     {
+      "gameId": "tex-sea-2026-09-08-823092",
+      "matchup": "TEX @ SEA",
+      "player": "Joc Pederson",
+      "team": "TEX",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Bryce Miller",
+      "fair_line": 6.5,
+      "line": 5.5,
+      "projection": 6.4,
+      "lean": "Over",
+      "edge": 0.88,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.814
+    },
+    {
       "gameId": "stl-sf-2026-09-08-823174",
       "matchup": "STL @ SF",
       "player": "Casey Schmitt",
@@ -1499,6 +1547,22 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.76
+    },
+    {
+      "gameId": "tex-sea-2026-09-08-823092",
+      "matchup": "TEX @ SEA",
+      "player": "Josh Jung",
+      "team": "TEX",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Bryce Miller",
+      "fair_line": 6.0,
+      "line": 5.0,
+      "projection": 5.9,
+      "lean": "Over",
+      "edge": 0.86,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.802
     },
     {
       "gameId": "cin-lad-2026-09-08-823901",
@@ -1660,6 +1724,21 @@
       "ops": 0.781
     },
     {
+      "gameId": "tex-sea-2026-09-08-823092",
+      "matchup": "TEX @ SEA",
+      "player": "Bryce Miller",
+      "team": "SEA",
+      "prop": "strikeouts",
+      "fair_line": 5.5,
+      "line": 4.5,
+      "projection": 5.3,
+      "lean": "Over",
+      "edge": 0.82,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "k9": 8.67
+    },
+    {
       "gameId": "hou-phi-2026-09-08-823414",
       "matchup": "HOU @ PHI",
       "player": "Christian Walker",
@@ -1707,6 +1786,22 @@
       "ops": 0.808
     },
     {
+      "gameId": "tex-sea-2026-09-08-823092",
+      "matchup": "TEX @ SEA",
+      "player": "Ezequiel Duran",
+      "team": "TEX",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Bryce Miller",
+      "fair_line": 7.0,
+      "line": 6.0,
+      "projection": 6.8,
+      "lean": "Over",
+      "edge": 0.79,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.794
+    },
+    {
       "gameId": "stl-sf-2026-09-08-823174",
       "matchup": "STL @ SF",
       "player": "Quinn Mathews",
@@ -1751,6 +1846,22 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.801
+    },
+    {
+      "gameId": "tex-sea-2026-09-08-823092",
+      "matchup": "TEX @ SEA",
+      "player": "Dominic Canzone",
+      "team": "SEA",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Cal Quantrill",
+      "fair_line": 6.5,
+      "line": 5.5,
+      "projection": 6.3,
+      "lean": "Over",
+      "edge": 0.76,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.804
     },
     {
       "gameId": "nym-mia-2026-09-08-823821",
@@ -1844,6 +1955,21 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "k9": 7.75
+    },
+    {
+      "gameId": "tex-sea-2026-09-08-823092",
+      "matchup": "TEX @ SEA",
+      "player": "Cal Quantrill",
+      "team": "TEX",
+      "prop": "strikeouts",
+      "fair_line": 4.0,
+      "line": 3.5,
+      "projection": 4.2,
+      "lean": "Over",
+      "edge": 0.71,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "k9": 6.8
     },
     {
       "gameId": "nym-mia-2026-09-08-823821",
@@ -2138,6 +2264,22 @@
       "ops": 0.716
     },
     {
+      "gameId": "tex-sea-2026-09-08-823092",
+      "matchup": "TEX @ SEA",
+      "player": "J.P. Crawford",
+      "team": "SEA",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Cal Quantrill",
+      "fair_line": 5.0,
+      "line": 4.5,
+      "projection": 5.1,
+      "lean": "Pass",
+      "edge": 0.57,
+      "confidence": "pass",
+      "line_source": "prizepicks_est",
+      "ops": 0.696
+    },
+    {
       "gameId": "az-kc-2026-09-08-824063",
       "matchup": "AZ @ KC",
       "player": "Michael Massey",
@@ -2168,6 +2310,22 @@
       "confidence": "pass",
       "line_source": "prizepicks_est",
       "ops": 0.748
+    },
+    {
+      "gameId": "tex-sea-2026-09-08-823092",
+      "matchup": "TEX @ SEA",
+      "player": "Luke Raley",
+      "team": "SEA",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Cal Quantrill",
+      "fair_line": 5.5,
+      "line": 5.0,
+      "projection": 5.6,
+      "lean": "Pass",
+      "edge": 0.56,
+      "confidence": "pass",
+      "line_source": "prizepicks_est",
+      "ops": 0.723
     },
     {
       "gameId": "cle-bal-2026-09-08-824792",
