@@ -2,7 +2,7 @@
   "generated_at": "2026-09-09",
   "source": "prop-leans-v2",
   "note": "K uses estimated PrizePicks lines when posted line unknown. Hitter FS from top-4 OPS bats per team.",
-  "actionable_count": 121,
+  "actionable_count": 130,
   "leans": [
     {
       "gameId": "pit-cws-2026-09-09-824549",
@@ -131,6 +131,22 @@
       "confidence": "medium",
       "line_source": "prizepicks_est",
       "ops": 0.936
+    },
+    {
+      "gameId": "tb-atl-2026-09-09-824871",
+      "matchup": "TB @ ATL",
+      "player": "Junior Caminero",
+      "team": "TB",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Reynaldo L\u00f3pez",
+      "fair_line": 7.5,
+      "line": 5.5,
+      "projection": 7.3,
+      "lean": "Over",
+      "edge": 1.85,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.904
     },
     {
       "gameId": "hou-phi-2026-09-09-823416",
@@ -274,6 +290,22 @@
       "confidence": "medium",
       "line_source": "prizepicks_est",
       "ops": 0.872
+    },
+    {
+      "gameId": "tb-atl-2026-09-09-824871",
+      "matchup": "TB @ ATL",
+      "player": "Yandy D\u00edaz",
+      "team": "TB",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Reynaldo L\u00f3pez",
+      "fair_line": 6.5,
+      "line": 5.0,
+      "projection": 6.7,
+      "lean": "Over",
+      "edge": 1.67,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.847
     },
     {
       "gameId": "pit-cws-2026-09-09-824549",
@@ -595,6 +627,22 @@
       "ops": 0.828
     },
     {
+      "gameId": "tb-atl-2026-09-09-824871",
+      "matchup": "TB @ ATL",
+      "player": "Matt Olson",
+      "team": "ATL",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Griffin Jax",
+      "fair_line": 7.0,
+      "line": 5.5,
+      "projection": 6.9,
+      "lean": "Over",
+      "edge": 1.4,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.828
+    },
+    {
       "gameId": "cin-lad-2026-09-09-823900",
       "matchup": "CIN @ LAD",
       "player": "Max Muncy",
@@ -672,6 +720,21 @@
       "confidence": "medium",
       "line_source": "prizepicks_est",
       "ops": 0.832
+    },
+    {
+      "gameId": "tb-atl-2026-09-09-824871",
+      "matchup": "TB @ ATL",
+      "player": "Griffin Jax",
+      "team": "TB",
+      "prop": "strikeouts",
+      "fair_line": 6.0,
+      "line": 4.5,
+      "projection": 5.9,
+      "lean": "Over",
+      "edge": 1.35,
+      "confidence": "high",
+      "line_source": "prizepicks_est",
+      "k9": 9.64
     },
     {
       "gameId": "col-nyy-2026-09-09-823497",
@@ -784,6 +847,38 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.8
+    },
+    {
+      "gameId": "tb-atl-2026-09-09-824871",
+      "matchup": "TB @ ATL",
+      "player": "Michael Harris II",
+      "team": "ATL",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Griffin Jax",
+      "fair_line": 6.5,
+      "line": 5.5,
+      "projection": 6.7,
+      "lean": "Over",
+      "edge": 1.24,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.806
+    },
+    {
+      "gameId": "tb-atl-2026-09-09-824871",
+      "matchup": "TB @ ATL",
+      "player": "Jonathan Aranda",
+      "team": "TB",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Reynaldo L\u00f3pez",
+      "fair_line": 6.0,
+      "line": 5.0,
+      "projection": 6.2,
+      "lean": "Over",
+      "edge": 1.23,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.792
     },
     {
       "gameId": "tex-sea-2026-09-09-823090",
@@ -976,6 +1071,22 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.784
+    },
+    {
+      "gameId": "tb-atl-2026-09-09-824871",
+      "matchup": "TB @ ATL",
+      "player": "Drake Baldwin",
+      "team": "ATL",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Griffin Jax",
+      "fair_line": 6.5,
+      "line": 5.5,
+      "projection": 6.6,
+      "lean": "Over",
+      "edge": 1.07,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.798
     },
     {
       "gameId": "laa-bos-2026-09-09-824713",
@@ -1711,6 +1822,22 @@
       "ops": 0.744
     },
     {
+      "gameId": "tb-atl-2026-09-09-824871",
+      "matchup": "TB @ ATL",
+      "player": "Ozzie Albies",
+      "team": "ATL",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Griffin Jax",
+      "fair_line": 6.0,
+      "line": 5.0,
+      "projection": 5.8,
+      "lean": "Over",
+      "edge": 0.78,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.713
+    },
+    {
       "gameId": "tex-sea-2026-09-09-823090",
       "matchup": "TEX @ SEA",
       "player": "Joc Pederson",
@@ -1725,6 +1852,22 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.81
+    },
+    {
+      "gameId": "tb-atl-2026-09-09-824871",
+      "matchup": "TB @ ATL",
+      "player": "Ryan Vilade",
+      "team": "TB",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Reynaldo L\u00f3pez",
+      "fair_line": 7.0,
+      "line": 6.0,
+      "projection": 6.8,
+      "lean": "Over",
+      "edge": 0.76,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.804
     },
     {
       "gameId": "wsh-sd-2026-09-09-823251",
@@ -2097,6 +2240,21 @@
       "k9": 7.99
     },
     {
+      "gameId": "tb-atl-2026-09-09-824871",
+      "matchup": "TB @ ATL",
+      "player": "Reynaldo L\u00f3pez",
+      "team": "ATL",
+      "prop": "strikeouts",
+      "fair_line": 5.0,
+      "line": 4.5,
+      "projection": 4.8,
+      "lean": "Pass",
+      "edge": 0.32,
+      "confidence": "pass",
+      "line_source": "prizepicks_est",
+      "k9": 8.29
+    },
+    {
       "gameId": "stl-sf-2026-09-09-823172",
       "matchup": "STL @ SF",
       "player": "Andre Pallante",
@@ -2299,6 +2457,16 @@
       "matchup": "NYM @ MIA"
     },
     {
+      "player": "Junior Caminero",
+      "prop": "hitter_fantasy_score",
+      "lean": "Over",
+      "line": 5.5,
+      "projection": 7.3,
+      "edge": 1.85,
+      "confidence": "medium",
+      "matchup": "TB @ ATL"
+    },
+    {
       "player": "Cristopher S\u00e1nchez",
       "prop": "strikeouts",
       "lean": "Over",
@@ -2327,16 +2495,6 @@
       "edge": 1.71,
       "confidence": "medium",
       "matchup": "CLE @ BAL"
-    },
-    {
-      "player": "Kyle Schwarber",
-      "prop": "hitter_fantasy_score",
-      "lean": "Over",
-      "line": 5.5,
-      "projection": 7.2,
-      "edge": 1.7,
-      "confidence": "medium",
-      "matchup": "HOU @ PHI"
     }
   ]
 }

@@ -120,6 +120,16 @@
       "matchup": "NYM @ MIA"
     },
     {
+      "player": "Junior Caminero",
+      "prop": "hitter_fantasy_score",
+      "lean": "Over",
+      "line": 5.5,
+      "projection": 7.3,
+      "edge": 1.85,
+      "confidence": "medium",
+      "matchup": "TB @ ATL"
+    },
+    {
       "player": "Cristopher S\u00e1nchez",
       "prop": "strikeouts",
       "lean": "Over",
@@ -148,16 +158,6 @@
       "edge": 1.71,
       "confidence": "medium",
       "matchup": "CLE @ BAL"
-    },
-    {
-      "player": "Kyle Schwarber",
-      "prop": "hitter_fantasy_score",
-      "lean": "Over",
-      "line": 5.5,
-      "projection": 7.2,
-      "edge": 1.7,
-      "confidence": "medium",
-      "matchup": "HOU @ PHI"
     }
   ],
   "all_actionable": [
@@ -240,6 +240,16 @@
       "edge": 1.9,
       "confidence": "medium",
       "matchup": "NYM @ MIA"
+    },
+    {
+      "player": "Junior Caminero",
+      "prop": "hitter_fantasy_score",
+      "line": 5.5,
+      "lean": "Over",
+      "projection": 7.3,
+      "edge": 1.85,
+      "confidence": "medium",
+      "matchup": "TB @ ATL"
     },
     {
       "player": "Cristopher S\u00e1nchez",
@@ -332,6 +342,16 @@
       "matchup": "MIN @ DET"
     },
     {
+      "player": "Yandy D\u00edaz",
+      "prop": "hitter_fantasy_score",
+      "line": 5.0,
+      "lean": "Over",
+      "projection": 6.7,
+      "edge": 1.67,
+      "confidence": "medium",
+      "matchup": "TB @ ATL"
+    },
+    {
       "player": "Esmerlyn Valdez",
       "prop": "hitter_fantasy_score",
       "line": 7.5,
@@ -340,26 +360,6 @@
       "edge": 1.66,
       "confidence": "medium",
       "matchup": "PIT @ CWS"
-    },
-    {
-      "player": "Luis Garc\u00eda Jr.",
-      "prop": "hitter_fantasy_score",
-      "line": 6.0,
-      "lean": "Over",
-      "projection": 7.6,
-      "edge": 1.63,
-      "confidence": "medium",
-      "matchup": "WSH @ SD"
-    },
-    {
-      "player": "Bryan De La Cruz",
-      "prop": "hitter_fantasy_score",
-      "line": 4.5,
-      "lean": "Over",
-      "projection": 6.1,
-      "edge": 1.62,
-      "confidence": "medium",
-      "matchup": "HOU @ PHI"
     }
   ]
 }
