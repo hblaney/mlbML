@@ -136,6 +136,30 @@
       "notes": []
     },
     {
+      "player": "MacKenzie Gore",
+      "team": "TEX",
+      "opponent": "AZ",
+      "matchup": "TEX @ AZ",
+      "game_date": "2026-09-11",
+      "props": [
+        {
+          "prop": "strikeouts",
+          "pick": "Over",
+          "model_line": 5.5,
+          "use_line": 4.5,
+          "projection": 5.7,
+          "edge": 1.21,
+          "confidence": "high",
+          "k9": 9.7,
+          "opp_k_rate": 0.194
+        }
+      ],
+      "headline": "Over 4.5 STRIKEOUTS (high confidence)",
+      "notes": [
+        "Probable starter not fully confirmed \u2014 verify before betting."
+      ]
+    },
+    {
       "player": "Carlos Rod\u00f3n",
       "team": "NYY",
       "opponent": "NYM",
