@@ -2,7 +2,7 @@
   "generated_at": "2026-09-11",
   "source": "prop-leans-v2",
   "note": "K uses estimated PrizePicks lines when posted line unknown. Hitter FS from top-4 OPS bats per team.",
-  "actionable_count": 119,
+  "actionable_count": 127,
   "leans": [
     {
       "gameId": "pit-chc-2026-09-11-824631",
@@ -688,6 +688,38 @@
       "ops": 0.827
     },
     {
+      "gameId": "tex-az-2026-09-11-825036",
+      "matchup": "TEX @ AZ",
+      "player": "Gabriel Moreno",
+      "team": "AZ",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "MacKenzie Gore",
+      "fair_line": 7.0,
+      "line": 5.5,
+      "projection": 6.9,
+      "lean": "Over",
+      "edge": 1.35,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.841
+    },
+    {
+      "gameId": "tex-az-2026-09-11-825036",
+      "matchup": "TEX @ AZ",
+      "player": "Justin Foscue",
+      "team": "TEX",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Merrill Kelly",
+      "fair_line": 8.0,
+      "line": 6.5,
+      "projection": 7.8,
+      "lean": "Over",
+      "edge": 1.34,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.834
+    },
+    {
       "gameId": "cin-mil-2026-09-11-823736",
       "matchup": "CIN @ MIL",
       "player": "Elly De La Cruz",
@@ -831,6 +863,21 @@
       "ops": 0.769
     },
     {
+      "gameId": "tex-az-2026-09-11-825036",
+      "matchup": "TEX @ AZ",
+      "player": "MacKenzie Gore",
+      "team": "TEX",
+      "prop": "strikeouts",
+      "fair_line": 5.5,
+      "line": 4.5,
+      "projection": 5.7,
+      "lean": "Over",
+      "edge": 1.21,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "k9": 9.7
+    },
+    {
       "gameId": "hou-tb-2026-09-11-822930",
       "matchup": "HOU @ TB",
       "player": "Victor Mesa Jr.",
@@ -877,6 +924,22 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.784
+    },
+    {
+      "gameId": "tex-az-2026-09-11-825036",
+      "matchup": "TEX @ AZ",
+      "player": "Josh Jung",
+      "team": "TEX",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Merrill Kelly",
+      "fair_line": 6.0,
+      "line": 5.0,
+      "projection": 6.2,
+      "lean": "Over",
+      "edge": 1.18,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.802
     },
     {
       "gameId": "bal-tor-2026-09-11-822767",
@@ -1132,6 +1195,22 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.772
+    },
+    {
+      "gameId": "tex-az-2026-09-11-825036",
+      "matchup": "TEX @ AZ",
+      "player": "Ezequiel Duran",
+      "team": "TEX",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Merrill Kelly",
+      "fair_line": 7.0,
+      "line": 6.0,
+      "projection": 7.0,
+      "lean": "Over",
+      "edge": 1.02,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.775
     },
     {
       "gameId": "col-det-2026-09-11-824227",
@@ -1691,6 +1770,22 @@
       "ops": 0.73
     },
     {
+      "gameId": "tex-az-2026-09-11-825036",
+      "matchup": "TEX @ AZ",
+      "player": "James McCann",
+      "team": "AZ",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "MacKenzie Gore",
+      "fair_line": 6.5,
+      "line": 5.5,
+      "projection": 6.3,
+      "lean": "Over",
+      "edge": 0.78,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.764
+    },
+    {
       "gameId": "sea-ath-2026-09-11-824954",
       "matchup": "SEA @ ATH",
       "player": "Luke Raley",
@@ -1705,6 +1800,38 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.723
+    },
+    {
+      "gameId": "tex-az-2026-09-11-825036",
+      "matchup": "TEX @ AZ",
+      "player": "Corbin Carroll",
+      "team": "AZ",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "MacKenzie Gore",
+      "fair_line": 7.5,
+      "line": 6.5,
+      "projection": 7.3,
+      "lean": "Over",
+      "edge": 0.77,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.8
+    },
+    {
+      "gameId": "tex-az-2026-09-11-825036",
+      "matchup": "TEX @ AZ",
+      "player": "Joc Pederson",
+      "team": "TEX",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Merrill Kelly",
+      "fair_line": 7.0,
+      "line": 6.0,
+      "projection": 6.8,
+      "lean": "Over",
+      "edge": 0.77,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.817
     },
     {
       "gameId": "laa-wsh-2026-09-11-822684",
@@ -1888,6 +2015,22 @@
       "k9": 7.4
     },
     {
+      "gameId": "tex-az-2026-09-11-825036",
+      "matchup": "TEX @ AZ",
+      "player": "Tyler Locklear",
+      "team": "AZ",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "MacKenzie Gore",
+      "fair_line": 5.0,
+      "line": 4.5,
+      "projection": 5.2,
+      "lean": "Pass",
+      "edge": 0.75,
+      "confidence": "pass",
+      "line_source": "prizepicks_est",
+      "ops": 0.801
+    },
+    {
       "gameId": "cws-stl-2026-09-11-823012",
       "matchup": "CWS @ STL",
       "player": "Iv\u00e1n Herrera",
@@ -2042,6 +2185,21 @@
       "confidence": "pass",
       "line_source": "prizepicks_est",
       "k9": 6.43
+    },
+    {
+      "gameId": "tex-az-2026-09-11-825036",
+      "matchup": "TEX @ AZ",
+      "player": "Merrill Kelly",
+      "team": "AZ",
+      "prop": "strikeouts",
+      "fair_line": 3.5,
+      "line": 3.5,
+      "projection": 3.7,
+      "lean": "Pass",
+      "edge": 0.21,
+      "confidence": "pass",
+      "line_source": "prizepicks_est",
+      "k9": 6.03
     },
     {
       "gameId": "sd-sf-2026-09-11-823173",
