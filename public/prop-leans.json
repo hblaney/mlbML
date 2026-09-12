@@ -2,7 +2,7 @@
   "generated_at": "2026-09-12",
   "source": "prop-leans-v2",
   "note": "K uses estimated PrizePicks lines when posted line unknown. Hitter FS from top-4 OPS bats per team.",
-  "actionable_count": 112,
+  "actionable_count": 111,
   "leans": [
     {
       "gameId": "cws-stl-2026-09-12-823009",
@@ -417,6 +417,22 @@
       "ops": 0.824
     },
     {
+      "gameId": "cws-stl-2026-09-12-823009",
+      "matchup": "CWS @ STL",
+      "player": "Jordan Walker",
+      "team": "STL",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Sean Newcomb",
+      "fair_line": 7.0,
+      "line": 5.5,
+      "projection": 7.0,
+      "lean": "Over",
+      "edge": 1.52,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.829
+    },
+    {
       "gameId": "sea-ath-2026-09-12-824955",
       "matchup": "SEA @ ATH",
       "player": "Randy Arozarena",
@@ -622,22 +638,6 @@
       "confidence": "high",
       "line_source": "prizepicks_est",
       "k9": 9.67
-    },
-    {
-      "gameId": "cws-stl-2026-09-12-823009",
-      "matchup": "CWS @ STL",
-      "player": "Jordan Walker",
-      "team": "STL",
-      "prop": "hitter_fantasy_score",
-      "vs_pitcher": "Luis Castillo",
-      "fair_line": 8.0,
-      "line": 6.5,
-      "projection": 7.8,
-      "lean": "Over",
-      "edge": 1.31,
-      "confidence": "medium",
-      "line_source": "prizepicks_est",
-      "ops": 0.829
     },
     {
       "gameId": "sd-sf-2026-09-12-823170",
@@ -1087,6 +1087,22 @@
       "ops": 0.773
     },
     {
+      "gameId": "cws-stl-2026-09-12-823009",
+      "matchup": "CWS @ STL",
+      "player": "Alec Burleson",
+      "team": "STL",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Sean Newcomb",
+      "fair_line": 6.5,
+      "line": 5.5,
+      "projection": 6.5,
+      "lean": "Over",
+      "edge": 1.04,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.819
+    },
+    {
       "gameId": "pit-chc-2026-09-12-824630",
       "matchup": "PIT @ CHC",
       "player": "Ryan O'Hearn",
@@ -1116,22 +1132,6 @@
       "confidence": "medium",
       "line_source": "prizepicks_est",
       "k9": 8.62
-    },
-    {
-      "gameId": "cws-stl-2026-09-12-823009",
-      "matchup": "CWS @ STL",
-      "player": "Iv\u00e1n Herrera",
-      "team": "STL",
-      "prop": "hitter_fantasy_score",
-      "vs_pitcher": "Luis Castillo",
-      "fair_line": 6.5,
-      "line": 5.5,
-      "projection": 6.5,
-      "lean": "Over",
-      "edge": 0.96,
-      "confidence": "low",
-      "line_source": "prizepicks_est",
-      "ops": 0.741
     },
     {
       "gameId": "nym-nyy-2026-09-12-823496",
@@ -1440,18 +1440,18 @@
     {
       "gameId": "cws-stl-2026-09-12-823009",
       "matchup": "CWS @ STL",
-      "player": "Lars Nootbaar",
+      "player": "Iv\u00e1n Herrera",
       "team": "STL",
       "prop": "hitter_fantasy_score",
-      "vs_pitcher": "Luis Castillo",
+      "vs_pitcher": "Sean Newcomb",
       "fair_line": 6.0,
       "line": 5.0,
       "projection": 5.8,
       "lean": "Over",
-      "edge": 0.83,
+      "edge": 0.81,
       "confidence": "low",
       "line_source": "prizepicks_est",
-      "ops": 0.783
+      "ops": 0.741
     },
     {
       "gameId": "kc-bos-2026-09-12-824712",
@@ -1548,22 +1548,6 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.762
-    },
-    {
-      "gameId": "cws-stl-2026-09-12-823009",
-      "matchup": "CWS @ STL",
-      "player": "Alec Burleson",
-      "team": "STL",
-      "prop": "hitter_fantasy_score",
-      "vs_pitcher": "Luis Castillo",
-      "fair_line": 7.5,
-      "line": 6.5,
-      "projection": 7.3,
-      "lean": "Over",
-      "edge": 0.78,
-      "confidence": "low",
-      "line_source": "prizepicks_est",
-      "ops": 0.819
     },
     {
       "gameId": "lad-mia-2026-09-12-823819",
@@ -1778,6 +1762,22 @@
       "k9": 6.92
     },
     {
+      "gameId": "cws-stl-2026-09-12-823009",
+      "matchup": "CWS @ STL",
+      "player": "Lars Nootbaar",
+      "team": "STL",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Sean Newcomb",
+      "fair_line": 5.0,
+      "line": 4.5,
+      "projection": 5.2,
+      "lean": "Pass",
+      "edge": 0.75,
+      "confidence": "pass",
+      "line_source": "prizepicks_est",
+      "ops": 0.783
+    },
+    {
       "gameId": "sd-sf-2026-09-12-823170",
       "matchup": "SD @ SF",
       "player": "Heliot Ramos",
@@ -1969,6 +1969,21 @@
       "k9": 7.26
     },
     {
+      "gameId": "cws-stl-2026-09-12-823009",
+      "matchup": "CWS @ STL",
+      "player": "Sean Newcomb",
+      "team": "CWS",
+      "prop": "strikeouts",
+      "fair_line": 5.0,
+      "line": 4.5,
+      "projection": 4.8,
+      "lean": "Pass",
+      "edge": 0.3,
+      "confidence": "pass",
+      "line_source": "prizepicks_est",
+      "k9": 8.02
+    },
+    {
       "gameId": "pit-chc-2026-09-12-824630",
       "matchup": "PIT @ CHC",
       "player": "Clay Holmes",
@@ -1997,21 +2012,6 @@
       "confidence": "pass",
       "line_source": "prizepicks_est",
       "k9": 8.45
-    },
-    {
-      "gameId": "cws-stl-2026-09-12-823009",
-      "matchup": "CWS @ STL",
-      "player": "Luis Castillo",
-      "team": "CWS",
-      "prop": "strikeouts",
-      "fair_line": 5.0,
-      "line": 4.5,
-      "projection": 4.8,
-      "lean": "Pass",
-      "edge": 0.26,
-      "confidence": "pass",
-      "line_source": "prizepicks_est",
-      "k9": 7.96
     },
     {
       "gameId": "kc-bos-2026-09-12-824712",
