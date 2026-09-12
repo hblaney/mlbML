@@ -4,7 +4,9 @@ import {
   buildIframeEmbedHtml,
   isAllowedIframeHost,
   isBuffstreamsSlug,
-  resolveIframeEmbedUrl
+  proxyHlsUrl,
+  resolveIframeEmbedUrl,
+  resolveStreamePlayback
 } from "@/lib/stream-proxy";
 
 // Node runtime: Vercel Edge IPs are often Cloudflare-blocked by MLB Webcast.
@@ -16,6 +18,10 @@ type EmbedRouteProps = {
 };
 
 const SLUG_PATTERN = /^[a-z0-9]+$/i;
+const NO_STORE = {
+  "Content-Type": "text/html; charset=utf-8",
+  "Cache-Control": "no-store"
+} as const;
 
 function unavailableHtml(slug: string) {
   const openUrl = `https://mlbwebcast.com/stream/${slug}.html`;
@@ -35,6 +41,32 @@ a{color:#fff}
 </body></html>`;
 }
 
+function html(body: string) {
+  return new Response(body, { status: 200, headers: NO_STORE });
+}
+
+async function channelUrlForSlug(slug: string): Promise<string | null> {
+  const isNumbered = /\d$/.test(slug);
+  const scrapeSlugs = isNumbered ? [slug] : [`${slug}2`, slug];
+
+  for (const candidate of scrapeSlugs) {
+    try {
+      const iframeEmbedUrl = await resolveIframeEmbedUrl(candidate);
+      if (iframeEmbedUrl) {
+        return iframeEmbedUrl;
+      }
+    } catch {
+      // Vercel is often 403'd by mlbwebcast — use today's fallback map.
+    }
+  }
+
+  return (
+    STREAM_IFRAME_FALLBACKS[slug] ??
+    STREAM_IFRAME_FALLBACKS[`${slug.replace(/\d+$/, "")}2`] ??
+    null
+  );
+}
+
 export async function GET(_request: Request, { params }: EmbedRouteProps) {
   const { slug } = await params;
   const normalized = slug.toLowerCase();
@@ -44,78 +76,42 @@ export async function GET(_request: Request, { params }: EmbedRouteProps) {
   }
 
   if (isBuffstreamsSlug(normalized)) {
-    return new Response(buildEmbedPlayerHtml(normalized), {
-      status: 200,
-      headers: {
-        "Content-Type": "text/html; charset=utf-8",
-        "Cache-Control": "no-store"
-      }
-    });
+    return html(buildEmbedPlayerHtml(normalized));
   }
 
-  const isNumberedAltFeed = /\d$/.test(normalized);
+  const channelUrl = await channelUrlForSlug(normalized);
 
-  // Vercel IPs are Cloudflare-blocked by mlbwebcast (HLS manifest → 403).
-  // Team *2 pages carry today's streame.center iframe and remap daily — scrape
-  // LIVE, never trust a stale channel map (that's how Cubs showed Twins).
-  const scrapeSlugs = isNumberedAltFeed
-    ? [normalized]
-    : [`${normalized}2`, normalized];
-
-  for (const candidate of scrapeSlugs) {
+  if (channelUrl) {
     try {
-      const iframeEmbedUrl = await resolveIframeEmbedUrl(candidate);
-      if (iframeEmbedUrl) {
-        return new Response(buildIframeEmbedHtml(iframeEmbedUrl), {
-          status: 200,
-          headers: {
-            "Content-Type": "text/html; charset=utf-8",
-            "Cache-Control": "no-store"
+      const host = new URL(channelUrl).hostname;
+      if (isAllowedIframeHost(host) && host.includes("streame")) {
+        const playback = await resolveStreamePlayback(channelUrl);
+        // Prefer our HLS player — streame's Clappr page is ad-heavy and often
+        // blank when nested inside this site. Open webcast still works because
+        // it is a top-level mlbwebcast page.
+        if (playback.m3u8Url) {
+          try {
+            return html(buildEmbedPlayerHtml(normalized, proxyHlsUrl(playback.m3u8Url)));
+          } catch {
+            // m3u8 host not allow-listed — fall through
           }
-        });
+        }
+        if (playback.hlsPlayerUrl) {
+          return html(buildIframeEmbedHtml(playback.hlsPlayerUrl));
+        }
+      }
+
+      if (isAllowedIframeHost(new URL(channelUrl).hostname)) {
+        return html(buildIframeEmbedHtml(channelUrl));
       }
     } catch {
-      // try next slug / fallbacks
+      // fall through
     }
   }
 
-  const fallback =
-    STREAM_IFRAME_FALLBACKS[normalized] ??
-    STREAM_IFRAME_FALLBACKS[`${normalized.replace(/\d+$/, "")}2`];
-  if (fallback) {
-    try {
-      const host = new URL(fallback).hostname;
-      if (isAllowedIframeHost(host)) {
-        return new Response(buildIframeEmbedHtml(fallback), {
-          status: 200,
-          headers: {
-            "Content-Type": "text/html; charset=utf-8",
-            "Cache-Control": "public, max-age=60"
-          }
-        });
-      }
-    } catch {
-      // ignore bad fallback URL
-    }
+  if (!/\d$/.test(normalized)) {
+    return html(buildEmbedPlayerHtml(normalized));
   }
 
-  // Local/dev: HLS player still works when mlbwebcast allows this IP.
-  if (!isNumberedAltFeed) {
-    return new Response(buildEmbedPlayerHtml(normalized), {
-      status: 200,
-      headers: {
-        "Content-Type": "text/html; charset=utf-8",
-        "Cache-Control": "no-store"
-      }
-    });
-  }
-
-  // Last resort: helpful HTML, never a bare error string in the iframe.
-  return new Response(unavailableHtml(normalized), {
-    status: 200,
-    headers: {
-      "Content-Type": "text/html; charset=utf-8",
-      "Cache-Control": "no-store"
-    }
-  });
+  return html(unavailableHtml(normalized));
 }

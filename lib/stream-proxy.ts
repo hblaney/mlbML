@@ -58,7 +58,9 @@ export function isAllowedUpstreamHost(hostname: string) {
     host.endsWith(".hereisman.net") ||
     host.endsWith(".r2.cloudflarestorage.com") ||
     host.endsWith(".b-cdn.net") || // BunnyCDN (current MLB Webcast origin)
-    host.includes("kamfir")
+    host.includes("kamfir") ||
+    host.includes("edgestream") ||
+    host.endsWith("streame.center")
   );
 }
 
@@ -150,11 +152,20 @@ function buildFetchUrl(targetUrl: string) {
   return `${proxyBase}${separator}url=${encodeURIComponent(targetUrl)}`;
 }
 
+function refererForStreamHost(hostname: string, refererPath: string) {
+  const host = hostname.toLowerCase();
+  if (isBuffstreamsStreamHost(host)) {
+    return BUFFSTREAMS_REFERER;
+  }
+  if (host.includes("edgestream") || host.endsWith("streame.center")) {
+    return "https://streame.center/embed/hls.php";
+  }
+  return `${MLB_WEBCAST_ORIGIN}${refererPath}`;
+}
+
 export async function fetchStreamAsset(targetUrl: string, refererPath = "/stream/") {
   const fetchUrl = buildFetchUrl(targetUrl);
-  const referer = isBuffstreamsStreamHost(new URL(targetUrl).hostname)
-    ? BUFFSTREAMS_REFERER
-    : `${MLB_WEBCAST_ORIGIN}${refererPath}`;
+  const referer = refererForStreamHost(new URL(targetUrl).hostname, refererPath);
 
   return fetch(fetchUrl, {
     cache: "no-store",
@@ -232,6 +243,62 @@ export async function resolveIframeEmbedUrl(slug: string) {
   }
 
   return parseIframeEmbedUrl(await pageResponse.text());
+}
+
+const BROWSER_UA =
+  "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36";
+
+async function fetchHtml(url: string, referer: string) {
+  const response = await fetch(buildFetchUrl(url), {
+    cache: "no-store",
+    redirect: "follow",
+    signal: AbortSignal.timeout(8000),
+    headers: {
+      "User-Agent": BROWSER_UA,
+      Accept: "text/html,application/xhtml+xml,*/*;q=0.8",
+      Referer: referer,
+      Origin: new URL(referer).origin
+    }
+  });
+  if (!response.ok) {
+    return null;
+  }
+  return response.text();
+}
+
+function unescapeJsonUrl(raw: string) {
+  return raw.replace(/\\u0026/gi, "&");
+}
+
+export function parseStreameHlsPlayerUrl(html: string) {
+  const match = html.match(/(\/\/streame\.center\/embed\/hls\.php\?stream=[a-z0-9]+)/i);
+  if (!match) {
+    return null;
+  }
+  return `https:${match[1]}`;
+}
+
+export function parseStreameM3u8Url(html: string) {
+  const match = html.match(/https?:\/\/[^"'\\\s]+edgestream[^"'\\\s]+\.m3u8[^"'\\\s]*/i);
+  if (!match) {
+    return null;
+  }
+  return unescapeJsonUrl(match[0]);
+}
+
+export async function resolveStreamePlayback(channelEmbedUrl: string): Promise<{
+  hlsPlayerUrl: string | null;
+  m3u8Url: string | null;
+}> {
+  const channelHtml = await fetchHtml(channelEmbedUrl, "https://mlbwebcast.com/stream/");
+  const hlsPlayerUrl = channelHtml ? parseStreameHlsPlayerUrl(channelHtml) : null;
+  if (!hlsPlayerUrl) {
+    return { hlsPlayerUrl: null, m3u8Url: null };
+  }
+
+  const playerHtml = await fetchHtml(hlsPlayerUrl, channelEmbedUrl);
+  const m3u8Url = playerHtml ? parseStreameM3u8Url(playerHtml) : null;
+  return { hlsPlayerUrl, m3u8Url };
 }
 
 export function buildIframeEmbedHtml(embedUrl: string) {

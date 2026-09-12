@@ -37,10 +37,9 @@ export function StreamEmbed({ title, sources }: StreamEmbedProps) {
     <div className="stream-player">
       <div className="iframe-wrap">
         <iframe
-          allow="encrypted-media; fullscreen"
+          allow="autoplay; encrypted-media; fullscreen"
           allowFullScreen
           key={activeSource}
-          referrerPolicy="strict-origin-when-cross-origin"
           src={activeSource}
           title={title}
         />
