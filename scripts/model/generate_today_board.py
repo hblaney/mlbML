@@ -11,7 +11,9 @@ from game_sim_board import simulate_game_record
 from gbm_confidence import assign_daily_confidence
 from mlb_api import fetch_upcoming_games, load_team_abbreviations
 from odds_provider import fetch_moneyline_market, get_last_odds_source, market_for_game
+from probability_calibration import apply_temperature_shrink
 from trained_edge_model import _safe_pitcher_stats
+from v3_market_residual import publish_v3
 
 PUBLIC_PATH = Path(__file__).resolve().parents[2] / "public" / "predictions.json"
 
@@ -108,37 +110,88 @@ def main() -> None:
 
         gbm_home = float(prediction.home_probability)
         gbm_away = float(prediction.away_probability)
+        raw_pick = max(gbm_home, gbm_away)
 
-        # Official pick = raw GBM (OOS ~61% May–Jul). Sim stays diagnostic.
-        home_probability = gbm_home
-        away_probability = gbm_away
-        pick_probability = max(home_probability, away_probability)
-        raw_pick = pick_probability
-        prediction_source = "raw_gbm"
-        sim = simulate_game_record(game, starter_certain=starter_certain, n_sims=2000)
+        market_home = market_probs[0] if market_probs else None
+        market_away = market_probs[1] if market_probs else None
+
+        # Default publish = raw GBM. 2026-09-10 bakeoff (Brier / log loss /
+        # misclassification on walk-forward history) beat V3 residual, temp-shrink,
+        # and the no-vig market on every window. Override with MLB_PUBLISH_V3=1 to
+        # force the old market-anchored residual layer.
+        publish_v3_mode = __import__("os").environ.get("MLB_PUBLISH_V3") == "1"
+        publish_raw = __import__("os").environ.get("MLB_PUBLISH_RAW", "1") == "1" and not publish_v3_mode
+        if publish_raw:
+            home_probability = gbm_home
+            away_probability = gbm_away
+            pick_probability = raw_pick
+            if market_home is not None and market_away is not None:
+                predicted_home_tmp = gbm_home >= gbm_away
+                mkt_pick = market_home if predicted_home_tmp else market_away
+                market_agrees = (gbm_home >= gbm_away) == (market_home >= market_away)
+                model_edge = round(pick_probability - float(mkt_pick), 6)
+            else:
+                market_agrees = None
+                model_edge = 0.0
+            prediction_source = "raw_gbm"
+        elif market_home is not None and market_away is not None:
+            # Optional V3 path (MLB_PUBLISH_V3=1): hug the market when raw sides weaken.
+            published = publish_v3(
+                gbm_home,
+                market_home=market_home,
+                market_away=market_away,
+                starter_certain=starter_certain,
+            )
+            home_probability = published.home_probability
+            away_probability = published.away_probability
+            pick_probability = published.pick_probability
+            market_agrees = published.market_agrees
+            model_edge = published.model_edge
+            prediction_source = "v3_market_residual"
+        else:
+            home_probability = apply_temperature_shrink(gbm_home)
+            away_probability = 1.0 - home_probability
+            pick_probability = max(home_probability, away_probability)
+            market_agrees = None
+            model_edge = 0.0
+            prediction_source = "temp_shrunk_gbm"
+
+        # Official picks default to raw GBM. PA Monte Carlo is diagnostic only and
+        # was hanging this machine on roster/hitter network + Desktop cache I/O — skip
+        # when MLB_SKIP_SIM=1 so the live board can publish.
+        if __import__("os").environ.get("MLB_SKIP_SIM") == "1":
+            from game_sim_board import GameSimPublish
+
+            sim = GameSimPublish(
+                home_win_prob=0.5,
+                away_win_prob=0.5,
+                raw_home_win_prob=0.5,
+                raw_away_win_prob=0.5,
+                mean_home_runs=0.0,
+                mean_away_runs=0.0,
+                n_sims=0,
+                lineup_source="skipped",
+                confidence="Low",
+                ok=False,
+                note="PA sim skipped (MLB_SKIP_SIM=1)",
+            )
+        else:
+            sim = simulate_game_record(game, starter_certain=starter_certain, n_sims=400)
 
         predicted_home = home_probability >= away_probability
         _pick_pit = home_pit if predicted_home else away_pit
         _opp_pit = away_pit if predicted_home else home_pit
         era_diff = round(_opp_pit["era"] - _pick_pit["era"], 6)
+        whip_diff = round(_opp_pit["whip"] - _pick_pit["whip"], 6)
+        k9_diff = round(_pick_pit["strikeouts_per_9"] - _opp_pit["strikeouts_per_9"], 6)
         _pick_team = bundle.league.team(game.home_team_id if predicted_home else game.away_team_id)
         _opp_team = bundle.league.team(game.away_team_id if predicted_home else game.home_team_id)
         form_edge = round(_pick_team.win_pct(10) - _opp_team.win_pct(10), 6)
 
-        market_home = market_probs[0] if market_probs else None
-        market_away = market_probs[1] if market_probs else None
-        market_agrees = None
-        model_edge = 0.0
-        if market_home is not None and market_away is not None:
-            market_pick_home = market_home >= market_away
-            market_agrees = predicted_home == market_pick_home
-            market_for_pick = market_home if predicted_home else market_away
-            model_edge = pick_probability - market_for_pick
-
         notes = [
             f"Retrained through {bundle.trained_through.isoformat()}",
-            "Published pick = raw GBM win% (Elo/form/starter/park). Not market-anchored.",
-            "OOS May–Jul 2026: overall ≈61%. High/Elite require p/ERA/form/market gates — no daily High quota.",
+            "Published pick = raw GBM (best Brier / log loss / misclassification on 2026-09-10 bakeoff).",
+            "V3 residual available via MLB_PUBLISH_V3=1; skipped by default after score check.",
         ]
         if sim.ok:
             notes.append(
@@ -218,6 +271,8 @@ def main() -> None:
                 "marketAgrees": market_agrees,
                 "modelEdge": round(model_edge, 4),
                 "eraDiff": era_diff,
+                "whipDiff": whip_diff,
+                "k9Diff": k9_diff,
                 "formEdge": form_edge,
                 "modelVersion": MODEL_VERSION,
                 "explanation": notes,

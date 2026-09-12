@@ -70,7 +70,8 @@ export function StreamEmbed({ title, sources }: StreamEmbedProps) {
             ))}
           </div>
           <p className="muted stream-feed-note">
-            Buttons are team feeds (abbreviation). If one is blank, try the other team or Open webcast.
+            Buttons are that club&apos;s feed (scraped live from MLB Webcast). If one is blank,
+            try the other team or Open webcast.
             {hasBuffstreamsFeeds(sources) ? " Backup is an extra source when available." : ""}
           </p>
         </>

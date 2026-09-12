@@ -29,7 +29,8 @@ from urllib.request import urlopen
 import certifi
 
 API_BASE = "https://statsapi.mlb.com/api/v1"
-CACHE_DIR = Path(__file__).resolve().parents[2] / "data" / "cache" / "pitcher_stats_asof"
+_ROOT_CACHE = Path(__import__("os").environ.get("MLB_CACHE_DIR", str(Path(__file__).resolve().parents[2] / "data" / "cache")))
+CACHE_DIR = _ROOT_CACHE / "pitcher_stats_asof"
 
 # League-average-ish fallback when a pitcher has no current- or prior-season line
 # (e.g. a debuting rookie). Matches the historical defaults used elsewhere.
@@ -98,7 +99,14 @@ def _season_start(year: int) -> date:
     return date(year, 3, 1)
 
 
-def _fetch_range(pitcher_id: int, season: int, start: date, end: date) -> dict:
+def _fetch_range(
+    pitcher_id: int,
+    season: int,
+    start: date,
+    end: date,
+    *,
+    cache_only: bool = False,
+) -> dict:
     CACHE_DIR.mkdir(parents=True, exist_ok=True)
     cache_path = CACHE_DIR / f"{pitcher_id}_{season}_{start.isoformat()}_{end.isoformat()}.json"
     if cache_path.exists():
@@ -106,6 +114,11 @@ def _fetch_range(pitcher_id: int, season: int, start: date, end: date) -> dict:
             return json.loads(cache_path.read_text())
         except json.JSONDecodeError:
             cache_path.unlink(missing_ok=True)
+
+    if cache_only:
+        # Board fast-path: never block on MLB HTTP; callers fall back to defaults
+        # only when this pitcher/week was never cached.
+        return {}
 
     params = urlencode(
         {
@@ -119,7 +132,7 @@ def _fetch_range(pitcher_id: int, season: int, start: date, end: date) -> dict:
     url = f"{API_BASE}/people/{pitcher_id}/stats?{params}"
     context = ssl.create_default_context(cafile=certifi.where())
     try:
-        with urlopen(url, timeout=30, context=context) as response:
+        with urlopen(url, timeout=8, context=context) as response:
             payload = json.load(response)
     except Exception:
         return {}
@@ -175,27 +188,49 @@ def _blend(current: dict[str, float | None], prior: dict[str, float | None]) -> 
     return out
 
 
-def pitcher_stats_as_of(pitcher_id: int | None, game_date: date) -> dict[str, float]:
+def pitcher_stats_as_of(
+    pitcher_id: int | None,
+    game_date: date,
+    *,
+    cache_only: bool = False,
+) -> dict[str, float]:
     """Return the pitcher line knowable before first pitch on ``game_date``.
 
     Current-season totals through the previous day, shrunk toward the prior
     full season. No future information is ever used.
+
+    As-of end dates are snapped to the prior Monday to keep point-in-time
+    behavior while cutting unique cache files ~7x (full retrains were thrashing
+    a 16k-file as-of directory and appearing hung).
+
+    ``cache_only=True`` reads disk cache only (no MLB HTTP). Used by the live
+    board fast-path so starter ERA is not wiped to league-average defaults.
     """
     if not pitcher_id:
         return dict(_DEFAULTS)
 
-    mem_key = (pitcher_id, game_date.isoformat())
+    mem_key = (pitcher_id, game_date.isoformat(), cache_only)
     if mem_key in _MEM_CACHE:
         return _MEM_CACHE[mem_key]
 
     season = game_date.year
     start = _season_start(season)
     end = game_date - timedelta(days=1)
+    # Weekly bucket (Monday of the as-of week), never past the true end.
+    if end >= start:
+        week_start = end - timedelta(days=end.weekday())
+        end = max(start, week_start)
 
     if end < start:
         # Pre-opening day: fall back entirely to the (fully known) prior season.
         prior_full = _parse_line(
-            _fetch_range(pitcher_id, season - 1, _season_start(season - 1), date(season - 1, 11, 30))
+            _fetch_range(
+                pitcher_id,
+                season - 1,
+                _season_start(season - 1),
+                date(season - 1, 11, 30),
+                cache_only=cache_only,
+            )
         )
         result = {
             key: (float(prior_full[key]) if prior_full.get(key) is not None else _DEFAULTS[key])
@@ -206,11 +241,25 @@ def pitcher_stats_as_of(pitcher_id: int | None, game_date: date) -> dict[str, fl
         _MEM_CACHE[mem_key] = result
         return result
 
-    current = _parse_line(_fetch_range(pitcher_id, season, start, end))
+    # Reuse weekly key in memory so same pitcher/week is free after first hit.
+    week_key = (pitcher_id, f"{season}-W{end.isoformat()}", cache_only)
+    if week_key in _MEM_CACHE:
+        result = _MEM_CACHE[week_key]
+        _MEM_CACHE[mem_key] = result
+        return result
+
+    current = _parse_line(_fetch_range(pitcher_id, season, start, end, cache_only=cache_only))
     prior = _parse_line(
-        _fetch_range(pitcher_id, season - 1, _season_start(season - 1), date(season - 1, 11, 30))
+        _fetch_range(
+            pitcher_id,
+            season - 1,
+            _season_start(season - 1),
+            date(season - 1, 11, 30),
+            cache_only=cache_only,
+        )
     )
     result = _blend(current, prior)
+    _MEM_CACHE[week_key] = result
     _MEM_CACHE[mem_key] = result
     return result
 
@@ -221,7 +270,7 @@ def pitcher_era_as_of(pitcher_id: int | None, game_date: date) -> float:
 
 _RECENT_RATES_CACHE: dict[tuple[int, str, int], dict[str, float]] = {}
 _GAMELOG_MEM: dict[tuple[int, int], list[dict]] = {}
-GAMELOG_CACHE_DIR = Path(__file__).resolve().parents[2] / "data" / "cache" / "pitcher_gamelog"
+GAMELOG_CACHE_DIR = _ROOT_CACHE / "pitcher_gamelog"
 
 
 def _pitcher_start_log(pitcher_id: int, season: int) -> list[dict]:
@@ -255,7 +304,7 @@ def _pitcher_start_log(pitcher_id: int, season: int) -> list[dict]:
     context = ssl.create_default_context(cafile=certifi.where())
     rows: list[dict] = []
     try:
-        with urlopen(url, timeout=30, context=context) as response:
+        with urlopen(url, timeout=8, context=context) as response:
             payload = json.load(response)
         splits = (payload.get("stats") or [{}])[0].get("splits") or []
         for split in splits:

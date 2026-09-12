@@ -1,0 +1,18 @@
+{
+  "generated_at": "2026-09-10",
+  "objective": "daily_force_top2_ticket_hit",
+  "best_rule": "anchor_leg1_by_pickProb__leg2_best_eraDiff_among_ranks_2_to_4",
+  "recommended_era_coef": null,
+  "results": {
+    "fresh_wf_2026_raw_top2": {"ticket_hit": 0.42, "leg1": 0.716, "leg2": 0.568, "record": "68-94"},
+    "fresh_wf_2026_anchor_era_2to4": {"ticket_hit": 0.469, "leg1": 0.716, "leg2": 0.636, "record": "76-86"},
+    "fresh_wf_july_raw_top2": {"ticket_hit": 0.462, "leg1": 0.769, "leg2": 0.585, "record": "30-35"},
+    "fresh_wf_july_anchor_era_2to4": {"ticket_hit": 0.508, "leg1": 0.769, "leg2": 0.662, "record": "33-32"},
+    "full_hist_anchor_era_2to4": {"ticket_hit": 0.459, "leg1": 0.686, "leg2": 0.662, "record": "152-179"},
+    "note": "Rank1 already ~72%; bottleneck was rank2 (~57%). Picking best eraDiff among ranks 2-4 lifts leg2 to ~64-66% and July+ tickets to ~51%."
+  },
+  "rejected": {
+    "add_features_59_199_200_203_217": "Hurt July anchor ticket (43.1% vs 50.8%); reverted",
+    "whip_form_linear_ranker": "Overfit on wiped-era history; fails on real-pitcher WF"
+  }
+}

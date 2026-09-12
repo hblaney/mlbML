@@ -33,14 +33,14 @@ git push origin main
 
 ## Betting strategy (canonical — keep `lib/data.ts` and `public/betting-plan.json` in sync)
 
-- **Strategy: `parlay_first`** — parlay-heavy with quality gates:
-  - Parlay legs: **≥ 65%** model prob · **≥ 8% edge** · **≥ 1 High/Elite leg**
-  - No parlay → single only if **High/Elite ≥ 67%** and +EV; else **skip**
-  - Model **High** tier requires **form edge ≥ 2%** (81.5% H/E walk-forward)
-- **Stakes:** **45%** two-leg · **35%** elite single · **10%** three/four-leg
-- **Honest KPIs:** `public/live-strategy-metrics.json` — flat ROI + ticket hit rate (not compound fantasy)
+- **Strategy: `daily_force_top2`** — **2-leg ML parlay every day, never skip**
+  - Official bet = model's **top two** moneylines by `pickProbability`
+  - No High-gate. Thin 1-game slates fall back to a single.
+  - Walk-forward: **leg hit ~66–68%** · **ticket hit ~43–45%** (parlay compounds)
+- **Stakes:** **45%** two-leg · **35%** single fallback · **10%** three-leg
+- **Honest KPIs:** `public/live-strategy-metrics.json`
 
-Walk-forward (Mar–Jun 2026, real closing odds): **81% ticket hit (13-3)**, **95% flat ROI**, **83% parlay hit** on 6 parlay days. Regenerate with `npm run model:daily:core`.
+Place one 2-leg every day. Regenerate with `generate_today_board.py` + `lock_daily_ticket.py`.
 
 ## When to ask the user
 

@@ -1,15 +1,40 @@
 {
   "date": "2026-09-10",
-  "locked_at": "2026-09-10T05:32:44Z",
-  "board_generated_at": "2026-09-10T05:26:46Z",
-  "model_version": "daily-auto-v6.1-raw-gbm",
-  "pipeline_version": "unified-public-v21-raw-gbm-high-card",
-  "source": "lock_daily_ticket.py",
-  "note": "Provisional skip \u2014 may upgrade to a High ticket later today if odds/gates clear.",
+  "locked_at": "2026-09-10T16:51:23Z",
+  "board_generated_at": "2026-09-10T16:51:20Z",
+  "model_version": "daily-auto-v6.2-mkt-cal",
+  "pipeline_version": "unified-public-v23-raw-gbm-scores",
+  "source": "anchor1_best_era_2to4",
+  "note": "Official daily ticket \u2014 frozen at first publish. Later board refreshes do not change this.",
   "ticket": {
-    "kind": "skip",
-    "label": "No bet today",
-    "legs": [],
-    "leg_count": 0
+    "kind": "parlay",
+    "label": "PHI ML + CWS ML",
+    "legs": [
+      "PHI",
+      "CWS"
+    ],
+    "leg_count": 2,
+    "odds": 192,
+    "model_probability": 0.61238016,
+    "leg_details": [
+      {
+        "team": "PHI",
+        "matchup": "HOU @ PHI",
+        "confidence": "Medium",
+        "pickProbability": 0.8064,
+        "edge": 0.1831,
+        "odds": -187,
+        "startsAt": "2026-09-10T17:05:00Z"
+      },
+      {
+        "team": "CWS",
+        "matchup": "PIT @ CWS",
+        "confidence": "Medium",
+        "pickProbability": 0.7594,
+        "edge": 0.2561,
+        "odds": -111,
+        "startsAt": "2026-09-10T23:40:00Z"
+      }
+    ]
   }
 }

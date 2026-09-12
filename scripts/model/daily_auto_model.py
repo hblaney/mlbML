@@ -34,8 +34,8 @@ from trained_edge_model import (
 )
 
 MODEL_PATH = Path(__file__).resolve().parents[2] / "data" / "model" / "daily_edge.pkl"
-MODEL_VERSION = "daily-auto-v6.1-raw-gbm"
-PIPELINE_VERSION = "unified-public-v21-raw-gbm-high-card"
+MODEL_VERSION = "daily-auto-v6.2-mkt-cal"
+PIPELINE_VERSION = "unified-public-v23-raw-gbm-scores"
 
 
 @dataclass
@@ -96,7 +96,12 @@ def train_on_games(
     base_weights: list[float] = []
 
     trained_through = games[-1].game_date if games else date.today() - timedelta(days=1)
-    for game in prior_games or []:
+    prior = prior_games or []
+    total = len(prior) + len(games)
+    print(f"[train] building features for {total} games ({len(prior)} prior + {len(games)} current)...", flush=True)
+    for index, game in enumerate(prior):
+        if index and index % 250 == 0:
+            print(f"[train] prior {index}/{len(prior)}", flush=True)
         examples.append(TrainingExample(features=feature_row(game, league), label=1 if game.home_won else 0))
         example_dates.append(game.game_date)
         base_weights.append(PRIOR_SEASON_SAMPLE_WEIGHT)
@@ -110,7 +115,9 @@ def train_on_games(
             away_pitcher_id=game.away_pitcher_id,
         )
 
-    for game in games:
+    for index, game in enumerate(games):
+        if index and index % 250 == 0:
+            print(f"[train] current {index}/{len(games)} through {game.game_date}", flush=True)
         examples.append(TrainingExample(features=feature_row(game, league), label=1 if game.home_won else 0))
         example_dates.append(game.game_date)
         base_weights.append(CURRENT_SEASON_SAMPLE_WEIGHT)
@@ -123,6 +130,7 @@ def train_on_games(
             home_pitcher_id=game.home_pitcher_id,
             away_pitcher_id=game.away_pitcher_id,
         )
+    print(f"[train] fitting GBM on {len(examples)} examples...", flush=True)
 
     model = fit_model(examples, fit_weights_for_as_of(example_dates, base_weights, trained_through))
     if model is None:

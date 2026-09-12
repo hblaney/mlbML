@@ -92,8 +92,8 @@ def test_no_high_without_form_or_market_or_edge() -> None:
             "homeMoneyline": -150,
             "awayMoneyline": 130,
             "marketAgrees": True,
-            "modelEdge": 0.005,
-            "eraDiff": 1.5,
+            "modelEdge": 0.05,
+            "eraDiff": 0.2,  # below High era gate
             "formEdge": 0.2,
             "explanation": [],
         },

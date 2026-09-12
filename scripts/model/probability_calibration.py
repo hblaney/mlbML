@@ -1,49 +1,72 @@
 """Honest probability + confidence layer for the MLB model.
 
-DESIGN (validated Jun 2026 on 3,410 graded games, chronological 70/30 split):
-  The raw model pick probability is already the best-calibrated estimate we have
-  (out-of-sample ECE 2.2%, Brier 0.236). Adding an isotonic/stretch calibration
-  on top OVERFIT and made every metric worse out-of-sample. The previous
-  "display calibration" stretched empirical hit rates onto a cosmetic 60–90 scale
-  and inflated shown probabilities by 8–13 points (displayed-ECE 9.6%).
+DESIGN (recalibrated 2026-09-05 on July+ graded history):
+  Raw GBM side-picking collapsed on market-backed July games (~49% vs market ~57%).
+  Mid-range published probs were overconfident (0.60–0.65 predicted → ~51% actual).
+  Live publish therefore market-anchors via V3 when odds exist. When odds are missing,
+  apply temperature shrink (T>1) so the board stops quoting fake mid-60s.
 
-  So we DO NOT transform the probability for display. The number shown to the
-  user IS the model's calibrated probability — i.e. when we say 66%, picks like
-  that win ~66% of the time. Confidence tiers sit on this true scale, gated by the
-  factors that actually separate winners (starter ERA edge, team form, market).
+  Full-season isotonic maps still overfit — we only use a single temperature and
+  market residual, not a bucket remapping. Confidence tiers remain betting labels
+  gated by ERA / form / price agreement, now with a higher probability floor.
 """
 
 from __future__ import annotations
 
+import math
+
 # Confidence is a BETTING label, not a probability bucket.
-# Validated on 2026 market-backed walk-forward (season + last-30/45 stability):
-#   High (BET):  p≥0.55 + form≥0.1 + era≥0.5 + edge≥2% + market agrees
-#                → ~70% hit, ~0.4/day (last-30/45 ~67%)
-#   Medium (LEAN): price-supported edge without the full matchup stack → ~62-66%
-#   Low (PASS): rest → ~53-55% — do not bet
+# 2026-09-12: High p floor aligned with TS (0.55). Strong pitcher + market agree
+# can be High/Medium even when GBM quotes a coin-flip (today was 14/15 Low).
+#   High (BET):  p≥0.55 + form≥0.1 + era≥0.5 + market agrees
+#   Medium (LEAN): market agree + p≥0.52, or big ERA gap
+#   Low (PASS): rest
 #   Elite: stricter High (rare)
-# No daily High quota — if nothing clears, the board shows zero Highs.
-MEDIUM_MIN = 0.55
+MEDIUM_MIN = 0.52
 HIGH_MIN_RAW_PICK = 0.55
 ELITE_MIN_RAW_PICK = 0.65
 HIGH_MIN_ERA_DIFF = 0.5
 ELITE_MIN_ERA_DIFF = 1.5
 HIGH_MIN_FORM_EDGE = 0.1
 ELITE_MIN_FORM_EDGE = 0.1
-HIGH_MIN_MODEL_EDGE = 0.02
+HIGH_MIN_MODEL_EDGE = 0.0
 ELITE_MIN_MODEL_EDGE = 0.03
 # Picks with an unconfirmed starter or no market price can't earn High/Elite (the
 # probability is less trustworthy without a confirmed starter / market anchor).
-UNCERTAIN_MEDIUM_MIN = 0.60
+UNCERTAIN_MEDIUM_MIN = 0.55
+
+# No-market fallback: T=1.6 from Jun+ Brier/ECE sweep (sides unchanged, probs honest).
+NO_MARKET_TEMPERATURE = 1.6
+
+
+def _logit(p: float) -> float:
+    p = min(max(float(p), 1e-6), 1.0 - 1e-6)
+    return math.log(p / (1.0 - p))
+
+
+def _sigmoid(x: float) -> float:
+    if x >= 0:
+        z = math.exp(-x)
+        return 1.0 / (1.0 + z)
+    z = math.exp(x)
+    return z / (1.0 + z)
+
+
+def apply_temperature_shrink(home_probability: float, temperature: float = NO_MARKET_TEMPERATURE) -> float:
+    """Shrink home win% toward 0.5 via temperature scaling (T>1 = less confident)."""
+    t = max(float(temperature), 1e-3)
+    return round(_sigmoid(_logit(home_probability) / t), 4)
 
 
 def calibrated_display_probability(raw_pick: float, *, market_available: bool = True) -> float:
-    """Honest display probability == the model's calibrated pick probability.
-
-    No transform: the raw pick probability is already well-calibrated. market_available
-    is kept for signature compatibility; it only affects the confidence tier, not the %.
-    """
-    return round(float(raw_pick), 4)
+    """Display pick probability. Market rows are already V3-calibrated upstream."""
+    p = float(raw_pick)
+    if not market_available:
+        # raw_pick is a pick-side max(p,1-p); shrink via home-style logit on the pick.
+        # Convert to a pseudo-home at pick, shrink, re-max — keeps pick >= 0.5.
+        shrunk = apply_temperature_shrink(p)
+        return round(max(shrunk, 1.0 - shrunk), 4)
+    return round(p, 4)
 
 
 def apply_display_calibration(
@@ -52,9 +75,14 @@ def apply_display_calibration(
     *,
     market_available: bool = True,
 ) -> tuple[float, float, float]:
-    """Identity passthrough — returns home, away, pick unchanged (already calibrated)."""
-    pick = max(home_probability, away_probability)
-    return round(float(home_probability), 4), round(float(away_probability), 4), round(float(pick), 4)
+    """Calibrate home/away for display. Market path is identity (V3 already applied)."""
+    home = float(home_probability)
+    away = float(away_probability)
+    if not market_available:
+        home = apply_temperature_shrink(home)
+        away = 1.0 - home
+    pick = max(home, away)
+    return round(home, 4), round(away, 4), round(pick, 4)
 
 
 def confidence_from_display(
@@ -83,7 +111,10 @@ def confidence_from_display(
     # An unconfirmed starter or no market price makes the probability less trustworthy:
     # cap such picks at Medium (and only if they clear a slightly higher bar).
     if not starter_certain or not market_available:
-        return "Medium" if p >= UNCERTAIN_MEDIUM_MIN else "Low"
+        # Still a lean if the book and model agree at a real favorite; no High/Elite.
+        if market_agrees is True and p >= UNCERTAIN_MEDIUM_MIN:
+            return "Medium"
+        return "Medium" if p >= 0.60 else "Low"
 
     if (
         p >= ELITE_MIN_RAW_PICK
@@ -101,10 +132,11 @@ def confidence_from_display(
         and market_agrees is True
     ):
         return "High"
-    # Lean: book agrees and model has a real price edge, but form/ERA aren't full High.
-    if market_agrees is True and edge >= HIGH_MIN_MODEL_EDGE and p >= MEDIUM_MIN:
+    # Lean: book agrees, or a real starter gap even if GBM is conservative.
+    if market_agrees is True and p >= MEDIUM_MIN:
         return "Medium"
-    # Strong matchup without a clean price edge still rates a lean above coin-flips.
+    if era_diff >= 1.0 and p >= MEDIUM_MIN and form_edge >= 0.0:
+        return "Medium"
     if p >= 0.58 and era_diff >= HIGH_MIN_ERA_DIFF and form_edge >= 0.0:
         return "Medium"
     return "Low"

@@ -64,11 +64,12 @@ function teamFeed(teamId: string): StreamLink | null {
   const id = normalizeTeamId(teamId);
   const config = teamStreamConfig[id];
   if (!config) return null;
-  // Numbered "2" feed is the reliable streame.center fallback. Unnumbered HD and
-  // duplicate "3" links were confusing labels that often blanked out.
+  // Primary = unnumbered slug → team-specific HLS player (/api/stream/embed/{slug}).
+  // The old default `${slug}2` streame.center embeds are a SHARED channel pool —
+  // Athletics routinely opened on Dodgers (and every team was cross-wired).
   return {
     label: getTeam(id).abbreviation,
-    url: embedPath(`${config.streamSlug}2`)
+    url: embedPath(config.streamSlug)
   };
 }
 
@@ -99,7 +100,8 @@ export function getMatchupWatchStream(options: {
     sources.push(link);
   };
 
-  // Focus feed first so the default embed is the team the user picked.
+  // Team-named feeds only. Do not offer *2 alts — those streame channels remap
+  // daily and were showing the wrong club (Cubs → Twins).
   pushUnique(teamFeed(focusId));
   pushUnique(teamFeed(homeId));
   pushUnique(teamFeed(awayId));
@@ -147,7 +149,8 @@ function buildTeamStream(
     }) ?? {
       livePageUrl: `${MLB_WEBCAST_ORIGIN}/${config.liveSlug}-live/`,
       sources: [
-        { label: getTeam(focusId).abbreviation, url: embedPath(`${config.streamSlug}2`) },
+        { label: getTeam(focusId).abbreviation, url: embedPath(config.streamSlug) },
+        { label: `${getTeam(focusId).abbreviation} alt`, url: embedPath(`${config.streamSlug}2`) },
         { label: "Open webcast", url: webcastStreamUrl(config.streamSlug), external: true }
       ]
     }
@@ -157,7 +160,8 @@ function buildTeamStream(
 export const mlbNetworkStream: WatchStreamSource = {
   livePageUrl: `${MLB_WEBCAST_ORIGIN}/mlb-network-live/`,
   sources: [
-    { label: "MLB Network", url: embedPath("mlbnetwork2") },
+    { label: "MLB Network", url: embedPath("mlbnetwork") },
+    { label: "Alt", url: embedPath("mlbnetwork2") },
     { label: "Open webcast", url: webcastStreamUrl("mlbnetwork"), external: true }
   ]
 };

@@ -99,13 +99,18 @@ def ticket_from_board(board_path: Path) -> dict | None:
         "  }));\n"
         "}\n"
     )
-    proc = subprocess.run(
-        ["npx", "--yes", "tsx", str(TICKET_SCRIPT), str(board_path)],
-        capture_output=True,
-        text=True,
-        cwd=REPO_ROOT,
-        check=False,
-    )
+    try:
+        proc = subprocess.run(
+            ["npx", "--yes", "tsx", str(TICKET_SCRIPT), str(board_path)],
+            capture_output=True,
+            text=True,
+            cwd=REPO_ROOT,
+            check=False,
+        )
+    except FileNotFoundError:
+        # No Node/npx — Python fallback for daily_force_top1 (never skip).
+        print("locked_ticket_fallback: npx missing; using Python top-2 force parlay")
+        return _ticket_force_top1_python(board_path)
     if proc.returncode != 0:
         print(proc.stderr or proc.stdout, file=sys.stderr)
         return None
@@ -113,6 +118,92 @@ def ticket_from_board(board_path: Path) -> dict | None:
     if not raw or raw == "null":
         return None
     return json.loads(raw)
+
+
+def _american_parlay(odds_list: list[int]) -> int:
+    dec = 1.0
+    for o in odds_list:
+        o = int(o)
+        dec *= (1 + o / 100) if o > 0 else (1 + 100 / abs(o))
+    profit = dec - 1
+    return int(round(profit * 100)) if profit >= 1 else int(round(-100 / profit))
+
+
+def _ticket_force_top1_python(board_path: Path) -> dict | None:
+    """Mirror getDailyForceTop2Ticket without Node — always a 2-leg (or 1 if thin).
+
+    Leg1 = #1 by pickProb; leg2 = best eraDiff among ranks 2..4.
+    """
+    board = json.loads(board_path.read_text())
+    rows = list(board.get("predictions") or [])
+    if not rows:
+        return None
+
+    def pick_prob(row: dict) -> float:
+        return float(row.get("pickProbability") or row.get("rawPickProbability") or 0.0)
+
+    def era_diff(row: dict) -> float:
+        return float(row.get("eraDiff") or 0.0)
+
+    rows.sort(key=pick_prob, reverse=True)
+    # Dedupe by game id
+    seen = set()
+    unique = []
+    for row in rows:
+        gid = row.get("id") or f"{row.get('awayTeam')}-{row.get('homeTeam')}"
+        if gid in seen:
+            continue
+        seen.add(gid)
+        unique.append(row)
+
+    def leg_from(row: dict) -> dict:
+        predicted = str(row.get("predictedTeam") or "").lower()
+        home = str(row.get("homeTeam") or "").lower()
+        away = str(row.get("awayTeam") or "").lower()
+        pick_home = predicted == home if predicted else True
+        team = (home if pick_home else away).upper()
+        odds = row.get("homeMoneyline") if pick_home else row.get("awayMoneyline")
+        if odds is None:
+            odds = -110
+        p = pick_prob(row)
+        return {
+            "team": team,
+            "matchup": f"{away.upper()} @ {home.upper()}",
+            "confidence": row.get("confidence"),
+            "pickProbability": p,
+            "edge": row.get("modelEdge"),
+            "odds": odds,
+            "startsAt": row.get("startsAt"),
+        }
+
+    if len(unique) >= 2:
+        leg1 = unique[0]
+        challengers = unique[1:4]
+        leg2 = max(challengers, key=era_diff)
+        details = [leg_from(leg1), leg_from(leg2)]
+        odds = _american_parlay([int(d["odds"]) for d in details])
+        model_p = details[0]["pickProbability"] * details[1]["pickProbability"]
+        legs = [d["team"] for d in details]
+        return {
+            "kind": "parlay",
+            "label": " + ".join(f"{t} ML" for t in legs),
+            "legs": legs,
+            "leg_count": 2,
+            "odds": odds,
+            "model_probability": model_p,
+            "leg_details": details,
+        }
+
+    d = leg_from(unique[0])
+    return {
+        "kind": "single",
+        "label": f"{d['team']} ML",
+        "legs": [d["team"]],
+        "leg_count": 1,
+        "odds": d["odds"],
+        "model_probability": d["pickProbability"],
+        "leg_details": [d],
+    }
 
 
 def build_lock(day_iso: str, ticket: dict, board: dict, *, source: str) -> dict:

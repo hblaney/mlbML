@@ -1,0 +1,274 @@
+{
+  "generated_at": "2026-09-10",
+  "scoring": "Home-win probability vs actual home win. Lower Brier, log loss, and misclassification are better.",
+  "v3_alpha": 0.12,
+  "windows": [
+    {
+      "label": "Full season (all graded)",
+      "n": 4418,
+      "methods": {
+        "raw_gbm": {
+          "n": 4418,
+          "brier": 0.23903,
+          "logloss": 0.67086,
+          "misclassification": 0.4124,
+          "accuracy": 0.5876
+        },
+        "temp_shrunk": {
+          "n": 4418,
+          "brier": 0.23959,
+          "logloss": 0.672,
+          "misclassification": 0.4124,
+          "accuracy": 0.5876
+        },
+        "published_v3_or_temp": {
+          "n": 4418,
+          "brier": 0.24232,
+          "logloss": 0.67758,
+          "misclassification": 0.42802,
+          "accuracy": 0.57198
+        }
+      },
+      "winner": "raw_gbm",
+      "ranking": [
+        "raw_gbm",
+        "temp_shrunk",
+        "published_v3_or_temp"
+      ]
+    },
+    {
+      "label": "Full season (market-backed)",
+      "n": 2552,
+      "methods": {
+        "raw_gbm": {
+          "n": 2552,
+          "brier": 0.23834,
+          "logloss": 0.66937,
+          "misclassification": 0.40674,
+          "accuracy": 0.59326
+        },
+        "temp_shrunk": {
+          "n": 2552,
+          "brier": 0.23893,
+          "logloss": 0.67063,
+          "misclassification": 0.40674,
+          "accuracy": 0.59326
+        },
+        "published_v3_or_temp": {
+          "n": 2552,
+          "brier": 0.24404,
+          "logloss": 0.68102,
+          "misclassification": 0.43378,
+          "accuracy": 0.56622
+        },
+        "market": {
+          "n": 2552,
+          "brier": 0.24481,
+          "logloss": 0.68246,
+          "misclassification": 0.43887,
+          "accuracy": 0.56113
+        },
+        "v3_residual": {
+          "n": 2552,
+          "brier": 0.24404,
+          "logloss": 0.68102,
+          "misclassification": 0.43378,
+          "accuracy": 0.56622
+        }
+      },
+      "winner": "raw_gbm",
+      "ranking": [
+        "raw_gbm",
+        "temp_shrunk",
+        "published_v3_or_temp",
+        "v3_residual",
+        "market"
+      ]
+    },
+    {
+      "label": "Mar\u2013Jun market-backed",
+      "n": 2389,
+      "methods": {
+        "raw_gbm": {
+          "n": 2389,
+          "brier": 0.23918,
+          "logloss": 0.67109,
+          "misclassification": 0.41189,
+          "accuracy": 0.58811
+        },
+        "temp_shrunk": {
+          "n": 2389,
+          "brier": 0.23941,
+          "logloss": 0.67159,
+          "misclassification": 0.41189,
+          "accuracy": 0.58811
+        },
+        "published_v3_or_temp": {
+          "n": 2389,
+          "brier": 0.24404,
+          "logloss": 0.68103,
+          "misclassification": 0.43491,
+          "accuracy": 0.56509
+        },
+        "market": {
+          "n": 2389,
+          "brier": 0.24466,
+          "logloss": 0.68213,
+          "misclassification": 0.43993,
+          "accuracy": 0.56007
+        },
+        "v3_residual": {
+          "n": 2389,
+          "brier": 0.24404,
+          "logloss": 0.68103,
+          "misclassification": 0.43491,
+          "accuracy": 0.56509
+        }
+      },
+      "winner": "raw_gbm",
+      "ranking": [
+        "raw_gbm",
+        "temp_shrunk",
+        "published_v3_or_temp",
+        "v3_residual",
+        "market"
+      ]
+    },
+    {
+      "label": "July+ all graded",
+      "n": 884,
+      "methods": {
+        "raw_gbm": {
+          "n": 884,
+          "brier": 0.23676,
+          "logloss": 0.66606,
+          "misclassification": 0.39819,
+          "accuracy": 0.60181
+        },
+        "temp_shrunk": {
+          "n": 884,
+          "brier": 0.23865,
+          "logloss": 0.6701,
+          "misclassification": 0.39819,
+          "accuracy": 0.60181
+        },
+        "published_v3_or_temp": {
+          "n": 884,
+          "brier": 0.24007,
+          "logloss": 0.67283,
+          "misclassification": 0.41403,
+          "accuracy": 0.58597
+        }
+      },
+      "winner": "raw_gbm",
+      "ranking": [
+        "raw_gbm",
+        "temp_shrunk",
+        "published_v3_or_temp"
+      ]
+    },
+    {
+      "label": "July+ market-backed",
+      "n": 163,
+      "methods": {
+        "raw_gbm": {
+          "n": 163,
+          "brier": 0.22597,
+          "logloss": 0.6442,
+          "misclassification": 0.33129,
+          "accuracy": 0.66871
+        },
+        "temp_shrunk": {
+          "n": 163,
+          "brier": 0.23188,
+          "logloss": 0.65651,
+          "misclassification": 0.33129,
+          "accuracy": 0.66871
+        },
+        "published_v3_or_temp": {
+          "n": 163,
+          "brier": 0.24396,
+          "logloss": 0.68096,
+          "misclassification": 0.41718,
+          "accuracy": 0.58282
+        },
+        "market": {
+          "n": 163,
+          "brier": 0.24689,
+          "logloss": 0.68721,
+          "misclassification": 0.42331,
+          "accuracy": 0.57669
+        },
+        "v3_residual": {
+          "n": 163,
+          "brier": 0.24395,
+          "logloss": 0.68095,
+          "misclassification": 0.41718,
+          "accuracy": 0.58282
+        }
+      },
+      "winner": "raw_gbm",
+      "ranking": [
+        "raw_gbm",
+        "temp_shrunk",
+        "v3_residual",
+        "published_v3_or_temp",
+        "market"
+      ]
+    },
+    {
+      "label": "Last 250 market-backed",
+      "n": 250,
+      "methods": {
+        "raw_gbm": {
+          "n": 250,
+          "brier": 0.23638,
+          "logloss": 0.66554,
+          "misclassification": 0.372,
+          "accuracy": 0.628
+        },
+        "temp_shrunk": {
+          "n": 250,
+          "brier": 0.23855,
+          "logloss": 0.67,
+          "misclassification": 0.372,
+          "accuracy": 0.628
+        },
+        "published_v3_or_temp": {
+          "n": 250,
+          "brier": 0.24419,
+          "logloss": 0.68139,
+          "misclassification": 0.408,
+          "accuracy": 0.592
+        },
+        "market": {
+          "n": 250,
+          "brier": 0.2458,
+          "logloss": 0.68481,
+          "misclassification": 0.416,
+          "accuracy": 0.584
+        },
+        "v3_residual": {
+          "n": 250,
+          "brier": 0.24419,
+          "logloss": 0.68139,
+          "misclassification": 0.408,
+          "accuracy": 0.592
+        }
+      },
+      "winner": "raw_gbm",
+      "ranking": [
+        "raw_gbm",
+        "temp_shrunk",
+        "published_v3_or_temp",
+        "v3_residual",
+        "market"
+      ]
+    }
+  ],
+  "verdict": {
+    "winner": "raw_gbm",
+    "wins_every_window": true,
+    "note": "On walk-forward history through 2026-09-07, raw GBM dominates V3/market/temp-shrink on Brier, log loss, and 0-1 misclassification. Earlier July ~49% side claim does not reproduce on this rebuilt history (July+ all-graded raw acc ~60%)."
+  }
+}

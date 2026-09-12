@@ -53,24 +53,35 @@ export async function GET(_request: Request, { params }: EmbedRouteProps) {
     });
   }
 
-  // 1) Live scrape of the webcast page for its iframe player.
-  try {
-    const iframeEmbedUrl = await resolveIframeEmbedUrl(normalized);
-    if (iframeEmbedUrl) {
-      return new Response(buildIframeEmbedHtml(iframeEmbedUrl), {
-        status: 200,
-        headers: {
-          "Content-Type": "text/html; charset=utf-8",
-          "Cache-Control": "no-store"
-        }
-      });
+  const isNumberedAltFeed = /\d$/.test(normalized);
+
+  // Vercel IPs are Cloudflare-blocked by mlbwebcast (HLS manifest → 403).
+  // Team *2 pages carry today's streame.center iframe and remap daily — scrape
+  // LIVE, never trust a stale channel map (that's how Cubs showed Twins).
+  const scrapeSlugs = isNumberedAltFeed
+    ? [normalized]
+    : [`${normalized}2`, normalized];
+
+  for (const candidate of scrapeSlugs) {
+    try {
+      const iframeEmbedUrl = await resolveIframeEmbedUrl(candidate);
+      if (iframeEmbedUrl) {
+        return new Response(buildIframeEmbedHtml(iframeEmbedUrl), {
+          status: 200,
+          headers: {
+            "Content-Type": "text/html; charset=utf-8",
+            "Cache-Control": "no-store"
+          }
+        });
+      }
+    } catch {
+      // try next slug / fallbacks
     }
-  } catch {
-    // Continue to fallbacks — production scrapes are often blocked.
   }
 
-  // 2) Static streame/embedstreams map (works even when mlbwebcast.com blocks the server).
-  const fallback = STREAM_IFRAME_FALLBACKS[normalized];
+  const fallback =
+    STREAM_IFRAME_FALLBACKS[normalized] ??
+    STREAM_IFRAME_FALLBACKS[`${normalized.replace(/\d+$/, "")}2`];
   if (fallback) {
     try {
       const host = new URL(fallback).hostname;
@@ -88,9 +99,8 @@ export async function GET(_request: Request, { params }: EmbedRouteProps) {
     }
   }
 
-  // 3) Primary (unnumbered) feeds use the HLS token player — don't preflight tokens
-  //    (preflight was returning "Stream page unavailable" whenever Cloudflare challenged).
-  if (!/\d$/.test(normalized)) {
+  // Local/dev: HLS player still works when mlbwebcast allows this IP.
+  if (!isNumberedAltFeed) {
     return new Response(buildEmbedPlayerHtml(normalized), {
       status: 200,
       headers: {
@@ -100,7 +110,7 @@ export async function GET(_request: Request, { params }: EmbedRouteProps) {
     });
   }
 
-  // 4) Last resort: helpful HTML, never a bare error string in the iframe.
+  // Last resort: helpful HTML, never a bare error string in the iframe.
   return new Response(unavailableHtml(normalized), {
     status: 200,
     headers: {

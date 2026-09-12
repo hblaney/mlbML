@@ -3,7 +3,7 @@
 import type { GamePrediction } from "./data";
 
 /** Lean floor (price-supported). */
-export const CONFIDENCE_MEDIUM_MIN = 0.55;
+export const CONFIDENCE_MEDIUM_MIN = 0.52;
 /** High = BET lane. */
 export const CONFIDENCE_HIGH_MIN = 0.55;
 export const CONFIDENCE_ELITE_MIN = 0.65;
@@ -12,7 +12,7 @@ export const CONFIDENCE_HIGH_MIN_ERA_DIFF = 0.5;
 export const CONFIDENCE_ELITE_MIN_ERA_DIFF = 1.5;
 export const CONFIDENCE_HIGH_MIN_FORM_EDGE = 0.1;
 export const CONFIDENCE_ELITE_MIN_FORM_EDGE = 0.1;
-export const CONFIDENCE_HIGH_MIN_MODEL_EDGE = 0.02;
+export const CONFIDENCE_HIGH_MIN_MODEL_EDGE = 0.0;
 export const CONFIDENCE_ELITE_MIN_MODEL_EDGE = 0.03;
 
 export type ConfidenceContext = {
@@ -36,6 +36,9 @@ export function confidenceFromPickProbability(
   const edge = context.modelEdge ?? 0;
 
   if (!starterCertain || !marketAvailable) {
+    if (context.marketAgrees === true && probability >= CONFIDENCE_MEDIUM_MIN) {
+      return "Medium";
+    }
     return probability >= CONFIDENCE_UNCERTAIN_MEDIUM_MIN ? "Medium" : "Low";
   }
 
@@ -57,7 +60,10 @@ export function confidenceFromPickProbability(
   ) {
     return "High";
   }
-  if (context.marketAgrees === true && edge >= CONFIDENCE_HIGH_MIN_MODEL_EDGE && probability >= CONFIDENCE_MEDIUM_MIN) {
+  if (context.marketAgrees === true && probability >= CONFIDENCE_MEDIUM_MIN) {
+    return "Medium";
+  }
+  if (eraDiff >= 1.0 && probability >= CONFIDENCE_MEDIUM_MIN && formEdge >= 0) {
     return "Medium";
   }
   if (probability >= 0.58 && eraDiff >= CONFIDENCE_HIGH_MIN_ERA_DIFF && formEdge >= 0) {

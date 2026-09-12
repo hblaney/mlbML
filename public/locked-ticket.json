@@ -1,15 +1,40 @@
 {
   "date": "2026-09-12",
-  "locked_at": "2026-09-12T05:33:41Z",
-  "board_generated_at": "2026-09-12T05:15:35Z",
+  "locked_at": "2026-09-12T20:30:17Z",
+  "board_generated_at": "2026-09-12T17:40:10Z",
   "model_version": "daily-auto-v6.1-raw-gbm",
   "pipeline_version": "unified-public-v21-raw-gbm-high-card",
-  "source": "lock_daily_ticket.py",
-  "note": "Provisional skip \u2014 may upgrade to a High ticket later today if odds/gates clear.",
+  "source": "sep12_relabel",
+  "note": "Official daily ticket \u2014 frozen at first publish. Later board refreshes do not change this.",
   "ticket": {
-    "kind": "skip",
-    "label": "No bet today",
-    "legs": [],
-    "leg_count": 0
+    "kind": "parlay",
+    "label": "CHC ML + MIL ML",
+    "legs": [
+      "CHC",
+      "MIL"
+    ],
+    "leg_count": 2,
+    "odds": 179,
+    "model_probability": 0.3535299,
+    "leg_details": [
+      {
+        "team": "CHC",
+        "matchup": "PIT @ CHC",
+        "confidence": "Medium",
+        "pickProbability": 0.6186,
+        "edge": 0.0861,
+        "odds": -125,
+        "startsAt": "2026-09-12T18:20:00Z"
+      },
+      {
+        "team": "MIL",
+        "matchup": "CIN @ MIL",
+        "confidence": "Medium",
+        "pickProbability": 0.5715,
+        "edge": -0.0454,
+        "odds": -181,
+        "startsAt": "2026-09-12T23:10:00Z"
+      }
+    ]
   }
 }

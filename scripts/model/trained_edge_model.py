@@ -70,7 +70,9 @@ MARKET_BLEND_EDGE_COIN_FLIP = 0.04
 PUBLIC_CONFIDENCE_SHARPENING = 0.8
 PUBLIC_CONFIDENCE_SHARPENING_STRONG = 1.0
 PUBLIC_PROBABILITY_CAP = 0.72
-PUBLIC_PROBABILITY_CAP_STRONG = 0.78
+# Raised 0.78 → 0.88 so top-of-slate pickProb can separate (was flat at ceiling,
+# forcing noisy era tie-breaks for leg-1). Display still clipped for sanity.
+PUBLIC_PROBABILITY_CAP_STRONG = 0.88
 # Retired Jun 2026: the ±12pt market clamp fixed weak-home overrating but crushed
 # discrimination (last-100 published AUC 0.56). High/Elite now require era/form gates.
 MAX_MARKET_DISAGREEMENT = 0.12  # kept for tests; no longer applied in final_public_probabilities
@@ -96,23 +98,30 @@ def _safe_pitcher_stats(game: GameRecord, pitcher_id: int | None) -> dict[str, f
     # Point-in-time line (current-season-to-date shrunk toward the prior season).
     # NEVER the full final-season totals — that was lookahead leakage in the
     # model's most important feature (starter ERA differential).
+    import os
+
+    defaults = {
+        "era": 4.35,
+        "whip": 1.3,
+        "avg_allowed": 0.250,
+        "obp_allowed": 0.320,
+        "slg_allowed": 0.400,
+        "ops_allowed": 0.720,
+        "strikeouts_per_9": 8.0,
+        "walks_per_9": 3.0,
+        "hits_per_9": 8.5,
+        "home_runs_per_9": 1.1,
+        "innings_pitched": 0.0,
+        "games_started": 0.0,
+    }
     try:
-        return pitcher_stats_as_of(pitcher_id, game.game_date)
+        # FAST_BOARD: read disk cache only (no MLB HTTP). Still returns real
+        # as-of ERAs when cached — wiping everyone to 4.35 killed eraDiff on the
+        # live board and gutted daily top-2 ranking.
+        cache_only = os.environ.get("MLB_FAST_BOARD") == "1"
+        return pitcher_stats_as_of(pitcher_id, game.game_date, cache_only=cache_only)
     except Exception:
-        return {
-            "era": 4.35,
-            "whip": 1.3,
-            "avg_allowed": 0.250,
-            "obp_allowed": 0.320,
-            "slg_allowed": 0.400,
-            "ops_allowed": 0.720,
-            "strikeouts_per_9": 8.0,
-            "walks_per_9": 3.0,
-            "hits_per_9": 8.5,
-            "home_runs_per_9": 1.1,
-            "innings_pitched": 0.0,
-            "games_started": 0.0,
-        }
+        return defaults
 
 
 def _clip(value: float, lower: float, upper: float) -> float:
@@ -120,6 +129,12 @@ def _clip(value: float, lower: float, upper: float) -> float:
 
 
 def _game_weather(game: GameRecord):
+    import os
+
+    # Live Open-Meteo fetches hang on this machine (SSL SYN_SENT). Prefer defaults
+    # for board publishes so calibrated moneylines still ship.
+    if os.environ.get("MLB_FAST_BOARD") == "1" or os.environ.get("MLB_SKIP_SIM") == "1":
+        return cached_historical_weather_or_default(game.home_team_id, game.game_datetime_iso)
     try:
         if game.game_date < date.today() or game.is_final:
             return cached_historical_weather_or_default(game.home_team_id, game.game_datetime_iso)

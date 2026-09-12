@@ -1124,6 +1124,8 @@ type PredictionOutputRow = Partial<GamePrediction> & {
   awayTeam: string;
   homeTeam: string;
   eraDiff?: number;
+  whipDiff?: number;
+  k9Diff?: number;
   formEdge?: number;
 };
 
@@ -1253,6 +1255,8 @@ function normalizePredictionRows(rows: PredictionOutputRow[]): GamePrediction[] 
       starterCertain: row.starterCertain,
       pitcherChanged: row.pitcherChanged,
       eraDiff: row.eraDiff,
+      whipDiff: row.whipDiff,
+      k9Diff: row.k9Diff,
       formEdge: row.formEdge,
       predictionSource: row.predictionSource,
       lineupSource: row.lineupSource,

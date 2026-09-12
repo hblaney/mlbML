@@ -22,9 +22,10 @@ You operate this betting system. The user's money is real (~$23 wallet).
 ## Rules
 
 - Model predicted winner only — never bet opposite side for +EV
-- One system ticket per day; user does not override with extra bets
-- Stakes: 35% single, 45% two-leg, 10% three-leg of wallet
+- One system ticket per day — **2-leg top-model parlay, never skip** (`daily_force_top2`)
+- Stakes: 35% single fallback, 45% two-leg, 10% three-leg of wallet
 - Production URL: https://mlb-edge-woad.vercel.app
+- Legs clear ~65%+ walk-forward; ticket hit is lower because parlays compound
 
 ## Ask user only for
 

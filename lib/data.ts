@@ -55,6 +55,10 @@ export type GamePrediction = {
   seriesFade?: boolean;
   /** ERA differential between starters — used as a High/Elite confidence gate. */
   eraDiff?: number;
+  /** Opp WHIP − pick WHIP (higher = softer opposing starter). */
+  whipDiff?: number;
+  /** Pick K/9 − opp K/9. */
+  k9Diff?: number;
   /** Recent form edge (pick team 10-game win% minus opponent 10-game win%) — High/Elite gate. */
   formEdge?: number;
   /** pa_monte_carlo | gbm_fallback */
@@ -776,8 +780,8 @@ export const TRG59_MIN_COMBINED_PROBABILITY = 0.34;
 /** @deprecated use TRG59_FORCE_PARLAY_MIN_PROBABILITY */
 export const MED60_FORCE_PARLAY_MIN_PROBABILITY = TRG59_FORCE_PARLAY_MIN_PROBABILITY;
 
-/** Live plan: 2-leg High stack when available; else one High single; else skip. */
-export const LIVE_BETTING_STRATEGY = "daily_high_two_leg";
+/** Live plan: every day a 2-leg ML parlay from the model's top two picks (never skip). */
+export const LIVE_BETTING_STRATEGY = "daily_force_top2";
 
 /** Small positive edge band — live big-edge (≥8%) hit ~48% recently (model error). */
 export const MARKET_AGREE_MIN_EDGE = 0.015;
@@ -933,7 +937,7 @@ export type ParlayCandidate = {
   ev: number;
   payoutProfit: number;
   score: number;
-  strategy?: "edge" | "anchor" | "premium" | "premium_4" | "forced_top_2" | "live_quality" | "live_premium" | "trg59_top2" | "high_elite_76_parlay" | "best_ticket" | "calibrated_parlay" | "quality_single" | "strong_parlay" | "power_parlay" | "parlay_first" | "daily_top3_evscore" | "daily_top3_prob" | "market_agree_parlay" | "daily_best_single" | "daily_high_two_leg" | "edge_value_ticket";
+  strategy?: "edge" | "anchor" | "premium" | "premium_4" | "forced_top_2" | "live_quality" | "live_premium" | "trg59_top2" | "high_elite_76_parlay" | "best_ticket" | "calibrated_parlay" | "quality_single" | "strong_parlay" | "power_parlay" | "parlay_first" | "daily_top3_evscore" | "daily_top3_prob" | "market_agree_parlay" | "daily_best_single" | "daily_high_two_leg" | "daily_force_top1" | "daily_force_top2" | "edge_value_ticket";
 };
 
 /** Flat fallback when leg-specific stake is unavailable (2026 sweep best: 35%). */
@@ -2076,11 +2080,144 @@ export function getDailyBestSingleTicket(board: GamePrediction[] = predictions):
 }
 
 /**
- * daily_high_two_leg — primary live ticket (Aug 2026):
+ * Daily forced ticket ranking:
+ *   Leg 1 = highest model pickProbability (rank1 hits ~72% on 2026 WF).
+ *   Leg 2 = among ranks 2..4 by pickProb, highest eraDiff (fixes weak #2;
+ *           July+ ticket ~50.8% vs ~46% raw top-2).
+ */
+function forceDailyTop2Legs(board: GamePrediction[]): BestBet[] {
+  const pool = forceDailyMoneylinePool(board, 2);
+  if (pool.length < 2) return pool;
+
+  const byProb = [...pool].sort(
+    (left, right) =>
+      (right.game.pickProbability ?? right.game.rawPickProbability ?? right.modelProbability) -
+        (left.game.pickProbability ?? left.game.rawPickProbability ?? left.modelProbability) ||
+      right.modelProbability - left.modelProbability
+  );
+
+  const leg1 = byProb[0];
+  const challengers = byProb.slice(1, 4);
+  const leg2 = [...challengers].sort(
+    (left, right) =>
+      (right.game.eraDiff ?? 0) - (left.game.eraDiff ?? 0) ||
+      (right.game.pickProbability ?? right.modelProbability) -
+        (left.game.pickProbability ?? left.modelProbability)
+  )[0];
+
+  return [leg1, leg2];
+}
+
+/**
+ * Ranked model-pick moneyline pool for forced daily tickets.
+ * Soft juice filter only when it still leaves enough legs.
+ * Sorted by pickProbability (leg-1 anchor); era re-pick happens in forceDailyTop2Legs.
+ */
+function forceDailyMoneylinePool(board: GamePrediction[], minLegs: number): BestBet[] {
+  const rankKey = (bet: BestBet) =>
+    bet.game.pickProbability ?? bet.game.rawPickProbability ?? bet.modelProbability;
+
+  let pool = buildMarketMoneylineCandidates(board).filter(
+    (bet) =>
+      Math.abs(bet.odds) <= ML_SANITY_LIMIT_LIVE &&
+      isStarterReadyForParlay(bet.game)
+  );
+
+  const juiceOk = pool.filter((bet) => bet.odds > DAILY_SINGLE_MIN_ODDS);
+  if (juiceOk.length >= minLegs) {
+    pool = juiceOk;
+  }
+
+  if (pool.length === 0) {
+    pool = board.map((game) => {
+      const away = getTeam(game.awayTeam);
+      const home = getTeam(game.homeTeam);
+      const pickHome = modelPickSideForGame(game) === "home";
+      const team = pickHome ? home : away;
+      const opponent = pickHome ? away : home;
+      const modelProbability = pickHome ? game.modelHomeWinProbability : game.modelAwayWinProbability;
+      const odds = -110;
+      const bookProbability = impliedProbability(odds);
+      return {
+        id: `${game.id}-${pickHome ? "home" : "away"}`,
+        game,
+        team,
+        opponent,
+        matchup: `${away.abbreviation} @ ${home.abbreviation}`,
+        side: "Moneyline",
+        odds,
+        modelProbability,
+        bookProbability,
+        ev: expectedValue(modelProbability, odds),
+        edge: modelProbability - bookProbability,
+        modelOnly: true
+      } satisfies BestBet;
+    });
+  }
+
+  const seen = new Set<string>();
+  const unique: BestBet[] = [];
+  pool
+    .sort(
+      (left, right) =>
+        rankKey(right) - rankKey(left) ||
+        right.modelProbability - left.modelProbability ||
+        right.ev - left.ev
+    )
+    .forEach((bet) => {
+      if (seen.has(bet.game.id)) return;
+      seen.add(bet.game.id);
+      unique.push(bet);
+    });
+
+  return unique;
+}
+
+/**
+ * daily_force_top2 — primary live ticket:
+ *   EVERY day: leg1 = #1 by pickProb; leg2 = best eraDiff among ranks 2–4.
+ *   Never skip when the slate has 2+ games. No High-gate.
+ *   2026 WF ~47% ticket / July+ ~51% (leg1 ~72–77%, leg2 ~64–66%).
+ */
+export function getDailyForceTop2Ticket(board: GamePrediction[] = predictions): DailyTicket | null {
+  const unique = forceDailyTop2Legs(board);
+  if (unique.length >= 2) {
+    const legs = unique.slice(0, 2).map((bet) => ({ ...bet, qualified: true }));
+    const parlay = buildParlayCandidate(legs);
+    parlay.strategy = "daily_force_top2";
+    return { kind: "parlay", parlay, score: parlay.score, qualified: true };
+  }
+  if (unique.length === 1) {
+    // Rare thin slate — still bet something rather than skip.
+    const best = unique[0];
+    return {
+      kind: "single",
+      bet: { ...best, qualified: true },
+      score: best.game.pickProbability ?? best.modelProbability,
+      qualified: true
+    };
+  }
+  return null;
+}
+
+/** @deprecated Prefer getDailyForceTop2Ticket — kept for research callers. */
+export function getDailyForceTop1Ticket(board: GamePrediction[] = predictions): DailyTicket | null {
+  const unique = forceDailyMoneylinePool(board, 1);
+  if (unique.length === 0) return null;
+  const best = unique[0];
+  return {
+    kind: "single",
+    bet: { ...best, qualified: true },
+    score: best.game.pickProbability ?? best.modelProbability,
+    qualified: true
+  };
+}
+
+/**
+ * daily_high_two_leg — retired live primary (kept for research callers):
  *   - 2+ High/Elite legs → 2-leg moneyline parlay (top two by model p)
  *   - exactly 1 High → single
  *   - 0 → skip
- * Same High gates as daily_best_single. Never pads with Medium/Low.
  */
 export function getDailyHighTwoLegTicket(board: GamePrediction[] = predictions): DailyTicket | null {
   const pool = highLaneMoneylinePool(board);
@@ -2111,6 +2248,11 @@ export function getDailyHighTwoLegTicket(board: GamePrediction[] = predictions):
     score: best.modelProbability,
     qualified: true,
   };
+}
+
+/** Daily ticket: always a 2-leg top-model parlay — never skip a 2+ game slate. */
+export function getBestDailyTicket(board: GamePrediction[] = predictions): DailyTicket | null {
+  return getDailyForceTop2Ticket(board);
 }
 
 function evScoreForBet(bet: BestBet) {
@@ -2255,11 +2397,6 @@ export function getDailyTop3ProbTicket(board: GamePrediction[] = predictions): D
 /** @deprecated Use getDailyTop3ProbTicket — kept for callers during rename. */
 export function getDailyTop3EVScoreTicket(board: GamePrediction[] = predictions): DailyTicket | null {
   return getDailyTop3ProbTicket(board);
-}
-
-/** Daily ticket: 2-leg High stack when available; else one High single; else skip. */
-export function getBestDailyTicket(board: GamePrediction[] = predictions): DailyTicket | null {
-  return getDailyHighTwoLegTicket(board);
 }
 
 export function getDailyParlayTickets(board: GamePrediction[] = predictions) {
