@@ -2,7 +2,7 @@
   "generated_at": "2026-09-13",
   "source": "prop-leans-v2",
   "note": "K uses estimated PrizePicks lines when posted line unknown. Hitter FS from top-4 OPS bats per team.",
-  "actionable_count": 134,
+  "actionable_count": 133,
   "leans": [
     {
       "gameId": "kc-bos-2026-09-13-824708",
@@ -1116,22 +1116,6 @@
       "ops": 0.815
     },
     {
-      "gameId": "laa-wsh-2026-09-13-822682",
-      "matchup": "LAA @ WSH",
-      "player": "Zach Neto",
-      "team": "LAA",
-      "prop": "hitter_fantasy_score",
-      "vs_pitcher": "Jake Irvin",
-      "fair_line": 7.0,
-      "line": 6.0,
-      "projection": 7.2,
-      "lean": "Over",
-      "edge": 1.16,
-      "confidence": "low",
-      "line_source": "prizepicks_est",
-      "ops": 0.755
-    },
-    {
       "gameId": "phi-atl-2026-09-13-824869",
       "matchup": "PHI @ ATL",
       "player": "Michael Harris II",
@@ -1178,6 +1162,22 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.816
+    },
+    {
+      "gameId": "laa-wsh-2026-09-13-822682",
+      "matchup": "LAA @ WSH",
+      "player": "Wade Meckler",
+      "team": "LAA",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Riley Cornelio",
+      "fair_line": 8.5,
+      "line": 7.5,
+      "projection": 8.7,
+      "lean": "Over",
+      "edge": 1.15,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.759
     },
     {
       "gameId": "tex-az-2026-09-13-825033",
@@ -1258,6 +1258,22 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.754
+    },
+    {
+      "gameId": "laa-wsh-2026-09-13-822682",
+      "matchup": "LAA @ WSH",
+      "player": "Mike Trout",
+      "team": "LAA",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Riley Cornelio",
+      "fair_line": 7.0,
+      "line": 6.0,
+      "projection": 7.1,
+      "lean": "Over",
+      "edge": 1.09,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.804
     },
     {
       "gameId": "hou-tb-2026-09-13-822928",
@@ -1594,6 +1610,22 @@
       "ops": 0.818
     },
     {
+      "gameId": "laa-wsh-2026-09-13-822682",
+      "matchup": "LAA @ WSH",
+      "player": "Zach Neto",
+      "team": "LAA",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Riley Cornelio",
+      "fair_line": 7.5,
+      "line": 6.5,
+      "projection": 7.4,
+      "lean": "Over",
+      "edge": 0.92,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.755
+    },
+    {
       "gameId": "cin-mil-2026-09-13-823734",
       "matchup": "CIN @ MIL",
       "player": "Tyler Stephenson",
@@ -1688,38 +1720,6 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.784
-    },
-    {
-      "gameId": "laa-wsh-2026-09-13-822682",
-      "matchup": "LAA @ WSH",
-      "player": "Wade Meckler",
-      "team": "LAA",
-      "prop": "hitter_fantasy_score",
-      "vs_pitcher": "Jake Irvin",
-      "fair_line": 8.5,
-      "line": 7.5,
-      "projection": 8.4,
-      "lean": "Over",
-      "edge": 0.86,
-      "confidence": "low",
-      "line_source": "prizepicks_est",
-      "ops": 0.759
-    },
-    {
-      "gameId": "laa-wsh-2026-09-13-822682",
-      "matchup": "LAA @ WSH",
-      "player": "Mike Trout",
-      "team": "LAA",
-      "prop": "hitter_fantasy_score",
-      "vs_pitcher": "Jake Irvin",
-      "fair_line": 7.0,
-      "line": 6.0,
-      "projection": 6.9,
-      "lean": "Over",
-      "edge": 0.85,
-      "confidence": "low",
-      "line_source": "prizepicks_est",
-      "ops": 0.804
     },
     {
       "gameId": "bal-tor-2026-09-13-822764",
@@ -1850,22 +1850,6 @@
       "ops": 0.766
     },
     {
-      "gameId": "laa-wsh-2026-09-13-822682",
-      "matchup": "LAA @ WSH",
-      "player": "Logan O'Hoppe",
-      "team": "LAA",
-      "prop": "hitter_fantasy_score",
-      "vs_pitcher": "Jake Irvin",
-      "fair_line": 5.5,
-      "line": 4.5,
-      "projection": 5.3,
-      "lean": "Over",
-      "edge": 0.81,
-      "confidence": "low",
-      "line_source": "prizepicks_est",
-      "ops": 0.745
-    },
-    {
       "gameId": "sea-ath-2026-09-13-824952",
       "matchup": "SEA @ ATH",
       "player": "Bryce Miller",
@@ -1895,6 +1879,21 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.803
+    },
+    {
+      "gameId": "laa-wsh-2026-09-13-822682",
+      "matchup": "LAA @ WSH",
+      "player": "Riley Cornelio",
+      "team": "WSH",
+      "prop": "strikeouts",
+      "fair_line": 6.0,
+      "line": 5.0,
+      "projection": 5.8,
+      "lean": "Over",
+      "edge": 0.79,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "k9": 9.13
     },
     {
       "gameId": "tex-az-2026-09-13-825033",
@@ -1956,21 +1955,6 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "k9": 8.43
-    },
-    {
-      "gameId": "laa-wsh-2026-09-13-822682",
-      "matchup": "LAA @ WSH",
-      "player": "Jake Irvin",
-      "team": "WSH",
-      "prop": "strikeouts",
-      "fair_line": 5.5,
-      "line": 5.0,
-      "projection": 5.6,
-      "lean": "Over",
-      "edge": 0.62,
-      "confidence": "low",
-      "line_source": "prizepicks_est",
-      "k9": 8.87
     },
     {
       "gameId": "tex-az-2026-09-13-825033",
@@ -2297,6 +2281,22 @@
       "confidence": "pass",
       "line_source": "prizepicks_est",
       "ops": 0.803
+    },
+    {
+      "gameId": "laa-wsh-2026-09-13-822682",
+      "matchup": "LAA @ WSH",
+      "player": "Logan O'Hoppe",
+      "team": "LAA",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Riley Cornelio",
+      "fair_line": 5.5,
+      "line": 5.0,
+      "projection": 5.5,
+      "lean": "Pass",
+      "edge": 0.5,
+      "confidence": "pass",
+      "line_source": "prizepicks_est",
+      "ops": 0.745
     },
     {
       "gameId": "tex-az-2026-09-13-825033",

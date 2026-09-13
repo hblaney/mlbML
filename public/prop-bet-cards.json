@@ -268,6 +268,28 @@
       "notes": []
     },
     {
+      "player": "Riley Cornelio",
+      "team": "WSH",
+      "opponent": "LAA",
+      "matchup": "LAA @ WSH",
+      "game_date": "2026-09-13",
+      "props": [
+        {
+          "prop": "strikeouts",
+          "pick": "Over",
+          "model_line": 6.0,
+          "use_line": 5.0,
+          "projection": 5.8,
+          "edge": 0.79,
+          "confidence": "medium",
+          "k9": 9.13,
+          "opp_k_rate": 0.253
+        }
+      ],
+      "headline": "Over 5.0 STRIKEOUTS (medium confidence)",
+      "notes": []
+    },
+    {
       "player": "David Sandlin",
       "team": "CWS",
       "opponent": "STL",
@@ -331,28 +353,6 @@
         }
       ],
       "headline": "Over 4.5 STRIKEOUTS (medium confidence)",
-      "notes": []
-    },
-    {
-      "player": "Jake Irvin",
-      "team": "WSH",
-      "opponent": "LAA",
-      "matchup": "LAA @ WSH",
-      "game_date": "2026-09-13",
-      "props": [
-        {
-          "prop": "strikeouts",
-          "pick": "Over",
-          "model_line": 5.5,
-          "use_line": 5.0,
-          "projection": 5.6,
-          "edge": 0.62,
-          "confidence": "medium",
-          "k9": 8.87,
-          "opp_k_rate": 0.253
-        }
-      ],
-      "headline": "Over 5.0 STRIKEOUTS (medium confidence)",
       "notes": []
     },
     {
