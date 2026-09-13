@@ -4,6 +4,28 @@
   "disclaimer": "Compare use_line to PrizePicks posted line before playing.",
   "cards": [
     {
+      "player": "Dylan Cease",
+      "team": "TOR",
+      "opponent": "BAL",
+      "matchup": "BAL @ TOR",
+      "game_date": "2026-09-13",
+      "props": [
+        {
+          "prop": "strikeouts",
+          "pick": "Over",
+          "model_line": 8.0,
+          "use_line": 6.0,
+          "projection": 8.0,
+          "edge": 1.96,
+          "confidence": "high",
+          "k9": 12.66,
+          "opp_k_rate": 0.246
+        }
+      ],
+      "headline": "Over 6.0 STRIKEOUTS (high confidence)",
+      "notes": []
+    },
+    {
       "player": "Chase Burns",
       "team": "CIN",
       "opponent": "MIL",
@@ -92,28 +114,6 @@
       "notes": []
     },
     {
-      "player": "Dylan Cease",
-      "team": "TOR",
-      "opponent": "BAL",
-      "matchup": "BAL @ TOR",
-      "game_date": "2026-09-13",
-      "props": [
-        {
-          "prop": "strikeouts",
-          "pick": "Over",
-          "model_line": 7.0,
-          "use_line": 5.5,
-          "projection": 7.2,
-          "edge": 1.74,
-          "confidence": "high",
-          "k9": 11.52,
-          "opp_k_rate": 0.246
-        }
-      ],
-      "headline": "Over 5.5 STRIKEOUTS (high confidence)",
-      "notes": []
-    },
-    {
       "player": "Cam Schlittler",
       "team": "NYY",
       "opponent": "NYM",
@@ -152,6 +152,28 @@
           "confidence": "high",
           "k9": 10.2,
           "opp_k_rate": 0.214
+        }
+      ],
+      "headline": "Over 4.5 STRIKEOUTS (high confidence)",
+      "notes": []
+    },
+    {
+      "player": "Joe Ryan",
+      "team": "MIN",
+      "opponent": "CLE",
+      "matchup": "CLE @ MIN",
+      "game_date": "2026-09-13",
+      "props": [
+        {
+          "prop": "strikeouts",
+          "pick": "Over",
+          "model_line": 6.0,
+          "use_line": 4.5,
+          "projection": 6.1,
+          "edge": 1.57,
+          "confidence": "high",
+          "k9": 10.06,
+          "opp_k_rate": 0.213
         }
       ],
       "headline": "Over 4.5 STRIKEOUTS (high confidence)",
@@ -240,6 +262,28 @@
           "confidence": "medium",
           "k9": 8.67,
           "opp_k_rate": 0.224
+        }
+      ],
+      "headline": "Over 4.5 STRIKEOUTS (medium confidence)",
+      "notes": []
+    },
+    {
+      "player": "David Sandlin",
+      "team": "CWS",
+      "opponent": "STL",
+      "matchup": "CWS @ STL",
+      "game_date": "2026-09-13",
+      "props": [
+        {
+          "prop": "strikeouts",
+          "pick": "Over",
+          "model_line": 5.0,
+          "use_line": 4.5,
+          "projection": 5.2,
+          "edge": 0.74,
+          "confidence": "medium",
+          "k9": 8.76,
+          "opp_k_rate": 0.207
         }
       ],
       "headline": "Over 4.5 STRIKEOUTS (medium confidence)",
@@ -529,9 +573,7 @@
         }
       ],
       "headline": "Over 3.5 STRIKEOUTS (low confidence)",
-      "notes": [
-        "Probable starter not fully confirmed \u2014 verify before betting."
-      ]
+      "notes": []
     }
   ]
 }

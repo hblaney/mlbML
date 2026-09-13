@@ -2,7 +2,7 @@
   "generated_at": "2026-09-13",
   "source": "prop-leans-v2",
   "note": "K uses estimated PrizePicks lines when posted line unknown. Hitter FS from top-4 OPS bats per team.",
-  "actionable_count": 118,
+  "actionable_count": 134,
   "leans": [
     {
       "gameId": "kc-bos-2026-09-13-824708",
@@ -117,6 +117,21 @@
       "ops": 0.916
     },
     {
+      "gameId": "bal-tor-2026-09-13-822764",
+      "matchup": "BAL @ TOR",
+      "player": "Dylan Cease",
+      "team": "TOR",
+      "prop": "strikeouts",
+      "fair_line": 8.0,
+      "line": 6.0,
+      "projection": 8.0,
+      "lean": "Over",
+      "edge": 1.96,
+      "confidence": "high",
+      "line_source": "prizepicks_est",
+      "k9": 12.66
+    },
+    {
       "gameId": "cin-mil-2026-09-13-823734",
       "matchup": "CIN @ MIL",
       "player": "Chase Burns",
@@ -145,6 +160,22 @@
       "confidence": "high",
       "line_source": "prizepicks_est",
       "k9": 10.51
+    },
+    {
+      "gameId": "cws-stl-2026-09-13-823008",
+      "matchup": "CWS @ STL",
+      "player": "Randal Grichuk",
+      "team": "CWS",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Michael McGreevy",
+      "fair_line": 7.5,
+      "line": 5.5,
+      "projection": 7.3,
+      "lean": "Over",
+      "edge": 1.83,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.939
     },
     {
       "gameId": "nym-nyy-2026-09-13-823495",
@@ -177,21 +208,6 @@
       "k9": 10.45
     },
     {
-      "gameId": "bal-tor-2026-09-13-822764",
-      "matchup": "BAL @ TOR",
-      "player": "Dylan Cease",
-      "team": "TOR",
-      "prop": "strikeouts",
-      "fair_line": 7.0,
-      "line": 5.5,
-      "projection": 7.2,
-      "lean": "Over",
-      "edge": 1.74,
-      "confidence": "high",
-      "line_source": "prizepicks_est",
-      "k9": 11.52
-    },
-    {
       "gameId": "nym-nyy-2026-09-13-823495",
       "matchup": "NYM @ NYY",
       "player": "Cam Schlittler",
@@ -205,6 +221,22 @@
       "confidence": "high",
       "line_source": "prizepicks_est",
       "k9": 11.01
+    },
+    {
+      "gameId": "bal-tor-2026-09-13-822764",
+      "matchup": "BAL @ TOR",
+      "player": "Pete Alonso",
+      "team": "BAL",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Dylan Cease",
+      "fair_line": 6.5,
+      "line": 5.0,
+      "projection": 6.7,
+      "lean": "Over",
+      "edge": 1.71,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.86
     },
     {
       "gameId": "cin-mil-2026-09-13-823734",
@@ -382,6 +414,37 @@
       "ops": 0.827
     },
     {
+      "gameId": "cle-min-2026-09-13-823658",
+      "matchup": "CLE @ MIN",
+      "player": "Joe Ryan",
+      "team": "MIN",
+      "prop": "strikeouts",
+      "fair_line": 6.0,
+      "line": 4.5,
+      "projection": 6.1,
+      "lean": "Over",
+      "edge": 1.57,
+      "confidence": "high",
+      "line_source": "prizepicks_est",
+      "k9": 10.06
+    },
+    {
+      "gameId": "cws-stl-2026-09-13-823008",
+      "matchup": "CWS @ STL",
+      "player": "Jordan Walker",
+      "team": "STL",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "David Sandlin",
+      "fair_line": 8.0,
+      "line": 6.5,
+      "projection": 8.1,
+      "lean": "Over",
+      "edge": 1.56,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.828
+    },
+    {
       "gameId": "lad-mia-2026-09-13-823815",
       "matchup": "LAD @ MIA",
       "player": "Max Muncy",
@@ -412,6 +475,38 @@
       "confidence": "medium",
       "line_source": "prizepicks_est",
       "ops": 0.84
+    },
+    {
+      "gameId": "cws-stl-2026-09-13-823008",
+      "matchup": "CWS @ STL",
+      "player": "Miguel Vargas",
+      "team": "CWS",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Michael McGreevy",
+      "fair_line": 7.0,
+      "line": 5.5,
+      "projection": 7.0,
+      "lean": "Over",
+      "edge": 1.53,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.827
+    },
+    {
+      "gameId": "cle-min-2026-09-13-823658",
+      "matchup": "CLE @ MIN",
+      "player": "Chase DeLauter",
+      "team": "CLE",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Joe Ryan",
+      "fair_line": 7.5,
+      "line": 6.0,
+      "projection": 7.5,
+      "lean": "Over",
+      "edge": 1.51,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.82
     },
     {
       "gameId": "hou-tb-2026-09-13-822928",
@@ -574,6 +669,22 @@
       "ops": 0.843
     },
     {
+      "gameId": "cle-min-2026-09-13-823658",
+      "matchup": "CLE @ MIN",
+      "player": "Byron Buxton",
+      "team": "MIN",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Tanner Bibee",
+      "fair_line": 7.5,
+      "line": 6.0,
+      "projection": 7.4,
+      "lean": "Over",
+      "edge": 1.38,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.83
+    },
+    {
       "gameId": "cin-mil-2026-09-13-823734",
       "matchup": "CIN @ MIL",
       "player": "Andrew Vaughn",
@@ -654,6 +765,22 @@
       "ops": 0.848
     },
     {
+      "gameId": "cle-min-2026-09-13-823658",
+      "matchup": "CLE @ MIN",
+      "player": "Ryan Jeffers",
+      "team": "MIN",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Tanner Bibee",
+      "fair_line": 7.0,
+      "line": 5.5,
+      "projection": 6.8,
+      "lean": "Over",
+      "edge": 1.31,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.867
+    },
+    {
       "gameId": "cin-mil-2026-09-13-823734",
       "matchup": "CIN @ MIL",
       "player": "Elly De La Cruz",
@@ -684,22 +811,6 @@
       "confidence": "medium",
       "line_source": "prizepicks_est",
       "ops": 0.845
-    },
-    {
-      "gameId": "bal-tor-2026-09-13-822764",
-      "matchup": "BAL @ TOR",
-      "player": "Pete Alonso",
-      "team": "BAL",
-      "prop": "hitter_fantasy_score",
-      "vs_pitcher": "Dylan Cease",
-      "fair_line": 7.5,
-      "line": 6.0,
-      "projection": 7.3,
-      "lean": "Over",
-      "edge": 1.3,
-      "confidence": "medium",
-      "line_source": "prizepicks_est",
-      "ops": 0.86
     },
     {
       "gameId": "lad-mia-2026-09-13-823815",
@@ -781,6 +892,22 @@
       "ops": 0.823
     },
     {
+      "gameId": "cws-stl-2026-09-13-823008",
+      "matchup": "CWS @ STL",
+      "player": "Tristan Peters",
+      "team": "CWS",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Michael McGreevy",
+      "fair_line": 7.5,
+      "line": 6.5,
+      "projection": 7.7,
+      "lean": "Over",
+      "edge": 1.24,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.807
+    },
+    {
       "gameId": "sd-sf-2026-09-13-823171",
       "matchup": "SD @ SF",
       "player": "Fernando Tatis Jr.",
@@ -813,6 +940,22 @@
       "ops": 0.785
     },
     {
+      "gameId": "bal-tor-2026-09-13-822764",
+      "matchup": "BAL @ TOR",
+      "player": "Coby Mayo",
+      "team": "BAL",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Dylan Cease",
+      "fair_line": 6.0,
+      "line": 5.0,
+      "projection": 6.2,
+      "lean": "Over",
+      "edge": 1.23,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.755
+    },
+    {
       "gameId": "pit-chc-2026-09-13-824628",
       "matchup": "PIT @ CHC",
       "player": "Ryan O'Hearn",
@@ -843,6 +986,22 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.772
+    },
+    {
+      "gameId": "cle-min-2026-09-13-823658",
+      "matchup": "CLE @ MIN",
+      "player": "Kody Clemens",
+      "team": "MIN",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Tanner Bibee",
+      "fair_line": 7.5,
+      "line": 6.5,
+      "projection": 7.7,
+      "lean": "Over",
+      "edge": 1.21,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.776
     },
     {
       "gameId": "lad-mia-2026-09-13-823815",
@@ -1133,6 +1292,22 @@
       "ops": 0.803
     },
     {
+      "gameId": "cle-min-2026-09-13-823658",
+      "matchup": "CLE @ MIN",
+      "player": "Trevor Larnach",
+      "team": "MIN",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Tanner Bibee",
+      "fair_line": 6.0,
+      "line": 5.0,
+      "projection": 6.1,
+      "lean": "Over",
+      "edge": 1.06,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.772
+    },
+    {
       "gameId": "sea-ath-2026-09-13-824952",
       "matchup": "SEA @ ATH",
       "player": "Tyler Soderstrom",
@@ -1229,6 +1404,22 @@
       "ops": 0.785
     },
     {
+      "gameId": "cws-stl-2026-09-13-823008",
+      "matchup": "CWS @ STL",
+      "player": "Lars Nootbaar",
+      "team": "STL",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "David Sandlin",
+      "fair_line": 6.0,
+      "line": 5.0,
+      "projection": 6.0,
+      "lean": "Over",
+      "edge": 1.01,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.764
+    },
+    {
       "gameId": "phi-atl-2026-09-13-824869",
       "matchup": "PHI @ ATL",
       "player": "Drake Baldwin",
@@ -1261,22 +1452,6 @@
       "ops": 0.73
     },
     {
-      "gameId": "bal-tor-2026-09-13-822764",
-      "matchup": "BAL @ TOR",
-      "player": "Christian Encarnacion-Strand",
-      "team": "BAL",
-      "prop": "hitter_fantasy_score",
-      "vs_pitcher": "Dylan Cease",
-      "fair_line": 6.5,
-      "line": 5.5,
-      "projection": 6.5,
-      "lean": "Over",
-      "edge": 1.0,
-      "confidence": "low",
-      "line_source": "prizepicks_est",
-      "ops": 0.792
-    },
-    {
       "gameId": "sea-ath-2026-09-13-824952",
       "matchup": "SEA @ ATH",
       "player": "Donovan Walton",
@@ -1291,6 +1466,38 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.807
+    },
+    {
+      "gameId": "cws-stl-2026-09-13-823008",
+      "matchup": "CWS @ STL",
+      "player": "Alec Burleson",
+      "team": "STL",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "David Sandlin",
+      "fair_line": 7.5,
+      "line": 6.5,
+      "projection": 7.5,
+      "lean": "Over",
+      "edge": 0.99,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.814
+    },
+    {
+      "gameId": "bal-tor-2026-09-13-822764",
+      "matchup": "BAL @ TOR",
+      "player": "Christian Encarnacion-Strand",
+      "team": "BAL",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Dylan Cease",
+      "fair_line": 6.0,
+      "line": 5.0,
+      "projection": 6.0,
+      "lean": "Over",
+      "edge": 0.97,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.792
     },
     {
       "gameId": "pit-chc-2026-09-13-824628",
@@ -1369,6 +1576,22 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.788
+    },
+    {
+      "gameId": "cws-stl-2026-09-13-823008",
+      "matchup": "CWS @ STL",
+      "player": "Munetaka Murakami",
+      "team": "CWS",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Michael McGreevy",
+      "fair_line": 8.0,
+      "line": 7.0,
+      "projection": 7.9,
+      "lean": "Over",
+      "edge": 0.93,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.818
     },
     {
       "gameId": "cin-mil-2026-09-13-823734",
@@ -1499,6 +1722,38 @@
       "ops": 0.804
     },
     {
+      "gameId": "bal-tor-2026-09-13-822764",
+      "matchup": "BAL @ TOR",
+      "player": "Taylor Ward",
+      "team": "BAL",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Dylan Cease",
+      "fair_line": 5.5,
+      "line": 4.5,
+      "projection": 5.4,
+      "lean": "Over",
+      "edge": 0.85,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.729
+    },
+    {
+      "gameId": "cle-min-2026-09-13-823658",
+      "matchup": "CLE @ MIN",
+      "player": "Gabriel Arias",
+      "team": "CLE",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Joe Ryan",
+      "fair_line": 5.5,
+      "line": 4.5,
+      "projection": 5.3,
+      "lean": "Over",
+      "edge": 0.85,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.929
+    },
+    {
       "gameId": "col-det-2026-09-13-824225",
       "matchup": "COL @ DET",
       "player": "Gleyber Torres",
@@ -1595,22 +1850,6 @@
       "ops": 0.766
     },
     {
-      "gameId": "bal-tor-2026-09-13-822764",
-      "matchup": "BAL @ TOR",
-      "player": "Taylor Ward",
-      "team": "BAL",
-      "prop": "hitter_fantasy_score",
-      "vs_pitcher": "Dylan Cease",
-      "fair_line": 6.0,
-      "line": 5.0,
-      "projection": 5.8,
-      "lean": "Over",
-      "edge": 0.82,
-      "confidence": "low",
-      "line_source": "prizepicks_est",
-      "ops": 0.729
-    },
-    {
       "gameId": "laa-wsh-2026-09-13-822682",
       "matchup": "LAA @ WSH",
       "player": "Logan O'Hoppe",
@@ -1674,20 +1913,19 @@
       "ops": 0.798
     },
     {
-      "gameId": "bal-tor-2026-09-13-822764",
-      "matchup": "BAL @ TOR",
-      "player": "Coby Mayo",
-      "team": "BAL",
-      "prop": "hitter_fantasy_score",
-      "vs_pitcher": "Dylan Cease",
-      "fair_line": 7.0,
-      "line": 6.0,
-      "projection": 6.8,
+      "gameId": "cws-stl-2026-09-13-823008",
+      "matchup": "CWS @ STL",
+      "player": "David Sandlin",
+      "team": "CWS",
+      "prop": "strikeouts",
+      "fair_line": 5.0,
+      "line": 4.5,
+      "projection": 5.2,
       "lean": "Over",
-      "edge": 0.78,
+      "edge": 0.74,
       "confidence": "low",
       "line_source": "prizepicks_est",
-      "ops": 0.755
+      "k9": 8.76
     },
     {
       "gameId": "phi-atl-2026-09-13-824869",
@@ -1870,6 +2108,21 @@
       "k9": 7.19
     },
     {
+      "gameId": "cws-stl-2026-09-13-823008",
+      "matchup": "CWS @ STL",
+      "player": "Michael McGreevy",
+      "team": "STL",
+      "prop": "strikeouts",
+      "fair_line": 4.0,
+      "line": 3.5,
+      "projection": 3.9,
+      "lean": "Over",
+      "edge": 0.37,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "k9": 6.19
+    },
+    {
       "gameId": "nym-nyy-2026-09-13-823495",
       "matchup": "NYM @ NYY",
       "player": "Jazz Chisholm Jr.",
@@ -1886,6 +2139,22 @@
       "ops": 0.715
     },
     {
+      "gameId": "cle-min-2026-09-13-823658",
+      "matchup": "CLE @ MIN",
+      "player": "Travis Bazzana",
+      "team": "CLE",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Joe Ryan",
+      "fair_line": 7.0,
+      "line": 6.5,
+      "projection": 7.2,
+      "lean": "Pass",
+      "edge": 0.73,
+      "confidence": "pass",
+      "line_source": "prizepicks_est",
+      "ops": 0.728
+    },
+    {
       "gameId": "sd-sf-2026-09-13-823171",
       "matchup": "SD @ SF",
       "player": "Heliot Ramos",
@@ -1900,6 +2169,38 @@
       "confidence": "pass",
       "line_source": "prizepicks_est",
       "ops": 0.728
+    },
+    {
+      "gameId": "cle-min-2026-09-13-823658",
+      "matchup": "CLE @ MIN",
+      "player": "Angel Mart\u00ednez",
+      "team": "CLE",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Joe Ryan",
+      "fair_line": 6.0,
+      "line": 5.5,
+      "projection": 6.2,
+      "lean": "Pass",
+      "edge": 0.67,
+      "confidence": "pass",
+      "line_source": "prizepicks_est",
+      "ops": 0.728
+    },
+    {
+      "gameId": "cws-stl-2026-09-13-823008",
+      "matchup": "CWS @ STL",
+      "player": "Iv\u00e1n Herrera",
+      "team": "STL",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "David Sandlin",
+      "fair_line": 6.5,
+      "line": 6.0,
+      "projection": 6.7,
+      "lean": "Pass",
+      "edge": 0.66,
+      "confidence": "pass",
+      "line_source": "prizepicks_est",
+      "ops": 0.739
     },
     {
       "gameId": "nym-nyy-2026-09-13-823495",
@@ -2044,6 +2345,21 @@
       "k9": 8.19
     },
     {
+      "gameId": "cle-min-2026-09-13-823658",
+      "matchup": "CLE @ MIN",
+      "player": "Tanner Bibee",
+      "team": "CLE",
+      "prop": "strikeouts",
+      "fair_line": 4.5,
+      "line": 4.0,
+      "projection": 4.3,
+      "lean": "Pass",
+      "edge": 0.29,
+      "confidence": "pass",
+      "line_source": "prizepicks_est",
+      "k9": 7.14
+    },
+    {
       "gameId": "col-det-2026-09-13-824225",
       "matchup": "COL @ DET",
       "player": "Jackson Jobe",
@@ -2131,6 +2447,16 @@
       "matchup": "LAA @ WSH"
     },
     {
+      "player": "Dylan Cease",
+      "prop": "strikeouts",
+      "lean": "Over",
+      "line": 6.0,
+      "projection": 8.0,
+      "edge": 1.96,
+      "confidence": "high",
+      "matchup": "BAL @ TOR"
+    },
+    {
       "player": "Chase Burns",
       "prop": "strikeouts",
       "lean": "Over",
@@ -2151,6 +2477,16 @@
       "matchup": "LAD @ MIA"
     },
     {
+      "player": "Randal Grichuk",
+      "prop": "hitter_fantasy_score",
+      "lean": "Over",
+      "line": 5.5,
+      "projection": 7.3,
+      "edge": 1.83,
+      "confidence": "medium",
+      "matchup": "CWS @ STL"
+    },
+    {
       "player": "Christian Scott",
       "prop": "strikeouts",
       "lean": "Over",
@@ -2159,26 +2495,6 @@
       "edge": 1.83,
       "confidence": "high",
       "matchup": "NYM @ NYY"
-    },
-    {
-      "player": "Payton Tolle",
-      "prop": "strikeouts",
-      "lean": "Over",
-      "line": 4.5,
-      "projection": 6.3,
-      "edge": 1.76,
-      "confidence": "high",
-      "matchup": "KC @ BOS"
-    },
-    {
-      "player": "Dylan Cease",
-      "prop": "strikeouts",
-      "lean": "Over",
-      "line": 5.5,
-      "projection": 7.2,
-      "edge": 1.74,
-      "confidence": "high",
-      "matchup": "BAL @ TOR"
     }
   ]
 }
