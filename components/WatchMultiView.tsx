@@ -112,7 +112,7 @@ export function WatchMultiView({ games, slots, onChange }: WatchMultiViewProps) 
           Pick games above, or tap <strong>Add</strong> on a team card. Same feeds as the team watch pages.
         </p>
       ) : (
-        <div className="multi-stream-grid">
+        <div className="multi-stream-grid" data-count={slots.length}>
           {slots.map((slot) => {
             const game = gamesById.get(slot.gameId);
             const stream = streamsByGameId.get(slot.gameId);
@@ -139,7 +139,7 @@ export function WatchMultiView({ games, slots, onChange }: WatchMultiViewProps) 
                   </div>
                 </div>
                 {stream ? (
-                  <StreamEmbed sources={stream.sources} title={title} />
+                  <StreamEmbed compact sources={stream.sources} title={title} />
                 ) : (
                   <p className="muted">Loading stream…</p>
                 )}

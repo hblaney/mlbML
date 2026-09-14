@@ -42,6 +42,10 @@ a {
   margin: 0 auto;
 }
 
+.watch-shell {
+  width: min(1760px, calc(100% - 24px));
+}
+
 .site-header {
   border-bottom: 1px solid var(--line-strong);
   background: rgba(3, 4, 6, 0.92);
@@ -1112,16 +1116,51 @@ h2 {
 
 .multi-stream-grid {
   display: grid;
-  gap: 18px;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+  gap: 14px;
+  grid-template-columns: 1fr;
+}
+
+.multi-stream-grid[data-count="2"],
+.multi-stream-grid[data-count="3"],
+.multi-stream-grid[data-count="4"] {
+  grid-template-columns: 1fr 1fr;
+}
+
+.multi-stream-grid[data-count="3"] .multi-stream-card:last-child {
+  grid-column: 1 / -1;
 }
 
 .multi-stream-card {
   border: 1px solid var(--line);
   border-radius: 8px;
   display: grid;
-  gap: 12px;
-  padding: 14px;
+  gap: 8px;
+  min-width: 0;
+  padding: 10px;
+}
+
+.multi-stream-card .iframe-wrap {
+  position: relative;
+  width: 100%;
+}
+
+.multi-stream-card .iframe-wrap iframe {
+  position: absolute;
+  inset: 0;
+}
+
+.multi-stream-grid[data-count="1"] .iframe-wrap {
+  min-height: min(62vh, 720px);
+}
+
+.multi-stream-grid[data-count="2"] .iframe-wrap,
+.multi-stream-grid[data-count="3"] .iframe-wrap,
+.multi-stream-grid[data-count="4"] .iframe-wrap {
+  min-height: min(42vh, 520px);
+}
+
+.stream-player.compact .stream-source {
+  padding: 7px 10px;
 }
 
 .multi-stream-head {
@@ -1535,7 +1574,8 @@ strong {
 }
 
 @media (max-width: 850px) {
-  .shell {
+  .shell,
+  .watch-shell {
     width: calc(100% - 20px);
   }
 

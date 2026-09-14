@@ -16,7 +16,7 @@ export default async function WatchPage() {
   const games = toWatchBoardGames(board);
 
   return (
-    <main className="shell stack">
+    <main className="shell watch-shell stack">
       <section className="panel strong">
         <p className="eyebrow">Team streams</p>
         <h1>Watch</h1>

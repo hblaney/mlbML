@@ -10,9 +10,10 @@ import {
 type StreamEmbedProps = {
   title: string;
   sources: StreamLink[];
+  compact?: boolean;
 };
 
-export function StreamEmbed({ title, sources }: StreamEmbedProps) {
+export function StreamEmbed({ title, sources, compact = false }: StreamEmbedProps) {
   const [activeSource, setActiveSource] = useState(() => getDefaultEmbedSource(sources));
 
   // When the multi-view swaps games, reset to that card's default feed.
@@ -34,7 +35,7 @@ export function StreamEmbed({ title, sources }: StreamEmbedProps) {
   }
 
   return (
-    <div className="stream-player">
+    <div className={compact ? "stream-player compact" : "stream-player"}>
       <div className="iframe-wrap">
         <iframe
           allow="autoplay; encrypted-media; fullscreen"
@@ -68,11 +69,13 @@ export function StreamEmbed({ title, sources }: StreamEmbedProps) {
               </button>
             ))}
           </div>
-          <p className="muted stream-feed-note">
-            Buttons are that club&apos;s feed (scraped live from MLB Webcast). If one is blank,
-            try the other team or Open webcast.
-            {hasBuffstreamsFeeds(sources) ? " Backup is an extra source when available." : ""}
-          </p>
+          {compact ? null : (
+            <p className="muted stream-feed-note">
+              Buttons are that club&apos;s feed (scraped live from MLB Webcast). If one is blank,
+              try the other team or Open webcast.
+              {hasBuffstreamsFeeds(sources) ? " Backup is an extra source when available." : ""}
+            </p>
+          )}
         </>
       ) : null}
     </div>
