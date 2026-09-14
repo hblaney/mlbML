@@ -252,7 +252,7 @@ async function fetchHtml(url: string, referer: string) {
   const response = await fetch(buildFetchUrl(url), {
     cache: "no-store",
     redirect: "follow",
-    signal: AbortSignal.timeout(8000),
+    signal: AbortSignal.timeout(20000),
     headers: {
       "User-Agent": BROWSER_UA,
       Accept: "text/html,application/xhtml+xml,*/*;q=0.8",
@@ -279,7 +279,13 @@ export function parseStreameHlsPlayerUrl(html: string) {
 }
 
 export function parseStreameM3u8Url(html: string) {
-  const match = html.match(/https?:\/\/[^"'\\\s]+edgestream[^"'\\\s]+\.m3u8[^"'\\\s]*/i);
+  const assigned = html.match(/streamUrl\s*=\s*"([^"]+)"/i);
+  if (assigned?.[1]) {
+    return unescapeJsonUrl(assigned[1]);
+  }
+
+  // Do not exclude backslash here — streame encodes & as \u0026 in the query.
+  const match = html.match(/https?:\/\/[^"'\s]+edgestream[^"'\s]+\.m3u8[^"'\s]*/i);
   if (!match) {
     return null;
   }
