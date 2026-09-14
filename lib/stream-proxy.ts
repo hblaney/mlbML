@@ -442,9 +442,10 @@ export async function resolveStreamManifest(slug: string): Promise<StreamManifes
   }
 }
 
-export function buildEmbedPlayerHtml(slug: string, manifestPath?: string) {
+export function buildEmbedPlayerHtml(slug: string, sourcePath?: string) {
   const safeSlug = slug.replace(/[^a-z0-9]/gi, "");
-  const manifestUrl = manifestPath ?? `/api/stream/manifest/${safeSlug}`;
+  const resolved = sourcePath ?? `/api/stream/manifest/${safeSlug}`;
+  const isDirectHls = resolved.includes("/api/stream/hls") || resolved.includes(".m3u8");
 
   return `<!DOCTYPE html>
 <html lang="en">
@@ -469,6 +470,8 @@ body,html{background:#000;overflow:hidden;height:100%;color:#fff;font-family:sys
 <script>
 (function(){
   var slug=${JSON.stringify(safeSlug)};
+  var directSource=${JSON.stringify(isDirectHls ? resolved : null)};
+  var manifestUrl=${JSON.stringify(isDirectHls ? null : resolved)};
   var statusEl=document.getElementById('status');
   var playerEl=document.getElementById('player');
   function showError(message){
@@ -518,7 +521,11 @@ body,html{background:#000;overflow:hidden;height:100%;color:#fff;font-family:sys
     }
     showError('This browser does not support HLS playback.');
   }
-  fetch('${manifestUrl}',{cache:'no-store'})
+  if(directSource){
+    startPlayback(directSource);
+    return;
+  }
+  fetch(manifestUrl,{cache:'no-store'})
     .then(function(response){return response.json();})
     .then(function(data){
       if(!data.url){
