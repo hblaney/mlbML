@@ -1,5 +1,6 @@
 import { getTeam, normalizeTeamId } from "./data";
 import type { BuffstreamsMatch } from "./buffstreams";
+import { STREAM_FALLBACKS_REFRESHED_AT } from "./stream-embed-fallbacks";
 
 const MLB_WEBCAST_ORIGIN = "https://mlbwebcast.com";
 
@@ -53,7 +54,8 @@ const teamStreamConfig: Record<string, TeamStreamConfig> = {
 };
 
 function embedPath(streamSlug: string) {
-  return `/api/stream/embed/${streamSlug}`;
+  // Bust stale Forbidden iframes when the daily channel map changes.
+  return `/api/stream/embed/${streamSlug}?v=${STREAM_FALLBACKS_REFRESHED_AT}`;
 }
 
 function webcastStreamUrl(streamSlug: string) {

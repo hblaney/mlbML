@@ -85,6 +85,8 @@ def render(mapping: dict[str, str]) -> str:
         " * Prefer live scrape in /api/stream/embed; do not treat this map as truth.",
         " * Regenerate with: python3 scripts/model/refresh_stream_fallbacks.py",
         " */",
+        f'export const STREAM_FALLBACKS_REFRESHED_AT = "{today}";',
+        "",
         "export const STREAM_IFRAME_FALLBACKS: Record<string, string> = {",
     ]
     for slug in SLUGS:

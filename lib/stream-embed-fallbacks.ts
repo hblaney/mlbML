@@ -4,6 +4,8 @@
  * Prefer live scrape in /api/stream/embed; do not treat this map as truth.
  * Regenerate with: python3 scripts/model/refresh_stream_fallbacks.py
  */
+export const STREAM_FALLBACKS_REFRESHED_AT = "2026-09-14-2";
+
 export const STREAM_IFRAME_FALLBACKS: Record<string, string> = {
   diamondbacks2: "https://streame.center/embed/ch24.php",
   diamondbacks3: "https://streame.center/embed/ch24.php",
