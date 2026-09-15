@@ -9,10 +9,12 @@ from pathlib import Path
 
 PUBLIC_DIR = Path(__file__).resolve().parents[2] / "public"
 HISTORY_PATH = PUBLIC_DIR / "prediction-history.json"
-OUTPUT_PATH = PUBLIC_DIR / "model-live-performance.json"
+# Do not overwrite model-live-performance.json — that file is the Accuracy page
+# source of truth, rebuilt from graded live boards by generate_accuracy_output.py.
+OUTPUT_PATH = PUBLIC_DIR / "model-walkforward-curve.json"
 
-STARTING_BANKROLL = 10_000.0
-STAKE = 100.0
+STARTING_BANKROLL = 1.0
+STAKE = 0.45
 BASELINE_ODDS = -110
 HIGH_CONFIDENCE = {"High", "Elite"}
 

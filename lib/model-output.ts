@@ -37,6 +37,7 @@ export type AccuracyOutput = {
     Low: ConfidenceBand;
   };
   last_7_days?: ConfidenceBand;
+  last_14_days?: ConfidenceBand;
   yesterday?: ConfidenceBand;
   archive?: {
     evaluated_games: number;
@@ -128,10 +129,10 @@ export type RecommendationSummary = {
   bets: number;
   wins: number;
   losses: number;
-  staked: number;
-  profit: number;
-  roi: number;
-  hit_rate: number;
+  staked?: number;
+  profit?: number;
+  roi?: number;
+  hit_rate: number | null;
 };
 
 export type DailyRecommendationSnapshot = {
@@ -277,7 +278,8 @@ export type LiveModelPerformanceOutput = {
   season: string;
   method: string;
   stake: number;
-  starting_bankroll: number;
+  stake_unit?: string;
+  starting_bankroll: number | null;
   baseline_odds: number;
   date_range: { start: string | null; end: string | null };
   overall: RecommendationSummary;
@@ -289,6 +291,7 @@ export type LiveModelPerformanceOutput = {
     Low: { bets: number; wins: number; losses: number; hit_rate: number | null };
   };
   last_7_days?: { bets: number; wins: number; losses: number; hit_rate: number | null };
+  last_14_days?: { bets: number; wins: number; losses: number; hit_rate: number | null };
   yesterday?: { bets: number; wins: number; losses: number; hit_rate: number | null };
   cumulative: RecommendationPerformanceOutput["cumulative"];
   checkpoints: RecommendationPerformanceOutput["checkpoints"];
@@ -655,7 +658,7 @@ export type LiveBankrollTicket = {
   legs: string[];
   leg_count: number;
   stake_pct: number;
-  stake_amount: number;
+  stake_amount?: number;
   profit?: number;
   balance_after?: number;
   won?: boolean;
@@ -670,20 +673,23 @@ export type LiveBankroll = {
   disclaimer?: string;
   strategy: string;
   staking?: string;
-  stakes: Record<string, number>;
+  stakes?: Record<string, number>;
+  stake_by_leg_count?: Record<string, number>;
   ratchet_tiers?: RatchetTier[];
   prove_out?: {
-    flat_stake_usd: number;
+    flat_stake_usd?: number;
     target_tickets: number;
-    completed_tickets: number;
+    completed_tickets?: number;
+    tickets_graded?: number;
     active: boolean;
+    mode?: string;
   };
   daily_exposure_cap: number;
   started_at: string;
-  starting_balance: number;
-  balance: number;
+  starting_balance?: number;
+  balance?: number;
   wallet_balance?: number | null;
-  profit: number;
+  profit?: number;
   return_pct: number;
   record: string;
   hit_rate?: number | null;
@@ -1355,21 +1361,6 @@ export async function loadModelHealthSummary(): Promise<ModelHealthSummary | nul
   };
 }
 
-async function generatePredictionHistory() {
-  if (!canRunLocalGenerators) {
-    return;
-  }
-
-  try {
-    await execFileAsync("python3", ["scripts/model/generate_prediction_history.py"], {
-      cwd: process.cwd(),
-      timeout: 120_000
-    });
-  } catch {
-    // The History page can still fall back to accuracy.json if this fails.
-  }
-}
-
 async function readPredictionHistory(): Promise<PredictionHistoryOutput | null> {
   try {
     const filePath = path.join(process.cwd(), "public", "prediction-history.json");
@@ -1400,20 +1391,6 @@ export async function loadPredictionBoardMetadata(): Promise<PredictionBoardFile
 }
 
 export async function loadFullPredictionHistory(): Promise<PredictionHistoryRow[]> {
-  const today = new Date().toISOString().slice(0, 10);
-  let output = await readPredictionHistory();
-
-  const yesterday = new Date(Date.now() - 86_400_000).toISOString().slice(0, 10);
-  if (
-    !output ||
-    output.generated_at !== today ||
-    output.trained_through !== yesterday ||
-    !Array.isArray(output.predictions) ||
-    output.predictions.some((row) => !row.actual || row.date >= today)
-  ) {
-    await generatePredictionHistory();
-    output = await readPredictionHistory();
-  }
-
+  const output = await readPredictionHistory();
   return output?.predictions ?? [];
 }

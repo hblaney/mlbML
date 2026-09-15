@@ -23,11 +23,22 @@ function teamLabel(label: string) {
   return team?.abbreviation ?? label.toUpperCase();
 }
 
-function formatBankroll(value: number) {
-  if (value >= 100) {
-    return `$${value.toLocaleString(undefined, { maximumFractionDigits: 0 })}`;
-  }
-  return `$${value.toFixed(2)}`;
+function chicagoIsoDate(offsetDays = 0) {
+  const todayStr = new Intl.DateTimeFormat("en-CA", {
+    timeZone: "America/Chicago",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit"
+  }).format(new Date());
+  if (!offsetDays) return todayStr;
+  const [year, month, day] = todayStr.split("-").map(Number);
+  const shifted = new Date(Date.UTC(year, month - 1, day + offsetDays));
+  return shifted.toISOString().slice(0, 10);
+}
+
+function formatPct(value: number | null | undefined) {
+  if (value == null) return "—";
+  return formatPercent(value);
 }
 
 function summarize(rows: { correct: number | boolean }[]) {
@@ -55,11 +66,11 @@ export default async function AccuracyPage() {
 
   const overall = live?.overall;
   const high = live?.high_confidence;
-  const yesterday = live?.yesterday ?? null;
+  const yesterday = live?.yesterday ?? accuracy?.yesterday ?? null;
   const last7 = live?.last_7_days ?? accuracy?.last_7_days ?? null;
 
   const byConfidence = (["Elite", "High", "Medium", "Low"] as const).map((tier) => {
-    const row = live?.by_confidence?.[tier];
+    const row = live?.by_confidence?.[tier] ?? accuracy?.by_confidence?.[tier];
     if (row) {
       return {
         tier,
@@ -72,14 +83,15 @@ export default async function AccuracyPage() {
     return { tier, wins: 0, losses: 0, bets: 0, hitRate: null as number | null };
   });
 
+  const ticketCutoff = chicagoIsoDate(-14);
   const gradedTickets = [...(bankroll?.tickets ?? [])]
-    .filter((ticket) => ticket.won != null)
+    .filter((ticket) => ticket.won != null && ticket.date >= ticketCutoff)
     .reverse()
     .slice(0, 12);
 
   const recentDays = (() => {
-    const today = new Date().toISOString().slice(0, 10);
-    const cutoff = new Date(Date.now() - 14 * 86_400_000).toISOString().slice(0, 10);
+    const today = chicagoIsoDate();
+    const cutoff = chicagoIsoDate(-14);
     const rows = history.filter(
       (row) => row.actual && row.date >= cutoff && row.date < today && row.date.startsWith(season)
     );
@@ -220,56 +232,52 @@ export default async function AccuracyPage() {
         </div>
       </section>
 
-      {bankroll ? (
+      {gradedTickets.length > 0 ? (
         <section className="panel">
           <div className="section-heading compact">
             <div>
               <p className="eyebrow">Live tickets</p>
               <h2>
-                {bankroll.record}
-                {bankroll.hit_rate != null ? ` · ${formatPercent(bankroll.hit_rate)}` : ""}
+                {bankroll?.record}
+                {bankroll?.hit_rate != null ? ` · ${formatPercent(bankroll.hit_rate)}` : ""}
               </h2>
             </div>
-            <span className="muted">{formatBankroll(bankroll.wallet_balance ?? bankroll.balance)}</span>
+            <span className="muted">
+              Percent of bankroll (35% / 45% / 10%)
+            </span>
           </div>
           <p className="muted">
             Graded daily tickets only — not every board pick.{" "}
             <Link href="/best-bets">Moneyline →</Link>
           </p>
-          {gradedTickets.length > 0 ? (
-            <div className="table-scroll">
-              <table className="table">
-                <thead>
-                  <tr>
-                    <th>Date</th>
-                    <th>Ticket</th>
-                    <th>Result</th>
-                    <th className="hide-sm">P/L</th>
+          <div className="table-scroll">
+            <table className="table">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Ticket</th>
+                  <th>Result</th>
+                  <th className="hide-sm">Stake</th>
+                </tr>
+              </thead>
+              <tbody>
+                {gradedTickets.map((ticket) => (
+                  <tr key={`${ticket.date}-${ticket.label}`}>
+                    <td>{ticket.date}</td>
+                    <td>
+                      <strong>{ticket.label}</strong>
+                    </td>
+                    <td className={ticket.won ? "positive" : "warning"}>
+                      {ticket.won ? "WIN" : "LOSS"}
+                    </td>
+                    <td className="hide-sm">
+                      {ticket.stake_pct != null ? formatPct(ticket.stake_pct) : "—"}
+                    </td>
                   </tr>
-                </thead>
-                <tbody>
-                  {gradedTickets.map((ticket) => (
-                    <tr key={`${ticket.date}-${ticket.label}`}>
-                      <td>{ticket.date}</td>
-                      <td>
-                        <strong>{ticket.label}</strong>
-                      </td>
-                      <td className={ticket.won ? "positive" : "warning"}>
-                        {ticket.won ? "WIN" : "LOSS"}
-                      </td>
-                      <td className="hide-sm">
-                        {ticket.profit != null
-                          ? formatBankroll(ticket.profit)
-                          : "—"}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          ) : (
-            <p className="muted">No graded live tickets yet.</p>
-          )}
+                ))}
+              </tbody>
+            </table>
+          </div>
         </section>
       ) : null}
 

@@ -39,7 +39,7 @@ type StreamBundle = WatchStreamSource & {
   teamId: string;
 };
 
-const STORAGE_KEY = "mlb-edge-bet-watcher";
+const STORAGE_KEY = "mlb-edge-bet-watcher-pct";
 
 type SavedWatcherState = {
   legs: BetLeg[];
@@ -94,7 +94,7 @@ function statusClass(status: string) {
 export function BetWatcherClient({ board, todayTicket }: BetWatcherClientProps) {
   const gamesById = useMemo(() => new Map(board.map((game) => [game.id, game])), [board]);
   const [legs, setLegs] = useState<BetLeg[]>(() => [defaultLeg(board)]);
-  const [stake, setStake] = useState(todayTicket?.stake ?? 5);
+  const [stake, setStake] = useState(todayTicket?.stake ?? 45);
   const [manualOdds, setManualOdds] = useState<number | null>(todayTicket?.americanOdds ?? null);
   const [liveByGameId, setLiveByGameId] = useState<Map<string, LiveGameState | null>>(new Map());
   const [streamsByGameId, setStreamsByGameId] = useState<Map<string, StreamBundle>>(new Map());
@@ -246,7 +246,7 @@ export function BetWatcherClient({ board, todayTicket }: BetWatcherClientProps) 
         <div className="bet-watcher-payout-grid">
           <div>
             <span>Stake</span>
-            <strong>${stake.toFixed(2)}</strong>
+            <strong>{stake.toFixed(0)}% of bankroll</strong>
           </div>
           <div>
             <span>Ticket odds</span>
@@ -254,7 +254,9 @@ export function BetWatcherClient({ board, todayTicket }: BetWatcherClientProps) 
           </div>
           <div>
             <span>If it hits</span>
-            <strong>{potentialPayout == null ? "—" : `$${potentialPayout.toFixed(2)}`}</strong>
+            <strong>
+              {potentialPayout == null ? "—" : `${potentialPayout.toFixed(0)}% of bankroll`}
+            </strong>
           </div>
           <div>
             <span>Current value</span>
@@ -263,7 +265,7 @@ export function BetWatcherClient({ board, todayTicket }: BetWatcherClientProps) 
                 ? evaluation.status === "alive"
                   ? "Still live"
                   : "—"
-                : `$${currentPayout.toFixed(2)}`}
+                : `${currentPayout.toFixed(0)}% of bankroll`}
             </strong>
           </div>
         </div>
@@ -292,11 +294,12 @@ export function BetWatcherClient({ board, todayTicket }: BetWatcherClientProps) 
 
         <div className="bet-watcher-controls">
           <label>
-            <span>Stake ($)</span>
+            <span>Stake (% of bankroll)</span>
             <input
-              min={0}
+              min={1}
+              max={100}
               onChange={(event) => setStake(Number(event.target.value) || 0)}
-              step={0.5}
+              step={1}
               type="number"
               value={stake}
             />

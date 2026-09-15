@@ -95,8 +95,8 @@ def main() -> None:
         if rows
     }
 
-    # Confidence-level breakdown for current season
-    graded_season = [r for r in season_rows if r.get("actual") and r.get("predicted")]
+    # Confidence-level breakdown for current season (market-backed, same as headline)
+    graded_season = [r for r in season_market_rows if r.get("predicted")]
     by_confidence = {
         conf: summarize_band([r for r in graded_season if r.get("confidence") == conf])
         for conf in ("Elite", "High", "Medium", "Low")
@@ -106,9 +106,14 @@ def main() -> None:
     today_str = date.today().isoformat()
     yesterday_str = (date.today() - timedelta(days=1)).isoformat()
     seven_ago_str = (date.today() - timedelta(days=7)).isoformat()
+    fourteen_ago_str = (date.today() - timedelta(days=14)).isoformat()
     graded_all = [r for r in predictions if r.get("actual") and r.get("predicted")]
     last_7_days = summarize_band([r for r in graded_all if seven_ago_str <= r.get("date", "") < today_str])
+    last_14_days = summarize_band(
+        [r for r in graded_all if fourteen_ago_str <= r.get("date", "") < today_str]
+    )
     yesterday_band = summarize_band([r for r in graded_all if r.get("date", "") == yesterday_str])
+    overall_band = summarize_band(season_market_rows)
 
     output = {
         "generated_at": payload.get("generated_at", date.today().isoformat()),
@@ -126,6 +131,7 @@ def main() -> None:
         },
         "by_confidence": by_confidence,
         "last_7_days": last_7_days,
+        "last_14_days": last_14_days,
         "yesterday": yesterday_band,
         "archive": {
             "evaluated_games": float(archive_evaluated),
@@ -137,7 +143,6 @@ def main() -> None:
         "daily_accuracy": daily_accuracy,
         "weekly_accuracy": weekly_accuracy,
         "recent_predictions": predictions[-40:],
-        "prediction_history": predictions,
     }
 
     OUTPUT_PATH.write_text(json.dumps(output, indent=2))
@@ -147,20 +152,13 @@ def main() -> None:
         "generated_at": today_str,
         "trained_through": trained_through,
         "season": season,
-        "method": "walk_forward_graded",
-        "stake": 0.30,
-        "starting_bankroll": 22.0,
+        "method": "live_board_graded",
+        "stake": 0.45,
+        "stake_unit": "fraction_of_bankroll",
+        "starting_bankroll": None,
         "baseline_odds": -110,
         "date_range": {"start": season + "-03-20", "end": yesterday_str},
-        "overall": {
-            "bets": by_confidence["High"]["bets"] + by_confidence["Elite"]["bets"] +
-                    by_confidence["Medium"]["bets"] + by_confidence["Low"]["bets"],
-            "wins": by_confidence["High"]["wins"] + by_confidence["Elite"]["wins"] +
-                    by_confidence["Medium"]["wins"] + by_confidence["Low"]["wins"],
-            "losses": by_confidence["High"]["losses"] + by_confidence["Elite"]["losses"] +
-                      by_confidence["Medium"]["losses"] + by_confidence["Low"]["losses"],
-            "hit_rate": season_summary["accuracy"],
-        },
+        "overall": overall_band,
         "high_confidence": {
             "bets": by_confidence["High"]["bets"] + by_confidence["Elite"]["bets"],
             "wins": by_confidence["High"]["wins"] + by_confidence["Elite"]["wins"],
@@ -169,6 +167,7 @@ def main() -> None:
         },
         "by_confidence": by_confidence,
         "last_7_days": last_7_days,
+        "last_14_days": last_14_days,
         "yesterday": yesterday_band,
         "cumulative": [],
         "checkpoints": [],

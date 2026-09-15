@@ -1,13 +1,13 @@
 {
   "generated_at": "2026-08-16",
   "tracking_mode": "live_best_bets",
-  "disclaimer": "Tracks locked system tickets + your Robinhood wallet. Stakes = live daily exposure for daily_high_two_leg (2-leg High stack when available; else one High single; else skip).",
-  "strategy": "daily_high_two_leg",
-  "staking": "ratchet",
+  "disclaimer": "Tracks locked system tickets as a percent of bankroll. Stakes: 35% single \u00b7 45% two-leg \u00b7 10% three-leg. The site never uses a hardcoded dollar wallet.",
+  "strategy": "daily_force_top2",
+  "staking": "percent_of_bankroll",
   "ratchet_tiers": null,
   "stake_by_leg_count": {
-    "1": 0.18,
-    "2": 0.12,
+    "1": 0.35,
+    "2": 0.45,
     "3": 0.1
   },
   "prove_out": {
@@ -18,14 +18,6 @@
   },
   "daily_exposure_cap": 0.5,
   "started_at": "2026-06-22",
-  "starting_balance": 23.0,
-  "balance": 4.84,
-  "wallet_balance": 4.84,
-  "wallet_starting": 23.0,
-  "wallet_locked": true,
-  "wallet_record": "2-3",
-  "wallet_note": "Confirmed by Henry Jun 24 \u2014 Robinhood wallet $10. Includes off-script bets + system BAL lock.",
-  "profit": -18.16,
   "return_pct": -0.7896,
   "record": "7-11",
   "hit_rate": 0.3889,
@@ -39,7 +31,6 @@
     ],
     "leg_count": 1,
     "stake_pct": 0.12,
-    "stake_amount": 0.58,
     "status": "pending",
     "odds": -127,
     "model_probability": 0.6244,
@@ -48,8 +39,6 @@
   "checkpoints": [
     {
       "date": "2026-06-22",
-      "profit": -5.0,
-      "balance": 18.0,
       "return_pct": -0.2174,
       "won": false,
       "leg_count": 3,
@@ -59,14 +48,11 @@
         "CHC",
         "MIA"
       ],
-      "stake_amount": 5.0,
       "grade_source": "user_off_script",
       "prove_out": false
     },
     {
       "date": "2026-06-23",
-      "profit": -8.0,
-      "balance": 10.0,
       "return_pct": -0.5652,
       "won": false,
       "leg_count": 1,
@@ -74,14 +60,11 @@
       "legs": [
         "BAL"
       ],
-      "stake_amount": 8.0,
       "grade_source": "locked_ticket",
       "prove_out": false
     },
     {
       "date": "2026-06-24",
-      "profit": -1.8,
-      "balance": 8.2,
       "return_pct": -0.6435,
       "won": false,
       "leg_count": 3,
@@ -91,14 +74,11 @@
         "TOR",
         "CHC"
       ],
-      "stake_amount": 1.8,
       "grade_source": "locked_ticket",
       "prove_out": false
     },
     {
       "date": "2026-06-26",
-      "profit": -0.5057,
-      "balance": 7.69,
       "return_pct": -0.6657,
       "won": false,
       "leg_count": 3,
@@ -108,14 +88,11 @@
         "ARI",
         "CLE"
       ],
-      "stake_amount": 4.1,
       "grade_source": "locked_ticket",
       "prove_out": false
     },
     {
       "date": "2026-06-29",
-      "profit": 1.0907,
-      "balance": 8.78,
       "return_pct": -0.6183,
       "won": true,
       "leg_count": 3,
@@ -125,14 +102,11 @@
         "ARI",
         "ATH"
       ],
-      "stake_amount": 3.85,
       "grade_source": "locked_ticket",
       "prove_out": false
     },
     {
       "date": "2026-07-06",
-      "profit": -1.6866,
-      "balance": 7.09,
       "return_pct": -0.6917,
       "won": false,
       "leg_count": 3,
@@ -142,14 +116,11 @@
         "TOR",
         "WSH"
       ],
-      "stake_amount": 4.39,
       "grade_source": "locked_ticket",
       "prove_out": false
     },
     {
       "date": "2026-07-19",
-      "profit": 0.0943,
-      "balance": 7.18,
       "return_pct": -0.6878,
       "won": true,
       "leg_count": 1,
@@ -157,14 +128,11 @@
       "legs": [
         "LAA"
       ],
-      "stake_amount": 0.85,
       "grade_source": "locked_ticket",
       "prove_out": false
     },
     {
       "date": "2026-07-21",
-      "profit": -1.29,
-      "balance": 5.89,
       "return_pct": -0.7439,
       "won": false,
       "leg_count": 2,
@@ -173,14 +141,11 @@
         "WSH",
         "ARI"
       ],
-      "stake_amount": 1.29,
       "grade_source": "locked_ticket",
       "prove_out": false
     },
     {
       "date": "2026-07-22",
-      "profit": -1.06,
-      "balance": 4.83,
       "return_pct": -0.79,
       "won": false,
       "leg_count": 2,
@@ -189,14 +154,11 @@
         "SEA",
         "DET"
       ],
-      "stake_amount": 1.06,
       "grade_source": "locked_ticket",
       "prove_out": false
     },
     {
       "date": "2026-08-02",
-      "profit": 0.0693,
-      "balance": 4.9,
       "return_pct": -0.787,
       "won": true,
       "leg_count": 1,
@@ -204,14 +166,11 @@
       "legs": [
         "HOU"
       ],
-      "stake_amount": 0.58,
       "grade_source": "locked_ticket",
       "prove_out": false
     },
     {
       "date": "2026-08-05",
-      "profit": 0.8317,
-      "balance": 5.73,
       "return_pct": -0.7509,
       "won": true,
       "leg_count": 2,
@@ -220,14 +179,11 @@
         "MIL",
         "TB"
       ],
-      "stake_amount": 0.88,
       "grade_source": "locked_ticket",
       "prove_out": false
     },
     {
       "date": "2026-08-08",
-      "profit": -1.03,
-      "balance": 4.7,
       "return_pct": -0.7957,
       "won": false,
       "leg_count": 2,
@@ -236,14 +192,11 @@
         "CHC",
         "STL"
       ],
-      "stake_amount": 1.03,
       "grade_source": "locked_ticket",
       "prove_out": false
     },
     {
       "date": "2026-08-09",
-      "profit": 1.7684,
-      "balance": 6.47,
       "return_pct": -0.7187,
       "won": true,
       "leg_count": 2,
@@ -252,14 +205,11 @@
         "MIA",
         "DET"
       ],
-      "stake_amount": 0.85,
       "grade_source": "locked_ticket",
       "prove_out": false
     },
     {
       "date": "2026-08-10",
-      "profit": -0.78,
-      "balance": 5.69,
       "return_pct": -0.7526,
       "won": false,
       "leg_count": 1,
@@ -267,14 +217,11 @@
       "legs": [
         "BOS"
       ],
-      "stake_amount": 0.78,
       "grade_source": "locked_ticket",
       "prove_out": false
     },
     {
       "date": "2026-08-11",
-      "profit": 0.3799,
-      "balance": 6.07,
       "return_pct": -0.7361,
       "won": true,
       "leg_count": 1,
@@ -282,14 +229,11 @@
       "legs": [
         "TB"
       ],
-      "stake_amount": 0.68,
       "grade_source": "locked_ticket",
       "prove_out": false
     },
     {
       "date": "2026-08-12",
-      "profit": -0.73,
-      "balance": 5.34,
       "return_pct": -0.7678,
       "won": false,
       "leg_count": 1,
@@ -297,14 +241,11 @@
       "legs": [
         "ARI"
       ],
-      "stake_amount": 0.73,
       "grade_source": "locked_ticket",
       "prove_out": false
     },
     {
       "date": "2026-08-14",
-      "profit": -0.96,
-      "balance": 4.38,
       "return_pct": -0.8096,
       "won": false,
       "leg_count": 2,
@@ -313,14 +254,11 @@
         "CHC",
         "BOS"
       ],
-      "stake_amount": 0.96,
       "grade_source": "locked_ticket",
       "prove_out": false
     },
     {
       "date": "2026-08-15",
-      "profit": 0.4609,
-      "balance": 4.84,
       "return_pct": -0.7896,
       "won": true,
       "leg_count": 1,
@@ -328,7 +266,6 @@
       "legs": [
         "BOS"
       ],
-      "stake_amount": 0.53,
       "grade_source": "locked_ticket",
       "prove_out": false
     }
@@ -344,9 +281,6 @@
       ],
       "leg_count": 3,
       "stake_pct": 0.2174,
-      "stake_amount": 5.0,
-      "profit": -5.0,
-      "balance_after": 18.0,
       "won": false,
       "odds": 665,
       "model_probability": 0.2872,
@@ -361,9 +295,6 @@
       ],
       "leg_count": 1,
       "stake_pct": 0.4444,
-      "stake_amount": 8.0,
-      "profit": -8.0,
-      "balance_after": 10.0,
       "won": false,
       "odds": -140,
       "model_probability": 0.6274,
@@ -380,9 +311,6 @@
       ],
       "leg_count": 3,
       "stake_pct": 0.18,
-      "stake_amount": 1.8,
-      "profit": -1.8,
-      "balance_after": 8.2,
       "won": false,
       "odds": 423,
       "model_probability": 0.198,
@@ -400,9 +328,6 @@
       ],
       "leg_count": 3,
       "stake_pct": 0.5,
-      "stake_amount": 4.1,
-      "profit": -0.51,
-      "balance_after": 7.69,
       "won": false,
       "odds": null,
       "model_probability": null,
@@ -420,9 +345,6 @@
       ],
       "leg_count": 3,
       "stake_pct": 0.5,
-      "stake_amount": 3.85,
-      "profit": 1.09,
-      "balance_after": 8.78,
       "won": true,
       "odds": null,
       "model_probability": null,
@@ -440,9 +362,6 @@
       ],
       "leg_count": 3,
       "stake_pct": 0.5,
-      "stake_amount": 4.39,
-      "profit": -1.69,
-      "balance_after": 7.09,
       "won": false,
       "odds": null,
       "model_probability": null,
@@ -458,9 +377,6 @@
       ],
       "leg_count": 1,
       "stake_pct": 0.12,
-      "stake_amount": 0.85,
-      "profit": 0.09,
-      "balance_after": 7.18,
       "won": true,
       "odds": -901,
       "model_probability": 0.66,
@@ -477,9 +393,6 @@
       ],
       "leg_count": 2,
       "stake_pct": 0.18,
-      "stake_amount": 1.29,
-      "profit": -1.29,
-      "balance_after": 5.89,
       "won": false,
       "odds": 205,
       "model_probability": 0.43737732000000007,
@@ -496,9 +409,6 @@
       ],
       "leg_count": 2,
       "stake_pct": 0.18,
-      "stake_amount": 1.06,
-      "profit": -1.06,
-      "balance_after": 4.83,
       "won": false,
       "odds": 236,
       "model_probability": 0.38185795000000006,
@@ -514,9 +424,6 @@
       ],
       "leg_count": 1,
       "stake_pct": 0.12,
-      "stake_amount": 0.58,
-      "profit": 0.07,
-      "balance_after": 4.9,
       "won": true,
       "odds": -837,
       "model_probability": 0.5937,
@@ -533,9 +440,6 @@
       ],
       "leg_count": 2,
       "stake_pct": 0.18,
-      "stake_amount": 0.88,
-      "profit": 0.83,
-      "balance_after": 5.73,
       "won": true,
       "odds": 191,
       "model_probability": 0.44347134,
@@ -552,9 +456,6 @@
       ],
       "leg_count": 2,
       "stake_pct": 0.18,
-      "stake_amount": 1.03,
-      "profit": -1.03,
-      "balance_after": 4.7,
       "won": false,
       "odds": 168,
       "model_probability": 0.44183601,
@@ -571,9 +472,6 @@
       ],
       "leg_count": 2,
       "stake_pct": 0.18,
-      "stake_amount": 0.85,
-      "profit": 1.77,
-      "balance_after": 6.47,
       "won": true,
       "odds": 208,
       "model_probability": 0.37716805,
@@ -589,9 +487,6 @@
       ],
       "leg_count": 1,
       "stake_pct": 0.12,
-      "stake_amount": 0.78,
-      "profit": -0.78,
-      "balance_after": 5.69,
       "won": false,
       "odds": -153,
       "model_probability": 0.7,
@@ -607,9 +502,6 @@
       ],
       "leg_count": 1,
       "stake_pct": 0.12,
-      "stake_amount": 0.68,
-      "profit": 0.38,
-      "balance_after": 6.07,
       "won": true,
       "odds": -179,
       "model_probability": 0.6948,
@@ -625,9 +517,6 @@
       ],
       "leg_count": 1,
       "stake_pct": 0.12,
-      "stake_amount": 0.73,
-      "profit": -0.73,
-      "balance_after": 5.34,
       "won": false,
       "odds": -170,
       "model_probability": 0.6558,
@@ -644,9 +533,6 @@
       ],
       "leg_count": 2,
       "stake_pct": 0.18,
-      "stake_amount": 0.96,
-      "profit": -0.96,
-      "balance_after": 4.38,
       "won": false,
       "odds": 181,
       "model_probability": 0.46150308,
@@ -662,9 +548,6 @@
       ],
       "leg_count": 1,
       "stake_pct": 0.12,
-      "stake_amount": 0.53,
-      "profit": 0.46,
-      "balance_after": 4.84,
       "won": true,
       "odds": -115,
       "model_probability": 0.5712,
@@ -672,5 +555,5 @@
       "prove_out": false
     }
   ],
-  "tracking_note": "daily_high_two_leg \u00b7 one quality ML single when p\u226565% / edge\u22652% / odds>-250 / +EV \u00b7 else skip \u00b7 wallet locked when confirmed"
+  "tracking_note": "daily_force_top2 \u00b7 stake 35% single / 45% two-leg / 10% three-leg of bankroll"
 }

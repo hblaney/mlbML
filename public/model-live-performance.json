@@ -1,64 +1,71 @@
 {
-  "generated_at": "2026-09-10",
-  "trained_through": "2026-09-07",
+  "generated_at": "2026-09-15",
+  "trained_through": "2026-09-14",
   "season": "2026",
-  "method": "walk_forward_graded",
-  "stake": 0.3,
-  "starting_bankroll": 22.0,
+  "method": "live_board_graded",
+  "stake": 0.45,
+  "stake_unit": "fraction_of_bankroll",
+  "starting_bankroll": null,
   "baseline_odds": -110,
   "date_range": {
     "start": "2026-03-20",
-    "end": "2026-09-09"
+    "end": "2026-09-14"
   },
   "overall": {
-    "bets": 2166,
-    "wins": 1236,
-    "losses": 930,
-    "hit_rate": 0.5626
+    "bets": 1828,
+    "wins": 1013,
+    "losses": 815,
+    "hit_rate": 0.5542
   },
   "high_confidence": {
-    "bets": 2,
-    "wins": 1,
-    "losses": 1,
-    "hit_rate": 0.5
+    "bets": 69,
+    "wins": 44,
+    "losses": 25,
+    "hit_rate": 0.6377
   },
   "by_confidence": {
     "Elite": {
-      "bets": 0,
-      "wins": 0,
-      "losses": 0,
-      "hit_rate": null
+      "bets": 11,
+      "wins": 7,
+      "losses": 4,
+      "hit_rate": 0.6364
     },
     "High": {
-      "bets": 2,
-      "wins": 1,
-      "losses": 1,
-      "hit_rate": 0.5
+      "bets": 58,
+      "wins": 37,
+      "losses": 21,
+      "hit_rate": 0.6379
     },
     "Medium": {
-      "bets": 797,
-      "wins": 492,
-      "losses": 305,
-      "hit_rate": 0.6173
+      "bets": 656,
+      "wins": 378,
+      "losses": 278,
+      "hit_rate": 0.5762
     },
     "Low": {
-      "bets": 1367,
-      "wins": 743,
-      "losses": 624,
-      "hit_rate": 0.5435
+      "bets": 1103,
+      "wins": 591,
+      "losses": 512,
+      "hit_rate": 0.5358
     }
   },
   "last_7_days": {
-    "bets": 66,
-    "wins": 42,
-    "losses": 24,
-    "hit_rate": 0.6364
+    "bets": 90,
+    "wins": 47,
+    "losses": 43,
+    "hit_rate": 0.5222
+  },
+  "last_14_days": {
+    "bets": 186,
+    "wins": 94,
+    "losses": 92,
+    "hit_rate": 0.5054
   },
   "yesterday": {
-    "bets": 0,
-    "wins": 0,
-    "losses": 0,
-    "hit_rate": null
+    "bets": 10,
+    "wins": 8,
+    "losses": 2,
+    "hit_rate": 0.8
   },
   "cumulative": [],
   "checkpoints": [],

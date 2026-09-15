@@ -141,6 +141,9 @@ jobs:
       # Intentionally no prop grading here — it can hang 20+ min on MLB gamelogs
       # and previously blocked the commit even with continue-on-error (job timeout).
 
+      - name: Archive and grade live picks
+        run: python3 scripts/model/grade_live_board_history.py
+
       - name: Require today's timestamps
         run: |
           set -euo pipefail
@@ -166,6 +169,10 @@ jobs:
             public/prop-bet-cards.json \
             public/prop-leans.json \
             public/prop-track-record.json \
+            public/accuracy.json \
+            public/model-live-performance.json \
+            public/prediction-history.json \
+            data/daily-boards/*.json \
             data/locked-tickets/*.json \
             data/prop-predictions/*.json \
             data/model/daily_edge.pkl \

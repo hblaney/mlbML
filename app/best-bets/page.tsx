@@ -1,7 +1,6 @@
 import Link from "next/link";
 import {
   getBestDailyTicket,
-  getRatchetStakePct,
   getSortedPredictions,
   getTeam,
   LIVE_BETTING_STRATEGY,
@@ -55,20 +54,11 @@ export default async function BestBetsPage() {
     (game) => game.confidence === "High" || game.confidence === "Elite"
   );
 
-  const bankroll = liveBankroll?.wallet_balance ?? liveBankroll?.balance ?? 10;
-  const legCount = ticket ? ticketLegs(ticket).length : 1;
+  const legCount = ticket ? ticketLegs(ticket).length : 2;
   const stakePct =
-    bettingPlan?.ratchet_tiers != null
-      ? getRatchetStakePct(bankroll, legCount, bettingPlan.ratchet_tiers)
-      : (bettingPlan?.stake_by_leg_count?.[String(legCount)] ??
-        OPTIMIZED_STAKE_BY_LEG_COUNT[legCount] ??
-        OPTIMIZED_STAKE_BY_LEG_COUNT[1]);
-  const stakeUsd = bankroll * stakePct;
-
-  const formatBankroll = (value: number) =>
-    value >= 100
-      ? `$${value.toLocaleString(undefined, { maximumFractionDigits: 0 })}`
-      : `$${value.toFixed(2)}`;
+    bettingPlan?.stake_by_leg_count?.[String(legCount)] ??
+    OPTIMIZED_STAKE_BY_LEG_COUNT[legCount] ??
+    OPTIMIZED_STAKE_BY_LEG_COUNT[2];
 
   const recordFor = (teamId: string) => formatStandingRecord(standingsByTeamId.get(teamId));
   const odds = ticket ? ticketOdds(ticket) : null;
@@ -80,16 +70,9 @@ export default async function BestBetsPage() {
         <p className="eyebrow">Moneyline</p>
         <h1>Today&apos;s bet</h1>
         <p className="lead">
-          Prefer a <strong>2-leg High stack</strong> when two clear; otherwise one High single; else
-          skip. Wallet <strong>{formatBankroll(bankroll)}</strong>
-          {liveBankroll && liveBankroll.record !== "0-0" ? (
-            <>
-              {" "}
-              · <strong>{liveBankroll.record}</strong>
-              {liveBankroll.hit_rate != null ? ` (${formatPercent(liveBankroll.hit_rate)})` : ""}
-            </>
-          ) : null}
-          . <Link href="/accuracy">Accuracy →</Link>
+          Official bet is a <strong>2-leg ML parlay every day</strong> (single only if the slate
+          is one game). Stake <strong>{formatPercent(stakePct)}</strong> of bankroll on the{" "}
+          {legCount}-leg. <Link href="/accuracy">Accuracy →</Link>
         </p>
       </section>
 
@@ -145,9 +128,9 @@ export default async function BestBetsPage() {
             </article>
             <article>
               <p className="muted">Suggested stake</p>
-              <div className="metric">{formatBankroll(stakeUsd)}</div>
+              <div className="metric">{formatPercent(stakePct)}</div>
               <p className="muted">
-                {formatPercent(stakePct)} of wallet · {legCount}-leg sizing
+                of bankroll · {legCount}-leg sizing (35% / 45% / 10%)
               </p>
             </article>
           </div>

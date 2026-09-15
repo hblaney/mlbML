@@ -14,17 +14,29 @@ from strategy_next_tests import build_snapshots, enrich_moneyline
 from strategy_research import DAILY_CAP
 
 LIVE_STRATEGY = "daily_force_top2"
-STAKE_TIERED = {1: 0.12, 2: 0.18, 3: 0.18, 4: 0.18}
+STAKE_TIERED = {1: 0.35, 2: 0.45, 3: 0.10}
 FLAT_PROVE_OUT_USD = 5.0
 PROVE_OUT_TICKETS = 20
-LIVE_STAKE_MODE = "ratchet"  # ratchet from betting-plan; never flat $5 on a $10 wallet
+LIVE_STAKE_MODE = "percent_of_bankroll"
 DEFAULT_STARTING_BALANCE = 25.0
 DEFAULT_STARTED_AT = "2026-06-13"
 TRACKING_DISCLAIMER = (
-    "Tracks locked system tickets + your Robinhood wallet. "
-    "Stakes = live daily exposure for daily_high_two_leg "
-    "(2-leg High stack when available; else one High single; else skip)."
+    "Tracks locked system tickets as a percent of bankroll. "
+    "Stakes: 35% single · 45% two-leg · 10% three-leg. "
+    "The site never uses a hardcoded dollar wallet."
 )
+PUBLIC_DOLLAR_KEYS = {
+    "starting_balance",
+    "balance",
+    "wallet_balance",
+    "wallet_starting",
+    "wallet_locked",
+    "wallet_record",
+    "wallet_note",
+    "profit",
+    "stake_amount",
+    "balance_after",
+}
 REPO_ROOT = Path(__file__).resolve().parents[2]
 STATE_PATH = REPO_ROOT / "data" / "live-bankroll-state.json"
 OUTPUT_PATH = REPO_ROOT / "public" / "live-bankroll.json"
@@ -168,6 +180,20 @@ def parse_init_args(argv: list[str]) -> tuple[str | None, float | None]:
     start_day = argv[index + 1] if len(argv) > index + 1 else DEFAULT_STARTED_AT
     balance = float(argv[index + 2]) if len(argv) > index + 2 else DEFAULT_STARTING_BALANCE
     return start_day, balance
+
+
+def strip_public_dollars(value):
+    """Public site shows stake % of bankroll — never a hardcoded wallet."""
+    if isinstance(value, list):
+        return [strip_public_dollars(item) for item in value]
+    if not isinstance(value, dict):
+        return value
+    cleaned = {}
+    for key, item in value.items():
+        if key in PUBLIC_DOLLAR_KEYS:
+            continue
+        cleaned[key] = strip_public_dollars(item)
+    return cleaned
 
 
 def parse_wallet_balance(argv: list[str]) -> float | None:
@@ -979,7 +1005,7 @@ def main() -> None:
         "tracking_mode": "live_best_bets",
         "disclaimer": TRACKING_DISCLAIMER,
         "strategy": LIVE_STRATEGY,
-        "staking": "ratchet",
+        "staking": "percent_of_bankroll",
         "ratchet_tiers": plan.get("ratchet_tiers"),
         "stake_by_leg_count": plan.get("stake_by_leg_count") or STAKE_TIERED,
         "prove_out": {
@@ -1006,10 +1032,12 @@ def main() -> None:
         "today_ticket": today_ticket,
         "checkpoints": state["checkpoints"],
         "tickets": state.get("tickets", []),
-        "tracking_note": f"{LIVE_STRATEGY} · one quality ML single when p≥65% / edge≥2% / odds>-250 / +EV · else skip · wallet locked when confirmed",
+        "tracking_note": (
+            f"{LIVE_STRATEGY} · stake 35% single / 45% two-leg / 10% three-leg of bankroll"
+        ),
     }
     save_state(state)
-    OUTPUT_PATH.write_text(json.dumps(output, indent=2))
+    OUTPUT_PATH.write_text(json.dumps(strip_public_dollars(output), indent=2))
 
     board_path = REPO_ROOT / "public" / "predictions.json"
     if board_path.exists() and today_ticket:
