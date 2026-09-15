@@ -25,17 +25,17 @@
         "edge": 2.07
       },
       {
-        "player": "Jacob Misiorowski",
+        "player": "Jacob deGrom",
         "prop": "strikeouts",
-        "line": 6.5,
+        "line": 5.0,
         "pick": "Over",
-        "projection": 8.2,
-        "matchup": "MIL @ PIT",
+        "projection": 6.8,
+        "matchup": "BOS @ TEX",
         "confidence": "high",
-        "edge": 1.72
+        "edge": 1.78
       }
     ],
-    "score": 6.86,
+    "score": 6.92,
     "same_game_warning": false
   },
   "top_plays": [
@@ -70,6 +70,16 @@
       "matchup": "PHI @ WSH"
     },
     {
+      "player": "Jahmai Jones",
+      "prop": "hitter_fantasy_score",
+      "lean": "Over",
+      "line": 6.0,
+      "projection": 8.0,
+      "edge": 2.05,
+      "confidence": "high",
+      "matchup": "BOS @ TEX"
+    },
+    {
       "player": "Randal Grichuk",
       "prop": "hitter_fantasy_score",
       "lean": "Over",
@@ -78,6 +88,16 @@
       "edge": 2.05,
       "confidence": "high",
       "matchup": "CWS @ CLE"
+    },
+    {
+      "player": "Willson Contreras",
+      "prop": "hitter_fantasy_score",
+      "lean": "Over",
+      "line": 5.0,
+      "projection": 7.0,
+      "edge": 2.02,
+      "confidence": "high",
+      "matchup": "BOS @ TEX"
     },
     {
       "player": "Pete Crow-Armstrong",
@@ -98,6 +118,16 @@
       "edge": 1.82,
       "confidence": "medium",
       "matchup": "BAL @ NYM"
+    },
+    {
+      "player": "Jacob deGrom",
+      "prop": "strikeouts",
+      "lean": "Over",
+      "line": 5.0,
+      "projection": 6.8,
+      "edge": 1.78,
+      "confidence": "high",
+      "matchup": "BOS @ TEX"
     },
     {
       "player": "Seiya Suzuki",
@@ -128,36 +158,6 @@
       "edge": 1.72,
       "confidence": "medium",
       "matchup": "LAD @ CIN"
-    },
-    {
-      "player": "Jacob Misiorowski",
-      "prop": "strikeouts",
-      "lean": "Over",
-      "line": 6.5,
-      "projection": 8.2,
-      "edge": 1.72,
-      "confidence": "high",
-      "matchup": "MIL @ PIT"
-    },
-    {
-      "player": "Randy Arozarena",
-      "prop": "hitter_fantasy_score",
-      "lean": "Over",
-      "line": 6.0,
-      "projection": 7.7,
-      "edge": 1.7,
-      "confidence": "medium",
-      "matchup": "SEA @ LAA"
-    },
-    {
-      "player": "Jake McCarthy",
-      "prop": "hitter_fantasy_score",
-      "lean": "Over",
-      "line": 6.0,
-      "projection": 7.7,
-      "edge": 1.68,
-      "confidence": "medium",
-      "matchup": "SD @ COL"
     }
   ],
   "all_actionable": [
@@ -192,6 +192,16 @@
       "matchup": "PHI @ WSH"
     },
     {
+      "player": "Jahmai Jones",
+      "prop": "hitter_fantasy_score",
+      "line": 6.0,
+      "lean": "Over",
+      "projection": 8.0,
+      "edge": 2.05,
+      "confidence": "high",
+      "matchup": "BOS @ TEX"
+    },
+    {
       "player": "Randal Grichuk",
       "prop": "hitter_fantasy_score",
       "line": 5.0,
@@ -200,6 +210,16 @@
       "edge": 2.05,
       "confidence": "high",
       "matchup": "CWS @ CLE"
+    },
+    {
+      "player": "Willson Contreras",
+      "prop": "hitter_fantasy_score",
+      "line": 5.0,
+      "lean": "Over",
+      "projection": 7.0,
+      "edge": 2.02,
+      "confidence": "high",
+      "matchup": "BOS @ TEX"
     },
     {
       "player": "Pete Crow-Armstrong",
@@ -220,6 +240,16 @@
       "edge": 1.82,
       "confidence": "medium",
       "matchup": "BAL @ NYM"
+    },
+    {
+      "player": "Jacob deGrom",
+      "prop": "strikeouts",
+      "line": 5.0,
+      "lean": "Over",
+      "projection": 6.8,
+      "edge": 1.78,
+      "confidence": "high",
+      "matchup": "BOS @ TEX"
     },
     {
       "player": "Seiya Suzuki",
@@ -329,36 +359,6 @@
       "projection": 6.1,
       "edge": 1.63,
       "confidence": "high",
-      "matchup": "PHI @ WSH"
-    },
-    {
-      "player": "Jac Caglianone",
-      "prop": "hitter_fantasy_score",
-      "line": 5.0,
-      "lean": "Over",
-      "projection": 6.6,
-      "edge": 1.63,
-      "confidence": "medium",
-      "matchup": "KC @ HOU"
-    },
-    {
-      "player": "Lars Nootbaar",
-      "prop": "hitter_fantasy_score",
-      "line": 4.5,
-      "lean": "Over",
-      "projection": 6.1,
-      "edge": 1.61,
-      "confidence": "medium",
-      "matchup": "SF @ STL"
-    },
-    {
-      "player": "Kyle Schwarber",
-      "prop": "hitter_fantasy_score",
-      "line": 6.5,
-      "lean": "Over",
-      "projection": 8.1,
-      "edge": 1.58,
-      "confidence": "medium",
       "matchup": "PHI @ WSH"
     }
   ]

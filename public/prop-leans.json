@@ -2,7 +2,7 @@
   "generated_at": "2026-09-15",
   "source": "prop-leans-v2",
   "note": "K uses estimated PrizePicks lines when posted line unknown. Hitter FS from top-4 OPS bats per team.",
-  "actionable_count": 128,
+  "actionable_count": 138,
   "leans": [
     {
       "gameId": "lad-cin-2026-09-15-824466",
@@ -53,6 +53,22 @@
       "ops": 0.918
     },
     {
+      "gameId": "bos-tex-2026-09-15-822849",
+      "matchup": "BOS @ TEX",
+      "player": "Jahmai Jones",
+      "team": "BOS",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Jacob deGrom",
+      "fair_line": 8.0,
+      "line": 6.0,
+      "projection": 8.0,
+      "lean": "Over",
+      "edge": 2.05,
+      "confidence": "high",
+      "line_source": "prizepicks_est",
+      "ops": 1.202
+    },
+    {
       "gameId": "cws-cle-2026-09-15-824384",
       "matchup": "CWS @ CLE",
       "player": "Randal Grichuk",
@@ -67,6 +83,22 @@
       "confidence": "high",
       "line_source": "prizepicks_est",
       "ops": 0.939
+    },
+    {
+      "gameId": "bos-tex-2026-09-15-822849",
+      "matchup": "BOS @ TEX",
+      "player": "Willson Contreras",
+      "team": "BOS",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Jacob deGrom",
+      "fair_line": 7.0,
+      "line": 5.0,
+      "projection": 7.0,
+      "lean": "Over",
+      "edge": 2.02,
+      "confidence": "high",
+      "line_source": "prizepicks_est",
+      "ops": 0.904
     },
     {
       "gameId": "atl-chc-2026-09-15-824627",
@@ -99,6 +131,21 @@
       "confidence": "medium",
       "line_source": "prizepicks_est",
       "ops": 0.918
+    },
+    {
+      "gameId": "bos-tex-2026-09-15-822849",
+      "matchup": "BOS @ TEX",
+      "player": "Jacob deGrom",
+      "team": "TEX",
+      "prop": "strikeouts",
+      "fair_line": 7.0,
+      "line": 5.0,
+      "projection": 6.8,
+      "lean": "Over",
+      "edge": 1.78,
+      "confidence": "high",
+      "line_source": "prizepicks_est",
+      "k9": 11.21
     },
     {
       "gameId": "atl-chc-2026-09-15-824627",
@@ -704,6 +751,22 @@
       "k9": 9.63
     },
     {
+      "gameId": "bos-tex-2026-09-15-822849",
+      "matchup": "BOS @ TEX",
+      "player": "Justin Foscue",
+      "team": "TEX",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Patrick Sandoval",
+      "fair_line": 8.0,
+      "line": 6.5,
+      "projection": 7.8,
+      "lean": "Over",
+      "edge": 1.31,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.824
+    },
+    {
       "gameId": "sd-col-2026-09-15-824307",
       "matchup": "SD @ COL",
       "player": "TJ Rumfield",
@@ -766,6 +829,22 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.765
+    },
+    {
+      "gameId": "bos-tex-2026-09-15-822849",
+      "matchup": "BOS @ TEX",
+      "player": "Josh Jung",
+      "team": "TEX",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Patrick Sandoval",
+      "fair_line": 6.0,
+      "line": 5.0,
+      "projection": 6.2,
+      "lean": "Over",
+      "edge": 1.23,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.804
     },
     {
       "gameId": "atl-chc-2026-09-15-824627",
@@ -940,22 +1019,6 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.798
-    },
-    {
-      "gameId": "cws-cle-2026-09-15-824384",
-      "matchup": "CWS @ CLE",
-      "player": "Chase DeLauter",
-      "team": "CLE",
-      "prop": "hitter_fantasy_score",
-      "vs_pitcher": "Davis Martin",
-      "fair_line": 7.5,
-      "line": 6.5,
-      "projection": 7.6,
-      "lean": "Over",
-      "edge": 1.12,
-      "confidence": "low",
-      "line_source": "prizepicks_est",
-      "ops": 0.815
     },
     {
       "gameId": "ath-tb-2026-09-15-822925",
@@ -1150,6 +1213,22 @@
       "ops": 0.81
     },
     {
+      "gameId": "cws-cle-2026-09-15-824384",
+      "matchup": "CWS @ CLE",
+      "player": "Chase DeLauter",
+      "team": "CLE",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Chris Murphy",
+      "fair_line": 7.5,
+      "line": 6.5,
+      "projection": 7.5,
+      "lean": "Over",
+      "edge": 1.0,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.815
+    },
+    {
       "gameId": "det-tor-2026-09-15-822762",
       "matchup": "DET @ TOR",
       "player": "Braydon Fisher",
@@ -1163,6 +1242,22 @@
       "confidence": "medium",
       "line_source": "prizepicks_est",
       "k9": 8.92
+    },
+    {
+      "gameId": "bos-tex-2026-09-15-822849",
+      "matchup": "BOS @ TEX",
+      "player": "Ezequiel Duran",
+      "team": "TEX",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Patrick Sandoval",
+      "fair_line": 7.0,
+      "line": 6.0,
+      "projection": 7.0,
+      "lean": "Over",
+      "edge": 0.99,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.77
     },
     {
       "gameId": "sf-stl-2026-09-15-823007",
@@ -1229,20 +1324,36 @@
       "ops": 0.785
     },
     {
-      "gameId": "cws-cle-2026-09-15-824384",
-      "matchup": "CWS @ CLE",
-      "player": "Gabriel Arias",
-      "team": "CLE",
+      "gameId": "bos-tex-2026-09-15-822849",
+      "matchup": "BOS @ TEX",
+      "player": "Wilyer Abreu",
+      "team": "BOS",
       "prop": "hitter_fantasy_score",
-      "vs_pitcher": "Davis Martin",
-      "fair_line": 5.5,
-      "line": 4.5,
-      "projection": 5.5,
+      "vs_pitcher": "Jacob deGrom",
+      "fair_line": 6.5,
+      "line": 5.5,
+      "projection": 6.5,
       "lean": "Over",
-      "edge": 0.97,
+      "edge": 0.95,
       "confidence": "low",
       "line_source": "prizepicks_est",
-      "ops": 0.929
+      "ops": 0.802
+    },
+    {
+      "gameId": "bos-tex-2026-09-15-822849",
+      "matchup": "BOS @ TEX",
+      "player": "Ceddanne Rafaela",
+      "team": "BOS",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Jacob deGrom",
+      "fair_line": 6.5,
+      "line": 5.5,
+      "projection": 6.5,
+      "lean": "Over",
+      "edge": 0.95,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.76
     },
     {
       "gameId": "ath-tb-2026-09-15-822925",
@@ -1357,6 +1468,22 @@
       "ops": 0.763
     },
     {
+      "gameId": "cws-cle-2026-09-15-824384",
+      "matchup": "CWS @ CLE",
+      "player": "Travis Bazzana",
+      "team": "CLE",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Chris Murphy",
+      "fair_line": 7.5,
+      "line": 6.5,
+      "projection": 7.4,
+      "lean": "Over",
+      "edge": 0.91,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.739
+    },
+    {
       "gameId": "lad-cin-2026-09-15-824466",
       "matchup": "LAD @ CIN",
       "player": "Freddie Freeman",
@@ -1419,6 +1546,22 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.7
+    },
+    {
+      "gameId": "cws-cle-2026-09-15-824384",
+      "matchup": "CWS @ CLE",
+      "player": "Gabriel Arias",
+      "team": "CLE",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Chris Murphy",
+      "fair_line": 5.5,
+      "line": 4.5,
+      "projection": 5.4,
+      "lean": "Over",
+      "edge": 0.88,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.929
     },
     {
       "gameId": "cws-cle-2026-09-15-824384",
@@ -1644,22 +1787,6 @@
       "ops": 0.801
     },
     {
-      "gameId": "cws-cle-2026-09-15-824384",
-      "matchup": "CWS @ CLE",
-      "player": "Angel Mart\u00ednez",
-      "team": "CLE",
-      "prop": "hitter_fantasy_score",
-      "vs_pitcher": "Davis Martin",
-      "fair_line": 6.5,
-      "line": 5.5,
-      "projection": 6.3,
-      "lean": "Over",
-      "edge": 0.8,
-      "confidence": "low",
-      "line_source": "prizepicks_est",
-      "ops": 0.728
-    },
-    {
       "gameId": "atl-chc-2026-09-15-824627",
       "matchup": "ATL @ CHC",
       "player": "Mauricio Dub\u00f3n",
@@ -1690,6 +1817,37 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.772
+    },
+    {
+      "gameId": "cws-cle-2026-09-15-824384",
+      "matchup": "CWS @ CLE",
+      "player": "Chris Murphy",
+      "team": "CWS",
+      "prop": "strikeouts",
+      "fair_line": 5.5,
+      "line": 4.5,
+      "projection": 5.3,
+      "lean": "Over",
+      "edge": 0.79,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "k9": 8.78
+    },
+    {
+      "gameId": "bos-tex-2026-09-15-822849",
+      "matchup": "BOS @ TEX",
+      "player": "Joc Pederson",
+      "team": "TEX",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Patrick Sandoval",
+      "fair_line": 7.0,
+      "line": 6.0,
+      "projection": 6.8,
+      "lean": "Over",
+      "edge": 0.77,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.816
     },
     {
       "gameId": "mia-az-2026-09-15-825030",
@@ -1786,6 +1944,21 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.8
+    },
+    {
+      "gameId": "bos-tex-2026-09-15-822849",
+      "matchup": "BOS @ TEX",
+      "player": "Patrick Sandoval",
+      "team": "BOS",
+      "prop": "strikeouts",
+      "fair_line": 5.5,
+      "line": 5.0,
+      "projection": 5.7,
+      "lean": "Over",
+      "edge": 0.74,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "k9": 9.33
     },
     {
       "gameId": "lad-cin-2026-09-15-824466",
@@ -1923,21 +2096,6 @@
       "k9": 6.87
     },
     {
-      "gameId": "cws-cle-2026-09-15-824384",
-      "matchup": "CWS @ CLE",
-      "player": "Davis Martin",
-      "team": "CWS",
-      "prop": "strikeouts",
-      "fair_line": 4.5,
-      "line": 4.0,
-      "projection": 4.6,
-      "lean": "Over",
-      "edge": 0.6,
-      "confidence": "low",
-      "line_source": "prizepicks_est",
-      "k9": 7.63
-    },
-    {
       "gameId": "nyy-min-2026-09-15-823654",
       "matchup": "NYY @ MIN",
       "player": "Bailey Ober",
@@ -2060,6 +2218,22 @@
       "ops": 0.746
     },
     {
+      "gameId": "cws-cle-2026-09-15-824384",
+      "matchup": "CWS @ CLE",
+      "player": "Angel Mart\u00ednez",
+      "team": "CLE",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Chris Murphy",
+      "fair_line": 6.0,
+      "line": 5.5,
+      "projection": 6.2,
+      "lean": "Pass",
+      "edge": 0.7,
+      "confidence": "pass",
+      "line_source": "prizepicks_est",
+      "ops": 0.728
+    },
+    {
       "gameId": "kc-hou-2026-09-15-824143",
       "matchup": "KC @ HOU",
       "player": "Yainer Diaz",
@@ -2122,22 +2296,6 @@
       "confidence": "pass",
       "line_source": "prizepicks_est",
       "ops": 0.723
-    },
-    {
-      "gameId": "cws-cle-2026-09-15-824384",
-      "matchup": "CWS @ CLE",
-      "player": "Travis Bazzana",
-      "team": "CLE",
-      "prop": "hitter_fantasy_score",
-      "vs_pitcher": "Davis Martin",
-      "fair_line": 7.5,
-      "line": 7.0,
-      "projection": 7.5,
-      "lean": "Pass",
-      "edge": 0.54,
-      "confidence": "pass",
-      "line_source": "prizepicks_est",
-      "ops": 0.739
     },
     {
       "gameId": "det-tor-2026-09-15-822762",
@@ -2249,6 +2407,16 @@
       "matchup": "PHI @ WSH"
     },
     {
+      "player": "Jahmai Jones",
+      "prop": "hitter_fantasy_score",
+      "lean": "Over",
+      "line": 6.0,
+      "projection": 8.0,
+      "edge": 2.05,
+      "confidence": "high",
+      "matchup": "BOS @ TEX"
+    },
+    {
       "player": "Randal Grichuk",
       "prop": "hitter_fantasy_score",
       "lean": "Over",
@@ -2257,6 +2425,16 @@
       "edge": 2.05,
       "confidence": "high",
       "matchup": "CWS @ CLE"
+    },
+    {
+      "player": "Willson Contreras",
+      "prop": "hitter_fantasy_score",
+      "lean": "Over",
+      "line": 5.0,
+      "projection": 7.0,
+      "edge": 2.02,
+      "confidence": "high",
+      "matchup": "BOS @ TEX"
     },
     {
       "player": "Pete Crow-Armstrong",
@@ -2277,6 +2455,16 @@
       "edge": 1.82,
       "confidence": "medium",
       "matchup": "BAL @ NYM"
+    },
+    {
+      "player": "Jacob deGrom",
+      "prop": "strikeouts",
+      "lean": "Over",
+      "line": 5.0,
+      "projection": 6.8,
+      "edge": 1.78,
+      "confidence": "high",
+      "matchup": "BOS @ TEX"
     },
     {
       "player": "Seiya Suzuki",
@@ -2307,36 +2495,6 @@
       "edge": 1.72,
       "confidence": "medium",
       "matchup": "LAD @ CIN"
-    },
-    {
-      "player": "Jacob Misiorowski",
-      "prop": "strikeouts",
-      "lean": "Over",
-      "line": 6.5,
-      "projection": 8.2,
-      "edge": 1.72,
-      "confidence": "high",
-      "matchup": "MIL @ PIT"
-    },
-    {
-      "player": "Randy Arozarena",
-      "prop": "hitter_fantasy_score",
-      "lean": "Over",
-      "line": 6.0,
-      "projection": 7.7,
-      "edge": 1.7,
-      "confidence": "medium",
-      "matchup": "SEA @ LAA"
-    },
-    {
-      "player": "Jake McCarthy",
-      "prop": "hitter_fantasy_score",
-      "lean": "Over",
-      "line": 6.0,
-      "projection": 7.7,
-      "edge": 1.68,
-      "confidence": "medium",
-      "matchup": "SD @ COL"
     }
   ]
 }

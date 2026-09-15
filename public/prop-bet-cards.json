@@ -4,6 +4,28 @@
   "disclaimer": "Compare use_line to PrizePicks posted line before playing.",
   "cards": [
     {
+      "player": "Jacob deGrom",
+      "team": "TEX",
+      "opponent": "BOS",
+      "matchup": "BOS @ TEX",
+      "game_date": "2026-09-15",
+      "props": [
+        {
+          "prop": "strikeouts",
+          "pick": "Over",
+          "model_line": 7.0,
+          "use_line": 5.0,
+          "projection": 6.8,
+          "edge": 1.78,
+          "confidence": "high",
+          "k9": 11.21,
+          "opp_k_rate": 0.214
+        }
+      ],
+      "headline": "Over 5.0 STRIKEOUTS (high confidence)",
+      "notes": []
+    },
+    {
       "player": "Jacob Misiorowski",
       "team": "MIL",
       "opponent": "PIT",
@@ -202,6 +224,28 @@
       "notes": []
     },
     {
+      "player": "Chris Murphy",
+      "team": "CWS",
+      "opponent": "CLE",
+      "matchup": "CWS @ CLE",
+      "game_date": "2026-09-15",
+      "props": [
+        {
+          "prop": "strikeouts",
+          "pick": "Over",
+          "model_line": 5.5,
+          "use_line": 4.5,
+          "projection": 5.3,
+          "edge": 0.79,
+          "confidence": "medium",
+          "k9": 8.78,
+          "opp_k_rate": 0.211
+        }
+      ],
+      "headline": "Over 4.5 STRIKEOUTS (medium confidence)",
+      "notes": []
+    },
+    {
       "player": "Patrick Sandoval",
       "team": "BOS",
       "opponent": "TEX",
@@ -221,9 +265,7 @@
         }
       ],
       "headline": "Over 5.0 STRIKEOUTS (medium confidence)",
-      "notes": [
-        "Probable starter not fully confirmed \u2014 verify before betting."
-      ]
+      "notes": []
     },
     {
       "player": "Rhett Lowder",
@@ -421,28 +463,6 @@
         }
       ],
       "headline": "Over 3.5 STRIKEOUTS (medium confidence)",
-      "notes": []
-    },
-    {
-      "player": "Davis Martin",
-      "team": "CWS",
-      "opponent": "CLE",
-      "matchup": "CWS @ CLE",
-      "game_date": "2026-09-15",
-      "props": [
-        {
-          "prop": "strikeouts",
-          "pick": "Over",
-          "model_line": 4.5,
-          "use_line": 4.0,
-          "projection": 4.6,
-          "edge": 0.6,
-          "confidence": "medium",
-          "k9": 7.63,
-          "opp_k_rate": 0.211
-        }
-      ],
-      "headline": "Over 4.0 STRIKEOUTS (medium confidence)",
       "notes": []
     },
     {
