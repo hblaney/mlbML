@@ -321,6 +321,22 @@
       "ops": 0.856
     },
     {
+      "gameId": "bal-nym-2026-09-16-823576",
+      "matchup": "BAL @ NYM",
+      "player": "Pete Alonso",
+      "team": "BAL",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Xzavion Curry",
+      "fair_line": 7.5,
+      "line": 6.0,
+      "projection": 7.6,
+      "lean": "Over",
+      "edge": 1.62,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.861
+    },
+    {
       "gameId": "sd-col-2026-09-16-824306",
       "matchup": "SD @ COL",
       "player": "Ty France",
@@ -752,22 +768,6 @@
       "ops": 0.821
     },
     {
-      "gameId": "bal-nym-2026-09-16-823576",
-      "matchup": "BAL @ NYM",
-      "player": "Pete Alonso",
-      "team": "BAL",
-      "prop": "hitter_fantasy_score",
-      "vs_pitcher": "Robert Stock",
-      "fair_line": 8.5,
-      "line": 7.0,
-      "projection": 8.3,
-      "lean": "Over",
-      "edge": 1.31,
-      "confidence": "medium",
-      "line_source": "prizepicks_est",
-      "ops": 0.861
-    },
-    {
       "gameId": "bos-tex-2026-09-16-822846",
       "matchup": "BOS @ TEX",
       "player": "MacKenzie Gore",
@@ -1089,6 +1089,22 @@
     {
       "gameId": "bal-nym-2026-09-16-823576",
       "matchup": "BAL @ NYM",
+      "player": "Coby Mayo",
+      "team": "BAL",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Xzavion Curry",
+      "fair_line": 7.0,
+      "line": 6.0,
+      "projection": 7.1,
+      "lean": "Over",
+      "edge": 1.15,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.759
+    },
+    {
+      "gameId": "bal-nym-2026-09-16-823576",
+      "matchup": "BAL @ NYM",
       "player": "Jared Young",
       "team": "NYM",
       "prop": "hitter_fantasy_score",
@@ -1358,22 +1374,6 @@
       "k9": 9.98
     },
     {
-      "gameId": "bal-nym-2026-09-16-823576",
-      "matchup": "BAL @ NYM",
-      "player": "Christian Encarnacion-Strand",
-      "team": "BAL",
-      "prop": "hitter_fantasy_score",
-      "vs_pitcher": "Robert Stock",
-      "fair_line": 7.5,
-      "line": 6.5,
-      "projection": 7.5,
-      "lean": "Over",
-      "edge": 0.99,
-      "confidence": "low",
-      "line_source": "prizepicks_est",
-      "ops": 0.802
-    },
-    {
       "gameId": "nyy-min-2026-09-16-823655",
       "matchup": "NYY @ MIN",
       "player": "Cody Bellinger",
@@ -1629,6 +1629,22 @@
       "ops": 0.777
     },
     {
+      "gameId": "bal-nym-2026-09-16-823576",
+      "matchup": "BAL @ NYM",
+      "player": "Christian Encarnacion-Strand",
+      "team": "BAL",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Xzavion Curry",
+      "fair_line": 7.0,
+      "line": 6.0,
+      "projection": 6.9,
+      "lean": "Over",
+      "edge": 0.86,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.802
+    },
+    {
       "gameId": "nyy-min-2026-09-16-823655",
       "matchup": "NYY @ MIN",
       "player": "Kody Clemens",
@@ -1770,22 +1786,6 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.754
-    },
-    {
-      "gameId": "bal-nym-2026-09-16-823576",
-      "matchup": "BAL @ NYM",
-      "player": "Coby Mayo",
-      "team": "BAL",
-      "prop": "hitter_fantasy_score",
-      "vs_pitcher": "Robert Stock",
-      "fair_line": 8.0,
-      "line": 7.0,
-      "projection": 7.8,
-      "lean": "Over",
-      "edge": 0.8,
-      "confidence": "low",
-      "line_source": "prizepicks_est",
-      "ops": 0.759
     },
     {
       "gameId": "kc-hou-2026-09-16-824140",
@@ -2035,21 +2035,6 @@
       "k9": 8.22
     },
     {
-      "gameId": "bal-nym-2026-09-16-823576",
-      "matchup": "BAL @ NYM",
-      "player": "Robert Stock",
-      "team": "NYM",
-      "prop": "strikeouts",
-      "fair_line": 4.0,
-      "line": 3.5,
-      "projection": 3.9,
-      "lean": "Over",
-      "edge": 0.44,
-      "confidence": "low",
-      "line_source": "prizepicks_est",
-      "k9": 6.24
-    },
-    {
       "gameId": "cws-cle-2026-09-16-824382",
       "matchup": "CWS @ CLE",
       "player": "Anthony Kay",
@@ -2095,6 +2080,21 @@
       "k9": 7.11
     },
     {
+      "gameId": "bal-nym-2026-09-16-823576",
+      "matchup": "BAL @ NYM",
+      "player": "Xzavion Curry",
+      "team": "NYM",
+      "prop": "strikeouts",
+      "fair_line": 2.5,
+      "line": 3.5,
+      "projection": 2.7,
+      "lean": "Under",
+      "edge": 0.84,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "k9": 4.22
+    },
+    {
       "gameId": "mia-az-2026-09-16-825031",
       "matchup": "MIA @ AZ",
       "player": "Tyler Locklear",
@@ -2122,22 +2122,6 @@
       "projection": 6.7,
       "lean": "Pass",
       "edge": 0.69,
-      "confidence": "pass",
-      "line_source": "prizepicks_est",
-      "ops": 0.729
-    },
-    {
-      "gameId": "bal-nym-2026-09-16-823576",
-      "matchup": "BAL @ NYM",
-      "player": "Taylor Ward",
-      "team": "BAL",
-      "prop": "hitter_fantasy_score",
-      "vs_pitcher": "Robert Stock",
-      "fair_line": 6.5,
-      "line": 6.0,
-      "projection": 6.6,
-      "lean": "Pass",
-      "edge": 0.64,
       "confidence": "pass",
       "line_source": "prizepicks_est",
       "ops": 0.729
@@ -2173,6 +2157,22 @@
       "confidence": "pass",
       "line_source": "prizepicks_est",
       "ops": 0.745
+    },
+    {
+      "gameId": "bal-nym-2026-09-16-823576",
+      "matchup": "BAL @ NYM",
+      "player": "Taylor Ward",
+      "team": "BAL",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Xzavion Curry",
+      "fair_line": 6.0,
+      "line": 5.5,
+      "projection": 6.1,
+      "lean": "Pass",
+      "edge": 0.58,
+      "confidence": "pass",
+      "line_source": "prizepicks_est",
+      "ops": 0.729
     },
     {
       "gameId": "det-tor-2026-09-16-822763",
