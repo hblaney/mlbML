@@ -2,8 +2,24 @@
   "generated_at": "2026-09-17",
   "source": "prop-leans-v2",
   "note": "K uses estimated PrizePicks lines when posted line unknown. Hitter FS from top-4 OPS bats per team.",
-  "actionable_count": 75,
+  "actionable_count": 84,
   "leans": [
+    {
+      "gameId": "kc-hou-2026-09-17-824141",
+      "matchup": "KC @ HOU",
+      "player": "Yordan Alvarez",
+      "team": "HOU",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Seth Lugo",
+      "fair_line": 8.0,
+      "line": 6.0,
+      "projection": 8.2,
+      "lean": "Over",
+      "edge": 2.19,
+      "confidence": "high",
+      "line_source": "prizepicks_est",
+      "ops": 1.022
+    },
     {
       "gameId": "lad-cin-2026-09-17-824464",
       "matchup": "LAD @ CIN",
@@ -98,6 +114,21 @@
       "confidence": "high",
       "line_source": "prizepicks_est",
       "k9": 10.9
+    },
+    {
+      "gameId": "kc-hou-2026-09-17-824141",
+      "matchup": "KC @ HOU",
+      "player": "Miguel Ullola",
+      "team": "HOU",
+      "prop": "strikeouts",
+      "fair_line": 7.0,
+      "line": 5.0,
+      "projection": 6.8,
+      "lean": "Over",
+      "edge": 1.75,
+      "confidence": "high",
+      "line_source": "prizepicks_est",
+      "k9": 11.25
     },
     {
       "gameId": "sd-col-2026-09-17-824305",
@@ -563,6 +594,22 @@
       "ops": 0.784
     },
     {
+      "gameId": "kc-hou-2026-09-17-824141",
+      "matchup": "KC @ HOU",
+      "player": "Tyler Tolbert",
+      "team": "KC",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Miguel Ullola",
+      "fair_line": 9.0,
+      "line": 8.0,
+      "projection": 9.2,
+      "lean": "Over",
+      "edge": 1.16,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.77
+    },
+    {
       "gameId": "det-cws-2026-09-17-824548",
       "matchup": "DET @ CWS",
       "player": "Tristan Peters",
@@ -595,6 +642,22 @@
       "ops": 0.768
     },
     {
+      "gameId": "kc-hou-2026-09-17-824141",
+      "matchup": "KC @ HOU",
+      "player": "Carter Jensen",
+      "team": "KC",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Miguel Ullola",
+      "fair_line": 6.0,
+      "line": 5.0,
+      "projection": 6.1,
+      "lean": "Over",
+      "edge": 1.11,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.772
+    },
+    {
       "gameId": "lad-cin-2026-09-17-824464",
       "matchup": "LAD @ CIN",
       "player": "Sal Stewart",
@@ -625,6 +688,22 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.79
+    },
+    {
+      "gameId": "kc-hou-2026-09-17-824141",
+      "matchup": "KC @ HOU",
+      "player": "Michael Massey",
+      "team": "KC",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Miguel Ullola",
+      "fair_line": 5.5,
+      "line": 4.5,
+      "projection": 5.6,
+      "lean": "Over",
+      "edge": 1.06,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.759
     },
     {
       "gameId": "phi-nym-2026-09-17-823573",
@@ -736,6 +815,22 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.789
+    },
+    {
+      "gameId": "kc-hou-2026-09-17-824141",
+      "matchup": "KC @ HOU",
+      "player": "Isaac Paredes",
+      "team": "HOU",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Seth Lugo",
+      "fair_line": 6.5,
+      "line": 5.5,
+      "projection": 6.4,
+      "lean": "Over",
+      "edge": 0.92,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.784
     },
     {
       "gameId": "bos-tex-2026-09-17-822845",
@@ -882,6 +977,22 @@
       "ops": 0.813
     },
     {
+      "gameId": "kc-hou-2026-09-17-824141",
+      "matchup": "KC @ HOU",
+      "player": "Jac Caglianone",
+      "team": "KC",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Miguel Ullola",
+      "fair_line": 6.5,
+      "line": 5.5,
+      "projection": 6.3,
+      "lean": "Over",
+      "edge": 0.82,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.813
+    },
+    {
       "gameId": "det-cws-2026-09-17-824548",
       "matchup": "DET @ CWS",
       "player": "Kevin McGonigle",
@@ -962,6 +1073,22 @@
       "ops": 0.816
     },
     {
+      "gameId": "kc-hou-2026-09-17-824141",
+      "matchup": "KC @ HOU",
+      "player": "Jeremy Pe\u00f1a",
+      "team": "HOU",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Seth Lugo",
+      "fair_line": 7.5,
+      "line": 6.5,
+      "projection": 7.3,
+      "lean": "Over",
+      "edge": 0.78,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.799
+    },
+    {
       "gameId": "lad-cin-2026-09-17-824464",
       "matchup": "LAD @ CIN",
       "player": "Freddie Freeman",
@@ -1024,6 +1151,21 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.751
+    },
+    {
+      "gameId": "kc-hou-2026-09-17-824141",
+      "matchup": "KC @ HOU",
+      "player": "Seth Lugo",
+      "team": "KC",
+      "prop": "strikeouts",
+      "fair_line": 4.0,
+      "line": 3.5,
+      "projection": 4.2,
+      "lean": "Over",
+      "edge": 0.69,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "k9": 6.91
     },
     {
       "gameId": "sd-col-2026-09-17-824305",
@@ -1207,6 +1349,22 @@
       "ops": 0.748
     },
     {
+      "gameId": "kc-hou-2026-09-17-824141",
+      "matchup": "KC @ HOU",
+      "player": "Yainer Diaz",
+      "team": "HOU",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Seth Lugo",
+      "fair_line": 6.0,
+      "line": 5.5,
+      "projection": 6.1,
+      "lean": "Pass",
+      "edge": 0.58,
+      "confidence": "pass",
+      "line_source": "prizepicks_est",
+      "ops": 0.748
+    },
+    {
       "gameId": "det-cws-2026-09-17-824548",
       "matchup": "DET @ CWS",
       "player": "Spencer Torkelson",
@@ -1271,6 +1429,16 @@
   ],
   "top_plays": [
     {
+      "player": "Yordan Alvarez",
+      "prop": "hitter_fantasy_score",
+      "lean": "Over",
+      "line": 6.0,
+      "projection": 8.2,
+      "edge": 2.19,
+      "confidence": "high",
+      "matchup": "KC @ HOU"
+    },
+    {
       "player": "Shohei Ohtani",
       "prop": "hitter_fantasy_score",
       "lean": "Over",
@@ -1331,6 +1499,16 @@
       "matchup": "MIL @ PIT"
     },
     {
+      "player": "Miguel Ullola",
+      "prop": "strikeouts",
+      "lean": "Over",
+      "line": 5.0,
+      "projection": 6.8,
+      "edge": 1.75,
+      "confidence": "high",
+      "matchup": "KC @ HOU"
+    },
+    {
       "player": "Jake McCarthy",
       "prop": "hitter_fantasy_score",
       "lean": "Over",
@@ -1369,26 +1547,6 @@
       "edge": 1.64,
       "confidence": "medium",
       "matchup": "MIN @ LAA"
-    },
-    {
-      "player": "Miguel Vargas",
-      "prop": "hitter_fantasy_score",
-      "lean": "Over",
-      "line": 5.5,
-      "projection": 7.1,
-      "edge": 1.64,
-      "confidence": "medium",
-      "matchup": "DET @ CWS"
-    },
-    {
-      "player": "Esmerlyn Valdez",
-      "prop": "hitter_fantasy_score",
-      "lean": "Over",
-      "line": 7.5,
-      "projection": 9.1,
-      "edge": 1.63,
-      "confidence": "medium",
-      "matchup": "MIL @ PIT"
     }
   ]
 }
