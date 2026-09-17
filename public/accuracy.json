@@ -209,12 +209,12 @@
     "hit_rate": 0.6667
   },
   "archive": {
-    "evaluated_games": 4543.0,
-    "overall_accuracy": 0.56
+    "evaluated_games": 4545.0,
+    "overall_accuracy": 0.5602
   },
   "brier_score": 0.0,
   "days_at_or_above_60pct": 61.0,
-  "weeks_at_or_above_60pct": 14.0,
+  "weeks_at_or_above_60pct": 15.0,
   "daily_accuracy": {
     "2025-04-09": 0.5,
     "2025-04-10": 0.6666666666666666,
@@ -558,7 +558,7 @@
     "2026-09-14": 0.8,
     "2026-09-15": 0.4,
     "2026-09-16": 0.6666666666666666,
-    "2026-09-17": 0.5
+    "2026-09-17": 0.75
   },
   "weekly_accuracy": {
     "2025-W15": 0.5961538461538461,
@@ -611,55 +611,9 @@
     "2026-W35": 0.5268817204301075,
     "2026-W36": 0.5257731958762887,
     "2026-W37": 0.4945054945054945,
-    "2026-W38": 0.5952380952380952
+    "2026-W38": 0.6136363636363636
   },
   "recent_predictions": [
-    {
-      "gamePk": 823575,
-      "date": "2026-09-14",
-      "startsAt": "2026-09-14T23:10:00Z",
-      "home": "NYM",
-      "away": "BAL",
-      "internalHomeProbability": 0.5766,
-      "internalPickProbability": 0.5766,
-      "probability": 0.5766,
-      "pickProbability": 0.5766,
-      "rawPickProbability": 0.5766,
-      "confidence": "Medium",
-      "eraDiff": -3.19875,
-      "formEdge": 0.4,
-      "marketAgrees": true,
-      "modelEdge": 0.0179,
-      "marketBacked": true,
-      "predicted": "NYM",
-      "actual": "BAL",
-      "correct": 0,
-      "modelVersion": "daily-auto-v6.2-mkt-cal",
-      "source": "live_board"
-    },
-    {
-      "gamePk": 823656,
-      "date": "2026-09-14",
-      "startsAt": "2026-09-14T23:40:00Z",
-      "home": "MIN",
-      "away": "NYY",
-      "internalHomeProbability": 0.4526,
-      "internalPickProbability": 0.5474,
-      "probability": 0.4526,
-      "pickProbability": 0.5474,
-      "rawPickProbability": 0.5474,
-      "confidence": "Medium",
-      "eraDiff": 1.393279,
-      "formEdge": 0.4,
-      "marketAgrees": true,
-      "modelEdge": 0.001,
-      "marketBacked": true,
-      "predicted": "NYY",
-      "actual": "NYY",
-      "correct": 1,
-      "modelVersion": "daily-auto-v6.2-mkt-cal",
-      "source": "live_board"
-    },
     {
       "gamePk": 823981,
       "date": "2026-09-14",
@@ -1489,6 +1443,29 @@
       "source": "live_board"
     },
     {
+      "gamePk": 822924,
+      "date": "2026-09-17",
+      "startsAt": "2026-09-17T17:10:00Z",
+      "home": "TB",
+      "away": "ATH",
+      "internalHomeProbability": 0.6545,
+      "internalPickProbability": 0.6545,
+      "probability": 0.6545,
+      "pickProbability": 0.6545,
+      "rawPickProbability": 0.6545,
+      "confidence": "Medium",
+      "eraDiff": 3.12,
+      "formEdge": 0.3,
+      "marketAgrees": null,
+      "modelEdge": 0.0,
+      "marketBacked": false,
+      "predicted": "TB",
+      "actual": "TB",
+      "correct": 1,
+      "modelVersion": "daily-auto-v6.2-mkt-cal",
+      "source": "live_board"
+    },
+    {
       "gamePk": 823334,
       "date": "2026-09-17",
       "startsAt": "2026-09-17T16:35:00Z",
@@ -1508,6 +1485,29 @@
       "predicted": "MIL",
       "actual": "PIT",
       "correct": 0,
+      "modelVersion": "daily-auto-v6.2-mkt-cal",
+      "source": "live_board"
+    },
+    {
+      "gamePk": 824305,
+      "date": "2026-09-17",
+      "startsAt": "2026-09-17T19:10:00Z",
+      "home": "COL",
+      "away": "SD",
+      "internalHomeProbability": 0.3392,
+      "internalPickProbability": 0.6608,
+      "probability": 0.3392,
+      "pickProbability": 0.6608,
+      "rawPickProbability": 0.6608,
+      "confidence": "Medium",
+      "eraDiff": 2.52,
+      "formEdge": 0.8,
+      "marketAgrees": null,
+      "modelEdge": 0.0,
+      "marketBacked": false,
+      "predicted": "SD",
+      "actual": "SD",
+      "correct": 1,
       "modelVersion": "daily-auto-v6.2-mkt-cal",
       "source": "live_board"
     },
