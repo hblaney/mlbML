@@ -331,7 +331,9 @@
         }
       ],
       "headline": "Over 3.5 STRIKEOUTS (medium confidence)",
-      "notes": []
+      "notes": [
+        "Probable starter not fully confirmed \u2014 verify before betting."
+      ]
     },
     {
       "player": "Tyler Mahle",
@@ -465,9 +467,7 @@
         }
       ],
       "headline": "Over 5.0 STRIKEOUTS (medium confidence)",
-      "notes": [
-        "Probable starter not fully confirmed \u2014 verify before betting."
-      ]
+      "notes": []
     },
     {
       "player": "Grayson Rodriguez",
