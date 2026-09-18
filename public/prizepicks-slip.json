@@ -120,6 +120,16 @@
       "matchup": "ATH @ CLE"
     },
     {
+      "player": "Juan Soto",
+      "prop": "hitter_fantasy_score",
+      "lean": "Over",
+      "line": 5.5,
+      "projection": 7.4,
+      "edge": 1.86,
+      "confidence": "medium",
+      "matchup": "PHI @ NYM"
+    },
+    {
       "player": "Dylan Cease",
       "prop": "strikeouts",
       "lean": "Over",
@@ -148,16 +158,6 @@
       "edge": 1.8,
       "confidence": "high",
       "matchup": "SF @ LAD"
-    },
-    {
-      "player": "Pete Crow-Armstrong",
-      "prop": "hitter_fantasy_score",
-      "lean": "Over",
-      "line": 6.5,
-      "projection": 8.3,
-      "edge": 1.79,
-      "confidence": "medium",
-      "matchup": "CHC @ CIN"
     }
   ],
   "all_actionable": [
@@ -252,6 +252,16 @@
       "matchup": "TOR @ TEX"
     },
     {
+      "player": "Juan Soto",
+      "prop": "hitter_fantasy_score",
+      "line": 5.5,
+      "lean": "Over",
+      "projection": 7.4,
+      "edge": 1.86,
+      "confidence": "medium",
+      "matchup": "PHI @ NYM"
+    },
+    {
       "player": "Cade Cavalli",
       "prop": "strikeouts",
       "line": 4.5,
@@ -322,6 +332,16 @@
       "matchup": "MIN @ LAA"
     },
     {
+      "player": "Hunter Goodman",
+      "prop": "hitter_fantasy_score",
+      "line": 5.5,
+      "lean": "Over",
+      "projection": 7.2,
+      "edge": 1.68,
+      "confidence": "medium",
+      "matchup": "SEA @ COL"
+    },
+    {
       "player": "Ian Seymour",
       "prop": "strikeouts",
       "line": 5.0,
@@ -340,26 +360,6 @@
       "edge": 1.67,
       "confidence": "medium",
       "matchup": "WSH @ STL"
-    },
-    {
-      "player": "Paul Skenes",
-      "prop": "strikeouts",
-      "line": 4.5,
-      "lean": "Over",
-      "projection": 6.2,
-      "edge": 1.67,
-      "confidence": "high",
-      "matchup": "KC @ PIT"
-    },
-    {
-      "player": "Junior Caminero",
-      "prop": "hitter_fantasy_score",
-      "line": 5.5,
-      "lean": "Over",
-      "projection": 7.1,
-      "edge": 1.65,
-      "confidence": "medium",
-      "matchup": "BOS @ TB"
     }
   ]
 }

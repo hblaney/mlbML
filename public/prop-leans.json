@@ -2,7 +2,7 @@
   "generated_at": "2026-09-18",
   "source": "prop-leans-v2",
   "note": "K uses estimated PrizePicks lines when posted line unknown. Hitter FS from top-4 OPS bats per team.",
-  "actionable_count": 120,
+  "actionable_count": 140,
   "leans": [
     {
       "gameId": "atl-hou-2026-09-18-824138",
@@ -146,6 +146,22 @@
       "k9": 12.77
     },
     {
+      "gameId": "phi-nym-2026-09-18-823572",
+      "matchup": "PHI @ NYM",
+      "player": "Juan Soto",
+      "team": "NYM",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Tim Mayza",
+      "fair_line": 7.5,
+      "line": 5.5,
+      "projection": 7.4,
+      "lean": "Over",
+      "edge": 1.86,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.905
+    },
+    {
       "gameId": "wsh-stl-2026-09-18-823005",
       "matchup": "WSH @ STL",
       "player": "Cade Cavalli",
@@ -253,6 +269,22 @@
       "confidence": "medium",
       "line_source": "prizepicks_est",
       "ops": 0.838
+    },
+    {
+      "gameId": "sea-col-2026-09-18-824303",
+      "matchup": "SEA @ COL",
+      "player": "Hunter Goodman",
+      "team": "COL",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Bryan Woo",
+      "fair_line": 7.0,
+      "line": 5.5,
+      "projection": 7.2,
+      "lean": "Over",
+      "edge": 1.68,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.841
     },
     {
       "gameId": "bos-tb-2026-09-18-822923",
@@ -397,6 +429,22 @@
       "ops": 0.834
     },
     {
+      "gameId": "phi-nym-2026-09-18-823572",
+      "matchup": "PHI @ NYM",
+      "player": "Kyle Schwarber",
+      "team": "PHI",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Zac Thornton",
+      "fair_line": 7.0,
+      "line": 5.5,
+      "projection": 7.1,
+      "lean": "Over",
+      "edge": 1.56,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.865
+    },
+    {
       "gameId": "ath-cle-2026-09-18-824383",
       "matchup": "ATH @ CLE",
       "player": "Gabriel Arias",
@@ -459,6 +507,38 @@
       "confidence": "medium",
       "line_source": "prizepicks_est",
       "ops": 0.83
+    },
+    {
+      "gameId": "sea-col-2026-09-18-824303",
+      "matchup": "SEA @ COL",
+      "player": "TJ Rumfield",
+      "team": "COL",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Bryan Woo",
+      "fair_line": 7.0,
+      "line": 5.5,
+      "projection": 7.0,
+      "lean": "Over",
+      "edge": 1.5,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.849
+    },
+    {
+      "gameId": "sea-col-2026-09-18-824303",
+      "matchup": "SEA @ COL",
+      "player": "Randy Arozarena",
+      "team": "SEA",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Gabriel Hughes",
+      "fair_line": 8.0,
+      "line": 6.5,
+      "projection": 8.0,
+      "lean": "Over",
+      "edge": 1.5,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.851
     },
     {
       "gameId": "nyy-az-2026-09-18-825032",
@@ -541,6 +621,22 @@
       "ops": 0.865
     },
     {
+      "gameId": "phi-nym-2026-09-18-823572",
+      "matchup": "PHI @ NYM",
+      "player": "Bryce Harper",
+      "team": "PHI",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Zac Thornton",
+      "fair_line": 7.0,
+      "line": 5.5,
+      "projection": 6.9,
+      "lean": "Over",
+      "edge": 1.42,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.884
+    },
+    {
       "gameId": "det-cws-2026-09-18-824547",
       "matchup": "DET @ CWS",
       "player": "Miguel Vargas",
@@ -555,6 +651,22 @@
       "confidence": "medium",
       "line_source": "prizepicks_est",
       "ops": 0.827
+    },
+    {
+      "gameId": "sea-col-2026-09-18-824303",
+      "matchup": "SEA @ COL",
+      "player": "Jake McCarthy",
+      "team": "COL",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Bryan Woo",
+      "fair_line": 7.5,
+      "line": 6.0,
+      "projection": 7.4,
+      "lean": "Over",
+      "edge": 1.39,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.825
     },
     {
       "gameId": "wsh-stl-2026-09-18-823005",
@@ -909,6 +1021,22 @@
       "ops": 0.808
     },
     {
+      "gameId": "sea-col-2026-09-18-824303",
+      "matchup": "SEA @ COL",
+      "player": "Dominic Canzone",
+      "team": "SEA",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Gabriel Hughes",
+      "fair_line": 7.0,
+      "line": 6.0,
+      "projection": 7.2,
+      "lean": "Over",
+      "edge": 1.16,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.808
+    },
+    {
       "gameId": "mia-sd-2026-09-18-823252",
       "matchup": "MIA @ SD",
       "player": "Liam Hicks",
@@ -1019,6 +1147,22 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.787
+    },
+    {
+      "gameId": "phi-nym-2026-09-18-823572",
+      "matchup": "PHI @ NYM",
+      "player": "Bryan De La Cruz",
+      "team": "PHI",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Zac Thornton",
+      "fair_line": 6.0,
+      "line": 5.0,
+      "projection": 6.1,
+      "lean": "Over",
+      "edge": 1.11,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.79
     },
     {
       "gameId": "chc-cin-2026-09-18-824463",
@@ -1147,6 +1291,22 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.818
+    },
+    {
+      "gameId": "phi-nym-2026-09-18-823572",
+      "matchup": "PHI @ NYM",
+      "player": "Jared Young",
+      "team": "NYM",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Tim Mayza",
+      "fair_line": 6.0,
+      "line": 5.0,
+      "projection": 6.0,
+      "lean": "Over",
+      "edge": 1.05,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.759
     },
     {
       "gameId": "det-cws-2026-09-18-824547",
@@ -1307,6 +1467,22 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.784
+    },
+    {
+      "gameId": "sea-col-2026-09-18-824303",
+      "matchup": "SEA @ COL",
+      "player": "Cole Carrigg",
+      "team": "COL",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Bryan Woo",
+      "fair_line": 8.5,
+      "line": 7.5,
+      "projection": 8.5,
+      "lean": "Over",
+      "edge": 0.96,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.798
     },
     {
       "gameId": "ath-cle-2026-09-18-824383",
@@ -1483,6 +1659,37 @@
       "k9": 9.29
     },
     {
+      "gameId": "phi-nym-2026-09-18-823572",
+      "matchup": "PHI @ NYM",
+      "player": "Tim Mayza",
+      "team": "PHI",
+      "prop": "strikeouts",
+      "fair_line": 5.5,
+      "line": 4.5,
+      "projection": 5.4,
+      "lean": "Over",
+      "edge": 0.89,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "k9": 8.81
+    },
+    {
+      "gameId": "phi-nym-2026-09-18-823572",
+      "matchup": "PHI @ NYM",
+      "player": "Tyrone Taylor",
+      "team": "NYM",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Tim Mayza",
+      "fair_line": 5.5,
+      "line": 4.5,
+      "projection": 5.4,
+      "lean": "Over",
+      "edge": 0.89,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.919
+    },
+    {
       "gameId": "ath-cle-2026-09-18-824383",
       "matchup": "ATH @ CLE",
       "player": "Tyler Soderstrom",
@@ -1497,6 +1704,22 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.81
+    },
+    {
+      "gameId": "sea-col-2026-09-18-824303",
+      "matchup": "SEA @ COL",
+      "player": "Julio Rodr\u00edguez",
+      "team": "SEA",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Gabriel Hughes",
+      "fair_line": 7.0,
+      "line": 6.0,
+      "projection": 6.9,
+      "lean": "Over",
+      "edge": 0.88,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.701
     },
     {
       "gameId": "nyy-az-2026-09-18-825032",
@@ -1578,6 +1801,22 @@
       "ops": 0.729
     },
     {
+      "gameId": "sea-col-2026-09-18-824303",
+      "matchup": "SEA @ COL",
+      "player": "Luke Raley",
+      "team": "SEA",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Gabriel Hughes",
+      "fair_line": 6.5,
+      "line": 5.5,
+      "projection": 6.3,
+      "lean": "Over",
+      "edge": 0.83,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.723
+    },
+    {
       "gameId": "mil-bal-2026-09-18-824790",
       "matchup": "MIL @ BAL",
       "player": "Brice Turang",
@@ -1657,6 +1896,22 @@
       "k9": 8.6
     },
     {
+      "gameId": "phi-nym-2026-09-18-823572",
+      "matchup": "PHI @ NYM",
+      "player": "Bryson Stott",
+      "team": "PHI",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Zac Thornton",
+      "fair_line": 6.5,
+      "line": 5.5,
+      "projection": 6.3,
+      "lean": "Over",
+      "edge": 0.78,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.716
+    },
+    {
       "gameId": "atl-hou-2026-09-18-824138",
       "matchup": "ATL @ HOU",
       "player": "Peter Lambert",
@@ -1718,6 +1973,22 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.817
+    },
+    {
+      "gameId": "phi-nym-2026-09-18-823572",
+      "matchup": "PHI @ NYM",
+      "player": "Francisco Lindor",
+      "team": "NYM",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Tim Mayza",
+      "fair_line": 6.5,
+      "line": 5.5,
+      "projection": 6.3,
+      "lean": "Over",
+      "edge": 0.77,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.747
     },
     {
       "gameId": "chc-cin-2026-09-18-824463",
@@ -1783,6 +2054,36 @@
       "k9": 8.53
     },
     {
+      "gameId": "sea-col-2026-09-18-824303",
+      "matchup": "SEA @ COL",
+      "player": "Gabriel Hughes",
+      "team": "COL",
+      "prop": "strikeouts",
+      "fair_line": 4.5,
+      "line": 4.0,
+      "projection": 4.7,
+      "lean": "Over",
+      "edge": 0.68,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "k9": 7.58
+    },
+    {
+      "gameId": "phi-nym-2026-09-18-823572",
+      "matchup": "PHI @ NYM",
+      "player": "Zac Thornton",
+      "team": "NYM",
+      "prop": "strikeouts",
+      "fair_line": 4.0,
+      "line": 3.5,
+      "projection": 4.1,
+      "lean": "Over",
+      "edge": 0.6,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "k9": 6.75
+    },
+    {
       "gameId": "atl-hou-2026-09-18-824138",
       "matchup": "ATL @ HOU",
       "player": "Tyler Mahle",
@@ -1796,6 +2097,21 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "k9": 7.51
+    },
+    {
+      "gameId": "sea-col-2026-09-18-824303",
+      "matchup": "SEA @ COL",
+      "player": "Bryan Woo",
+      "team": "SEA",
+      "prop": "strikeouts",
+      "fair_line": 5.5,
+      "line": 5.0,
+      "projection": 5.6,
+      "lean": "Over",
+      "edge": 0.56,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "k9": 9.04
     },
     {
       "gameId": "chc-cin-2026-09-18-824463",
@@ -2141,6 +2457,16 @@
       "matchup": "ATH @ CLE"
     },
     {
+      "player": "Juan Soto",
+      "prop": "hitter_fantasy_score",
+      "lean": "Over",
+      "line": 5.5,
+      "projection": 7.4,
+      "edge": 1.86,
+      "confidence": "medium",
+      "matchup": "PHI @ NYM"
+    },
+    {
       "player": "Dylan Cease",
       "prop": "strikeouts",
       "lean": "Over",
@@ -2169,16 +2495,6 @@
       "edge": 1.8,
       "confidence": "high",
       "matchup": "SF @ LAD"
-    },
-    {
-      "player": "Pete Crow-Armstrong",
-      "prop": "hitter_fantasy_score",
-      "lean": "Over",
-      "line": 6.5,
-      "projection": 8.3,
-      "edge": 1.79,
-      "confidence": "medium",
-      "matchup": "CHC @ CIN"
     }
   ]
 }

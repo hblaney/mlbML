@@ -224,6 +224,28 @@
       "notes": []
     },
     {
+      "player": "Tim Mayza",
+      "team": "PHI",
+      "opponent": "NYM",
+      "matchup": "PHI @ NYM",
+      "game_date": "2026-09-18",
+      "props": [
+        {
+          "prop": "strikeouts",
+          "pick": "Over",
+          "model_line": 5.5,
+          "use_line": 4.5,
+          "projection": 5.4,
+          "edge": 0.89,
+          "confidence": "medium",
+          "k9": 8.81,
+          "opp_k_rate": 0.224
+        }
+      ],
+      "headline": "Over 4.5 STRIKEOUTS (medium confidence)",
+      "notes": []
+    },
+    {
       "player": "Gerrit Cole",
       "team": "NYY",
       "opponent": "AZ",
@@ -312,6 +334,28 @@
       "notes": []
     },
     {
+      "player": "Gabriel Hughes",
+      "team": "COL",
+      "opponent": "SEA",
+      "matchup": "SEA @ COL",
+      "game_date": "2026-09-18",
+      "props": [
+        {
+          "prop": "strikeouts",
+          "pick": "Over",
+          "model_line": 4.5,
+          "use_line": 4.0,
+          "projection": 4.7,
+          "edge": 0.68,
+          "confidence": "medium",
+          "k9": 7.58,
+          "opp_k_rate": 0.231
+        }
+      ],
+      "headline": "Over 4.0 STRIKEOUTS (medium confidence)",
+      "notes": []
+    },
+    {
       "player": "Zac Thornton",
       "team": "NYM",
       "opponent": "PHI",
@@ -331,9 +375,7 @@
         }
       ],
       "headline": "Over 3.5 STRIKEOUTS (medium confidence)",
-      "notes": [
-        "Probable starter not fully confirmed \u2014 verify before betting."
-      ]
+      "notes": []
     },
     {
       "player": "Tyler Mahle",
@@ -377,9 +419,7 @@
         }
       ],
       "headline": "Over 5.0 STRIKEOUTS (medium confidence)",
-      "notes": [
-        "Probable starter not fully confirmed \u2014 verify before betting."
-      ]
+      "notes": []
     },
     {
       "player": "Clay Holmes",
