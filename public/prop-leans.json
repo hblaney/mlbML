@@ -2,7 +2,7 @@
   "generated_at": "2026-09-18",
   "source": "prop-leans-v2",
   "note": "K uses estimated PrizePicks lines when posted line unknown. Hitter FS from top-4 OPS bats per team.",
-  "actionable_count": 111,
+  "actionable_count": 120,
   "leans": [
     {
       "gameId": "atl-hou-2026-09-18-824138",
@@ -83,6 +83,22 @@
       "confidence": "high",
       "line_source": "prizepicks_est",
       "ops": 0.925
+    },
+    {
+      "gameId": "phi-nym-2026-09-18-823572",
+      "matchup": "PHI @ NYM",
+      "player": "Juan Soto",
+      "team": "NYM",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Andrew Painter",
+      "fair_line": 8.0,
+      "line": 6.0,
+      "projection": 8.1,
+      "lean": "Over",
+      "edge": 2.12,
+      "confidence": "high",
+      "line_source": "prizepicks_est",
+      "ops": 0.905
     },
     {
       "gameId": "bos-tb-2026-09-18-822923",
@@ -397,6 +413,22 @@
       "ops": 0.834
     },
     {
+      "gameId": "phi-nym-2026-09-18-823572",
+      "matchup": "PHI @ NYM",
+      "player": "Kyle Schwarber",
+      "team": "PHI",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Zac Thornton",
+      "fair_line": 7.0,
+      "line": 5.5,
+      "projection": 7.1,
+      "lean": "Over",
+      "edge": 1.56,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.865
+    },
+    {
       "gameId": "ath-cle-2026-09-18-824383",
       "matchup": "ATH @ CLE",
       "player": "Gabriel Arias",
@@ -493,6 +525,22 @@
       "ops": 0.827
     },
     {
+      "gameId": "phi-nym-2026-09-18-823572",
+      "matchup": "PHI @ NYM",
+      "player": "Tyrone Taylor",
+      "team": "NYM",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Andrew Painter",
+      "fair_line": 6.0,
+      "line": 4.5,
+      "projection": 6.0,
+      "lean": "Over",
+      "edge": 1.45,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.919
+    },
+    {
       "gameId": "sf-lad-2026-09-18-823898",
       "matchup": "SF @ LAD",
       "player": "Max Muncy",
@@ -523,6 +571,22 @@
       "confidence": "medium",
       "line_source": "prizepicks_est",
       "ops": 0.865
+    },
+    {
+      "gameId": "phi-nym-2026-09-18-823572",
+      "matchup": "PHI @ NYM",
+      "player": "Bryce Harper",
+      "team": "PHI",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Zac Thornton",
+      "fair_line": 7.0,
+      "line": 5.5,
+      "projection": 6.9,
+      "lean": "Over",
+      "edge": 1.42,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.884
     },
     {
       "gameId": "det-cws-2026-09-18-824547",
@@ -797,6 +861,22 @@
       "ops": 0.799
     },
     {
+      "gameId": "phi-nym-2026-09-18-823572",
+      "matchup": "PHI @ NYM",
+      "player": "Jared Young",
+      "team": "NYM",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Andrew Painter",
+      "fair_line": 6.5,
+      "line": 5.5,
+      "projection": 6.7,
+      "lean": "Over",
+      "edge": 1.17,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.759
+    },
+    {
       "gameId": "min-laa-2026-09-18-823977",
       "matchup": "MIN @ LAA",
       "player": "Zach Neto",
@@ -939,6 +1019,22 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.787
+    },
+    {
+      "gameId": "phi-nym-2026-09-18-823572",
+      "matchup": "PHI @ NYM",
+      "player": "Bryan De La Cruz",
+      "team": "PHI",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Zac Thornton",
+      "fair_line": 6.0,
+      "line": 5.0,
+      "projection": 6.1,
+      "lean": "Over",
+      "edge": 1.11,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.79
     },
     {
       "gameId": "chc-cin-2026-09-18-824463",
@@ -1324,6 +1420,22 @@
       "ops": 0.715
     },
     {
+      "gameId": "phi-nym-2026-09-18-823572",
+      "matchup": "PHI @ NYM",
+      "player": "Francisco Lindor",
+      "team": "NYM",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Andrew Painter",
+      "fair_line": 7.0,
+      "line": 6.0,
+      "projection": 6.9,
+      "lean": "Over",
+      "edge": 0.92,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.747
+    },
+    {
       "gameId": "sf-lad-2026-09-18-823898",
       "matchup": "SF @ LAD",
       "player": "Dalton Rushing",
@@ -1561,6 +1673,22 @@
       "k9": 8.6
     },
     {
+      "gameId": "phi-nym-2026-09-18-823572",
+      "matchup": "PHI @ NYM",
+      "player": "Bryson Stott",
+      "team": "PHI",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Zac Thornton",
+      "fair_line": 6.5,
+      "line": 5.5,
+      "projection": 6.3,
+      "lean": "Over",
+      "edge": 0.78,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.716
+    },
+    {
       "gameId": "atl-hou-2026-09-18-824138",
       "matchup": "ATL @ HOU",
       "player": "Peter Lambert",
@@ -1653,6 +1781,21 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "k9": 8.53
+    },
+    {
+      "gameId": "phi-nym-2026-09-18-823572",
+      "matchup": "PHI @ NYM",
+      "player": "Zac Thornton",
+      "team": "NYM",
+      "prop": "strikeouts",
+      "fair_line": 4.0,
+      "line": 3.5,
+      "projection": 4.1,
+      "lean": "Over",
+      "edge": 0.6,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "k9": 6.75
     },
     {
       "gameId": "atl-hou-2026-09-18-824138",
@@ -1899,6 +2042,21 @@
       "confidence": "pass",
       "line_source": "prizepicks_est",
       "k9": 6.81
+    },
+    {
+      "gameId": "phi-nym-2026-09-18-823572",
+      "matchup": "PHI @ NYM",
+      "player": "Andrew Painter",
+      "team": "PHI",
+      "prop": "strikeouts",
+      "fair_line": 5.0,
+      "line": 4.5,
+      "projection": 4.8,
+      "lean": "Pass",
+      "edge": 0.27,
+      "confidence": "pass",
+      "line_source": "prizepicks_est",
+      "k9": 7.8
     }
   ],
   "top_plays": [
@@ -1951,6 +2109,16 @@
       "edge": 2.14,
       "confidence": "high",
       "matchup": "DET @ CWS"
+    },
+    {
+      "player": "Juan Soto",
+      "prop": "hitter_fantasy_score",
+      "lean": "Over",
+      "line": 6.0,
+      "projection": 8.1,
+      "edge": 2.12,
+      "confidence": "high",
+      "matchup": "PHI @ NYM"
     },
     {
       "player": "Jahmai Jones",
@@ -2011,16 +2179,6 @@
       "edge": 1.8,
       "confidence": "high",
       "matchup": "SF @ LAD"
-    },
-    {
-      "player": "Pete Crow-Armstrong",
-      "prop": "hitter_fantasy_score",
-      "lean": "Over",
-      "line": 6.5,
-      "projection": 8.3,
-      "edge": 1.79,
-      "confidence": "medium",
-      "matchup": "CHC @ CIN"
     }
   ]
 }
