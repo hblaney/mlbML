@@ -101353,6 +101353,29 @@
       "correct": 0,
       "modelVersion": "daily-auto-v6.2-mkt-cal",
       "source": "live_board"
+    },
+    {
+      "gamePk": 824545,
+      "date": "2026-09-19",
+      "startsAt": "2026-09-19T18:10:00Z",
+      "home": "CWS",
+      "away": "DET",
+      "internalHomeProbability": 0.5828,
+      "internalPickProbability": 0.5828,
+      "probability": 0.5828,
+      "pickProbability": 0.5828,
+      "rawPickProbability": 0.5828,
+      "confidence": "Low",
+      "eraDiff": 0.558268,
+      "formEdge": -0.4,
+      "marketAgrees": null,
+      "modelEdge": 0.0,
+      "marketBacked": false,
+      "predicted": "CWS",
+      "actual": "CWS",
+      "correct": 1,
+      "modelVersion": "daily-auto-v6.2-mkt-cal",
+      "source": "live_board"
     }
   ]
 }

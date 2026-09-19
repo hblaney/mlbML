@@ -211,8 +211,8 @@
     "hit_rate": 0.4
   },
   "archive": {
-    "evaluated_games": 4565.0,
-    "overall_accuracy": 0.5599
+    "evaluated_games": 4566.0,
+    "overall_accuracy": 0.56
   },
   "brier_score": 0.0,
   "days_at_or_above_60pct": 62.0,
@@ -561,7 +561,8 @@
     "2026-09-15": 0.4,
     "2026-09-16": 0.6666666666666666,
     "2026-09-17": 0.7777777777777778,
-    "2026-09-18": 0.4
+    "2026-09-18": 0.4,
+    "2026-09-19": 1.0
   },
   "weekly_accuracy": {
     "2025-W15": 0.5961538461538461,
@@ -614,32 +615,9 @@
     "2026-W35": 0.5268817204301075,
     "2026-W36": 0.5257731958762887,
     "2026-W37": 0.4945054945054945,
-    "2026-W38": 0.578125
+    "2026-W38": 0.5846153846153846
   },
   "recent_predictions": [
-    {
-      "gamePk": 825030,
-      "date": "2026-09-15",
-      "startsAt": "2026-09-16T01:40:00Z",
-      "home": "ARI",
-      "away": "MIA",
-      "internalHomeProbability": 0.6231,
-      "internalPickProbability": 0.6231,
-      "probability": 0.6231,
-      "pickProbability": 0.6231,
-      "rawPickProbability": 0.6231,
-      "confidence": "High",
-      "eraDiff": 1.01,
-      "formEdge": 0.3,
-      "marketAgrees": true,
-      "modelEdge": 0.0517,
-      "marketBacked": true,
-      "predicted": "ARI",
-      "actual": "MIA",
-      "correct": 0,
-      "modelVersion": "daily-auto-v6.2-mkt-cal",
-      "source": "live_board"
-    },
     {
       "gamePk": 822680,
       "date": "2026-09-16",
@@ -1534,6 +1512,29 @@
       "predicted": "ARI",
       "actual": "NYY",
       "correct": 0,
+      "modelVersion": "daily-auto-v6.2-mkt-cal",
+      "source": "live_board"
+    },
+    {
+      "gamePk": 824545,
+      "date": "2026-09-19",
+      "startsAt": "2026-09-19T18:10:00Z",
+      "home": "CWS",
+      "away": "DET",
+      "internalHomeProbability": 0.5828,
+      "internalPickProbability": 0.5828,
+      "probability": 0.5828,
+      "pickProbability": 0.5828,
+      "rawPickProbability": 0.5828,
+      "confidence": "Low",
+      "eraDiff": 0.558268,
+      "formEdge": -0.4,
+      "marketAgrees": null,
+      "modelEdge": 0.0,
+      "marketBacked": false,
+      "predicted": "CWS",
+      "actual": "CWS",
+      "correct": 1,
       "modelVersion": "daily-auto-v6.2-mkt-cal",
       "source": "live_board"
     }
