@@ -23,9 +23,7 @@
         }
       ],
       "headline": "Over 4.5 STRIKEOUTS (high confidence)",
-      "notes": [
-        "Probable starter not fully confirmed \u2014 verify before betting."
-      ]
+      "notes": []
     },
     {
       "player": "Reid Detmers",
@@ -223,9 +221,7 @@
         }
       ],
       "headline": "Over 4.5 STRIKEOUTS (medium confidence)",
-      "notes": [
-        "Probable starter not fully confirmed \u2014 verify before betting."
-      ]
+      "notes": []
     },
     {
       "player": "Grant Holmes",
@@ -467,6 +463,28 @@
         }
       ],
       "headline": "Over 4.5 STRIKEOUTS (low confidence)",
+      "notes": []
+    },
+    {
+      "player": "Brayan Bello",
+      "team": "BOS",
+      "opponent": "TB",
+      "matchup": "BOS @ TB",
+      "game_date": "2026-09-19",
+      "props": [
+        {
+          "prop": "strikeouts",
+          "pick": "Over",
+          "model_line": 4.0,
+          "use_line": 3.5,
+          "projection": 3.9,
+          "edge": 0.43,
+          "confidence": "low",
+          "k9": 6.75,
+          "opp_k_rate": 0.185
+        }
+      ],
+      "headline": "Over 3.5 STRIKEOUTS (low confidence)",
       "notes": []
     },
     {
