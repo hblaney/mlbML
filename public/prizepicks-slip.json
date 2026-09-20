@@ -5,6 +5,16 @@
   "slip": {
     "legs": [
       {
+        "player": "Shohei Ohtani",
+        "prop": "hitter_fantasy_score",
+        "line": 5.5,
+        "pick": "Over",
+        "projection": 7.7,
+        "matchup": "SF @ LAD",
+        "confidence": "high",
+        "edge": 2.24
+      },
+      {
         "player": "Jahmai Jones",
         "prop": "hitter_fantasy_score",
         "line": 6.0,
@@ -13,16 +23,6 @@
         "matchup": "BOS @ TB",
         "confidence": "high",
         "edge": 2.19
-      },
-      {
-        "player": "Yordan Alvarez",
-        "prop": "hitter_fantasy_score",
-        "line": 5.5,
-        "pick": "Over",
-        "projection": 7.7,
-        "matchup": "ATL @ HOU",
-        "confidence": "high",
-        "edge": 2.16
       },
       {
         "player": "Gavin Williams",
@@ -35,10 +35,20 @@
         "edge": 1.94
       }
     ],
-    "score": 7.14,
+    "score": 7.22,
     "same_game_warning": false
   },
   "top_plays": [
+    {
+      "player": "Shohei Ohtani",
+      "prop": "hitter_fantasy_score",
+      "lean": "Over",
+      "line": 5.5,
+      "projection": 7.7,
+      "edge": 2.24,
+      "confidence": "high",
+      "matchup": "SF @ LAD"
+    },
     {
       "player": "Jahmai Jones",
       "prop": "hitter_fantasy_score",
@@ -148,19 +158,19 @@
       "edge": 1.72,
       "confidence": "medium",
       "matchup": "MIA @ SD"
-    },
-    {
-      "player": "Ben Rice",
-      "prop": "hitter_fantasy_score",
-      "lean": "Over",
-      "line": 5.5,
-      "projection": 7.2,
-      "edge": 1.72,
-      "confidence": "medium",
-      "matchup": "NYY @ AZ"
     }
   ],
   "all_actionable": [
+    {
+      "player": "Shohei Ohtani",
+      "prop": "hitter_fantasy_score",
+      "line": 5.5,
+      "lean": "Over",
+      "projection": 7.7,
+      "edge": 2.24,
+      "confidence": "high",
+      "matchup": "SF @ LAD"
+    },
     {
       "player": "Jahmai Jones",
       "prop": "hitter_fantasy_score",
@@ -342,24 +352,14 @@
       "matchup": "WSH @ STL"
     },
     {
-      "player": "Hunter Goodman",
+      "player": "Max Muncy",
       "prop": "hitter_fantasy_score",
-      "line": 6.0,
+      "line": 5.5,
       "lean": "Over",
-      "projection": 7.6,
-      "edge": 1.6,
+      "projection": 7.1,
+      "edge": 1.61,
       "confidence": "medium",
-      "matchup": "SEA @ COL"
-    },
-    {
-      "player": "Jacob deGrom",
-      "prop": "strikeouts",
-      "line": 5.0,
-      "lean": "Over",
-      "projection": 6.6,
-      "edge": 1.58,
-      "confidence": "high",
-      "matchup": "TOR @ TEX"
+      "matchup": "SF @ LAD"
     }
   ]
 }

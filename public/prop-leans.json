@@ -2,8 +2,24 @@
   "generated_at": "2026-09-20",
   "source": "prop-leans-v2",
   "note": "K uses estimated PrizePicks lines when posted line unknown. Hitter FS from top-4 OPS bats per team.",
-  "actionable_count": 127,
+  "actionable_count": 135,
   "leans": [
+    {
+      "gameId": "sf-lad-2026-09-20-823896",
+      "matchup": "SF @ LAD",
+      "player": "Shohei Ohtani",
+      "team": "LAD",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Matt Wilkinson",
+      "fair_line": 7.5,
+      "line": 5.5,
+      "projection": 7.7,
+      "lean": "Over",
+      "edge": 2.24,
+      "confidence": "high",
+      "line_source": "prizepicks_est",
+      "ops": 0.902
+    },
     {
       "gameId": "bos-tb-2026-09-20-822922",
       "matchup": "BOS @ TB",
@@ -287,6 +303,22 @@
       "confidence": "medium",
       "line_source": "prizepicks_est",
       "ops": 0.825
+    },
+    {
+      "gameId": "sf-lad-2026-09-20-823896",
+      "matchup": "SF @ LAD",
+      "player": "Max Muncy",
+      "team": "LAD",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Matt Wilkinson",
+      "fair_line": 7.0,
+      "line": 5.5,
+      "projection": 7.1,
+      "lean": "Over",
+      "edge": 1.61,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.851
     },
     {
       "gameId": "sea-col-2026-09-20-824300",
@@ -622,6 +654,22 @@
       "ops": 0.833
     },
     {
+      "gameId": "sf-lad-2026-09-20-823896",
+      "matchup": "SF @ LAD",
+      "player": "Rafael Devers",
+      "team": "SF",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Jack Dreyer",
+      "fair_line": 7.0,
+      "line": 5.5,
+      "projection": 6.8,
+      "lean": "Over",
+      "edge": 1.34,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.865
+    },
+    {
       "gameId": "mil-bal-2026-09-20-824789",
       "matchup": "MIL @ BAL",
       "player": "Jackson Chourio",
@@ -716,6 +764,22 @@
       "confidence": "medium",
       "line_source": "prizepicks_est",
       "ops": 0.893
+    },
+    {
+      "gameId": "sf-lad-2026-09-20-823896",
+      "matchup": "SF @ LAD",
+      "player": "Bryce Eldridge",
+      "team": "SF",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Jack Dreyer",
+      "fair_line": 6.5,
+      "line": 5.0,
+      "projection": 6.3,
+      "lean": "Over",
+      "edge": 1.25,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.825
     },
     {
       "gameId": "tor-tex-2026-09-20-822844",
@@ -1230,6 +1294,21 @@
       "ops": 0.784
     },
     {
+      "gameId": "sf-lad-2026-09-20-823896",
+      "matchup": "SF @ LAD",
+      "player": "Jack Dreyer",
+      "team": "LAD",
+      "prop": "strikeouts",
+      "fair_line": 6.0,
+      "line": 5.0,
+      "projection": 6.0,
+      "lean": "Over",
+      "edge": 1.03,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "k9": 9.96
+    },
+    {
       "gameId": "ath-cle-2026-09-20-824381",
       "matchup": "ATH @ CLE",
       "player": "Tyler Soderstrom",
@@ -1260,6 +1339,22 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.755
+    },
+    {
+      "gameId": "sf-lad-2026-09-20-823896",
+      "matchup": "SF @ LAD",
+      "player": "Dalton Rushing",
+      "team": "LAD",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Matt Wilkinson",
+      "fair_line": 6.5,
+      "line": 5.5,
+      "projection": 6.5,
+      "lean": "Over",
+      "edge": 1.0,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.798
     },
     {
       "gameId": "min-laa-2026-09-20-823975",
@@ -1420,6 +1515,22 @@
       "ops": 0.777
     },
     {
+      "gameId": "sf-lad-2026-09-20-823896",
+      "matchup": "SF @ LAD",
+      "player": "Freddie Freeman",
+      "team": "LAD",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Matt Wilkinson",
+      "fair_line": 6.5,
+      "line": 5.5,
+      "projection": 6.4,
+      "lean": "Over",
+      "edge": 0.9,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.805
+    },
+    {
       "gameId": "ath-cle-2026-09-20-824381",
       "matchup": "ATH @ CLE",
       "player": "Donovan Walton",
@@ -1481,6 +1592,22 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.88
+    },
+    {
+      "gameId": "sf-lad-2026-09-20-823896",
+      "matchup": "SF @ LAD",
+      "player": "Casey Schmitt",
+      "team": "SF",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Jack Dreyer",
+      "fair_line": 6.5,
+      "line": 5.5,
+      "projection": 6.4,
+      "lean": "Over",
+      "edge": 0.88,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.784
     },
     {
       "gameId": "min-laa-2026-09-20-823975",
@@ -2045,6 +2172,22 @@
       "ops": 0.729
     },
     {
+      "gameId": "sf-lad-2026-09-20-823896",
+      "matchup": "SF @ LAD",
+      "player": "Heliot Ramos",
+      "team": "SF",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Jack Dreyer",
+      "fair_line": 5.5,
+      "line": 5.0,
+      "projection": 5.7,
+      "lean": "Pass",
+      "edge": 0.68,
+      "confidence": "pass",
+      "line_source": "prizepicks_est",
+      "ops": 0.728
+    },
+    {
       "gameId": "sea-col-2026-09-20-824300",
       "matchup": "SEA @ COL",
       "player": "Luke Raley",
@@ -2215,9 +2358,34 @@
       "confidence": "pass",
       "line_source": "prizepicks_est",
       "k9": 5.43
+    },
+    {
+      "gameId": "sf-lad-2026-09-20-823896",
+      "matchup": "SF @ LAD",
+      "player": "Matt Wilkinson",
+      "team": "SF",
+      "prop": "strikeouts",
+      "fair_line": 3.5,
+      "line": 3.5,
+      "projection": 3.3,
+      "lean": "Pass",
+      "edge": -0.23,
+      "confidence": "pass",
+      "line_source": "prizepicks_est",
+      "k9": 5.49
     }
   ],
   "top_plays": [
+    {
+      "player": "Shohei Ohtani",
+      "prop": "hitter_fantasy_score",
+      "lean": "Over",
+      "line": 5.5,
+      "projection": 7.7,
+      "edge": 2.24,
+      "confidence": "high",
+      "matchup": "SF @ LAD"
+    },
     {
       "player": "Jahmai Jones",
       "prop": "hitter_fantasy_score",
@@ -2327,16 +2495,6 @@
       "edge": 1.72,
       "confidence": "medium",
       "matchup": "MIA @ SD"
-    },
-    {
-      "player": "Ben Rice",
-      "prop": "hitter_fantasy_score",
-      "lean": "Over",
-      "line": 5.5,
-      "projection": 7.2,
-      "edge": 1.72,
-      "confidence": "medium",
-      "matchup": "NYY @ AZ"
     }
   ]
 }

@@ -158,6 +158,28 @@
       "notes": []
     },
     {
+      "player": "Jack Dreyer",
+      "team": "LAD",
+      "opponent": "SF",
+      "matchup": "SF @ LAD",
+      "game_date": "2026-09-20",
+      "props": [
+        {
+          "prop": "strikeouts",
+          "pick": "Over",
+          "model_line": 6.0,
+          "use_line": 5.0,
+          "projection": 6.0,
+          "edge": 1.03,
+          "confidence": "high",
+          "k9": 9.96,
+          "opp_k_rate": 0.216
+        }
+      ],
+      "headline": "Over 5.0 STRIKEOUTS (high confidence)",
+      "notes": []
+    },
+    {
       "player": "Dean Kremer",
       "team": "MIN",
       "opponent": "LAA",
