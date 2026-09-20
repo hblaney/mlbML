@@ -60,6 +60,16 @@
       "matchup": "ATL @ HOU"
     },
     {
+      "player": "Pete Crow-Armstrong",
+      "prop": "hitter_fantasy_score",
+      "lean": "Over",
+      "line": 7.0,
+      "projection": 9.2,
+      "edge": 2.16,
+      "confidence": "high",
+      "matchup": "CHC @ CIN"
+    },
+    {
       "player": "Willson Contreras",
       "prop": "hitter_fantasy_score",
       "lean": "Over",
@@ -148,16 +158,6 @@
       "edge": 1.72,
       "confidence": "medium",
       "matchup": "NYY @ AZ"
-    },
-    {
-      "player": "Brandon Lowe",
-      "prop": "hitter_fantasy_score",
-      "lean": "Over",
-      "line": 5.0,
-      "projection": 6.7,
-      "edge": 1.71,
-      "confidence": "medium",
-      "matchup": "KC @ PIT"
     }
   ],
   "all_actionable": [
@@ -180,6 +180,16 @@
       "edge": 2.16,
       "confidence": "high",
       "matchup": "ATL @ HOU"
+    },
+    {
+      "player": "Pete Crow-Armstrong",
+      "prop": "hitter_fantasy_score",
+      "line": 7.0,
+      "lean": "Over",
+      "projection": 9.2,
+      "edge": 2.16,
+      "confidence": "high",
+      "matchup": "CHC @ CIN"
     },
     {
       "player": "Willson Contreras",
@@ -350,16 +360,6 @@
       "edge": 1.58,
       "confidence": "high",
       "matchup": "TOR @ TEX"
-    },
-    {
-      "player": "Pete Alonso",
-      "prop": "hitter_fantasy_score",
-      "line": 5.0,
-      "lean": "Over",
-      "projection": 6.5,
-      "edge": 1.54,
-      "confidence": "medium",
-      "matchup": "MIL @ BAL"
     }
   ]
 }

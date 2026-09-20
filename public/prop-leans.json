@@ -2,7 +2,7 @@
   "generated_at": "2026-09-20",
   "source": "prop-leans-v2",
   "note": "K uses estimated PrizePicks lines when posted line unknown. Hitter FS from top-4 OPS bats per team.",
-  "actionable_count": 118,
+  "actionable_count": 127,
   "leans": [
     {
       "gameId": "bos-tb-2026-09-20-822922",
@@ -35,6 +35,22 @@
       "confidence": "high",
       "line_source": "prizepicks_est",
       "ops": 1.026
+    },
+    {
+      "gameId": "chc-cin-2026-09-20-824462",
+      "matchup": "CHC @ CIN",
+      "player": "Pete Crow-Armstrong",
+      "team": "CHC",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Rhett Lowder",
+      "fair_line": 9.0,
+      "line": 7.0,
+      "projection": 9.2,
+      "lean": "Over",
+      "edge": 2.16,
+      "confidence": "high",
+      "line_source": "prizepicks_est",
+      "ops": 0.94
     },
     {
       "gameId": "bos-tb-2026-09-20-822922",
@@ -416,6 +432,22 @@
       "ops": 0.929
     },
     {
+      "gameId": "chc-cin-2026-09-20-824462",
+      "matchup": "CHC @ CIN",
+      "player": "Nathaniel Lowe",
+      "team": "CIN",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "David Peterson",
+      "fair_line": 6.5,
+      "line": 5.0,
+      "projection": 6.4,
+      "lean": "Over",
+      "edge": 1.45,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.821
+    },
+    {
       "gameId": "wsh-stl-2026-09-20-823001",
       "matchup": "WSH @ STL",
       "player": "Andr\u00e9s Chaparro",
@@ -462,6 +494,22 @@
       "confidence": "medium",
       "line_source": "prizepicks_est",
       "ops": 0.846
+    },
+    {
+      "gameId": "chc-cin-2026-09-20-824462",
+      "matchup": "CHC @ CIN",
+      "player": "Elly De La Cruz",
+      "team": "CIN",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "David Peterson",
+      "fair_line": 8.0,
+      "line": 6.5,
+      "projection": 7.9,
+      "lean": "Over",
+      "edge": 1.43,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.884
     },
     {
       "gameId": "atl-hou-2026-09-20-824139",
@@ -556,6 +604,22 @@
       "confidence": "medium",
       "line_source": "prizepicks_est",
       "ops": 0.821
+    },
+    {
+      "gameId": "chc-cin-2026-09-20-824462",
+      "matchup": "CHC @ CIN",
+      "player": "Seiya Suzuki",
+      "team": "CHC",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Rhett Lowder",
+      "fair_line": 7.5,
+      "line": 6.0,
+      "projection": 7.4,
+      "lean": "Over",
+      "edge": 1.36,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.833
     },
     {
       "gameId": "mil-bal-2026-09-20-824789",
@@ -1213,6 +1277,22 @@
       "k9": 8.66
     },
     {
+      "gameId": "chc-cin-2026-09-20-824462",
+      "matchup": "CHC @ CIN",
+      "player": "Michael Conforto",
+      "team": "CHC",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Rhett Lowder",
+      "fair_line": 6.5,
+      "line": 5.5,
+      "projection": 6.5,
+      "lean": "Over",
+      "edge": 1.0,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.817
+    },
+    {
       "gameId": "mil-bal-2026-09-20-824789",
       "matchup": "MIL @ BAL",
       "player": "Christian Encarnacion-Strand",
@@ -1306,6 +1386,22 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.788
+    },
+    {
+      "gameId": "chc-cin-2026-09-20-824462",
+      "matchup": "CHC @ CIN",
+      "player": "Alex Bregman",
+      "team": "CHC",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Rhett Lowder",
+      "fair_line": 7.0,
+      "line": 6.0,
+      "projection": 6.9,
+      "lean": "Over",
+      "edge": 0.92,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.801
     },
     {
       "gameId": "tor-tex-2026-09-20-822844",
@@ -1499,6 +1595,22 @@
       "ops": 0.773
     },
     {
+      "gameId": "chc-cin-2026-09-20-824462",
+      "matchup": "CHC @ CIN",
+      "player": "Tyler Stephenson",
+      "team": "CIN",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "David Peterson",
+      "fair_line": 6.0,
+      "line": 5.0,
+      "projection": 5.8,
+      "lean": "Over",
+      "edge": 0.85,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.745
+    },
+    {
       "gameId": "mia-sd-2026-09-20-823247",
       "matchup": "MIA @ SD",
       "player": "Fernando Tatis Jr.",
@@ -1592,6 +1704,22 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.75
+    },
+    {
+      "gameId": "chc-cin-2026-09-20-824462",
+      "matchup": "CHC @ CIN",
+      "player": "Sal Stewart",
+      "team": "CIN",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "David Peterson",
+      "fair_line": 7.5,
+      "line": 6.5,
+      "projection": 7.3,
+      "lean": "Over",
+      "edge": 0.79,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.809
     },
     {
       "gameId": "bos-tb-2026-09-20-822922",
@@ -1825,6 +1953,21 @@
       "k9": 6.72
     },
     {
+      "gameId": "chc-cin-2026-09-20-824462",
+      "matchup": "CHC @ CIN",
+      "player": "David Peterson",
+      "team": "CHC",
+      "prop": "strikeouts",
+      "fair_line": 5.0,
+      "line": 4.5,
+      "projection": 5.0,
+      "lean": "Over",
+      "edge": 0.53,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "k9": 7.92
+    },
+    {
       "gameId": "kc-pit-2026-09-20-823329",
       "matchup": "KC @ PIT",
       "player": "Michael Wacha",
@@ -2044,6 +2187,21 @@
       "k9": 8.39
     },
     {
+      "gameId": "chc-cin-2026-09-20-824462",
+      "matchup": "CHC @ CIN",
+      "player": "Rhett Lowder",
+      "team": "CIN",
+      "prop": "strikeouts",
+      "fair_line": 4.5,
+      "line": 4.0,
+      "projection": 4.3,
+      "lean": "Pass",
+      "edge": 0.26,
+      "confidence": "pass",
+      "line_source": "prizepicks_est",
+      "k9": 7.09
+    },
+    {
       "gameId": "sea-col-2026-09-20-824300",
       "matchup": "SEA @ COL",
       "player": "Tomoyuki Sugano",
@@ -2079,6 +2237,16 @@
       "edge": 2.16,
       "confidence": "high",
       "matchup": "ATL @ HOU"
+    },
+    {
+      "player": "Pete Crow-Armstrong",
+      "prop": "hitter_fantasy_score",
+      "lean": "Over",
+      "line": 7.0,
+      "projection": 9.2,
+      "edge": 2.16,
+      "confidence": "high",
+      "matchup": "CHC @ CIN"
     },
     {
       "player": "Willson Contreras",
@@ -2169,16 +2337,6 @@
       "edge": 1.72,
       "confidence": "medium",
       "matchup": "NYY @ AZ"
-    },
-    {
-      "player": "Brandon Lowe",
-      "prop": "hitter_fantasy_score",
-      "lean": "Over",
-      "line": 5.0,
-      "projection": 6.7,
-      "edge": 1.71,
-      "confidence": "medium",
-      "matchup": "KC @ PIT"
     }
   ]
 }
