@@ -12,10 +12,10 @@
     "end": "2026-09-21"
   },
   "overall": {
-    "bets": 1898,
-    "wins": 1055,
+    "bets": 1899,
+    "wins": 1056,
     "losses": 843,
-    "hit_rate": 0.5558
+    "hit_rate": 0.5561
   },
   "high_confidence": {
     "bets": 75,
@@ -43,10 +43,10 @@
       "hit_rate": 0.5829
     },
     "Low": {
-      "bets": 1123,
-      "wins": 599,
+      "bets": 1124,
+      "wins": 600,
       "losses": 524,
-      "hit_rate": 0.5334
+      "hit_rate": 0.5338
     }
   },
   "last_7_days": {
