@@ -1,13 +1,13 @@
 {
-  "generated_at": "2026-09-21",
-  "trained_through": "2026-09-20",
+  "generated_at": "2026-09-22",
+  "trained_through": "2026-09-21",
   "season": "2026",
-  "evaluated_games": 1895.0,
-  "overall_accuracy": 0.5557,
+  "evaluated_games": 1898.0,
+  "overall_accuracy": 0.5558,
   "current_season": {
     "season": "2026",
-    "market_backed_games": 1895,
-    "market_backed_accuracy": 0.5557,
+    "market_backed_games": 1898,
+    "market_backed_accuracy": 0.5558,
     "high_confidence_games": 75,
     "high_confidence_accuracy": 0.64,
     "daily_accuracy": {
@@ -165,7 +165,8 @@
       "2026-09-17": 0.8,
       "2026-09-18": 0.4,
       "2026-09-19": 0.7142857142857143,
-      "2026-09-20": 0.8571428571428571
+      "2026-09-20": 0.8571428571428571,
+      "2026-09-21": 0.6666666666666666
     }
   },
   "by_confidence": {
@@ -182,43 +183,43 @@
       "hit_rate": 0.6406
     },
     "Medium": {
-      "bets": 699,
-      "wins": 407,
+      "bets": 700,
+      "wins": 408,
       "losses": 292,
-      "hit_rate": 0.5823
+      "hit_rate": 0.5829
     },
     "Low": {
-      "bets": 1121,
-      "wins": 598,
-      "losses": 523,
-      "hit_rate": 0.5335
+      "bets": 1123,
+      "wins": 599,
+      "losses": 524,
+      "hit_rate": 0.5334
     }
   },
   "last_7_days": {
-    "bets": 94,
-    "wins": 59,
-    "losses": 35,
-    "hit_rate": 0.6277
+    "bets": 87,
+    "wins": 53,
+    "losses": 34,
+    "hit_rate": 0.6092
   },
   "last_14_days": {
-    "bets": 185,
-    "wins": 104,
-    "losses": 81,
-    "hit_rate": 0.5622
+    "bets": 177,
+    "wins": 100,
+    "losses": 77,
+    "hit_rate": 0.565
   },
   "yesterday": {
-    "bets": 15,
-    "wins": 11,
-    "losses": 4,
-    "hit_rate": 0.7333
+    "bets": 3,
+    "wins": 2,
+    "losses": 1,
+    "hit_rate": 0.6667
   },
   "archive": {
-    "evaluated_games": 4595.0,
-    "overall_accuracy": 0.561
+    "evaluated_games": 4598.0,
+    "overall_accuracy": 0.5611
   },
   "brier_score": 0.0,
-  "days_at_or_above_60pct": 64.0,
-  "weeks_at_or_above_60pct": 15.0,
+  "days_at_or_above_60pct": 65.0,
+  "weeks_at_or_above_60pct": 16.0,
   "daily_accuracy": {
     "2025-04-09": 0.5,
     "2025-04-10": 0.6666666666666666,
@@ -565,7 +566,8 @@
     "2026-09-17": 0.7777777777777778,
     "2026-09-18": 0.4,
     "2026-09-19": 0.7333333333333333,
-    "2026-09-20": 0.7333333333333333
+    "2026-09-20": 0.7333333333333333,
+    "2026-09-21": 0.6666666666666666
   },
   "weekly_accuracy": {
     "2025-W15": 0.5961538461538461,
@@ -618,78 +620,10 @@
     "2026-W35": 0.5268817204301075,
     "2026-W36": 0.5257731958762887,
     "2026-W37": 0.4945054945054945,
-    "2026-W38": 0.6276595744680851
+    "2026-W38": 0.6276595744680851,
+    "2026-W39": 0.6666666666666666
   },
   "recent_predictions": [
-    {
-      "gamePk": 823572,
-      "date": "2026-09-18",
-      "startsAt": "2026-09-18T23:15:00Z",
-      "home": "NYM",
-      "away": "PHI",
-      "internalHomeProbability": 0.5357,
-      "internalPickProbability": 0.5357,
-      "probability": 0.5357,
-      "pickProbability": 0.5357,
-      "rawPickProbability": 0.5357,
-      "confidence": "Medium",
-      "eraDiff": -0.36,
-      "formEdge": -0.1,
-      "marketAgrees": true,
-      "modelEdge": 0.0074,
-      "marketBacked": true,
-      "predicted": "NYM",
-      "actual": "NYM",
-      "correct": 1,
-      "modelVersion": "daily-auto-v6.2-mkt-cal",
-      "source": "live_board"
-    },
-    {
-      "gamePk": 823898,
-      "date": "2026-09-18",
-      "startsAt": "2026-09-19T02:15:00Z",
-      "home": "LAD",
-      "away": "SF",
-      "internalHomeProbability": 0.5891,
-      "internalPickProbability": 0.5891,
-      "probability": 0.5891,
-      "pickProbability": 0.5891,
-      "rawPickProbability": 0.5891,
-      "confidence": "Medium",
-      "eraDiff": 0.18,
-      "formEdge": 0.2,
-      "marketAgrees": true,
-      "modelEdge": -0.1309,
-      "marketBacked": true,
-      "predicted": "LAD",
-      "actual": "LAD",
-      "correct": 1,
-      "modelVersion": "daily-auto-v6.2-mkt-cal",
-      "source": "live_board"
-    },
-    {
-      "gamePk": 823977,
-      "date": "2026-09-18",
-      "startsAt": "2026-09-19T01:38:00Z",
-      "home": "LAA",
-      "away": "MIN",
-      "internalHomeProbability": 0.4991,
-      "internalPickProbability": 0.5009,
-      "probability": 0.4991,
-      "pickProbability": 0.5009,
-      "rawPickProbability": 0.5009,
-      "confidence": "Low",
-      "eraDiff": 0.86,
-      "formEdge": -0.2,
-      "marketAgrees": true,
-      "modelEdge": -0.0111,
-      "marketBacked": true,
-      "predicted": "MIN",
-      "actual": "MIN",
-      "correct": 1,
-      "modelVersion": "daily-auto-v6.2-mkt-cal",
-      "source": "live_board"
-    },
     {
       "gamePk": 824138,
       "date": "2026-09-18",
@@ -1538,6 +1472,75 @@
       "predicted": "ARI",
       "actual": "ARI",
       "correct": 1,
+      "modelVersion": "daily-auto-v6.2-mkt-cal",
+      "source": "live_board"
+    },
+    {
+      "gamePk": 823169,
+      "date": "2026-09-21",
+      "startsAt": "2026-09-22T01:45:00Z",
+      "home": "SF",
+      "away": "MIN",
+      "internalHomeProbability": 0.5105,
+      "internalPickProbability": 0.5105,
+      "probability": 0.5105,
+      "pickProbability": 0.5105,
+      "rawPickProbability": 0.5105,
+      "confidence": "Low",
+      "eraDiff": -1.29814,
+      "formEdge": -0.1,
+      "marketAgrees": false,
+      "modelEdge": 0.0409,
+      "marketBacked": true,
+      "predicted": "SF",
+      "actual": "SF",
+      "correct": 1,
+      "modelVersion": "daily-auto-v6.2-mkt-cal",
+      "source": "live_board"
+    },
+    {
+      "gamePk": 824221,
+      "date": "2026-09-21",
+      "startsAt": "2026-09-21T22:40:00Z",
+      "home": "DET",
+      "away": "WSH",
+      "internalHomeProbability": 0.6374,
+      "internalPickProbability": 0.6374,
+      "probability": 0.6374,
+      "pickProbability": 0.6374,
+      "rawPickProbability": 0.6374,
+      "confidence": "Medium",
+      "eraDiff": 0.0,
+      "formEdge": 0.0,
+      "marketAgrees": true,
+      "modelEdge": 0.0833,
+      "marketBacked": true,
+      "predicted": "DET",
+      "actual": "DET",
+      "correct": 1,
+      "modelVersion": "daily-auto-v6.2-mkt-cal",
+      "source": "live_board"
+    },
+    {
+      "gamePk": 824787,
+      "date": "2026-09-21",
+      "startsAt": "2026-09-21T22:35:00Z",
+      "home": "BAL",
+      "away": "TOR",
+      "internalHomeProbability": 0.4973,
+      "internalPickProbability": 0.5027,
+      "probability": 0.4973,
+      "pickProbability": 0.5027,
+      "rawPickProbability": 0.5027,
+      "confidence": "Low",
+      "eraDiff": 0.4,
+      "formEdge": -0.1,
+      "marketAgrees": false,
+      "modelEdge": 0.006,
+      "marketBacked": true,
+      "predicted": "TOR",
+      "actual": "BAL",
+      "correct": 0,
       "modelVersion": "daily-auto-v6.2-mkt-cal",
       "source": "live_board"
     }
