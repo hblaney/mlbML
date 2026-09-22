@@ -120,6 +120,16 @@
       "matchup": "NYM @ TEX"
     },
     {
+      "player": "Pete Crow-Armstrong",
+      "prop": "hitter_fantasy_score",
+      "lean": "Over",
+      "line": 7.0,
+      "projection": 8.8,
+      "edge": 1.82,
+      "confidence": "medium",
+      "matchup": "MIA @ CHC"
+    },
+    {
       "player": "Taj Bradley",
       "prop": "strikeouts",
       "lean": "Over",
@@ -140,24 +150,14 @@
       "matchup": "CLE @ BOS"
     },
     {
-      "player": "Byron Buxton",
+      "player": "Michael Conforto",
       "prop": "hitter_fantasy_score",
       "lean": "Over",
-      "line": 6.5,
-      "projection": 8.2,
-      "edge": 1.73,
+      "line": 4.5,
+      "projection": 6.2,
+      "edge": 1.74,
       "confidence": "medium",
-      "matchup": "MIN @ SF"
-    },
-    {
-      "player": "Victor Mesa Jr.",
-      "prop": "hitter_fantasy_score",
-      "lean": "Over",
-      "line": 5.5,
-      "projection": 7.2,
-      "edge": 1.71,
-      "confidence": "medium",
-      "matchup": "TB @ NYY"
+      "matchup": "MIA @ CHC"
     }
   ],
   "all_actionable": [
@@ -242,6 +242,16 @@
       "matchup": "NYM @ TEX"
     },
     {
+      "player": "Pete Crow-Armstrong",
+      "prop": "hitter_fantasy_score",
+      "line": 7.0,
+      "lean": "Over",
+      "projection": 8.8,
+      "edge": 1.82,
+      "confidence": "medium",
+      "matchup": "MIA @ CHC"
+    },
+    {
       "player": "Taj Bradley",
       "prop": "strikeouts",
       "line": 4.5,
@@ -260,6 +270,16 @@
       "edge": 1.78,
       "confidence": "high",
       "matchup": "CLE @ BOS"
+    },
+    {
+      "player": "Michael Conforto",
+      "prop": "hitter_fantasy_score",
+      "line": 4.5,
+      "lean": "Over",
+      "projection": 6.2,
+      "edge": 1.74,
+      "confidence": "medium",
+      "matchup": "MIA @ CHC"
     },
     {
       "player": "Byron Buxton",
@@ -340,26 +360,6 @@
       "edge": 1.59,
       "confidence": "medium",
       "matchup": "MIL @ PHI"
-    },
-    {
-      "player": "Hunter Goodman",
-      "prop": "hitter_fantasy_score",
-      "line": 5.5,
-      "lean": "Over",
-      "projection": 7.1,
-      "edge": 1.59,
-      "confidence": "medium",
-      "matchup": "AZ @ COL"
-    },
-    {
-      "player": "Justin Foscue",
-      "prop": "hitter_fantasy_score",
-      "line": 6.0,
-      "lean": "Over",
-      "projection": 7.6,
-      "edge": 1.57,
-      "confidence": "medium",
-      "matchup": "NYM @ TEX"
     }
   ]
 }

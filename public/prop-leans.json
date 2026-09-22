@@ -2,7 +2,7 @@
   "generated_at": "2026-09-22",
   "source": "prop-leans-v2",
   "note": "K uses estimated PrizePicks lines when posted line unknown. Hitter FS from top-4 OPS bats per team.",
-  "actionable_count": 116,
+  "actionable_count": 125,
   "leans": [
     {
       "gameId": "cle-bos-2026-09-22-824709",
@@ -131,6 +131,22 @@
       "ops": 0.909
     },
     {
+      "gameId": "mia-chc-2026-09-22-824624",
+      "matchup": "MIA @ CHC",
+      "player": "Pete Crow-Armstrong",
+      "team": "CHC",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Janson Junk",
+      "fair_line": 9.0,
+      "line": 7.0,
+      "projection": 8.8,
+      "lean": "Over",
+      "edge": 1.82,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.949
+    },
+    {
       "gameId": "min-sf-2026-09-22-823166",
       "matchup": "MIN @ SF",
       "player": "Taj Bradley",
@@ -159,6 +175,22 @@
       "confidence": "high",
       "line_source": "prizepicks_est",
       "k9": 10.45
+    },
+    {
+      "gameId": "mia-chc-2026-09-22-824624",
+      "matchup": "MIA @ CHC",
+      "player": "Michael Conforto",
+      "team": "CHC",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Janson Junk",
+      "fair_line": 6.0,
+      "line": 4.5,
+      "projection": 6.2,
+      "lean": "Over",
+      "edge": 1.74,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.821
     },
     {
       "gameId": "min-sf-2026-09-22-823166",
@@ -337,20 +369,20 @@
       "ops": 0.855
     },
     {
-      "gameId": "wsh-det-2026-09-22-824222",
-      "matchup": "WSH @ DET",
-      "player": "Riley Greene",
-      "team": "DET",
+      "gameId": "mia-chc-2026-09-22-824624",
+      "matchup": "MIA @ CHC",
+      "player": "Seiya Suzuki",
+      "team": "CHC",
       "prop": "hitter_fantasy_score",
-      "vs_pitcher": "Jackson Kent",
-      "fair_line": 7.5,
-      "line": 6.0,
-      "projection": 7.5,
+      "vs_pitcher": "Janson Junk",
+      "fair_line": 7.0,
+      "line": 5.5,
+      "projection": 7.0,
       "lean": "Over",
-      "edge": 1.52,
+      "edge": 1.53,
       "confidence": "medium",
       "line_source": "prizepicks_est",
-      "ops": 0.852
+      "ops": 0.835
     },
     {
       "gameId": "min-sf-2026-09-22-823166",
@@ -367,6 +399,22 @@
       "confidence": "medium",
       "line_source": "prizepicks_est",
       "ops": 0.825
+    },
+    {
+      "gameId": "wsh-det-2026-09-22-824222",
+      "matchup": "WSH @ DET",
+      "player": "Riley Greene",
+      "team": "DET",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Riley Cornelio",
+      "fair_line": 7.0,
+      "line": 5.5,
+      "projection": 7.0,
+      "lean": "Over",
+      "edge": 1.48,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.852
     },
     {
       "gameId": "az-col-2026-09-22-824302",
@@ -462,6 +510,37 @@
       "confidence": "medium",
       "line_source": "prizepicks_est",
       "ops": 0.83
+    },
+    {
+      "gameId": "mia-chc-2026-09-22-824624",
+      "matchup": "MIA @ CHC",
+      "player": "Griffin Conine",
+      "team": "MIA",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Shota Imanaga",
+      "fair_line": 7.0,
+      "line": 5.5,
+      "projection": 6.9,
+      "lean": "Over",
+      "edge": 1.39,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.831
+    },
+    {
+      "gameId": "wsh-det-2026-09-22-824222",
+      "matchup": "WSH @ DET",
+      "player": "Riley Cornelio",
+      "team": "WSH",
+      "prop": "strikeouts",
+      "fair_line": 6.0,
+      "line": 4.5,
+      "projection": 5.9,
+      "lean": "Over",
+      "edge": 1.38,
+      "confidence": "high",
+      "line_source": "prizepicks_est",
+      "k9": 9.56
     },
     {
       "gameId": "cin-atl-2026-09-22-824867",
@@ -878,6 +957,22 @@
       "ops": 0.784
     },
     {
+      "gameId": "mia-chc-2026-09-22-824624",
+      "matchup": "MIA @ CHC",
+      "player": "Alex Bregman",
+      "team": "CHC",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Janson Junk",
+      "fair_line": 6.5,
+      "line": 5.5,
+      "projection": 6.6,
+      "lean": "Over",
+      "edge": 1.11,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.804
+    },
+    {
       "gameId": "hou-sea-2026-09-22-823089",
       "matchup": "HOU @ SEA",
       "player": "Isaac Paredes",
@@ -1070,22 +1165,6 @@
       "ops": 0.817
     },
     {
-      "gameId": "wsh-det-2026-09-22-824222",
-      "matchup": "WSH @ DET",
-      "player": "Kevin McGonigle",
-      "team": "DET",
-      "prop": "hitter_fantasy_score",
-      "vs_pitcher": "Jackson Kent",
-      "fair_line": 8.0,
-      "line": 7.0,
-      "projection": 8.0,
-      "lean": "Over",
-      "edge": 1.01,
-      "confidence": "low",
-      "line_source": "prizepicks_est",
-      "ops": 0.8
-    },
-    {
       "gameId": "laa-ath-2026-09-22-824953",
       "matchup": "LAA @ ATH",
       "player": "Shea Langeliers",
@@ -1182,6 +1261,22 @@
       "ops": 0.777
     },
     {
+      "gameId": "mia-chc-2026-09-22-824624",
+      "matchup": "MIA @ CHC",
+      "player": "Javier Sanoja",
+      "team": "MIA",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Shota Imanaga",
+      "fair_line": 6.5,
+      "line": 5.5,
+      "projection": 6.5,
+      "lean": "Over",
+      "edge": 0.97,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.784
+    },
+    {
       "gameId": "mil-phi-2026-09-22-823412",
       "matchup": "MIL @ PHI",
       "player": "Bryson Stott",
@@ -1235,26 +1330,10 @@
       "player": "Dillon Dingler",
       "team": "DET",
       "prop": "hitter_fantasy_score",
-      "vs_pitcher": "Jackson Kent",
-      "fair_line": 7.0,
-      "line": 6.0,
-      "projection": 6.9,
-      "lean": "Over",
-      "edge": 0.94,
-      "confidence": "low",
-      "line_source": "prizepicks_est",
-      "ops": 0.757
-    },
-    {
-      "gameId": "wsh-det-2026-09-22-824222",
-      "matchup": "WSH @ DET",
-      "player": "Hao-Yu Lee",
-      "team": "DET",
-      "prop": "hitter_fantasy_score",
-      "vs_pitcher": "Jackson Kent",
-      "fair_line": 8.5,
-      "line": 7.5,
-      "projection": 8.4,
+      "vs_pitcher": "Riley Cornelio",
+      "fair_line": 6.5,
+      "line": 5.5,
+      "projection": 6.4,
       "lean": "Over",
       "edge": 0.94,
       "confidence": "low",
@@ -1276,6 +1355,22 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.804
+    },
+    {
+      "gameId": "wsh-det-2026-09-22-824222",
+      "matchup": "WSH @ DET",
+      "player": "Kevin McGonigle",
+      "team": "DET",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Riley Cornelio",
+      "fair_line": 7.5,
+      "line": 6.5,
+      "projection": 7.4,
+      "lean": "Over",
+      "edge": 0.93,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.8
     },
     {
       "gameId": "min-sf-2026-09-22-823166",
@@ -1453,6 +1548,21 @@
       "ops": 0.715
     },
     {
+      "gameId": "mia-chc-2026-09-22-824624",
+      "matchup": "MIA @ CHC",
+      "player": "Shota Imanaga",
+      "team": "CHC",
+      "prop": "strikeouts",
+      "fair_line": 5.5,
+      "line": 4.5,
+      "projection": 5.3,
+      "lean": "Over",
+      "edge": 0.84,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "k9": 8.77
+    },
+    {
       "gameId": "cin-atl-2026-09-22-824867",
       "matchup": "CIN @ ATL",
       "player": "JJ Bleday",
@@ -1562,6 +1672,54 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.779
+    },
+    {
+      "gameId": "wsh-det-2026-09-22-824222",
+      "matchup": "WSH @ DET",
+      "player": "Hao-Yu Lee",
+      "team": "DET",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Riley Cornelio",
+      "fair_line": 8.0,
+      "line": 7.0,
+      "projection": 7.8,
+      "lean": "Over",
+      "edge": 0.82,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.757
+    },
+    {
+      "gameId": "mia-chc-2026-09-22-824624",
+      "matchup": "MIA @ CHC",
+      "player": "Otto Lopez",
+      "team": "MIA",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Shota Imanaga",
+      "fair_line": 7.0,
+      "line": 6.0,
+      "projection": 6.8,
+      "lean": "Over",
+      "edge": 0.81,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.79
+    },
+    {
+      "gameId": "mia-chc-2026-09-22-824624",
+      "matchup": "MIA @ CHC",
+      "player": "Liam Hicks",
+      "team": "MIA",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Shota Imanaga",
+      "fair_line": 6.5,
+      "line": 5.5,
+      "projection": 6.3,
+      "lean": "Over",
+      "edge": 0.8,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.795
     },
     {
       "gameId": "min-sf-2026-09-22-823166",
@@ -1701,21 +1859,6 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "k9": 9.39
-    },
-    {
-      "gameId": "wsh-det-2026-09-22-824222",
-      "matchup": "WSH @ DET",
-      "player": "Jackson Kent",
-      "team": "WSH",
-      "prop": "strikeouts",
-      "fair_line": 4.5,
-      "line": 4.0,
-      "projection": 4.6,
-      "lean": "Over",
-      "edge": 0.62,
-      "confidence": "low",
-      "line_source": "prizepicks_est",
-      "k9": 7.52
     },
     {
       "gameId": "tb-nyy-2026-09-22-823494",
@@ -2059,6 +2202,21 @@
       "k9": 8.33
     },
     {
+      "gameId": "mia-chc-2026-09-22-824624",
+      "matchup": "MIA @ CHC",
+      "player": "Janson Junk",
+      "team": "MIA",
+      "prop": "strikeouts",
+      "fair_line": 3.5,
+      "line": 3.5,
+      "projection": 3.7,
+      "lean": "Pass",
+      "edge": 0.21,
+      "confidence": "pass",
+      "line_source": "prizepicks_est",
+      "k9": 6.16
+    },
+    {
       "gameId": "min-sf-2026-09-22-823166",
       "matchup": "MIN @ SF",
       "player": "Anthony Molina",
@@ -2171,6 +2329,16 @@
       "matchup": "NYM @ TEX"
     },
     {
+      "player": "Pete Crow-Armstrong",
+      "prop": "hitter_fantasy_score",
+      "lean": "Over",
+      "line": 7.0,
+      "projection": 8.8,
+      "edge": 1.82,
+      "confidence": "medium",
+      "matchup": "MIA @ CHC"
+    },
+    {
       "player": "Taj Bradley",
       "prop": "strikeouts",
       "lean": "Over",
@@ -2191,24 +2359,14 @@
       "matchup": "CLE @ BOS"
     },
     {
-      "player": "Byron Buxton",
+      "player": "Michael Conforto",
       "prop": "hitter_fantasy_score",
       "lean": "Over",
-      "line": 6.5,
-      "projection": 8.2,
-      "edge": 1.73,
+      "line": 4.5,
+      "projection": 6.2,
+      "edge": 1.74,
       "confidence": "medium",
-      "matchup": "MIN @ SF"
-    },
-    {
-      "player": "Victor Mesa Jr.",
-      "prop": "hitter_fantasy_score",
-      "lean": "Over",
-      "line": 5.5,
-      "projection": 7.2,
-      "edge": 1.71,
-      "confidence": "medium",
-      "matchup": "TB @ NYY"
+      "matchup": "MIA @ CHC"
     }
   ]
 }
