@@ -2,7 +2,7 @@
   "generated_at": "2026-09-22",
   "source": "prop-leans-v2",
   "note": "K uses estimated PrizePicks lines when posted line unknown. Hitter FS from top-4 OPS bats per team.",
-  "actionable_count": 125,
+  "actionable_count": 134,
   "leans": [
     {
       "gameId": "cle-bos-2026-09-22-824709",
@@ -113,6 +113,22 @@
       "confidence": "medium",
       "line_source": "prizepicks_est",
       "ops": 0.904
+    },
+    {
+      "gameId": "sd-lad-2026-09-22-823897",
+      "matchup": "SD @ LAD",
+      "player": "Shohei Ohtani",
+      "team": "LAD",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Michael King",
+      "fair_line": 7.5,
+      "line": 5.5,
+      "projection": 7.4,
+      "lean": "Over",
+      "edge": 1.9,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.902
     },
     {
       "gameId": "nym-tex-2026-09-22-822840",
@@ -464,6 +480,22 @@
       "k9": 9.81
     },
     {
+      "gameId": "sd-lad-2026-09-22-823897",
+      "matchup": "SD @ LAD",
+      "player": "Fernando Tatis Jr.",
+      "team": "SD",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Brock Stewart",
+      "fair_line": 7.0,
+      "line": 5.5,
+      "projection": 7.0,
+      "lean": "Over",
+      "edge": 1.46,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.823
+    },
+    {
       "gameId": "tb-nyy-2026-09-22-823494",
       "matchup": "TB @ NYY",
       "player": "Ben Rice",
@@ -591,6 +623,22 @@
       "ops": 0.843
     },
     {
+      "gameId": "sd-lad-2026-09-22-823897",
+      "matchup": "SD @ LAD",
+      "player": "Ty France",
+      "team": "SD",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Brock Stewart",
+      "fair_line": 6.5,
+      "line": 5.0,
+      "projection": 6.4,
+      "lean": "Over",
+      "edge": 1.36,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.885
+    },
+    {
       "gameId": "stl-pit-2026-09-22-823328",
       "matchup": "STL @ PIT",
       "player": "Brandon Lowe",
@@ -636,6 +684,37 @@
       "confidence": "medium",
       "line_source": "prizepicks_est",
       "ops": 0.87
+    },
+    {
+      "gameId": "sd-lad-2026-09-22-823897",
+      "matchup": "SD @ LAD",
+      "player": "Brock Stewart",
+      "team": "LAD",
+      "prop": "strikeouts",
+      "fair_line": 6.0,
+      "line": 4.5,
+      "projection": 5.8,
+      "lean": "Over",
+      "edge": 1.33,
+      "confidence": "high",
+      "line_source": "prizepicks_est",
+      "k9": 9.63
+    },
+    {
+      "gameId": "sd-lad-2026-09-22-823897",
+      "matchup": "SD @ LAD",
+      "player": "Max Muncy",
+      "team": "LAD",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Michael King",
+      "fair_line": 7.0,
+      "line": 5.5,
+      "projection": 6.8,
+      "lean": "Over",
+      "edge": 1.33,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.852
     },
     {
       "gameId": "cws-kc-2026-09-22-824061",
@@ -814,6 +893,22 @@
       "ops": 0.778
     },
     {
+      "gameId": "sd-lad-2026-09-22-823897",
+      "matchup": "SD @ LAD",
+      "player": "Dalton Rushing",
+      "team": "LAD",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Michael King",
+      "fair_line": 6.0,
+      "line": 5.0,
+      "projection": 6.2,
+      "lean": "Over",
+      "edge": 1.21,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.798
+    },
+    {
       "gameId": "cle-bos-2026-09-22-824709",
       "matchup": "CLE @ BOS",
       "player": "Angel Mart\u00ednez",
@@ -893,6 +988,22 @@
       "ops": 0.76
     },
     {
+      "gameId": "sd-lad-2026-09-22-823897",
+      "matchup": "SD @ LAD",
+      "player": "Luis Campusano",
+      "team": "SD",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Brock Stewart",
+      "fair_line": 7.0,
+      "line": 6.0,
+      "projection": 7.2,
+      "lean": "Over",
+      "edge": 1.18,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.802
+    },
+    {
       "gameId": "nym-tex-2026-09-22-822840",
       "matchup": "NYM @ TEX",
       "player": "Josh Jung",
@@ -955,6 +1066,22 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.784
+    },
+    {
+      "gameId": "sd-lad-2026-09-22-823897",
+      "matchup": "SD @ LAD",
+      "player": "Freddie Freeman",
+      "team": "LAD",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Michael King",
+      "fair_line": 6.0,
+      "line": 5.0,
+      "projection": 6.1,
+      "lean": "Over",
+      "edge": 1.12,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.805
     },
     {
       "gameId": "mia-chc-2026-09-22-824624",
@@ -1876,6 +2003,21 @@
       "k9": 8.87
     },
     {
+      "gameId": "sd-lad-2026-09-22-823897",
+      "matchup": "SD @ LAD",
+      "player": "Michael King",
+      "team": "SD",
+      "prop": "strikeouts",
+      "fair_line": 4.5,
+      "line": 4.0,
+      "projection": 4.6,
+      "lean": "Over",
+      "edge": 0.56,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "k9": 7.66
+    },
+    {
       "gameId": "laa-ath-2026-09-22-824953",
       "matchup": "LAA @ ATH",
       "player": "Yusei Kikuchi",
@@ -1979,6 +2121,22 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "k9": 6.2
+    },
+    {
+      "gameId": "sd-lad-2026-09-22-823897",
+      "matchup": "SD @ LAD",
+      "player": "Luis Rengifo",
+      "team": "SD",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Brock Stewart",
+      "fair_line": 5.0,
+      "line": 4.5,
+      "projection": 5.2,
+      "lean": "Pass",
+      "edge": 0.73,
+      "confidence": "pass",
+      "line_source": "prizepicks_est",
+      "ops": 0.784
     },
     {
       "gameId": "cle-bos-2026-09-22-824709",
@@ -2319,6 +2477,16 @@
       "matchup": "CWS @ KC"
     },
     {
+      "player": "Shohei Ohtani",
+      "prop": "hitter_fantasy_score",
+      "lean": "Over",
+      "line": 5.5,
+      "projection": 7.4,
+      "edge": 1.9,
+      "confidence": "medium",
+      "matchup": "SD @ LAD"
+    },
+    {
       "player": "Juan Soto",
       "prop": "hitter_fantasy_score",
       "lean": "Over",
@@ -2357,16 +2525,6 @@
       "edge": 1.78,
       "confidence": "high",
       "matchup": "CLE @ BOS"
-    },
-    {
-      "player": "Michael Conforto",
-      "prop": "hitter_fantasy_score",
-      "lean": "Over",
-      "line": 4.5,
-      "projection": 6.2,
-      "edge": 1.74,
-      "confidence": "medium",
-      "matchup": "MIA @ CHC"
     }
   ]
 }

@@ -110,6 +110,16 @@
       "matchup": "CWS @ KC"
     },
     {
+      "player": "Shohei Ohtani",
+      "prop": "hitter_fantasy_score",
+      "lean": "Over",
+      "line": 5.5,
+      "projection": 7.4,
+      "edge": 1.9,
+      "confidence": "medium",
+      "matchup": "SD @ LAD"
+    },
+    {
       "player": "Juan Soto",
       "prop": "hitter_fantasy_score",
       "lean": "Over",
@@ -148,16 +158,6 @@
       "edge": 1.78,
       "confidence": "high",
       "matchup": "CLE @ BOS"
-    },
-    {
-      "player": "Michael Conforto",
-      "prop": "hitter_fantasy_score",
-      "lean": "Over",
-      "line": 4.5,
-      "projection": 6.2,
-      "edge": 1.74,
-      "confidence": "medium",
-      "matchup": "MIA @ CHC"
     }
   ],
   "all_actionable": [
@@ -230,6 +230,16 @@
       "edge": 1.91,
       "confidence": "medium",
       "matchup": "CWS @ KC"
+    },
+    {
+      "player": "Shohei Ohtani",
+      "prop": "hitter_fantasy_score",
+      "line": 5.5,
+      "lean": "Over",
+      "projection": 7.4,
+      "edge": 1.9,
+      "confidence": "medium",
+      "matchup": "SD @ LAD"
     },
     {
       "player": "Juan Soto",
@@ -348,16 +358,6 @@
       "lean": "Over",
       "projection": 7.1,
       "edge": 1.6,
-      "confidence": "medium",
-      "matchup": "MIL @ PHI"
-    },
-    {
-      "player": "Jackson Chourio",
-      "prop": "hitter_fantasy_score",
-      "line": 5.5,
-      "lean": "Over",
-      "projection": 7.1,
-      "edge": 1.59,
       "confidence": "medium",
       "matchup": "MIL @ PHI"
     }
