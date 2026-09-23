@@ -90,6 +90,16 @@
       "matchup": "CLE @ BOS"
     },
     {
+      "player": "Juan Soto",
+      "prop": "hitter_fantasy_score",
+      "lean": "Over",
+      "line": 6.0,
+      "projection": 7.8,
+      "edge": 1.83,
+      "confidence": "medium",
+      "matchup": "NYM @ TEX"
+    },
+    {
       "player": "Randal Grichuk",
       "prop": "hitter_fantasy_score",
       "lean": "Over",
@@ -148,16 +158,6 @@
       "edge": 1.72,
       "confidence": "medium",
       "matchup": "MIL @ PHI"
-    },
-    {
-      "player": "Max Muncy",
-      "prop": "hitter_fantasy_score",
-      "lean": "Over",
-      "line": 5.5,
-      "projection": 7.2,
-      "edge": 1.71,
-      "confidence": "medium",
-      "matchup": "SD @ LAD"
     }
   ],
   "all_actionable": [
@@ -210,6 +210,16 @@
       "edge": 1.86,
       "confidence": "medium",
       "matchup": "CLE @ BOS"
+    },
+    {
+      "player": "Juan Soto",
+      "prop": "hitter_fantasy_score",
+      "line": 6.0,
+      "lean": "Over",
+      "projection": 7.8,
+      "edge": 1.83,
+      "confidence": "medium",
+      "matchup": "NYM @ TEX"
     },
     {
       "player": "Randal Grichuk",
@@ -322,6 +332,16 @@
       "matchup": "STL @ PIT"
     },
     {
+      "player": "Justin Foscue",
+      "prop": "hitter_fantasy_score",
+      "line": 5.5,
+      "lean": "Over",
+      "projection": 7.1,
+      "edge": 1.6,
+      "confidence": "medium",
+      "matchup": "NYM @ TEX"
+    },
+    {
       "player": "Junior Caminero",
       "prop": "hitter_fantasy_score",
       "line": 5.5,
@@ -340,26 +360,6 @@
       "edge": 1.56,
       "confidence": "medium",
       "matchup": "MIL @ PHI"
-    },
-    {
-      "player": "Hunter Goodman",
-      "prop": "hitter_fantasy_score",
-      "line": 6.0,
-      "lean": "Over",
-      "projection": 7.5,
-      "edge": 1.54,
-      "confidence": "medium",
-      "matchup": "AZ @ COL"
-    },
-    {
-      "player": "Miguel Vargas",
-      "prop": "hitter_fantasy_score",
-      "line": 6.0,
-      "lean": "Over",
-      "projection": 7.5,
-      "edge": 1.52,
-      "confidence": "medium",
-      "matchup": "CWS @ KC"
     }
   ]
 }

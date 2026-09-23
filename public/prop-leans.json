@@ -2,7 +2,7 @@
   "generated_at": "2026-09-23",
   "source": "prop-leans-v2",
   "note": "K uses estimated PrizePicks lines when posted line unknown. Hitter FS from top-4 OPS bats per team.",
-  "actionable_count": 117,
+  "actionable_count": 134,
   "leans": [
     {
       "gameId": "hou-sea-2026-09-23-823086",
@@ -81,6 +81,22 @@
       "confidence": "medium",
       "line_source": "prizepicks_est",
       "ops": 0.905
+    },
+    {
+      "gameId": "nym-tex-2026-09-23-822841",
+      "matchup": "NYM @ TEX",
+      "player": "Juan Soto",
+      "team": "NYM",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Cody Bradford",
+      "fair_line": 8.0,
+      "line": 6.0,
+      "projection": 7.8,
+      "lean": "Over",
+      "edge": 1.83,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.907
     },
     {
       "gameId": "cws-kc-2026-09-23-824060",
@@ -256,6 +272,22 @@
       "confidence": "medium",
       "line_source": "prizepicks_est",
       "ops": 0.855
+    },
+    {
+      "gameId": "nym-tex-2026-09-23-822841",
+      "matchup": "NYM @ TEX",
+      "player": "Justin Foscue",
+      "team": "TEX",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Nolan McLean",
+      "fair_line": 7.0,
+      "line": 5.5,
+      "projection": 7.1,
+      "lean": "Over",
+      "edge": 1.6,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.821
     },
     {
       "gameId": "tb-nyy-2026-09-23-823492",
@@ -705,6 +737,22 @@
       "ops": 0.763
     },
     {
+      "gameId": "tor-bal-2026-09-23-824785",
+      "matchup": "TOR @ BAL",
+      "player": "Pete Alonso",
+      "team": "BAL",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Max Scherzer",
+      "fair_line": 8.0,
+      "line": 6.5,
+      "projection": 7.8,
+      "lean": "Over",
+      "edge": 1.25,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.869
+    },
+    {
       "gameId": "stl-pit-2026-09-23-823327",
       "matchup": "STL @ PIT",
       "player": "Brandon Lowe",
@@ -719,6 +767,38 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.819
+    },
+    {
+      "gameId": "tor-bal-2026-09-23-824785",
+      "matchup": "TOR @ BAL",
+      "player": "Alejandro Kirk",
+      "team": "TOR",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Chris Bassitt",
+      "fair_line": 6.0,
+      "line": 5.0,
+      "projection": 6.2,
+      "lean": "Over",
+      "edge": 1.23,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.778
+    },
+    {
+      "gameId": "nym-tex-2026-09-23-822841",
+      "matchup": "NYM @ TEX",
+      "player": "Tyrone Taylor",
+      "team": "NYM",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Cody Bradford",
+      "fair_line": 5.5,
+      "line": 4.5,
+      "projection": 5.7,
+      "lean": "Over",
+      "edge": 1.22,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.88
     },
     {
       "gameId": "stl-pit-2026-09-23-823327",
@@ -945,6 +1025,22 @@
       "ops": 0.761
     },
     {
+      "gameId": "tor-bal-2026-09-23-824785",
+      "matchup": "TOR @ BAL",
+      "player": "Coby Mayo",
+      "team": "BAL",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Max Scherzer",
+      "fair_line": 7.0,
+      "line": 6.0,
+      "projection": 7.1,
+      "lean": "Over",
+      "edge": 1.09,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.761
+    },
+    {
       "gameId": "cin-atl-2026-09-23-824868",
       "matchup": "CIN @ ATL",
       "player": "Sal Stewart",
@@ -959,6 +1055,22 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.803
+    },
+    {
+      "gameId": "nym-tex-2026-09-23-822841",
+      "matchup": "NYM @ TEX",
+      "player": "Carson Benge",
+      "team": "NYM",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Cody Bradford",
+      "fair_line": 7.5,
+      "line": 6.5,
+      "projection": 7.6,
+      "lean": "Over",
+      "edge": 1.08,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.764
     },
     {
       "gameId": "sd-lad-2026-09-23-823894",
@@ -991,6 +1103,37 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.804
+    },
+    {
+      "gameId": "tor-bal-2026-09-23-824785",
+      "matchup": "TOR @ BAL",
+      "player": "Kazuma Okamoto",
+      "team": "TOR",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Chris Bassitt",
+      "fair_line": 7.5,
+      "line": 6.5,
+      "projection": 7.6,
+      "lean": "Over",
+      "edge": 1.08,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.768
+    },
+    {
+      "gameId": "nym-tex-2026-09-23-822841",
+      "matchup": "NYM @ TEX",
+      "player": "Nolan McLean",
+      "team": "NYM",
+      "prop": "strikeouts",
+      "fair_line": 6.0,
+      "line": 5.0,
+      "projection": 6.1,
+      "lean": "Over",
+      "edge": 1.07,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "k9": 9.85
     },
     {
       "gameId": "stl-pit-2026-09-23-823327",
@@ -1073,6 +1216,22 @@
       "ops": 0.807
     },
     {
+      "gameId": "nym-tex-2026-09-23-822841",
+      "matchup": "NYM @ TEX",
+      "player": "Wyatt Langford",
+      "team": "TEX",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Nolan McLean",
+      "fair_line": 6.5,
+      "line": 5.5,
+      "projection": 6.5,
+      "lean": "Over",
+      "edge": 1.03,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.773
+    },
+    {
       "gameId": "hou-sea-2026-09-23-823086",
       "matchup": "HOU @ SEA",
       "player": "Dominic Canzone",
@@ -1103,6 +1262,22 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.807
+    },
+    {
+      "gameId": "tor-bal-2026-09-23-824785",
+      "matchup": "TOR @ BAL",
+      "player": "Christian Encarnacion-Strand",
+      "team": "BAL",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Max Scherzer",
+      "fair_line": 7.0,
+      "line": 6.0,
+      "projection": 7.0,
+      "lean": "Over",
+      "edge": 1.02,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.817
     },
     {
       "gameId": "laa-ath-2026-09-23-824951",
@@ -1246,6 +1421,22 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.711
+    },
+    {
+      "gameId": "nym-tex-2026-09-23-822841",
+      "matchup": "NYM @ TEX",
+      "player": "Jared Young",
+      "team": "NYM",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Cody Bradford",
+      "fair_line": 6.5,
+      "line": 5.5,
+      "projection": 6.4,
+      "lean": "Over",
+      "edge": 0.94,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.759
     },
     {
       "gameId": "stl-pit-2026-09-23-823327",
@@ -1486,6 +1677,22 @@
       "k9": 8.73
     },
     {
+      "gameId": "nym-tex-2026-09-23-822841",
+      "matchup": "NYM @ TEX",
+      "player": "Josh Jung",
+      "team": "TEX",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Nolan McLean",
+      "fair_line": 6.0,
+      "line": 5.0,
+      "projection": 5.8,
+      "lean": "Over",
+      "edge": 0.83,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.809
+    },
+    {
       "gameId": "tb-nyy-2026-09-23-823492",
       "matchup": "TB @ NYY",
       "player": "Gerrit Cole",
@@ -1596,6 +1803,22 @@
       "ops": 0.762
     },
     {
+      "gameId": "nym-tex-2026-09-23-822841",
+      "matchup": "NYM @ TEX",
+      "player": "Joc Pederson",
+      "team": "TEX",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Nolan McLean",
+      "fair_line": 6.5,
+      "line": 5.5,
+      "projection": 6.3,
+      "lean": "Over",
+      "edge": 0.78,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.816
+    },
+    {
       "gameId": "tb-nyy-2026-09-23-823492",
       "matchup": "TB @ NYY",
       "player": "Cody Bellinger",
@@ -1658,6 +1881,21 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.754
+    },
+    {
+      "gameId": "tor-bal-2026-09-23-824785",
+      "matchup": "TOR @ BAL",
+      "player": "Max Scherzer",
+      "team": "TOR",
+      "prop": "strikeouts",
+      "fair_line": 4.0,
+      "line": 3.5,
+      "projection": 4.2,
+      "lean": "Over",
+      "edge": 0.72,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "k9": 6.69
     },
     {
       "gameId": "min-sf-2026-09-23-823168",
@@ -1795,6 +2033,21 @@
       "k9": 6.38
     },
     {
+      "gameId": "tor-bal-2026-09-23-824785",
+      "matchup": "TOR @ BAL",
+      "player": "Chris Bassitt",
+      "team": "BAL",
+      "prop": "strikeouts",
+      "fair_line": 4.0,
+      "line": 3.5,
+      "projection": 3.9,
+      "lean": "Over",
+      "edge": 0.42,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "k9": 6.68
+    },
+    {
       "gameId": "cle-bos-2026-09-23-824710",
       "matchup": "CLE @ BOS",
       "player": "Foster Griffin",
@@ -1855,6 +2108,21 @@
       "k9": 6.98
     },
     {
+      "gameId": "nym-tex-2026-09-23-822841",
+      "matchup": "NYM @ TEX",
+      "player": "Cody Bradford",
+      "team": "TEX",
+      "prop": "strikeouts",
+      "fair_line": 3.0,
+      "line": 3.5,
+      "projection": 2.8,
+      "lean": "Under",
+      "edge": 0.65,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "k9": 4.66
+    },
+    {
       "gameId": "mil-phi-2026-09-23-823410",
       "matchup": "MIL @ PHI",
       "player": "Brandon Marsh",
@@ -1869,6 +2137,22 @@
       "confidence": "pass",
       "line_source": "prizepicks_est",
       "ops": 0.72
+    },
+    {
+      "gameId": "tor-bal-2026-09-23-824785",
+      "matchup": "TOR @ BAL",
+      "player": "Luis Ur\u00edas",
+      "team": "TOR",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Chris Bassitt",
+      "fair_line": 5.0,
+      "line": 4.5,
+      "projection": 5.2,
+      "lean": "Pass",
+      "edge": 0.72,
+      "confidence": "pass",
+      "line_source": "prizepicks_est",
+      "ops": 0.803
     },
     {
       "gameId": "cle-bos-2026-09-23-824710",
@@ -1901,6 +2185,22 @@
       "confidence": "pass",
       "line_source": "prizepicks_est",
       "ops": 0.703
+    },
+    {
+      "gameId": "tor-bal-2026-09-23-824785",
+      "matchup": "TOR @ BAL",
+      "player": "George Springer",
+      "team": "TOR",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Chris Bassitt",
+      "fair_line": 6.5,
+      "line": 6.0,
+      "projection": 6.7,
+      "lean": "Pass",
+      "edge": 0.7,
+      "confidence": "pass",
+      "line_source": "prizepicks_est",
+      "ops": 0.732
     },
     {
       "gameId": "sd-lad-2026-09-23-823894",
@@ -1965,6 +2265,22 @@
       "confidence": "pass",
       "line_source": "prizepicks_est",
       "ops": 0.742
+    },
+    {
+      "gameId": "tor-bal-2026-09-23-824785",
+      "matchup": "TOR @ BAL",
+      "player": "Taylor Ward",
+      "team": "BAL",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Max Scherzer",
+      "fair_line": 6.0,
+      "line": 5.5,
+      "projection": 6.1,
+      "lean": "Pass",
+      "edge": 0.6,
+      "confidence": "pass",
+      "line_source": "prizepicks_est",
+      "ops": 0.729
     },
     {
       "gameId": "laa-ath-2026-09-23-824951",
@@ -2111,6 +2427,16 @@
       "matchup": "CLE @ BOS"
     },
     {
+      "player": "Juan Soto",
+      "prop": "hitter_fantasy_score",
+      "lean": "Over",
+      "line": 6.0,
+      "projection": 7.8,
+      "edge": 1.83,
+      "confidence": "medium",
+      "matchup": "NYM @ TEX"
+    },
+    {
       "player": "Randal Grichuk",
       "prop": "hitter_fantasy_score",
       "lean": "Over",
@@ -2169,16 +2495,6 @@
       "edge": 1.72,
       "confidence": "medium",
       "matchup": "MIL @ PHI"
-    },
-    {
-      "player": "Max Muncy",
-      "prop": "hitter_fantasy_score",
-      "lean": "Over",
-      "line": 5.5,
-      "projection": 7.2,
-      "edge": 1.71,
-      "confidence": "medium",
-      "matchup": "SD @ LAD"
     }
   ]
 }
