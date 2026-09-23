@@ -26,28 +26,6 @@
       "notes": []
     },
     {
-      "player": "Ian Seymour",
-      "team": "TB",
-      "opponent": "NYY",
-      "matchup": "TB @ NYY",
-      "game_date": "2026-09-23",
-      "props": [
-        {
-          "prop": "strikeouts",
-          "pick": "Over",
-          "model_line": 7.0,
-          "use_line": 5.0,
-          "projection": 6.9,
-          "edge": 1.89,
-          "confidence": "high",
-          "k9": 10.96,
-          "opp_k_rate": 0.246
-        }
-      ],
-      "headline": "Over 5.0 STRIKEOUTS (high confidence)",
-      "notes": []
-    },
-    {
       "player": "Logan Henderson",
       "team": "MIL",
       "opponent": "PHI",

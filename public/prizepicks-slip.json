@@ -25,17 +25,17 @@
         "edge": 1.92
       },
       {
-        "player": "Ian Seymour",
+        "player": "Logan Henderson",
         "prop": "strikeouts",
-        "line": 5.0,
+        "line": 4.5,
         "pick": "Over",
-        "projection": 6.9,
-        "matchup": "TB @ NYY",
+        "projection": 6.3,
+        "matchup": "MIL @ PHI",
         "confidence": "high",
-        "edge": 1.89
+        "edge": 1.77
       }
     ],
-    "score": 6.71,
+    "score": 6.59,
     "same_game_warning": false
   },
   "top_plays": [
@@ -58,16 +58,6 @@
       "edge": 1.92,
       "confidence": "high",
       "matchup": "CIN @ ATL"
-    },
-    {
-      "player": "Ian Seymour",
-      "prop": "strikeouts",
-      "lean": "Over",
-      "line": 5.0,
-      "projection": 6.9,
-      "edge": 1.89,
-      "confidence": "high",
-      "matchup": "TB @ NYY"
     },
     {
       "player": "Shohei Ohtani",
@@ -158,6 +148,16 @@
       "edge": 1.72,
       "confidence": "medium",
       "matchup": "MIL @ PHI"
+    },
+    {
+      "player": "Max Muncy",
+      "prop": "hitter_fantasy_score",
+      "lean": "Over",
+      "line": 5.5,
+      "projection": 7.2,
+      "edge": 1.71,
+      "confidence": "medium",
+      "matchup": "SD @ LAD"
     }
   ],
   "all_actionable": [
@@ -180,16 +180,6 @@
       "edge": 1.92,
       "confidence": "high",
       "matchup": "CIN @ ATL"
-    },
-    {
-      "player": "Ian Seymour",
-      "prop": "strikeouts",
-      "line": 5.0,
-      "lean": "Over",
-      "projection": 6.9,
-      "edge": 1.89,
-      "confidence": "high",
-      "matchup": "TB @ NYY"
     },
     {
       "player": "Shohei Ohtani",
@@ -360,6 +350,16 @@
       "edge": 1.56,
       "confidence": "medium",
       "matchup": "MIL @ PHI"
+    },
+    {
+      "player": "Hunter Goodman",
+      "prop": "hitter_fantasy_score",
+      "line": 6.0,
+      "lean": "Over",
+      "projection": 7.5,
+      "edge": 1.54,
+      "confidence": "medium",
+      "matchup": "AZ @ COL"
     }
   ]
 }
