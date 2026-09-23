@@ -4,6 +4,28 @@
   "disclaimer": "Compare use_line to PrizePicks posted line before playing.",
   "cards": [
     {
+      "player": "CJ Van Eyk",
+      "team": "TOR",
+      "opponent": "BAL",
+      "matchup": "TOR @ BAL",
+      "game_date": "2026-09-23",
+      "props": [
+        {
+          "prop": "strikeouts",
+          "pick": "Under",
+          "model_line": 1.0,
+          "use_line": 3.5,
+          "projection": 0.9,
+          "edge": 2.65,
+          "confidence": "high",
+          "k9": 1.35,
+          "opp_k_rate": 0.249
+        }
+      ],
+      "headline": "Under 3.5 STRIKEOUTS (high confidence)",
+      "notes": []
+    },
+    {
       "player": "Chris Sale",
       "team": "ATL",
       "opponent": "CIN",
