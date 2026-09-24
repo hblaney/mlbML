@@ -2,7 +2,7 @@
   "generated_at": "2026-09-24",
   "source": "prop-leans-v2",
   "note": "K uses estimated PrizePicks lines when posted line unknown. Hitter FS from top-4 OPS bats per team.",
-  "actionable_count": 102,
+  "actionable_count": 104,
   "leans": [
     {
       "gameId": "cws-kc-2026-09-24-824059",
@@ -96,6 +96,22 @@
       "confidence": "medium",
       "line_source": "prizepicks_est",
       "ops": 0.92
+    },
+    {
+      "gameId": "hou-ath-2026-09-24-824950",
+      "matchup": "HOU @ ATH",
+      "player": "Yordan Alvarez",
+      "team": "HOU",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Mason Barnett",
+      "fair_line": 9.0,
+      "line": 7.0,
+      "projection": 8.9,
+      "lean": "Over",
+      "edge": 1.9,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 1.035
     },
     {
       "gameId": "tb-nyy-2026-09-24-823493",
@@ -320,22 +336,6 @@
       "ops": 0.859
     },
     {
-      "gameId": "mil-phi-2026-09-24-823411",
-      "matchup": "MIL @ PHI",
-      "player": "Kyle Schwarber",
-      "team": "PHI",
-      "prop": "hitter_fantasy_score",
-      "vs_pitcher": "Bryse Wilson",
-      "fair_line": 8.0,
-      "line": 6.5,
-      "projection": 8.0,
-      "lean": "Over",
-      "edge": 1.53,
-      "confidence": "medium",
-      "line_source": "prizepicks_est",
-      "ops": 0.858
-    },
-    {
       "gameId": "cws-kc-2026-09-24-824059",
       "matchup": "CWS @ KC",
       "player": "Miguel Vargas",
@@ -431,22 +431,6 @@
       "ops": 0.836
     },
     {
-      "gameId": "mil-phi-2026-09-24-823411",
-      "matchup": "MIL @ PHI",
-      "player": "Jake Bauers",
-      "team": "MIL",
-      "prop": "hitter_fantasy_score",
-      "vs_pitcher": "Andrew Painter",
-      "fair_line": 8.0,
-      "line": 6.5,
-      "projection": 7.9,
-      "lean": "Over",
-      "edge": 1.45,
-      "confidence": "medium",
-      "line_source": "prizepicks_est",
-      "ops": 0.883
-    },
-    {
       "gameId": "cin-atl-2026-09-24-824866",
       "matchup": "CIN @ ATL",
       "player": "Matt Olson",
@@ -479,22 +463,6 @@
       "ops": 0.822
     },
     {
-      "gameId": "mil-phi-2026-09-24-823411",
-      "matchup": "MIL @ PHI",
-      "player": "Andrew Vaughn",
-      "team": "MIL",
-      "prop": "hitter_fantasy_score",
-      "vs_pitcher": "Andrew Painter",
-      "fair_line": 6.5,
-      "line": 5.0,
-      "projection": 6.4,
-      "lean": "Over",
-      "edge": 1.38,
-      "confidence": "medium",
-      "line_source": "prizepicks_est",
-      "ops": 0.834
-    },
-    {
       "gameId": "stl-pit-2026-09-24-823326",
       "matchup": "STL @ PIT",
       "player": "Brandon Lowe",
@@ -509,22 +477,6 @@
       "confidence": "medium",
       "line_source": "prizepicks_est",
       "ops": 0.825
-    },
-    {
-      "gameId": "mil-phi-2026-09-24-823411",
-      "matchup": "MIL @ PHI",
-      "player": "Bryce Harper",
-      "team": "PHI",
-      "prop": "hitter_fantasy_score",
-      "vs_pitcher": "Bryse Wilson",
-      "fair_line": 8.0,
-      "line": 6.5,
-      "projection": 7.8,
-      "lean": "Over",
-      "edge": 1.32,
-      "confidence": "medium",
-      "line_source": "prizepicks_est",
-      "ops": 0.867
     },
     {
       "gameId": "mia-chc-2026-09-24-824623",
@@ -623,6 +575,22 @@
       "ops": 0.801
     },
     {
+      "gameId": "hou-ath-2026-09-24-824950",
+      "matchup": "HOU @ ATH",
+      "player": "Yainer Diaz",
+      "team": "HOU",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Mason Barnett",
+      "fair_line": 6.5,
+      "line": 5.5,
+      "projection": 6.7,
+      "lean": "Over",
+      "edge": 1.24,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.772
+    },
+    {
       "gameId": "az-col-2026-09-24-824298",
       "matchup": "AZ @ COL",
       "player": "Corbin Carroll",
@@ -637,6 +605,22 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.803
+    },
+    {
+      "gameId": "hou-ath-2026-09-24-824950",
+      "matchup": "HOU @ ATH",
+      "player": "Shea Langeliers",
+      "team": "ATH",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Peter Lambert",
+      "fair_line": 6.5,
+      "line": 5.5,
+      "projection": 6.7,
+      "lean": "Over",
+      "edge": 1.22,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.815
     },
     {
       "gameId": "cws-kc-2026-09-24-824059",
@@ -767,6 +751,22 @@
       "ops": 0.812
     },
     {
+      "gameId": "hou-ath-2026-09-24-824950",
+      "matchup": "HOU @ ATH",
+      "player": "Henry Bolte",
+      "team": "ATH",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Peter Lambert",
+      "fair_line": 7.5,
+      "line": 6.5,
+      "projection": 7.6,
+      "lean": "Over",
+      "edge": 1.09,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.769
+    },
+    {
       "gameId": "stl-pit-2026-09-24-823326",
       "matchup": "STL @ PIT",
       "player": "Jordan Walker",
@@ -783,20 +783,20 @@
       "ops": 0.8
     },
     {
-      "gameId": "mil-phi-2026-09-24-823411",
-      "matchup": "MIL @ PHI",
-      "player": "Bryan De La Cruz",
-      "team": "PHI",
+      "gameId": "hou-ath-2026-09-24-824950",
+      "matchup": "HOU @ ATH",
+      "player": "Donovan Walton",
+      "team": "ATH",
       "prop": "hitter_fantasy_score",
-      "vs_pitcher": "Bryse Wilson",
-      "fair_line": 7.0,
-      "line": 6.0,
-      "projection": 7.1,
+      "vs_pitcher": "Peter Lambert",
+      "fair_line": 8.0,
+      "line": 7.0,
+      "projection": 8.1,
       "lean": "Over",
-      "edge": 1.07,
+      "edge": 1.08,
       "confidence": "low",
       "line_source": "prizepicks_est",
-      "ops": 0.811
+      "ops": 0.814
     },
     {
       "gameId": "mia-chc-2026-09-24-824623",
@@ -847,6 +847,22 @@
       "ops": 0.801
     },
     {
+      "gameId": "hou-ath-2026-09-24-824950",
+      "matchup": "HOU @ ATH",
+      "player": "Tyler Soderstrom",
+      "team": "ATH",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Peter Lambert",
+      "fair_line": 6.5,
+      "line": 5.5,
+      "projection": 6.5,
+      "lean": "Over",
+      "edge": 1.05,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.81
+    },
+    {
       "gameId": "nym-tex-2026-09-24-822842",
       "matchup": "NYM @ TEX",
       "player": "Carson Benge",
@@ -879,20 +895,20 @@
       "ops": 0.781
     },
     {
-      "gameId": "mil-phi-2026-09-24-823411",
-      "matchup": "MIL @ PHI",
-      "player": "Brice Turang",
-      "team": "MIL",
+      "gameId": "hou-ath-2026-09-24-824950",
+      "matchup": "HOU @ ATH",
+      "player": "Isaac Paredes",
+      "team": "HOU",
       "prop": "hitter_fantasy_score",
-      "vs_pitcher": "Andrew Painter",
-      "fair_line": 7.5,
-      "line": 6.5,
-      "projection": 7.5,
+      "vs_pitcher": "Mason Barnett",
+      "fair_line": 7.0,
+      "line": 6.0,
+      "projection": 7.0,
       "lean": "Over",
       "edge": 1.02,
       "confidence": "low",
       "line_source": "prizepicks_est",
-      "ops": 0.809
+      "ops": 0.8
     },
     {
       "gameId": "az-col-2026-09-24-824298",
@@ -1135,6 +1151,22 @@
       "ops": 0.784
     },
     {
+      "gameId": "hou-ath-2026-09-24-824950",
+      "matchup": "HOU @ ATH",
+      "player": "Jeremy Pe\u00f1a",
+      "team": "HOU",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Mason Barnett",
+      "fair_line": 8.0,
+      "line": 7.0,
+      "projection": 7.9,
+      "lean": "Over",
+      "edge": 0.87,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.794
+    },
+    {
       "gameId": "cws-kc-2026-09-24-824059",
       "matchup": "CWS @ KC",
       "player": "Tristan Peters",
@@ -1149,6 +1181,21 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.789
+    },
+    {
+      "gameId": "hou-ath-2026-09-24-824950",
+      "matchup": "HOU @ ATH",
+      "player": "Peter Lambert",
+      "team": "HOU",
+      "prop": "strikeouts",
+      "fair_line": 5.5,
+      "line": 4.5,
+      "projection": 5.4,
+      "lean": "Over",
+      "edge": 0.86,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "k9": 8.76
     },
     {
       "gameId": "laa-sea-2026-09-24-823087",
@@ -1245,22 +1292,6 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.786
-    },
-    {
-      "gameId": "mil-phi-2026-09-24-823411",
-      "matchup": "MIL @ PHI",
-      "player": "Jackson Chourio",
-      "team": "MIL",
-      "prop": "hitter_fantasy_score",
-      "vs_pitcher": "Andrew Painter",
-      "fair_line": 8.0,
-      "line": 7.0,
-      "projection": 7.8,
-      "lean": "Over",
-      "edge": 0.81,
-      "confidence": "low",
-      "line_source": "prizepicks_est",
-      "ops": 0.819
     },
     {
       "gameId": "tb-nyy-2026-09-24-823493",
@@ -1558,6 +1589,21 @@
       "k9": 7.31
     },
     {
+      "gameId": "hou-ath-2026-09-24-824950",
+      "matchup": "HOU @ ATH",
+      "player": "Mason Barnett",
+      "team": "ATH",
+      "prop": "strikeouts",
+      "fair_line": 5.0,
+      "line": 4.5,
+      "projection": 4.9,
+      "lean": "Over",
+      "edge": 0.43,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "k9": 8.1
+    },
+    {
       "gameId": "laa-sea-2026-09-24-823087",
       "matchup": "LAA @ SEA",
       "player": "Grayson Rodriguez",
@@ -1588,21 +1634,6 @@
       "k9": 7.26
     },
     {
-      "gameId": "mil-phi-2026-09-24-823411",
-      "matchup": "MIL @ PHI",
-      "player": "Andrew Painter",
-      "team": "PHI",
-      "prop": "strikeouts",
-      "fair_line": 5.0,
-      "line": 4.5,
-      "projection": 4.9,
-      "lean": "Over",
-      "edge": 0.36,
-      "confidence": "low",
-      "line_source": "prizepicks_est",
-      "k9": 7.98
-    },
-    {
       "gameId": "cin-atl-2026-09-24-824866",
       "matchup": "CIN @ ATL",
       "player": "Tyler Mahle",
@@ -1616,22 +1647,6 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "k9": 7.63
-    },
-    {
-      "gameId": "mil-phi-2026-09-24-823411",
-      "matchup": "MIL @ PHI",
-      "player": "Bryson Stott",
-      "team": "PHI",
-      "prop": "hitter_fantasy_score",
-      "vs_pitcher": "Bryse Wilson",
-      "fair_line": 7.0,
-      "line": 6.5,
-      "projection": 7.2,
-      "lean": "Pass",
-      "edge": 0.75,
-      "confidence": "pass",
-      "line_source": "prizepicks_est",
-      "ops": 0.72
     },
     {
       "gameId": "cin-atl-2026-09-24-824866",
@@ -1696,21 +1711,6 @@
       "confidence": "pass",
       "line_source": "prizepicks_est",
       "ops": 0.745
-    },
-    {
-      "gameId": "mil-phi-2026-09-24-823411",
-      "matchup": "MIL @ PHI",
-      "player": "Bryse Wilson",
-      "team": "MIL",
-      "prop": "strikeouts",
-      "fair_line": 4.0,
-      "line": 3.5,
-      "projection": 3.8,
-      "lean": "Pass",
-      "edge": 0.31,
-      "confidence": "pass",
-      "line_source": "prizepicks_est",
-      "k9": 6.28
     },
     {
       "gameId": "mia-chc-2026-09-24-824623",
@@ -1805,6 +1805,16 @@
       "matchup": "NYM @ TEX"
     },
     {
+      "player": "Yordan Alvarez",
+      "prop": "hitter_fantasy_score",
+      "lean": "Over",
+      "line": 7.0,
+      "projection": 8.9,
+      "edge": 1.9,
+      "confidence": "medium",
+      "matchup": "HOU @ ATH"
+    },
+    {
       "player": "Ian Seymour",
       "prop": "strikeouts",
       "lean": "Over",
@@ -1853,16 +1863,6 @@
       "edge": 1.7,
       "confidence": "medium",
       "matchup": "SD @ LAD"
-    },
-    {
-      "player": "TJ Rumfield",
-      "prop": "hitter_fantasy_score",
-      "lean": "Over",
-      "line": 5.0,
-      "projection": 6.7,
-      "edge": 1.7,
-      "confidence": "medium",
-      "matchup": "AZ @ COL"
     }
   ]
 }

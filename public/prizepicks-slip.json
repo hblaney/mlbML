@@ -100,6 +100,16 @@
       "matchup": "NYM @ TEX"
     },
     {
+      "player": "Yordan Alvarez",
+      "prop": "hitter_fantasy_score",
+      "lean": "Over",
+      "line": 7.0,
+      "projection": 8.9,
+      "edge": 1.9,
+      "confidence": "medium",
+      "matchup": "HOU @ ATH"
+    },
+    {
       "player": "Ian Seymour",
       "prop": "strikeouts",
       "lean": "Over",
@@ -148,16 +158,6 @@
       "edge": 1.7,
       "confidence": "medium",
       "matchup": "SD @ LAD"
-    },
-    {
-      "player": "TJ Rumfield",
-      "prop": "hitter_fantasy_score",
-      "lean": "Over",
-      "line": 5.0,
-      "projection": 6.7,
-      "edge": 1.7,
-      "confidence": "medium",
-      "matchup": "AZ @ COL"
     }
   ],
   "all_actionable": [
@@ -220,6 +220,16 @@
       "edge": 1.93,
       "confidence": "medium",
       "matchup": "NYM @ TEX"
+    },
+    {
+      "player": "Yordan Alvarez",
+      "prop": "hitter_fantasy_score",
+      "line": 7.0,
+      "lean": "Over",
+      "projection": 8.9,
+      "edge": 1.9,
+      "confidence": "medium",
+      "matchup": "HOU @ ATH"
     },
     {
       "player": "Ian Seymour",
@@ -350,16 +360,6 @@
       "edge": 1.56,
       "confidence": "medium",
       "matchup": "STL @ PIT"
-    },
-    {
-      "player": "Randy Arozarena",
-      "prop": "hitter_fantasy_score",
-      "line": 6.5,
-      "lean": "Over",
-      "projection": 8.0,
-      "edge": 1.54,
-      "confidence": "medium",
-      "matchup": "LAA @ SEA"
     }
   ]
 }
