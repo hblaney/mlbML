@@ -136,6 +136,28 @@
       "notes": []
     },
     {
+      "player": "Shane Drohan",
+      "team": "MIL",
+      "opponent": "PHI",
+      "matchup": "MIL @ PHI",
+      "game_date": "2026-09-24",
+      "props": [
+        {
+          "prop": "strikeouts",
+          "pick": "Over",
+          "model_line": 5.5,
+          "use_line": 4.5,
+          "projection": 5.5,
+          "edge": 1.0,
+          "confidence": "medium",
+          "k9": 9.05,
+          "opp_k_rate": 0.218
+        }
+      ],
+      "headline": "Over 4.5 STRIKEOUTS (medium confidence)",
+      "notes": []
+    },
+    {
       "player": "Peter Lambert",
       "team": "HOU",
       "opponent": "ATH",
@@ -441,9 +463,7 @@
         }
       ],
       "headline": "Over 4.5 STRIKEOUTS (low confidence)",
-      "notes": [
-        "Probable starter not fully confirmed \u2014 verify before betting."
-      ]
+      "notes": []
     },
     {
       "player": "Tyler Mahle",

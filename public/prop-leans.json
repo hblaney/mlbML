@@ -2,7 +2,7 @@
   "generated_at": "2026-09-24",
   "source": "prop-leans-v2",
   "note": "K uses estimated PrizePicks lines when posted line unknown. Hitter FS from top-4 OPS bats per team.",
-  "actionable_count": 104,
+  "actionable_count": 113,
   "leans": [
     {
       "gameId": "cws-kc-2026-09-24-824059",
@@ -177,6 +177,22 @@
       "ops": 0.901
     },
     {
+      "gameId": "mil-phi-2026-09-24-823411",
+      "matchup": "MIL @ PHI",
+      "player": "Kyle Schwarber",
+      "team": "PHI",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Shane Drohan",
+      "fair_line": 7.0,
+      "line": 5.5,
+      "projection": 7.2,
+      "lean": "Over",
+      "edge": 1.73,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.858
+    },
+    {
       "gameId": "sd-lad-2026-09-24-823895",
       "matchup": "SD @ LAD",
       "player": "Max Muncy",
@@ -336,6 +352,22 @@
       "ops": 0.859
     },
     {
+      "gameId": "mil-phi-2026-09-24-823411",
+      "matchup": "MIL @ PHI",
+      "player": "Bryce Harper",
+      "team": "PHI",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Shane Drohan",
+      "fair_line": 7.0,
+      "line": 5.5,
+      "projection": 7.0,
+      "lean": "Over",
+      "edge": 1.54,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.867
+    },
+    {
       "gameId": "cws-kc-2026-09-24-824059",
       "matchup": "CWS @ KC",
       "player": "Miguel Vargas",
@@ -431,6 +463,22 @@
       "ops": 0.836
     },
     {
+      "gameId": "mil-phi-2026-09-24-823411",
+      "matchup": "MIL @ PHI",
+      "player": "Jake Bauers",
+      "team": "MIL",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Andrew Painter",
+      "fair_line": 8.0,
+      "line": 6.5,
+      "projection": 7.9,
+      "lean": "Over",
+      "edge": 1.45,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.883
+    },
+    {
       "gameId": "cin-atl-2026-09-24-824866",
       "matchup": "CIN @ ATL",
       "player": "Matt Olson",
@@ -461,6 +509,22 @@
       "confidence": "medium",
       "line_source": "prizepicks_est",
       "ops": 0.822
+    },
+    {
+      "gameId": "mil-phi-2026-09-24-823411",
+      "matchup": "MIL @ PHI",
+      "player": "Andrew Vaughn",
+      "team": "MIL",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Andrew Painter",
+      "fair_line": 6.5,
+      "line": 5.0,
+      "projection": 6.4,
+      "lean": "Over",
+      "edge": 1.38,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.834
     },
     {
       "gameId": "stl-pit-2026-09-24-823326",
@@ -895,6 +959,22 @@
       "ops": 0.781
     },
     {
+      "gameId": "mil-phi-2026-09-24-823411",
+      "matchup": "MIL @ PHI",
+      "player": "Brice Turang",
+      "team": "MIL",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Andrew Painter",
+      "fair_line": 7.5,
+      "line": 6.5,
+      "projection": 7.5,
+      "lean": "Over",
+      "edge": 1.02,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.809
+    },
+    {
       "gameId": "hou-ath-2026-09-24-824950",
       "matchup": "HOU @ ATH",
       "player": "Isaac Paredes",
@@ -941,6 +1021,21 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.761
+    },
+    {
+      "gameId": "mil-phi-2026-09-24-823411",
+      "matchup": "MIL @ PHI",
+      "player": "Shane Drohan",
+      "team": "MIL",
+      "prop": "strikeouts",
+      "fair_line": 5.5,
+      "line": 4.5,
+      "projection": 5.5,
+      "lean": "Over",
+      "edge": 1.0,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "k9": 9.05
     },
     {
       "gameId": "mia-chc-2026-09-24-824623",
@@ -1135,6 +1230,22 @@
       "ops": 0.819
     },
     {
+      "gameId": "mil-phi-2026-09-24-823411",
+      "matchup": "MIL @ PHI",
+      "player": "Bryan De La Cruz",
+      "team": "PHI",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Shane Drohan",
+      "fair_line": 6.5,
+      "line": 5.5,
+      "projection": 6.4,
+      "lean": "Over",
+      "edge": 0.87,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.811
+    },
+    {
       "gameId": "sd-lad-2026-09-24-823895",
       "matchup": "SD @ LAD",
       "player": "Luis Rengifo",
@@ -1292,6 +1403,22 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.786
+    },
+    {
+      "gameId": "mil-phi-2026-09-24-823411",
+      "matchup": "MIL @ PHI",
+      "player": "Jackson Chourio",
+      "team": "MIL",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Andrew Painter",
+      "fair_line": 8.0,
+      "line": 7.0,
+      "projection": 7.8,
+      "lean": "Over",
+      "edge": 0.81,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.819
     },
     {
       "gameId": "tb-nyy-2026-09-24-823493",
@@ -1634,6 +1761,21 @@
       "k9": 7.26
     },
     {
+      "gameId": "mil-phi-2026-09-24-823411",
+      "matchup": "MIL @ PHI",
+      "player": "Andrew Painter",
+      "team": "PHI",
+      "prop": "strikeouts",
+      "fair_line": 5.0,
+      "line": 4.5,
+      "projection": 4.9,
+      "lean": "Over",
+      "edge": 0.36,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "k9": 7.98
+    },
+    {
       "gameId": "cin-atl-2026-09-24-824866",
       "matchup": "CIN @ ATL",
       "player": "Tyler Mahle",
@@ -1663,6 +1805,22 @@
       "confidence": "pass",
       "line_source": "prizepicks_est",
       "ops": 0.714
+    },
+    {
+      "gameId": "mil-phi-2026-09-24-823411",
+      "matchup": "MIL @ PHI",
+      "player": "Bryson Stott",
+      "team": "PHI",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Shane Drohan",
+      "fair_line": 6.5,
+      "line": 6.0,
+      "projection": 6.5,
+      "lean": "Pass",
+      "edge": 0.52,
+      "confidence": "pass",
+      "line_source": "prizepicks_est",
+      "ops": 0.72
     },
     {
       "gameId": "stl-pit-2026-09-24-823326",
@@ -1855,14 +2013,14 @@
       "matchup": "SD @ LAD"
     },
     {
-      "player": "Max Muncy",
+      "player": "Kyle Schwarber",
       "prop": "hitter_fantasy_score",
       "lean": "Over",
-      "line": 5.0,
-      "projection": 6.7,
-      "edge": 1.7,
+      "line": 5.5,
+      "projection": 7.2,
+      "edge": 1.73,
       "confidence": "medium",
-      "matchup": "SD @ LAD"
+      "matchup": "MIL @ PHI"
     }
   ]
 }

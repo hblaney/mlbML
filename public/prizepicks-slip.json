@@ -150,14 +150,14 @@
       "matchup": "SD @ LAD"
     },
     {
-      "player": "Max Muncy",
+      "player": "Kyle Schwarber",
       "prop": "hitter_fantasy_score",
       "lean": "Over",
-      "line": 5.0,
-      "projection": 6.7,
-      "edge": 1.7,
+      "line": 5.5,
+      "projection": 7.2,
+      "edge": 1.73,
       "confidence": "medium",
-      "matchup": "SD @ LAD"
+      "matchup": "MIL @ PHI"
     }
   ],
   "all_actionable": [
@@ -272,6 +272,16 @@
       "matchup": "SD @ LAD"
     },
     {
+      "player": "Kyle Schwarber",
+      "prop": "hitter_fantasy_score",
+      "line": 5.5,
+      "lean": "Over",
+      "projection": 7.2,
+      "edge": 1.73,
+      "confidence": "medium",
+      "matchup": "MIL @ PHI"
+    },
+    {
       "player": "Max Muncy",
       "prop": "hitter_fantasy_score",
       "line": 5.0,
@@ -350,16 +360,6 @@
       "edge": 1.62,
       "confidence": "medium",
       "matchup": "CIN @ ATL"
-    },
-    {
-      "player": "Esmerlyn Valdez",
-      "prop": "hitter_fantasy_score",
-      "line": 7.5,
-      "lean": "Over",
-      "projection": 9.1,
-      "edge": 1.56,
-      "confidence": "medium",
-      "matchup": "STL @ PIT"
     }
   ]
 }

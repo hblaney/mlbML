@@ -216,8 +216,8 @@
     "hit_rate": 0.4375
   },
   "archive": {
-    "evaluated_games": 4630.0,
-    "overall_accuracy": 0.5603
+    "evaluated_games": 4631.0,
+    "overall_accuracy": 0.5604
   },
   "brier_score": 0.0,
   "days_at_or_above_60pct": 65.0,
@@ -571,7 +571,8 @@
     "2026-09-20": 0.7333333333333333,
     "2026-09-21": 0.6666666666666666,
     "2026-09-22": 0.4375,
-    "2026-09-23": 0.4375
+    "2026-09-23": 0.4375,
+    "2026-09-24": 1.0
   },
   "weekly_accuracy": {
     "2025-W15": 0.5961538461538461,
@@ -625,32 +626,9 @@
     "2026-W36": 0.5257731958762887,
     "2026-W37": 0.4945054945054945,
     "2026-W38": 0.6276595744680851,
-    "2026-W39": 0.45714285714285713
+    "2026-W39": 0.4722222222222222
   },
   "recent_predictions": [
-    {
-      "gamePk": 824381,
-      "date": "2026-09-20",
-      "startsAt": "2026-09-20T17:40:00Z",
-      "home": "CLE",
-      "away": "ATH",
-      "internalHomeProbability": 0.696,
-      "internalPickProbability": 0.696,
-      "probability": 0.696,
-      "pickProbability": 0.696,
-      "rawPickProbability": 0.696,
-      "confidence": "High",
-      "eraDiff": 2.75,
-      "formEdge": 0.4,
-      "marketAgrees": true,
-      "modelEdge": 0.0089,
-      "marketBacked": true,
-      "predicted": "CLE",
-      "actual": "CLE",
-      "correct": 1,
-      "modelVersion": "daily-auto-v6.2-mkt-cal",
-      "source": "live_board"
-    },
     {
       "gamePk": 824462,
       "date": "2026-09-20",
@@ -1545,6 +1523,29 @@
       "predicted": "LAA",
       "actual": "ATH",
       "correct": 0,
+      "modelVersion": "daily-auto-v6.2-mkt-cal",
+      "source": "live_board"
+    },
+    {
+      "gamePk": 823326,
+      "date": "2026-09-24",
+      "startsAt": "2026-09-24T16:35:00Z",
+      "home": "PIT",
+      "away": "STL",
+      "internalHomeProbability": 0.5391,
+      "internalPickProbability": 0.5391,
+      "probability": 0.5391,
+      "pickProbability": 0.5391,
+      "rawPickProbability": 0.5391,
+      "confidence": "Low",
+      "eraDiff": -0.26,
+      "formEdge": 0.2,
+      "marketAgrees": null,
+      "modelEdge": 0.0,
+      "marketBacked": false,
+      "predicted": "PIT",
+      "actual": "PIT",
+      "correct": 1,
       "modelVersion": "daily-auto-v6.2-mkt-cal",
       "source": "live_board"
     }
