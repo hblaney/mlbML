@@ -25,17 +25,17 @@
         "edge": 2.06
       },
       {
-        "player": "Reid Detmers",
+        "player": "Hunter Brown",
         "prop": "strikeouts",
         "line": 4.5,
         "pick": "Over",
-        "projection": 6.3,
-        "matchup": "LAA @ SEA",
+        "projection": 6.5,
+        "matchup": "HOU @ ATH",
         "confidence": "high",
-        "edge": 1.83
+        "edge": 1.98
       }
     ],
-    "score": 6.89,
+    "score": 7.04,
     "same_game_warning": true
   },
   "top_plays": [
@@ -58,6 +58,26 @@
       "edge": 2.06,
       "confidence": "high",
       "matchup": "CHC @ BOS"
+    },
+    {
+      "player": "Hunter Brown",
+      "prop": "strikeouts",
+      "lean": "Over",
+      "line": 4.5,
+      "projection": 6.5,
+      "edge": 1.98,
+      "confidence": "high",
+      "matchup": "HOU @ ATH"
+    },
+    {
+      "player": "Yordan Alvarez",
+      "prop": "hitter_fantasy_score",
+      "lean": "Over",
+      "line": 6.5,
+      "projection": 8.4,
+      "edge": 1.95,
+      "confidence": "medium",
+      "matchup": "HOU @ ATH"
     },
     {
       "player": "Shohei Ohtani",
@@ -138,26 +158,6 @@
       "edge": 1.71,
       "confidence": "medium",
       "matchup": "LAD @ SF"
-    },
-    {
-      "player": "Tarik Skubal",
-      "prop": "strikeouts",
-      "lean": "Over",
-      "line": 4.5,
-      "projection": 6.2,
-      "edge": 1.71,
-      "confidence": "high",
-      "matchup": "LAD @ SF"
-    },
-    {
-      "player": "Jacob deGrom",
-      "prop": "strikeouts",
-      "lean": "Over",
-      "line": 5.0,
-      "projection": 6.7,
-      "edge": 1.7,
-      "confidence": "high",
-      "matchup": "TEX @ MIN"
     }
   ],
   "all_actionable": [
@@ -180,6 +180,26 @@
       "edge": 2.06,
       "confidence": "high",
       "matchup": "CHC @ BOS"
+    },
+    {
+      "player": "Hunter Brown",
+      "prop": "strikeouts",
+      "line": 4.5,
+      "lean": "Over",
+      "projection": 6.5,
+      "edge": 1.98,
+      "confidence": "high",
+      "matchup": "HOU @ ATH"
+    },
+    {
+      "player": "Yordan Alvarez",
+      "prop": "hitter_fantasy_score",
+      "line": 6.5,
+      "lean": "Over",
+      "projection": 8.4,
+      "edge": 1.95,
+      "confidence": "medium",
+      "matchup": "HOU @ ATH"
     },
     {
       "player": "Shohei Ohtani",
@@ -340,26 +360,6 @@
       "edge": 1.55,
       "confidence": "medium",
       "matchup": "COL @ CWS"
-    },
-    {
-      "player": "Andrew Vaughn",
-      "prop": "hitter_fantasy_score",
-      "line": 4.5,
-      "lean": "Over",
-      "projection": 6.0,
-      "edge": 1.5,
-      "confidence": "medium",
-      "matchup": "STL @ MIL"
-    },
-    {
-      "player": "Jake Bauers",
-      "prop": "hitter_fantasy_score",
-      "line": 6.0,
-      "lean": "Over",
-      "projection": 7.5,
-      "edge": 1.48,
-      "confidence": "medium",
-      "matchup": "STL @ MIL"
     }
   ]
 }

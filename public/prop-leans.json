@@ -2,7 +2,7 @@
   "generated_at": "2026-09-25",
   "source": "prop-leans-v2",
   "note": "K uses estimated PrizePicks lines when posted line unknown. Hitter FS from top-4 OPS bats per team.",
-  "actionable_count": 88,
+  "actionable_count": 98,
   "leans": [
     {
       "gameId": "chc-bos-2026-09-25-824703",
@@ -35,6 +35,37 @@
       "confidence": "high",
       "line_source": "prizepicks_est",
       "ops": 1.062
+    },
+    {
+      "gameId": "hou-ath-2026-09-25-824947",
+      "matchup": "HOU @ ATH",
+      "player": "Hunter Brown",
+      "team": "HOU",
+      "prop": "strikeouts",
+      "fair_line": 6.5,
+      "line": 4.5,
+      "projection": 6.5,
+      "lean": "Over",
+      "edge": 1.98,
+      "confidence": "high",
+      "line_source": "prizepicks_est",
+      "k9": 10.59
+    },
+    {
+      "gameId": "hou-ath-2026-09-25-824947",
+      "matchup": "HOU @ ATH",
+      "player": "Yordan Alvarez",
+      "team": "HOU",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Jacob Lopez",
+      "fair_line": 8.5,
+      "line": 6.5,
+      "projection": 8.4,
+      "lean": "Over",
+      "edge": 1.95,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 1.032
     },
     {
       "gameId": "lad-sf-2026-09-25-823167",
@@ -401,22 +432,6 @@
       "ops": 0.849
     },
     {
-      "gameId": "bal-nyy-2026-09-25-823489",
-      "matchup": "BAL @ NYY",
-      "player": "Ben Rice",
-      "team": "NYY",
-      "prop": "hitter_fantasy_score",
-      "vs_pitcher": "Trevor Rogers",
-      "fair_line": 7.5,
-      "line": 6.0,
-      "projection": 7.4,
-      "lean": "Over",
-      "edge": 1.4,
-      "confidence": "medium",
-      "line_source": "prizepicks_est",
-      "ops": 0.897
-    },
-    {
       "gameId": "col-cws-2026-09-25-824544",
       "matchup": "COL @ CWS",
       "player": "Sean Burke",
@@ -430,6 +445,22 @@
       "confidence": "high",
       "line_source": "prizepicks_est",
       "k9": 9.59
+    },
+    {
+      "gameId": "bal-nyy-2026-09-25-823489",
+      "matchup": "BAL @ NYY",
+      "player": "Ben Rice",
+      "team": "NYY",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Brandon Young",
+      "fair_line": 7.5,
+      "line": 6.0,
+      "projection": 7.4,
+      "lean": "Over",
+      "edge": 1.38,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.897
     },
     {
       "gameId": "bal-nyy-2026-09-25-823489",
@@ -575,17 +606,33 @@
       "ops": 0.804
     },
     {
+      "gameId": "hou-ath-2026-09-25-824947",
+      "matchup": "HOU @ ATH",
+      "player": "Isaac Paredes",
+      "team": "HOU",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Jacob Lopez",
+      "fair_line": 6.5,
+      "line": 5.5,
+      "projection": 6.7,
+      "lean": "Over",
+      "edge": 1.23,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.804
+    },
+    {
       "gameId": "bal-nyy-2026-09-25-823489",
       "matchup": "BAL @ NYY",
       "player": "Paul Goldschmidt",
       "team": "NYY",
       "prop": "hitter_fantasy_score",
-      "vs_pitcher": "Trevor Rogers",
+      "vs_pitcher": "Brandon Young",
       "fair_line": 6.0,
       "line": 5.0,
       "projection": 6.2,
       "lean": "Over",
-      "edge": 1.23,
+      "edge": 1.22,
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.774
@@ -639,22 +686,6 @@
       "ops": 0.815
     },
     {
-      "gameId": "bal-nyy-2026-09-25-823489",
-      "matchup": "BAL @ NYY",
-      "player": "Cody Bellinger",
-      "team": "NYY",
-      "prop": "hitter_fantasy_score",
-      "vs_pitcher": "Trevor Rogers",
-      "fair_line": 6.5,
-      "line": 5.5,
-      "projection": 6.7,
-      "lean": "Over",
-      "edge": 1.17,
-      "confidence": "low",
-      "line_source": "prizepicks_est",
-      "ops": 0.774
-    },
-    {
       "gameId": "tb-phi-2026-09-25-823409",
       "matchup": "TB @ PHI",
       "player": "Victor Mesa Jr.",
@@ -669,6 +700,22 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.806
+    },
+    {
+      "gameId": "bal-nyy-2026-09-25-823489",
+      "matchup": "BAL @ NYY",
+      "player": "Cody Bellinger",
+      "team": "NYY",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Brandon Young",
+      "fair_line": 6.5,
+      "line": 5.5,
+      "projection": 6.6,
+      "lean": "Over",
+      "edge": 1.15,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.774
     },
     {
       "gameId": "pit-det-2026-09-25-824220",
@@ -701,6 +748,22 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.797
+    },
+    {
+      "gameId": "hou-ath-2026-09-25-824947",
+      "matchup": "HOU @ ATH",
+      "player": "Shea Langeliers",
+      "team": "ATH",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Hunter Brown",
+      "fair_line": 6.5,
+      "line": 5.5,
+      "projection": 6.6,
+      "lean": "Over",
+      "edge": 1.11,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.811
     },
     {
       "gameId": "tex-min-2026-09-25-823652",
@@ -878,6 +941,38 @@
       "ops": 0.801
     },
     {
+      "gameId": "hou-ath-2026-09-25-824947",
+      "matchup": "HOU @ ATH",
+      "player": "Jeremy Pe\u00f1a",
+      "team": "HOU",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Jacob Lopez",
+      "fair_line": 7.5,
+      "line": 6.5,
+      "projection": 7.5,
+      "lean": "Over",
+      "edge": 0.99,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.79
+    },
+    {
+      "gameId": "hou-ath-2026-09-25-824947",
+      "matchup": "HOU @ ATH",
+      "player": "Tyler Soderstrom",
+      "team": "ATH",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Hunter Brown",
+      "fair_line": 6.5,
+      "line": 5.5,
+      "projection": 6.5,
+      "lean": "Over",
+      "edge": 0.98,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.81
+    },
+    {
       "gameId": "cle-kc-2026-09-25-824058",
       "matchup": "CLE @ KC",
       "player": "Chase DeLauter",
@@ -1005,6 +1100,22 @@
       "ops": 0.929
     },
     {
+      "gameId": "hou-ath-2026-09-25-824947",
+      "matchup": "HOU @ ATH",
+      "player": "Henry Bolte",
+      "team": "ATH",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Hunter Brown",
+      "fair_line": 7.5,
+      "line": 6.5,
+      "projection": 7.4,
+      "lean": "Over",
+      "edge": 0.91,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.76
+    },
+    {
       "gameId": "laa-sea-2026-09-25-823085",
       "matchup": "LAA @ SEA",
       "player": "Dominic Canzone",
@@ -1067,6 +1178,22 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.762
+    },
+    {
+      "gameId": "hou-ath-2026-09-25-824947",
+      "matchup": "HOU @ ATH",
+      "player": "Donovan Walton",
+      "team": "ATH",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Hunter Brown",
+      "fair_line": 8.0,
+      "line": 7.0,
+      "projection": 7.9,
+      "lean": "Over",
+      "edge": 0.89,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.81
     },
     {
       "gameId": "pit-det-2026-09-25-824220",
@@ -1162,6 +1289,22 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.806
+    },
+    {
+      "gameId": "hou-ath-2026-09-25-824947",
+      "matchup": "HOU @ ATH",
+      "player": "Yainer Diaz",
+      "team": "HOU",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Jacob Lopez",
+      "fair_line": 6.5,
+      "line": 5.5,
+      "projection": 6.4,
+      "lean": "Over",
+      "edge": 0.87,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.763
     },
     {
       "gameId": "col-cws-2026-09-25-824544",
@@ -1278,17 +1421,17 @@
     {
       "gameId": "bal-nyy-2026-09-25-823489",
       "matchup": "BAL @ NYY",
-      "player": "Trevor Rogers",
+      "player": "Brandon Young",
       "team": "BAL",
       "prop": "strikeouts",
-      "fair_line": 5.0,
-      "line": 4.5,
-      "projection": 5.2,
+      "fair_line": 4.5,
+      "line": 4.0,
+      "projection": 4.7,
       "lean": "Over",
-      "edge": 0.72,
+      "edge": 0.74,
       "confidence": "low",
       "line_source": "prizepicks_est",
-      "k9": 8.31
+      "k9": 7.54
     },
     {
       "gameId": "laa-sea-2026-09-25-823085",
@@ -1319,6 +1462,21 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "k9": 8.21
+    },
+    {
+      "gameId": "hou-ath-2026-09-25-824947",
+      "matchup": "HOU @ ATH",
+      "player": "Jacob Lopez",
+      "team": "ATH",
+      "prop": "strikeouts",
+      "fair_line": 5.0,
+      "line": 4.5,
+      "projection": 5.0,
+      "lean": "Over",
+      "edge": 0.54,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "k9": 8.28
     },
     {
       "gameId": "stl-mil-2026-09-25-823735",
@@ -1401,12 +1559,12 @@
       "player": "Jazz Chisholm Jr.",
       "team": "NYY",
       "prop": "hitter_fantasy_score",
-      "vs_pitcher": "Trevor Rogers",
+      "vs_pitcher": "Brandon Young",
       "fair_line": 7.0,
       "line": 6.5,
       "projection": 7.2,
       "lean": "Pass",
-      "edge": 0.75,
+      "edge": 0.73,
       "confidence": "pass",
       "line_source": "prizepicks_est",
       "ops": 0.717
@@ -1637,6 +1795,26 @@
       "matchup": "CHC @ BOS"
     },
     {
+      "player": "Hunter Brown",
+      "prop": "strikeouts",
+      "lean": "Over",
+      "line": 4.5,
+      "projection": 6.5,
+      "edge": 1.98,
+      "confidence": "high",
+      "matchup": "HOU @ ATH"
+    },
+    {
+      "player": "Yordan Alvarez",
+      "prop": "hitter_fantasy_score",
+      "lean": "Over",
+      "line": 6.5,
+      "projection": 8.4,
+      "edge": 1.95,
+      "confidence": "medium",
+      "matchup": "HOU @ ATH"
+    },
+    {
       "player": "Shohei Ohtani",
       "prop": "hitter_fantasy_score",
       "lean": "Over",
@@ -1715,26 +1893,6 @@
       "edge": 1.71,
       "confidence": "medium",
       "matchup": "LAD @ SF"
-    },
-    {
-      "player": "Tarik Skubal",
-      "prop": "strikeouts",
-      "lean": "Over",
-      "line": 4.5,
-      "projection": 6.2,
-      "edge": 1.71,
-      "confidence": "high",
-      "matchup": "LAD @ SF"
-    },
-    {
-      "player": "Jacob deGrom",
-      "prop": "strikeouts",
-      "lean": "Over",
-      "line": 5.0,
-      "projection": 6.7,
-      "edge": 1.7,
-      "confidence": "high",
-      "matchup": "TEX @ MIN"
     }
   ]
 }
