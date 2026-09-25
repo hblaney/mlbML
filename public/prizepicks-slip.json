@@ -60,6 +60,16 @@
       "matchup": "CHC @ BOS"
     },
     {
+      "player": "Juan Soto",
+      "prop": "hitter_fantasy_score",
+      "lean": "Over",
+      "line": 5.5,
+      "projection": 7.5,
+      "edge": 2.01,
+      "confidence": "high",
+      "matchup": "NYM @ WSH"
+    },
+    {
       "player": "Hunter Brown",
       "prop": "strikeouts",
       "lean": "Over",
@@ -110,6 +120,16 @@
       "matchup": "CHC @ BOS"
     },
     {
+      "player": "Jefry Yan",
+      "prop": "strikeouts",
+      "lean": "Over",
+      "line": 5.5,
+      "projection": 7.3,
+      "edge": 1.79,
+      "confidence": "high",
+      "matchup": "NYM @ WSH"
+    },
+    {
       "player": "Gavin Williams",
       "prop": "strikeouts",
       "lean": "Over",
@@ -138,26 +158,6 @@
       "edge": 1.74,
       "confidence": "medium",
       "matchup": "CHC @ BOS"
-    },
-    {
-      "player": "Randy Arozarena",
-      "prop": "hitter_fantasy_score",
-      "lean": "Over",
-      "line": 5.5,
-      "projection": 7.2,
-      "edge": 1.73,
-      "confidence": "medium",
-      "matchup": "LAA @ SEA"
-    },
-    {
-      "player": "Bryce Eldridge",
-      "prop": "hitter_fantasy_score",
-      "lean": "Over",
-      "line": 4.5,
-      "projection": 6.2,
-      "edge": 1.71,
-      "confidence": "medium",
-      "matchup": "LAD @ SF"
     }
   ],
   "all_actionable": [
@@ -180,6 +180,16 @@
       "edge": 2.06,
       "confidence": "high",
       "matchup": "CHC @ BOS"
+    },
+    {
+      "player": "Juan Soto",
+      "prop": "hitter_fantasy_score",
+      "line": 5.5,
+      "lean": "Over",
+      "projection": 7.5,
+      "edge": 2.01,
+      "confidence": "high",
+      "matchup": "NYM @ WSH"
     },
     {
       "player": "Hunter Brown",
@@ -220,6 +230,16 @@
       "edge": 1.83,
       "confidence": "high",
       "matchup": "LAA @ SEA"
+    },
+    {
+      "player": "Jefry Yan",
+      "prop": "strikeouts",
+      "line": 5.5,
+      "lean": "Over",
+      "projection": 7.3,
+      "edge": 1.79,
+      "confidence": "high",
+      "matchup": "NYM @ WSH"
     },
     {
       "player": "Gavin Williams",
@@ -332,34 +352,14 @@
       "matchup": "ATL @ MIA"
     },
     {
-      "player": "Miguel Vargas",
+      "player": "Luis Garc\u00eda Jr.",
       "prop": "hitter_fantasy_score",
       "line": 6.0,
       "lean": "Over",
       "projection": 7.6,
-      "edge": 1.56,
+      "edge": 1.57,
       "confidence": "medium",
-      "matchup": "COL @ CWS"
-    },
-    {
-      "player": "Josh Jung",
-      "prop": "hitter_fantasy_score",
-      "line": 4.5,
-      "lean": "Over",
-      "projection": 6.0,
-      "edge": 1.55,
-      "confidence": "medium",
-      "matchup": "TEX @ MIN"
-    },
-    {
-      "player": "Jac Caglianone",
-      "prop": "hitter_fantasy_score",
-      "line": 5.0,
-      "lean": "Over",
-      "projection": 6.5,
-      "edge": 1.55,
-      "confidence": "medium",
-      "matchup": "CLE @ KC"
+      "matchup": "NYM @ WSH"
     }
   ]
 }
