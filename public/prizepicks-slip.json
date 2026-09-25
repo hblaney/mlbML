@@ -322,6 +322,16 @@
       "matchup": "PIT @ DET"
     },
     {
+      "player": "Griffin Conine",
+      "prop": "hitter_fantasy_score",
+      "line": 4.5,
+      "lean": "Over",
+      "projection": 6.1,
+      "edge": 1.65,
+      "confidence": "medium",
+      "matchup": "ATL @ MIA"
+    },
+    {
       "player": "Miguel Vargas",
       "prop": "hitter_fantasy_score",
       "line": 6.0,
@@ -350,16 +360,6 @@
       "edge": 1.55,
       "confidence": "medium",
       "matchup": "CLE @ KC"
-    },
-    {
-      "player": "Hunter Goodman",
-      "prop": "hitter_fantasy_score",
-      "line": 5.5,
-      "lean": "Over",
-      "projection": 7.1,
-      "edge": 1.55,
-      "confidence": "medium",
-      "matchup": "COL @ CWS"
     }
   ]
 }

@@ -155,9 +155,7 @@
         }
       ],
       "headline": "Over 4.5 STRIKEOUTS (high confidence)",
-      "notes": [
-        "Probable starter not fully confirmed \u2014 verify before betting."
-      ]
+      "notes": []
     },
     {
       "player": "Cristopher S\u00e1nchez",
@@ -291,7 +289,9 @@
         }
       ],
       "headline": "Over 4.0 STRIKEOUTS (medium confidence)",
-      "notes": []
+      "notes": [
+        "Probable starter not fully confirmed \u2014 verify before betting."
+      ]
     },
     {
       "player": "Trevor Rogers",
@@ -313,9 +313,7 @@
         }
       ],
       "headline": "Over 4.5 STRIKEOUTS (medium confidence)",
-      "notes": [
-        "Probable starter not fully confirmed \u2014 verify before betting."
-      ]
+      "notes": []
     },
     {
       "player": "Bryce Miller",
@@ -340,6 +338,28 @@
       "notes": []
     },
     {
+      "player": "Jos\u00e9 Soriano",
+      "team": "TOR",
+      "opponent": "CIN",
+      "matchup": "CIN @ TOR",
+      "game_date": "2026-09-25",
+      "props": [
+        {
+          "prop": "strikeouts",
+          "pick": "Over",
+          "model_line": 4.5,
+          "use_line": 4.0,
+          "projection": 4.7,
+          "edge": 0.68,
+          "confidence": "medium",
+          "k9": 7.36,
+          "opp_k_rate": 0.255
+        }
+      ],
+      "headline": "Over 4.0 STRIKEOUTS (medium confidence)",
+      "notes": []
+    },
+    {
       "player": "Nick Lodolo",
       "team": "CIN",
       "opponent": "TOR",
@@ -359,9 +379,7 @@
         }
       ],
       "headline": "Over 3.5 STRIKEOUTS (medium confidence)",
-      "notes": [
-        "Probable starter not fully confirmed \u2014 verify before betting."
-      ]
+      "notes": []
     },
     {
       "player": "Bubba Chandler",
@@ -449,6 +467,28 @@
         }
       ],
       "headline": "Over 4.5 STRIKEOUTS (low confidence)",
+      "notes": []
+    },
+    {
+      "player": "Ray Kerr",
+      "team": "ATL",
+      "opponent": "MIA",
+      "matchup": "ATL @ MIA",
+      "game_date": "2026-09-25",
+      "props": [
+        {
+          "prop": "strikeouts",
+          "pick": "Over",
+          "model_line": 4.0,
+          "use_line": 3.5,
+          "projection": 3.9,
+          "edge": 0.43,
+          "confidence": "low",
+          "k9": 6.46,
+          "opp_k_rate": 0.22
+        }
+      ],
+      "headline": "Over 3.5 STRIKEOUTS (low confidence)",
       "notes": []
     },
     {
