@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-09-25",
-  "trained_through": "2026-09-24",
+  "generated_at": "2026-09-26",
+  "trained_through": "2026-09-25",
   "season": "2026",
   "method": "live_board_graded",
   "stake": 0.45,
@@ -9,19 +9,19 @@
   "baseline_odds": -110,
   "date_range": {
     "start": "2026-03-20",
-    "end": "2026-09-24"
+    "end": "2026-09-25"
   },
   "overall": {
-    "bets": 1936,
-    "wins": 1073,
-    "losses": 863,
-    "hit_rate": 0.5542
+    "bets": 1952,
+    "wins": 1084,
+    "losses": 868,
+    "hit_rate": 0.5553
   },
   "high_confidence": {
-    "bets": 81,
-    "wins": 50,
+    "bets": 82,
+    "wins": 51,
     "losses": 31,
-    "hit_rate": 0.6173
+    "hit_rate": 0.622
   },
   "by_confidence": {
     "Elite": {
@@ -31,41 +31,41 @@
       "hit_rate": 0.6667
     },
     "High": {
-      "bets": 69,
-      "wins": 42,
+      "bets": 70,
+      "wins": 43,
       "losses": 27,
-      "hit_rate": 0.6087
+      "hit_rate": 0.6143
     },
     "Medium": {
-      "bets": 723,
-      "wins": 419,
-      "losses": 304,
-      "hit_rate": 0.5795
+      "bets": 732,
+      "wins": 424,
+      "losses": 308,
+      "hit_rate": 0.5792
     },
     "Low": {
-      "bets": 1132,
-      "wins": 604,
-      "losses": 528,
-      "hit_rate": 0.5336
+      "bets": 1138,
+      "wins": 609,
+      "losses": 529,
+      "hit_rate": 0.5351
     }
   },
   "last_7_days": {
-    "bets": 92,
-    "wins": 50,
-    "losses": 42,
-    "hit_rate": 0.5435
+    "bets": 94,
+    "wins": 56,
+    "losses": 38,
+    "hit_rate": 0.5957
   },
   "last_14_days": {
-    "bets": 186,
-    "wins": 102,
-    "losses": 84,
-    "hit_rate": 0.5484
+    "bets": 188,
+    "wins": 107,
+    "losses": 81,
+    "hit_rate": 0.5691
   },
   "yesterday": {
-    "bets": 12,
-    "wins": 6,
-    "losses": 6,
-    "hit_rate": 0.5
+    "bets": 17,
+    "wins": 12,
+    "losses": 5,
+    "hit_rate": 0.7059
   },
   "cumulative": [],
   "checkpoints": [],

@@ -1,365 +1,365 @@
 {
-  "generated_at": "2026-09-25",
+  "generated_at": "2026-09-26",
   "source": "prizepicks-slip-v2",
   "disclaimer": "Verify posted lines on PrizePicks before playing. Estimated lines used when posted line unknown.",
   "slip": {
     "legs": [
       {
-        "player": "Willson Contreras",
+        "player": "Randal Grichuk",
         "prop": "hitter_fantasy_score",
+        "line": 5.5,
+        "pick": "Over",
+        "projection": 7.7,
+        "matchup": "COL @ CWS",
+        "confidence": "high",
+        "edge": 2.16
+      },
+      {
+        "player": "Juan Soto",
+        "prop": "hitter_fantasy_score",
+        "line": 5.5,
+        "pick": "Over",
+        "projection": 7.6,
+        "matchup": "NYM @ WSH",
+        "confidence": "high",
+        "edge": 2.08
+      },
+      {
+        "player": "Blake Snell",
+        "prop": "strikeouts",
         "line": 5.0,
         "pick": "Over",
-        "projection": 7.1,
-        "matchup": "CHC @ BOS",
+        "projection": 7.0,
+        "matchup": "LAD @ SF",
         "confidence": "high",
-        "edge": 2.15
-      },
-      {
-        "player": "Jahmai Jones",
-        "prop": "hitter_fantasy_score",
-        "line": 6.0,
-        "pick": "Over",
-        "projection": 8.1,
-        "matchup": "CHC @ BOS",
-        "confidence": "high",
-        "edge": 2.06
-      },
-      {
-        "player": "Hunter Brown",
-        "prop": "strikeouts",
-        "line": 4.5,
-        "pick": "Over",
-        "projection": 6.5,
-        "matchup": "HOU @ ATH",
-        "confidence": "high",
-        "edge": 1.98
+        "edge": 2.0
       }
     ],
-    "score": 7.04,
-    "same_game_warning": true
+    "score": 7.09,
+    "same_game_warning": false
   },
   "top_plays": [
     {
-      "player": "Willson Contreras",
+      "player": "Randal Grichuk",
       "prop": "hitter_fantasy_score",
       "lean": "Over",
-      "line": 5.0,
-      "projection": 7.1,
-      "edge": 2.15,
+      "line": 5.5,
+      "projection": 7.7,
+      "edge": 2.16,
       "confidence": "high",
-      "matchup": "CHC @ BOS"
-    },
-    {
-      "player": "Jahmai Jones",
-      "prop": "hitter_fantasy_score",
-      "lean": "Over",
-      "line": 6.0,
-      "projection": 8.1,
-      "edge": 2.06,
-      "confidence": "high",
-      "matchup": "CHC @ BOS"
+      "matchup": "COL @ CWS"
     },
     {
       "player": "Juan Soto",
       "prop": "hitter_fantasy_score",
       "lean": "Over",
       "line": 5.5,
-      "projection": 7.5,
-      "edge": 2.01,
+      "projection": 7.6,
+      "edge": 2.08,
       "confidence": "high",
       "matchup": "NYM @ WSH"
     },
     {
-      "player": "Hunter Brown",
+      "player": "Blake Snell",
       "prop": "strikeouts",
       "lean": "Over",
-      "line": 4.5,
-      "projection": 6.5,
-      "edge": 1.98,
-      "confidence": "high",
-      "matchup": "HOU @ ATH"
-    },
-    {
-      "player": "Yordan Alvarez",
-      "prop": "hitter_fantasy_score",
-      "lean": "Over",
-      "line": 6.5,
-      "projection": 8.4,
-      "edge": 1.95,
-      "confidence": "medium",
-      "matchup": "HOU @ ATH"
-    },
-    {
-      "player": "Shohei Ohtani",
-      "prop": "hitter_fantasy_score",
-      "lean": "Over",
-      "line": 6.0,
-      "projection": 7.9,
-      "edge": 1.85,
-      "confidence": "medium",
-      "matchup": "LAD @ SF"
-    },
-    {
-      "player": "Reid Detmers",
-      "prop": "strikeouts",
-      "lean": "Over",
-      "line": 4.5,
-      "projection": 6.3,
-      "edge": 1.83,
-      "confidence": "high",
-      "matchup": "LAA @ SEA"
-    },
-    {
-      "player": "Pete Crow-Armstrong",
-      "prop": "hitter_fantasy_score",
-      "lean": "Over",
-      "line": 6.0,
-      "projection": 7.8,
-      "edge": 1.79,
-      "confidence": "medium",
-      "matchup": "CHC @ BOS"
-    },
-    {
-      "player": "Jefry Yan",
-      "prop": "strikeouts",
-      "lean": "Over",
-      "line": 5.5,
-      "projection": 7.3,
-      "edge": 1.79,
-      "confidence": "high",
-      "matchup": "NYM @ WSH"
-    },
-    {
-      "player": "Gavin Williams",
-      "prop": "strikeouts",
-      "lean": "Over",
-      "line": 5.5,
-      "projection": 7.3,
-      "edge": 1.79,
-      "confidence": "high",
-      "matchup": "CLE @ KC"
-    },
-    {
-      "player": "Randal Grichuk",
-      "prop": "hitter_fantasy_score",
-      "lean": "Over",
-      "line": 6.0,
-      "projection": 7.8,
-      "edge": 1.76,
-      "confidence": "medium",
-      "matchup": "COL @ CWS"
-    },
-    {
-      "player": "Seiya Suzuki",
-      "prop": "hitter_fantasy_score",
-      "lean": "Over",
-      "line": 4.5,
-      "projection": 6.2,
-      "edge": 1.74,
-      "confidence": "medium",
-      "matchup": "CHC @ BOS"
-    }
-  ],
-  "all_actionable": [
-    {
-      "player": "Willson Contreras",
-      "prop": "hitter_fantasy_score",
       "line": 5.0,
-      "lean": "Over",
-      "projection": 7.1,
-      "edge": 2.15,
+      "projection": 7.0,
+      "edge": 2.0,
       "confidence": "high",
-      "matchup": "CHC @ BOS"
-    },
-    {
-      "player": "Jahmai Jones",
-      "prop": "hitter_fantasy_score",
-      "line": 6.0,
-      "lean": "Over",
-      "projection": 8.1,
-      "edge": 2.06,
-      "confidence": "high",
-      "matchup": "CHC @ BOS"
-    },
-    {
-      "player": "Juan Soto",
-      "prop": "hitter_fantasy_score",
-      "line": 5.5,
-      "lean": "Over",
-      "projection": 7.5,
-      "edge": 2.01,
-      "confidence": "high",
-      "matchup": "NYM @ WSH"
-    },
-    {
-      "player": "Hunter Brown",
-      "prop": "strikeouts",
-      "line": 4.5,
-      "lean": "Over",
-      "projection": 6.5,
-      "edge": 1.98,
-      "confidence": "high",
-      "matchup": "HOU @ ATH"
+      "matchup": "LAD @ SF"
     },
     {
       "player": "Yordan Alvarez",
       "prop": "hitter_fantasy_score",
-      "line": 6.5,
       "lean": "Over",
-      "projection": 8.4,
+      "line": 6.5,
+      "projection": 8.5,
       "edge": 1.95,
       "confidence": "medium",
       "matchup": "HOU @ ATH"
     },
     {
-      "player": "Shohei Ohtani",
-      "prop": "hitter_fantasy_score",
-      "line": 6.0,
-      "lean": "Over",
-      "projection": 7.9,
-      "edge": 1.85,
-      "confidence": "medium",
-      "matchup": "LAD @ SF"
-    },
-    {
-      "player": "Reid Detmers",
+      "player": "Kirby Yates",
       "prop": "strikeouts",
-      "line": 4.5,
       "lean": "Over",
+      "line": 4.5,
       "projection": 6.3,
-      "edge": 1.83,
-      "confidence": "high",
-      "matchup": "LAA @ SEA"
-    },
-    {
-      "player": "Jefry Yan",
-      "prop": "strikeouts",
-      "line": 5.5,
-      "lean": "Over",
-      "projection": 7.3,
       "edge": 1.79,
       "confidence": "high",
-      "matchup": "NYM @ WSH"
+      "matchup": "PIT @ DET"
     },
     {
-      "player": "Gavin Williams",
-      "prop": "strikeouts",
-      "line": 5.5,
-      "lean": "Over",
-      "projection": 7.3,
-      "edge": 1.79,
-      "confidence": "high",
-      "matchup": "CLE @ KC"
-    },
-    {
-      "player": "Pete Crow-Armstrong",
+      "player": "Nathaniel Lowe",
       "prop": "hitter_fantasy_score",
-      "line": 6.0,
       "lean": "Over",
-      "projection": 7.8,
-      "edge": 1.79,
-      "confidence": "medium",
-      "matchup": "CHC @ BOS"
-    },
-    {
-      "player": "Randal Grichuk",
-      "prop": "hitter_fantasy_score",
-      "line": 6.0,
-      "lean": "Over",
-      "projection": 7.8,
-      "edge": 1.76,
-      "confidence": "medium",
-      "matchup": "COL @ CWS"
-    },
-    {
-      "player": "Seiya Suzuki",
-      "prop": "hitter_fantasy_score",
       "line": 4.5,
-      "lean": "Over",
       "projection": 6.2,
-      "edge": 1.74,
+      "edge": 1.73,
       "confidence": "medium",
-      "matchup": "CHC @ BOS"
+      "matchup": "CIN @ TOR"
     },
     {
       "player": "Randy Arozarena",
       "prop": "hitter_fantasy_score",
-      "line": 5.5,
       "lean": "Over",
-      "projection": 7.2,
+      "line": 6.0,
+      "projection": 7.7,
       "edge": 1.73,
       "confidence": "medium",
       "matchup": "LAA @ SEA"
     },
     {
-      "player": "Tarik Skubal",
-      "prop": "strikeouts",
-      "line": 4.5,
-      "lean": "Over",
-      "projection": 6.2,
-      "edge": 1.71,
-      "confidence": "high",
-      "matchup": "LAD @ SF"
-    },
-    {
-      "player": "Bryce Eldridge",
+      "player": "Rafael Devers",
       "prop": "hitter_fantasy_score",
-      "line": 4.5,
       "lean": "Over",
-      "projection": 6.2,
-      "edge": 1.71,
+      "line": 5.0,
+      "projection": 6.7,
+      "edge": 1.69,
       "confidence": "medium",
       "matchup": "LAD @ SF"
     },
     {
-      "player": "Jacob deGrom",
+      "player": "Jack Perkins",
       "prop": "strikeouts",
-      "line": 5.0,
       "lean": "Over",
-      "projection": 6.7,
-      "edge": 1.7,
+      "line": 4.5,
+      "projection": 6.2,
+      "edge": 1.68,
       "confidence": "high",
+      "matchup": "HOU @ ATH"
+    },
+    {
+      "player": "Hunter Goodman",
+      "prop": "hitter_fantasy_score",
+      "lean": "Over",
+      "line": 5.5,
+      "projection": 7.2,
+      "edge": 1.67,
+      "confidence": "medium",
+      "matchup": "COL @ CWS"
+    },
+    {
+      "player": "Josh Jung",
+      "prop": "hitter_fantasy_score",
+      "lean": "Over",
+      "line": 4.5,
+      "projection": 6.2,
+      "edge": 1.66,
+      "confidence": "medium",
       "matchup": "TEX @ MIN"
     },
     {
-      "player": "Max Muncy",
+      "player": "Brandon Lowe",
+      "prop": "hitter_fantasy_score",
+      "lean": "Over",
+      "line": 5.5,
+      "projection": 7.1,
+      "edge": 1.65,
+      "confidence": "medium",
+      "matchup": "PIT @ DET"
+    }
+  ],
+  "all_actionable": [
+    {
+      "player": "Randal Grichuk",
+      "prop": "hitter_fantasy_score",
+      "line": 5.5,
+      "lean": "Over",
+      "projection": 7.7,
+      "edge": 2.16,
+      "confidence": "high",
+      "matchup": "COL @ CWS"
+    },
+    {
+      "player": "Juan Soto",
+      "prop": "hitter_fantasy_score",
+      "line": 5.5,
+      "lean": "Over",
+      "projection": 7.6,
+      "edge": 2.08,
+      "confidence": "high",
+      "matchup": "NYM @ WSH"
+    },
+    {
+      "player": "Blake Snell",
+      "prop": "strikeouts",
+      "line": 5.0,
+      "lean": "Over",
+      "projection": 7.0,
+      "edge": 2.0,
+      "confidence": "high",
+      "matchup": "LAD @ SF"
+    },
+    {
+      "player": "Yordan Alvarez",
+      "prop": "hitter_fantasy_score",
+      "line": 6.5,
+      "lean": "Over",
+      "projection": 8.5,
+      "edge": 1.95,
+      "confidence": "medium",
+      "matchup": "HOU @ ATH"
+    },
+    {
+      "player": "Kirby Yates",
+      "prop": "strikeouts",
+      "line": 4.5,
+      "lean": "Over",
+      "projection": 6.3,
+      "edge": 1.79,
+      "confidence": "high",
+      "matchup": "PIT @ DET"
+    },
+    {
+      "player": "Nathaniel Lowe",
+      "prop": "hitter_fantasy_score",
+      "line": 4.5,
+      "lean": "Over",
+      "projection": 6.2,
+      "edge": 1.73,
+      "confidence": "medium",
+      "matchup": "CIN @ TOR"
+    },
+    {
+      "player": "Randy Arozarena",
+      "prop": "hitter_fantasy_score",
+      "line": 6.0,
+      "lean": "Over",
+      "projection": 7.7,
+      "edge": 1.73,
+      "confidence": "medium",
+      "matchup": "LAA @ SEA"
+    },
+    {
+      "player": "Rafael Devers",
+      "prop": "hitter_fantasy_score",
+      "line": 5.0,
+      "lean": "Over",
+      "projection": 6.7,
+      "edge": 1.69,
+      "confidence": "medium",
+      "matchup": "LAD @ SF"
+    },
+    {
+      "player": "Jack Perkins",
+      "prop": "strikeouts",
+      "line": 4.5,
+      "lean": "Over",
+      "projection": 6.2,
+      "edge": 1.68,
+      "confidence": "high",
+      "matchup": "HOU @ ATH"
+    },
+    {
+      "player": "Hunter Goodman",
       "prop": "hitter_fantasy_score",
       "line": 5.5,
       "lean": "Over",
       "projection": 7.2,
       "edge": 1.67,
       "confidence": "medium",
-      "matchup": "LAD @ SF"
+      "matchup": "COL @ CWS"
     },
     {
-      "player": "Esmerlyn Valdez",
+      "player": "Josh Jung",
       "prop": "hitter_fantasy_score",
-      "line": 7.5,
+      "line": 4.5,
       "lean": "Over",
-      "projection": 9.2,
+      "projection": 6.2,
       "edge": 1.66,
+      "confidence": "medium",
+      "matchup": "TEX @ MIN"
+    },
+    {
+      "player": "Brandon Lowe",
+      "prop": "hitter_fantasy_score",
+      "line": 5.5,
+      "lean": "Over",
+      "projection": 7.1,
+      "edge": 1.65,
       "confidence": "medium",
       "matchup": "PIT @ DET"
     },
     {
-      "player": "Griffin Conine",
+      "player": "Bryce Eldridge",
       "prop": "hitter_fantasy_score",
       "line": 4.5,
       "lean": "Over",
       "projection": 6.1,
-      "edge": 1.65,
+      "edge": 1.62,
       "confidence": "medium",
-      "matchup": "ATL @ MIA"
+      "matchup": "LAD @ SF"
     },
     {
       "player": "Luis Garc\u00eda Jr.",
       "prop": "hitter_fantasy_score",
-      "line": 6.0,
+      "line": 6.5,
       "lean": "Over",
-      "projection": 7.6,
-      "edge": 1.57,
+      "projection": 8.0,
+      "edge": 1.53,
       "confidence": "medium",
       "matchup": "NYM @ WSH"
+    },
+    {
+      "player": "TJ Rumfield",
+      "prop": "hitter_fantasy_score",
+      "line": 5.5,
+      "lean": "Over",
+      "projection": 7.0,
+      "edge": 1.52,
+      "confidence": "medium",
+      "matchup": "COL @ CWS"
+    },
+    {
+      "player": "Andrew Vaughn",
+      "prop": "hitter_fantasy_score",
+      "line": 4.5,
+      "lean": "Over",
+      "projection": 6.0,
+      "edge": 1.51,
+      "confidence": "medium",
+      "matchup": "STL @ MIL"
+    },
+    {
+      "player": "Jake Bauers",
+      "prop": "hitter_fantasy_score",
+      "line": 6.0,
+      "lean": "Over",
+      "projection": 7.5,
+      "edge": 1.49,
+      "confidence": "medium",
+      "matchup": "STL @ MIL"
+    },
+    {
+      "player": "Jackson Chourio",
+      "prop": "hitter_fantasy_score",
+      "line": 6.0,
+      "lean": "Over",
+      "projection": 7.5,
+      "edge": 1.49,
+      "confidence": "medium",
+      "matchup": "STL @ MIL"
+    },
+    {
+      "player": "Jack Ralston",
+      "prop": "strikeouts",
+      "line": 4.5,
+      "lean": "Over",
+      "projection": 6.0,
+      "edge": 1.49,
+      "confidence": "high",
+      "matchup": "ATL @ MIA"
+    },
+    {
+      "player": "Esmerlyn Valdez",
+      "prop": "hitter_fantasy_score",
+      "line": 8.0,
+      "lean": "Over",
+      "projection": 9.5,
+      "edge": 1.48,
+      "confidence": "medium",
+      "matchup": "PIT @ DET"
     }
   ]
 }
