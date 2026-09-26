@@ -2,7 +2,7 @@
   "generated_at": "2026-09-26",
   "source": "prop-leans-v2",
   "note": "K uses estimated PrizePicks lines when posted line unknown. Hitter FS from top-4 OPS bats per team.",
-  "actionable_count": 99,
+  "actionable_count": 109,
   "leans": [
     {
       "gameId": "col-cws-2026-09-26-824543",
@@ -242,6 +242,22 @@
       "ops": 0.841
     },
     {
+      "gameId": "tb-phi-2026-09-26-823407",
+      "matchup": "TB @ PHI",
+      "player": "Kyle Schwarber",
+      "team": "PHI",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Griffin Jax",
+      "fair_line": 7.0,
+      "line": 5.5,
+      "projection": 7.0,
+      "lean": "Over",
+      "edge": 1.51,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.858
+    },
+    {
       "gameId": "stl-mil-2026-09-26-823733",
       "matchup": "STL @ MIL",
       "player": "Andrew Vaughn",
@@ -432,6 +448,22 @@
       "ops": 0.838
     },
     {
+      "gameId": "tb-phi-2026-09-26-823407",
+      "matchup": "TB @ PHI",
+      "player": "Junior Caminero",
+      "team": "TB",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Aaron Nola",
+      "fair_line": 7.5,
+      "line": 6.0,
+      "projection": 7.4,
+      "lean": "Over",
+      "edge": 1.36,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.879
+    },
+    {
       "gameId": "pit-det-2026-09-26-824219",
       "matchup": "PIT @ DET",
       "player": "Riley Greene",
@@ -462,6 +494,22 @@
       "confidence": "medium",
       "line_source": "prizepicks_est",
       "ops": 0.824
+    },
+    {
+      "gameId": "tb-phi-2026-09-26-823407",
+      "matchup": "TB @ PHI",
+      "player": "Bryce Harper",
+      "team": "PHI",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Griffin Jax",
+      "fair_line": 7.0,
+      "line": 5.5,
+      "projection": 6.8,
+      "lean": "Over",
+      "edge": 1.33,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "ops": 0.867
     },
     {
       "gameId": "atl-mia-2026-09-26-823813",
@@ -848,6 +896,38 @@
       "ops": 0.784
     },
     {
+      "gameId": "tb-phi-2026-09-26-823407",
+      "matchup": "TB @ PHI",
+      "player": "Yandy D\u00edaz",
+      "team": "TB",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Aaron Nola",
+      "fair_line": 6.5,
+      "line": 5.5,
+      "projection": 6.6,
+      "lean": "Over",
+      "edge": 1.06,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.799
+    },
+    {
+      "gameId": "tb-phi-2026-09-26-823407",
+      "matchup": "TB @ PHI",
+      "player": "Victor Mesa Jr.",
+      "team": "TB",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Aaron Nola",
+      "fair_line": 7.5,
+      "line": 6.5,
+      "projection": 7.6,
+      "lean": "Over",
+      "edge": 1.05,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.806
+    },
+    {
       "gameId": "col-cws-2026-09-26-824543",
       "matchup": "COL @ CWS",
       "player": "Cole Carrigg",
@@ -958,6 +1038,22 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.777
+    },
+    {
+      "gameId": "tb-phi-2026-09-26-823407",
+      "matchup": "TB @ PHI",
+      "player": "Bryan De La Cruz",
+      "team": "PHI",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Griffin Jax",
+      "fair_line": 6.0,
+      "line": 5.0,
+      "projection": 6.0,
+      "lean": "Over",
+      "edge": 0.97,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.766
     },
     {
       "gameId": "tex-min-2026-09-26-823653",
@@ -1135,6 +1231,22 @@
       "ops": 0.796
     },
     {
+      "gameId": "tb-phi-2026-09-26-823407",
+      "matchup": "TB @ PHI",
+      "player": "Jonathan Aranda",
+      "team": "TB",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Aaron Nola",
+      "fair_line": 6.5,
+      "line": 5.5,
+      "projection": 6.4,
+      "lean": "Over",
+      "edge": 0.91,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.794
+    },
+    {
       "gameId": "cle-kc-2026-09-26-824057",
       "matchup": "CLE @ KC",
       "player": "Angel Mart\u00ednez",
@@ -1231,6 +1343,22 @@
       "ops": 0.79
     },
     {
+      "gameId": "tb-phi-2026-09-26-823407",
+      "matchup": "TB @ PHI",
+      "player": "Bryson Stott",
+      "team": "PHI",
+      "prop": "hitter_fantasy_score",
+      "vs_pitcher": "Griffin Jax",
+      "fair_line": 6.5,
+      "line": 5.5,
+      "projection": 6.3,
+      "lean": "Over",
+      "edge": 0.81,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "ops": 0.718
+    },
+    {
       "gameId": "cle-kc-2026-09-26-824057",
       "matchup": "CLE @ KC",
       "player": "Chase DeLauter",
@@ -1311,6 +1439,21 @@
       "ops": 0.798
     },
     {
+      "gameId": "tb-phi-2026-09-26-823407",
+      "matchup": "TB @ PHI",
+      "player": "Aaron Nola",
+      "team": "PHI",
+      "prop": "strikeouts",
+      "fair_line": 5.5,
+      "line": 4.5,
+      "projection": 5.3,
+      "lean": "Over",
+      "edge": 0.78,
+      "confidence": "medium",
+      "line_source": "prizepicks_est",
+      "k9": 9.04
+    },
+    {
       "gameId": "cle-kc-2026-09-26-824057",
       "matchup": "CLE @ KC",
       "player": "Gabriel Arias",
@@ -1388,6 +1531,21 @@
       "confidence": "low",
       "line_source": "prizepicks_est",
       "ops": 0.795
+    },
+    {
+      "gameId": "tb-phi-2026-09-26-823407",
+      "matchup": "TB @ PHI",
+      "player": "Griffin Jax",
+      "team": "TB",
+      "prop": "strikeouts",
+      "fair_line": 5.5,
+      "line": 5.0,
+      "projection": 5.7,
+      "lean": "Over",
+      "edge": 0.75,
+      "confidence": "low",
+      "line_source": "prizepicks_est",
+      "k9": 9.47
     },
     {
       "gameId": "cle-kc-2026-09-26-824057",

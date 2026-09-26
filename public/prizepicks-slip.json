@@ -312,6 +312,16 @@
       "matchup": "COL @ CWS"
     },
     {
+      "player": "Kyle Schwarber",
+      "prop": "hitter_fantasy_score",
+      "line": 5.5,
+      "lean": "Over",
+      "projection": 7.0,
+      "edge": 1.51,
+      "confidence": "medium",
+      "matchup": "TB @ PHI"
+    },
+    {
       "player": "Andrew Vaughn",
       "prop": "hitter_fantasy_score",
       "line": 4.5,
@@ -350,16 +360,6 @@
       "edge": 1.49,
       "confidence": "high",
       "matchup": "ATL @ MIA"
-    },
-    {
-      "player": "Esmerlyn Valdez",
-      "prop": "hitter_fantasy_score",
-      "line": 8.0,
-      "lean": "Over",
-      "projection": 9.5,
-      "edge": 1.48,
-      "confidence": "medium",
-      "matchup": "PIT @ DET"
     }
   ]
 }
